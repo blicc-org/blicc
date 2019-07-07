@@ -36,9 +36,5 @@ blicc/
 
 Blicc uses git hooks for prettier and eslint.
 
-#### Installation
-
-coming soon ...
-
 ## License	
 MIT license, see the [LICENSE](./LICENSE) file.
