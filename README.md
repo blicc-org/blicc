@@ -13,9 +13,8 @@ As small and medium-sized companies it is hard to analyse manufacturing data wit
 #### Technologies
 
 - **Full-stack JavaScript**: Blicc uses Node.js in the backend and react in the frontend.
-
-- **NodeJS**: Backend
-- **React**: Frontend React app
+  - **NodeJS**: Backend
+  - **React**: Frontend React app
 - **RabbitMQ**: Open source message broker
 - **ChartJS**: Simple yet flexible JavaScript charting library
 - **Typescript**: Type-safe JavaScript in the backend
@@ -35,11 +34,11 @@ blicc/
 
 #### Code Style
 
-Blicc uses git hooks for prettier and eslint
+Blicc uses git hooks for prettier and eslint.
 
 #### Installation
 
-coming soon ..
+coming soon ...
 
 ## License	
 MIT license, see the [LICENSE](./LICENSE) file.
