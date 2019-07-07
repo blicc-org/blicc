@@ -12,8 +12,8 @@ As small and medium-sized companies it is hard to analyse manufacturing data wit
 
 #### Technologies
 
-- **Full-stack JavaScript**: Blicc uses Node.js in the backend and react in the frontend.
-  - **NodeJS**: Backend
+- **Full-stack JavaScript**:
+  - **NodeJS**: Backend Node.js server
   - **React**: Frontend React app
 - **RabbitMQ**: Open source message broker
 - **ChartJS**: Simple yet flexible JavaScript charting library
