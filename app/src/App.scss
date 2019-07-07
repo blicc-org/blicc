@@ -1,0 +1,19 @@
+body {
+  font-size: 0.875rem;
+}
+
+.feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
+}
+
+.moveUnderNavBar {
+  padding-top: 133px; /* Space for fixed navbar */
+}
+
+@media (min-width: 768px) {
+  .moveUnderNavBar {
+    padding-top: 48px; /* Space for fixed navbar */
+  }
+}

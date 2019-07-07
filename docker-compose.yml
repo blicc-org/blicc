@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/traefik.toml:/traefik.toml
+      - /root/acme.json:/acme.json
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    labels:
+      - traefik.frontend.rule=Host:monitor.blicc.org
+      - traefik.port=8080
+    networks:
+      - web
+  blicc-app:
+    image: blicc-app:latest
+    container_name: blicc-app
+    labels:
+      - traefik.backend=blicc-app
+      - traefik.frontend.rule=Host:blicc.org
+      - traefik.docker.network=web
+      - traefik.port=80
+    networks:
+      - web
+  blicc-api:
+    image: blicc-api:latest
+    container_name: blicc-api
+    labels:
+      - traefik.backend=blicc-api
+      - traefik.frontend.rule=Host:api.blicc.org
+      - traefik.docker.network=web
+      - traefik.port=80
+    networks:
+      - internal
+      - web
+networks:
+  web:
+    external: true
+  internal:
+    external: false
