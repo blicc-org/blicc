@@ -1,0 +1,8 @@
+{
+  "name": "Blicc",
+  "version": "1.0.0",
+  "license": "MIT License",
+  "devDependencies": {
+    "husky": "^3.0.0"
+  }
+}
