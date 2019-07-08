@@ -1,7 +1,7 @@
 import path from 'path';
 import swaggerJSDoc from 'swagger-jsdoc';
 export class ApiDocsService {
-  public getSwaggerJSON(): any {
+  public getSwaggerJSON(): unknown {
     const swaggerDefinition = {
       openapi: '3.0.0',
       info: {
