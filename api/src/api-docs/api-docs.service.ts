@@ -1,5 +1,5 @@
-import path from 'path';
-import swaggerJSDoc from 'swagger-jsdoc';
+import path from 'path'
+import swaggerJSDoc from 'swagger-jsdoc'
 export class ApiDocsService {
   public getSwaggerJSON(): unknown {
     const swaggerDefinition = {
@@ -10,13 +10,13 @@ export class ApiDocsService {
         description: 'Data visualization framework api!',
       },
       basePath: '/',
-    };
+    }
 
     const options = {
       swaggerDefinition,
       apis: [path.resolve(__dirname, '../**/*.controller.ts')],
-    };
+    }
 
-    return swaggerJSDoc(options);
+    return swaggerJSDoc(options)
   }
 }

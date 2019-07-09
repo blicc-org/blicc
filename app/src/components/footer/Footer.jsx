@@ -1,6 +1,6 @@
-import React from 'react';
-import FooterLogo from './FooterLogo';
-import FooterNav from './footer-nav/FooterNav';
+import React from 'react'
+import FooterLogo from './FooterLogo'
+import FooterNav from './footer-nav/FooterNav'
 
 export default function Footer() {
   return (
@@ -13,5 +13,5 @@ export default function Footer() {
         </div>
       </footer>
     </>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import React from 'react';
-import { useEffect } from 'react';
-import Chart from 'chart.js';
+import React from 'react'
+import { useEffect } from 'react'
+import Chart from 'chart.js'
 
-import colors from '../../Theming.scss';
+import colors from '../../Theming.scss'
 
 export default function LineChart() {
   useEffect(() => {
@@ -43,9 +43,9 @@ export default function LineChart() {
           display: false,
         },
       },
-    };
-    new Chart(document.getElementById('myChart'), data);
-  }, []);
+    }
+    new Chart(document.getElementById('myChart'), data)
+  }, [])
 
   return (
     <canvas
@@ -54,5 +54,5 @@ export default function LineChart() {
       width="900"
       height="380"
     ></canvas>
-  );
+  )
 }

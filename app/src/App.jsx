@@ -1,12 +1,12 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import LandingPage from './pages/landing-page/LandingPage';
-import Login from './pages/login/Login';
-import Dashboard from './pages/dashboard/Dashboard';
-import NotFound from './pages/not-found/NotFound';
-import { Provider } from './AppContext';
-import content from './Content';
-import './App.scss';
+import React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import LandingPage from './pages/landing-page/LandingPage'
+import Login from './pages/login/Login'
+import Dashboard from './pages/dashboard/Dashboard'
+import NotFound from './pages/not-found/NotFound'
+import { Provider } from './AppContext'
+import content from './Content'
+import './App.scss'
 
 export default function App() {
   return (
@@ -20,5 +20,5 @@ export default function App() {
         </Switch>
       </Router>
     </Provider>
-  );
+  )
 }

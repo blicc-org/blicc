@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export default function Table() {
   return (
@@ -118,5 +118,5 @@ export default function Table() {
         </table>
       </div>
     </>
-  );
+  )
 }

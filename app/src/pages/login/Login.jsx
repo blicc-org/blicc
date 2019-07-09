@@ -1,7 +1,7 @@
-import React from 'react';
-import Header from '../../components/header/Header';
-import LoginForm from './LoginForm';
-import Footer from '../../components/footer/Footer';
+import React from 'react'
+import Header from '../../components/header/Header'
+import LoginForm from './LoginForm'
+import Footer from '../../components/footer/Footer'
 
 export default function Login() {
   return (
@@ -11,5 +11,5 @@ export default function Login() {
       <LoginForm />
       <Footer />
     </>
-  );
+  )
 }

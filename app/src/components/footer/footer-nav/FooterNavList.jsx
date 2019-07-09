@@ -1,5 +1,5 @@
-import React from 'react';
-import FooterNavListItem from './FooterNavListItem';
+import React from 'react'
+import FooterNavListItem from './FooterNavListItem'
 
 export default function FooterNavList({ list }) {
   return (
@@ -11,5 +11,5 @@ export default function FooterNavList({ list }) {
         ))}
       </ul>
     </div>
-  );
+  )
 }

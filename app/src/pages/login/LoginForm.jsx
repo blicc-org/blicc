@@ -1,5 +1,5 @@
-import React from 'react';
-import './LoginForm.css';
+import React from 'react'
+import './LoginForm.css'
 
 export default function LoginForm() {
   return (
@@ -37,5 +37,5 @@ export default function LoginForm() {
         </button>
       </form>
     </div>
-  );
+  )
 }

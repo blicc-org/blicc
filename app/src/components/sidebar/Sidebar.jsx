@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Sidebar.css';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './Sidebar.css'
 import {
   Home,
   File,
@@ -10,7 +10,7 @@ import {
   Layers,
   PlusCircle,
   FileText,
-} from 'react-feather';
+} from 'react-feather'
 
 export default function Sidebar() {
   return (
@@ -80,5 +80,5 @@ export default function Sidebar() {
         </ul>
       </div>
     </nav>
-  );
+  )
 }

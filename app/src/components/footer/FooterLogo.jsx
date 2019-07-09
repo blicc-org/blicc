@@ -1,5 +1,5 @@
-import React from 'react';
-import Copyright from './Copyright';
+import React from 'react'
+import Copyright from './Copyright'
 
 export default function FooterLogo() {
   return (
@@ -9,5 +9,5 @@ export default function FooterLogo() {
         <Copyright />
       </small>
     </div>
-  );
+  )
 }

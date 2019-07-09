@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function FooterNavListItem({ item }) {
   const listItem = !item.link.includes('http') ? (
@@ -15,7 +15,7 @@ export default function FooterNavListItem({ item }) {
     >
       {item.title}
     </a>
-  );
+  )
 
-  return <li>{listItem}</li>;
+  return <li>{listItem}</li>
 }

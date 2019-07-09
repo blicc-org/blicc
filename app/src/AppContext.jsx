@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext } from 'react'
 
-export const AppContext = createContext({});
-export const { Provider, Consumer } = AppContext;
+export const AppContext = createContext({})
+export const { Provider, Consumer } = AppContext

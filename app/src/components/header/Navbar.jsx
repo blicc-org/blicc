@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { AppContext } from '../../AppContext';
-import './Navbar.css';
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { AppContext } from '../../AppContext'
+import './Navbar.css'
 
 export default function NavBar() {
-  const { metadata } = useContext(AppContext);
+  const { metadata } = useContext(AppContext)
 
   return (
     <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -25,5 +25,5 @@ export default function NavBar() {
         </li>
       </ul>
     </nav>
-  );
+  )
 }

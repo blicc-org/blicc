@@ -1,4 +1,4 @@
-import { App } from './app';
+import { App } from './app'
 
-const app = new App();
-app.listen(80);
+const app = new App()
+app.listen(80)

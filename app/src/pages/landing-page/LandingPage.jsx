@@ -1,7 +1,7 @@
-import React from 'react';
-import Header from '../../components/header/Header';
-import Headline from './Headline';
-import Footer from '../../components/footer/Footer';
+import React from 'react'
+import Header from '../../components/header/Header'
+import Headline from './Headline'
+import Footer from '../../components/footer/Footer'
 
 export default function LandingPage() {
   return (
@@ -11,5 +11,5 @@ export default function LandingPage() {
       <Headline />
       <Footer />
     </>
-  );
+  )
 }

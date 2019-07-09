@@ -1,12 +1,12 @@
-import React from 'react';
-import Example from './Example';
-import { render, cleanup } from '@testing-library/react';
+import React from 'react'
+import Example from './Example'
+import { render, cleanup } from '@testing-library/react'
 
-afterEach(cleanup);
+afterEach(cleanup)
 
 describe('examplee tests', () => {
   it('Example', () => {
-    const { container } = render(<Example />);
-    expect(container).toBe(container);
-  });
-});
+    const { container } = render(<Example />)
+    expect(container).toBe(container)
+  })
+})

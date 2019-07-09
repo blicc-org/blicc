@@ -1,4 +1,4 @@
-import Koa from 'koa';
+import Koa from 'koa'
 
 export class DataSupplyController {
   public constructor() {}
@@ -16,8 +16,8 @@ export class DataSupplyController {
    *         description: success
    */
   public async inform(ctx: Koa.BaseContext, next: Function): Promise<void> {
-    next();
-    ctx.body = 'API to supply data';
+    next()
+    ctx.body = 'API to supply data'
   }
 
   /**
@@ -33,7 +33,7 @@ export class DataSupplyController {
    *         description: success
    */
   public async supply(ctx: Koa.BaseContext, next: Function): Promise<void> {
-    next();
-    ctx.body = {};
+    next()
+    ctx.body = {}
   }
 }

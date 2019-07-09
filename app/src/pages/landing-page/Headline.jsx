@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { AppContext } from '../../AppContext';
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { AppContext } from '../../AppContext'
 
 export default function Headline() {
-  const { metadata } = useContext(AppContext);
+  const { metadata } = useContext(AppContext)
 
   return (
     <div className="col-md-5 mx-auto py-5 my-5 text-center">
@@ -13,5 +13,5 @@ export default function Headline() {
         Get started
       </Link>
     </div>
-  );
+  )
 }

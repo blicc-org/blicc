@@ -1,5 +1,5 @@
-import React from 'react';
-import { Calendar } from 'react-feather';
+import React from 'react'
+import { Calendar } from 'react-feather'
 
 export default function DashboardHeader() {
   return (
@@ -22,5 +22,5 @@ export default function DashboardHeader() {
         </button>
       </div>
     </div>
-  );
+  )
 }

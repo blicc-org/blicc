@@ -20,7 +20,6 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
-    "import/no-default-export": true,
     "func-style": ["error", "declaration"],
     "allowArrowFunctions": true,
     "prefer-arrow-callback": "error"
