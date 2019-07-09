@@ -24,7 +24,7 @@ As small and medium-sized companies it is hard to analyse manufacturing data wit
 
 ```sh
 blicc/
-├── api     # backend node.js api code 
+├── api     # backend node.js api code
 ├── app     # frontend react code
 ├── db      # database
 ├── docker  # additional docker sripts
@@ -36,5 +36,6 @@ blicc/
 
 Blicc uses git hooks for prettier and eslint.
 
-## License	
+## License
+
 MIT license, see the [LICENSE](./LICENSE) file.

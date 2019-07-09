@@ -1,25 +1,25 @@
-$charcoal:    #323432;
-$orange:      #f39900;
-$yellow:      #ffc107;
-$grey:        #f8f8f8;
+$charcoal: #323432;
+$orange: #f39900;
+$yellow: #ffc107;
+$grey: #f8f8f8;
 
-$primary:       $orange;
-$secondary:     $orange;
-$success:       $orange;
-$info:          $orange;
-$warning:       $orange;
-$danger:        $orange;
-$light:         $grey;
-$dark:          $charcoal;
+$primary: $orange;
+$secondary: $orange;
+$success: $orange;
+$info: $orange;
+$warning: $orange;
+$danger: $orange;
+$light: $grey;
+$dark: $charcoal;
 
 // the :export directive is the magic sauce for webpack
 :export {
-  primary:          $primary;
-  secondary:        $secondary;
-  success:          $success;
-  info:             $info;
-  warning:          $warning;
-  danger:           $danger;
-  light:            $light;
-  dark:             $dark;
+  primary: $primary;
+  secondary: $secondary;
+  success: $success;
+  info: $info;
+  warning: $warning;
+  danger: $danger;
+  light: $light;
+  dark: $dark;
 }
