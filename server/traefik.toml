@@ -6,7 +6,7 @@ defaultEntryPoints = ["http", "https"]
     address = ":8080"
       [entryPoints.dashboard.auth]
         [entryPoints.dashboard.auth.basic]
-          users = ["name:hash"]
+          users = ["NAME:TRAEFIK_PASSWORD_HASH"]
   [entryPoints.http]
     address = ":80"
       [entryPoints.http.redirect]
@@ -19,7 +19,7 @@ defaultEntryPoints = ["http", "https"]
 entrypoint="dashboard"
 
 [acme]
-email = "email"
+email = "EMAIL"
 storage = "acme.json"
 onHostRule = true
 entryPoint = "https"
