@@ -5,9 +5,15 @@ stages:
 build:
   stage: build
   script:
-    - echo "building ..."
+    - echo "Building"
+    - mkdir build
+    - touch build/info.txt
+  artifacts:
+    paths:
+      - build/
 
 test:
   stage: test
   script:
-    - echo "testing ..."
+    - echo "Testing"
+    - test -f "build/info.txt"
