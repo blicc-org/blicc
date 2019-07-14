@@ -18,7 +18,7 @@ services:
     networks:
       - web
   blicc-app:
-    image: blicc-app:latest
+    image: registry.thiloilg.com/repo/blicc/blicc-app:latest
     container_name: blicc-app
     labels:
       - traefik.backend=blicc-app
@@ -28,7 +28,7 @@ services:
     networks:
       - web
   blicc-api:
-    image: blicc-api:latest
+    image: registry.thiloilg.com/repo/blicc/blicc-api:latest
     container_name: blicc-api
     labels:
       - traefik.backend=blicc-api
