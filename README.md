@@ -27,6 +27,7 @@ blicc/
 ├── api     # backend node.js api code
 ├── app     # frontend react code
 ├── db      # database
+├── docs    # documentation
 ├── server  # server config files
 ```
 
