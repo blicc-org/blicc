@@ -7,7 +7,7 @@ build:
   stage: build
   script:
     - docker build -t blicc-api ./api
-
+    - docker tag blicc-api registry.thiloilg.com/repo/blicc/blicc-api
 test:
   stage: test
   script:
