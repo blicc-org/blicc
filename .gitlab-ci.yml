@@ -1,19 +1,22 @@
+
+
 stages:
   - build
   - test
+  - deploy
 
 build:
   stage: build
   script:
-    - echo "Building"
-    - mkdir build
-    - touch build/info.txt
-  artifacts:
-    paths:
-      - build/
+    - docker build -t blicc-api ./api
 
 test:
   stage: test
   script:
     - echo "Testing"
-    - test -f "build/info.txt"
+
+deploy:
+  stage: deploy
+  script:
+    - docker push registry.thiloilg.com/repo/blicc/blicc-api
+    
