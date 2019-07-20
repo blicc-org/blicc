@@ -4,7 +4,7 @@ import { render, cleanup } from '@testing-library/react'
 
 afterEach(cleanup)
 
-describe('examplee tests', () => {
+describe('App tests', () => {
   it('Example', () => {
     const { container } = render(<Example />)
     expect(container).toBe(container)
