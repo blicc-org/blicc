@@ -1,5 +1,3 @@
-
-
 stages:
   - build
   - test
@@ -13,10 +11,9 @@ build:
 test:
   stage: test
   script:
-    - echo "Testing"
+    - echo "Testing" # TODO: yarn test in docker containers
 
 deploy:
   stage: deploy
   script:
     - docker push registry.thiloilg.com/repo/blicc/blicc-api
-    
