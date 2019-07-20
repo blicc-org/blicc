@@ -20,3 +20,4 @@ deploy:
   stage: deploy
   script:
     - docker push registry.thiloilg.com/repo/blicc/blicc-api
+    - ssh -tt root@195.201.39.96 "docker-compose -f /root/docker-compose.yml up -d --force-recreate"
