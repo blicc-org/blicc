@@ -1,4 +1,4 @@
-image: ubuntu:18.04
+image: docker:git
 
 stages:
   - build
@@ -10,6 +10,7 @@ before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - eval $(ssh-agent -s)
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - echo ""
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
 
