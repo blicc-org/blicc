@@ -8,7 +8,7 @@ stages:
 before_script:
   - apt-get update -qq
   - apt-get install -qq git
-  - apt-get install curl
+  - apt-get install -qq curl
   - curl -sSL https://get.docker.com/ 54 | sh
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   - 'which ssh-agent || ( apt-get install -qq openssh-client )'
