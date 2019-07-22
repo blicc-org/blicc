@@ -33,6 +33,8 @@ test:
 
 deploy:
   stage: deploy
+  only:
+    - master
   script:
     - docker push registry.thiloilg.com/repo/blicc/api
     - docker push registry.thiloilg.com/repo/blicc/app
