@@ -18,7 +18,10 @@ build:
   stage: build
   script:
     - docker build -t blicc-api ./api
+    - docker build -t blicc-app ./app
     - docker tag blicc-api registry.thiloilg.com/repo/blicc/blicc-api
+    - docker tag blicc-app registry.thiloilg.com/repo/blicc/blicc-app
+
 test:
   stage: test
   script:
@@ -28,4 +31,5 @@ deploy:
   stage: deploy
   script:
     - docker push registry.thiloilg.com/repo/blicc/blicc-api
+    - docker push registry.thiloilg.com/repo/blicc/blicc-app
     - ssh -tt root@195.201.39.96 "docker-compose -f /root/docker-compose.yml up -d --force-recreate"
