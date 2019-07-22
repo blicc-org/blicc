@@ -11,7 +11,7 @@ before_script:
   - mkdir -p ~/.ssh
   - echo "ForwardAgent yes" >> ~/.ssh/config
   - eval $(ssh-agent -s)
-  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - # > /dev/null
   - chmod 700 ~/.ssh
 
 build:
