@@ -6,6 +6,7 @@ stages:
   - deploy
 
 before_script:
+  - apt-get install curl
   - apt-get update -qq
   - apt-get install -qq git
   - curl -sSL https://get.docker.com/ 54 | sh
