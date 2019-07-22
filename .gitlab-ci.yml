@@ -1,7 +1,3 @@
-#
-# gitlab ci config
-#
-
 image: docker:git
 
 stages:
