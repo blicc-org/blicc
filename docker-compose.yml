@@ -17,21 +17,21 @@ services:
       - traefik.port=8080
     networks:
       - web
-  blicc-app:
-    image: registry.thiloilg.com/repo/blicc/blicc-app:latest
-    container_name: blicc-app
+  app:
+    image: registry.thiloilg.com/repo/blicc/app:latest
+    container_name: app
     labels:
-      - traefik.backend=blicc-app
+      - traefik.backend=app
       - traefik.frontend.rule=Host:blicc.org
       - traefik.docker.network=web
       - traefik.port=80
     networks:
       - web
-  blicc-api:
-    image: registry.thiloilg.com/repo/blicc/blicc-api:latest
-    container_name: blicc-api
+  api:
+    image: registry.thiloilg.com/repo/blicc/api:latest
+    container_name: api
     labels:
-      - traefik.backend=blicc-api
+      - traefik.backend=api
       - traefik.frontend.rule=Host:api.blicc.org
       - traefik.docker.network=web
       - traefik.port=80

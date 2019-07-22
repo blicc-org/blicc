@@ -1,3 +1,7 @@
+#
+# gitlab ci config
+#
+
 image: docker:git
 
 stages:
@@ -17,10 +21,10 @@ before_script:
 build:
   stage: build
   script:
-    - docker build -t blicc-api ./api
-    - docker build -t blicc-app ./app
-    - docker tag blicc-api registry.thiloilg.com/repo/blicc/blicc-api
-    - docker tag blicc-app registry.thiloilg.com/repo/blicc/blicc-app
+    - docker build -t api ./api
+    - docker build -t app ./app
+    - docker tag api registry.thiloilg.com/repo/blicc/api
+    - docker tag app registry.thiloilg.com/repo/blicc/app
 
 test:
   stage: test
@@ -30,7 +34,8 @@ test:
 deploy:
   stage: deploy
   script:
-    - docker push registry.thiloilg.com/repo/blicc/blicc-api
-    - docker push registry.thiloilg.com/repo/blicc/blicc-app
+    - docker push registry.thiloilg.com/repo/blicc/api
+    - docker push registry.thiloilg.com/repo/blicc/app
+    - scp -r ./docker-compose.yml root@195.201.39.96:/root/
     - ssh -tt root@195.201.39.96 "docker-compose pull"
     - ssh -tt root@195.201.39.96 "docker-compose -f /root/docker-compose.yml up -d --force-recreate"
