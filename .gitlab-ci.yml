@@ -1,4 +1,4 @@
-image: ubuntu:18.04
+image: docker:git
 
 stages:
   - build
@@ -6,16 +6,13 @@ stages:
   - deploy
 
 before_script:
-  - apt-get update -qq
-  - apt-get install -qq git
-  - apt-get install -qq curl
-  - curl -sSL https://get.docker.com/ 54 | sh
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - echo "ForwardAgent yes" >> ~/.ssh/config
   - eval $(ssh-agent -s)
-  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
   - mkdir -p ~/.ssh
-  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  - chmod 700 ~/.ssh
 
 build:
   stage: build
