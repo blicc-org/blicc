@@ -31,9 +31,10 @@ build:
 
 test:
   stage: test
+  image: node:10
   script:
     - echo "Testing" # TODO: yarn test in docker containers
-    - docker run $REGISTRY_DOMAIN/repo/$REPO/$APP ls
+    - cd app && yarn test
 deploy:
   stage: deploy
   only:
