@@ -38,8 +38,7 @@ test:
   stage: test
   image: node:10
   script:
-    - echo "Testing" # TODO: yarn test in docker containers
-    - cd app && yarn test
+    - yarn --cwd 'app' install && yarn --cwd 'app' test
 
 deploy:
   stage: deploy
