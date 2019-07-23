@@ -38,7 +38,8 @@ test:
   stage: test
   image: node:10
   script:
-    - yarn --cwd 'app' install && yarn --cwd 'app' test
+    - yarn && yarn --cwd '$APP' && yarn --cwd '$API'
+    - yarn test
 
 deploy:
   stage: deploy
