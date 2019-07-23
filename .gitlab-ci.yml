@@ -1,5 +1,3 @@
-image: docker:git
-
 stages:
   - build
   - test
@@ -10,19 +8,11 @@ variables:
   REGISTRY_DOMAIN: registry.thiloilg.com
   REPO: blicc
 
-.prepare: &prepare
-  before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-
 build:
   stage: build
-  <<: *prepare
+  image: docker:git
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
     - docker build -t app ./app
     - docker build -t api ./api
@@ -38,9 +28,17 @@ test:
 
 deploy:
   stage: deploy
-  <<: *prepare
+  image: docker:git
   only:
-    - master
+  - master
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - docker push $REGISTRY_DOMAIN/repo/$REPO/app
     - docker push $REGISTRY_DOMAIN/repo/$REPO/api
