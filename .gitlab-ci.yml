@@ -9,8 +9,6 @@ variables:
   IP: 195.201.39.96
   REGISTRY_DOMAIN: registry.thiloilg.com
   REPO: blicc
-  APP: app
-  API: api
 
 .docker: &docker
   before_script:
@@ -29,10 +27,10 @@ build:
   stage: build
   <<: *docker
   script:
-    - docker build -t $APP ./$APP
-    - docker build -t $API ./$API
-    - docker tag $APP $REGISTRY_DOMAIN/repo/$REPO/$APP
-    - docker tag $API $REGISTRY_DOMAIN/repo/$REPO/$API
+    - docker build -t app ./app
+    - docker build -t api ./api
+    - docker tag app $REGISTRY_DOMAIN/repo/$REPO/app
+    - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api
 
 test:
   stage: test
@@ -48,8 +46,8 @@ deploy:
   only:
     - master
   script:
-    - docker push $REGISTRY_DOMAIN/repo/$REPO/$APP
-    - docker push $REGISTRY_DOMAIN/repo/$REPO/$API
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/app
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/api
     - scp -r ./docker-compose.yml root@$IP:/root/
     - ssh -tt root@$IP "docker-compose pull"
     - ssh -tt root@$IP "docker-compose -f /root/docker-compose.yml up -d --force-recreate"
