@@ -33,7 +33,7 @@ test:
   stage: test
   script:
     - echo "Testing" # TODO: yarn test in docker containers
-    - docker run $REGISTRY_DOMAIN/repo/$REPO/$APP yarn test
+    - docker run $REGISTRY_DOMAIN/repo/$REPO/$APP ls
 deploy:
   stage: deploy
   only:
