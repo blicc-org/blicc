@@ -7,6 +7,6 @@ afterEach(cleanup)
 describe('App tests', () => {
   it('Example', () => {
     const { container } = render(<Example />)
-    expect(container).toBe(container)
+    expect(container).toBe(false)
   })
 })
