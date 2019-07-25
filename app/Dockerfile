@@ -1,5 +1,5 @@
 # build environment
-FROM node:10-alpine as node
+FROM node:12-alpine as node
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install

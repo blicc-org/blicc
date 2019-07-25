@@ -21,7 +21,7 @@ build:
 
 test:
   stage: test
-  image: node:10
+  image: node:12-alpine
   script:
     - yarn && yarn --cwd 'app' && yarn --cwd 'api'
     - yarn test
