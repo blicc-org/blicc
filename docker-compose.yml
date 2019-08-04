@@ -39,9 +39,10 @@ services:
       - internal
       - web
   db:
-  image: registry.thiloilg.com/repo/blicc/db:latest
-  networks:
-    - internal
+    image: registry.thiloilg.com/repo/blicc/db:latest
+    container_name: db
+    networks:
+      - internal
 
 networks:
   web:
