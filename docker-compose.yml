@@ -29,7 +29,6 @@ services:
     restart: always
     depends_on:
       - db
-    links: 
     labels:
       - traefik.backend=api
       - traefik.frontend.rule=Host:api.blicc.org
