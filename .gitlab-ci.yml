@@ -1,6 +1,6 @@
 stages:
   - build
-  # - test
+  - test
   - deploy
 
 variables:
@@ -21,12 +21,12 @@ build:
     - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api
     - docker tag db $REGISTRY_DOMAIN/repo/$REPO/db
 
-# test:
-#   stage: test
-#   image: node:12-alpine
-#   script:
-#     - yarn && yarn --cwd 'app' && yarn --cwd 'api'
-#     - yarn test
+test:
+  stage: test
+  image: node:12-alpine
+  script:
+    - yarn && yarn --cwd 'app' && yarn --cwd 'api'
+    - yarn test
 
 deploy:
   stage: deploy

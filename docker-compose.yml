@@ -30,6 +30,8 @@ services:
   api:
     image: registry.thiloilg.com/repo/blicc/api:latest
     container_name: api
+    depends_on:
+    - db
     labels:
       - traefik.backend=api
       - traefik.frontend.rule=Host:api.blicc.org
