@@ -1,6 +1,6 @@
 stages:
   - build
-  - test
+  # - test
   - deploy
 
 variables:
@@ -16,15 +16,17 @@ build:
   script:
     - docker build -t app ./app
     - docker build -t api ./api
+    - docker build -t db ./db
     - docker tag app $REGISTRY_DOMAIN/repo/$REPO/app
     - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api
+    - docker tag db $REGISTRY_DOMAIN/repo/$REPO/db
 
-test:
-  stage: test
-  image: node:12-alpine
-  script:
-    - yarn && yarn --cwd 'app' && yarn --cwd 'api'
-    - yarn test
+# test:
+#   stage: test
+#   image: node:12-alpine
+#   script:
+#     - yarn && yarn --cwd 'app' && yarn --cwd 'api'
+#     - yarn test
 
 deploy:
   stage: deploy
@@ -42,6 +44,7 @@ deploy:
   script:
     - docker push $REGISTRY_DOMAIN/repo/$REPO/app
     - docker push $REGISTRY_DOMAIN/repo/$REPO/api
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/db
     - scp -r ./docker-compose.yml root@$IP:/root/
     - ssh -tt root@$IP "docker-compose pull"
     - ssh -tt root@$IP "docker-compose -f /root/docker-compose.yml up -d --force-recreate"
