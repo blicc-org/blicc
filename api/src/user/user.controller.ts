@@ -1,5 +1,7 @@
 import Koa from 'koa'
 import bcrypt from 'bcryptjs'
+import { getRepository, Repository } from 'typeorm'
+import { User } from './user.entity'
 
 const PW = 'nais'
 
@@ -8,9 +10,18 @@ export class UserController {
     // dont check Koa Middleware for verification
     next()
 
-    var salt = bcrypt.genSaltSync(10)
-    var hash = bcrypt.hashSync(PW, salt)
-    ctx.body = hash
+    const repo: Repository<User> = getRepository(User)
+    repo.save({
+      email: 'info@example.com',
+      password: 'test',
+      role: 'admin',
+    })
+
+    ctx.body = await repo.find()
+
+    // var salt = bcrypt.genSaltSync(10)
+    // var hash = bcrypt.hashSync(PW, salt)
+    // ctx.body = hash
   }
 
   public async update(ctx: Koa.BaseContext, next: Function): Promise<void> {
