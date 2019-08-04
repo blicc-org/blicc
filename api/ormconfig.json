@@ -6,5 +6,5 @@
   "username": "root",
   "password": "root",
   "synchronize": true,
-  "entities": ["build/**/*.entity.js"]
+  "entities": ["**/**/*.entity.js"]
 }
