@@ -1,5 +1,6 @@
 const isDev = process.env.NODE_ENV === 'localdev'
 const HOST = isDev ? 'localhost' : 'db'
+const ENTITIES = isDev ? '**/**/*.entity.ts' : '**/**/*.entity.js'
 
 module.exports = {
   type: 'postgres',
@@ -9,5 +10,5 @@ module.exports = {
   username: 'root',
   password: 'root',
   synchronize: true,
-  entities: ['**/**/*.entity.js'],
+  entities: [ENTITIES],
 }
