@@ -20,21 +20,16 @@ services:
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
     container_name: db
+    restart: always
     networks:
       - internal
-  app:
-    image: registry.thiloilg.com/repo/blicc/app:latest
-    container_name: app
-    labels:
-      - traefik.backend=app
-      - traefik.frontend.rule=Host:blicc.org
-      - traefik.docker.network=web
-      - traefik.port=80
-    networks:
-      - web
   api:
     image: registry.thiloilg.com/repo/blicc/api:latest
     container_name: api
+    restart: always
+    depends_on:
+      - db
+    links: 
     labels:
       - traefik.backend=api
       - traefik.frontend.rule=Host:api.blicc.org
@@ -42,6 +37,20 @@ services:
       - traefik.port=80
     networks:
       - internal
+      - web
+  app:
+    image: registry.thiloilg.com/repo/blicc/app:latest
+    container_name: app
+    restart: always
+    depends_on:
+      - api
+      - db
+    labels:
+      - traefik.backend=app
+      - traefik.frontend.rule=Host:blicc.org
+      - traefik.docker.network=web
+      - traefik.port=80
+    networks:
       - web
 
 networks:
