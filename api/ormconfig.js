@@ -9,5 +9,5 @@ module.exports = {
   username: 'root',
   password: 'root',
   synchronize: true,
-  entities: ['**/**/*.entity.{js,ts}'],
+  entities: ['**/**/*.entity.js'],
 }
