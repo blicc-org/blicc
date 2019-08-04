@@ -21,7 +21,7 @@ export class App {
 
     this.koa.use(new ApiDocsRouter('/docs').routes())
     this.koa.use(new DataSupplyRouter('/').routes())
-    this.koa.use(new UserRouter('/users').routes())
+    this.koa.use(new UserRouter('/').routes())
   }
 
   public listen(port: number): void {
