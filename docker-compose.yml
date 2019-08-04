@@ -17,6 +17,11 @@ services:
       - traefik.port=8080
     networks:
       - web
+  db:
+    image: registry.thiloilg.com/repo/blicc/db:latest
+    container_name: db
+    networks:
+      - internal
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     container_name: app
@@ -30,8 +35,6 @@ services:
   api:
     image: registry.thiloilg.com/repo/blicc/api:latest
     container_name: api
-    depends_on:
-    - db
     labels:
       - traefik.backend=api
       - traefik.frontend.rule=Host:api.blicc.org
@@ -40,11 +43,6 @@ services:
     networks:
       - internal
       - web
-  db:
-    image: registry.thiloilg.com/repo/blicc/db:latest
-    container_name: db
-    networks:
-      - internal
 
 networks:
   web:
