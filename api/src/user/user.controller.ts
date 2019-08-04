@@ -1,12 +1,7 @@
 import Koa from 'koa'
-import bcrypt from 'bcryptjs'
-import { getRepository } from 'typeorm'
-import { User } from './user.entity'
 import status from 'http-status-codes'
 import { UserService } from './user.service'
 import { EmailUtil } from '../common/email.util'
-
-const PW = 'nais'
 
 export class UserController {
   private userService: UserService
