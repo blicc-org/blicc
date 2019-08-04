@@ -38,6 +38,11 @@ services:
     networks:
       - internal
       - web
+  db:
+  image: registry.thiloilg.com/repo/blicc/db:latest
+  networks:
+    - internal
+
 networks:
   web:
     external: true
