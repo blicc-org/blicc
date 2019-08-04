@@ -10,7 +10,7 @@ export class ApiDocsRouter {
     this.controller = new ApiDocsController()
   }
 
-  public getRoutes(): Router.IMiddleware {
+  public routes(): Router.IMiddleware {
     this.router.get(
       '/swagger.json',
       this.controller.swagger.bind(this.controller)

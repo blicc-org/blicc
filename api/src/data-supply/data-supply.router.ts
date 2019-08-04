@@ -10,7 +10,7 @@ export class DataSupplyRouter {
     this.controller = new DataSupplyController()
   }
 
-  public getRoutes(): Router.IMiddleware {
+  public routes(): Router.IMiddleware {
     this.router.get('/', this.controller.inform.bind(this.controller))
     this.router.post('/', this.controller.supply.bind(this.controller))
     return this.router.routes()

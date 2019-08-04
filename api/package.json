@@ -26,8 +26,10 @@
     "koa-session": "^5.12.0",
     "koa-static": "^5.0.0",
     "passport": "^0.4.0",
+    "pg": "^7.12.0",
     "redoc": "^2.0.0-rc.8-1",
-    "swagger-jsdoc": "^3.2.9"
+    "swagger-jsdoc": "^3.2.9",
+    "typeorm": "^0.2.18"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
