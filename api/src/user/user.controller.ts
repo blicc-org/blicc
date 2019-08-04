@@ -15,7 +15,7 @@ export class UserController {
 
     if (body.email && body.password) {
       const repo = getRepository(User)
-      const user = await repo.find({
+      const user = await repo.findOne({
         email: body.email,
         password: body.password,
       })
