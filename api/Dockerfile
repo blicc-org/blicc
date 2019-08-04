@@ -5,4 +5,4 @@ COPY . .
 RUN yarn
 RUN yarn build
 
-CMD [ "node", "build/index.js" ]
+CMD [ "yarn", "start:prod" ]
