@@ -1,7 +1,7 @@
 import { App } from './app'
+import { createConnection } from 'typeorm'
 
-const app = new App()
-app.connect().then((): void => {
-  app.listen(80)
+createConnection().then((): void => {
+  new App().listen(80)
   console.log(`The server is listening...`)
 })

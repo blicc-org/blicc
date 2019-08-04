@@ -14,7 +14,7 @@ export class User extends BaseEntity {
   @Column()
   public role: string
 
-  public constructor(email: string, password: string, role: string) {
+  public constructor(email: string, password: string, role: string = 'user') {
     super()
     this.email = email
     this.password = password

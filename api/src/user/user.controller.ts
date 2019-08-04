@@ -1,64 +1,68 @@
 import Koa from 'koa'
 import bcrypt from 'bcryptjs'
-import { getRepository, Repository } from 'typeorm'
+import { getRepository } from 'typeorm'
 import { User } from './user.entity'
-import statusCodes from 'http-status-codes'
+import status from 'http-status-codes'
+import { UserService } from './user.service'
+import { EmailUtil } from '../common/email.util'
 
 const PW = 'nais'
 
 export class UserController {
+  private userService: UserService
+
+  public constructor() {
+    this.userService = new UserService()
+  }
+
   public async login(ctx: Koa.BaseContext, next: Function): Promise<void> {
     // dont check Koa Middleware for verification
     next()
 
-    const body = ctx.request.body
+    const { email, password } = ctx.request.body
 
-    if (body.email && body.password) {
-      const repo = getRepository(User)
-      const user = await repo.findOne({
-        email: body.email,
-        password: body.password,
-      })
-
-      if (user) {
-        ctx.body = statusCodes.OK
-      } else {
-        ctx.body = statusCodes.FORBIDDEN
-      }
-    } else {
-      ctx.body = statusCodes.BAD_REQUEST
+    if (!email || !password) {
+      ctx.body = status.UNPROCESSABLE_ENTITY
+      return
     }
 
-    const repo: Repository<User> = getRepository(User)
-    repo.save({
-      email: 'info@example.com',
-      password: 'test',
-      role: 'admin',
-    })
+    if (!(await this.userService.exists(email))) {
+      ctx.body = status.NOT_FOUND
+      return
+    }
 
-    ctx.body = await repo.find()
+    if (!(await this.userService.authenticate(email, password))) {
+      ctx.body = status.FORBIDDEN
+      return
+    }
+
+    ctx.body = status.ACCEPTED
   }
 
   public async register(ctx: Koa.BaseContext, next: Function): Promise<void> {
     // dont check Koa Middleware for verification
     next()
 
-    const body = ctx.request.body
+    const { email, password } = ctx.request.body
 
-    if (body.email && body.password) {
-      const user = new User(body.emal, body.password, 'admin')
-      const repo = getRepository(User)
-      repo.save(user)
-      ctx.body = statusCodes.CREATED
-    } else {
-      ctx.body = statusCodes.BAD_REQUEST
+    if (!email || !password || !EmailUtil.isValid(email)) {
+      ctx.body = status.UNPROCESSABLE_ENTITY
+      return
+    }
+
+    if (await this.userService.exists(email)) {
+      ctx.body = status.CONFLICT
+      return
+    }
+
+    try {
+      const user = await this.userService.register(email, password)
+      if (user !== undefined) {
+        ctx.body = status.CREATED
+        return
+      }
+    } catch (e) {
+      ctx.body = status.INTERNAL_SERVER_ERROR
     }
   }
-
-  // var salt = bcrypt.genSaltSync(10)
-  // var hash = bcrypt.hashSync(PW, salt)
-  // ctx.body = hash
-
-  // const hash = ctx.request.body.hash
-  // ctx.body = bcrypt.compareSync(PW, hash)
 }
