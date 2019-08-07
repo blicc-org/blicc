@@ -7,6 +7,7 @@ import serve from 'koa-static'
 import { DataSupplyRouter } from './data-supply/data-supply.router'
 import { ApiDocsRouter } from './api-docs/api-docs.router'
 import { UserRouter } from './user/user.router'
+import { SessionRouter } from './session/session.router'
 
 export class App {
   private koa: Koa
@@ -21,7 +22,8 @@ export class App {
 
     this.koa.use(new ApiDocsRouter('/docs').routes())
     this.koa.use(new DataSupplyRouter('/').routes())
-    this.koa.use(new UserRouter('/').routes())
+    this.koa.use(new UserRouter('/users').routes())
+    this.koa.use(new SessionRouter('/sessions').routes())
   }
 
   public listen(port: number): void {

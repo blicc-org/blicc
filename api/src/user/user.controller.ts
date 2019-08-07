@@ -10,30 +10,6 @@ export class UserController {
     this.userService = new UserService()
   }
 
-  public async login(ctx: Koa.BaseContext, next: Function): Promise<void> {
-    // dont check Koa Middleware for verification
-    next()
-
-    const { email, password } = ctx.request.body
-
-    if (!email || !password) {
-      ctx.body = status.UNPROCESSABLE_ENTITY
-      return
-    }
-
-    if (!(await this.userService.exists(email))) {
-      ctx.body = status.NOT_FOUND
-      return
-    }
-
-    if (!(await this.userService.authenticate(email, password))) {
-      ctx.body = status.FORBIDDEN
-      return
-    }
-
-    ctx.body = status.ACCEPTED
-  }
-
   public async register(ctx: Koa.BaseContext, next: Function): Promise<void> {
     // dont check Koa Middleware for verification
     next()

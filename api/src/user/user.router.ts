@@ -11,11 +11,7 @@ export class UserRouter {
   }
 
   public routes(): Router.IMiddleware {
-    this.router.post('/login', this.controller.login.bind(this.controller))
-    this.router.post(
-      '/register',
-      this.controller.register.bind(this.controller)
-    )
+    this.router.post('/', this.controller.register.bind(this.controller))
     return this.router.routes()
   }
 }
