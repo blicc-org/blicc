@@ -11,7 +11,7 @@ export class SessionRouter {
   }
 
   public routes(): Router.IMiddleware {
-    this.router.post('/', this.controller.login.bind(this.controller))
+    this.router.post('/', this.controller.create.bind(this.controller))
     return this.router.routes()
   }
 }

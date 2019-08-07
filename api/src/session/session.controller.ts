@@ -12,7 +12,7 @@ export class SessionController {
     this.userService = new UserService()
   }
 
-  public async login(ctx: Koa.BaseContext, next: Function): Promise<void> {
+  public async create(ctx: Koa.BaseContext, next: Function): Promise<void> {
     // dont check Koa Middleware for verification
     next()
 
