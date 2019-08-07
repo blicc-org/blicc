@@ -46,5 +46,6 @@ deploy:
     - docker push $REGISTRY_DOMAIN/repo/$REPO/api
     - docker push $REGISTRY_DOMAIN/repo/$REPO/db
     - scp -r ./docker-compose.yml root@$IP:/root/
+    - ssh -tt root@$IP "docker image prune -a -f"
     - ssh -tt root@$IP "docker-compose pull"
     - ssh -tt root@$IP "docker-compose -f /root/docker-compose.yml up -d --force-recreate"
