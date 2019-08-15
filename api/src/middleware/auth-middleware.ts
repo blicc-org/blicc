@@ -12,7 +12,7 @@ export class AuthMiddleware {
     const { authorization } = ctx.headers
     if (!authorization) {
       ctx.status = status.UNAUTHORIZED
-      ctx.body = 'Please provide valid authorization token.'
+      ctx.body = 'Please provide a valid authorization token.'
       return
     }
     const token: string = authorization.split(' ')[1]
@@ -37,7 +37,7 @@ export class AuthMiddleware {
         )}.`
       } else {
         ctx.status = status.UNAUTHORIZED
-        ctx.body = 'Please provide valid authorization token.'
+        ctx.body = 'Please provide a valid authorization token.'
       }
     }
   }
