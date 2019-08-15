@@ -22,4 +22,8 @@ export class UserService {
   public async exists(email: string): Promise<boolean> {
     return (await this.repo.findOne({ email })) !== undefined
   }
+
+  public async select(email: string): Promise<User | undefined> {
+    return await this.repo.findOne({ email })
+  }
 }
