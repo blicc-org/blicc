@@ -33,6 +33,8 @@ export class SessionController {
       return
     }
 
+    const token = this.sessionService.generateJWT(email)
+
     ctx.body = status.ACCEPTED
   }
 }

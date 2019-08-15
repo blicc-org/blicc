@@ -14,7 +14,7 @@ images
 .env.development.local
 .env.test.local
 .env.production.local
-.vscode
+
 .htpasswd
 env.sh
 
@@ -24,3 +24,10 @@ yarn-error.log*
 
 # os
 .DS_Store
+
+# certs
+certs
+
+# vscode
+.vscode
+!.vscode/launch.json
