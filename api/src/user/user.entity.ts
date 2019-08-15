@@ -9,15 +9,15 @@ export class User extends BaseEntity {
   public email: string
 
   @Column()
-  public password: string
+  public passwordHash: string
 
   @Column()
   public role: string
 
-  public constructor(email: string, password: string, role: string) {
+  public constructor(email: string, passwordHash: string, role: string) {
     super()
     this.email = email
-    this.password = password
+    this.passwordHash = passwordHash
     this.role = role
   }
 }

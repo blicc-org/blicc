@@ -1,5 +1,6 @@
 import { Repository, getRepository } from 'typeorm'
 import { User } from './user.entity'
+import { Hash } from '../common/hash.util'
 
 export class UserService {
   private repo: Repository<User>
@@ -13,15 +14,12 @@ export class UserService {
     password: string,
     role: string = 'user'
   ): Promise<User> {
-    const user = new User(email, password, role)
+    const passwordHash = Hash.generate(password)
+    const user = new User(email, passwordHash, role)
     return await this.repo.save(user)
   }
 
   public async exists(email: string): Promise<boolean> {
     return (await this.repo.findOne({ email })) !== undefined
-  }
-
-  public async authenticate(email: string, password: string): Promise<boolean> {
-    return (await this.repo.findOne({ email, password })) !== undefined
   }
 }
