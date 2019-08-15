@@ -10,7 +10,7 @@ export class PermissionMiddleware {
     if (ctx.user && ctx.user.role === role) next()
     else {
       ctx.status = status.FORBIDDEN
-      ctx.body = 'You do not have permission to access this resource.'
+      ctx.body = `You need ${role} rights to access this resource.`
     }
   }
 }
