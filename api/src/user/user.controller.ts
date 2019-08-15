@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import status from 'http-status-codes'
 import { UserService } from './user.service'
-import { EmailUtil } from '../util/email'
+import { Email } from '../util/email'
 
 export class UserController {
   private userService: UserService
@@ -16,7 +16,7 @@ export class UserController {
 
     const { email, password } = ctx.request.body
 
-    if (!email || !password || !EmailUtil.isValid(email)) {
+    if (!email || !password || !Email.isValid(email)) {
       ctx.status = status.UNPROCESSABLE_ENTITY
       return
     }
