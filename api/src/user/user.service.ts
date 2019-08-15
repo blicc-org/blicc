@@ -1,6 +1,6 @@
 import { Repository, getRepository } from 'typeorm'
 import { User } from './user.entity'
-import { Hash } from '../common/hash.util'
+import { Hash } from '../util/hash'
 
 export class UserService {
   private repo: Repository<User>

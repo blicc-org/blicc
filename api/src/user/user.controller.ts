@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import status from 'http-status-codes'
 import { UserService } from './user.service'
-import { EmailUtil } from '../common/email.util'
+import { EmailUtil } from '../util/email'
 
 export class UserController {
   private userService: UserService
