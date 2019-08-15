@@ -11,7 +11,6 @@ export class AuthMiddleware {
   ): Promise<void> {
     const { authorization } = ctx.headers
     if (!authorization) {
-    } else {
       ctx.status = status.UNAUTHORIZED
       ctx.body = 'Please provide valid authorization token.'
       return
