@@ -10,6 +10,12 @@ export class AuthMiddleware {
     next: Function
   ): Promise<void> {
     const { authorization } = ctx.headers
+    if (!authorization) {
+    } else {
+      ctx.status = status.UNAUTHORIZED
+      ctx.body = 'Please provide valid authorization token.'
+      return
+    }
     const token: string = authorization.split(' ')[1]
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,7 +37,7 @@ export class AuthMiddleware {
           e.expiredAt
         )}.`
       } else {
-        ctx.status = status.FORBIDDEN
+        ctx.status = status.UNAUTHORIZED
         ctx.body = 'Please provide valid authorization token.'
       }
     }

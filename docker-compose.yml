@@ -27,8 +27,8 @@ services:
     image: registry.thiloilg.com/repo/blicc/api:latest
     container_name: api
     volumes:
-      - /root/rsa.pem:/certs/rsa.pem
-      - /root/rsa_pub.pem:/certs/rsa_pub.pem
+      - /root/rsa.pem:/root/certs/rsa.pem
+      - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
     restart: always
     depends_on:
       - db

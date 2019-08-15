@@ -1,6 +1,6 @@
 FROM node:12-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /root
 COPY . .
 RUN yarn
 RUN yarn build
