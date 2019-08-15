@@ -12,6 +12,7 @@ export class AuthMiddleware {
     const { authorization } = ctx.headers
     const token: string = authorization.split(' ')[1]
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const response: any = JWT.verify(token)
       const user: User | undefined = await new UserService().select(
         response.email
