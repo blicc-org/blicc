@@ -1,4 +1,5 @@
 export interface Session {
-  startTime: string
-  timeOut: string
+  iat?: number
+  exp?: number
+  email: string
 }

@@ -2,6 +2,7 @@ import Koa from 'koa'
 import status from 'http-status-codes'
 import { SessionService } from './session.service'
 import { UserService } from '../user/user.service'
+import { JWT } from '../common/jwt.util'
 
 export class SessionController {
   private sessionService: SessionService
@@ -19,22 +20,24 @@ export class SessionController {
     const { email, password } = ctx.request.body
 
     if (!email || !password) {
-      ctx.body = status.UNPROCESSABLE_ENTITY
+      ctx.status = status.UNPROCESSABLE_ENTITY
       return
     }
 
     if (!(await this.userService.exists(email))) {
-      ctx.body = status.NOT_FOUND
+      ctx.status = status.NOT_FOUND
       return
     }
 
     if (!(await this.sessionService.authenticate(email, password))) {
-      ctx.body = status.FORBIDDEN
+      ctx.status = status.FORBIDDEN
       return
     }
 
-    const token = this.sessionService.generateJWT(email)
+    const token = JWT.generate(email)
 
-    ctx.body = status.ACCEPTED
+    ctx.set('Authorization', `Bearer ${token}`)
+
+    ctx.status = status.ACCEPTED
   }
 }

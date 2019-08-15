@@ -17,23 +17,23 @@ export class UserController {
     const { email, password } = ctx.request.body
 
     if (!email || !password || !EmailUtil.isValid(email)) {
-      ctx.body = status.UNPROCESSABLE_ENTITY
+      ctx.status = status.UNPROCESSABLE_ENTITY
       return
     }
 
     if (await this.userService.exists(email)) {
-      ctx.body = status.CONFLICT
+      ctx.status = status.CONFLICT
       return
     }
 
     try {
       const user = await this.userService.register(email, password)
       if (user !== undefined) {
-        ctx.body = status.CREATED
+        ctx.status = status.CREATED
         return
       }
     } catch (e) {
-      ctx.body = status.INTERNAL_SERVER_ERROR
+      ctx.status = status.INTERNAL_SERVER_ERROR
     }
   }
 }

@@ -17,6 +17,7 @@ export class DataSupplyController {
    */
   public async inform(ctx: Koa.BaseContext, next: Function): Promise<void> {
     next()
+
     ctx.body = 'API to supply data'
   }
 
