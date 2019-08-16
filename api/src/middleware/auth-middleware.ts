@@ -3,24 +3,19 @@ import status from 'http-status-codes'
 import { JWT } from '../util/jwt'
 import { UserService } from '../user/user.service'
 import { User } from '../user/user.entity'
+import { Session } from '../session/session.interface'
 
 export class AuthMiddleware {
   public static async handle(
     ctx: Koa.BaseContext,
     next: Function
   ): Promise<void> {
-    const { authorization } = ctx.headers
-    if (!authorization) {
-      ctx.status = status.UNAUTHORIZED
-      ctx.body = 'Please provide a valid authorization token.'
-      return
-    }
-    const token: string = authorization.split(' ')[1]
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const response: any = JWT.verify(token)
+      const { authorization } = ctx.headers
+      const token: string = authorization.split(' ')[1]
+      const session: Session = JWT.verify(token)
       const user: User | undefined = await new UserService().select(
-        response.email
+        session.email
       )
       if (user) {
         ctx.user = user

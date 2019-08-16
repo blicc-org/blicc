@@ -1,6 +1,7 @@
 import fs from 'fs'
 import jwt from 'jsonwebtoken'
 import { Session } from '../session/session.interface'
+import { Session } from 'inspector'
 
 export class JWT {
   private static ALGORITHM = 'RS256'
@@ -19,11 +20,14 @@ export class JWT {
     })
   }
 
-  public static verify(token: string): string | object {
+  public static verify(token: string): Session {
     const publicKey = fs.readFileSync(JWT.PUBLIC)
 
-    return jwt.verify(token, publicKey, {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const res: any = jwt.verify(token, publicKey, {
       algorithms: [JWT.ALGORITHM],
     })
+
+    return res
   }
 }
