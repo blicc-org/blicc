@@ -8,11 +8,13 @@ export default function LoginForm() {
   const [password, setPassword] = useState('')
   async function login(e) {
     e.preventDefault()
-    const request = await axios.post(`${API_URL}/sessions`, {
+    let request = await axios.post(`${API_URL}/sessions`, {
       email,
       password,
     })
     console.log(request)
+    const { body } = await axios.get(API_URL)
+    console.log(body)
   }
 
   return (
