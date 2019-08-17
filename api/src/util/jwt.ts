@@ -1,7 +1,6 @@
 import fs from 'fs'
 import jwt from 'jsonwebtoken'
 import { Session } from '../session/session.interface'
-import { Session } from 'inspector'
 
 export class JWT {
   private static ALGORITHM = 'RS256'
@@ -9,15 +8,18 @@ export class JWT {
   private static PRIVATE = `${JWT.CERTS}/rsa.pem`
   private static PUBLIC = `${JWT.CERTS}/rsa_pub.pem`
 
-  public static generate(email: string): string {
+  public static generate(email: string): { token: string; session: Session } {
     const privateKey = fs.readFileSync(JWT.PRIVATE)
 
     const iat = Math.trunc(new Date().getTime() / 1000)
     const exp = iat + 10 * 60 // m * s => timeout of 10 minutes
     const session: Session = { iat, exp, email }
-    return jwt.sign(session, privateKey, {
-      algorithm: JWT.ALGORITHM,
-    })
+    return {
+      token: jwt.sign(session, privateKey, {
+        algorithm: JWT.ALGORITHM,
+      }),
+      session,
+    }
   }
 
   public static verify(token: string): Session {

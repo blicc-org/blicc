@@ -11,8 +11,11 @@ export class AuthMiddleware {
     next: Function
   ): Promise<void> {
     try {
-      const { authorization } = ctx.headers
-      const token: string = authorization.split(' ')[1]
+      let token: string = ctx.cookies.get('access_token')
+      if (!token) {
+        const { authorization } = ctx.headers
+        token = authorization.split(' ')[1]
+      }
       const session: Session = JWT.verify(token)
       const user: User | undefined = await new UserService().select(
         session.email

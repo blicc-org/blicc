@@ -34,9 +34,15 @@ export class SessionController {
       return
     }
 
-    const token = JWT.generate(email)
-
-    ctx.set('Authorization', `Bearer ${token}`)
+    const { token, session } = JWT.generate(email)
+    const maxAge = (session.exp - session.iat) * 1000 // maxAge requires miliseconds
+    console.log(maxAge)
+    console.log(new Date())
+    ctx.cookies.set('access_token', token, {
+      maxAge,
+      secure: false, // set true on prod
+      overwrite: true,
+    })
 
     ctx.status = status.ACCEPTED
   }
