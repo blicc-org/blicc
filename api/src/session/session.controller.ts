@@ -39,9 +39,9 @@ export class SessionController {
     ctx.cookies.set('access_token', token, {
       maxAge,
       domain: 'api.blicc.org',
-      secure: false, // set true on prod
+      secure: true, // set true on prod
       overwrite: true,
-      httpOnly: false,
+      httpOnly: true,
     })
 
     ctx.status = status.ACCEPTED
