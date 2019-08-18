@@ -12,7 +12,7 @@ export class JWT {
     const privateKey = fs.readFileSync(JWT.PRIVATE)
 
     const iat = Math.trunc(new Date().getTime() / 1000)
-    const exp = iat + 10 * 60 // m * s => timeout of 10 minutes
+    const exp = iat + 2 * 24 * 60 * 60 // m * s => timeout of 10 minutes
     const session: Session = { iat, exp, email }
     return {
       token: jwt.sign(session, privateKey, {

@@ -36,12 +36,12 @@ export class SessionController {
 
     const { token, session } = JWT.generate(email)
     const maxAge = (session.exp - session.iat) * 1000 // maxAge requires miliseconds
-    console.log(maxAge)
-    console.log(new Date())
     ctx.cookies.set('access_token', token, {
       maxAge,
+      domain: 'api.blicc.org',
       secure: false, // set true on prod
       overwrite: true,
+      httpOnly: false,
     })
 
     ctx.status = status.ACCEPTED
