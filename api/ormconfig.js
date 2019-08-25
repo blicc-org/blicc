@@ -1,14 +1,10 @@
-const isDev = process.env.NODE_ENV === 'localdev'
-const HOST = isDev ? 'localhost' : 'db'
-const ENTITIES = isDev ? '**/**/*.entity.ts' : '**/**/*.entity.js'
-
 module.exports = {
   type: 'postgres',
-  host: HOST,
+  host: process.env.POSTGRES_HOST,
   port: 5432,
   database: 'db',
   username: 'api',
-  password: '1234',
+  password: process.env.POSTGRES_PASSWORD,
   synchronize: true,
-  entities: [ENTITIES],
+  entities: ['**/**/*.entity.{ts,js}'],
 }

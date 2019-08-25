@@ -14,9 +14,10 @@ build:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
+    - echo -e "POSTGRES_HOST='db'\nPOSTGRES_PASSWORD=$POSTGRES_PASSWORD" > ./api/.env
     - docker build -t app ./app
     - docker build -t api ./api
-    - docker build -t db ./db
+    - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t db ./db
     - docker tag app $REGISTRY_DOMAIN/repo/$REPO/app
     - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api
     - docker tag db $REGISTRY_DOMAIN/repo/$REPO/db
@@ -50,4 +51,4 @@ deploy:
     - ssh -tt root@$IP "openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem"
     - ssh -tt root@$IP "docker image prune -a -f"
     - ssh -tt root@$IP "docker-compose pull"
-    - ssh -tt root@$IP "docker-compose -f /root/docker-compose.yml up -d --force-recreate"
+    - ssh -tt root@$IP "docker-compose down && docker-compose -f /root/docker-compose.yml up -d --force-recreate"
