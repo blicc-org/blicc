@@ -49,7 +49,7 @@ services:
       - db
     labels:
       - traefik.backend=app
-      - traefik.frontend.rule=Host:blicc.org
+      - traefik.frontend.rule=Host:blicc.org,www.blicc.org
       - traefik.docker.network=web
       - traefik.port=80
     networks:
