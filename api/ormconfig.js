@@ -1,4 +1,4 @@
-const isDev = process.env.NODE_ENV === 'localdev'
+const isDev = process.env.NODE_ENV === 'development'
 const host = isDev ? 'localhost' : 'db'
 const entities = isDev ? '**/**/*.entity.ts' : '**/**/*.entity.js'
 
