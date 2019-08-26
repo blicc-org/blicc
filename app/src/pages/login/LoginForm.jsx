@@ -8,15 +8,19 @@ export default function LoginForm() {
   const [password, setPassword] = useState('')
   async function login(e) {
     e.preventDefault()
-    const request = await axios.post(`${API_URL}/sessions`, {
-      email,
-      password,
-    }, {withCredentials: true});
+    const request = await axios.post(
+      `${API_URL}/sessions`,
+      {
+        email,
+        password,
+      },
+      { withCredentials: true }
+    )
 
     console.log(request)
-    console.log(document.cookie);
+    console.log(document.cookie)
 
-    const body = await axios.get(API_URL, {withCredentials: true});
+    const body = await axios.get(API_URL, { withCredentials: true })
     console.log(body)
   }
 

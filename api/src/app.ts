@@ -15,7 +15,7 @@ export class App {
 
   public constructor() {
     this.koa = new Koa()
-    this.koa.use(cors({ credentials: true}))
+    this.koa.use(cors({ credentials: true }))
     this.koa.use(logger())
     this.koa.use(bodyParser())
     this.koa.use(session(this.koa))

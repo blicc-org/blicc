@@ -35,7 +35,7 @@ export class SessionController {
       return
     }
 
-    const { token, session } = JWT.generate(email);
+    const { token, session } = JWT.generate(email)
     const maxAge = (session.exp - session.iat) * 1000 // maxAge requires miliseconds
     ctx.cookies.set('access_token', token, {
       maxAge,
