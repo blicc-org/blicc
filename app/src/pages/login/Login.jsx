@@ -7,7 +7,6 @@ export default function Login() {
   return (
     <>
       <Header />
-      <div className="moveUnderNavBar" />
       <LoginForm />
       <Footer />
     </>

@@ -7,7 +7,6 @@ export default function NotFound() {
   return (
     <>
       <Header />
-      <div className="moveUnderNavBar" />
       <NotFoundWarning />
       <Footer />
     </>

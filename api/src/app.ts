@@ -15,6 +15,12 @@ export class App {
 
   public constructor() {
     this.koa = new Koa()
+
+    /**
+     * prevent checking for https encryption behind reverse proxy
+     */
+    this.koa.proxy = true
+
     this.koa.use(cors({ credentials: true }))
     this.koa.use(logger())
     this.koa.use(bodyParser())

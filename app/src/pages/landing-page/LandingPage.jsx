@@ -7,7 +7,6 @@ export default function LandingPage() {
   return (
     <>
       <Header />
-      <div className="moveUnderNavBar" />
       <Headline />
       <Footer />
     </>
