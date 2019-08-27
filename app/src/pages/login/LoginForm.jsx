@@ -2,26 +2,22 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import './LoginForm.css'
 import { API_URL } from '../../config'
+import { useApiEndpoint } from '../../util/useApiEndpoint'
 
 export default function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [create, read, update, remove] = useApiEndpoint(`${API_URL}/sessions`)
+
   async function login(e) {
     e.preventDefault()
-    const request = await axios.post(
-      `${API_URL}/sessions`,
-      {
-        email,
-        password,
-      },
-      { withCredentials: true }
-    )
+    const [status] = await create({ email, password })
 
-    console.log(request)
+    console.log(status)
     console.log(document.cookie)
 
-    const body = await axios.get(API_URL, { withCredentials: true })
-    console.log(body)
+    const { data } = await axios.get(API_URL, { withCredentials: true })
+    console.log(data)
   }
 
   return (
