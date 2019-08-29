@@ -33,7 +33,7 @@ export class UserService {
     try {
       response = await this.repo.findOne(id)
     } catch (e) {
-      console.log(e)
+      throw Error(e)
     }
     return response
   }
