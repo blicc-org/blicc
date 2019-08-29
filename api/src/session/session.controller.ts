@@ -3,7 +3,7 @@ import status from 'http-status-codes'
 import { SessionService } from './session.service'
 import { UserService } from '../user/user.service'
 import { JWT } from '../util/jwt'
-import { DOMAIN, IS_PROD } from '../config'
+import { IS_PROD } from '../config'
 
 export class SessionController {
   private sessionService: SessionService
@@ -15,8 +15,7 @@ export class SessionController {
   }
 
   public async login(ctx: Koa.BaseContext, next: Function): Promise<void> {
-    // dont check Koa Middleware for verification
-    next()
+    await next()
 
     const { email, password } = ctx.request.body
 

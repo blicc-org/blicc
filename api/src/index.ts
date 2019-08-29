@@ -2,7 +2,7 @@ import { App } from './app'
 import { createConnection } from 'typeorm'
 
 createConnection()
-  .catch(e => {
+  .catch((e): void => {
     console.log(e)
   })
   .then((): void => {

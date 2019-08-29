@@ -12,7 +12,7 @@ export function useApiEndpoint(path) {
     return [status, data]
   }
 
-  async function read(forceApiRequest = false) {
+  async function access(forceApiRequest = false) {
     if (!forceApiRequest && localStorage !== null)
       return [code.OK, localStorage]
     const { data, status } = await axios.get(path, config)
@@ -31,5 +31,5 @@ export function useApiEndpoint(path) {
     return [status, data]
   }
 
-  return [create, read, update, remove]
+  return [create, access, update, remove]
 }
