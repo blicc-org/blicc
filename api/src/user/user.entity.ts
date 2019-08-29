@@ -1,9 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm'
+import {
+  Entity,
+  PrimaryColumn,
+  BeforeInsert,
+  Column,
+  BaseEntity,
+} from 'typeorm'
+import { UserService } from './user.service'
 
 @Entity()
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  private id?: number
+  @PrimaryColumn()
+  public id?: string
 
   @Column()
   public email: string
@@ -13,6 +20,12 @@ export class User extends BaseEntity {
 
   @Column()
   public role: string
+
+  @BeforeInsert()
+  private async beforeInsert() {
+    const userService = new UserService()
+    this.id = await userService.generateId()
+  }
 
   public constructor(email: string, passwordHash: string, role: string) {
     super()

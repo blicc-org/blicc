@@ -15,8 +15,7 @@ export class SessionController {
   }
 
   public async login(ctx: Koa.BaseContext, next: Function): Promise<void> {
-    // dont check Koa Middleware for verification
-    next()
+    await next()
 
     const { email, password } = ctx.request.body
 

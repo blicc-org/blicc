@@ -7,7 +7,7 @@ export class PermissionMiddleware {
     ctx: Koa.BaseContext,
     next: Function
   ): Promise<void> {
-    if (ctx.user && ctx.user.role === role) next()
+    if (ctx.user && ctx.user.role === role) await next()
     else {
       ctx.status = status.FORBIDDEN
       ctx.body = `You need ${role} rights to access this resource.`

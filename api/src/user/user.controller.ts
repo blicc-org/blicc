@@ -11,8 +11,7 @@ export class UserController {
   }
 
   public async register(ctx: Koa.BaseContext, next: Function): Promise<void> {
-    // dont check Koa Middleware for verification
-    next()
+    await next()
 
     const { email, password } = ctx.request.body
 
@@ -30,6 +29,22 @@ export class UserController {
       const user = await this.userService.register(email, password)
       if (user !== undefined) {
         ctx.status = status.CREATED
+        ctx.body = { id: user.id }
+        return
+      }
+    } catch (e) {
+      ctx.status = status.INTERNAL_SERVER_ERROR
+    }
+  }
+
+  public async access(ctx: Koa.BaseContext, next: Function): Promise<void> {
+    await next()
+    try {
+      const { id } = ctx.params
+      const user = await this.userService.selectById(id)
+      if (user !== undefined) {
+        ctx.body = user
+        ctx.status = status.OK
         return
       }
     } catch (e) {

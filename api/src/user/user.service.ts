@@ -1,6 +1,7 @@
 import { Repository, getRepository } from 'typeorm'
 import { User } from './user.entity'
 import { Hash } from '../util/hash'
+import shortid from 'shortid'
 
 export class UserService {
   private repo: Repository<User>
@@ -25,5 +26,21 @@ export class UserService {
 
   public async select(email: string): Promise<User | undefined> {
     return await this.repo.findOne({ email })
+  }
+
+  public async selectById(id: string): Promise<User | undefined> {
+    let response
+    try {
+      response = await this.repo.findOne(id)
+    } catch (e) {
+      console.log(e)
+    }
+    return response
+  }
+
+  public async generateId(): Promise<string> {
+    const id = shortid.generate()
+    const response = await this.repo.findOne(id)
+    return response === undefined ? id : await this.generateId()
   }
 }

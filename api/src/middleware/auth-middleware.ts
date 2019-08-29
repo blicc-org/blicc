@@ -22,7 +22,7 @@ export class AuthMiddleware {
       )
       if (user) {
         ctx.user = user
-        next()
+        await next()
       } else {
         ctx.status = status.NOT_FOUND
         ctx.body = 'User does not exist anymore.'
