@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function RegisterForm() {
+  const [confirm, setConfirm] = useState(true)
+
   return (
     <div
       className="col-md-4 mx-auto py-5 my-5 text-center"
       style={{ maxWidth: '500px' }}
     >
+      <button onClick={() => setConfirm(!confirm)}>Hallo</button>
       <h1 className="h3 mb-3 font-weight-normal">Register</h1>
-      <form className="needs-validation" novalidate>
+      <form className="needs-validation">
         <div className="row">
           <div className="col-md-6 mb-3">
             <label htmlFor="firstName">First name</label>
@@ -16,7 +19,6 @@ export default function RegisterForm() {
               className="form-control"
               id="firstName"
               placeholder="John"
-              value=""
               required
             />
             <div className="invalid-feedback">
@@ -30,7 +32,6 @@ export default function RegisterForm() {
               className="form-control"
               id="lastName"
               placeholder="Doe"
-              value=""
               required
             />
             <div className="invalid-feedback">Valid last name is required.</div>
@@ -43,37 +44,36 @@ export default function RegisterForm() {
             className="form-control"
             id="email"
             placeholder="you@example.com"
+            required
           />
           <div className="invalid-feedback">
-            Please enter a valid email address for shipping updates.
+            Please enter a valid email address.
           </div>
         </div>
         <div className="mb-3">
           <label htmlFor="address">Password</label>
           <input
-            type="text"
+            type="password"
             className="form-control"
             id="password"
             placeholder="Password"
             required
           />
-          <div className="invalid-feedback">
-            Please enter your shipping address.
-          </div>
+          <div className="invalid-feedback">Please enter your password.</div>
         </div>
         <div className="mb-3">
           <label htmlFor="address">
             Password<span className="text-muted"> (Re-enter)</span>
           </label>
           <input
-            type="text"
-            className="form-control"
-            id="password"
-            placeholder="Password"
+            type="password"
+            className={`form-control ${confirm ? 'is-valid' : 'is-invalid'}`}
+            id="password_confirm"
+            placeholder="Password Confirmation"
             required
           />
           <div className="invalid-feedback">
-            Please enter your shipping address.
+            Please confirm your password with the exact same characters.
           </div>
         </div>
         <hr className="mb-4" />
