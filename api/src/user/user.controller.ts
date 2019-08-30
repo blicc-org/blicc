@@ -13,9 +13,15 @@ export class UserController {
   public async register(ctx: Koa.BaseContext, next: Function): Promise<void> {
     await next()
 
-    const { email, password } = ctx.request.body
+    const { firstName, lastName, email, password } = ctx.request.body
 
-    if (!email || !password || !Email.isValid(email)) {
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !password ||
+      !Email.isValid(email)
+    ) {
       ctx.status = status.UNPROCESSABLE_ENTITY
       return
     }
@@ -26,7 +32,12 @@ export class UserController {
     }
 
     try {
-      const user = await this.userService.register(email, password)
+      const user = await this.userService.register(
+        firstName,
+        lastName,
+        email,
+        password
+      )
       if (user !== undefined) {
         ctx.status = status.CREATED
         ctx.body = { id: user.id }

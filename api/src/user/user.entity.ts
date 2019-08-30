@@ -13,6 +13,12 @@ export class User extends BaseEntity {
   public id?: string
 
   @Column()
+  public firstName: string
+
+  @Column()
+  public lastName: string
+
+  @Column()
   public email: string
 
   @Column()
@@ -27,8 +33,16 @@ export class User extends BaseEntity {
     this.id = await userService.generateId()
   }
 
-  public constructor(email: string, passwordHash: string, role: string) {
+  public constructor(
+    firstName: string,
+    lastName: string,
+    email: string,
+    passwordHash: string,
+    role: string
+  ) {
     super()
+    this.firstName = firstName
+    this.lastName = lastName
     this.email = email
     this.passwordHash = passwordHash
     this.role = role

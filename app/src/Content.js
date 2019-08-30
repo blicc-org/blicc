@@ -14,12 +14,16 @@ const content = {
       category: 'Navigation',
       items: [
         {
-          title: 'Dasboard',
-          link: '/dashboard',
+          title: 'Register',
+          link: '/register',
         },
         {
           title: 'Login',
           link: '/login',
+        },
+        {
+          title: 'Dasboard',
+          link: '/dashboard',
         },
         {
           title: 'Landing Page',

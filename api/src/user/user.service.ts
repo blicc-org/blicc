@@ -11,12 +11,14 @@ export class UserService {
   }
 
   public async register(
+    firstName: string,
+    lastName: string,
     email: string,
     password: string,
     role: string = 'user'
   ): Promise<User> {
     const passwordHash = Hash.generate(password)
-    const user = new User(email, passwordHash, role)
+    const user = new User(firstName, lastName, email, passwordHash, role)
     return await this.repo.save(user)
   }
 
