@@ -1,8 +1,6 @@
 import Koa from 'koa'
 
 export class DataSupplyController {
-  public constructor() {}
-
   /**
    * @swagger
    *

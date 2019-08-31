@@ -21,7 +21,7 @@
   ],
   "rules": {
     "func-style": ["error", "declaration"],
-    "allowArrowFunctions": true,
+    "allowArrowFunctions": 0,
     "prefer-arrow-callback": "error"
   }
 }

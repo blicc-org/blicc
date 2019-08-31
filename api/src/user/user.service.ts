@@ -15,7 +15,7 @@ export class UserService {
     lastName: string,
     email: string,
     password: string,
-    role: string = 'user'
+    role = 'user'
   ): Promise<User> {
     const passwordHash = Hash.generate(password)
     const user = new User(firstName, lastName, email, passwordHash, role)
