@@ -9,7 +9,6 @@ export function Dashboard() {
   return (
     <>
       <Header />
-      <div className="moveUnderNavBar" />
       <div className="container-fluid">
         <Sidebar />
         <main className="col-md-9 ml-sm-auto col-lg-10 px-4">
