@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Input } from './Input'
-import { FormValidation } from '../../util/FormValidation'
+import { Input } from '../../components/form/Input'
+import { FormValidation } from '../../services/FormValidation'
 
 export default function RegisterForm({ user, setUser, register }) {
   const [isSubmitted, setIsSubmitted] = useState(false)

@@ -4,7 +4,7 @@ import RegisterForm from './RegisterForm'
 import Footer from '../../components/footer/Footer'
 import { API_URL } from '../../config'
 import { useApiEndpoint } from '../../util/useApiEndpoint'
-import { FormValidation } from '../../util/FormValidation'
+import { FormValidation } from '../../services/FormValidation'
 
 export default function Register() {
   const [user, setUser] = useState({
