@@ -13,6 +13,8 @@ export class UserController {
   public async register(ctx: Koa.BaseContext, next: Function): Promise<void> {
     await next()
 
+    console.log(ctx.request.body)
+
     const { firstName, lastName, email, password } = ctx.request.body
 
     if (

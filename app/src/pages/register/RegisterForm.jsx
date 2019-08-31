@@ -1,24 +1,13 @@
 import React, { useState } from 'react'
-import { API_URL } from '../../config'
-import { useApiEndpoint } from '../../util/useApiEndpoint'
+import { Input } from './Input'
+import { FormValidation } from '../../util/FormValidation'
 
-export default function RegisterForm() {
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordConfirm, setPasswordConfirm] = useState('')
+export default function RegisterForm({ user, setUser, register }) {
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const [create, , ,] = useApiEndpoint(`${API_URL}/users`)
-
-  async function register(e) {
-    e.preventDefault()
-    const [status, data] = await create({
-      email,
-      password,
-    })
-    console.log(status)
-    console.log(data)
+  const handleChange = event => {
+    const { name, value } = event.target
+    setUser({ ...user, [name]: value })
   }
 
   return (
@@ -29,80 +18,79 @@ export default function RegisterForm() {
       <h1 className="h3 mb-3 font-weight-normal">Register</h1>
       <form className="needs-validation">
         <div className="row">
-          <div className="col-md-6 mb-3">
-            <label htmlFor="firstName">First name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="firstName"
-              placeholder="John"
-              required
-              onChange={e => setFirstName(e.target.value)}
-            />
-            <div className="invalid-feedback">
-              Valid first name is required.
-            </div>
-          </div>
-          <div className="col-md-6 mb-3">
-            <label htmlFor="lastName">Last name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="lastName"
-              placeholder="Doe"
-              required
-              onChange={e => setLastName(e.target.value)}
-            />
-            <div className="invalid-feedback">Valid last name is required.</div>
-          </div>
+          <Input
+            size="col-md-6 mb-3"
+            type="text"
+            name="firstName"
+            onChange={handleChange}
+            isValid={FormValidation.isName(user.firstName)}
+            isSubmitted={isSubmitted}
+            feedback="Please enter a valid name."
+          >
+            First name
+          </Input>
+          <Input
+            size="col-md-6 mb-3"
+            type="text"
+            name="lastName"
+            onChange={handleChange}
+            isValid={FormValidation.isName(user.lastName)}
+            isSubmitted={isSubmitted}
+            feedback="Please enter a valid name."
+          >
+            Last name
+          </Input>
         </div>
-        <div className="mb-3">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            placeholder="you@example.com"
-            required
-            onChange={e => setEmail(e.target.value)}
-          />
-          <div className="invalid-feedback">
-            Please enter a valid email address.
-          </div>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="address">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            placeholder="Password"
-            required
-            onChange={e => setPassword(e.target.value)}
-          />
-          <div className="invalid-feedback">Please enter your password.</div>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="address">
-            Password<span className="text-muted"> (Re-enter)</span>
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="password_confirm"
-            placeholder="Password Confirmation"
-            required
-            onChange={e => setPasswordConfirm(e.target.value)}
-          />
-          <div className="invalid-feedback">
-            Please confirm your password with the exact same characters.
-          </div>
-        </div>
+        <Input
+          size="mb-3"
+          placeholder="you@example.com"
+          type="email"
+          name="email"
+          onChange={handleChange}
+          isValid={FormValidation.isEmail(user.email)}
+          isSubmitted={isSubmitted}
+          feedback="Please enter a valid email address."
+        >
+          Email
+        </Input>
+        <Input
+          size="mb-3"
+          placeholder="Password"
+          type="password"
+          name="password"
+          onChange={handleChange}
+          isValid={FormValidation.isPassword(user.password)}
+          isSubmitted={isSubmitted}
+          feedback="Please enter a valid password. It should have at least one uppercase letter, one lowercase letter, one digit, one special symbol
+          and be more than 8 character."
+        >
+          Password
+        </Input>
+        <Input
+          size="mb-3"
+          placeholder="Password Confirmation"
+          type="password"
+          name="confirm"
+          onChange={handleChange}
+          isValid={
+            FormValidation.isPassword(user.password) &&
+            user.password === user.confirm
+          }
+          isSubmitted={isSubmitted}
+          feedback="Please confirm your password with the exact same character."
+        >
+          Password <span className="text-muted"> (Re-enter)</span>
+        </Input>
         <hr className="mb-4" />
         <button
           className="btn btn-primary btn-lg btn-block"
           type="submit"
-          onClick={register}
+          onClick={e => {
+            e.preventDefault()
+            setIsSubmitted(true)
+            register()
+          }}
+          onSubmit={() => false}
         >
           Register
         </button>
