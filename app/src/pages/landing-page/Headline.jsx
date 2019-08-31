@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AppContext } from '../../common/context/AppContext'
 
-export default function Headline() {
+export function Headline() {
   const { metadata } = useContext(AppContext)
 
   return (

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Input } from '../../components/form/Input'
 import { RegisterService } from './RegisterService'
 
-export default function RegisterForm({ user, setUser, register }) {
+export function RegisterForm({ user, setUser, register }) {
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleChange = event => {

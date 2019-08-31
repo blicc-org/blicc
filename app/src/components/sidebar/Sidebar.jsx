@@ -12,7 +12,7 @@ import {
   FileText,
 } from 'react-feather'
 
-export default function Sidebar() {
+export function Sidebar() {
   return (
     <nav className="col-md-2 d-none d-md-block bg-light sidebar">
       <div className="sidebar-sticky">

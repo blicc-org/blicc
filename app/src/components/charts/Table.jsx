@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Table() {
+export function Table() {
   return (
     <>
       <h2>Section title</h2>

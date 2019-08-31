@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function FooterNavListItem({ item }) {
+export function FooterNavListItem({ item }) {
   const listItem = !item.link.includes('http') ? (
     <Link className="text-muted" to={item.link}>
       {item.title}

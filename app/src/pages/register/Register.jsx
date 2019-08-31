@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import Header from '../../components/header/Header'
-import RegisterForm from './RegisterForm'
-import Footer from '../../components/footer/Footer'
+import { Header } from '../../components/header/Header'
+import { RegisterForm } from './RegisterForm'
+import { Footer } from '../../components/footer/Footer'
 import { API_URL } from '../../config'
 import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
 import { RegisterService } from './RegisterService'
 
-export default function Register() {
+export function Register() {
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',

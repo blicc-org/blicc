@@ -1,8 +1,8 @@
 import React from 'react'
-import FooterLogo from './FooterLogo'
-import FooterNav from './footer-nav/FooterNav'
+import { FooterLogo } from './FooterLogo'
+import { FooterNav } from './footer-nav/FooterNav'
 
-export default function Footer() {
+export function Footer() {
   return (
     <>
       <hr />

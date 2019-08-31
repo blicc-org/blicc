@@ -1,7 +1,7 @@
 import React from 'react'
-import NavBar from './Navbar'
+import { NavBar } from './Navbar'
 
-export default function Header() {
+export function Header() {
   return (
     <header>
       <NavBar />

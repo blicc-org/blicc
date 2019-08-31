@@ -1,10 +1,10 @@
 import React from 'react'
 import { useEffect } from 'react'
-import Chart from 'chart.js'
+import { Chart } from 'chart.js'
 
 import colors from '../../Theme.scss'
 
-export default function LineChart() {
+export function LineChart() {
   useEffect(() => {
     const data = {
       type: 'line',

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { AppContext } from '../../common/context/AppContext'
 import './Navbar.css'
 
-export default function NavBar() {
+export function NavBar() {
   const { metadata } = useContext(AppContext)
 
   return (

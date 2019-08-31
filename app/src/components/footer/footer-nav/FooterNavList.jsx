@@ -1,7 +1,7 @@
 import React from 'react'
-import FooterNavListItem from './FooterNavListItem'
+import { FooterNavListItem } from './FooterNavListItem'
 
-export default function FooterNavList({ list }) {
+export function FooterNavList({ list }) {
   return (
     <div className="col-6 col-md">
       <h5>{list.category}</h5>

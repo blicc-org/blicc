@@ -3,7 +3,7 @@ import './LoginForm.css'
 import { API_URL } from '../../config'
 import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
 
-export default function LoginForm() {
+export function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [createSession, , ,] = useApiEndpoint(`${API_URL}/sessions`)

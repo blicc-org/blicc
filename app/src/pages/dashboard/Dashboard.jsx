@@ -1,11 +1,11 @@
 import React from 'react'
-import LineChart from '../../components/charts/Linechart'
-import Sidebar from '../../components/sidebar/Sidebar'
-import Table from '../../components/charts/Table'
-import DashboardHeader from './DashboardHeader'
-import Header from '../../components/header/Header'
+import { LineChart } from '../../components/charts/Linechart'
+import { Sidebar } from '../../components/sidebar/Sidebar'
+import { Table } from '../../components/charts/Table'
+import { DashboardHeader } from './DashboardHeader'
+import { Header } from '../../components/header/Header'
 
-export default function Dashboard() {
+export function Dashboard() {
   return (
     <>
       <Header />

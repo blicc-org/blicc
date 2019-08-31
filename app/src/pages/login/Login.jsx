@@ -1,9 +1,9 @@
 import React from 'react'
-import Header from '../../components/header/Header'
-import LoginForm from './LoginForm'
-import Footer from '../../components/footer/Footer'
+import { Header } from '../../components/header/Header'
+import { LoginForm } from './LoginForm'
+import { Footer } from '../../components/footer/Footer'
 
-export default function Login() {
+export function Login() {
   return (
     <>
       <Header />

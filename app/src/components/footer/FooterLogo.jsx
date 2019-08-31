@@ -1,7 +1,7 @@
 import React from 'react'
-import Copyright from './Copyright'
+import { Copyright } from './Copyright'
 
-export default function FooterLogo() {
+export function FooterLogo() {
   return (
     <div className="col-12 col-md">
       <h3>blicc.org</h3>

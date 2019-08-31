@@ -1,4 +1,4 @@
 import { createContext } from 'react'
 
 export const AppContext = createContext({})
-export const { AppProvider, AppConsumer } = AppContext
+export const { Provider: AppProvider, Consumer: AppConsumer } = AppContext

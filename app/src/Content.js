@@ -1,4 +1,4 @@
-const content = {
+export const content = {
   metadata: {
     title: 'blicc.org',
     description: 'Visualize your process data with customizable dashboards.',
@@ -51,5 +51,3 @@ const content = {
     },
   ],
 }
-
-export default content

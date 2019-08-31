@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import FooterNavList from './FooterNavList'
+import { FooterNavList } from './FooterNavList'
 import { AppContext } from '../../../common/context/AppContext'
 
-export default function FooterNav() {
+export function FooterNav() {
   const data = useContext(AppContext)
   return (
     <>
