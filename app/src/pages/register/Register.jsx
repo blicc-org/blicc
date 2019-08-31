@@ -27,8 +27,12 @@ export function Register() {
       user.password === user.confirm
     ) {
       console.log('create user')
-      delete user.confirm
-      const [isCreated] = await createUser(user)
+      const [isCreated] = await createUser({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        password: user.password,
+      })
       if (isCreated === 201) {
         console.log('create session')
         const [isAccepted] = await createSession({
