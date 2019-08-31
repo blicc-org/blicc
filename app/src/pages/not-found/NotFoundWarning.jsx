@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { AppContext } from '../../AppContext'
+import { AppContext } from '../../common/context/AppContext'
 
 export default function NotFoundWarning() {
   const { pages } = useContext(AppContext)

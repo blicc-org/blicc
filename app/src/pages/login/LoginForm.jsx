@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './LoginForm.css'
 import { API_URL } from '../../config'
-import { useApiEndpoint } from '../../util/useApiEndpoint'
+import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
 
 export default function LoginForm() {
   const [email, setEmail] = useState('')

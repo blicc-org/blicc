@@ -3,8 +3,8 @@ import Header from '../../components/header/Header'
 import RegisterForm from './RegisterForm'
 import Footer from '../../components/footer/Footer'
 import { API_URL } from '../../config'
-import { useApiEndpoint } from '../../util/useApiEndpoint'
-import { FormValidation } from '../../services/FormValidation'
+import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
+import { RegisterService } from './RegisterService'
 
 export default function Register() {
   const [user, setUser] = useState({
@@ -20,10 +20,10 @@ export default function Register() {
 
   async function register() {
     if (
-      FormValidation.isName(user.firstName) &&
-      FormValidation.isName(user.lastName) &&
-      FormValidation.isEmail(user.email) &&
-      FormValidation.isPassword(user.password) &&
+      RegisterService.isName(user.firstName) &&
+      RegisterService.isName(user.lastName) &&
+      RegisterService.isEmail(user.email) &&
+      RegisterService.isPassword(user.password) &&
       user.password === user.confirm
     ) {
       console.log('create user')

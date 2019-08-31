@@ -7,12 +7,12 @@ const DEFAULT_STATE = {
   timeOut: 5000,
 }
 
-export const SnackBarContext = React.createContext(DEFAULT_STATE)
+export const ToastContext = React.createContext(DEFAULT_STATE)
 
-export function SnackBarProvider({ children }) {
+export function ToastProvider({ children }) {
   const [state, setState] = useState(DEFAULT_STATE)
 
-  function showSnackBar(
+  function showToast(
     message,
     type = DEFAULT_STATE.type,
     timeOut = DEFAULT_STATE.timeOut
@@ -34,8 +34,8 @@ export function SnackBarProvider({ children }) {
   }
 
   return (
-    <SnackBarContext.Provider value={{ ...state, showSnackBar }}>
+    <ToastContext.Provider value={{ ...state, showToast }}>
       {children}
-    </SnackBarContext.Provider>
+    </ToastContext.Provider>
   )
 }

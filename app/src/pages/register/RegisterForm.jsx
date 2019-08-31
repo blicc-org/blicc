@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Input } from '../../components/form/Input'
-import { FormValidation } from '../../services/FormValidation'
+import { RegisterService } from './RegisterService'
 
 export default function RegisterForm({ user, setUser, register }) {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -23,7 +23,7 @@ export default function RegisterForm({ user, setUser, register }) {
             type="text"
             name="firstName"
             onChange={handleChange}
-            isValid={FormValidation.isName(user.firstName)}
+            isValid={RegisterService.isName(user.firstName)}
             isSubmitted={isSubmitted}
             feedback="Please enter a valid name."
           >
@@ -34,7 +34,7 @@ export default function RegisterForm({ user, setUser, register }) {
             type="text"
             name="lastName"
             onChange={handleChange}
-            isValid={FormValidation.isName(user.lastName)}
+            isValid={RegisterService.isName(user.lastName)}
             isSubmitted={isSubmitted}
             feedback="Please enter a valid name."
           >
@@ -47,7 +47,7 @@ export default function RegisterForm({ user, setUser, register }) {
           type="email"
           name="email"
           onChange={handleChange}
-          isValid={FormValidation.isEmail(user.email)}
+          isValid={RegisterService.isEmail(user.email)}
           isSubmitted={isSubmitted}
           feedback="Please enter a valid email address."
         >
@@ -59,7 +59,7 @@ export default function RegisterForm({ user, setUser, register }) {
           type="password"
           name="password"
           onChange={handleChange}
-          isValid={FormValidation.isPassword(user.password)}
+          isValid={RegisterService.isPassword(user.password)}
           isSubmitted={isSubmitted}
           feedback="Please enter a valid password. It should have at least one uppercase letter, one lowercase letter, one digit, one special symbol
           and be more than 8 character."
@@ -73,7 +73,7 @@ export default function RegisterForm({ user, setUser, register }) {
           name="confirm"
           onChange={handleChange}
           isValid={
-            FormValidation.isPassword(user.password) &&
+            RegisterService.isPassword(user.password) &&
             user.password === user.confirm
           }
           isSubmitted={isSubmitted}

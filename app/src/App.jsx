@@ -5,13 +5,13 @@ import Login from './pages/login/Login'
 import Register from './pages/register/Register'
 import Dashboard from './pages/dashboard/Dashboard'
 import NotFound from './pages/not-found/NotFound'
-import { Provider } from './AppContext'
+import { AppProvider } from './common/context/AppContext'
 import content from './Content'
 import './App.scss'
 
 export default function App() {
   return (
-    <Provider value={content}>
+    <AppProvider value={content}>
       <Router>
         <Switch>
           <Route path="/" exact component={LandingPage} />
@@ -21,6 +21,6 @@ export default function App() {
           <Route component={NotFound} />
         </Switch>
       </Router>
-    </Provider>
+    </AppProvider>
   )
 }

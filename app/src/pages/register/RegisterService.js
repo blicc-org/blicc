@@ -1,4 +1,4 @@
-export const FormValidation = {
+export const RegisterService = {
   isName(name) {
     return /^[a-zA-Z ]{2,50}$/.test(name)
   },

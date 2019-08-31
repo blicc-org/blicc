@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { AppContext } from '../../AppContext'
+import { AppContext } from '../../common/context/AppContext'
 import './Navbar.css'
 
 export default function NavBar() {
