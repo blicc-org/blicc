@@ -61,8 +61,7 @@ export function RegisterForm({ user, setUser, register }) {
           onChange={handleChange}
           isValid={RegisterService.isPassword(user.password)}
           isSubmitted={isSubmitted}
-          feedback="Please enter a valid password. It should have at least one uppercase letter, one lowercase letter, one digit, one special symbol
-          and be more than 8 character."
+          feedback="Please enter a valid password. It should have at least one uppercase letter, one lowercase letter, one digit and be more than 8 character."
         >
           Password
         </Input>
