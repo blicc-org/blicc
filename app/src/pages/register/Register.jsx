@@ -40,7 +40,7 @@ export function Register() {
           password: user.password,
         })
         if (isAccepted === 202) {
-          console.log('redirect')
+          console.log(`${user.firstName} logged in!`)
         }
       }
     }

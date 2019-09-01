@@ -4,7 +4,7 @@ import bodyParser from 'koa-bodyparser'
 import cors from '@koa/cors'
 import session from 'koa-session'
 import serve from 'koa-static'
-import websocket from 'socket.io'
+import io from 'socket.io'
 import http from 'http'
 import { DataSupplyRouter } from './data-supply/data-supply.router'
 import { ApiDocsRouter } from './api-docs/api-docs.router'
@@ -15,12 +15,12 @@ import { SessionRouter } from './session/session.router'
 export class App {
   private koa: Koa
   private server: http.Server
-  private socket: websocket.Server
+  private socket: io.Server
 
   public constructor() {
     this.koa = new Koa()
     this.server = http.createServer(this.koa.callback())
-    this.socket = websocket(this.server)
+    this.socket = io(this.server)
 
     /**
      * prevent checking for https encryption behind reverse proxy
@@ -40,16 +40,9 @@ export class App {
     this.koa.use(new SessionRouter('/sessions').routes())
 
     this.socket.on('connection', socket => {
-      console.log('made socket connection, socket id: ' + socket.id)
-
-      socket.on('chat', data => {
-        const { message, handle } = data
-        console.log(`message: ${message}, handle: ${handle}`)
-        this.socket.sockets.emit('chat', data)
-      })
-
-      socket.on('typing', data => {
-        socket.broadcast.emit('typing', data)
+      console.log('broadcast info from: ' + socket.id)
+      socket.on('broadcast', data => {
+        socket.broadcast.emit('broadcast', data)
       })
     })
   }

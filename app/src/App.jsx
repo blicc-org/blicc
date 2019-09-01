@@ -7,11 +7,10 @@ import { Dashboard } from './pages/dashboard/Dashboard'
 import { NotFound } from './pages/not-found/NotFound'
 import { AppProvider } from './common/context/AppContext'
 import { ToastProvider } from './common/context/ToastContext'
-import { ToastContainer } from './components/toast/ToastContainer'
 import { content } from './Content'
 import './App.scss'
 
-export function App() {
+export function App({ send }) {
   return (
     <AppProvider value={content}>
       <ToastProvider>
