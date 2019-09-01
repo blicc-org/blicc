@@ -25,6 +25,7 @@
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.8.1",
     "koa-bodyparser": "^4.2.1",
+    "koa-compose": "^4.1.0",
     "koa-logger": "^3.2.1",
     "koa-router": "^7.4.0",
     "koa-session": "^5.12.3",
@@ -32,6 +33,7 @@
     "pg": "^7.12.1",
     "redoc": "^2.0.0-rc.8-1",
     "shortid": "^2.2.14",
+    "socket.io": "^2.2.0",
     "swagger-jsdoc": "^3.4.0",
     "typeorm": "^0.2.18"
   },
@@ -45,6 +47,7 @@
     "@types/koa-session": "^5.10.1",
     "@types/node": "^12.7.3",
     "@types/shortid": "^0.0.29",
+    "@types/socket.io": "^2.1.2",
     "@types/swagger-jsdoc": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
