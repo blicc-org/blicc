@@ -15,7 +15,6 @@ export function App() {
   return (
     <AppProvider value={content}>
       <ToastProvider>
-        <ToastContainer />
         <Router>
           <Switch>
             <Route path="/" exact component={LandingPage} />
