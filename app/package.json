@@ -16,7 +16,8 @@
     "react-feather": "^1.1.6",
     "react-helmet": "^5.2.1",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "socket.io-client": "^2.2.0"
   },
   "devDependencies": {
     "@testing-library/react": "^8.0.4",
