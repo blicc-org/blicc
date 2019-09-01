@@ -40,7 +40,17 @@ export class App {
     this.koa.use(new SessionRouter('/sessions').routes())
 
     this.socket.on('connection', socket => {
-      console.log('Client has connected with socket id: ' + socket.id)
+      console.log('made socket connection, socket id: ' + socket.id)
+
+      socket.on('chat', data => {
+        const { message, handle } = data
+        console.log(`message: ${message}, handle: ${handle}`)
+        this.socket.sockets.emit('chat', data)
+      })
+
+      socket.on('typing', data => {
+        socket.broadcast.emit('typing', data)
+      })
     })
   }
 
