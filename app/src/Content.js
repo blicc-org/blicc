@@ -45,7 +45,7 @@ export const content = {
       items: [
         {
           title: 'Api Documentation',
-          link: 'https://api.blicc.org/docs',
+          link: 'https://api.blicc.org',
         },
       ],
     },
