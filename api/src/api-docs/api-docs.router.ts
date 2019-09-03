@@ -12,7 +12,7 @@ export class ApiDocsRouter {
 
   public routes(): Router.IMiddleware {
     this.router.get(
-      '/swagger.json',
+      'swagger.json',
       this.controller.swagger.bind(this.controller)
     )
     return this.router.routes()

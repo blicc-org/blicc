@@ -6,9 +6,9 @@ export class ApiDocsService {
     const swaggerDefinition = {
       openapi: '3.0.0',
       info: {
-        title: 'blicc.org',
+        title: 'api.blicc.org',
         version: '0.0.1',
-        description: 'Data visualization framework api!',
+        description: 'Backend api documentation',
       },
       host: 'api.blicc.org',
       basePath: '/',
@@ -16,7 +16,7 @@ export class ApiDocsService {
 
     const options = {
       swaggerDefinition,
-      apis: [path.resolve(__dirname, '../**/*.router.{ts,js}')],
+      apis: [path.resolve(__dirname, '../**/*.router.{js,ts}')],
     }
 
     return swaggerJSDoc(options)

@@ -10,7 +10,12 @@ export class SessionService {
   }
 
   public async authenticate(email: string, password: string): Promise<boolean> {
-    const user = await this.userRepo.findOne({ email })
+    const user = await this.userRepo
+      .createQueryBuilder('user')
+      .addSelect('user.passwordHash')
+      .where('user.email = :email', { email })
+      .getOne()
+
     if (user === undefined) return false
     return Hash.authenticate(password, user.passwordHash)
   }
