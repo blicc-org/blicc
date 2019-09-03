@@ -22,9 +22,6 @@ export class App {
     this.server = http.createServer(this.koa.callback())
     this.socket = io(this.server)
 
-    /**
-     * prevent checking for https encryption behind reverse proxy
-     */
     this.koa.proxy = true
 
     this.koa.use(cors({ credentials: true }))

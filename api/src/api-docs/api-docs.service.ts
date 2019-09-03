@@ -1,5 +1,6 @@
 import path from 'path'
 import swaggerJSDoc from 'swagger-jsdoc'
+
 export class ApiDocsService {
   public getSwaggerJSON(): unknown {
     const swaggerDefinition = {
@@ -15,7 +16,7 @@ export class ApiDocsService {
 
     const options = {
       swaggerDefinition,
-      apis: [path.resolve(__dirname, '../**/*.router.ts')],
+      apis: [path.resolve(__dirname, '../**/*.router.{ts,js}')],
     }
 
     return swaggerJSDoc(options)
