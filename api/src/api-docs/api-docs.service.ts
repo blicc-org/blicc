@@ -9,12 +9,13 @@ export class ApiDocsService {
         version: '0.0.1',
         description: 'Data visualization framework api!',
       },
+      host: 'api.blicc.org',
       basePath: '/',
     }
 
     const options = {
       swaggerDefinition,
-      apis: [path.resolve(__dirname, '../**/*.controller.ts')],
+      apis: [path.resolve(__dirname, '../**/*.router.ts')],
     }
 
     return swaggerJSDoc(options)
