@@ -2,7 +2,7 @@
 
 ### Vision
 
-As small and medium-sized companies it is hard to analyse manufacturing data without spending a lot of money for software licenses. Often web-based data visualization software is out of date with the todays interface standards, hard to scale and not able to run in a docker environment. Blicc aims to provide a lightweight, user-friendly software to simplify data visualization in the browser.
+Blicc aims to provide a lightweight, user-friendly software to simplify data visualization in the browser.
 
 ## Docs
 
@@ -13,12 +13,13 @@ As small and medium-sized companies it is hard to analyse manufacturing data wit
 #### Technologies
 
 - **Full-stack JavaScript**:
-  - **NodeJS**: Backend Node.js server
+  - **NodeJS**: Backend Node.js server with Koa
   - **React**: Frontend React app
 - **RabbitMQ**: Open source message broker
 - **ChartJS**: Simple yet flexible JavaScript charting library
 - **Typescript**: Type-safe JavaScript in the backend
-- **PassportJS**: Authentication
+- **JWT**: Authentification
+- **Socket.io**: For sending events via websockets
 
 #### Folder structure
 
