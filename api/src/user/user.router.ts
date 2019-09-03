@@ -35,48 +35,43 @@ export class UserRouter {
      *     description: Retrieve details of a specific user
      *     produces:
      *       - application/json
-     *     requestBody:
-     *         content:
-     *           application/json:
-     *             schema:
-     *               required:
-     *               - dataFilter
-     *               properties:
-     *                 dataFilter:
-     *                   type: object
-     *                   required:
-     *                   - dateFrom
-     *                   - dateTo
-     *                   properties:
-     *                     dateFrom:
-     *                       type: string
-     *                       format: date-time
-     *                       description: RFC 3339
-     *                     dateTo:
-     *                       type: string
-     *                       format: date-time
-     *                       description: RFC 3339
-     *             examples:
-     *               filter:
-     *                 value: {
-     *                   dateFrom: '2018-07-31T22:00:00.000Z',
-     *                   dateTo: '2018-08-14T22:00:00.000Z'
-     *                 }
      *     responses:
      *       200:
      *         description: Success
      *         content:
-     *           text/html:
+     *           application/json:
      *             schema:
      *               required:
-     *               - path
+     *               - user
      *               properties:
-     *                 path:
-     *                   type: string
-     *                   description: Qlik content library path to .csv data file
+     *                 user:
+     *                   type: object
+     *                   required:
+     *                   - id
+     *                   - firstName
+     *                   - lastName
+     *                   - email
+     *                   - role
+     *                   properties:
+     *                     id:
+     *                       type: string
+     *                     firstName:
+     *                       type: string
+     *                     lastName:
+     *                       type: string
+     *                     email:
+     *                       type: string
+     *                     role:
+     *                       type: string
      *             examples:
      *               filter:
-     *                 value: "/data_tenantId.csv"
+     *                 value: {
+     *                   "id": "ojziCepXt",
+     *                   "firstName": "John",
+     *                   "lastName": "Doe",
+     *                   "email": "john.doe@email.com",
+     *                   "role": "user"
+     *                 }
      *       500:
      *         description: Internal Server Error response.
      */
@@ -90,11 +85,6 @@ export class UserRouter {
      *     tags:
      *       - User
      *     summary: Register user
-     *     securitySchemes:
-     *       bearerAuth:
-     *         type: http
-     *         scheme: bearer
-     *         bearerFormat: JWT
      *     description: Register a user
      *     produces:
      *       - application/json
@@ -103,43 +93,39 @@ export class UserRouter {
      *           application/json:
      *             schema:
      *               required:
-     *               - dataFilter
+     *               - user
      *               properties:
-     *                 dataFilter:
+     *                 user:
      *                   type: object
      *                   required:
-     *                   - dateFrom
-     *                   - dateTo
+     *                   - firstName
+     *                   - lastName
+     *                   - email
+     *                   - password
      *                   properties:
-     *                     dateFrom:
+     *                     firstName:
      *                       type: string
-     *                       format: date-time
-     *                       description: RFC 3339
-     *                     dateTo:
+     *                     lastName:
      *                       type: string
-     *                       format: date-time
-     *                       description: RFC 3339
+     *                     email:
+     *                       type: string
+     *                     password:
+     *                       type: string
      *             examples:
      *               filter:
      *                 value: {
-     *                   dateFrom: '2018-07-31T22:00:00.000Z',
-     *                   dateTo: '2018-08-14T22:00:00.000Z'
+     *                   "firstName": "John",
+     *                   "lastName": "Doe",
+     *                   "email": "john.doe@email.com",
+     *                   "password": "PJTjthaX2kSM8hvG"
      *                 }
      *     responses:
-     *       200:
-     *         description: Success
-     *         content:
-     *           text/html:
-     *             schema:
-     *               required:
-     *               - path
-     *               properties:
-     *                 path:
-     *                   type: string
-     *                   description: Qlik content library path to .csv data file
-     *             examples:
-     *               filter:
-     *                 value: "/data_tenantId.csv"
+     *       201:
+     *         description: Created
+     *       409:
+     *         description: Conflict
+     *       422:
+     *         description: Unprocessable entity
      *       500:
      *         description: Internal Server Error response.
      */

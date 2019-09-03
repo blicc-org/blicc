@@ -19,12 +19,7 @@ export class SessionRouter {
      *     tags:
      *       - Sessions
      *     summary: Open session
-     *     securitySchemes:
-     *       bearerAuth:
-     *         type: http
-     *         scheme: bearer
-     *         bearerFormat: JWT
-     *     description: Register a user
+     *     description: Request JWT to authenticate a user during a session
      *     produces:
      *       - application/json
      *     requestBody:
@@ -32,45 +27,59 @@ export class SessionRouter {
      *           application/json:
      *             schema:
      *               required:
-     *               - dataFilter
+     *               - credentials
      *               properties:
-     *                 dataFilter:
+     *                 credentials:
      *                   type: object
      *                   required:
-     *                   - dateFrom
-     *                   - dateTo
+     *                   - email
+     *                   - password
      *                   properties:
-     *                     dateFrom:
+     *                     email:
      *                       type: string
-     *                       format: date-time
-     *                       description: RFC 3339
-     *                     dateTo:
+     *                     password:
      *                       type: string
-     *                       format: date-time
-     *                       description: RFC 3339
      *             examples:
      *               filter:
      *                 value: {
-     *                   dateFrom: '2018-07-31T22:00:00.000Z',
-     *                   dateTo: '2018-08-14T22:00:00.000Z'
+     *                   "email": "john.doe@email.com",
+     *                   "password": "8GmJUyw5RZHH6JgS"
      *                 }
      *     responses:
-     *       200:
-     *         description: Success
+     *       202:
+     *         description: Accepted
      *         content:
-     *           text/html:
+     *           JWT:
      *             schema:
      *               required:
-     *               - path
+     *               - jwt
      *               properties:
-     *                 path:
-     *                   type: string
-     *                   description: Qlik content library path to .csv data file
+     *                 jwt:
+     *                   type: json web token
+     *                   description: A JWT will be stored in the cookies for authentication
      *             examples:
      *               filter:
-     *                 value: "/data_tenantId.csv"
+     *                 value: {
+     *                   "header": {
+     *                     "alg": "RS256",
+     *                     "typ": "JWT"
+     *                   },
+     *                   "payload": {
+     *                     "iat": 1567539096,
+     *                     "exp": 1567711896,
+     *                     "email": "john.doe@email.com",
+     *                   },
+     *                   "signature": "RSASHA256"
+     *                 }
+     *       403:
+     *         description: Forbidden
+     *       404:
+     *         description: Not found
+     *       422:
+     *         description: Unprocessable entity
      *       500:
      *         description: Internal Server Error response.
+
      */
     this.router.post('/', this.controller.login.bind(this.controller))
 
