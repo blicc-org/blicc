@@ -14,8 +14,4 @@ socket.on('broadcast', data => {
   console.log(`${data.label} - ${data.message}`)
 })
 
-function send(data) {
-  socket.emit('broadcast', data)
-}
-
-ReactDOM.render(<App send={send} />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'))

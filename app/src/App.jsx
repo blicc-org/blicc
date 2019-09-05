@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { LandingPage } from './pages/landing-page/LandingPage'
 import { Login } from './pages/login/Login'
@@ -7,12 +7,14 @@ import { Dashboard } from './pages/dashboard/Dashboard'
 import { NotFound } from './pages/not-found/NotFound'
 import { AppProvider } from './common/context/AppContext'
 import { ToastProvider } from './common/context/ToastContext'
-import { content } from './Content'
+import { INITIAL_APP_STATE } from './common/context/AppContext'
 import './App.scss'
 
-export function App({ send }) {
+export function App() {
+  const [appState, setAppState] = useState(INITIAL_APP_STATE)
+
   return (
-    <AppProvider value={content}>
+    <AppProvider value={[appState, setAppState]}>
       <ToastProvider>
         <Router>
           <Switch>

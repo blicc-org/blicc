@@ -1,7 +1,6 @@
-import React, { useContext } from 'react'
-import { AppContext } from '../../common/context/AppContext'
+import React from 'react'
+import { content } from '../../Content'
 
 export function Copyright() {
-  const { metadata } = useContext(AppContext)
-  return <p> {`${metadata.copyright} ${new Date().getFullYear()}`}</p>
+  return <p> {`${content.metadata.copyright} ${new Date().getFullYear()}`}</p>
 }

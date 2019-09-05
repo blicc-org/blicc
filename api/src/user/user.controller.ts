@@ -13,8 +13,6 @@ export class UserController {
   public async register(ctx: Koa.BaseContext, next: Function): Promise<void> {
     await next()
 
-    console.log(ctx.request.body)
-
     const { firstName, lastName, email, password } = ctx.request.body
 
     if (
@@ -42,7 +40,7 @@ export class UserController {
       )
       if (user !== undefined) {
         ctx.status = status.CREATED
-        ctx.body = { id: user.id }
+        ctx.body = user
         return
       }
     } catch (e) {

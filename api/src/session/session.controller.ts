@@ -24,7 +24,9 @@ export class SessionController {
       return
     }
 
-    if (!(await this.userService.exists(email))) {
+    const user = await this.userService.select(email)
+
+    if (!user) {
       ctx.status = status.NOT_FOUND
       return
     }
@@ -43,5 +45,9 @@ export class SessionController {
     })
 
     ctx.status = status.ACCEPTED
+    ctx.body = {
+      jwt: token,
+      user,
+    }
   }
 }

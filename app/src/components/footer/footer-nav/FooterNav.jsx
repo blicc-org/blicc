@@ -1,12 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { FooterNavList } from './FooterNavList'
-import { AppContext } from '../../../common/context/AppContext'
+import { content } from '../../../Content'
 
 export function FooterNav() {
-  const data = useContext(AppContext)
   return (
     <>
-      {data.footerNavigation.map(list => (
+      {content.footerNavigation.map(list => (
         <FooterNavList key={list.category} list={list} />
       ))}
     </>
