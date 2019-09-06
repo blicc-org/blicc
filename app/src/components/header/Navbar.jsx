@@ -2,10 +2,20 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { content } from '../../Content'
 import { AppContext } from '../../common/context/AppContext'
+import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
+import { API_URL } from '../../config'
 import './Navbar.scss'
 
 export function NavBar() {
-  const [appState] = useContext(AppContext)
+  const [appState, setAppState] = useContext(AppContext)
+  const [, , , closeSession] = useApiEndpoint(`${API_URL}/sessions`)
+
+  async function logout() {
+    const [status] = await closeSession()
+    if (status === 205) {
+      setAppState({ ...appState, loggedIn: false })
+    }
+  }
 
   return (
     <>
@@ -63,7 +73,11 @@ export function NavBar() {
                     Settings
                   </Link>
                   <div className="dropdown-divider"></div>
-                  <Link className="dropdown-item" to="/">
+                  <Link
+                    className="dropdown-item"
+                    to="/"
+                    onClick={() => logout()}
+                  >
                     Logout
                   </Link>
                 </div>

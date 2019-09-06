@@ -79,9 +79,23 @@ export class SessionRouter {
      *         description: Unprocessable entity
      *       500:
      *         description: Internal Server Error response.
-
      */
     this.router.post('/', this.controller.login.bind(this.controller))
+
+    /**
+     * @swagger
+     *
+     * /sessions:
+     *   delete:
+     *     tags:
+     *       - Sessions
+     *     summary: Close session
+     *     description: Reset the JWT in the cookies
+     *     responses:
+     *       205:
+     *         description: Reset content
+     */
+    this.router.delete('/', this.controller.logout.bind(this.controller))
 
     return this.router.routes()
   }

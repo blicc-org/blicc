@@ -47,7 +47,13 @@ export class SessionController {
     ctx.status = status.ACCEPTED
     ctx.body = {
       jwt: token,
-      user,
+      ...user,
     }
+  }
+
+  public async logout(ctx: Koa.BaseContext, next: Function): Promise<void> {
+    await next()
+    ctx.cookies.set('access_token', null)
+    ctx.status = status.RESET_CONTENT
   }
 }

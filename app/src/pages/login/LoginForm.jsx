@@ -14,14 +14,13 @@ export function LoginForm() {
 
   async function login(e) {
     e.preventDefault()
-
-    const [status, data] = await createSession({ email, password })
+    const [, data] = await createSession({ email, password })
 
     setAppState({
       ...appState,
       loggedIn: true,
-      firstName: data.user.firstName,
-      lastName: data.user.lastName,
+      firstName: data.firstName,
+      lastName: data.lastName,
     })
   }
 
