@@ -18,7 +18,7 @@ export class UserService {
     role = 'user'
   ): Promise<User> {
     const passwordHash = Hash.generate(password)
-    let user = new User(firstName, lastName, email, passwordHash, role)
+    const user = new User(firstName, lastName, email, passwordHash, role)
     return await this.repo.save(user)
   }
 

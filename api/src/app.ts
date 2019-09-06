@@ -10,6 +10,7 @@ import { ApiDocsRouter } from './api-docs/api-docs.router'
 import { AdminRouter } from './admin/admin.router'
 import { UserRouter } from './user/user.router'
 import { SessionRouter } from './session/session.router'
+import { DashboardRouter } from './dashboard/dashboard.router'
 
 export class App {
   private koa: Koa
@@ -32,6 +33,7 @@ export class App {
     this.koa.use(new AdminRouter('/admin').routes())
     this.koa.use(new UserRouter('/users').routes())
     this.koa.use(new SessionRouter('/sessions').routes())
+    this.koa.use(new DashboardRouter('/dashboards').routes())
 
     this.socket.on('connection', socket => {
       console.log('broadcast info from: ' + socket.id)
