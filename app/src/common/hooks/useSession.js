@@ -2,11 +2,13 @@ import { useContext } from 'react'
 import { useApiEndpoint } from './useApiEndpoint'
 import { API_URL } from '../../config'
 import { AppContext, INITIAL_APP_STATE } from '../context/AppContext'
+import { ToastContext } from '../context/ToastContext'
 import statusCode from 'http-status-codes'
 
 export function useSession() {
   const [open, , , close] = useApiEndpoint(`${API_URL}/sessions`)
   const [appState, setAppState] = useContext(AppContext)
+  const [, showToast] = useContext(ToastContext)
 
   async function login(email, password) {
     const [status, data] = await open({ email, password })
@@ -17,6 +19,7 @@ export function useSession() {
         firstName: data.firstName,
         lastName: data.lastName,
       })
+      showToast('Login', 'You just successfully logged in.')
     }
   }
 

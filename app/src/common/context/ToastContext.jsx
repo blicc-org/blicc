@@ -1,40 +1,33 @@
 import React, { useState } from 'react'
 
-const DEFAULT_STATE = {
-  show: false,
-  displayText: '',
-  type: 'info',
-  timeOut: 5000,
-}
-
-export const ToastContext = React.createContext(DEFAULT_STATE)
+export const ToastContext = React.createContext()
 
 export function ToastProvider({ children }) {
-  const [state, setState] = useState(DEFAULT_STATE)
+  const [toasts, setToasts] = useState([])
+  const [key, setKey] = useState(0)
 
-  function showToast(
-    message,
-    type = DEFAULT_STATE.type,
-    timeOut = DEFAULT_STATE.timeOut
-  ) {
-    setState({
-      show: true,
+  function showToast(label, message, type = 'info') {
+    let copy = [...toasts]
+
+    copy.push({
+      key,
+      label,
       message,
       type,
-      timeOut,
     })
+
+    setKey(key + 1)
+    setToasts(copy)
+
     setTimeout(() => {
-      setState({
-        show: false,
-        message: '',
-        type: '',
-        timeOut,
-      })
-    }, state.timeOut)
+      let copy = [...toasts]
+      copy.pop()
+      setToasts(copy)
+    }, 5000)
   }
 
   return (
-    <ToastContext.Provider value={{ ...state, showToast }}>
+    <ToastContext.Provider value={[toasts, showToast]}>
       {children}
     </ToastContext.Provider>
   )

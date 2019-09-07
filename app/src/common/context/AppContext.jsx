@@ -1,4 +1,5 @@
-import { createContext } from 'react'
+import React, { createContext } from 'react'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
 export const INITIAL_APP_STATE = {
   loggedIn: false,
@@ -7,4 +8,17 @@ export const INITIAL_APP_STATE = {
 }
 
 export const AppContext = createContext()
-export const { Provider: AppProvider, Consumer: AppConsumer } = AppContext
+export const { Consumer: AppConsumer } = AppContext
+
+export function AppProvider({ children }) {
+  const [appState, setAppState] = useLocalStorage(
+    'app_state',
+    INITIAL_APP_STATE
+  )
+
+  return (
+    <AppContext.Provider value={[appState, setAppState]}>
+      {children}
+    </AppContext.Provider>
+  )
+}

@@ -8,18 +8,12 @@ import { NotFound } from './pages/not-found/NotFound'
 import { ProtectedRoute } from './common/protected-route/ProtectedRoute'
 import { AppProvider } from './common/context/AppContext'
 import { ToastProvider } from './common/context/ToastContext'
-import { useLocalStorage } from './common/hooks/useLocalStorage'
-import { INITIAL_APP_STATE } from './common/context/AppContext'
+import { ToastContainer } from './components/toast/ToastContainer'
 import './App.scss'
 
 export function App() {
-  const [appState, setAppState] = useLocalStorage(
-    'app_state',
-    INITIAL_APP_STATE
-  )
-
   return (
-    <AppProvider value={[appState, setAppState]}>
+    <AppProvider>
       <ToastProvider>
         <Router>
           <Switch>
@@ -30,6 +24,7 @@ export function App() {
             <Route component={NotFound} />
           </Switch>
         </Router>
+        <ToastContainer />
       </ToastProvider>
     </AppProvider>
   )
