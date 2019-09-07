@@ -4,30 +4,29 @@ import code from 'http-status-codes'
 
 export function useApiEndpoint(path) {
   const config = { withCredentials: true }
-  const [localStorage, setLocalStorage] = useState(null)
+  const [storage, setStorage] = useState(null)
 
   async function create(resource) {
     const { data, status } = await axios.post(path, resource, config)
-    if (status === code.CREATED) setLocalStorage(resource)
+    if (status === code.CREATED) setStorage(resource)
     return [status, data]
   }
 
   async function access(forceApiRequest = false) {
-    if (!forceApiRequest && localStorage !== null)
-      return [code.OK, localStorage]
+    if (!forceApiRequest && storage !== null) return [code.OK, storage]
     const { data, status } = await axios.get(path, config)
     return [status, data]
   }
 
   async function update(resource) {
     const { data, status } = await axios.put(path, resource, config)
-    if (status === code.NO_CONTENT) setLocalStorage(resource)
+    if (status === code.NO_CONTENT) setStorage(resource)
     return [status, data]
   }
 
   async function remove() {
     const { data, status } = await axios.delete(path, config)
-    if (status === code.NO_CONTENT) setLocalStorage(null)
+    if (status === code.NO_CONTENT) setStorage(null)
     return [status, data]
   }
 
