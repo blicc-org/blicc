@@ -19,14 +19,15 @@ export function useSession() {
         firstName: data.firstName,
         lastName: data.lastName,
       })
-      showToast('Login', 'You just successfully logged in.')
+      showToast('Login', 'The login was successful.')
     }
   }
 
   async function logout() {
     const [status] = await close()
-    if (status === statusCode.RESET_CONTENT) {
+    if (status === statusCode.NO_CONTENT) {
       setAppState(INITIAL_APP_STATE)
+      showToast('Logout', 'The logout was successful.')
     }
   }
 

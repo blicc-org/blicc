@@ -54,9 +54,6 @@ export class SessionController {
   public async logout(ctx: Koa.BaseContext, next: Function): Promise<void> {
     await next()
     ctx.cookies.set('access_token', null)
-    ctx.status = status.RESET_CONTENT
-    ctx.body = {
-      message: 'Browser cookie storage has been cleaned.',
-    }
+    ctx.status = status.NO_CONTENT
   }
 }
