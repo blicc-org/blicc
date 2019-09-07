@@ -6,7 +6,6 @@ import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
 import { API_URL } from '../../config'
 import { NavbarUser } from './NavbarUser'
 import { NavbarDashboard } from './NavbarDashboard'
-import './Navbar.scss'
 
 export function NavBar() {
   const [appState, setAppState] = useContext(AppContext)
@@ -20,10 +19,16 @@ export function NavBar() {
     }
   }
 
+  const styles = {
+    paddingTop: '0.5rem',
+    paddingBottom: '0.5rem',
+    fontSize: '1rem',
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand fixed-top navbar-dark bg-dark p-0">
-        <Link className="navbar-brand pl-3 mx-0" to="/">
+        <Link className="navbar-brand pl-3 mx-0" style={styles} to="/">
           {content.metadata.title}
         </Link>
         <div

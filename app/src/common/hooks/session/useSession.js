@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { useApiEndpoint } from '../useApiEndpoint'
 import { API_URL } from '../../../config'
-import { AppContext } from '../../context/AppContext'
+import { AppContext, INITIAL_APP_STATE } from '../../context/AppContext'
 import statusCode from 'http-status-codes'
 
 export function useSession() {
@@ -11,19 +11,21 @@ export function useSession() {
   async function login(email, password) {
     const [status, data] = await open({ email, password })
     if (status === statusCode.ACCEPTED) {
+      console.log('login successful')
       setAppState({
         ...appState,
         loggedIn: true,
         firstName: data.firstName,
         lastName: data.lastName,
       })
+      console.log(appState)
     }
   }
 
   async function logout() {
     const [status] = await close()
     if (status === statusCode.RESET_CONTENT) {
-      setAppState({ ...appState, loggedIn: false })
+      setAppState(INITIAL_APP_STATE)
     }
   }
 

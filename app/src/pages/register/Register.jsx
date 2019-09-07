@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { Header } from '../../components/header/Header'
 import { RegisterForm } from './RegisterForm'
@@ -7,7 +7,6 @@ import { API_URL } from '../../config'
 import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
 import { useSession } from '../../common/hooks/session/useSession'
 import { RegisterService } from './RegisterService'
-import { AppContext, INITIAL_APP_STATE } from '../../common/context/AppContext'
 
 export function Register() {
   const [user, setUser] = useState({
@@ -20,10 +19,8 @@ export function Register() {
 
   const [createUser, , ,] = useApiEndpoint(`${API_URL}/users`)
 
-  const [appState, setAppState] = useContext(AppContext)
+  const [onRegister, setOnRegister] = useState(false)
   const [login] = useSession()
-
-  setAppState(INITIAL_APP_STATE)
 
   async function register() {
     if (
@@ -41,12 +38,14 @@ export function Register() {
       })
       if (isCreated === 201) {
         await login(user.email, user.password)
+        setOnRegister(true)
       }
     }
   }
+
   return (
     <>
-      {appState.loggedIn && <Redirect to="/dashboards" />}
+      {onRegister && <Redirect to="/dashboards" />}
       <Header />
       <RegisterForm user={user} setUser={setUser} register={register} />
       <Footer />
