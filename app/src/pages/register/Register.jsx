@@ -20,9 +20,7 @@ export function Register() {
   const [createUser, , ,] = useApiEndpoint(`${API_URL}/users`)
 
   const [onRegister, setOnRegister] = useState(false)
-  const [login, logout] = useSession()
-
-  if (!onRegister) logout()
+  const [login] = useSession()
 
   async function register() {
     if (
