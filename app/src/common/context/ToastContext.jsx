@@ -6,7 +6,7 @@ export function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([])
   const [key, setKey] = useState(0)
 
-  function showToast(label, message, type = 'info') {
+  function showToast(label, message) {
     setKey(key + 1)
     setToasts([
       ...toasts,
@@ -14,7 +14,6 @@ export function ToastProvider({ children }) {
         key,
         label,
         message,
-        type,
       },
     ])
 
