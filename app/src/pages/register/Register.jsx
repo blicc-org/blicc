@@ -22,6 +22,8 @@ export function Register() {
 
   const [appState, setAppState] = useContext(AppContext)
 
+  const [onRegister, SetOnRegister] = useState(false)
+
   async function register() {
     if (
       RegisterService.isName(user.firstName) &&
@@ -48,13 +50,14 @@ export function Register() {
             firstName: user.firstName,
             lastName: user.lastName,
           })
+          SetOnRegister(true)
         }
       }
     }
   }
   return (
     <>
-      {appState.loggedIn && <Redirect to="/dashboards" />}
+      {onRegister && <Redirect to="/dashboards" />}
       <Header />
       <RegisterForm user={user} setUser={setUser} register={register} />
       <Footer />

@@ -18,14 +18,6 @@ export const content = {
           link: '/register',
         },
         {
-          title: 'Login',
-          link: '/login',
-        },
-        {
-          title: 'Dasboards',
-          link: '/dashboards',
-        },
-        {
           title: 'Landing Page',
           link: '/',
         },

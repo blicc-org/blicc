@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import './LoginForm.css'
 import { API_URL } from '../../config'
 import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
@@ -56,9 +56,8 @@ export function LoginForm() {
             required
           />
           <div className="checkbox mb-3">
-            <label>
-              <input type="checkbox" value="remember-me" /> Remember me
-            </label>
+            {`No account yet? `}
+            <Link to="/register">Register now</Link>
           </div>
           <button
             className="btn btn-lg btn-primary btn-block"
