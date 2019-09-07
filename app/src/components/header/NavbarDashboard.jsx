@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 export function NavbarDashboard({ amount }) {
   return (
@@ -22,7 +21,7 @@ export function NavbarDashboard({ amount }) {
         <div className="dropdown-menu">
           <form className="px-4 py-3">
             <div className="form-group">
-              <label for="exampleDropdownFormEmail1">Email address</label>
+              <label htmlFor="exampleDropdownFormEmail1">Email address</label>
               <input
                 type="email"
                 className="form-control"
@@ -31,7 +30,7 @@ export function NavbarDashboard({ amount }) {
               />
             </div>
             <div className="form-group">
-              <label for="exampleDropdownFormPassword1">Password</label>
+              <label htmlFor="exampleDropdownFormPassword1">Password</label>
               <input
                 type="password"
                 className="form-control"
@@ -46,7 +45,7 @@ export function NavbarDashboard({ amount }) {
                   className="form-check-input"
                   id="dropdownCheck"
                 />
-                <label className="form-check-label" for="dropdownCheck">
+                <label className="form-check-label" htmlFor="dropdownCheck">
                   Remember me
                 </label>
               </div>
@@ -56,10 +55,10 @@ export function NavbarDashboard({ amount }) {
             </button>
           </form>
           <div className="dropdown-divider"></div>
-          <a className="dropdown-item" href="#">
+          <a className="dropdown-item" href="/">
             New around here? Sign up
           </a>
-          <a className="dropdown-item" href="#">
+          <a className="dropdown-item" href="/">
             Forgot password?
           </a>
         </div>

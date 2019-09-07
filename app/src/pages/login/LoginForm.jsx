@@ -1,28 +1,14 @@
 import React, { useState, useContext } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import './LoginForm.css'
-import { API_URL } from '../../config'
-import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
 import { AppContext } from '../../common/context/AppContext'
+import { useSession } from '../../common/hooks/session/useSession'
 
 export function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [createSession, , ,] = useApiEndpoint(`${API_URL}/sessions`)
-
-  const [appState, setAppState] = useContext(AppContext)
-
-  async function login(e) {
-    e.preventDefault()
-    const [, data] = await createSession({ email, password })
-
-    setAppState({
-      ...appState,
-      loggedIn: true,
-      firstName: data.firstName,
-      lastName: data.lastName,
-    })
-  }
+  const [appState] = useContext(AppContext)
+  const [login] = useSession()
 
   return (
     <>
@@ -62,7 +48,10 @@ export function LoginForm() {
           <button
             className="btn btn-lg btn-primary btn-block"
             type="submit"
-            onClick={login}
+            onClick={async e => {
+              e.preventDefault()
+              await login(email, password)
+            }}
           >
             Sign in
           </button>

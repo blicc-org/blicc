@@ -5,8 +5,9 @@ import { RegisterForm } from './RegisterForm'
 import { Footer } from '../../components/footer/Footer'
 import { API_URL } from '../../config'
 import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
+import { useSession } from '../../common/hooks/session/useSession'
 import { RegisterService } from './RegisterService'
-import { AppContext } from '../../common/context/AppContext'
+import { AppContext, INITIAL_APP_STATE } from '../../common/context/AppContext'
 
 export function Register() {
   const [user, setUser] = useState({
@@ -18,11 +19,11 @@ export function Register() {
   })
 
   const [createUser, , ,] = useApiEndpoint(`${API_URL}/users`)
-  const [createSession, , ,] = useApiEndpoint(`${API_URL}/sessions`)
 
   const [appState, setAppState] = useContext(AppContext)
+  const [login] = useSession()
 
-  const [onRegister, SetOnRegister] = useState(false)
+  setAppState(INITIAL_APP_STATE)
 
   async function register() {
     if (
@@ -39,25 +40,13 @@ export function Register() {
         password: user.password,
       })
       if (isCreated === 201) {
-        const [isAccepted] = await createSession({
-          email: user.email,
-          password: user.password,
-        })
-        if (isAccepted === 202) {
-          setAppState({
-            ...appState,
-            loggedIn: true,
-            firstName: user.firstName,
-            lastName: user.lastName,
-          })
-          SetOnRegister(true)
-        }
+        await login(user.email, user.password)
       }
     }
   }
   return (
     <>
-      {onRegister && <Redirect to="/dashboards" />}
+      {appState.loggedIn && <Redirect to="/dashboards" />}
       <Header />
       <RegisterForm user={user} setUser={setUser} register={register} />
       <Footer />
