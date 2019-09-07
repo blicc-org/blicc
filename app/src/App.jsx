@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { LandingPage } from './pages/landing-page/LandingPage'
 import { Login } from './pages/login/Login'
@@ -9,9 +9,13 @@ import { AppProvider } from './common/context/AppContext'
 import { ToastProvider } from './common/context/ToastContext'
 import { INITIAL_APP_STATE } from './common/context/AppContext'
 import './App.scss'
+import { useLocalStorage } from './common/hooks/useLocalStorage'
 
 export function App() {
-  const [appState, setAppState] = useState(INITIAL_APP_STATE)
+  const [appState, setAppState] = useLocalStorage(
+    'app_state',
+    INITIAL_APP_STATE
+  )
 
   return (
     <AppProvider value={[appState, setAppState]}>

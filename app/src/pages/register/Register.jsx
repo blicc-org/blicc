@@ -5,7 +5,7 @@ import { RegisterForm } from './RegisterForm'
 import { Footer } from '../../components/footer/Footer'
 import { API_URL } from '../../config'
 import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
-import { useSession } from '../../common/hooks/session/useSession'
+import { useSession } from '../../common/hooks/useSession'
 import { RegisterService } from './RegisterService'
 
 export function Register() {
@@ -20,7 +20,9 @@ export function Register() {
   const [createUser, , ,] = useApiEndpoint(`${API_URL}/users`)
 
   const [onRegister, setOnRegister] = useState(false)
-  const [login] = useSession()
+  const [login, logout] = useSession()
+
+  if (!onRegister) logout()
 
   async function register() {
     if (
@@ -37,8 +39,8 @@ export function Register() {
         password: user.password,
       })
       if (isCreated === 201) {
-        await login(user.email, user.password)
         setOnRegister(true)
+        await login(user.email, user.password)
       }
     }
   }

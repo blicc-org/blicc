@@ -2,22 +2,15 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { content } from '../../Content'
 import { AppContext } from '../../common/context/AppContext'
-import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
-import { API_URL } from '../../config'
+import { useSession } from '../../common/hooks/useSession'
 import { NavbarUser } from './NavbarUser'
 import { NavbarDashboard } from './NavbarDashboard'
 
 export function NavBar() {
-  const [appState, setAppState] = useContext(AppContext)
-  const [, , , closeSession] = useApiEndpoint(`${API_URL}/sessions`)
+  const [appState] = useContext(AppContext)
   const { firstName, lastName, loggedIn } = appState
 
-  async function logout() {
-    const [status] = await closeSession()
-    if (status === 205) {
-      setAppState({ ...appState, loggedIn: false })
-    }
-  }
+  const [, logout] = useSession()
 
   const styles = {
     paddingTop: '0.5rem',

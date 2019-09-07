@@ -34,7 +34,11 @@ export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
               Settings
             </Link>
             <div className="dropdown-divider"></div>
-            <Link className="dropdown-item" to="/" onClick={() => logout()}>
+            <Link
+              className="dropdown-item"
+              to="/"
+              onClick={async () => await logout()}
+            >
               Logout
             </Link>
           </div>

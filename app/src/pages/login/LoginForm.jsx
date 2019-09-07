@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import './LoginForm.css'
 import { AppContext } from '../../common/context/AppContext'
-import { useSession } from '../../common/hooks/session/useSession'
+import { useSession } from '../../common/hooks/useSession'
 
 export function LoginForm() {
   const [email, setEmail] = useState('')
