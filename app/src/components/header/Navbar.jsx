@@ -28,7 +28,7 @@ export function NavBar() {
           className="collapse navbar-collapse px-3"
           id="navbarSupportedContent"
         >
-          <NavbarDashboard amount={27} />
+          <NavbarDashboard loggedIn={loggedIn} amount={27} />
           <NavbarUser
             firstName={firstName}
             lastName={lastName}

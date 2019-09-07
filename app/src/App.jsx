@@ -5,11 +5,12 @@ import { Login } from './pages/login/Login'
 import { Register } from './pages/register/Register'
 import { Dashboard } from './pages/dashboard/Dashboard'
 import { NotFound } from './pages/not-found/NotFound'
+import { ProtectedRoute } from './common/protected-route/ProtectedRoute'
 import { AppProvider } from './common/context/AppContext'
 import { ToastProvider } from './common/context/ToastContext'
+import { useLocalStorage } from './common/hooks/useLocalStorage'
 import { INITIAL_APP_STATE } from './common/context/AppContext'
 import './App.scss'
-import { useLocalStorage } from './common/hooks/useLocalStorage'
 
 export function App() {
   const [appState, setAppState] = useLocalStorage(
@@ -25,7 +26,7 @@ export function App() {
             <Route path="/" exact component={LandingPage} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/dashboards" component={Dashboard} />
+            <ProtectedRoute path="/dashboards" component={Dashboard} />
             <Route component={NotFound} />
           </Switch>
         </Router>

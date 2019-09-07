@@ -7,7 +7,7 @@ export function Headline() {
     <div className="col-md-5 mx-auto py-5 my-5 text-center">
       <h1 className="display-4 font-weight-normal">{content.metadata.title}</h1>
       <p className="lead font-weight-normal">{content.metadata.description}</p>
-      <Link className="btn btn-outline-secondary" to="/dashboard">
+      <Link className="btn btn-outline-secondary" to="/dashboards">
         Get started
       </Link>
     </div>
