@@ -7,17 +7,16 @@ export function ToastProvider({ children }) {
   const [key, setKey] = useState(0)
 
   function showToast(label, message, type = 'info') {
-    let copy = [...toasts]
-
-    copy.push({
-      key,
-      label,
-      message,
-      type,
-    })
-
     setKey(key + 1)
-    setToasts(copy)
+    setToasts([
+      ...toasts,
+      {
+        key,
+        label,
+        message,
+        type,
+      },
+    ])
 
     setTimeout(() => {
       let copy = [...toasts]

@@ -8,7 +8,7 @@ import statusCode from 'http-status-codes'
 export function useSession() {
   const [open, , , close] = useApiEndpoint(`${API_URL}/sessions`)
   const [appState, setAppState] = useContext(AppContext)
-  const [, showToast] = useContext(ToastContext)
+  const [toasts, showToast] = useContext(ToastContext)
 
   async function login(email, password) {
     const [status, data] = await open({ email, password })
