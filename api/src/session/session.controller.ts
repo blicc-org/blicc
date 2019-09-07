@@ -52,12 +52,8 @@ export class SessionController {
   }
 
   public async logout(ctx: Koa.BaseContext, next: Function): Promise<void> {
-    console.log('1', new Date().toISOString())
     await next()
-    console.log('2', new Date().toISOString())
     ctx.cookies.set('access_token', null)
-    console.log('3', new Date().toISOString())
     ctx.status = status.RESET_CONTENT
-    console.log('4', new Date().toISOString())
   }
 }
