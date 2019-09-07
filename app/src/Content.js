@@ -22,8 +22,8 @@ export const content = {
           link: '/login',
         },
         {
-          title: 'Dasboard',
-          link: '/dashboard',
+          title: 'Dasboards',
+          link: '/dashboards',
         },
         {
           title: 'Landing Page',

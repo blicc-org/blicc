@@ -54,7 +54,7 @@ export function Register() {
   }
   return (
     <>
-      {appState.loggedIn && <Redirect to="/dashboard" />}
+      {appState.loggedIn && <Redirect to="/dashboards" />}
       <Header />
       <RegisterForm user={user} setUser={setUser} register={register} />
       <Footer />

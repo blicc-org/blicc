@@ -21,7 +21,7 @@ export function App() {
             <Route path="/" exact component={LandingPage} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/dashboards" component={Dashboard} />
             <Route component={NotFound} />
           </Switch>
         </Router>

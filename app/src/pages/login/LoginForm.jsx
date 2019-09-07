@@ -26,7 +26,7 @@ export function LoginForm() {
 
   return (
     <>
-      {appState.loggedIn && <Redirect to="/dashboard" />}
+      {appState.loggedIn && <Redirect to="/dashboards" />}
       <div className="col-md-5 mx-auto py-5 my-5 text-center">
         <form className="form-signin">
           <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>

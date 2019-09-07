@@ -19,30 +19,27 @@ export function NavBar() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg fixed-top navbar-dark bg-dark p-0">
-        <Link className="navbar-brand col-sm-3 col-md-2 mr-0" to="/">
+      <nav className="navbar navbar-expand fixed-top navbar-dark bg-dark p-0">
+        <Link className="navbar-brand pl-3 mx-0" to="/">
           {content.metadata.title}
         </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+        <div
+          className="collapse navbar-collapse px-3"
+          id="navbarSupportedContent"
         >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <input
-            className="form-control form-control-dark w-100"
-            type="text"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <ul className="navbar-nav px-3">
+          <ul className="navbar-nav">
+            <li className="nav-item text-nowrap">
+              <Link className="nav-link" to="/login">
+                Collections
+              </Link>
+            </li>
+            <li className="nav-item text-nowrap">
+              <Link className="nav-link" to="/login">
+                Dashboards
+              </Link>
+            </li>
+          </ul>
+          <ul className="navbar-nav ml-auto">
             {!appState.loggedIn ? (
               <li className="nav-item text-nowrap">
                 <Link className="nav-link" to="/login">
@@ -53,7 +50,7 @@ export function NavBar() {
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
-                  href="#"
+                  href="/"
                   id="navbarDropdown"
                   role="button"
                   data-toggle="dropdown"
