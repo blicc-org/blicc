@@ -27,20 +27,20 @@ export const content = {
       category: 'Community',
       items: [
         {
-          title: 'Host your own',
-          link: '/host-your-own',
-        },
-        {
           title: 'Github',
           link: 'https://github.com/blicc-org/blicc',
         },
       ],
     },
     {
-      category: 'Support',
+      category: 'About',
       items: [
         {
-          title: 'Api Documentation',
+          title: 'General docs',
+          link: '/docs',
+        },
+        {
+          title: 'OpenAPI 3.0 docs',
           link: 'https://api.blicc.org',
         },
       ],
