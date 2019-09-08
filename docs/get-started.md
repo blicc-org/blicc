@@ -1,3 +1,3 @@
 ## Get started
 
-coming soon ...
+coming soon ... :D
