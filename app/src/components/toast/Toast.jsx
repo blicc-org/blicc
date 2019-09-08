@@ -15,7 +15,6 @@ export function Toast({ label, message }) {
         >
           <div className="toast-header">
             <strong className="mr-auto">{label}</strong>
-            <small className="text-muted">Info</small>
             <button
               type="button"
               className="ml-2 mb-1 close"
