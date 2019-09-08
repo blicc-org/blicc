@@ -11,6 +11,7 @@ export function useSession() {
   const [, showToast] = useContext(ToastContext)
 
   async function login(email, password) {
+    console.log('yaayyyy')
     const [status, data] = await open({ email, password })
     if (status === statusCode.ACCEPTED) {
       setAppState({
@@ -19,8 +20,12 @@ export function useSession() {
         firstName: data.firstName,
         lastName: data.lastName,
       })
+    } else if (status === statusCode.FORBIDDEN) {
+      showToast('Login error', 'Wrong password. Please try it again.')
+    } else if (status === statusCode.NOT_FOUND) {
+      showToast('Login error', 'The account does not exist yet.')
     } else {
-      showToast('Login error', 'The login proccess failed.')
+      showToast('Login error', 'Login process failed.')
     }
   }
 
