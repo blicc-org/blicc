@@ -18,8 +18,8 @@ export function Register() {
   })
 
   const [createUser, , ,] = useApiEndpoint(`${API_URL}/users`)
-
   const [onRegister, setOnRegister] = useState(false)
+  const [, showToast] = useContext(ToastContext)
   const [login] = useSession()
 
   async function register() {
@@ -39,6 +39,8 @@ export function Register() {
       if (isCreated === 201) {
         setOnRegister(true)
         await login(user.email, user.password)
+      } else {
+        showToast('Register error', 'The registration process failed.')
       }
     }
   }

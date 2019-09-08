@@ -4,24 +4,15 @@ export const ToastContext = React.createContext()
 
 export function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([])
-  const [key, setKey] = useState(0)
 
   function showToast(label, message) {
-    setKey(key + 1)
-    setToasts([
-      ...toasts,
-      {
-        key,
-        label,
-        message,
-      },
-    ])
-
+    setToasts(prev => {
+      if (prev.filter(e => e.label === label).length > 0) return prev
+      return [{ label, message }, ...prev]
+    })
     setTimeout(() => {
-      let copy = [...toasts]
-      copy.pop()
-      setToasts(copy)
-    }, 5000)
+      setToasts(prev => prev.splice(0, prev.length - 1))
+    }, 10000)
   }
 
   return (
