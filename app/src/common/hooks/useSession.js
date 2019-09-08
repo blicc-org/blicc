@@ -23,7 +23,7 @@ export function useSession() {
     } else if (status === statusCode.FORBIDDEN) {
       showToast('Wrong password', 'Please try it again.')
     } else if (status === statusCode.NOT_FOUND) {
-      showToast('Wrong email', 'No account for the given email.')
+      showToast('Please register', 'No account for the given email.')
     } else {
       showToast('Login error', 'Login process failed.')
     }
