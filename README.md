@@ -23,7 +23,7 @@ Blicc aims to provide a lightweight, user-friendly software to simplify data vis
 
 #### Folder structure
 
-```sh
+```bash
 blicc/
 ├── api     # backend node.js api code
 ├── app     # frontend react code
