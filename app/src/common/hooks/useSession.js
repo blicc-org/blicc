@@ -21,9 +21,9 @@ export function useSession() {
         lastName: data.lastName,
       })
     } else if (status === statusCode.FORBIDDEN) {
-      showToast('Login error', 'Wrong password. Please try it again.')
+      showToast('Wrong password', 'Please try it again.')
     } else if (status === statusCode.NOT_FOUND) {
-      showToast('Login error', 'The account does not exist yet.')
+      showToast('Wrong email adresse', 'An account with the given email could not be found.')
     } else {
       showToast('Login error', 'Login process failed.')
     }
