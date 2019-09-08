@@ -8,6 +8,7 @@ import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
 import { useSession } from '../../common/hooks/useSession'
 import { RegisterService } from './RegisterService'
 import { ToastContext } from '../../common/context/ToastContext'
+import statusCode from 'http-status-codes'
 
 export function Register() {
   const [user, setUser] = useState({
@@ -31,15 +32,17 @@ export function Register() {
       RegisterService.isPassword(user.password) &&
       user.password === user.confirm
     ) {
-      const [isCreated] = await createUser({
+      const [status] = await createUser({
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
         password: user.password,
       })
-      if (isCreated === 201) {
+      if (status === statusCode.CREATED) {
         setOnRegister(true)
         await login(user.email, user.password)
+      } else if (status === statusCode.CONFLICT) {
+        showToast('Conflict', 'The given email already exists.')
       } else {
         showToast('Register error', 'The registration process failed.')
       }
