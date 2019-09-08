@@ -35,7 +35,8 @@
     "shortid": "^2.2.14",
     "socket.io": "^2.2.0",
     "swagger-jsdoc": "^3.4.0",
-    "typeorm": "^0.2.18"
+    "typeorm": "^0.2.18",
+    "typescript": "3.0.3"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -60,7 +61,6 @@
     "jest": "^24.9.0",
     "nodemon": "^1.19.1",
     "ts-jest": "^24.0.2",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.6.2"
+    "ts-node": "^8.3.0"
   }
 }
