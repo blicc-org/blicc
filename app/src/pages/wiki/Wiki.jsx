@@ -6,6 +6,7 @@ import { Highlighter } from '../../components/syntax-highlighting/Highlighter'
 import { Header } from '../../components/header/Header'
 import { Footer } from '../../components/footer/Footer'
 import { APP_URL } from '../../config'
+import './Wiki.scss'
 
 export function Wiki({ location }) {
   const [text, setText] = useState('')
@@ -21,33 +22,22 @@ export function Wiki({ location }) {
     getText()
   }, [location])
 
-  function handleHashChange(e) {
-    console.log(e)
-  }
-
-  useLayoutEffect(() => {
-    window.addEventListener('hashchange', handleHashChange, false)
-    return window.removeEventListener('hashchange', handleHashChange, false)
-  }, [])
-
   return (
     <>
       <Header />
-      <main role="main">
-        <div className="container py-5">
-          <Markdown
-            source={text}
-            renderers={{
-              code: Highlighter,
-              link: ({ href, children }) => (
-                <Link onClick={() => setText('')} to={`/wiki/${href}`}>
-                  {children}
-                </Link>
-              ),
-            }}
-          />
-        </div>
-      </main>
+      <div className="container py-5 wiki">
+        <Markdown
+          source={text}
+          renderers={{
+            code: Highlighter,
+            link: ({ href, children }) => (
+              <Link onClick={() => setText('')} to={`/wiki/${href}`}>
+                {children}
+              </Link>
+            ),
+          }}
+        />
+      </div>
       <Footer />
     </>
   )
