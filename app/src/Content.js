@@ -27,6 +27,10 @@ export const content = {
       category: 'Community',
       items: [
         {
+          title: 'Host your own',
+          link: '/host-your-own',
+        },
+        {
           title: 'Github',
           link: 'https://github.com/blicc-org/blicc',
         },
