@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Redirect } from 'react-router-dom'
 import { Header } from '../../components/header/Header'
 import { RegisterForm } from './RegisterForm'
@@ -7,6 +7,7 @@ import { API_URL } from '../../config'
 import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
 import { useSession } from '../../common/hooks/useSession'
 import { RegisterService } from './RegisterService'
+import { ToastContext } from '../../common/context/ToastContext'
 
 export function Register() {
   const [user, setUser] = useState({
