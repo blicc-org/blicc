@@ -35,7 +35,7 @@
     "shortid": "^2.2.14",
     "socket.io": "^2.2.0",
     "swagger-jsdoc": "^3.4.0",
-    "typeorm": "^0.2.18"
+    "typeorm": "^0.3.0-alpha.23"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
