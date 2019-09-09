@@ -20,7 +20,7 @@ export function Wiki({ location }) {
       setText(data)
     }
     getText()
-  }, [location])
+  }, [pathname, location])
 
   return (
     <>

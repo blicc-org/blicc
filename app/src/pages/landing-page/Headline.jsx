@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { content } from '../../Content'
+import { content } from '../../language/Content'
 
 export function Headline() {
   return (

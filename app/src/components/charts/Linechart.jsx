@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { Chart } from 'chart.js'
 
-import colors from '../../Theme.scss'
+import colors from '../../themes/Theme.scss'
 
 export function LineChart() {
   useEffect(() => {

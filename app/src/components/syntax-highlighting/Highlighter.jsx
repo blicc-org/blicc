@@ -2,7 +2,7 @@ import React from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import syntaxColors from './syntaxColors.js'
 import './Highlighter.scss'
-import theme from '../../Theme.scss'
+import theme from '../../themes/Theme.scss'
 
 export function Highlighter({ language, value }) {
   function copy() {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { content } from '../../Content'
+import { content } from '../../language/Content'
 
 export function NotFoundWarning() {
   const { pages } = content

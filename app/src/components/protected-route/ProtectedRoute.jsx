@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { AppContext } from '../../common/context/AppContext'
+import { AppContext } from '../../helpers/context/AppContext'
 import { Route, Redirect } from 'react-router-dom'
 
 export function ProtectedRoute({ component: Component, ...rest }) {
