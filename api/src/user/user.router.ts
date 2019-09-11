@@ -1,18 +1,22 @@
-import Router from 'koa-router'
+import { Middleware } from 'koa'
+import createRouter, { Router } from 'koa-joi-router'
 import { UserController } from './user.controller'
 import { AuthMiddleware } from '../middleware/auth-middleware'
 import { PermissionMiddleware } from '../middleware/permission-middleware'
 
 export class UserRouter {
+  private prefix: string
   private router: Router
   private controller: UserController
 
   public constructor(prefix: string) {
-    this.router = new Router({ prefix })
+    this.prefix = prefix
+    this.router = createRouter()
     this.controller = new UserController()
   }
 
-  public routes(): Router.IMiddleware {
+  public routes(): Middleware {
+    this.router.prefix(this.prefix)
     this.router.use(
       '/:id',
       AuthMiddleware.handle,
@@ -131,6 +135,6 @@ export class UserRouter {
      */
     this.router.post('/', this.controller.register.bind(this.controller))
 
-    return this.router.routes()
+    return this.router.middleware()
   }
 }

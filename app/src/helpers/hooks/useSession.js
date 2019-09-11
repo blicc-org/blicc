@@ -11,7 +11,6 @@ export function useSession() {
   const [, showToast] = useContext(ToastContext)
 
   async function login(email, password) {
-    console.log('yaayyyy')
     const [status, data] = await open({ email, password })
     if (status === statusCode.ACCEPTED) {
       setAppState({

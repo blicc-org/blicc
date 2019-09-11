@@ -1,16 +1,20 @@
-import Router from 'koa-router'
+import { Middleware } from 'koa'
+import createRouter, { Router } from 'koa-joi-router'
 import { SessionController } from './session.controller'
 
 export class SessionRouter {
+  private prefix: string
   private router: Router
   private controller: SessionController
 
   public constructor(prefix: string) {
-    this.router = new Router({ prefix })
+    this.prefix = prefix
+    this.router = createRouter()
     this.controller = new SessionController()
   }
 
-  public routes(): Router.IMiddleware {
+  public routes(): Middleware {
+    this.router.prefix(this.prefix)
     /**
      * @swagger
      *
@@ -97,6 +101,6 @@ export class SessionRouter {
      */
     this.router.delete('/', this.controller.logout.bind(this.controller))
 
-    return this.router.routes()
+    return this.router.middleware()
   }
 }
