@@ -17,7 +17,7 @@ $border-radius: 0.175rem;
 $border-radius-lg: $border-radius;
 $border-radius-sm: $border-radius;
 
-// the :export directive is the magic sauce for webpack
+// webpack export
 :export {
   primary: $primary;
   secondary: $secondary;
