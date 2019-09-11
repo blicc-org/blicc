@@ -6,16 +6,16 @@ import { Highlighter } from '../../components/syntax-highlighting/Highlighter'
 import { Header } from '../../components/header/Header'
 import { Footer } from '../../components/footer/Footer'
 import { APP_URL } from '../../config'
-import './Wiki.scss'
+import './PageGenerator.scss'
 
-export function Wiki({ location }) {
+export function PageGenerator({ location }) {
   const [text, setText] = useState('')
   let { pathname } = location
 
   useLayoutEffect(() => {
     async function getText() {
       const { data } = await axios.get(
-        `${APP_URL}${pathname.replace('/wiki', '')}`
+        `${APP_URL}${pathname.replace('/pages', '')}`
       )
       setText(data)
     }
@@ -31,7 +31,7 @@ export function Wiki({ location }) {
           renderers={{
             code: Highlighter,
             link: ({ href, children }) => (
-              <Link onClick={() => setText('')} to={`/wiki/${href}`}>
+              <Link onClick={() => setText('')} to={`/pages/${href}`}>
                 {children}
               </Link>
             ),

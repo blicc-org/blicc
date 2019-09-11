@@ -36,8 +36,8 @@ export const content = {
       category: 'About',
       items: [
         {
-          title: 'Wiki',
-          link: '/wiki/README.md',
+          title: 'Read me',
+          link: '/pages/README.md',
         },
         {
           title: 'OpenAPI 3.0 docs',
