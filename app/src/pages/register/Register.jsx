@@ -4,10 +4,10 @@ import { Header } from '../../components/header/Header'
 import { RegisterForm } from './RegisterForm'
 import { Footer } from '../../components/footer/Footer'
 import { API_URL } from '../../config'
-import { useApiEndpoint } from '../../helpers/hooks/useApiEndpoint'
-import { useSession } from '../../helpers/hooks/useSession'
+import { useApiEndpoint } from '../../hooks/useApiEndpoint'
+import { useSession } from '../../hooks/useSession'
 import { RegisterService } from './RegisterService'
-import { ToastContext } from '../../helpers/context/ToastContext'
+import { ToastContext } from '../../context/ToastContext'
 import statusCode from 'http-status-codes'
 
 export function Register() {

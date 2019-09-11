@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { content } from '../../language/Content'
-import { AppContext } from '../../helpers/context/AppContext'
-import { useSession } from '../../helpers/hooks/useSession'
+import { AppContext } from '../../context/AppContext'
+import { useSession } from '../../hooks/useSession'
 import { NavbarUser } from './NavbarUser'
 import { NavbarDashboard } from './NavbarDashboard'
 
