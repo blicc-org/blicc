@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useApiEndpoint } from './useApiEndpoint'
-import { API_URL } from '../../config'
+import { API_URL } from '../config'
 import { AppContext, INITIAL_APP_STATE } from '../context/AppContext'
 import statusCode from 'http-status-codes'
 import { ToastContext } from '../context/ToastContext'
