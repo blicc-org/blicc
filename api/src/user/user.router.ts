@@ -1,5 +1,5 @@
 import { Middleware } from 'koa'
-import createRouter, { Router } from 'koa-joi-router'
+import createRouter, { Router, Joi } from 'koa-joi-router'
 import { UserController } from './user.controller'
 import { AuthMiddleware } from '../middleware/auth-middleware'
 import { PermissionMiddleware } from '../middleware/permission-middleware'
@@ -79,7 +79,12 @@ export class UserRouter {
      *       500:
      *         description: Internal Server Error response.
      */
-    this.router.get('/:id', this.controller.access.bind(this.controller))
+    this.router.route({
+      method: 'get',
+      path: '/:id',
+      validate: { type: 'json' },
+      handler: this.controller.access.bind(this.controller),
+    })
 
     /**
      * @swagger
@@ -133,7 +138,12 @@ export class UserRouter {
      *       500:
      *         description: Internal Server Error response.
      */
-    this.router.post('/', this.controller.register.bind(this.controller))
+    this.router.route({
+      method: 'post',
+      path: '/',
+      validate: { type: 'json' },
+      handler: this.controller.register.bind(this.controller),
+    })
 
     return this.router.middleware()
   }

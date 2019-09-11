@@ -84,7 +84,12 @@ export class SessionRouter {
      *       500:
      *         description: Internal Server Error response.
      */
-    this.router.post('/', this.controller.login.bind(this.controller))
+    this.router.route({
+      method: 'post',
+      path: '/',
+      validate: { type: 'json' },
+      handler: this.controller.login.bind(this.controller),
+    })
 
     /**
      * @swagger
@@ -99,7 +104,11 @@ export class SessionRouter {
      *       205:
      *         description: Reset content
      */
-    this.router.delete('/', this.controller.logout.bind(this.controller))
+    this.router.route({
+      method: 'delete',
+      path: '/',
+      handler: this.controller.logout.bind(this.controller),
+    })
 
     return this.router.middleware()
   }

@@ -21,7 +21,13 @@ export class AdminRouter {
       AuthMiddleware.handle,
       PermissionMiddleware.handle.bind(null, 'admin')
     )
-    this.router.get('/', this.controller.settings.bind(this.controller))
+
+    this.router.route({
+      method: 'get',
+      path: '/',
+      handler: this.controller.settings.bind(this.controller),
+    })
+
     return this.router.middleware()
   }
 }

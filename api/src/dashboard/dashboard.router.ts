@@ -21,8 +21,19 @@ export class DashboardRouter {
       AuthMiddleware.handle,
       PermissionMiddleware.handle.bind(null, 'user')
     )
-    this.router.get('/', this.controller.list.bind(this.controller))
-    this.router.post('/', this.controller.create.bind(this.controller))
+
+    this.router.route({
+      method: 'get',
+      path: '/',
+      handler: this.controller.list.bind(this.controller),
+    })
+
+    this.router.route({
+      method: 'post',
+      path: '/',
+      validate: { type: 'json' },
+      handler: this.controller.create.bind(this.controller),
+    })
 
     return this.router.middleware()
   }

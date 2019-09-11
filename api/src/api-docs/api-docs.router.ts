@@ -15,10 +15,13 @@ export class ApiDocsRouter {
 
   public routes(): Middleware {
     this.router.prefix(this.prefix)
-    this.router.get(
-      'swagger.json',
-      this.controller.swagger.bind(this.controller)
-    )
+
+    this.router.route({
+      method: 'get',
+      path: '/swagger.json',
+      handler: this.controller.swagger.bind(this.controller),
+    })
+
     return this.router.middleware()
   }
 }
