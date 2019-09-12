@@ -23,12 +23,9 @@ export function Modal() {
 
   return (
     <>
-      {isCompleted && redirect !== ''
-        ? () => {
-            setIsCompleted(false)
-            return <Redirect to={redirect} />
-          }
-        : ''}
+      {isCompleted && (
+        <Redirect to={redirect} />
+      ) /* reset isCompleted after redirect */}
       <div
         className={`modal fade ${isActive ? 'show' : ''}`}
         style={{ display: isActive ? 'block' : 'none' }}
