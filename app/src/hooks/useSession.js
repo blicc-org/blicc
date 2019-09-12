@@ -4,11 +4,13 @@ import { API_URL } from '../config'
 import { AppContext, INITIAL_APP_STATE } from '../context/AppContext'
 import statusCode from 'http-status-codes'
 import { ToastContext } from '../context/ToastContext'
+import { ModalContext } from '../context/ModalContext'
 
 export function useSession() {
   const [open, , , close] = useApiEndpoint(`${API_URL}/sessions`)
   const [appState, setAppState] = useContext(AppContext)
   const [, showToast] = useContext(ToastContext)
+  const [, showModal] = useContext(ModalContext)
 
   async function login(email, password) {
     const [status, data] = await open({ email, password })
@@ -20,7 +22,16 @@ export function useSession() {
         lastName: data.lastName,
       })
     } else if (status === statusCode.FORBIDDEN) {
-      showToast('Wrong password', 'Please try it again.')
+      showModal(
+        'Did you forget your password?',
+        'In case you cannot remember your password, we can send you an email to reset it.',
+        'Try again',
+        'Reset password',
+        () => {},
+        () => {
+          console.log('send reset link to email!')
+        }
+      )
     } else if (status === statusCode.NOT_FOUND) {
       showToast('Please register', 'No account for the given email.')
     } else {
