@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { content } from '../../language/Content'
-import { ReactComponent as Maskot } from '../../assets/images/maskot.svg'
+import { ReactComponent as Maskot } from './Maskot.svg'
 
 export function Headline() {
   return (
