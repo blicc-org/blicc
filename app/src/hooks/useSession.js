@@ -30,7 +30,8 @@ export function useSession() {
         () => {},
         () => {
           console.log('send reset link to email!')
-        }
+        },
+        '/'
       )
     } else if (status === statusCode.NOT_FOUND) {
       showToast('Please register', 'No account for the given email.')

@@ -1,8 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
+import { Redirect } from 'react-router-dom'
 import { ModalContext } from '../../context/ModalContext'
 
 export function Modal() {
   const [modal] = useContext(ModalContext)
+  const [isCompleted, setIsCompleted] = useState(false)
   const {
     isActive,
     label,
@@ -11,10 +13,17 @@ export function Modal() {
     submitLabel,
     cancel,
     submit,
+    redirect,
   } = modal
+
+  function submitHandler() {
+    setIsCompleted(true)
+    submit()
+  }
 
   return (
     <>
+      {isCompleted && redirect !== '' && <Redirect to={redirect} />}
       <div
         className={`modal fade ${isActive ? 'show' : ''}`}
         style={{ display: isActive ? 'block' : 'none' }}
@@ -37,7 +46,7 @@ export function Modal() {
                 {cancelLabel}
               </button>
               <button
-                onClick={submit}
+                onClick={submitHandler}
                 type="button"
                 className="btn btn-primary"
               >

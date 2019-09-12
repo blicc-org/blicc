@@ -28,9 +28,9 @@ export function App() {
               <ProtectedRoute path="/dashboards" component={Dashboard} />
               <Route component={NotFound} />
             </Switch>
+            <Modal />
+            <ToastContainer />
           </Router>
-          <Modal />
-          <ToastContainer />
         </ModalProvider>
       </ToastProvider>
     </AppProvider>

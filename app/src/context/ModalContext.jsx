@@ -11,6 +11,7 @@ export function ModalProvider({ children }) {
     submitLabel: '',
     cancel: () => {},
     submit: () => {},
+    redirect: '',
   })
 
   function showModal(
@@ -19,7 +20,8 @@ export function ModalProvider({ children }) {
     cancelLabel,
     submitLabel,
     cancelCallback,
-    submitCallback
+    submitCallback,
+    redirect = ''
   ) {
     function cancel() {
       setModal(prev => {
@@ -43,6 +45,7 @@ export function ModalProvider({ children }) {
       submitLabel,
       cancel,
       submit,
+      redirect,
     })
   }
 
