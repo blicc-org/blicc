@@ -33,9 +33,9 @@ services:
     depends_on:
       - db
     environment:
-      - MAIL_USER=${MAIL_USER}"
-      - MAIL_PASSWORD=${MAIL_PASSWORD}"
-      - MAIL_HOST=${MAIL_HOST}"
+      - MAIL_USER=${MAIL_USER}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - MAIL_HOST=${MAIL_HOST}
 
     labels:
       - traefik.backend=api
