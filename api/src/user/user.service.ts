@@ -1,6 +1,8 @@
 import { Repository, getRepository } from 'typeorm'
 import { User } from './user.entity'
 import { Hash } from '../util/hash'
+import { MailDistributor } from '../util/mail-distributor'
+import { SentMessageInfo } from 'nodemailer'
 import shortid from 'shortid'
 
 export class UserService {
@@ -44,5 +46,17 @@ export class UserService {
     const id = shortid.generate()
     const response = await this.repo.findOne(id)
     return response === undefined ? id : await this.generateId()
+  }
+
+  public async requestPasswordReset(
+    firstName: string,
+    lastName: string,
+    email: string
+  ): Promise<SentMessageInfo> {
+    return await MailDistributor.getInstance().send(
+      email,
+      'Reset Password',
+      `Hello ${firstName} ${lastName}, reset your password by clicking the following link!`
+    )
   }
 }

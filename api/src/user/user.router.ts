@@ -17,11 +17,6 @@ export class UserRouter {
 
   public routes(): Middleware {
     this.router.prefix(this.prefix)
-    this.router.use(
-      '/:id',
-      AuthMiddleware.handle,
-      PermissionMiddleware.handle.bind(null, 'user')
-    )
 
     /**
      * @swagger
@@ -83,6 +78,10 @@ export class UserRouter {
       method: 'get',
       path: '/:id',
       validate: { type: 'json' },
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, 'user'),
+      ],
       handler: this.controller.access.bind(this.controller),
     })
 
@@ -143,6 +142,49 @@ export class UserRouter {
       path: '/',
       validate: { type: 'json' },
       handler: this.controller.register.bind(this.controller),
+    })
+
+    /**
+     * @swagger
+     *
+     * /users/password:
+     *   put:
+     *     tags:
+     *       - User
+     *     summary: Reset password
+     *     description: Request a password reset link sent to the given email incase a regarding user exists
+     *     requestBody:
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - email
+     *               properties:
+     *                 email:
+     *                   type: object
+     *                   required:
+     *                   - email
+     *                   properties:
+     *                     email:
+     *                       type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   "email": "john.doe@email.com"
+     *                 }
+     *     responses:
+     *       200:
+     *         description: Email has been send
+     *       404:
+     *         description: User not found
+     *       500:
+     *         description: Internal Server Error response.
+     */
+    this.router.route({
+      method: 'put',
+      path: '/password',
+      validate: { type: 'json' },
+      handler: this.controller.reset.bind(this.controller),
     })
 
     return this.router.middleware()

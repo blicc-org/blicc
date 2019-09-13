@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Node Inspector",
+      "name": "Custom API Debugger",
       "type": "node",
       "request": "launch",
       "args": ["${workspaceRoot}/api/src/index.ts"],

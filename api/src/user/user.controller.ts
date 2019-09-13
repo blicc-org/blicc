@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import status from 'http-status-codes'
 import { UserService } from './user.service'
-import { Email } from '../util/email'
+import { Validation } from '../util/validation'
 
 export class UserController {
   private userService: UserService
@@ -35,7 +35,7 @@ export class UserController {
       !lastName ||
       !email ||
       !password ||
-      !Email.isValid(email)
+      !Validation.isEmail(email)
     ) {
       ctx.status = status.UNPROCESSABLE_ENTITY
       return
@@ -58,6 +58,36 @@ export class UserController {
         ctx.body = user
         return
       }
+    } catch (e) {
+      ctx.status = status.INTERNAL_SERVER_ERROR
+    }
+  }
+
+  public async reset(ctx: Koa.BaseContext, next: Function): Promise<void> {
+    await next()
+
+    const { email } = ctx.request.body
+
+    if (!email || !(await this.userService.exists(email))) {
+      ctx.status = status.NOT_FOUND
+      return
+    }
+
+    try {
+      const user = await this.userService.select(email)
+      if (!user) {
+        ctx.status = status.INTERNAL_SERVER_ERROR
+        return
+      }
+
+      const { firstName, lastName } = user
+      const info = await this.userService.requestPasswordReset(
+        firstName,
+        lastName,
+        email
+      )
+      ctx.status = status.OK
+      console.log(info)
     } catch (e) {
       ctx.status = status.INTERNAL_SERVER_ERROR
     }
