@@ -89,6 +89,7 @@ export class UserController {
       ctx.status = status.OK
       console.log(info)
     } catch (e) {
+      console.log(e)
       ctx.status = status.INTERNAL_SERVER_ERROR
     }
   }
