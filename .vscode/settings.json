@@ -1,0 +1,30 @@
+{
+  "workbench.iconTheme": "vscode-icons",
+  "editor.formatOnSave": true,
+  "vsicons.associations.folders": [
+    {
+      "icon": "paket",
+      "extensions": [".paket", "provider"],
+      "format": "FileFormat.svg",
+      "disabled": false
+    },
+    {
+      "icon": "package",
+      "extensions": ["package", "packages", "pkg"],
+      "format": "FileFormat.svg",
+      "disabled": false
+    },
+    {
+      "icon": "helper",
+      "extensions": ["helper", "helpers", "context"],
+      "format": "FileFormat.svg",
+      "disabled": false
+    },
+    {
+      "icon": "controller",
+      "extensions": ["controllers", "controller", "handlers", "hooks"],
+      "format": "FileFormat.svg",
+      "disabled": false
+    }
+  ]
+}

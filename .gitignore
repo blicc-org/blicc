@@ -30,11 +30,6 @@ yarn-error.log*
 # certs
 certs
 
-# vscode
-.vscode
-!.vscode/launch.json
-!.vscode/settings.json
-
 # Binaries for programs and plugins
 *.exe
 *.exe~

@@ -1,12 +1,12 @@
 import nodemailer, { Transporter, SentMessageInfo } from 'nodemailer'
+import { MailGenerator } from './mail-generator'
 import { MAIL_USER, MAIL_PASSWORD, MAIL_HOST } from '../../config'
 
 export class MailService {
-  private static instance: MailService
-
   private transporter: Transporter
+  private generator: MailGenerator
 
-  private constructor() {
+  public constructor() {
     this.transporter = nodemailer.createTransport({
       host: MAIL_HOST,
       port: 587,
@@ -16,13 +16,7 @@ export class MailService {
         pass: MAIL_PASSWORD,
       },
     })
-  }
-
-  public static getInstance(): MailService {
-    if (!MailService.instance) {
-      MailService.instance = new MailService()
-    }
-    return MailService.instance
+    this.generator = new MailGenerator()
   }
 
   public async send(

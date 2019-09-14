@@ -53,7 +53,7 @@ export class UserService {
     lastName: string,
     email: string
   ): Promise<SentMessageInfo> {
-    return await MailService.getInstance().send(
+    return await new MailService().send(
       email,
       'Reset Password',
       `Hello ${firstName} ${lastName}, reset your password by clicking the following link!`
