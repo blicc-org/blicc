@@ -1,7 +1,7 @@
 import { Repository, getRepository } from 'typeorm'
 import { User } from './user.entity'
 import { Hash } from '../util/hash'
-import { MailDistributor } from '../util/mail-distributor'
+import { MailService } from '../util/mail-service/mail-service'
 import { SentMessageInfo } from 'nodemailer'
 import shortid from 'shortid'
 
@@ -53,7 +53,7 @@ export class UserService {
     lastName: string,
     email: string
   ): Promise<SentMessageInfo> {
-    return await MailDistributor.getInstance().send(
+    return await MailService.getInstance().send(
       email,
       'Reset Password',
       `Hello ${firstName} ${lastName}, reset your password by clicking the following link!`

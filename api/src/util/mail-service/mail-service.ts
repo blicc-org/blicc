@@ -1,8 +1,8 @@
 import nodemailer, { Transporter, SentMessageInfo } from 'nodemailer'
-import { MAIL_USER, MAIL_PASSWORD, MAIL_HOST } from '../config'
+import { MAIL_USER, MAIL_PASSWORD, MAIL_HOST } from '../../config'
 
-export class MailDistributor {
-  private static instance: MailDistributor
+export class MailService {
+  private static instance: MailService
 
   private transporter: Transporter
 
@@ -18,11 +18,11 @@ export class MailDistributor {
     })
   }
 
-  public static getInstance(): MailDistributor {
-    if (!MailDistributor.instance) {
-      MailDistributor.instance = new MailDistributor()
+  public static getInstance(): MailService {
+    if (!MailService.instance) {
+      MailService.instance = new MailService()
     }
-    return MailDistributor.instance
+    return MailService.instance
   }
 
   public async send(
