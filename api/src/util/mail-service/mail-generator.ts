@@ -11,28 +11,35 @@ export class MailGenerator {
     lastName: string,
     type: string
   ): Promise<SendMailOptions> {
+    let subject = ''
+    let template: TemplateDelegate<any>
+
     switch (type) {
       case MailType.RESET_PASSWORD:
+        subject = 'Reset Password'
+        template = await this.getMailTemplate(MailType.RESET_PASSWORD)
         break
       default:
+        subject = `Welcome ${firstName} ${lastName}`
+        template = await this.getMailTemplate(MailType.WELCOME)
     }
 
-    var data = {
-      title: `${firstName} ${lastName}`,
-    }
-    const template: any = await this.getMailTemplate()
-    const html = template(data)
     return {
       from: MAIL_ADDRESS,
       to,
-      subject: 'subject',
-      text: data.title,
-      html,
+      subject,
+      html: template({
+        subject,
+        firstName,
+        lastName,
+      }),
     }
   }
 
-  private async getMailTemplate(): Promise<TemplateDelegate<any>> {
-    const file = await readFile(`${__dirname}/templates/main.hbs`)
-    return Handlebars.compile(file)
+  private async getMailTemplate(
+    templateName: string
+  ): Promise<TemplateDelegate<any>> {
+    const file = await readFile(`${__dirname}/templates/${templateName}.hbs`)
+    return Handlebars.compile(file.toString())
   }
 }
