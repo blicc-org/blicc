@@ -1,6 +1,10 @@
-import nodemailer, { Transporter, SentMessageInfo } from 'nodemailer'
+import nodemailer, {
+  Transporter,
+  SentMessageInfo,
+  SendMailOptions,
+} from 'nodemailer'
 import { MailGenerator } from './mail-generator'
-import { MAIL_USER, MAIL_PASSWORD, MAIL_HOST } from '../../config'
+import { MAIL_ADDRESS, MAIL_PASSWORD, MAIL_HOST } from '../../config'
 
 export class MailService {
   private transporter: Transporter
@@ -12,24 +16,15 @@ export class MailService {
       port: 587,
       secure: false,
       auth: {
-        user: MAIL_USER,
+        user: MAIL_ADDRESS,
         pass: MAIL_PASSWORD,
       },
     })
     this.generator = new MailGenerator()
   }
 
-  public async send(
-    to: string,
-    subject: string,
-    text: string
-  ): Promise<SentMessageInfo> {
-    return await this.transporter.sendMail({
-      from: '"blicc.org" <noreply@blicc.org>',
-      to,
-      subject,
-      text,
-      html: `<p>${text}</p>`,
-    })
+  public async send(to: string, type: string): Promise<SentMessageInfo> {
+    const mail: SendMailOptions = this.generator.generateMail(to, type)
+    return await this.transporter.sendMail(mail)
   }
 }

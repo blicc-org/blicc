@@ -51,4 +51,4 @@ deploy:
     - ssh -tt root@$IP "export"
     - ssh -tt root@$IP "docker image prune -a -f"
     - ssh -tt root@$IP "docker-compose pull"
-    - ssh -tt root@$IP "export MAIL_USER=$MAIL_USER MAIL_PASSWORD=$MAIL_PASSWORD MAIL_HOST=$MAIL_HOST && docker-compose down && docker-compose -f /root/docker-compose.yml up -d --force-recreate"
+    - ssh -tt root@$IP "export MAIL_ADDRESS=$MAIL_ADDRESS MAIL_PASSWORD=$MAIL_PASSWORD MAIL_HOST=$MAIL_HOST && docker-compose down && docker-compose -f /root/docker-compose.yml up -d --force-recreate"
