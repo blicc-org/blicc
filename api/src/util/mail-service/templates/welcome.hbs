@@ -6,12 +6,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>{{subject}}</title>
     <style>
-        img {
-            border: none;
-            -ms-interpolation-mode: bicubic;
-            max-width: 100%;
-        }
-
         body {
             background-color: #f6f6f6;
             font-family: sans-serif;
@@ -270,12 +264,6 @@
             table[class='body'] .btn a {
                 width: 100% !important;
             }
-
-            table[class='body'] .img-responsive {
-                height: auto !important;
-                max-width: 100% !important;
-                width: auto !important;
-            }
         }
 
         @media all {
@@ -335,34 +323,9 @@
                                         <td>
                                             <p>Hi {{firstName}} {{lastName}},</p>
                                             <p>
-                                                Sometimes you just want to send a simple HTML email with a simple
-                                                design and clear call to action. This is it.
+                                                your registration at blicc.org was successful.
                                             </p>
-                                            <table role="presentation" border="0" cellpadding="0" cellspacing="0"
-                                                class="btn btn-primary">
-                                                <tbody>
-                                                    <tr>
-                                                        <td align="left">
-                                                            <table role="presentation" border="0" cellpadding="0"
-                                                                cellspacing="0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <a href="http://htmlemail.io"
-                                                                                target="_blank">Call To Action</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <p>
-                                                This is a really simple email template. Its sole purpose is to get
-                                                the recipient to click the button with no distractions.
-                                            </p>
-                                            <p>Good luck! Hope it works.</p>
+                                            <p>Enjoy!</p>
                                         </td>
                                     </tr>
                                 </table>
@@ -373,7 +336,7 @@
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td class="content-block powered-by">
-                                    Sent by <a href="https://blicc.org">blicc.org</a>
+                                    Sent by <a href="https://blicc.org">{{brandName}}</a>
                                 </td>
                             </tr>
                         </table>
