@@ -11,7 +11,8 @@
     "test": "jest",
     "lint": "eslint \"./src/**/*.ts\"",
     "fix": "eslint --fix \"src/**/*.+(ts|tsx)\"",
-    "deploy": "sh ../scripts/deploy.sh \"blicc-api\" \"../api/\""
+    "deploy": "sh ../scripts/deploy.sh \"blicc-api\" \"../api/\"",
+    "mail": "yarn handlebars ./src/util/mail-service/templates/*.hbs -f ./src/util/mail-service/templates/mail.tpl.js"
   },
   "author": "Thilo Ilg",
   "dependencies": {
