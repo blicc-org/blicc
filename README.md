@@ -2,7 +2,7 @@
 
 ### Vision
 
-Blicc aims to provide a lightweight, user-friendly software to simplify data visualization in the browser.
+Blicc aims to provide a lightweight, user-friendly software to simplify data visualization on all devices.
 
 ## Docs
 

@@ -1,16 +1,22 @@
 {
   "short_name": "Blicc",
   "name": "Blicc",
+  "description": "Blicc aims to provide a lightweight, user-friendly software to simplify data visualization on all devices.",
   "icons": [
     {
-      "src": "/icons/favicon-16x16.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
+      "src": "/icons/icon.svg",
+      "sizes": "36x36 48x48 72x72 96x96 144x144 192x192 512x512",
+      "type": "image/svg"
     },
     {
-      "src": "/icons/favicon-32x32.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
+      "src": "/icons/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
     },
     {
       "src": "/icons/favicon.ico",
