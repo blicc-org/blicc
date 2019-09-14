@@ -80,12 +80,7 @@ export class UserController {
         return
       }
 
-      const { firstName, lastName } = user
-      const info = await this.userService.requestPasswordReset(
-        firstName,
-        lastName,
-        email
-      )
+      const info = await this.userService.requestPasswordReset(user)
       ctx.status = status.OK
       console.log(info)
     } catch (e) {

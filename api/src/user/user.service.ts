@@ -3,6 +3,7 @@ import { User } from './user.entity'
 import { Hash } from '../util/hash'
 import { MailService } from '../util/mail-service/mail-service'
 import { SentMessageInfo } from 'nodemailer'
+import { MailType } from '../util/mail-service/mail-service'
 import shortid from 'shortid'
 
 export class UserService {
@@ -48,15 +49,7 @@ export class UserService {
     return response === undefined ? id : await this.generateId()
   }
 
-  public async requestPasswordReset(
-    firstName: string,
-    lastName: string,
-    email: string
-  ): Promise<SentMessageInfo> {
-    return await new MailService().send(
-      email,
-      'Reset Password',
-      `Hello ${firstName} ${lastName}, reset your password by clicking the following link!`
-    )
+  public async requestPasswordReset(user: User): Promise<SentMessageInfo> {
+    return await new MailService().send(user, MailType.RESET_PASSWORD)
   }
 }
