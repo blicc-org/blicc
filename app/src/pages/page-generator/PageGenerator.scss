@@ -1,7 +1,13 @@
-.wiki h2,
-.wiki h3,
-.wiki h4 {
+.pages h2,
+.pages h3,
+.pages h4 {
   padding: 0.25em 0em;
+}
+
+.pages th,
+.pages td {
+  padding: 10px;
+  border: 1px solid lightgray;
 }
 
 .syntax-highlighter {

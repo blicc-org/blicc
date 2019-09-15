@@ -25,7 +25,7 @@ export function PageGenerator({ location }) {
   return (
     <>
       <Header />
-      <div className="container py-5 wiki">
+      <div className="container py-5 pages">
         <Markdown
           source={text}
           renderers={{
