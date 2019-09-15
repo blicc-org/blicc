@@ -43,10 +43,6 @@ export const content = {
           title: 'OpenAPI 3.0 docs',
           link: 'https://api.blicc.org',
         },
-        {
-          title: 'Systems Supported',
-          link: '/pages/docs/supported.md',
-        },
       ],
     },
   ],
