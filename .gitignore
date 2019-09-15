@@ -7,9 +7,6 @@ build
 config
 *.tar
 
-# docker images
-images
-
 # misc
 .env
 .env.local
