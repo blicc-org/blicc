@@ -1,6 +1,6 @@
 {
   "workbench.iconTheme": "vscode-icons",
-  // "editor.formatOnSave": true,
+  "editor.formatOnSave": true,
   "vsicons.associations.files": [],
   "vsicons.associations.folders": [
     {
