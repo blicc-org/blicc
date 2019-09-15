@@ -6,7 +6,8 @@ Blicc aims to provide a lightweight, user-friendly software to simplify data vis
 
 ## Docs
 
-- [Get Started](docs/get-started.md)
+- [Get started](docs/get-started.md)
+- [Supported browser and operating systems](docs/supported.md)
 
 ### Codebase
 
