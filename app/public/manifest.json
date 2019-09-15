@@ -1,12 +1,7 @@
 {
-  "short_name": "Blicc",
   "name": "Blicc",
   "description": "Blicc aims to provide a lightweight, user-friendly software to simplify data visualization on all devices.",
-  "orientation": "portrait",
-  "start_url": "/",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone",
+  "short_name": "Blicc",
   "icons": [
     {
       "src": "/icons/favicon-16x16.png",
@@ -35,8 +30,18 @@
     },
     {
       "src": "/icons/icon.svg",
-      "sizes": "1024x1024",
       "type": "image/svg+xml"
     }
-  ]
+  ],
+  "scope": "/",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "serviceworker": {
+    "src": "serviceWorker.js",
+    "scope": "/",
+    "update_via_cache": "none"
+  }
 }

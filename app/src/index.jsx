@@ -9,9 +9,13 @@ import ReactDOM from 'react-dom'
 import { API_URL } from './config'
 import { App } from './App'
 
+import * as serviceWorker from './serviceWorker'
+
 const socket = io(API_URL)
 socket.on('broadcast', data => {
   console.log(`${data.label} - ${data.message}`)
 })
 
 ReactDOM.render(<App />, document.getElementById('root'))
+
+serviceWorker.register()

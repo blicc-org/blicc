@@ -1,6 +1,7 @@
 {
   "workbench.iconTheme": "vscode-icons",
   "editor.formatOnSave": true,
+  "vsicons.associations.files": [],
   "vsicons.associations.folders": [
     {
       "icon": "paket",
