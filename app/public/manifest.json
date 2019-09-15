@@ -29,6 +29,7 @@
       "sizes": "512x512"
     },
     {
+      "purpose": "badge",
       "src": "/icons/icon.svg",
       "type": "image/svg"
     }
