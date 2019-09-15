@@ -31,11 +31,10 @@ export class UserController {
     const { firstName, lastName, email, password } = ctx.request.body
 
     if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !password ||
-      !Validation.isEmail(email)
+      !Validation.isName(firstName) ||
+      !Validation.isName(lastName) ||
+      !Validation.isEmail(email) ||
+      !Validation.isPassword(password)
     ) {
       ctx.status = status.UNPROCESSABLE_ENTITY
       return
