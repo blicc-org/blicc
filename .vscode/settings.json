@@ -5,7 +5,7 @@
   "vsicons.associations.folders": [
     {
       "icon": "paket",
-      "extensions": [".paket", "provider"],
+      "extensions": [".paket", "delivery"],
       "format": "FileFormat.svg",
       "disabled": false
     },
