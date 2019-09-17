@@ -1,16 +1,17 @@
 package main
 
 import (
-    "fmt"
-    "net/http"
+	"fmt"
+	"net/http"
 )
 
 func main() {
-    fmt.Printf("Server is starting ...")
-    http.HandleFunc("/", HelloServer)
-    http.ListenAndServe(":8080", nil)
+	const PORT = 8080
+	fmt.Printf("Starting server ...")
+	http.HandleFunc("/", HelloServer)
+	http.ListenAndServe(fmt.Sprintf(":%d", PORT), nil)
 }
 
 func HelloServer(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hello World!!!!!")
+	fmt.Fprintf(w, "Hello World!!!!!")
 }
