@@ -44,6 +44,18 @@ services:
     networks:
       - internal
       - web
+  delivery:
+    image: registry.thiloilg.com/repo/blicc/delivery:latest
+    container_name: delivery
+    restart: always
+    labels:
+      - traefik.backend=delivery
+      - traefik.frontend.rule=Host:delivery.blicc.org
+      - traefik.docker.network=web
+      - traefik.port=80
+    networks:
+      - internal
+      - web
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     container_name: app

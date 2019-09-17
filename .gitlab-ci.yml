@@ -17,9 +17,11 @@ build:
     - docker build -t app ./app
     - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t api ./api
     - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t db ./db
+    - docker build -t delivery ./delivery
     - docker tag app $REGISTRY_DOMAIN/repo/$REPO/app
     - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api
     - docker tag db $REGISTRY_DOMAIN/repo/$REPO/db
+    - docker tag delivery $REGISTRY_DOMAIN/repo/$REPO/delivery
 
 test:
   stage: test
@@ -45,6 +47,7 @@ deploy:
     - docker push $REGISTRY_DOMAIN/repo/$REPO/app
     - docker push $REGISTRY_DOMAIN/repo/$REPO/api
     - docker push $REGISTRY_DOMAIN/repo/$REPO/db
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/delivery
     - scp -r ./docker-compose.yml root@$IP:/root/
     - ssh -tt root@$IP "openssl genrsa -out rsa.pem 2048"
     - ssh -tt root@$IP "openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem"
