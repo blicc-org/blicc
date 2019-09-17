@@ -36,7 +36,6 @@ services:
       - MAIL_ADDRESS=${MAIL_ADDRESS}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - MAIL_HOST=${MAIL_HOST}
-
     labels:
       - traefik.backend=api
       - traefik.frontend.rule=Host:api.blicc.org
