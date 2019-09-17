@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+    fmt.Printf("Server is starting ...")
     http.HandleFunc("/", HelloServer)
     http.ListenAndServe(":8080", nil)
 }
