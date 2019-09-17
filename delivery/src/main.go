@@ -62,9 +62,9 @@ func setupRoutes() {
 
 func main() {
 
-	const PORT = 8080
+	const PORT = 80
 
-	fmt.Println("Starting server ...")
+	fmt.Printf("Starting server on port %d ...", PORT)
 
 	setupRoutes()
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", PORT), nil))
