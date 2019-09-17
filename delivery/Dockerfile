@@ -1,9 +1,16 @@
 FROM golang:latest
 
-COPY ./src .
-WORKDIR /go
+WORKDIR /app
+
+COPY go.mod .
+COPY go.sum .
+
+RUN go mod download
+
+COPY ./src /app
+
 RUN go build -o main .
 
 EXPOSE 8080
 
-CMD ["/go/main"]
+CMD ["/app/main"]
