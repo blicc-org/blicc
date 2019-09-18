@@ -6,12 +6,12 @@ services:
     command: --api.insecure=true --providers.docker
     ports:
       - 80:80
-      - 443:443
+      # - 443:443
       - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /root/traefik.yml:/etc/traefik/traefik.yml
-      - /root/acme.json:/acme.json
+      # - /root/traefik.yml:/etc/traefik/traefik.yml
+      # - /root/acme.json:/acme.json
     labels:
       - traefik.http.routers.reverse-proxy.rule=Host(`monitor.blicc.org`)
     networks:

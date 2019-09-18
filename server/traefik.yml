@@ -24,4 +24,4 @@ http:
     test-auth:
       basicAuth:
         users:
-        - "user:passwordHash"
+          - 'user:passwordHash'
