@@ -1,20 +1,19 @@
-version: "3"
+version: '3'
 
 services:
-  traefik:
-    image: traefik:latest
-    container_name: traefik
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /root/traefik.toml:/traefik.toml
-      - /root/acme.json:/acme.json
+  reverse-proxy:
+    image: traefik:v2.0
+    command: --api.insecure=true --providers.docker
     ports:
       - 80:80
       - 443:443
       - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/traefik.yml:/etc/traefik/traefik.yml
+      - /root/acme.json:/acme.json
     labels:
-      - traefik.frontend.rule=Host:monitor.blicc.org
-      - traefik.port=8080
+      - traefik.http.routers.reverse-proxy.rule=Host(`monitor.blicc.org`)
     networks:
       - web
   db:
@@ -36,12 +35,8 @@ services:
       - MAIL_ADDRESS=${MAIL_ADDRESS}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - MAIL_HOST=${MAIL_HOST}
-
     labels:
-      - traefik.backend=api
-      - traefik.frontend.rule=Host:api.blicc.org
-      - traefik.docker.network=web
-      - traefik.port=80
+      - traefik.http.routers.api.rule=Host(`api.blicc.org`)
     networks:
       - internal
       - web
@@ -53,10 +48,7 @@ services:
       - api
       - db
     labels:
-      - traefik.backend=app
-      - traefik.frontend.rule=Host:blicc.org,www.blicc.org
-      - traefik.docker.network=web
-      - traefik.port=80
+      - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
     networks:
       - web
 

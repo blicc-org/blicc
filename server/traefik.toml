@@ -28,7 +28,7 @@ entryPoint = "https"
 
 [[acme.domains]]
   main = "blicc.org"
-  sans = ["monitor.blicc.org", "api.blicc.org"]
+  sans = ["monitor.blicc.org", "api.blicc.org", "delivery.blicc.org"]
 
 [docker]
 domain = "blicc.org"
