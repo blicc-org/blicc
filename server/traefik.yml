@@ -1,3 +1,6 @@
+log:
+  level: DEBUG
+
 entryPoints:
   web:
     address: ':80'
@@ -8,7 +11,17 @@ entryPoints:
 certificatesResolvers:
   sample:
     acme:
-      email: example@emai.com
+      email: example@email.com
       storage: acme.json
       httpChallenge:
         entryPoint: web
+
+http:
+  middlewares:
+    redirect:
+      redirectScheme:
+        scheme: https
+    test-auth:
+      basicAuth:
+        users:
+        - "user:passwordHash"
