@@ -12,8 +12,8 @@ services:
       - 443:443
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /root/traefik.yml:/etc/traefik/traefik.yml
-      - /root/acme.json:/acme.json
+      # - /root/traefik.yml:/etc/traefik/traefik.yml
+      # - /root/acme.json:/acme.json
     labels:
       - traefik.enable=true
       - traefik.http.routers.proxy.service=api@internal
