@@ -9,20 +9,24 @@ services:
       - --entrypoints.web.address=:80
     ports:
       - 80:80
+      - 443:443
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      # - /root/traefik.yml:/etc/traefik/traefik.yml
-      # - /root/acme.json:/acme.json
+      - /root/traefik.yml:/etc/traefik/traefik.yml
+      - /root/acme.json:/acme.json
     labels:
       - traefik.enable=true
       - traefik.http.routers.proxy.service=api@internal
       - traefik.http.routers.proxy.entrypoints=web
       - traefik.http.routers.proxy.rule=Host(`monitor.blicc.org`)
+      - traefik.http.routers.web.middlewares: redirect@file, auth@file
     networks:
       - web
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
     container_name: db
+    ports:
+      - 80:80
     restart: always
     labels:
       - traefik.enable=false
@@ -30,7 +34,9 @@ services:
       - internal
   api:
     image: registry.thiloilg.com/repo/blicc/api:latest
-    container_name: api
+    container_name: api#
+    ports:
+      - 80:80
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
@@ -43,18 +49,22 @@ services:
       - MAIL_HOST=${MAIL_HOST}
     labels:
       - traefik.http.routers.api.rule=Host(`api.blicc.org`)
+      - traefik.http.routers.web.middlewares: redirect@file
     networks:
       - internal
       - web
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     container_name: app
+    ports:
+      - 80:80
     restart: always
     depends_on:
       - api
       - db
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
+      - traefik.http.routers.web.middlewares: redirect@file
     networks:
       - web
 
