@@ -10,3 +10,5 @@ RUN yarn build
 FROM nginx:alpine
 COPY --from=node /app/build /var/www/blicc.org/html
 COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
