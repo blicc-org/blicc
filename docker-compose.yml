@@ -19,7 +19,6 @@ services:
       - traefik.http.routers.proxy.service=api@internal
       - traefik.http.routers.proxy.entrypoints=web
       - traefik.http.routers.proxy.rule=Host(`monitor.blicc.org`)
-      - 'traefik.http.routers.web.middlewares: redirect@file, auth@file'
     networks:
       - web
   db:
@@ -45,7 +44,6 @@ services:
       - MAIL_HOST=${MAIL_HOST}
     labels:
       - traefik.http.routers.api.rule=Host(`api.blicc.org`)
-      - 'traefik.http.routers.web.middlewares: redirect@file'
     networks:
       - internal
       - web
@@ -58,7 +56,6 @@ services:
       - db
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
-      - 'traefik.http.routers.web.middlewares: redirect@file'
     networks:
       - web
 
