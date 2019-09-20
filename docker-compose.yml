@@ -7,13 +7,12 @@ services:
       - --api.insecure=true
       - --providers.docker=true
       - --entrypoints.web.address=:80
-      - --providers.docker.exposedByDefault=false
+      - --providers.docker.exposedByDefault=true
     ports:
       - 80:80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
-      - traefik.enable=true
       - traefik.http.routers.proxy.service=api@internal
       - traefik.http.routers.proxy.entrypoints=web
       - traefik.http.routers.proxy.rule=Host(`monitor.blicc.org`)
