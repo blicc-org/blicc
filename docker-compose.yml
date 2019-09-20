@@ -8,8 +8,6 @@ services:
       - --providers.docker=true
       - --entrypoints.web.address=:80
       - --providers.docker.exposedByDefault=true
-    ports:
-      - 80:80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
@@ -30,8 +28,6 @@ services:
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
-    ports:
-      - 80:80
     restart: always
     depends_on:
       - db
@@ -48,8 +44,6 @@ services:
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     container_name: app
-    ports:
-      - 80:80
     restart: always
     depends_on:
       - api
