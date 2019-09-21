@@ -3,7 +3,6 @@ api:
 
 providers:
   docker: true
-
 # entryPoints:
 #   web:
 #     address: ':80'
@@ -18,12 +17,12 @@ providers:
 #       httpChallenge:
 #         entryPoint: web
 
-# http:
-#   middlewares:
+http:
+  middlewares:
 #     redirect:
 #       redirectScheme:
 #         scheme: https
-#     test-auth:
-#       basicAuth:
-#         users:
-#           - 'user:passwordHash'
+    auth:
+      basicAuth:
+        users:
+          - 'user:passwordHash'
