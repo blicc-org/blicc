@@ -43,6 +43,7 @@ services:
       - MAIL_HOST=${MAIL_HOST}
     labels:
       - traefik.http.routers.api.rule=Host(`api.domain.org`)
+      - traefik.http.services.api.loadbalancer.server.port=80
 
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
@@ -55,7 +56,6 @@ services:
       - web
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
-
 
 networks:
   web:
