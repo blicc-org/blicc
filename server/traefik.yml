@@ -1,23 +1,29 @@
-entryPoints:
-  web:
-    address: ':80'
-  web-secure:
-    address: ':443'
+api:
+  debug: true
 
-certificatesResolvers:
-  sample:
-    acme:
-      email: example@email.com
-      storage: acme.json
-      httpChallenge:
-        entryPoint: web
+providers:
+  docker: true
 
-http:
-  middlewares:
-    redirect:
-      redirectScheme:
-        scheme: https
-    test-auth:
-      basicAuth:
-        users:
-          - 'user:passwordHash'
+# entryPoints:
+#   web:
+#     address: ':80'
+#   web-secure:
+#     address: ':443'
+
+# certificatesResolvers:
+#   sample:
+#     acme:
+#       email: example@email.com
+#       storage: acme.json
+#       httpChallenge:
+#         entryPoint: web
+
+# http:
+#   middlewares:
+#     redirect:
+#       redirectScheme:
+#         scheme: https
+#     test-auth:
+#       basicAuth:
+#         users:
+#           - 'user:passwordHash'
