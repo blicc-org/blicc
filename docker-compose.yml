@@ -46,7 +46,7 @@ services:
     container_name: app
     restart: always
     depends_on:
-      - api
+      - my_api
       - db
     networks:
       - web
