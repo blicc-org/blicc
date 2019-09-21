@@ -24,9 +24,9 @@ services:
     restart: always
     networks:
       - web
-  api:
+  my_api:
     image: registry.thiloilg.com/repo/blicc/api:latest
-    container_name: api
+    container_name: my_api
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
@@ -40,8 +40,7 @@ services:
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - MAIL_HOST=${MAIL_HOST}
     labels:
-      - traefik.http.routers.api.rule=Host(`api.domain.org`)
-      - traefik.http.services.api.loadbalancer.server.port=3001
+      - traefik.http.routers.my_api.rule=Host(`api.domain.org`)
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     container_name: app
@@ -56,4 +55,3 @@ services:
 
 networks:
   web:
-    external: true
