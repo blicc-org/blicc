@@ -1,10 +1,5 @@
-api:
-
 log:
   level: DEBUG
-
-providers:
-  docker: true
 
 entryPoints:
   web:
