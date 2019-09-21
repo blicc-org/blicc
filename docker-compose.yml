@@ -3,6 +3,8 @@ version: '3'
 services:
   traefik:
     image: traefik:v2.0
+    ports:
+      - 80:80
     command:
       - --api.debug=true
       - --api.insecure=true
