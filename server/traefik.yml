@@ -10,20 +10,11 @@ entryPoints:
   web-secure:
     address: ':443'
 
-# certificatesResolvers:
-#   sample:
-#     acme:
-#       email: example@email.com
-#       storage: acme.json
-#       httpChallenge:
-#         entryPoint: web
+certificatesResolvers:
+  sample:
+    acme:
+      email: example@email.com
+      storage: acme.json
+      httpChallenge:
+        entryPoint: web
 
-http:
-  middlewares:
-    auth-middleware:
-      basicAuth:
-        users:
-          - 'user:password'
-    #     redirect:
-    #       redirectScheme:
-    #         scheme: https

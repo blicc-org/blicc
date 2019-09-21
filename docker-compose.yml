@@ -14,7 +14,8 @@ services:
     labels:
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
-      - traefik.http.routers.traefik.middlewares=auth
+      - traefik.http.routers.traefik.middlewares=test-redirectscheme
+      - traefik.http.middlewares.test-redirectscheme.redirectscheme.scheme=https
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
     container_name: db
@@ -36,6 +37,7 @@ services:
       - MAIL_HOST=${MAIL_HOST}
     labels:
       - traefik.http.routers.api.rule=Host(`api.blicc.org`)
+      - traefik.http.routers.traefik.middlewares=test-redirectscheme
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     container_name: app
@@ -45,3 +47,4 @@ services:
       - db
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
+      - traefik.http.routers.traefik.middlewares=test-redirectscheme
