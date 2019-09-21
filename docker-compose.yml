@@ -41,6 +41,7 @@ services:
       - MAIL_HOST=${MAIL_HOST}
     labels:
       - traefik.http.routers.api.rule=Host(`api.domain.org`)
+      - traefik.http.services.api.loadbalancer.server.port=3001
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     container_name: app
