@@ -43,7 +43,7 @@ services:
       - MAIL_HOST=${MAIL_HOST}
     labels:
       - traefik.http.routers.api.rule=Host(`api.domain.org`)
-      - traefik.http.routers.api.entrypoints=web
+
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     container_name: app
@@ -55,7 +55,7 @@ services:
       - web
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
-      - traefik.http.routers.app.entrypoints=web
+
 
 networks:
   web:
