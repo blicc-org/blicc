@@ -1,5 +1,7 @@
 api:
-  debug: true
+
+log:
+  level: DEBUG
 
 providers:
   docker: true
