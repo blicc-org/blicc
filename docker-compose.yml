@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  proxy:
+  traefik:
     image: traefik:v2.0
     command:
       - --api.insecure=true
@@ -11,9 +11,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
-      - traefik.http.routers.proxy.service=api@internal
-      - traefik.http.routers.proxy.entrypoints=web
-      - traefik.http.routers.proxy.rule=Host(`monitor.blicc.org`)
+      - traefik.http.routers.traefik.service=api@internal
+      - traefik.http.routers.traefik.entrypoints=web
+      - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
     networks:
       - web
   db:
@@ -36,7 +36,7 @@ services:
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - MAIL_HOST=${MAIL_HOST}
     labels:
-      - traefik.http.routers.proxy.entrypoints=web
+      - traefik.http.routers.api.entrypoints=web
       - traefik.http.routers.api.rule=Host(`api.blicc.org`)
     networks:
       - internal
@@ -49,7 +49,7 @@ services:
       - api
       - db
     labels:
-      - traefik.http.routers.proxy.entrypoints=web
+      - traefik.http.routers.app.entrypoints=web
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
     networks:
       - web
