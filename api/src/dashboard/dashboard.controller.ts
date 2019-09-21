@@ -7,6 +7,5 @@ export class DashboardController {
 
   public async create(ctx: Koa.BaseContext, next: Function): Promise<void> {
     await next()
-    const { name } = ctx.request.body
   }
 }
