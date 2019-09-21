@@ -10,10 +10,9 @@ services:
     command:
       - --api=true
       - --providers.docker=true
+      - --providers.docker.network=web
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - web
     labels:
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
@@ -21,8 +20,6 @@ services:
     image: registry.thiloilg.com/repo/blicc/db:latest
     container_name: db
     restart: always
-    networks:
-      - web
     labels:
       - traefik.enable=false
   api:
@@ -34,8 +31,6 @@ services:
     restart: always
     depends_on:
       - db
-    networks:
-      - web
     environment:
       - MAIL_ADDRESS=${MAIL_ADDRESS}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
@@ -49,10 +44,5 @@ services:
     depends_on:
       - api
       - db
-    networks:
-      - web
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
-
-networks:
-  web:
