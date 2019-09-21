@@ -10,7 +10,6 @@ services:
     command:
       - --api=true
       - --providers.docker=true
-      - --providers.docker.exposedByDefault=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
@@ -24,9 +23,11 @@ services:
     restart: always
     networks:
       - web
-  my_api:
+    labels:
+      - traefik.enable=false
+  api:
     image: registry.thiloilg.com/repo/blicc/api:latest
-    container_name: my_api
+    container_name: api
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
@@ -40,13 +41,13 @@ services:
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - MAIL_HOST=${MAIL_HOST}
     labels:
-      - traefik.http.routers.my_api.rule=Host(`api.domain.org`)
+      - traefik.http.routers.api.rule=Host(`api.blicc.org`)
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     container_name: app
     restart: always
     depends_on:
-      - my_api
+      - api
       - db
     networks:
       - web
