@@ -3,11 +3,12 @@ api:
 
 providers:
   docker: true
-# entryPoints:
-#   web:
-#     address: ':80'
-#   web-secure:
-#     address: ':443'
+
+entryPoints:
+  web:
+    address: ':80'
+  web-secure:
+    address: ':443'
 
 # certificatesResolvers:
 #   sample:
@@ -19,10 +20,11 @@ providers:
 
 http:
   middlewares:
-#     redirect:
-#       redirectScheme:
-#         scheme: https
-    auth:
+    auth-middleware:
       basicAuth:
         users:
-          - 'user:passwordHash'
+          - 'user:password'
+    #     redirect:
+    #       redirectScheme:
+    #         scheme: https
+
