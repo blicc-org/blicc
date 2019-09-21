@@ -17,4 +17,3 @@ certificatesResolvers:
       storage: acme.json
       httpChallenge:
         entryPoint: web
-
