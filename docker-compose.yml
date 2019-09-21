@@ -59,7 +59,7 @@ services:
       - traefik.http.routers.app.entrypoints=web
     networks:
       - web
-  
+
 networks:
   web:
     external: true
