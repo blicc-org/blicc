@@ -7,9 +7,6 @@ services:
     ports:
       - 80:80
       - 443:443
-    command:
-      - --api=true
-      - --providers.docker=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       # - /root/traefik.yml:/etc/traefik/traefik.yml
