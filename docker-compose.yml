@@ -16,8 +16,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
       - traefik.http.routers.traefik.service=api@internal
-      - traefik.http.routers.traefik.entrypoints=web
       - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
+      - traefik.http.routers.traefik.entrypoints=web
     networks:
       - web
   db:
@@ -30,7 +30,7 @@ services:
     image: registry.thiloilg.com/repo/blicc/api:latest
     container_name: api
     ports:
-      - 80:3001
+      - 3001:3001
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
@@ -42,8 +42,8 @@ services:
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - MAIL_HOST=${MAIL_HOST}
     labels:
-      - traefik.http.routers.api.entrypoints=web
       - traefik.http.routers.api.rule=Host(`api.blicc.org`)
+      - traefik.http.routers.api.entrypoints=web
     networks:
       - internal
       - web
@@ -55,8 +55,8 @@ services:
       - api
       - db
     labels:
-      - traefik.http.routers.app.entrypoints=web
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
+      - traefik.http.routers.app.entrypoints=web
     networks:
       - web
 
