@@ -8,8 +8,7 @@ services:
       - 80:80
       - 443:443
     command:
-      - --api.debug=true
-      - --api.insecure=true
+      - --api=true
       - --providers.docker=true
       - --entrypoints.web.address=:80
       - --providers.docker.exposedByDefault=true
@@ -43,6 +42,7 @@ services:
     labels:
       - traefik.http.routers.api.rule=Host(`api.domain.org`)
       - traefik.http.routers.api.entrypoints=web
+      - traefik.docker.network=web
       - traefik.http.services.api.loadbalancer.server.port=3001
     networks:
       - internal
