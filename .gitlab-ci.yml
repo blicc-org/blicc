@@ -14,6 +14,9 @@ build:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
+    - echo $MAIL_ADDRESS
+    - echo $MAIL_PASSWORD
+    - echo $MAIL_HOST
     - docker build -t app ./app
     - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t api ./api
     - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t db ./db
