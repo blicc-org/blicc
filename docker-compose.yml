@@ -18,14 +18,10 @@ services:
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
       - traefik.http.routers.traefik.entrypoints=web
-    networks:
-      - web
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
     container_name: db
     restart: always
-    networks:
-      - internal
   api:
     image: registry.thiloilg.com/repo/blicc/api:latest
     container_name: api
@@ -42,11 +38,6 @@ services:
     labels:
       - traefik.http.routers.api.rule=Host(`api.domain.org`)
       - traefik.http.routers.api.entrypoints=web
-      - traefik.docker.network=web
-      - traefik.http.services.api.loadbalancer.server.port=3001
-    networks:
-      - internal
-      - web
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     container_name: app
@@ -57,11 +48,3 @@ services:
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
       - traefik.http.routers.app.entrypoints=web
-    networks:
-      - web
-
-networks:
-  web:
-    external: true
-  internal:
-    external: false
