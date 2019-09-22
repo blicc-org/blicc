@@ -8,10 +8,10 @@ services:
       - 443:443
     command:
       - --api=true
-      - --providers.docker=true
+      - --providers.docker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      # - /root/traefik.yml:/etc/traefik/traefik.yml
+      - /root/traefik.yml:/etc/traefik/traefik.yml
       # - /root/acme.json:/acme.json
     labels:
       - traefik.http.routers.traefik.service=api@internal
