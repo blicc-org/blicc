@@ -8,13 +8,22 @@ services:
       - 443:443
     command:
       - --api=true
-      - --providers.docker
-      - --configFile=/root/traefik.yml
+      - --log.level=DEBUG
+      - --providers.docker=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.myhttpchallenge.acme.httpchallenge=true
+      - --certificatesresolvers.myhttpchallenge.acme.httpchallenge.entrypoint=web
+      - --certificatesresolvers.myhttpchallenge.acme.email=contact@thiloilg.com
+      - --certificatesresolvers.myhttpchallenge.acme.storage=/root/acme.json
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /root/acme.json:/root/acme.json
     labels:
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
+      - traefik.http.routers.traefik.entrypoints=websecure
+      - traefik.http.routers.traefik.tls.certresolver=myhttpchallenge
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
     restart: always
@@ -34,6 +43,8 @@ services:
       - MAIL_HOST=${MAIL_HOST}
     labels:
       - traefik.http.routers.api.rule=Host(`api.blicc.org`)
+      - traefik.http.routers.api.entrypoints=websecure
+      - traefik.http.routers.api.tls.certresolver=myhttpchallenge
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     restart: always
@@ -42,3 +53,5 @@ services:
       - db
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
+      - traefik.http.routers.app.entrypoints=websecure
+      - traefik.http.routers.app.tls.certresolver=myhttpchallenge
