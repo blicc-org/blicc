@@ -23,7 +23,10 @@ services:
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
       - traefik.http.routers.traefik.tls.certresolver=secure
-      - traefik.http.middlewares.redirect.redirectscheme.scheme=https
+      - traefik.http.routers.http-catchall.rule=hostregexp(`{host:[a-z-.]+}`)
+      - traefik.http.routers.http-catchall.entrypoints=web
+      - traefik.http.routers.http-catchall.middlewares=redirect-to-https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
     restart: always
@@ -44,6 +47,7 @@ services:
     labels:
       - traefik.http.routers.api.rule=Host(`api.blicc.org`)
       - traefik.http.routers.api.tls.certresolver=secure
+      - traefik.http.routers.api.entrypoints=websecure
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     restart: always
@@ -53,3 +57,4 @@ services:
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
       - traefik.http.routers.app.tls.certresolver=secure
+      - traefik.http.routers.app.entrypoints=websecure
