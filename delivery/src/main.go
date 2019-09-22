@@ -37,7 +37,7 @@ func reader(conn *websocket.Conn) {
 }
 
 func homePage(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Home Page")
+	fmt.Fprintf(w, "Deliery websocket API based on the AsyncAPI standard 2.0")
 }
 
 func wsEndpoint(w http.ResponseWriter, r *http.Request) {
