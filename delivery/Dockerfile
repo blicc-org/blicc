@@ -7,9 +7,9 @@ COPY go.sum .
 
 RUN go mod download
 
-COPY ./src /app
-
 RUN go build -o main .
+
+COPY ./src /app
 
 EXPOSE 80
 
