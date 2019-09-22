@@ -1,16 +1,2 @@
 log:
   level: DEBUG
-
-entryPoints:
-  web:
-    address: ':80'
-  web-secure:
-    address: ':443'
-
-certificatesResolvers:
-  sample:
-    acme:
-      email: example@email.com
-      storage: acme.json
-      httpChallenge:
-        entryPoint: web

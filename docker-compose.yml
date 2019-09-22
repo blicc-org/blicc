@@ -3,7 +3,6 @@ version: '3'
 services:
   traefik:
     image: traefik:v2.0
-    container_name: traefik
     ports:
       - 80:80
       - 443:443
@@ -13,19 +12,17 @@ services:
       - /root/acme.json:/acme.json
     command:
       - --api=true
-      - --providers.docker=true
+      - --providers.docker
     labels:
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
-    container_name: db
     restart: always
     labels:
       - traefik.enable=false
   api:
     image: registry.thiloilg.com/repo/blicc/api:latest
-    container_name: api
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
@@ -40,7 +37,6 @@ services:
       - traefik.http.routers.api.rule=Host(`api.blicc.org`)
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
-    container_name: app
     restart: always
     depends_on:
       - api
