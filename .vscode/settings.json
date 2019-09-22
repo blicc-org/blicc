@@ -26,6 +26,12 @@
       "extensions": ["controllers", "controller", "handlers", "hooks"],
       "format": "FileFormat.svg",
       "disabled": false
+    },
+    {
+      "icon": "cli",
+      "extensions": ["cmd", "command", "commands", "cli"],
+      "format": "FileFormat.svg",
+      "disabled": false
     }
   ]
 }
