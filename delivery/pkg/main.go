@@ -1,11 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
 // "github.com/gorilla/websocket"
 // "github.com/swaggest/go-asyncapi/spec"
 // "github.com/swaggest/go-asyncapi/swgen/asyncapi"
 
 func main() {
-	fmt.Println("Hello World!!!")
+	http.Handle("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "delivery!")
+	}))
+	http.ListenAndServe(":8080", nil)
 }
