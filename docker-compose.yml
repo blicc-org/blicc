@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   traefik:
@@ -24,6 +24,7 @@ services:
       - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
       - traefik.http.routers.traefik.tls.certresolver=secure
       - traefik.http.routers.traefik.middlewares=redirect@docker
+      - traefik.http.routers.traefik.entrypoints=web
       - traefik.http.middlewares.redirect.redirectscheme.scheme=https
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
@@ -44,6 +45,7 @@ services:
       - MAIL_HOST=${MAIL_HOST}
     labels:
       - traefik.http.routers.api.rule=Host(`api.blicc.org`)
+      - traefik.http.routers.api.entrypoints=web
       - traefik.http.routers.api.tls.certresolver=secure
       - traefik.http.routers.api.middlewares=redirect@docker
   app:
@@ -54,5 +56,6 @@ services:
       - db
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
+      - traefik.http.routers.app.entrypoints=web
       - traefik.http.routers.app.tls.certresolver=secure
       - traefik.http.routers.app.middlewares=redirect@docker
