@@ -14,7 +14,7 @@ services:
       - --entrypoints.websecure.address=:443
       - --certificatesresolvers.secure.acme.httpchallenge=true
       - --certificatesresolvers.secure.acme.httpchallenge.entrypoint=web
-      - --certificatesresolvers.secure.acme.email=contact@thiloilg.com
+      - --certificatesresolvers.secure.acme.email=${MAIL_ADDRESS}
       - --certificatesresolvers.secure.acme.storage=/root/acme.json
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
