@@ -6,13 +6,13 @@ services:
     ports:
       - 80:80
       - 443:443
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /root/traefik.yml:/etc/traefik/traefik.yml
-      - /root/acme.json:/acme.json
     command:
       - --api=true
-      - --providers.docker
+      - --providers.docker=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # - /root/traefik.yml:/etc/traefik/traefik.yml
+      # - /root/acme.json:/acme.json
     labels:
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
