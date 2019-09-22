@@ -12,10 +12,10 @@ services:
       - --providers.docker=true
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
-      - --certificatesresolvers.myhttpchallenge.acme.httpchallenge=true
-      - --certificatesresolvers.myhttpchallenge.acme.httpchallenge.entrypoint=web
-      - --certificatesresolvers.myhttpchallenge.acme.email=contact@thiloilg.com
-      - --certificatesresolvers.myhttpchallenge.acme.storage=/root/acme.json
+      - --certificatesresolvers.secure.acme.httpchallenge=true
+      - --certificatesresolvers.secure.acme.httpchallenge.entrypoint=web
+      - --certificatesresolvers.secure.acme.email=contact@thiloilg.com
+      - --certificatesresolvers.secure.acme.storage=/root/acme.json
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
@@ -23,7 +23,9 @@ services:
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
       - traefik.http.routers.traefik.entrypoints=websecure
-      - traefik.http.routers.traefik.tls.certresolver=myhttpchallenge
+      - traefik.http.routers.traefik.tls.certresolver=secure
+      - traefik.http.routers.traefik.middlewares=redirect
+      - traefik.http.middlewares.redirect.redirectscheme.scheme=https
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
     restart: always
@@ -44,7 +46,8 @@ services:
     labels:
       - traefik.http.routers.api.rule=Host(`api.blicc.org`)
       - traefik.http.routers.api.entrypoints=websecure
-      - traefik.http.routers.api.tls.certresolver=myhttpchallenge
+      - traefik.http.routers.api.tls.certresolver=secure
+      - traefik.http.routers.api.middlewares=redirect
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     restart: always
@@ -54,4 +57,5 @@ services:
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
       - traefik.http.routers.app.entrypoints=websecure
-      - traefik.http.routers.app.tls.certresolver=myhttpchallenge
+      - traefik.http.routers.app.tls.certresolver=secure
+      - traefik.http.routers.app.middlewares=redirect
