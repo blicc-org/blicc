@@ -4,6 +4,6 @@
   "author": "Thilo Ilg",
   "license": "MIT",
   "scripts": {
-    "start": "go run ./src/main.go"
+    "start": "go run ./pkg/main.go"
   }
 }

@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/blicc-org/blicc/delivery/pkg/beispiel"
 )
 
 // "github.com/gorilla/websocket"
@@ -11,5 +9,5 @@ import (
 // "github.com/swaggest/go-asyncapi/swgen/asyncapi"
 
 func main() {
-	fmt.Printf("my port has the number %d", beispiel.Port)
+	fmt.Println("my port has the number", 80)
 }
