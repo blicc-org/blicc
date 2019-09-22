@@ -23,7 +23,6 @@ services:
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
       - traefik.http.routers.traefik.tls.certresolver=secure
-      - traefik.http.routers.traefik.entrypoints=websecure
       - traefik.http.routers.detour.rule=hostregexp(`{host:[a-z-.]+}`)
       - traefik.http.routers.detour.entrypoints=web
       - traefik.http.routers.detour.middlewares=redirect-to-https
@@ -46,8 +45,8 @@ services:
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - MAIL_HOST=${MAIL_HOST}
     labels:
-      - traefik.tcp.routers.api.rule=Host(`api.blicc.org`)
-      - traefik.tcp.routers.api.tls.certresolver=secure
+      - traefik.http.routers.api.rule=Host(`api.blicc.org`)
+      - traefik.http.routers.api.tls.certresolver=secure
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     restart: always
@@ -56,11 +55,11 @@ services:
       - db
       - delivery
     labels:
-      - traefik.tcp.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
-      - traefik.tcp.routers.app.tls.certresolver=secure
+      - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
+      - traefik.http.routers.app.tls.certresolver=secure
   delivery:
     image: registry.thiloilg.com/repo/blicc/delivery:latest
     restart: always
     labels:
-      - traefik.tcp.routers.delivery.rule=Host(`delivery.blicc.org`)
-      - traefik.tcp.routers.delivery.tls.certresolver=secure
+      - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
+      - traefik.http.routers.delivery.tls.certresolver=secure
