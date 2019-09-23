@@ -1,8 +1,13 @@
 package main
 
-import "github.com/blicc-org/blicc/delivery/pkg/server"
+import(
+	"flag"
+	"github.com/blicc-org/blicc/delivery/pkg/server"
+)	
 
 func main() {
-	var PORT = 80
-	server.Start(PORT)
+	var port int
+	flag.IntVar(&port, "p", 80, "Port the server listens on")
+	flag.Parse()
+	server.Start(port)
 }

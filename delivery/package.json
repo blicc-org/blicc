@@ -1,0 +1,11 @@
+{
+  "name": "delivery",
+  "version": "0.0.1",
+  "description": "Data delivery api",
+  "main": "index.js",
+  "scripts": {
+    "start": "go run ./cmd/delivery.go -p 8080"
+  },
+  "author": "Thilo Ilg",
+  "license": "MIT"
+}
