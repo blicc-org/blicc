@@ -1,0 +1,7 @@
+{
+  "asyncapi": "2.0.0",
+  "info": {
+    "title": "Data delivery api documentation",
+    "version": "0.0.1"
+  }
+}

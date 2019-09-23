@@ -18,7 +18,7 @@ export class ApiDocsRouter {
 
     this.router.route({
       method: 'get',
-      path: '/swagger.json',
+      path: '/specs.json',
       handler: this.controller.swagger.bind(this.controller),
     })
 
