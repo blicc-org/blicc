@@ -9,8 +9,8 @@ RUN go mod download
 COPY . .
 COPY ./cmd/public ./public
 
-RUN go build -o bin/delivery ./cmd/delivery.go
+RUN go build -o main ./cmd/delivery.go
 
 EXPOSE 80
 
-CMD ["/app/bin/delivery"]
+CMD ["/app/main"]
