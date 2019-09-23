@@ -7,14 +7,14 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-var upgrader = websocket.Upgrader {
+var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
 	CheckOrigin:     func(r *http.Request) bool { return true },
 }
 
-func reader(conn * websocket.Conn){
-	for{
+func reader(conn *websocket.Conn) {
+	for {
 		messageType, p, err := conn.ReadMessage()
 		if err != nil {
 			log.Println(err)
@@ -22,7 +22,7 @@ func reader(conn * websocket.Conn){
 		}
 		log.Println(string(p))
 
-		if err := conn.WriteMessage(messageType, p); err != nil{
+		if err := conn.WriteMessage(messageType, p); err != nil {
 			log.Println(err)
 			return
 		}
