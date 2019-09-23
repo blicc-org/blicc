@@ -8,11 +8,11 @@ import (
 	"github.com/blicc-org/blicc/delivery/pkg/route/supplier"
 )
 
-func serveSupplier(){
+func serveSupplier() {
 	http.HandleFunc("/ws", supplier.Route)
 }
 
-func servePublicFolder(){
+func servePublicFolder() {
 	fs := http.FileServer(http.Dir("public"))
 	http.Handle("/", logging.Middleware(fs))
 }
