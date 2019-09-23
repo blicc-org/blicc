@@ -13,14 +13,14 @@ Blicc aims to provide a lightweight, user-friendly and secure progressive web ap
 
 #### Technologies
 
-- **Full-stack & Go**:
+- **Full-stack JavaScript**:
   - **NodeJS**: Backend Node.js server with Koa
   - **React**: Frontend React app
-  - **Go**: Go for data delivery through websockets
 - **RabbitMQ**: Open source message broker
 - **ChartJS**: Simple yet flexible JavaScript charting library
 - **Typescript**: Type-safe JavaScript in the backend
 - **JWT**: Authentification
+- **Socket.io**: For sending events via websockets
 
 #### Folder structure
 
