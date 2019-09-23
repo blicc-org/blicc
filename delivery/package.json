@@ -1,9 +1,0 @@
-{
-  "name": "delivery",
-  "version": "0.0.1",
-  "author": "Thilo Ilg",
-  "license": "MIT",
-  "scripts": {
-    "start": "go run ./pkg/main.go"
-  }
-}
