@@ -33,7 +33,6 @@
     "pg": "^7.12.1",
     "redoc": "^2.0.0-rc.8-1",
     "shortid": "^2.2.15",
-    "socket.io": "^2.2.0",
     "swagger-jsdoc": "^3.4.0",
     "typeorm": "^0.3.0-alpha.23"
   },

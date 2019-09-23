@@ -1,20 +1,32 @@
 import './assets/scss/Bootstrap.scss'
 import 'bootstrap/dist/js/bootstrap.min.js'
 
-import io from 'socket.io-client'
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { API_URL } from './config'
+import { DELIVERY_URL } from './config'
 import { App } from './App'
 
 import * as serviceWorker from './serviceWorker'
 
-const socket = io(API_URL)
-socket.on('broadcast', data => {
-  console.log(`${data.label} - ${data.message}`)
-})
+let socket = new WebSocket(DELIVERY_URL)
+
+console.log('waiting for websocket connection')
+socket.onopen = () => {
+  socket.send('Hi from client')
+
+  socket.onmessage = ({ data }) => {
+    console.log(`Socket received message: ${data}`)
+  }
+
+  socket.onclose = event => {
+    console.log(`Socket closed connection: ${event}`)
+  }
+
+  socket.onerror = event => {
+    console.log(`Socket error occured: ${event}`)
+  }
+}
 
 ReactDOM.render(<App />, document.getElementById('root'))
 
