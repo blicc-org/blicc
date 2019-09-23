@@ -7,6 +7,7 @@ COPY go.mod .
 RUN go mod download
 
 COPY . .
+COPY ./cmd/public ./public
 
 RUN go build -o bin/delivery ./cmd/delivery.go
 

@@ -1,6 +1,8 @@
 package server
 
 import (
+	"os"
+	"log"
 	"fmt"
 	"net/http"
 
@@ -8,6 +10,13 @@ import (
 )
 
 func servePublicFolder(){
+
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+  	fmt.Println(dir)
+
 	fs := http.FileServer(http.Dir("public"))
 	http.Handle("/", logging.Middleware(fs))
 }
