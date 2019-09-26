@@ -27,7 +27,7 @@ services:
       - traefik.http.routers.detour.entrypoints=web
       - traefik.http.routers.detour.middlewares=redirect-to-https
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-      - traefik.http.middlewares.sslheader.headers.request-headers.X-Forwarded-Proto=https
+      - traefik.http.middlewares.sslheader.headers.allow-wss.X-Forwarded-Proto=https
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
     restart: always
@@ -64,4 +64,4 @@ services:
     labels:
       - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
       - traefik.http.routers.delivery.tls.certresolver=secure
-      - traefik.http.routers.detour.middlewares=request-headers
+      - traefik.http.routers.detour.middlewares=allow-wss
