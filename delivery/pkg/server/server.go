@@ -9,7 +9,7 @@ import (
 )
 
 func serveSupplier() {
-	http.HandleFunc("/ws", supplier.Route)
+	http.HandleFunc("/connection", supplier.Route)
 }
 
 func servePublicFolder() {
