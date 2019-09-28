@@ -51,6 +51,5 @@ deploy:
     - scp -r ./docker-compose.yml root@$IP:/root/
     - ssh -tt root@$IP "openssl genrsa -out rsa.pem 2048"
     - ssh -tt root@$IP "openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem"
-    - ssh -tt root@$IP "export"
     - ssh -tt root@$IP "docker image prune -a -f"
     - ssh -tt root@$IP "export MAIL_ADDRESS=$MAIL_ADDRESS MAIL_PASSWORD=$MAIL_PASSWORD MAIL_HOST=$MAIL_HOST && docker-compose pull && docker-compose down && docker-compose -f /root/docker-compose.yml up -d --force-recreate --remove-orphans"

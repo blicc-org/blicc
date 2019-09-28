@@ -60,6 +60,8 @@ services:
       - traefik.http.routers.app.tls.certresolver=secure
   delivery:
     image: registry.thiloilg.com/repo/blicc/delivery:latest
+    volumes:
+      - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
     restart: always
     labels:
       - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)

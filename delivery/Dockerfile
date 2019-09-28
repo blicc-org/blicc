@@ -1,6 +1,6 @@
 FROM golang:1.13-alpine
 
-WORKDIR /app
+WORKDIR /root
 
 COPY go.mod .
 
@@ -12,4 +12,4 @@ RUN go build -o main ./cmd/delivery.go
 
 EXPOSE 80
 
-CMD ["/app/main"]
+CMD ["/root/main"]
