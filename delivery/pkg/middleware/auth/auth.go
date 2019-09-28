@@ -37,6 +37,8 @@ func verify(token string) bool {
 func Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
+		log.Println(r)
+
 		cookie, err := r.Cookie("access_token")
 		if err != nil {
 			log.Println(err)

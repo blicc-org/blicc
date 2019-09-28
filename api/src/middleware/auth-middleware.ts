@@ -12,7 +12,7 @@ export class AuthMiddleware {
   ): Promise<void> {
     try {
       let token: string = ctx.cookies.get('access_token')
-      console.log(token)
+      console.log(ctx.cookies)
       if (!token) {
         const { authorization } = ctx.headers
         token = authorization.split(' ')[1]
