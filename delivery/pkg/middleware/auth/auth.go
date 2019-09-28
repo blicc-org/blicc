@@ -36,23 +36,23 @@ func verify(token string) bool {
 
 func Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Println("sheeesh")
+		next.ServeHTTP(w, r)
 
-		log.Println(r)
+		// cookie, err := r.Cookie("access_token")
+		// if err != nil {
+		// 	log.Println(err)
+		// } else {
+		// 	log.Println(cookie)
+		// }
 
-		cookie, err := r.Cookie("access_token")
-		if err != nil {
-			log.Println(err)
-		} else {
-			log.Println(cookie)
-		}
-
-		if err == nil && verify(cookie.Value) {
-			log.Println("Authorization was successful!")
-			next.ServeHTTP(w, r)
-			return
-		}
-		log.Println("Invalid access_token")
-		w.WriteHeader(http.StatusUnauthorized)
-		w.Write([]byte("Unauthorized"))
+		// if err == nil && verify(cookie.Value) {
+		// 	log.Println("Authorization was successful!")
+		// 	next.ServeHTTP(w, r)
+		// 	return
+		// }
+		// log.Println("Invalid access_token")
+		// w.WriteHeader(http.StatusUnauthorized)
+		// w.Write([]byte("Unauthorized"))
 	})
 }
