@@ -15,22 +15,35 @@ func verify(token string) bool {
 
 	certsPath := flags.Instance().CertsPath
 
-	keyData, _ := ioutil.ReadFile(certsPath + "/rsa_pub.pem")
-	key, _ := jwt.ParseRSAPublicKeyFromPEM(keyData)
+	keyData, err := ioutil.ReadFile(certsPath + "/rsa_pub.pem")
+	if err != nil {
+		log.Println(err)
+	}
+
+	key, err := jwt.ParseRSAPublicKeyFromPEM(keyData)
+	if err != nil {
+		log.Println(err)
+	}
 
 	parts := strings.Split(token, ".")
 	signingString := strings.Join(parts[:2], ".")
 	signature := parts[2]
 
 	method := jwt.GetSigningMethod(algorithm)
-	err := method.Verify(signingString, signature, key)
-	return err == nil
+
+	return method.Verify(signingString, signature, key) == nil
 }
 
 func Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		cookie, err := r.Cookie("access_token")
+		if err != nil {
+			log.Println(err)
+		} else {
+			log.Println(cookie)
+		}
+
 		if err == nil && verify(cookie.Value) {
 			log.Println("Authorization was successful!")
 			next.ServeHTTP(w, r)
