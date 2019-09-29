@@ -1,13 +1,13 @@
 package logging
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 )
 
 func Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Printf("%s: %s \n", r.Method, r.RequestURI)
+		log.Printf("%s: %s \n", r.Method, r.RequestURI)
 		next.ServeHTTP(w, r)
 	})
 }
