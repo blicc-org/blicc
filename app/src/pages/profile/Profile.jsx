@@ -33,30 +33,32 @@ export function Profile() {
       <div className="col-md-5 mx-auto py-5 my-5">
         <h1 className="h3 mb-3 font-weight-normal">Profile</h1>
         <table style={{ width: '100%' }}>
-          <tr>
-            <td>
-              <b>First name:</b>
-            </td>
-            <td>{firstName}</td>
-          </tr>
-          <tr>
-            <td>
-              <b>Last name:</b>
-            </td>
-            <td>{lastName}</td>
-          </tr>
-          <tr>
-            <td>
-              <b>Email:</b>
-            </td>
-            <td>{email}</td>
-          </tr>
-          <tr>
-            <td>
-              <b>Role:</b>
-            </td>
-            <td>{role}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>
+                <b>First name:</b>
+              </td>
+              <td>{firstName}</td>
+            </tr>
+            <tr>
+              <td>
+                <b>Last name:</b>
+              </td>
+              <td>{lastName}</td>
+            </tr>
+            <tr>
+              <td>
+                <b>Email:</b>
+              </td>
+              <td>{email}</td>
+            </tr>
+            <tr>
+              <td>
+                <b>Role:</b>
+              </td>
+              <td>{role}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <Footer />
