@@ -39,8 +39,14 @@ func Middleware(next http.Handler) http.Handler {
 		cookie, err := r.Cookie("access_token")
 
 		log.Println("yayyy :D")
-		log.Println(cookie.Value)
-		log.Println(err)
+		if err != nil {
+			log.Println("Error occured")
+			log.Println(err)
+		} else {
+			log.Println("Token given in header")
+			log.Println(cookie.Value)
+		}
+
 		next.ServeHTTP(w, r)
 
 		// if err == nil && verify(cookie.Value) {
