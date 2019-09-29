@@ -30,9 +30,6 @@ export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
             <Link className="dropdown-item" to="/profile">
               Profile
             </Link>
-            <Link className="dropdown-item" to="/settings">
-              Settings
-            </Link>
             <div className="dropdown-divider"></div>
             <Link className="dropdown-item" to="/" onClick={logout}>
               Logout

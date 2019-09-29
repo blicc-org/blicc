@@ -2,9 +2,10 @@ import React, { createContext } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
 export const INITIAL_APP_STATE = {
-  loggedIn: false,
+  id: '',
   firstName: '',
   lastName: '',
+  loggedIn: false,
 }
 
 export const AppContext = createContext()

@@ -77,7 +77,6 @@ export class UserRouter {
     this.router.route({
       method: 'get',
       path: '/:id',
-      validate: { type: 'json' },
       pre: [
         AuthMiddleware.handle,
         PermissionMiddleware.handle.bind(null, 'user'),

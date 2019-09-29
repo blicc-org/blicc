@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Markdown from 'react-markdown'
@@ -12,7 +12,7 @@ export function PageGenerator({ location }) {
   const [text, setText] = useState('')
   let { pathname } = location
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     async function getText() {
       const { data } = await axios.get(
         `${APP_URL}${pathname.replace('/pages', '')}`

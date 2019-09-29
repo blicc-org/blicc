@@ -12,6 +12,7 @@ import { ToastProvider } from './context/ToastContext'
 import { ToastContainer } from './components/toast/ToastContainer'
 import { ModalProvider } from './context/ModalContext'
 import { Modal } from './components/modal/Modal'
+import { Profile } from './pages/profile/Profile'
 import './App.scss'
 
 export function App() {
@@ -26,6 +27,7 @@ export function App() {
               <Route path="/register" component={Register} />
               <Route path="/pages" component={PageGenerator} />
               <ProtectedRoute path="/dashboards" component={Dashboard} />
+              <ProtectedRoute path="/profile" component={Profile} />
               <Route component={NotFound} />
             </Switch>
             <Modal />

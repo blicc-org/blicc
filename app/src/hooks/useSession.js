@@ -17,9 +17,10 @@ export function useSession() {
     if (status === statusCode.ACCEPTED) {
       setAppState({
         ...appState,
-        loggedIn: true,
+        id: data.id,
         firstName: data.firstName,
         lastName: data.lastName,
+        loggedIn: true,
       })
     } else if (status === statusCode.FORBIDDEN) {
       showModal(
