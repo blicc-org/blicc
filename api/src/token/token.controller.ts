@@ -40,9 +40,8 @@ export class TokenController {
     const maxAge = (payload.exp - payload.iat) * 1000 // maxAge requires miliseconds
     ctx.cookies.set('access_token', token, {
       maxAge,
-      secure: false,
+      secure: IS_PROD,
       httpOnly: IS_PROD,
-      sameSite: 'Strict',
     })
 
     ctx.status = status.ACCEPTED
