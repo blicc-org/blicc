@@ -1,16 +1,16 @@
 import Koa from 'koa'
 import status from 'http-status-codes'
-import { SessionService } from './session.service'
+import { TokenService } from './token.service'
 import { UserService } from '../user/user.service'
 import { JWT } from '../util/jwt'
 import { IS_PROD } from '../config'
 
-export class SessionController {
-  private sessionService: SessionService
+export class TokenController {
+  private tokenService: TokenService
   private userService: UserService
 
   public constructor() {
-    this.sessionService = new SessionService()
+    this.tokenService = new TokenService()
     this.userService = new UserService()
   }
 
@@ -31,13 +31,13 @@ export class SessionController {
       return
     }
 
-    if (!(await this.sessionService.authenticate(email, password))) {
+    if (!(await this.tokenService.authenticate(email, password))) {
       ctx.status = status.FORBIDDEN
       return
     }
 
-    const { token, session } = JWT.generate(email)
-    const maxAge = (session.exp - session.iat) * 1000 // maxAge requires miliseconds
+    const { token, payload } = JWT.generate(email)
+    const maxAge = (payload.exp - payload.iat) * 1000 // maxAge requires miliseconds
     ctx.cookies.set('access_token', token, {
       maxAge,
       secure: IS_PROD,

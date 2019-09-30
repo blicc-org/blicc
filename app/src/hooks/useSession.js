@@ -7,7 +7,7 @@ import { ToastContext } from '../context/ToastContext'
 import { ModalContext } from '../context/ModalContext'
 
 export function useSession() {
-  const [open, , , close] = useApiEndpoint(`${API_URL}/sessions`)
+  const [open, , , close] = useApiEndpoint(`${API_URL}/tokens`)
   const [appState, setAppState] = useContext(AppContext)
   const [, showToast] = useContext(ToastContext)
   const [, showModal] = useContext(ModalContext)

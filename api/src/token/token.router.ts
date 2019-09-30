@@ -1,16 +1,16 @@
 import { Middleware } from 'koa'
 import createRouter, { Router } from 'koa-joi-router'
-import { SessionController } from './session.controller'
+import { TokenController as TokenController } from './token.controller'
 
-export class SessionRouter {
+export class TokenRouter {
   private prefix: string
   private router: Router
-  private controller: SessionController
+  private controller: TokenController
 
   public constructor(prefix: string) {
     this.prefix = prefix
     this.router = createRouter()
-    this.controller = new SessionController()
+    this.controller = new TokenController()
   }
 
   public routes(): Middleware {
@@ -18,12 +18,12 @@ export class SessionRouter {
     /**
      * @swagger
      *
-     * /sessions:
+     * /tokens:
      *   post:
      *     tags:
-     *       - Sessions
-     *     summary: Open session
-     *     description: Request JWT to authenticate a user during a session
+     *       - Tokens
+     *     summary: Request token
+     *     description: Request JWT to authenticate a user
      *     produces:
      *       - application/json
      *     requestBody:
@@ -94,11 +94,11 @@ export class SessionRouter {
     /**
      * @swagger
      *
-     * /sessions:
+     * /tokens:
      *   delete:
      *     tags:
-     *       - Sessions
-     *     summary: Close session
+     *       - Tokens
+     *     summary: Clear token
      *     description: Reset the JWT in the cookies
      *     responses:
      *       205:

@@ -7,7 +7,7 @@ import serve from 'koa-static'
 import { ApiDocsRouter } from './api-docs/api-docs.router'
 import { AdminRouter } from './admin/admin.router'
 import { UserRouter } from './user/user.router'
-import { SessionRouter } from './session/session.router'
+import { TokenRouter } from './token/token.router'
 import { DashboardRouter } from './dashboard/dashboard.router'
 
 export class App {
@@ -25,7 +25,7 @@ export class App {
     this.koa.use(new ApiDocsRouter('/').routes())
     this.koa.use(new AdminRouter('/admin').routes())
     this.koa.use(new UserRouter('/users').routes())
-    this.koa.use(new SessionRouter('/sessions').routes())
+    this.koa.use(new TokenRouter('/tokens').routes())
     this.koa.use(new DashboardRouter('/dashboards').routes())
   }
 

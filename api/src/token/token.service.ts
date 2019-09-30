@@ -2,7 +2,7 @@ import { Repository, getRepository } from 'typeorm'
 import { User } from '../user/user.entity'
 import { Hash } from '../util/hash'
 
-export class SessionService {
+export class TokenService {
   private userRepo: Repository<User>
 
   public constructor() {

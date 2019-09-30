@@ -1,6 +1,6 @@
 import fs from 'fs'
 import jwt from 'jsonwebtoken'
-import { Session } from '../session/session.interface'
+import { TokenPayload } from '../token/token-payload.interface'
 
 export class JWT {
   private static ALGORITHM = 'RS256'
@@ -8,21 +8,21 @@ export class JWT {
   private static PRIVATE = `${JWT.CERTS}/rsa.pem`
   private static PUBLIC = `${JWT.CERTS}/rsa_pub.pem`
 
-  public static generate(email: string): { token: string; session: Session } {
+  public static generate(email: string): { token: string; payload: TokenPayload } {
     const privateKey = fs.readFileSync(JWT.PRIVATE)
 
     const iat = Math.trunc(new Date().getTime() / 1000)
     const exp = iat + 2 * 24 * 60 * 60 // m * s => timeout of 10 minutes
-    const session: Session = { iat, exp, email }
+    const payload: TokenPayload = { iat, exp, email }
     return {
-      token: jwt.sign(session, privateKey, {
+      token: jwt.sign(payload, privateKey, {
         algorithm: JWT.ALGORITHM,
       }),
-      session,
+      payload,
     }
   }
 
-  public static verify(token: string): Session {
+  public static verify(token: string): TokenPayload {
     const publicKey = fs.readFileSync(JWT.PUBLIC)
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
