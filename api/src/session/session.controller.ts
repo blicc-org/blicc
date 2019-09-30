@@ -42,6 +42,7 @@ export class SessionController {
       maxAge,
       secure: IS_PROD,
       httpOnly: IS_PROD,
+      sameSite: 'Strict',
     })
 
     ctx.status = status.ACCEPTED
