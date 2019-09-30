@@ -8,7 +8,9 @@ export class JWT {
   private static PRIVATE = `${JWT.CERTS}/rsa.pem`
   private static PUBLIC = `${JWT.CERTS}/rsa_pub.pem`
 
-  public static generate(email: string): { token: string; payload: TokenPayload } {
+  public static generate(
+    email: string
+  ): { token: string; payload: TokenPayload } {
     const privateKey = fs.readFileSync(JWT.PRIVATE)
 
     const iat = Math.trunc(new Date().getTime() / 1000)

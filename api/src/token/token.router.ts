@@ -1,6 +1,6 @@
 import { Middleware } from 'koa'
 import createRouter, { Router } from 'koa-joi-router'
-import { TokenController as TokenController } from './token.controller'
+import { TokenController } from './token.controller'
 
 export class TokenRouter {
   private prefix: string
