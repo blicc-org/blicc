@@ -4,7 +4,6 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-
 import { App } from './App'
 
 // import { DELIVERY_URL } from './config'
