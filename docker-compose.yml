@@ -40,7 +40,6 @@ services:
     restart: always
     depends_on:
       - db
-      - traefik
     environment:
       - MAIL_ADDRESS=${MAIL_ADDRESS}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
@@ -55,11 +54,10 @@ services:
     restart: always
     depends_on:
       - api
-      - traefik
     labels:
       - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
       - traefik.http.routers.delivery.tls.certresolver=secure
-      - traefik.http.routers.detour.middlewares=customrequestheaders
+      - traefik.http.routers.delivery.middlewares=customrequestheaders
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     restart: always
@@ -67,7 +65,6 @@ services:
       - api
       - db
       - delivery
-      - traefik
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
       - traefik.http.routers.app.tls.certresolver=secure
