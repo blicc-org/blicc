@@ -40,7 +40,7 @@ services:
     restart: always
     depends_on:
       - db
-      - treafik
+      - traefik
     environment:
       - MAIL_ADDRESS=${MAIL_ADDRESS}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
@@ -55,7 +55,7 @@ services:
     restart: always
     depends_on:
       - api
-      - treafik
+      - traefik
     labels:
       - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
       - traefik.http.routers.delivery.tls.certresolver=secure
@@ -67,7 +67,7 @@ services:
       - api
       - db
       - delivery
-      - treafik
+      - traefik
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
       - traefik.http.routers.app.tls.certresolver=secure
