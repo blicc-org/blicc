@@ -19,14 +19,14 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
     labels:
-      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-      - traefik.http.middlewares.sslheader.headers.custom-headers.X-Forwarded-Proto=https
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
       - traefik.http.routers.traefik.tls.certresolver=secure
       - traefik.http.routers.detour.rule=hostregexp(`{host:[a-z-.]+}`)
       - traefik.http.routers.detour.entrypoints=web
       - traefik.http.routers.detour.middlewares=redirect-to-https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
     restart: always
@@ -57,7 +57,7 @@ services:
     labels:
       - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
       - traefik.http.routers.delivery.tls.certresolver=secure
-      - traefik.http.routers.delivery.middlewares=custom-headers
+      - traefik.http.routers.delivery.middlewares=customrequestheaders
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     restart: always
