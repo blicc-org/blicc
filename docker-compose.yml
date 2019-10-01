@@ -26,7 +26,7 @@ services:
       - traefik.http.routers.detour.entrypoints=web
       - traefik.http.routers.detour.middlewares=redirect-to-https
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-      - traefik.http.middlewares.sslheader.headers.forward-tsl-for-wss.X-Forwarded-Proto=https
+      - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
     restart: always
@@ -40,6 +40,7 @@ services:
     restart: always
     depends_on:
       - db
+      - treafik
     environment:
       - MAIL_ADDRESS=${MAIL_ADDRESS}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
@@ -47,6 +48,18 @@ services:
     labels:
       - traefik.http.routers.api.rule=Host(`api.blicc.org`)
       - traefik.http.routers.api.tls.certresolver=secure
+  delivery:
+    image: registry.thiloilg.com/repo/blicc/delivery:latest
+    volumes:
+      - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
+    restart: always
+    depends_on:
+      - api
+      - treafik
+    labels:
+      - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
+      - traefik.http.routers.delivery.tls.certresolver=secure
+      - traefik.http.routers.detour.middlewares=customrequestheaders
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     restart: always
@@ -54,15 +67,7 @@ services:
       - api
       - db
       - delivery
+      - treafik
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
       - traefik.http.routers.app.tls.certresolver=secure
-  delivery:
-    image: registry.thiloilg.com/repo/blicc/delivery:latest
-    volumes:
-      - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
-    restart: always
-    labels:
-      - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
-      - traefik.http.routers.delivery.tls.certresolver=secure
-      - traefik.http.routers.detour.middlewares=forward-tsl-for-wss
