@@ -6,9 +6,10 @@ import ReactDOM from 'react-dom'
 
 import { App } from './App'
 
-// import { DELIVERY_URL } from './config'
 
-// import * as serviceWorker from './serviceWorker'
+import * as serviceWorker from './serviceWorker'
+
+// import { DELIVERY_URL } from './config'
 
 // let socket = new WebSocket(DELIVERY_URL)
 
