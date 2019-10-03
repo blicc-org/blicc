@@ -12,6 +12,10 @@ import { DELIVERY_URL } from './config'
 
 let socket = new WebSocket(DELIVERY_URL)
 
+window.test = 0
+window.test = window.test + 1
+console.log(window.test)
+
 console.log('waiting for websocket connection')
 socket.onopen = () => {
   socket.send('Hi from client')

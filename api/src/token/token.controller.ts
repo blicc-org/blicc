@@ -42,7 +42,7 @@ export class TokenController {
       maxAge,
       secure: IS_PROD,
       httpOnly: IS_PROD,
-      //sameSize: 'Strict',
+      sameSize: 'Strict',
     })
 
     ctx.status = status.ACCEPTED
