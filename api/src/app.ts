@@ -16,7 +16,7 @@ export class App {
   public constructor() {
     this.koa = new Koa()
 
-    this.koa.proxy = true
+    this.koa.proxy = true // forward for TSL encyrption on edge proxy level
     this.koa.use(cors({ credentials: true }))
     this.koa.use(logger())
     this.koa.use(bodyParser())
