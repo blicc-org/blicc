@@ -53,10 +53,10 @@ export class TokenController {
     }
   }
 
-  public async twofactor(ctx: Koa.BaseContext, next: Function): Promise<void>{
+  public async twofactor(ctx: Koa.BaseContext, next: Function): Promise<void> {
     await next()
-    var secret = speakeasy.generateSecret();
-    ctx.body = {url: secret.otpauth_url}
+    var secret = speakeasy.generateSecret()
+    ctx.body = { url: secret.otpauth_url }
   }
 
   public async logout(ctx: Koa.BaseContext, next: Function): Promise<void> {
