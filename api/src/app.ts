@@ -9,6 +9,7 @@ import { AdminRouter } from './admin/admin.router'
 import { UserRouter } from './user/user.router'
 import { TokenRouter } from './token/token.router'
 import { DashboardRouter } from './dashboard/dashboard.router'
+import { TwoFactorAuthRouter } from './two-factor-auth/two-factor-auth.router'
 
 export class App {
   private koa: Koa
@@ -27,6 +28,7 @@ export class App {
     this.koa.use(new UserRouter('/users').routes())
     this.koa.use(new TokenRouter('/tokens').routes())
     this.koa.use(new DashboardRouter('/dashboards').routes())
+    this.koa.use(new TwoFactorAuthRouter('/two-factor-auth').routes())
   }
 
   public listen(port: number): void {

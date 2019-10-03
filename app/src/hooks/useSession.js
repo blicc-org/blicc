@@ -42,12 +42,12 @@ export function useSession() {
   }
 
   async function logout() {
-    const [status] = await close()
-    if (status === statusCode.NO_CONTENT) {
-      setAppState(INITIAL_APP_STATE)
-    } else {
-      showToast('Logout error', 'The logout proccess failed.')
+    try {
+      await close()
+    } catch (e) {
+      // logout even though server is not reachable or user does not exist anymore
     }
+    setAppState(INITIAL_APP_STATE)
   }
 
   return [login, logout]

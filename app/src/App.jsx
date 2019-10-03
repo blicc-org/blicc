@@ -13,8 +13,8 @@ import { ToastContainer } from './components/toast/ToastContainer'
 import { ModalProvider } from './context/ModalContext'
 import { Modal } from './components/modal/Modal'
 import { Profile } from './pages/profile/Profile'
-import './App.scss'
 import { TwoFactorAuth } from './pages/two-factor-auth/TwoFactorAuth'
+import './App.scss'
 
 export function App() {
   return (
@@ -27,7 +27,10 @@ export function App() {
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route path="/pages" component={PageGenerator} />
-              <ProtectedRoute path="/twofactor" component={TwoFactorAuth} />
+              <ProtectedRoute
+                path="/two-factor-auth"
+                component={TwoFactorAuth}
+              />
               <ProtectedRoute path="/dashboards" component={Dashboard} />
               <ProtectedRoute path="/profile" component={Profile} />
               <Route component={NotFound} />

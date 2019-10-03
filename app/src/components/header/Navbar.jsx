@@ -9,7 +9,6 @@ import { NavbarDashboard } from './NavbarDashboard'
 export function NavBar() {
   const [appState] = useContext(AppContext)
   const { firstName, lastName, loggedIn } = appState
-
   const [, logout] = useSession()
 
   const styles = {

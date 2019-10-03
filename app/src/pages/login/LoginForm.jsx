@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { Redirect, Link } from 'react-router-dom'
-import './LoginForm.css'
+import './LoginForm.scss'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
 

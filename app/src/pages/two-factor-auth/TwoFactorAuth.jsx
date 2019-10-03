@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { Header } from '../../components/header/Header'
 import { Footer } from '../../components/footer/Footer'
-import { QRCode } from '../../components/qr-code/QRCode'
+import { TwoFactorAuthForm } from './TwoFactorAuthForm'
 import { API_URL } from '../../config'
+import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 
 export function TwoFactorAuth() {
+  const [enable, requestSecret, ,] = useApiEndpoint(
+    `${API_URL}/two-factor-auth`
+  )
   const [url, setUrl] = useState('')
 
   useEffect(() => {
-    async function fetchURL() {
-      const {
-        data: { otpAuthUrl },
-      } = await axios.get(`${API_URL}/tokens`)
+    async function fetchChallengeUrl() {
+      const [, { otpAuthUrl }] = await requestSecret()
       setUrl(otpAuthUrl)
     }
-
-    fetchURL()
+    fetchChallengeUrl()
+    // eslint-disable-next-line
   }, [])
 
   return (
     <>
       <Header />
-      <QRCode url={url}></QRCode>
+      <TwoFactorAuthForm url={url} enable={enable} />
       <Footer />
     </>
   )
