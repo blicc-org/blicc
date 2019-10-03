@@ -22,14 +22,20 @@ export class UserService {
   ): Promise<User> {
     const passwordHash = Hash.generate(password)
     const hasTwoFactorAuth = false
+    const twoFactorAuthSecret = ''
     const user = new User(
       firstName,
       lastName,
       email,
       passwordHash,
       role,
-      hasTwoFactorAuth
+      hasTwoFactorAuth,
+      twoFactorAuthSecret
     )
+    return await this.repo.save(user)
+  }
+
+  public async update(user: User): Promise<User> {
     return await this.repo.save(user)
   }
 

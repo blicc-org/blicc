@@ -30,6 +30,9 @@ export class User extends BaseEntity {
   @Column()
   public hasTwoFactorAuth: boolean
 
+  @Column()
+  public twoFactorAuthSecret: string
+
   @BeforeInsert()
   private async beforeInsert(): Promise<void> {
     const userService = new UserService()
@@ -42,7 +45,8 @@ export class User extends BaseEntity {
     email: string,
     passwordHash: string,
     role: string,
-    hasTwoFactorAuth: boolean
+    hasTwoFactorAuth: boolean,
+    twoFactorAuthSecret: string
   ) {
     super()
     this.firstName = firstName
@@ -51,5 +55,6 @@ export class User extends BaseEntity {
     this.passwordHash = passwordHash
     this.role = role
     this.hasTwoFactorAuth = hasTwoFactorAuth
+    this.twoFactorAuthSecret = twoFactorAuthSecret
   }
 }
