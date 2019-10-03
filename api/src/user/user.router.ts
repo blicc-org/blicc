@@ -38,7 +38,7 @@ export class UserRouter {
      *       - application/json
      *     responses:
      *       200:
-     *         description: Success
+     *         description: OK
      *         content:
      *           application/json:
      *             schema:
@@ -73,8 +73,14 @@ export class UserRouter {
      *                   "email": "john.doe@email.com",
      *                   "role": "user"
      *                 }
+     *       401:
+     *         description: Unauthorized
+     *       403:
+     *         description: Forbidden
+     *       404:
+     *         description: Not found
      *       500:
-     *         description: Internal Server Error response.
+     *         description: Internal Server Error
      */
     this.router.route({
       method: 'get',
@@ -95,8 +101,6 @@ export class UserRouter {
      *       - User
      *     summary: Register user
      *     description: Register a user
-     *     produces:
-     *       - application/json
      *     requestBody:
      *         content:
      *           application/json:
@@ -136,7 +140,7 @@ export class UserRouter {
      *       422:
      *         description: Unprocessable entity
      *       500:
-     *         description: Internal Server Error response.
+     *         description: Internal Server Error
      */
     this.router.route({
       method: 'post',
@@ -176,12 +180,16 @@ export class UserRouter {
      *                   "email": "john.doe@email.com"
      *                 }
      *     responses:
-     *       200:
-     *         description: Email has been send
+     *       204:
+     *         description: No content
+     *       401:
+     *         description: Unauthorized
+     *       403:
+     *         description: Forbidden
      *       404:
-     *         description: User not found
+     *         description: Not found
      *       500:
-     *         description: Internal Server Error response.
+     *         description: Internal Server Error
      */
     this.router.route({
       method: 'put',

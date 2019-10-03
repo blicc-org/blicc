@@ -53,7 +53,7 @@ export class TokenRouter {
      *                 }
      *     responses:
      *       202:
-     *         description: Accepted
+     *         description: OK
      *         content:
      *           application/json:
      *             schema:
@@ -87,7 +87,7 @@ export class TokenRouter {
      *       422:
      *         description: Unprocessable entity
      *       500:
-     *         description: Internal Server Error response.
+     *         description: Internal Server Error
      */
     this.router.route({
       method: 'post',
@@ -112,10 +112,12 @@ export class TokenRouter {
      *         description: Reset content
      *       401:
      *         description: Unauthorized
+     *       403:
+     *         description: Forbidden
      *       404:
      *         description: Not found
      *       500:
-     *         description: Internal Server Error response.
+     *         description: Internal Server Error
      */
     this.router.route({
       method: 'delete',
