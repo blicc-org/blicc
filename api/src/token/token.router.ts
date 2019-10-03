@@ -55,27 +55,30 @@ export class TokenRouter {
      *       202:
      *         description: Accepted
      *         content:
-     *           JWT:
+     *           application/json:
      *             schema:
-     *               required:
-     *               - jwt
      *               properties:
-     *                 jwt:
-     *                   type: json web token
-     *                   description: A JWT will be stored in the cookies for authentication
+     *                 id:
+     *                   type: string
+     *                 firstName:
+     *                   type: string
+     *                 lastName:
+     *                   type: string
+     *                 email:
+     *                   type: string
+     *                 role:
+     *                   type: string
+     *                 hasTwoFactorAuth:
+     *                   type: string
      *             examples:
      *               filter:
      *                 value: {
-     *                   "header": {
-     *                     "alg": "RS256",
-     *                     "typ": "JWT"
-     *                   },
-     *                   "payload": {
-     *                     "iat": 1567539096,
-     *                     "exp": 1567711896,
-     *                     "email": "john.doe@email.com",
-     *                   },
-     *                   "signature": "RSASHA256"
+     *                   "id": "MRW2dSku",
+     *                   "firstName": "John",
+     *                   "lastName": "Doe",
+     *                   "email": "john.doe@email.com",
+     *                   "role": "user",
+     *                   "hasTwoFactorAuth": "true"
      *                 }
      *       403:
      *         description: Forbidden
@@ -90,7 +93,7 @@ export class TokenRouter {
       method: 'post',
       path: '/',
       validate: { type: 'json' },
-      handler: this.controller.login.bind(this.controller),
+      handler: this.controller.request.bind(this.controller),
     })
 
     /**
@@ -98,13 +101,21 @@ export class TokenRouter {
      *
      * /tokens:
      *   delete:
+     *     security:
+     *       - cookieAuth: []
      *     tags:
      *       - Tokens
      *     summary: Clear token
-     *     description: Reset the JWT in the cookies
+     *     description: Clear up JWT within the cookies
      *     responses:
      *       205:
      *         description: Reset content
+     *       401:
+     *         description: Unauthorized
+     *       404:
+     *         description: Not found
+     *       500:
+     *         description: Internal Server Error response.
      */
     this.router.route({
       method: 'delete',
@@ -113,16 +124,7 @@ export class TokenRouter {
         AuthMiddleware.handle,
         PermissionMiddleware.handle.bind(null, 'user'),
       ],
-      handler: this.controller.logout.bind(this.controller),
-    })
-
-    /**
-     * test two factor auth
-     */
-    this.router.route({
-      method: 'get',
-      path: '/',
-      handler: this.controller.twofactor.bind(this.controller),
+      handler: this.controller.clear.bind(this.controller),
     })
 
     return this.router.middleware()

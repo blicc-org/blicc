@@ -1,6 +1,5 @@
 import Koa from 'koa'
 import status from 'http-status-codes'
-import speakeasy from 'speakeasy'
 import { TokenService } from './token.service'
 import { UserService } from '../user/user.service'
 import { JWT } from '../util/jwt'
@@ -15,7 +14,7 @@ export class TokenController {
     this.userService = new UserService()
   }
 
-  public async login(ctx: Koa.BaseContext, next: Function): Promise<void> {
+  public async request(ctx: Koa.BaseContext, next: Function): Promise<void> {
     await next()
 
     const { email, password } = ctx.request.body
@@ -48,18 +47,11 @@ export class TokenController {
 
     ctx.status = status.ACCEPTED
     ctx.body = {
-      jwt: token,
       ...user,
     }
   }
 
-  public async twofactor(ctx: Koa.BaseContext, next: Function): Promise<void> {
-    await next()
-    const secret = speakeasy.generateSecret()
-    ctx.body = { url: secret.otpauth_url }
-  }
-
-  public async logout(ctx: Koa.BaseContext, next: Function): Promise<void> {
+  public async clear(ctx: Koa.BaseContext, next: Function): Promise<void> {
     await next()
     ctx.cookies.set('access_token', null)
     ctx.status = status.NO_CONTENT

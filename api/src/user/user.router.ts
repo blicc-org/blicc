@@ -23,6 +23,8 @@ export class UserRouter {
      *
      * /users/{userId}:
      *   get:
+     *     security:
+     *       - cookieAuth: []
      *     tags:
      *       - User
      *     summary: Retrieve user details
@@ -148,6 +150,8 @@ export class UserRouter {
      *
      * /users/password:
      *   put:
+     *     security:
+     *       - cookieAuth: []
      *     tags:
      *       - User
      *     summary: Reset password

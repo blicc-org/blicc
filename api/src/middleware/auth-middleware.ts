@@ -25,7 +25,7 @@ export class AuthMiddleware {
         await next()
       } else {
         ctx.status = status.NOT_FOUND
-        ctx.body = 'User does not exist anymore.'
+        ctx.body = 'User does not exist.'
       }
     } catch (e) {
       if (e.name === 'TokenExpiredError') {
