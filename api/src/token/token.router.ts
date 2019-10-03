@@ -1,6 +1,8 @@
 import { Middleware } from 'koa'
 import createRouter, { Router } from 'koa-joi-router'
 import { TokenController } from './token.controller'
+import { AuthMiddleware } from '../middleware/auth-middleware'
+import { PermissionMiddleware } from '../middleware/permission-middleware'
 
 export class TokenRouter {
   private prefix: string
@@ -107,7 +109,20 @@ export class TokenRouter {
     this.router.route({
       method: 'delete',
       path: '/',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, 'user'),
+      ],
       handler: this.controller.logout.bind(this.controller),
+    })
+
+    /**
+     * test two factor auth
+     */
+    this.router.route({
+      method: 'get',
+      path: '/',
+      handler: this.controller.twofactor.bind(this.controller),
     })
 
     return this.router.middleware()

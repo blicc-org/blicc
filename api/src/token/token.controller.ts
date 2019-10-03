@@ -1,5 +1,6 @@
 import Koa from 'koa'
 import status from 'http-status-codes'
+import speakeasy from 'speakeasy'
 import { TokenService } from './token.service'
 import { UserService } from '../user/user.service'
 import { JWT } from '../util/jwt'
@@ -42,7 +43,7 @@ export class TokenController {
       maxAge,
       secure: IS_PROD,
       httpOnly: IS_PROD,
-      //sameSize: 'Strict',
+      sameSize: 'Strict',
     })
 
     ctx.status = status.ACCEPTED
@@ -50,6 +51,12 @@ export class TokenController {
       jwt: token,
       ...user,
     }
+  }
+
+  public async twofactor(ctx: Koa.BaseContext, next: Function): Promise<void>{
+    await next()
+    var secret = speakeasy.generateSecret();
+    ctx.body = {url: secret.otpauth_url}
   }
 
   public async logout(ctx: Koa.BaseContext, next: Function): Promise<void> {
