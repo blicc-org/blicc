@@ -55,7 +55,7 @@ export class TokenController {
 
   public async twofactor(ctx: Koa.BaseContext, next: Function): Promise<void> {
     await next()
-    var secret = speakeasy.generateSecret()
+    const secret = speakeasy.generateSecret()
     ctx.body = { url: secret.otpauth_url }
   }
 
