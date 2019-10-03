@@ -38,16 +38,16 @@ export class TwoFactorAuthRouter {
      *           application/json:
      *             schema:
      *               required:
-     *               - otpauth_url
+     *               - otpAuthUrl
      *               properties:
-     *                 otpauth_url:
+     *                 otpAuthUrl:
      *                   type: string
      *                   required:
-     *                   - otpauth_url
+     *                   - otpAuthUrl
      *             examples:
      *               filter:
      *                 value: {
-     *                   "otpauth_url": "otpauth://secret"
+     *                   "otpAuthUrl": "otpauth://secret"
      *                 }
      *       401:
      *         description: Unauthorized

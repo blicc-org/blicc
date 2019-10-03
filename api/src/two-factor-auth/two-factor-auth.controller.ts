@@ -18,7 +18,7 @@ export class TwoFactorAuthController {
     } else {
       const secret = speakeasy.generateSecret()
       ctx.user.twoFactorAuthSecret = secret.base32
-      ctx.body = { otpauth_url: secret.otpauth_url }
+      ctx.body = { otpAuthUrl: secret.otpauth_url }
       ctx.status = status.OK
     }
   }
