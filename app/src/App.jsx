@@ -14,7 +14,7 @@ import { ModalProvider } from './context/ModalContext'
 import { Modal } from './components/modal/Modal'
 import { Profile } from './pages/profile/Profile'
 import './App.scss'
-import { TwoFactorAuth } from './pages/two-factor-auth/two-factor-auth'
+import { TwoFactorAuth } from './pages/two-factor-auth/TwoFactorAuth'
 
 export function App() {
   return (
@@ -27,7 +27,7 @@ export function App() {
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route path="/pages" component={PageGenerator} />
-              <Route path="/twofactor" component={TwoFactorAuth} />
+              <ProtectedRoute path="/twofactor" component={TwoFactorAuth} />
               <ProtectedRoute path="/dashboards" component={Dashboard} />
               <ProtectedRoute path="/profile" component={Profile} />
               <Route component={NotFound} />
