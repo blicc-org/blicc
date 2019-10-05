@@ -35,7 +35,7 @@ export function PinInput({}) {
     4: '',
     5: '',
   })
-  
+
   return (
     <div className="input-group mb-3 pin-input">
       {Object.keys(pin).map((key, index) => {
