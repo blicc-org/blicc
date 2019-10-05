@@ -56,8 +56,21 @@ export class TokenRouter {
      *                   "token": "234908"
      *                 }
      *     responses:
-     *       202:
+     *       200:
      *         description: OK
+     *         content:
+     *           application/json:
+     *             schema:
+     *               properties:
+     *                 info:
+     *                   type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   "info": "2FA token is required."
+     *                 }
+     *       202:
+     *         description: Accepted
      *         content:
      *           application/json:
      *             schema:
@@ -84,8 +97,6 @@ export class TokenRouter {
      *                   "role": "user",
      *                   "hasTwoFactorAuth": "true"
      *                 }
-     *       400:
-     *         description: Bad request
      *       403:
      *         description: Forbidden
      *       404:

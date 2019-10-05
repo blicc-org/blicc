@@ -12,6 +12,15 @@ export function Login() {
   const [appState] = useContext(AppContext)
   const [login] = useSession()
 
+  async function loginHandler() {
+    try {
+      const hasTwoFactorAuth = await login(email, password)
+      console.log('has two-factor auth: ' + hasTwoFactorAuth)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   return (
     <>
       {appState.loggedIn && <Redirect to="/dashboards" />}
@@ -21,7 +30,7 @@ export function Login() {
         setEmail={setEmail}
         password={password}
         setPassword={setPassword}
-        login={login}
+        login={loginHandler}
       />
       <Footer />
     </>
