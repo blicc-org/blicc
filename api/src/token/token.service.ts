@@ -15,7 +15,7 @@ export class TokenService {
   public async authenticate(
     email: string,
     password: string,
-    token: string = ''
+    token = ''
   ): Promise<boolean> {
     const user = await this.userRepo
       .createQueryBuilder('user')
