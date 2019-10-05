@@ -67,7 +67,7 @@ export class TokenRouter {
      *             examples:
      *               filter:
      *                 value: {
-     *                   "info": "2FA token is required."
+     *                   "info": "Request again with 2FA token."
      *                 }
      *       202:
      *         description: Accepted
