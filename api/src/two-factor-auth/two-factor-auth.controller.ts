@@ -1,13 +1,15 @@
 import Koa from 'koa'
-import speakeasy from 'speakeasy'
 import status from 'http-status-codes'
 import { UserService } from '../user/user.service'
+import { TwoFactorAuthService } from './two-factor-auth.service'
 
 export class TwoFactorAuthController {
   private userService: UserService
+  private twoFactorAuthService: TwoFactorAuthService
 
   public constructor() {
     this.userService = new UserService()
+    this.twoFactorAuthService = new TwoFactorAuthService()
   }
 
   public async request(ctx: Koa.BaseContext, next: Function): Promise<void> {
@@ -16,9 +18,9 @@ export class TwoFactorAuthController {
     if (ctx.user.hasTwoFactorAuth) {
       ctx.status = status.CONFLICT
     } else {
-      const secret = speakeasy.generateSecret()
-      ctx.user.twoFactorAuthSecret = secret.base32
-      ctx.body = { otpAuthUrl: secret.otpauth_url }
+      const {secret, otpAuthUrl} = this.twoFactorAuthService.generateSecret()
+      ctx.user.twoFactorAuthSecret = secret
+      ctx.body = { otpAuthUrl }
       ctx.status = status.OK
     }
   }
@@ -27,14 +29,8 @@ export class TwoFactorAuthController {
     await next()
 
     const { token } = ctx.request.body
-    const { twoFactorAuthSecret } = ctx.user
-    if (
-      speakeasy.totp.verify({
-        secret: twoFactorAuthSecret,
-        encoding: 'base32',
-        token,
-      })
-    ) {
+
+    if(await this.twoFactorAuthService.authenticate(ctx.user.email, token)){
       ctx.user.hasTwoFactorAuth = true
       this.userService.update(ctx.user)
       ctx.status = status.NO_CONTENT

@@ -30,7 +30,7 @@ export class User extends BaseEntity {
   @Column()
   public hasTwoFactorAuth: boolean
 
-  @Column()
+  @Column({ select: false })
   public twoFactorAuthSecret: string
 
   @BeforeInsert()
