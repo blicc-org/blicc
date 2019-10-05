@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { QRCode } from '../../components/qr-code/QRCode'
-import { PinInput } from '../../components/form/PinInput'
+import { Pin } from '../../components/form/pin/Pin'
 import './TwoFactorAuthForm.scss'
 
 export function TwoFactorAuthForm({ url, enable }) {
   const [token, setToken] = useState('')
   const [onSuccess, setOnSuccess] = useState(false)
-
   return (
     <>
       {onSuccess && <Redirect to="/dashboards" />}
@@ -22,7 +21,7 @@ export function TwoFactorAuthForm({ url, enable }) {
           <label htmlFor="token" className="sr-only">
             Token
           </label>
-          <PinInput />
+          <Pin size={4} setPin={setToken} />
           <button
             className="btn btn-lg btn-primary btn-block"
             type="submit"
