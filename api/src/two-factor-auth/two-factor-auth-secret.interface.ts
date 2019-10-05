@@ -1,4 +1,4 @@
 export interface TwoFactorAuthSecret {
-    secret: string;
-    otpAuthUrl?: string; 
+  secret: string
+  otpAuthUrl?: string
 }

@@ -18,7 +18,7 @@ export class TwoFactorAuthController {
     if (ctx.user.hasTwoFactorAuth) {
       ctx.status = status.CONFLICT
     } else {
-      const {secret, otpAuthUrl} = this.twoFactorAuthService.generateSecret()
+      const { secret, otpAuthUrl } = this.twoFactorAuthService.generateSecret()
       ctx.user.twoFactorAuthSecret = secret
       ctx.body = { otpAuthUrl }
       ctx.status = status.OK
@@ -30,7 +30,7 @@ export class TwoFactorAuthController {
 
     const { token } = ctx.request.body
 
-    if(await this.twoFactorAuthService.authenticate(ctx.user.email, token)){
+    if (await this.twoFactorAuthService.authenticate(ctx.user.email, token)) {
       ctx.user.hasTwoFactorAuth = true
       this.userService.update(ctx.user)
       ctx.status = status.NO_CONTENT

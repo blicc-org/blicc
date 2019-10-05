@@ -1,7 +1,7 @@
 import { Repository, getRepository } from 'typeorm'
 import speakeasy from 'speakeasy'
 import { User } from '../user/user.entity'
-import {TwoFactorAuthSecret } from './two-factor-auth-secret.interface'
+import { TwoFactorAuthSecret } from './two-factor-auth-secret.interface'
 
 export class TwoFactorAuthService {
   private userRepo: Repository<User>
@@ -26,9 +26,9 @@ export class TwoFactorAuthService {
     const { twoFactorAuthSecret } = user
 
     return speakeasy.totp.verify({
-        secret: twoFactorAuthSecret,
-        encoding: 'base32',
-        token,
+      secret: twoFactorAuthSecret,
+      encoding: 'base32',
+      token,
     })
   }
 }
