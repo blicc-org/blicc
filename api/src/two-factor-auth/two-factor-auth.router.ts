@@ -114,6 +114,10 @@ export class TwoFactorAuthRouter {
     this.router.route({
       method: 'post',
       path: '/',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, 'user'),
+      ],
       validate: { type: 'json' },
       handler: this.controller.enable.bind(this.controller),
     })

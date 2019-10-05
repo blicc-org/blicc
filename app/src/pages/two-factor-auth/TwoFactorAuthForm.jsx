@@ -21,7 +21,7 @@ export function TwoFactorAuthForm({ url, enable }) {
           <label htmlFor="token" className="sr-only">
             Token
           </label>
-          <Pin size={4} setPin={setToken} />
+          <Pin size={6} setPin={setToken} />
           <button
             className="btn btn-lg btn-primary btn-block"
             type="submit"
