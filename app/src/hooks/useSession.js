@@ -12,11 +12,14 @@ export function useSession() {
   const [, showToast] = useContext(ToastContext)
   const [, showModal] = useContext(ModalContext)
 
-  async function login(email, password) {
-    const [status, data] = await open({ email, password })
+  async function login(email, password, token = '') {
+    const requestBody =
+      token === '' ? { email, password } : { email, password, token }
     let hasTwoFactorAuth = false
 
-    if (status === statusCode.BAD_REQUEST) {
+    const [status, data] = await open(requestBody)
+
+    if (status === statusCode.OK) {
       hasTwoFactorAuth = true
     } else if (status === statusCode.ACCEPTED) {
       setAppState({

@@ -39,7 +39,7 @@ export class TokenController {
         return
       }
       if (user.hasTwoFactorAuth) {
-        ctx.status = status.BAD_REQUEST
+        ctx.status = status.OK
         return
       }
     } else {
