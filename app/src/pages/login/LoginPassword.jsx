@@ -1,18 +1,16 @@
-import React, { useState, useContext } from 'react'
-import { Redirect, Link } from 'react-router-dom'
-import './LoginForm.scss'
-import { AppContext } from '../../context/AppContext'
-import { useSession } from '../../hooks/useSession'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './Login.scss'
 
-export function LoginForm() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [appState] = useContext(AppContext)
-  const [login] = useSession()
-
+export function LoginPassword({
+  email,
+  setEmail,
+  password,
+  setPassword,
+  login,
+}) {
   return (
     <>
-      {appState.loggedIn && <Redirect to="/dashboards" />}
       <div className="col-md-5 mx-auto py-5 my-5 text-center">
         <form className="form-signin">
           <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>

@@ -32,19 +32,30 @@ export class TokenController {
       return
     }
 
-    if (user.hasTwoFactorAuth) {
-      if (!body.token) {
-        ctx.status = status.BAD_REQUEST
-        return
-      }
-      const { token } = body
-      if (!(await this.tokenService.authenticate(email, password, token))) {
+    if (!body.token) {
+      const check2FA = false
+      if (!(await this.tokenService.authenticate(email, password, check2FA))) {
         ctx.status = status.FORBIDDEN
         return
       }
-    } else if (!(await this.tokenService.authenticate(email, password))) {
-      ctx.status = status.FORBIDDEN
-      return
+      if (user.hasTwoFactorAuth) {
+        ctx.status = status.BAD_REQUEST
+        return
+      }
+    } else {
+      const check2FA = true
+      const { token } = body
+      if (
+        !(await this.tokenService.authenticate(
+          email,
+          password,
+          check2FA,
+          token
+        ))
+      ) {
+        ctx.status = status.FORBIDDEN
+        return
+      }
     }
 
     const { token, payload } = JWT.generate(email)

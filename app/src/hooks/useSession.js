@@ -1,8 +1,8 @@
 import { useContext } from 'react'
+import statusCode from 'http-status-codes'
 import { useApiEndpoint } from './useApiEndpoint'
 import { API_URL } from '../config'
 import { AppContext, INITIAL_APP_STATE } from '../context/AppContext'
-import statusCode from 'http-status-codes'
 import { ToastContext } from '../context/ToastContext'
 import { ModalContext } from '../context/ModalContext'
 
@@ -14,7 +14,11 @@ export function useSession() {
 
   async function login(email, password) {
     const [status, data] = await open({ email, password })
-    if (status === statusCode.ACCEPTED) {
+    let hasTwoFactorAuth = false
+
+    if (status === statusCode.BAD_REQUEST) {
+      hasTwoFactorAuth = true
+    } else if (status === statusCode.ACCEPTED) {
       setAppState({
         ...appState,
         id: data.id,
@@ -23,22 +27,13 @@ export function useSession() {
         loggedIn: true,
       })
     } else if (status === statusCode.FORBIDDEN) {
-      showModal(
-        'Did you forget your password?',
-        'In case you cannot remember your password, we can send you an email to reset it.',
-        'Try again',
-        'Reset password',
-        () => {},
-        () => {
-          console.log('send reset link to email!')
-        },
-        '/'
-      )
+      wrongPassword()
     } else if (status === statusCode.NOT_FOUND) {
       showToast('Please register', 'No account for the given email.')
     } else {
       showToast('Login error', 'Login process failed.')
     }
+    return hasTwoFactorAuth
   }
 
   async function logout() {
@@ -48,6 +43,20 @@ export function useSession() {
       // logout even though server is not reachable or user does not exist anymore
     }
     setAppState(INITIAL_APP_STATE)
+  }
+
+  function wrongPassword() {
+    showModal(
+      'Did you forget your password?',
+      'In case you cannot remember your password, we can send you an email to reset it.',
+      'Try again',
+      'Reset password',
+      () => {},
+      () => {
+        console.log('send reset link to email!')
+      },
+      '/'
+    )
   }
 
   return [login, logout]

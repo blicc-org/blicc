@@ -15,6 +15,7 @@ export class TokenService {
   public async authenticate(
     email: string,
     password: string,
+    check2FA: boolean,
     token = ''
   ): Promise<boolean> {
     const user = await this.userRepo
@@ -29,6 +30,8 @@ export class TokenService {
     if (!Hash.authenticate(password, user.passwordHash)) {
       return false
     }
+
+    if (!check2FA) return true
 
     if (user.hasTwoFactorAuth) {
       return this.twoFactorAuthService.validateToken(
