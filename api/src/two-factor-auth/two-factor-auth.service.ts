@@ -24,7 +24,10 @@ export class TwoFactorAuthService {
 
     if (user === undefined) return false
     const { twoFactorAuthSecret } = user
+    return this.validateToken(twoFactorAuthSecret, token)
+  }
 
+  public validateToken(twoFactorAuthSecret: string, token: string): boolean {
     return speakeasy.totp.verify({
       secret: twoFactorAuthSecret,
       encoding: 'base32',

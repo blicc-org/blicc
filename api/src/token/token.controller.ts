@@ -17,7 +17,8 @@ export class TokenController {
   public async request(ctx: Koa.BaseContext, next: Function): Promise<void> {
     await next()
 
-    const { email, password } = ctx.request.body
+    const { body } = ctx.request
+    const { email, password } = body
 
     if (!email || !password) {
       ctx.status = status.UNPROCESSABLE_ENTITY
@@ -31,13 +32,24 @@ export class TokenController {
       return
     }
 
-    if (!(await this.tokenService.authenticate(email, password))) {
+    if (user.hasTwoFactorAuth) {
+      if (!body.token) {
+        ctx.status = status.BAD_REQUEST
+        return
+      }
+      const { token } = body
+      if (!(await this.tokenService.authenticate(email, password, token))) {
+        ctx.status = status.FORBIDDEN
+        return
+      }
+    } else if (!(await this.tokenService.authenticate(email, password))) {
       ctx.status = status.FORBIDDEN
       return
     }
 
     const { token, payload } = JWT.generate(email)
     const maxAge = (payload.exp - payload.iat) * 1000 // maxAge requires miliseconds
+
     ctx.cookies.set('access_token', token, {
       maxAge,
       secure: IS_PROD,

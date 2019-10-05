@@ -45,11 +45,15 @@ export class TokenRouter {
      *                       type: string
      *                     password:
      *                       type: string
+     *                     token:
+     *                       type: string
+     *                       description: Authorization token, required if the two-factor authorization is enabled.
      *             examples:
      *               filter:
      *                 value: {
      *                   "email": "john.doe@email.com",
-     *                   "password": "8GmJUyw5RZHH6JgS"
+     *                   "password": "8GmJUyw5RZHH6JgS",
+     *                   "token": "234908"
      *                 }
      *     responses:
      *       202:
@@ -80,6 +84,8 @@ export class TokenRouter {
      *                   "role": "user",
      *                   "hasTwoFactorAuth": "true"
      *                 }
+     *       400:
+     *         description: Bad request
      *       403:
      *         description: Forbidden
      *       404:
