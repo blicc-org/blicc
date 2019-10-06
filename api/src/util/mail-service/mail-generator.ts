@@ -1,8 +1,9 @@
 import { SendMailOptions } from 'nodemailer'
+import Handlebars, { TemplateDelegate } from 'handlebars'
+import { readFile } from 'fs-extra'
 import { MAIL_ADDRESS } from '../../config'
 import { MailType } from './mail-service'
-import { readFile } from 'fs-extra'
-import Handlebars, { TemplateDelegate } from 'handlebars'
+import { MailOptions } from './mail-options.interface'
 
 export class MailGenerator {
   public async generateMail(
@@ -12,7 +13,7 @@ export class MailGenerator {
     type: string
   ): Promise<SendMailOptions> {
     let subject = ''
-    let template: TemplateDelegate<any>
+    let template: TemplateDelegate<MailOptions>
 
     switch (type) {
       case MailType.RESET_PASSWORD:
@@ -38,7 +39,7 @@ export class MailGenerator {
 
   private async getMailTemplate(
     templateName: string
-  ): Promise<TemplateDelegate<any>> {
+  ): Promise<TemplateDelegate<MailOptions>> {
     const file = await readFile(`${__dirname}/templates/${templateName}.hbs`)
     return Handlebars.compile(file.toString())
   }
