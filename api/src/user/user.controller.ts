@@ -79,9 +79,8 @@ export class UserController {
         return
       }
 
-      const info = await this.userService.requestPasswordReset(user)
+      await this.userService.requestPasswordReset(user)
       ctx.status = status.NO_CONTENT
-      console.log(info)
     } catch (e) {
       console.log(e)
       ctx.status = status.INTERNAL_SERVER_ERROR

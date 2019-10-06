@@ -32,6 +32,7 @@ export class UserService {
       hasTwoFactorAuth,
       twoFactorAuthSecret
     )
+    await new MailService().send(user, MailType.WELCOME)
     return await this.repo.save(user)
   }
 
@@ -63,7 +64,11 @@ export class UserService {
     return response === undefined ? id : await this.generateId()
   }
 
-  public async requestPasswordReset(user: User): Promise<SentMessageInfo> {
-    return await new MailService().send(user, MailType.RESET_PASSWORD)
+  public async requestPasswordReset(user: User): Promise<void> {
+    const info: SentMessageInfo = await new MailService().send(
+      user,
+      MailType.RESET_PASSWORD
+    )
+    console.log(info)
   }
 }
