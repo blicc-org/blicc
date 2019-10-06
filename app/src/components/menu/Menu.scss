@@ -1,4 +1,4 @@
-.guide {
+.menu {
   height: 100%;
   position: fixed;
   z-index: 1000;
@@ -7,17 +7,17 @@
   background-color: #eee;
 }
 
-.guide .nav-link {
+.menu .nav-link {
   font-weight: 500;
   color: #333;
 }
 
-.guide .nav-link .feather {
+.menu .nav-link .feather {
   margin-right: 14px;
   color: #999;
 }
 
-.guide .nav-link:hover .feather,
-.guide .nav-link.active .feather {
+.menu .nav-link:hover .feather,
+.menu .nav-link.active .feather {
   color: inherit;
 }

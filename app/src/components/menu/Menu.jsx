@@ -21,7 +21,7 @@ export function Menu({ open }) {
 
   return (
     <>
-      <div className="guide pr-4" style={{ left }}>
+      <div className="menu pr-4" style={{ left }}>
         <ul className="nav flex-column px-2 pt-3">
           <li className="nav-item">
             <Link className="nav-link active" to="/dashboards">
