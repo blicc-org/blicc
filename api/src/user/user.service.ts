@@ -23,7 +23,7 @@ export class UserService {
     const passwordHash = Hash.generate(password)
     const hasTwoFactorAuth = false
     const twoFactorAuthSecret = ''
-    const user = new User(
+    let user = new User(
       firstName,
       lastName,
       email,
@@ -32,8 +32,9 @@ export class UserService {
       hasTwoFactorAuth,
       twoFactorAuthSecret
     )
+    user = await this.repo.save(user)
     await new MailService().send(user, MailType.WELCOME)
-    return await this.repo.save(user)
+    return user
   }
 
   public async update(user: User): Promise<User> {
