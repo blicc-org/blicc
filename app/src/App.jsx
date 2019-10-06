@@ -13,6 +13,7 @@ import { Modal } from './components/modal/Modal'
 import { Profile } from './pages/profile/Profile'
 import { TwoFactorAuth } from './pages/two-factor-auth/TwoFactorAuth'
 import { Header } from './components/header/Header'
+import { Main } from './components/main/Main'
 import { Footer } from './components/footer/Footer'
 import './App.scss'
 
@@ -21,16 +22,18 @@ export function App() {
     <Provider>
       <Router>
         <Header />
-        <Switch>
-          <Route path="/" exact component={LandingPage} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/pages" component={PageGenerator} />
-          <ProtectedRoute path="/two-factor-auth" component={TwoFactorAuth} />
-          <ProtectedRoute path="/dashboards" component={Dashboard} />
-          <ProtectedRoute path="/profile" component={Profile} />
-          <Route component={NotFound} />
-        </Switch>
+        <Main>
+          <Switch>
+            <Route path="/" exact component={LandingPage} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/pages" component={PageGenerator} />
+            <ProtectedRoute path="/two-factor-auth" component={TwoFactorAuth} />
+            <ProtectedRoute path="/dashboards" component={Dashboard} />
+            <ProtectedRoute path="/profile" component={Profile} />
+            <Route component={NotFound} />
+          </Switch>
+        </Main>
         <Footer />
         <Modal />
         <ToastContainer />

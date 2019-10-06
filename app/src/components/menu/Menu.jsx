@@ -13,17 +13,15 @@ import {
 import './Menu.scss'
 
 export function Menu({ open }) {
-  const ref = useRef(null)
   const [left, setLeft] = useState(0)
 
   useEffect(() => {
-    const width = ref.current ? ref.current.offsetWidth : 0
-    setLeft(open ? 0 : -width)
+    setLeft(open ? 0 : -250)
   }, [open])
 
   return (
     <>
-      <div className="guide pr-4" ref={ref} style={{ left }}>
+      <div className="guide pr-4" style={{ left }}>
         <ul className="nav flex-column px-2 pt-3">
           <li className="nav-item">
             <Link className="nav-link active" to="/dashboards">
