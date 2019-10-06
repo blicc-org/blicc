@@ -1,13 +1,13 @@
 {
   "name": "blicc",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "devDependencies": {
-    "@commitlint/cli": "^8.1.0",
-    "@commitlint/config-conventional": "^8.1.0",
-    "cross-env": "^5.2.1",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "cross-env": "^6.0.3",
     "eslint-plugin-security": "^1.4.0",
-    "husky": "^3.0.5",
+    "husky": "^3.0.8",
     "prettier": "^1.18.2"
   },
   "scripts": {
