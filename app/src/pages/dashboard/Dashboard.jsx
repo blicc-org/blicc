@@ -2,7 +2,6 @@ import React from 'react'
 import { LineChart } from '../../components/charts/Linechart'
 import { Table } from '../../components/charts/Table'
 import { DashboardHeader } from './DashboardHeader'
-import { Header } from '../../components/header/Header'
 
 export function Dashboard() {
   return (
