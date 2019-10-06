@@ -9,8 +9,7 @@
     "start:prod": "node ./build/index.js",
     "build": "tsc",
     "test": "jest",
-    "fix": "eslint --fix \"src/**/*.+(ts|tsx)\"",
-    "mail": "yarn handlebars ./src/util/mail-service/templates/*.hbs -f ./src/util/mail-service/templates/mail.tpl.js"
+    "fix": "eslint --fix \"src/**/*.+(ts|tsx)\""
   },
   "author": "Thilo Ilg",
   "dependencies": {
