@@ -149,9 +149,9 @@
   integrity sha512-HOJ20Kc93DkDVvjwHyHawPwPkX44sIrbXazAUDiUXaY2R9JwQGo2PhFfnQtdrsIe4igjG2fPgMra7NYw7qhy0A==
 
 "@hapi/hoek@8.x.x":
-  version "8.2.5"
-  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-8.2.5.tgz#b307d3f1aced22e05bd6a2403c302eaebb577da3"
-  integrity sha512-rmGFzok1zR3xZKd5m3ihWdqafXFxvPHoQ/78+AG5URKbEbJiwBBfRgzbu+07W5f3+07JRshw6QqGbVmCp8ntig==
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-8.3.0.tgz#2b9db1cd00f3891005c77b3a8d608b88a6d0aa4d"
+  integrity sha512-C0QL9bmgUXTSuf8nDeGrpMjtJG7tPUr8wG6/wxPbP62tGwCwQtdMSJYfESowmY4P3Hn593f+8OzNY5bckcu/LQ==
 
 "@hapi/joi@15.0.0":
   version "15.0.0"
@@ -163,9 +163,9 @@
     "@hapi/topo" "3.x.x"
 
 "@hapi/topo@3.x.x":
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/@hapi/topo/-/topo-3.1.4.tgz#42e2fe36f593d90ad258a08b582be128c141c45d"
-  integrity sha512-aVWQTOI9wBD6zawmOr6f+tdEIxQC8JXfQVLTjgGe8YEStAWGn/GNNVTobKJhbWKveQj2RyYF3oYbO9SC8/eOCA==
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@hapi/topo/-/topo-3.1.5.tgz#3baea17e456530edad69a75c3fc7cde97dd6d331"
+  integrity sha512-bi9m1jrui9LlvtVdLaHv0DqeOoe+I8dep+nEcTgW6XxJHL3xArQcilYz3tIp0cRC4gWlsVtABK7vNKg4jzEmAA==
   dependencies:
     "@hapi/hoek" "8.x.x"
 
@@ -569,9 +569,9 @@
   integrity sha512-FwI9gX75FgVBJ7ywgnq/P7tw+/o1GUbtP0KzbtusLigAOgIgNISRK0ZPl4qertvXSIE8YbsVJueQ90cDt9YYyw==
 
 "@types/node@*", "@types/node@^12.7.5":
-  version "12.7.9"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.9.tgz#da0210f91096aa67138cf5afd04c4d629f8a406a"
-  integrity sha512-P57oKTJ/vYivL2BCfxCC5tQjlS8qW31pbOL6qt99Yrjm95YdHgNZwjrTTjMBh+C2/y6PXIX4oz253+jUzxKKfQ==
+  version "12.7.11"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.11.tgz#be879b52031cfb5d295b047f5462d8ef1a716446"
+  integrity sha512-Otxmr2rrZLKRYIybtdG/sgeO+tHY20GxeDjcGmUnmmlCWyEnv2a2x1ZXBo3BTec4OiTXMQCiazB8NMBf0iRlFw==
 
 "@types/nodemailer@^6.2.1":
   version "6.2.1"
@@ -1758,9 +1758,9 @@ eslint-config-airbnb-base@^14.0.0:
     object.entries "^1.1.0"
 
 eslint-config-prettier@^6.3.0:
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.3.0.tgz#e73b48e59dc49d950843f3eb96d519e2248286a3"
-  integrity sha512-EWaGjlDAZRzVFveh2Jsglcere2KK5CJBhkNSa1xs3KfMUGdRiT7lG089eqPdvlzWHpAqaekubOsOMu8W8Yk71A==
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.4.0.tgz#0a04f147e31d33c6c161b2dd0971418ac52d0477"
+  integrity sha512-YrKucoFdc7SEko5Sxe4r6ixqXPDP1tunGw91POeZTTRKItf/AMFYt/YLEQtZMkR2LVpAVhcAcZgcWpm1oGPW7w==
   dependencies:
     get-stdin "^6.0.0"
 
@@ -4591,9 +4591,9 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     strip-json-comments "~2.0.1"
 
 react-is@^16.8.4:
-  version "16.10.1"
-  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.10.1.tgz#0612786bf19df406502d935494f0450b40b8294f"
-  integrity sha512-BXUMf9sIOPXXZWqr7+c5SeOKJykyVr2u0UDzEf4LNGc6taGkQe1A9DFD07umCIXz45RLr9oAAwZbAJ0Pkknfaw==
+  version "16.10.2"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.10.2.tgz#984120fd4d16800e9a738208ab1fba422d23b5ab"
+  integrity sha512-INBT1QEgtcCCgvccr5/86CfD71fw9EPmDxgiJX4I2Ddr6ZsV6iFXsuby+qWJPtmNuMY0zByTsG4468P7nHuNWA==
 
 read-pkg-up@^2.0.0:
   version "2.0.0"
