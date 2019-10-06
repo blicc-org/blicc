@@ -4,7 +4,7 @@ import { content } from '../../language/Content'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
 import { NavbarUser } from './NavbarUser'
-import { Menu } from 'react-feather'
+import { ReactComponent as Menu } from './Menu.svg'
 
 export function NavBar({ toggleMenu }) {
   const [appState] = useContext(AppContext)
@@ -20,9 +20,14 @@ export function NavBar({ toggleMenu }) {
   return (
     <>
       <nav className="navbar navbar-expand fixed-top navbar-dark bg-dark p-0">
-        <a className="pl-4 pr-2 py-2" onClick={toggleMenu}>
-          <Menu className="feather text-light" />
-        </a>
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item text-nowrap">
+            <a className="nav-link pl-4 pr-2 py-2" onClick={toggleMenu}>
+              <Menu style={{ fill: 'white' }} />
+            </a>
+          </li>
+        </ul>
+
         <Link className="navbar-brand pl-1 mx-0" style={styles} to="/">
           {content.metadata.title}
         </Link>
