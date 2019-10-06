@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Markdown from 'react-markdown'
 import { Highlighter } from '../../components/syntax-highlighting/Highlighter'
-import { Header } from '../../components/header/Header'
-import { Footer } from '../../components/footer/Footer'
 import { APP_URL } from '../../config'
 import './PageGenerator.scss'
 
@@ -24,7 +22,6 @@ export function PageGenerator({ location }) {
 
   return (
     <>
-      <Header />
       <div className="container py-5 pages">
         <Markdown
           source={text}
@@ -38,7 +35,6 @@ export function PageGenerator({ location }) {
           }}
         />
       </div>
-      <Footer />
     </>
   )
 }

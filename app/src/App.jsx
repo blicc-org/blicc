@@ -12,12 +12,15 @@ import { Provider } from './context/Provider'
 import { Modal } from './components/modal/Modal'
 import { Profile } from './pages/profile/Profile'
 import { TwoFactorAuth } from './pages/two-factor-auth/TwoFactorAuth'
+import { Header } from './components/header/Header'
+import { Footer } from './components/footer/Footer'
 import './App.scss'
 
 export function App() {
   return (
     <Provider>
       <Router>
+        <Header />
         <Switch>
           <Route path="/" exact component={LandingPage} />
           <Route path="/login" component={Login} />
@@ -28,6 +31,7 @@ export function App() {
           <ProtectedRoute path="/profile" component={Profile} />
           <Route component={NotFound} />
         </Switch>
+        <Footer />
         <Modal />
         <ToastContainer />
       </Router>

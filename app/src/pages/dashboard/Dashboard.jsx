@@ -7,7 +7,6 @@ import { Header } from '../../components/header/Header'
 export function Dashboard() {
   return (
     <>
-      <Header />
       <div className="container-fluid">
         <main className="col px-4">
           <DashboardHeader />

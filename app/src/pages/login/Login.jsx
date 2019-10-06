@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Header } from '../../components/header/Header'
 import { LoginPassword } from './LoginPassword'
-import { Footer } from '../../components/footer/Footer'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
 import { Redirect } from 'react-router-dom'
@@ -36,7 +34,6 @@ export function Login() {
   return (
     <>
       {appState.loggedIn && <Redirect to="/dashboards" />}
-      <Header />
       <div className="col-md-5 mx-auto py-5 my-5 text-center">
         {step === Steps.PASSWORD ? (
           <LoginPassword
@@ -50,7 +47,6 @@ export function Login() {
           <LoginTwoFactorAuth login={loginHandler2FA} setToken={setToken} />
         )}
       </div>
-      <Footer />
     </>
   )
 }

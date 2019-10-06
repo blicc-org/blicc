@@ -2,8 +2,6 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 import { API_URL } from '../../config'
 import { AppContext } from '../../context/AppContext'
-import { Header } from '../../components/header/Header'
-import { Footer } from '../../components/footer/Footer'
 
 export function Profile() {
   const [appState] = useContext(AppContext)
@@ -29,7 +27,6 @@ export function Profile() {
 
   return (
     <>
-      <Header />
       <div className="col-md-5 mx-auto py-5 my-5">
         <h1 className="h3 mb-3 font-weight-normal">Profile</h1>
         <table style={{ width: '100%' }}>
@@ -61,7 +58,6 @@ export function Profile() {
           </tbody>
         </table>
       </div>
-      <Footer />
     </>
   )
 }

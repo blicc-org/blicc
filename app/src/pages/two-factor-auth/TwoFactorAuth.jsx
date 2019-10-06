@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Header } from '../../components/header/Header'
-import { Footer } from '../../components/footer/Footer'
 import { TwoFactorAuthForm } from './TwoFactorAuthForm'
 import { API_URL } from '../../config'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
@@ -20,11 +18,5 @@ export function TwoFactorAuth() {
     // eslint-disable-next-line
   }, [])
 
-  return (
-    <>
-      <Header />
-      <TwoFactorAuthForm url={url} enable={enable} />
-      <Footer />
-    </>
-  )
+  return <TwoFactorAuthForm url={url} enable={enable} />
 }

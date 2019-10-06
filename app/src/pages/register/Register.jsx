@@ -1,8 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { Redirect } from 'react-router-dom'
-import { Header } from '../../components/header/Header'
 import { RegisterForm } from './RegisterForm'
-import { Footer } from '../../components/footer/Footer'
 import { API_URL } from '../../config'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 import { useSession } from '../../hooks/useSession'
@@ -52,9 +50,7 @@ export function Register() {
   return (
     <>
       {onRegister && <Redirect to="/dashboards" />}
-      <Header />
       <RegisterForm user={user} setUser={setUser} register={register} />
-      <Footer />
     </>
   )
 }
