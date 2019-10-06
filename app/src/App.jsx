@@ -7,10 +7,8 @@ import { PageGenerator } from './pages/page-generator/PageGenerator'
 import { Dashboard } from './pages/dashboard/Dashboard'
 import { NotFound } from './pages/not-found/NotFound'
 import { ProtectedRoute } from './components/protected-route/ProtectedRoute'
-import { AppProvider } from './context/AppContext'
-import { ToastProvider } from './context/ToastContext'
 import { ToastContainer } from './components/toast/ToastContainer'
-import { ModalProvider } from './context/ModalContext'
+import { Provider } from './context/Provider'
 import { Modal } from './components/modal/Modal'
 import { Profile } from './pages/profile/Profile'
 import { TwoFactorAuth } from './pages/two-factor-auth/TwoFactorAuth'
@@ -18,28 +16,21 @@ import './App.scss'
 
 export function App() {
   return (
-    <AppProvider>
-      <ToastProvider>
-        <ModalProvider>
-          <Router>
-            <Switch>
-              <Route path="/" exact component={LandingPage} />
-              <Route path="/login" component={Login} />
-              <Route path="/register" component={Register} />
-              <Route path="/pages" component={PageGenerator} />
-              <ProtectedRoute
-                path="/two-factor-auth"
-                component={TwoFactorAuth}
-              />
-              <ProtectedRoute path="/dashboards" component={Dashboard} />
-              <ProtectedRoute path="/profile" component={Profile} />
-              <Route component={NotFound} />
-            </Switch>
-            <Modal />
-            <ToastContainer />
-          </Router>
-        </ModalProvider>
-      </ToastProvider>
-    </AppProvider>
+    <Provider>
+      <Router>
+        <Switch>
+          <Route path="/" exact component={LandingPage} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/pages" component={PageGenerator} />
+          <ProtectedRoute path="/two-factor-auth" component={TwoFactorAuth} />
+          <ProtectedRoute path="/dashboards" component={Dashboard} />
+          <ProtectedRoute path="/profile" component={Profile} />
+          <Route component={NotFound} />
+        </Switch>
+        <Modal />
+        <ToastContainer />
+      </Router>
+    </Provider>
   )
 }

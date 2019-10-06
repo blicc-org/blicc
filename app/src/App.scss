@@ -8,6 +8,7 @@ body {
   vertical-align: text-bottom;
 }
 
-.moveUnderNavBar {
-  padding-top: 48px;
+a {
+  cursor: pointer;
+  user-select: none;
 }

@@ -4,9 +4,9 @@ import { content } from '../../language/Content'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
 import { NavbarUser } from './NavbarUser'
-import { NavbarDashboard } from './NavbarDashboard'
+import { Menu } from 'react-feather'
 
-export function NavBar() {
+export function NavBar({ toggleMenu }) {
   const [appState] = useContext(AppContext)
   const { firstName, lastName, loggedIn } = appState
   const [, logout] = useSession()
@@ -20,14 +20,16 @@ export function NavBar() {
   return (
     <>
       <nav className="navbar navbar-expand fixed-top navbar-dark bg-dark p-0">
-        <Link className="navbar-brand pl-3 mx-0" style={styles} to="/">
+        <a className="pl-4 pr-2 py-2" onClick={toggleMenu}>
+          <Menu className="feather text-light" />
+        </a>
+        <Link className="navbar-brand pl-1 mx-0" style={styles} to="/">
           {content.metadata.title}
         </Link>
         <div
           className="collapse navbar-collapse px-3"
           id="navbarSupportedContent"
         >
-          <NavbarDashboard loggedIn={loggedIn} amount={27} />
           <NavbarUser
             firstName={firstName}
             lastName={lastName}
@@ -36,7 +38,7 @@ export function NavBar() {
           />
         </div>
       </nav>
-      <div className="moveUnderNavBar" />
+      <div style={{ height: '40px' }}></div>
     </>
   )
 }
