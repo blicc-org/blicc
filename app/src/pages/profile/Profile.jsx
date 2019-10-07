@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
-import { API_URL } from '../../config/config'
+import { API_URL } from '../../config/env'
 import { AppContext } from '../../context/AppContext'
 
 export function Profile() {

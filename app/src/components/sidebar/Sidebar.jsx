@@ -10,24 +10,30 @@ import {
   PlusCircle,
   FileText,
 } from 'react-feather'
-import theme from '../../config/Theme.scss'
+import { sidebarWidth } from '../../config/config'
+import { useDimensions } from '../../hooks/useDimensions'
+import { breakpoints } from '../../config/config'
 import './Sidebar.scss'
 
 export function Sidebar({ open }) {
-  const [left, setLeft] = useState(0)
-
-  const style = {
-    width: theme.sidebarSize,
-    left,
-  }
+  const [sidebarStyle, setSidebarStyle] = useState({})
+  const [blackoutStyle, setBlackoutStyle] = useState({})
+  const [width] = useDimensions()
 
   useEffect(() => {
-    setLeft(open ? 0 : `-${theme.sidebarSize}`)
-  }, [open])
+    const isMobile = breakpoints.md > width
+    setSidebarStyle({
+      width: sidebarWidth,
+      left: open ? 0 : -sidebarWidth,
+    })
+    setBlackoutStyle({
+      backgroundColor: open && isMobile ? 'rgba(0,0,0,0.6)' : 'transparent',
+    })
+  }, [open, width])
 
   return (
     <>
-      <div className="sidebar" style={style}>
+      <div className="sidebar" style={sidebarStyle}>
         <ul className="nav flex-column px-2 pt-3">
           <li className="nav-item">
             <Link className="nav-link active" to="/dashboards">
@@ -61,7 +67,6 @@ export function Sidebar({ open }) {
             </Link>
           </li>
         </ul>
-
         <h6 className="sidebar-heading d-flex align-items-center px-3 mt-4 mb-1 text-muted">
           <span>Saved reports</span>
           <Link className="text-muted pl-3" to="/">
@@ -91,6 +96,7 @@ export function Sidebar({ open }) {
           </li>
         </ul>
       </div>
+      <div className="blackout" style={blackoutStyle}></div>
     </>
   )
 }

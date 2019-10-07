@@ -5,7 +5,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { App } from './App'
 import * as serviceWorker from './serviceWorker'
-import { DELIVERY_URL } from './config/config'
+import { DELIVERY_URL } from './config/env'
 
 let socket = new WebSocket(DELIVERY_URL)
 

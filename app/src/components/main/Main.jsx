@@ -1,16 +1,21 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { SidebarContext } from '../../context/SidebarContext'
-import theme from '../../config/Theme.scss'
+import { useDimensions } from '../../hooks/useDimensions'
+import { sidebarWidth, breakpoints } from '../../config/config'
 import './Main.scss'
 
 export function Main({ children }) {
   const [sidebarState] = useContext(SidebarContext)
   const { open } = sidebarState
-  const [left, setLeft] = useState(0)
+  const [style, setStyle] = useState({})
+  const [width] = useDimensions()
 
   useEffect(() => {
-    setLeft(open ? theme.sidebarSize : 0)
-  }, [open])
+    const isMobile = breakpoints.md > width
+    setStyle({
+      marginLeft: open && !isMobile ? sidebarWidth : 0,
+    })
+  }, [open, width])
 
-  return <main style={{ marginLeft: left }}>{children}</main>
+  return <main style={style}>{children}</main>
 }

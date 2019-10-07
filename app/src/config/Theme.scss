@@ -15,16 +15,6 @@ $font-size-base: 0.875rem !default; // Assumes the browser default, typically `1
 $font-size-lg: $font-size-base * 1.25 !default;
 $font-size-sm: $font-size-base;
 
-$sidebar-size: 232px;
-
-$grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
-) !default;
-
 // webpack export
 :export {
   primary: $primary;
@@ -35,13 +25,5 @@ $grid-breakpoints: (
   danger: $danger;
   light: $light;
   dark: $dark;
-
   borderRadius: $border-radius;
-  sidebarSize: $sidebar-size;
-
-  xs: map-get($grid-breakpoints, 'xs');
-  sm: map-get($grid-breakpoints, 'sm');
-  md: map-get($grid-breakpoints, 'md');
-  lg: map-get($grid-breakpoints, 'lg');
-  xl: map-get($grid-breakpoints, 'xl');
 }

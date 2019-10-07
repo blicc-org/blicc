@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Markdown from 'react-markdown'
 import { Highlighter } from '../../components/syntax-highlighting/Highlighter'
-import { APP_URL } from '../../config/config'
+import { APP_URL } from '../../config/env'
 import './PageGenerator.scss'
 
 export function PageGenerator({ location }) {

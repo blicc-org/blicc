@@ -27,3 +27,13 @@
 .sidebar .nav-link.active .feather {
   color: inherit;
 }
+
+.blackout {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 900;
+  transition: background-color 0.15s;
+}
