@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
+import { breakpoints } from '../config/gui'
 
 export function useDimensions() {
-  const [width, setWidth] = useState(window.innerWidth)
-  const [height, setHeight] = useState(window.innerHeight)
+  const [isMobile, setIsMobile] = useState(breakpoints.md > window.innerWidth)
 
   useEffect(() => {
     function handleResize() {
-      setWidth(window.innerWidth)
-      setHeight(window.innerHeight)
+      setIsMobile(breakpoints.md > window.innerWidth)
     }
+
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  return [width, height]
+  return isMobile
 }

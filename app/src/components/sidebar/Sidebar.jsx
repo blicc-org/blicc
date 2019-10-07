@@ -1,29 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  Home,
-  File,
-  ShoppingCart,
-  Users,
-  BarChart2,
-  Layers,
-  PlusCircle,
-  FileText,
-} from 'react-feather'
+import { Home, File, ShoppingCart, PlusCircle, FileText } from 'react-feather'
 import { SidebarContext } from '../../context/SidebarContext'
 import { sidebarWidth } from '../../config/gui'
 import { useDimensions } from '../../hooks/useDimensions'
-import { breakpoints } from '../../config/gui'
 import './Sidebar.scss'
 
 export function Sidebar({ open }) {
   const [, setSidebarState] = useContext(SidebarContext)
   const [sidebarStyle, setSidebarStyle] = useState({})
   const [blackoutStyle, setBlackoutStyle] = useState({})
-  const [width] = useDimensions()
+  const isMobile = useDimensions()
 
   function closeOnClick() {
-    const isMobile = breakpoints.md > width
     if (open && isMobile) {
       setSidebarState(prev => {
         return { ...prev, open: false }
@@ -32,7 +21,6 @@ export function Sidebar({ open }) {
   }
 
   useEffect(() => {
-    const isMobile = breakpoints.md > width
     setSidebarStyle({
       width: sidebarWidth,
       left: open ? 0 : -sidebarWidth,
@@ -40,7 +28,7 @@ export function Sidebar({ open }) {
     setBlackoutStyle({
       width: open && isMobile ? '100%' : 0,
     })
-  }, [open, width])
+  }, [open, isMobile])
 
   return (
     <>

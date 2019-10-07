@@ -3,17 +3,16 @@ import { SidebarContext } from '../../context/SidebarContext'
 import { FooterLogo } from './FooterLogo'
 import { FooterNav } from './footer-nav/FooterNav'
 import { useDimensions } from '../../hooks/useDimensions'
-import { sidebarWidth, breakpoints } from '../../config/gui'
+import { sidebarWidth } from '../../config/gui'
 import './Footer.scss'
 
 export function Footer() {
   const [sidebarState] = useContext(SidebarContext)
   const [style, setStyle] = useState({})
-  const [width] = useDimensions()
+  const isMobile = useDimensions()
   const { open } = sidebarState
 
   useEffect(() => {
-    const isMobile = breakpoints.md > width
     setStyle({ marginLeft: open && !isMobile ? sidebarWidth : 0 })
   }, [open])
 
