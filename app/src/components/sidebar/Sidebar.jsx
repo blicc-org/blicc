@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Home,
@@ -10,15 +10,26 @@ import {
   PlusCircle,
   FileText,
 } from 'react-feather'
+import { SidebarContext } from '../../context/SidebarContext'
 import { sidebarWidth } from '../../config/config'
 import { useDimensions } from '../../hooks/useDimensions'
 import { breakpoints } from '../../config/config'
 import './Sidebar.scss'
 
 export function Sidebar({ open }) {
+  const [, setSidebarState] = useContext(SidebarContext)
   const [sidebarStyle, setSidebarStyle] = useState({})
   const [blackoutStyle, setBlackoutStyle] = useState({})
   const [width] = useDimensions()
+
+  function handleOnBlackoutClick() {
+    const isMobile = breakpoints.md > width
+    if (open && isMobile) {
+      setSidebarState(prev => {
+        return { ...prev, open: false }
+      })
+    }
+  }
 
   useEffect(() => {
     const isMobile = breakpoints.md > width
@@ -27,7 +38,7 @@ export function Sidebar({ open }) {
       left: open ? 0 : -sidebarWidth,
     })
     setBlackoutStyle({
-      backgroundColor: open && isMobile ? 'rgba(0,0,0,0.6)' : 'transparent',
+      width: open && isMobile ? '100%' : 0,
     })
   }, [open, width])
 
@@ -96,7 +107,11 @@ export function Sidebar({ open }) {
           </li>
         </ul>
       </div>
-      <div className="blackout" style={blackoutStyle}></div>
+      <div
+        className="blackout"
+        onClick={handleOnBlackoutClick}
+        style={blackoutStyle}
+      ></div>
     </>
   )
 }
