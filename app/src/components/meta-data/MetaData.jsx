@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { APP_URL } from '../../config'
+import { APP_URL } from '../../config/config'
 
 export default function MetaData({ title, description, path = '' }) {
   return (

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { content } from '../../language/Content'
+import { content } from '../../config/language/english'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
 import { NavbarUser } from './NavbarUser'
 import { ReactComponent as Menu } from './Menu.svg'
-import colors from '../../themes/Theme.scss'
+import colors from '../../config/Theme.scss'
 import './Navbar.scss'
 
 export function NavBar({ toggleMenu }) {

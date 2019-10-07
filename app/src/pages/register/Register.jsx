@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Redirect } from 'react-router-dom'
 import { RegisterForm } from './RegisterForm'
-import { API_URL } from '../../config'
+import { API_URL } from '../../config/config'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 import { useSession } from '../../hooks/useSession'
 import { RegisterService } from './RegisterService'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { FooterNavList } from './FooterNavList'
-import { content } from '../../../language/Content'
+import { content } from '../../../config/language/english'
 
 export function FooterNav() {
   return (

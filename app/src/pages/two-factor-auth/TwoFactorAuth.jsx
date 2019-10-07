@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { TwoFactorAuthForm } from './TwoFactorAuthForm'
-import { API_URL } from '../../config'
+import { API_URL } from '../../config/config'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 
 export function TwoFactorAuth() {

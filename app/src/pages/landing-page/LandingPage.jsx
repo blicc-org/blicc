@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { content } from '../../language/Content'
+import { content } from '../../config/language/english'
 import { ReactComponent as Maskot } from './Maskot.svg'
 
 export function LandingPage() {
