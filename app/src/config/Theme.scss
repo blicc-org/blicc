@@ -1,0 +1,45 @@
+$charcoal: #252725;
+$orange: #f39900;
+$dark-orange: #cb8125;
+$lightgray: #6c757d;
+$red: #dc3545;
+$green: #28a745;
+$white: #f8f8f8;
+
+$primary: $orange;
+$secondary: $lightgray;
+$success: $green;
+$info: $orange;
+$warning: $orange;
+$danger: $red;
+$light: $white;
+$dark: $charcoal;
+
+$border-radius: 0.175rem;
+$border-radius-lg: $border-radius;
+$border-radius-sm: $border-radius;
+
+$font-size-base: 0.875rem !default; // Assumes the browser default, typically `16px`
+$font-size-lg: $font-size-base * 1.25 !default;
+$font-size-sm: $font-size-base * 1 !default;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+) !default;
+
+// webpack export
+:export {
+  primary: $primary;
+  secondary: $secondary;
+  success: $success;
+  info: $info;
+  warning: $warning;
+  danger: $danger;
+  light: $light;
+  dark: $dark;
+  borderRadius: $border-radius;
+}
