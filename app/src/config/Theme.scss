@@ -1,19 +1,11 @@
-$charcoal: #252725;
-$orange: #f39900;
-$dark-orange: #cb8125;
-$lightgray: #6c757d;
-$red: #dc3545;
-$green: #28a745;
-$white: #f8f8f8;
-
-$primary: $orange;
-$secondary: $lightgray;
-$success: $green;
-$info: $orange;
-$warning: $orange;
-$danger: $red;
-$light: $white;
-$dark: $charcoal;
+$primary: #f39900;
+$secondary: #6c757d;
+$success: #28a745;
+$info: #17a2b8;
+$warning: #dc3545;
+$danger: #dc3545;
+$light: #f8f8f8;
+$dark: #252725;
 
 $border-radius: 0.175rem;
 $border-radius-lg: $border-radius;
@@ -21,7 +13,7 @@ $border-radius-sm: $border-radius;
 
 $font-size-base: 0.875rem !default; // Assumes the browser default, typically `16px`
 $font-size-lg: $font-size-base * 1.25 !default;
-$font-size-sm: $font-size-base * 1 !default;
+$font-size-sm: $font-size-base;
 
 $grid-breakpoints: (
   xs: 0,
@@ -42,4 +34,5 @@ $grid-breakpoints: (
   light: $light;
   dark: $dark;
   borderRadius: $border-radius;
+  gridBreakpoints: $grid-breakpoints;
 }
