@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { SidebarContext } from '../../context/SidebarContext'
 import { useDimensions } from '../../hooks/useDimensions'
-import { sidebarWidth, breakpoints } from '../../config/config'
+import { sidebarWidth, breakpoints } from '../../config/gui'
 import './Main.scss'
 
 export function Main({ children }) {

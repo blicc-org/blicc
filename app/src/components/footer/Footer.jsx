@@ -3,7 +3,7 @@ import { SidebarContext } from '../../context/SidebarContext'
 import { FooterLogo } from './FooterLogo'
 import { FooterNav } from './footer-nav/FooterNav'
 import { useDimensions } from '../../hooks/useDimensions'
-import { sidebarWidth, breakpoints } from '../../config/config'
+import { sidebarWidth, breakpoints } from '../../config/gui'
 import './Footer.scss'
 
 export function Footer() {

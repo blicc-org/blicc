@@ -11,9 +11,9 @@ import {
   FileText,
 } from 'react-feather'
 import { SidebarContext } from '../../context/SidebarContext'
-import { sidebarWidth } from '../../config/config'
+import { sidebarWidth } from '../../config/gui'
 import { useDimensions } from '../../hooks/useDimensions'
-import { breakpoints } from '../../config/config'
+import { breakpoints } from '../../config/gui'
 import './Sidebar.scss'
 
 export function Sidebar({ open }) {
