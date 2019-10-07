@@ -2,16 +2,16 @@ import React from 'react'
 import { AppProvider } from './AppContext'
 import { ToastProvider } from './ToastContext'
 import { ModalProvider } from './ModalContext'
-import { MenuProvider } from './MenuContext'
+import { SidebarProvider } from './SidebarContext'
 
 export function Provider({ children }) {
   return (
     <AppProvider>
-      <MenuProvider>
+      <SidebarProvider>
         <ToastProvider>
           <ModalProvider>{children}</ModalProvider>
         </ToastProvider>
-      </MenuProvider>
+      </SidebarProvider>
     </AppProvider>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { Chart } from 'chart.js'
 
-import colors from '../../config/Theme.scss'
+import theme from '../../config/Theme.scss'
 
 export function LineChart() {
   useEffect(() => {
@@ -23,9 +23,9 @@ export function LineChart() {
             data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
             lineTension: 0,
             backgroundColor: 'transparent',
-            borderColor: colors.primary,
+            borderColor: theme.primary,
             borderWidth: 4,
-            pointBackgroundColor: colors.secondary,
+            pointBackgroundColor: theme.secondary,
           },
         ],
       },

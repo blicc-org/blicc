@@ -10,18 +10,24 @@ import {
   PlusCircle,
   FileText,
 } from 'react-feather'
-import './Menu.scss'
+import theme from '../../config/Theme.scss'
+import './Sidebar.scss'
 
-export function Menu({ open }) {
+export function Sidebar({ open }) {
   const [left, setLeft] = useState(0)
 
+  const style = {
+    width: theme.sidebarSize,
+    left
+  }
+
   useEffect(() => {
-    setLeft(open ? 0 : -250)
+    setLeft(open ? 0 : `-${theme.sidebarSize}`)
   }, [open])
 
   return (
     <>
-      <div className="menu pr-4" style={{ left }}>
+      <div className="sidebar" style={style}>
         <ul className="nav flex-column px-2 pt-3">
           <li className="nav-item">
             <Link className="nav-link active" to="/dashboards">
@@ -56,9 +62,9 @@ export function Menu({ open }) {
           </li>
         </ul>
 
-        <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+        <h6 className="sidebar-heading d-flex align-items-center px-3 mt-4 mb-1 text-muted">
           <span>Saved reports</span>
-          <Link className="d-flex align-items-center text-muted" to="/">
+          <Link className="text-muted pl-3" to="/">
             <PlusCircle className="feather" />
           </Link>
         </h6>

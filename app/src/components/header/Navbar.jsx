@@ -5,7 +5,7 @@ import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
 import { NavbarUser } from './NavbarUser'
 import { ReactComponent as Menu } from './Menu.svg'
-import colors from '../../config/Theme.scss'
+import theme from '../../config/Theme.scss'
 import './Navbar.scss'
 
 export function NavBar({ toggleMenu }) {
@@ -27,7 +27,7 @@ export function NavBar({ toggleMenu }) {
           style={{ marginBottom: '2px' }}
           onClick={toggleMenu}
         >
-          <Menu style={{ fill: colors.secondary }} />
+          <Menu style={{ fill: theme.secondary }} />
         </div>
         <Link className="navbar-brand pl-1 mx-0" style={style} to="/">
           {content.metadata.title}
