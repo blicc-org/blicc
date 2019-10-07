@@ -8,7 +8,9 @@ export function Header() {
   const { open } = sidebarState
   return (
     <header>
-      <NavBar toggleMenu={() => setSidebarState({ ...sidebarState, open: !open })} />
+      <NavBar
+        toggleMenu={() => setSidebarState({ ...sidebarState, open: !open })}
+      />
       <Sidebar open={open} />
     </header>
   )

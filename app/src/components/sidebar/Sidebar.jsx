@@ -18,7 +18,7 @@ export function Sidebar({ open }) {
 
   const style = {
     width: theme.sidebarSize,
-    left
+    left,
   }
 
   useEffect(() => {
