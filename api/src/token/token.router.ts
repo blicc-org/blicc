@@ -57,7 +57,7 @@ export class TokenRouter {
      *                 }
      *     responses:
      *       200:
-     *         description: Password validation was successful but 2FA is required as well.
+     *         description: Two-factor authorization is required
      *         content:
      *           application/json:
      *             schema:
