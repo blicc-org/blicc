@@ -14,7 +14,7 @@ export function Footer() {
 
   useEffect(() => {
     setStyle({ marginLeft: open && !isMobile ? sidebarWidth : 0 })
-  }, [open])
+  }, [open, isMobile])
 
   return (
     <footer style={style}>
