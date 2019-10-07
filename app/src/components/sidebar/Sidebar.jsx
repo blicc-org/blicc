@@ -65,21 +65,6 @@ export function Sidebar({ open }) {
               <ShoppingCart className="feather" /> Products
             </Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/" onClick={closeOnClick}>
-              <Users className="feather" /> Customers
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/" onClick={closeOnClick}>
-              <BarChart2 className="feather" /> Reports
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/" onClick={closeOnClick}>
-              <Layers className="feather" /> Integrations
-            </Link>
-          </li>
         </ul>
         <h6 className="sidebar-heading d-flex align-items-center px-3 mt-4 mb-1 text-muted">
           <span>Saved reports</span>
@@ -96,16 +81,6 @@ export function Sidebar({ open }) {
           <li className="nav-item">
             <Link className="nav-link" to="/" onClick={closeOnClick}>
               <FileText className="feather" /> Last quarter
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/" onClick={closeOnClick}>
-              <FileText className="feather" /> Social engagement
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/" onClick={closeOnClick}>
-              <FileText className="feather" /> Year-end sale
             </Link>
           </li>
         </ul>
