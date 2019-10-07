@@ -57,17 +57,18 @@ export class TokenRouter {
      *                 }
      *     responses:
      *       200:
-     *         description: OK
+     *         description: Password validation was successful but 2FA is required as well.
      *         content:
      *           application/json:
      *             schema:
      *               properties:
-     *                 info:
-     *                   type: string
+     *                 hasTwoFactorAuth:
+     *                   type: boolean
+     *                   description:
      *             examples:
      *               filter:
      *                 value: {
-     *                   "info": "Request again with 2FA token."
+     *                   "hasTwoFactorAuth": "true"
      *                 }
      *       202:
      *         description: Accepted

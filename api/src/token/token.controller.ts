@@ -40,6 +40,7 @@ export class TokenController {
       }
       if (user.hasTwoFactorAuth) {
         ctx.status = status.OK
+        ctx.body = { hasTwoFactorAuth: true }
         return
       }
     } else {
