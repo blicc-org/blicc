@@ -4,7 +4,6 @@ import { API_ORIGIN } from '../config/env'
 export function useApiEndpoint(path = '') {
   const instance = axios.create({
     baseURL: API_ORIGIN,
-    withCredentials: true,
   })
 
   async function create(resource) {
