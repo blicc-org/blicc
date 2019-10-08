@@ -18,7 +18,7 @@ export function Footer() {
 
   return (
     <footer style={style}>
-      <hr className="mx-4" />
+      <hr className="mx-3" />
       <div className="col-lg-12 col-xl-8 offset-xl-2 py-5">
         <div className="row">
           <FooterLogo />
