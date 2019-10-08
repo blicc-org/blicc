@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Markdown from 'react-markdown'
 import { Highlighter } from '../../components/syntax-highlighting/Highlighter'
-import { APP_ORIGIN } from '../../config/env'
+import { APP } from '../../config/env'
 import './PageGenerator.scss'
 
 export function PageGenerator({ location }) {
@@ -13,7 +13,7 @@ export function PageGenerator({ location }) {
   useEffect(() => {
     async function getText() {
       const { data } = await axios.get(
-        `${APP_ORIGIN}${pathname.replace('/pages', '')}`
+        `${APP.ORIGIN}${pathname.replace('/pages', '')}`
       )
       setText(data)
     }
