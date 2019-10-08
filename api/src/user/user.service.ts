@@ -33,7 +33,7 @@ export class UserService {
       twoFactorAuthSecret
     )
     user = await this.repo.save(user)
-    await new MailService().send(user, MailType.WELCOME)
+    // await new MailService().send(user, MailType.WELCOME)
     return user
   }
 
