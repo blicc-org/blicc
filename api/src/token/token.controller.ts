@@ -64,7 +64,7 @@ export class TokenController {
 
     ctx.cookies.set('access_token', token, {
       maxAge,
-      domain: APP_HOSTNAME,
+      domain: `.${APP_HOSTNAME}`,
       secure: IS_PROD,
       httpOnly: IS_PROD,
       sameSite: 'Strict',

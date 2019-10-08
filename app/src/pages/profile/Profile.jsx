@@ -16,14 +16,16 @@ export function Profile() {
   })
   const { firstName, lastName, email, role } = user
 
-  useEffect(() => {
-    async function call() {
-      const response = await fetch(`${API.ORIGIN}/users/${id}`)
-      const myJson = await response.json()
-      console.log(JSON.stringify(myJson))
-    }
-    call()
-  }, [])
+  // useEffect(() => {
+  //   async function call() {
+  //     const response = await fetch(`${API.ORIGIN}/users/${id}`, {
+  //       credentials: "same-origin"
+  //     })
+  //     const myJson = await response.json()
+  //     console.log(JSON.stringify(myJson))
+  //   }
+  //   call()
+  // }, [])
 
   useEffect(() => {
     async function fetchUser() {
