@@ -1,8 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 import { AppContext } from '../../context/AppContext'
+import {API} from '../../config/env'
 
 export function Profile() {
+
   const [appState] = useContext(AppContext)
   const { id } = appState
   const [, accessUser, ,] = useApiEndpoint(`/users/${id}`)
@@ -14,6 +16,15 @@ export function Profile() {
     role: '',
   })
   const { firstName, lastName, email, role } = user
+
+  useEffect(() => {
+    async function call(){
+      const response = await fetch(`${API.ORIGIN}/users/${id}`);
+      const myJson = await response.json();
+      console.log(JSON.stringify(myJson));
+    }
+    call()
+  }, [])
 
   useEffect(() => {
     async function fetchUser() {
