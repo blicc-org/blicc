@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { User } from 'react-feather'
+import './NavbarUser.scss'
 
 export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
   return (
@@ -21,12 +23,14 @@ export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
             aria-haspopup="true"
             aria-expanded="false"
           >
-            {`Hello ${firstName} ${lastName} `}
+            <User size={24} className="user"></User>
           </a>
           <div
             className="dropdown-menu dropdown-menu-right"
             aria-labelledby="navbarDropdown"
           >
+            <h6 class="dropdown-header">{`Welcome ${firstName} ${lastName}`}</h6>
+            <div className="dropdown-divider"></div>
             <Link className="dropdown-item" to="/profile">
               Profile
             </Link>
