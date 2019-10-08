@@ -67,7 +67,7 @@ export class TokenController {
       domain: DOMAIN,
       secure: IS_PROD,
       httpOnly: IS_PROD,
-      sameSite: 'Strict',
+      // sameSite: 'Strict',
     })
 
     ctx.status = status.ACCEPTED
