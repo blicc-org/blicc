@@ -1,6 +1,9 @@
 const isDev = process.env.NODE_ENV === 'development'
 
-export const DOMAIN = isDev ? 'localhost' : 'blicc.org'
+export const APP_HOSTNAME = isDev ? 'localhost' : 'blicc.org'
+export const API_HOSTNAME = isDev ? 'localhost' : 'api.blicc.org'
+export const DELIVERY_HOSTNAME = isDev ? 'localhost' : 'delivery.blicc.org'
+
 export const IS_PROD = !isDev
 
 export const PORT = 80

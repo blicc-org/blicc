@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Redirect } from 'react-router-dom'
 import { RegisterForm } from './RegisterForm'
-import { API } from '../../config/env'
+import { API_ORIGIN } from '../../config/env'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 import { useSession } from '../../hooks/useSession'
 import { RegisterService } from './RegisterService'
@@ -17,7 +17,7 @@ export function Register() {
     confirm: '',
   })
 
-  const [createUser, , ,] = useApiEndpoint(`${API}/users`)
+  const [createUser, , ,] = useApiEndpoint(`${API_ORIGIN}/users`)
   const [onRegister, setOnRegister] = useState(false)
   const [, showToast] = useContext(ToastContext)
   const [login] = useSession()

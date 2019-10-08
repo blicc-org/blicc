@@ -3,7 +3,7 @@ import status from 'http-status-codes'
 import { TokenService } from './token.service'
 import { UserService } from '../user/user.service'
 import { JWT } from '../util/jwt'
-import { IS_PROD, DOMAIN } from '../config'
+import { IS_PROD, API_HOSTNAME, DELIVERY_HOSTNAME } from '../config'
 
 export class TokenController {
   private tokenService: TokenService
@@ -62,12 +62,20 @@ export class TokenController {
     const { token, payload } = JWT.generate(email)
     const maxAge = (payload.exp - payload.iat) * 1000 // maxAge requires miliseconds
 
-    ctx.cookies.set('access_token', token, {
+    ctx.cookies.set('access_token_api', token, {
       maxAge,
-      domain: DOMAIN,
+      domain: API_HOSTNAME,
       secure: IS_PROD,
       httpOnly: IS_PROD,
-      // sameSite: 'Strict',
+      sameSite: 'Strict',
+    })
+
+    ctx.cookies.set('access_token_delivery', token, {
+      maxAge,
+      domain: DELIVERY_HOSTNAME,
+      secure: IS_PROD,
+      httpOnly: IS_PROD,
+      sameSite: 'Strict',
     })
 
     ctx.status = status.ACCEPTED
@@ -78,7 +86,8 @@ export class TokenController {
 
   public async clear(ctx: Koa.BaseContext, next: Function): Promise<void> {
     await next()
-    ctx.cookies.set('access_token', null)
+    ctx.cookies.set('access_token_api', null)
+    ctx.cookies.set('access_token_delivery', null)
     ctx.status = status.NO_CONTENT
   }
 }
