@@ -37,6 +37,10 @@ export class MailService {
       lastName,
       type
     )
-    return await this.transporter.sendMail(mail)
+    try {
+      return await this.transporter.sendMail(mail)
+    } catch (e) {
+      console.log('An error occured while connecting to the mail server!')
+    }
   }
 }
