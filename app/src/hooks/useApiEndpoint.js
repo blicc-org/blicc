@@ -1,9 +1,14 @@
 import axios from 'axios'
-import { API_ORIGIN } from '../config/env'
+import { API } from '../config/env'
 
 export function useApiEndpoint(path = '') {
   const instance = axios.create({
-    baseURL: API_ORIGIN,
+    baseURL: API.ORIGIN,
+    withCredentials: true,
+    headers: {
+      Host: API.HOST,
+      'Access-Control-Allow-Origin': '*',
+    },
   })
 
   async function create(resource) {
