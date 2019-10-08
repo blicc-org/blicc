@@ -5,10 +5,6 @@ export function useApiEndpoint(path = '') {
   const instance = axios.create({
     baseURL: API.ORIGIN,
     withCredentials: true,
-    headers: {
-      Host: API.HOST,
-      'Access-Control-Allow-Origin': '*',
-    },
   })
 
   async function create(resource) {
