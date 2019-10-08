@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { APP_URL } from '../../config/env'
+import { APP } from '../../config/env'
 
 export default function MetaData({ title, description, path = '' }) {
   return (
@@ -8,7 +8,7 @@ export default function MetaData({ title, description, path = '' }) {
       <meta charSet="utf-8" />
       <title>{title}</title>
       <meta name="description" content={description}></meta>
-      <link rel="canonical" href={`${APP_URL}${path}`} />
+      <link rel="canonical" href={`${APP}${path}`} />
     </Helmet>
   )
 }

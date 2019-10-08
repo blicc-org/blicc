@@ -3,7 +3,7 @@ import status from 'http-status-codes'
 import { TokenService } from './token.service'
 import { UserService } from '../user/user.service'
 import { JWT } from '../util/jwt'
-import { IS_PROD } from '../config'
+import { IS_PROD, DOMAIN } from '../config'
 
 export class TokenController {
   private tokenService: TokenService
@@ -63,11 +63,11 @@ export class TokenController {
     const maxAge = (payload.exp - payload.iat) * 1000 // maxAge requires miliseconds
 
     ctx.cookies.set('access_token', token, {
-      domain: 'blicc.org',
       maxAge,
+      domain: DOMAIN,
       secure: IS_PROD,
       httpOnly: IS_PROD,
-      sameSize: 'Strict',
+      sameSite: 'Strict',
     })
 
     ctx.status = status.ACCEPTED
