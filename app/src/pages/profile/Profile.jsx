@@ -1,12 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
-import { API_ORIGIN } from '../../config/env'
 import { AppContext } from '../../context/AppContext'
 
 export function Profile() {
   const [appState] = useContext(AppContext)
   const { id } = appState
-  const [, accessUser, ,] = useApiEndpoint(`${API_ORIGIN}/users/${id}`)
+  const [, accessUser, ,] = useApiEndpoint(`/users/${id}`)
   const [user, setUser] = useState({
     id: '',
     firstName: '',

@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { TwoFactorAuthForm } from './TwoFactorAuthForm'
-import { API_ORIGIN } from '../../config/env'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 
 export function TwoFactorAuth() {
-  const [enable, requestSecret, ,] = useApiEndpoint(
-    `${API_ORIGIN}/two-factor-auth`
-  )
+  const [enable, requestSecret, ,] = useApiEndpoint('/two-factor-auth')
   const [url, setUrl] = useState('')
 
   useEffect(() => {

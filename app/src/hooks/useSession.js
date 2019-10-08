@@ -1,13 +1,12 @@
 import { useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint } from './useApiEndpoint'
-import { API_ORIGIN } from '../config/env'
 import { AppContext, INITIAL_APP_STATE } from '../context/AppContext'
 import { ToastContext } from '../context/ToastContext'
 import { ModalContext } from '../context/ModalContext'
 
 export function useSession() {
-  const [open, , , close] = useApiEndpoint(`${API_ORIGIN}/tokens`)
+  const [open, , , close] = useApiEndpoint('/tokens')
   const [appState, setAppState] = useContext(AppContext)
   const [, showToast] = useContext(ToastContext)
   const [, showModal] = useContext(ModalContext)
