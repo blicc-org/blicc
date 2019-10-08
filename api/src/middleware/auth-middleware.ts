@@ -11,7 +11,7 @@ export class AuthMiddleware {
     next: Function
   ): Promise<void> {
     try {
-      let token: string = ctx.cookies.get('access_token_api')
+      let token: string = ctx.cookies.get('access_token')
       if (!token) {
         const { authorization } = ctx.headers
         token = authorization.split(' ')[1]

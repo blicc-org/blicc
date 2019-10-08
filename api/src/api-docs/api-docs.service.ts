@@ -15,7 +15,7 @@ export class ApiDocsService {
           cookieAuth: {
             type: 'apiKey',
             in: 'cookie',
-            name: 'access_token_api',
+            name: 'access_token',
             description:
               'A JWT is stored in a cookie. It is used to authenticate the client who hands it over on each api request. It is secured against man-in-the-middle attacks via the Secure flag, against CSRF via the SameSite flag as well as against read access of a XSS attack via the HttpOnly flag.',
           },

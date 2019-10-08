@@ -36,7 +36,7 @@ func verify(token string) bool {
 
 func Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		cookie, err := r.Cookie("access_token_delivery")
+		cookie, err := r.Cookie("access_token")
 
 		log.Println("yayyy :D")
 		if err != nil {
@@ -54,7 +54,7 @@ func Middleware(next http.Handler) http.Handler {
 		// 	next.ServeHTTP(w, r)
 		// 	return
 		// }
-		// log.Println("Invalid access_token_delivery")
+		// log.Println("Invalid access_token")
 		// w.WriteHeader(http.StatusUnauthorized)
 		// w.Write([]byte("Unauthorized"))
 	})
