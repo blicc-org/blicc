@@ -4,9 +4,7 @@ import { API } from '../../config/env'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 
 export function TwoFactorAuth() {
-  const [enable, requestSecret, ,] = useApiEndpoint(
-    `${API}/two-factor-auth`
-  )
+  const [enable, requestSecret, ,] = useApiEndpoint(`${API}/two-factor-auth`)
   const [url, setUrl] = useState('')
 
   useEffect(() => {
