@@ -38,24 +38,13 @@ func Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("access_token")
 
-		log.Println("yayyy :D")
-		if err != nil {
-			log.Println("Error occured")
-			log.Println(err)
-		} else {
-			log.Println("Token given in header")
-			log.Println(cookie.Value)
+		if err == nil && verify(cookie.Value) {
+			log.Println("Authorization was successful!")
+			next.ServeHTTP(w, r)
+			return
 		}
-
-		next.ServeHTTP(w, r)
-
-		// if err == nil && verify(cookie.Value) {
-		// 	log.Println("Authorization was successful!")
-		// 	next.ServeHTTP(w, r)
-		// 	return
-		// }
-		// log.Println("Invalid access_token")
-		// w.WriteHeader(http.StatusUnauthorized)
-		// w.Write([]byte("Unauthorized"))
+		log.Println("Invalid access_token")
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte("Unauthorized"))
 	})
 }
