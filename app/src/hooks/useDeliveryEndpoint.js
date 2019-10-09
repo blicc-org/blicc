@@ -1,17 +1,27 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useContext } from 'react'
+import { AppContext } from '../context/AppContext'
 import { DELIVERY } from '../config/env'
 
-export let sockets = undefined
+export let sockets = null
+
+export const websocketstate = {
+  0: 'connecting',
+  1: 'open',
+  2: 'closing',
+  3: 'closed',
+}
 
 export function useDeliveryEndpoint() {
+  const [appState] = useContext(AppContext)
+  const { loggedIn } = appState
   const url = `${DELIVERY.ORIGIN}/connection`
   const ref = useRef(null)
   const [state, setState] = useState(WebSocket.CLOSED)
 
   useEffect(() => {
-    console.log(state)
+    console.log(websocketstate[state])
     function start() {
-      if (sockets === undefined) {
+      if (!sockets) {
         setState(WebSocket.CONNECTING)
         sockets = new WebSocket(url)
       }
@@ -36,12 +46,8 @@ export function useDeliveryEndpoint() {
       }
     }
 
-    start()
-    return () => {
-      setState(WebSocket.CLOSING)
-      // sockets.close()
-    }
-  })
+    if (loggedIn) start()
+  }, [appState, state])
 
   function publish(data) {}
   function subscribe() {}
