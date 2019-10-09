@@ -47,7 +47,7 @@ export function useDeliveryEndpoint() {
     }
 
     if (loggedIn) start()
-  }, [appState, state])
+  }, [loggedIn, url, state])
 
   function publish(data) {}
   function subscribe() {}
