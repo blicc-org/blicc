@@ -29,7 +29,7 @@ export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
             className="dropdown-menu dropdown-menu-right"
             aria-labelledby="navbarDropdown"
           >
-            <h6 class="dropdown-header">{`Welcome ${firstName} ${lastName}`}</h6>
+            <h6 className="dropdown-header">{`Welcome ${firstName} ${lastName}`}</h6>
             <div className="dropdown-divider"></div>
             <Link className="dropdown-item" to="/profile">
               Profile
