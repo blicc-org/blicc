@@ -12,31 +12,22 @@ export class AuthMiddleware {
   ): Promise<void> {
     try {
       let token: string = ctx.cookies.get('access_token')
-      console.log(token)
       if (!token) {
         const { authorization } = ctx.headers
         token = authorization.split(' ')[1]
       }
-      console.log(1)
       const payload: TokenPayload = JWT.verify(token)
-      console.log(payload)
-      console.log(2)
       const user: User | undefined = await new UserService().select(
         payload.email
       )
-      console.log(3)
       if (user) {
         ctx.user = user
         await next()
-        console.log(4)
       } else {
         ctx.status = status.NOT_FOUND
         ctx.body = 'User does not exist.'
-        console.log(5)
       }
     } catch (e) {
-      console.log(6)
-      console.log(e)
       if (e.name === 'TokenExpiredError') {
         ctx.status = status.UNAUTHORIZED
         ctx.body = `Authorization token has expired on ${new Date(

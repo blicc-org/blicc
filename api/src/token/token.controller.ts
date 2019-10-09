@@ -60,9 +60,6 @@ export class TokenController {
     }
 
     const { token, payload } = JWT.generate(email)
-    console.log('token :D')
-    console.log(token)
-    console.log(payload)
     const maxAge = (payload.exp - payload.iat) * 1000 // maxAge requires miliseconds
 
     ctx.cookies.set('access_token', token, {
