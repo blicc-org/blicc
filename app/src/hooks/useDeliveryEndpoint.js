@@ -2,54 +2,63 @@ import { useEffect, useState, useRef, useContext } from 'react'
 import { AppContext } from '../context/AppContext'
 import { DELIVERY } from '../config/env'
 
-export let sockets = null
+let sockets = null
 
-export const websocketstate = {
-  0: 'connecting',
-  1: 'open',
-  2: 'closing',
-  3: 'closed',
+const WebSocketStates = {
+  [WebSocket.CONNECTING]: 'connecting',
+  [WebSocket.OPEN]: 'open',
+  [WebSocket.CLOSING]: 'closing',
+  [WebSocket.CLOSED]: 'closed',
 }
 
 export function useDeliveryEndpoint() {
   const [appState] = useContext(AppContext)
   const { loggedIn } = appState
-  const url = `${DELIVERY.ORIGIN}/connection`
   const ref = useRef(null)
   const [state, setState] = useState(WebSocket.CLOSED)
 
+  console.log(WebSocketStates[state])
+
   useEffect(() => {
-    console.log(websocketstate[state])
-    function start() {
-      if (!sockets) {
-        setState(WebSocket.CONNECTING)
-        sockets = new WebSocket(url)
+    if (loggedIn && ref.current === null) {
+      setState(WebSocket.CONNECTING)
+      sockets = new WebSocket(`${DELIVERY.ORIGIN}/connection`)
+
+      sockets.onopen = () => {
+        setState(WebSocket.OPEN)
+      }
+
+      sockets.onclose = () => {
+        setState(WebSocket.CLOSED)
+      }
+
+      sockets.onmessage = ({ data }) => {
+        console.log(`Socket received message: ${data}`)
+      }
+
+      sockets.onerror = event => {
+        console.log(`Socket error occured: ${event}`)
       }
 
       ref.current = sockets
 
-      ref.current.onopen = () => {
-        setState(WebSocket.OPEN)
-        ref.current.send('hey')
-      }
-
-      ref.current.onclose = () => {
-        setState(WebSocket.CLOSED)
-      }
-
-      ref.current.onmessage = ({ data }) => {
-        console.log(`Socket received message: ${data}`)
-      }
-
-      ref.current.onerror = event => {
-        console.log(`Socket error occured: ${event}`)
+      return () => {
+        sockets = {}
       }
     }
 
-    if (loggedIn) start()
-  }, [loggedIn, url, state])
+    if (!loggedIn && ref.current !== null) {
+      ref.current.close()
+      setState(WebSocket.CLOSING)
 
-  function publish(data) {}
+      return () => {
+        ref.current = null
+      }
+    }
+  }, [loggedIn])
+
+  function publish() {}
+
   function subscribe() {}
 
   return [publish, subscribe]

@@ -5,6 +5,7 @@ import { FooterNav } from './footer-nav/FooterNav'
 import { useDimensions } from '../../hooks/useDimensions'
 import { sidebarWidth } from '../../config/gui'
 import './Footer.scss'
+import { useDeliveryEndpoint } from '../../hooks/useDeliveryEndpoint'
 
 export function Footer() {
   const [sidebarState] = useContext(SidebarContext)
@@ -12,19 +13,23 @@ export function Footer() {
   const isMobile = useDimensions()
   const { open } = sidebarState
 
+  const [publish, subscribe] = useDeliveryEndpoint()
+
   useEffect(() => {
     setStyle({ marginLeft: open && !isMobile ? sidebarWidth : 0 })
   }, [open, isMobile])
 
   return (
-    <footer style={style}>
-      <hr className="mx-3" />
-      <div className="col-lg-12 col-xl-8 offset-xl-2 py-5">
-        <div className="row">
-          <FooterLogo />
-          <FooterNav />
+    <>
+      <footer style={style}>
+        <hr className="mx-3" />
+        <div className="col-lg-12 col-xl-8 offset-xl-2 py-5">
+          <div className="row">
+            <FooterLogo />
+            <FooterNav />
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </>
   )
 }
