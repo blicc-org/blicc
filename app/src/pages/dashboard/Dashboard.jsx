@@ -5,14 +5,12 @@ import { DashboardHeader } from './DashboardHeader'
 
 export function Dashboard() {
   return (
-    <>
-      <div className="container-fluid">
-        <main className="col px-4">
-          <DashboardHeader />
-          <LineChart />
-          <Table />
-        </main>
-      </div>
-    </>
+    <div className="container-fluid">
+      <main className="col px-4">
+        <DashboardHeader />
+        <LineChart />
+        <Table />
+      </main>
+    </div>
   )
 }

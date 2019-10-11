@@ -15,6 +15,7 @@ import { TwoFactorAuth } from './pages/two-factor-auth/TwoFactorAuth'
 import { Header } from './components/header/Header'
 import { Main } from './components/main/Main'
 import { Footer } from './components/footer/Footer'
+import { WebSocketTest } from './pages/websocket-test/WebSocketTest'
 
 export function App() {
   return (
@@ -30,6 +31,7 @@ export function App() {
             <ProtectedRoute path="/two-factor-auth" component={TwoFactorAuth} />
             <ProtectedRoute path="/dashboards" component={Dashboard} />
             <ProtectedRoute path="/profile" component={Profile} />
+            <ProtectedRoute path="/test" component={WebSocketTest} />
             <Route component={NotFound} />
           </Switch>
         </Main>

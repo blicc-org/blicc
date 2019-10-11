@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { Home, File, ShoppingCart, PlusCircle, FileText } from 'react-feather'
+import {
+  Home,
+  File,
+  ShoppingCart,
+  PlusCircle,
+  FileText,
+  Heart,
+} from 'react-feather'
 import { SidebarContext } from '../../context/SidebarContext'
 import { sidebarWidth } from '../../config/gui'
 import { useDimensions } from '../../hooks/useDimensions'
@@ -41,6 +48,11 @@ export function Sidebar({ open }) {
               onClick={closeOnClick}
             >
               <Home className="feather" /> Dashboard
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/test" onClick={closeOnClick}>
+              <Heart className="feather" /> Test
             </Link>
           </li>
           <li className="nav-item">

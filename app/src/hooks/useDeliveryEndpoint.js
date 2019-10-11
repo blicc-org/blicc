@@ -40,7 +40,6 @@ export function useDeliveryEndpoint() {
       }
 
       sockets.onmessage = event => {
-        console.log('message data: ', event.data)
         handleOnMessage(event.data)
       }
 
@@ -61,9 +60,16 @@ export function useDeliveryEndpoint() {
     }
   }, [loggedIn, handleOnMessage])
 
-  const publish = useCallback(data => {
-    ref.current.send(data)
-  }, [])
+  const publish = useCallback(
+    data => {
+      if (state === WebSocket.OPEN) {
+        ref.current.send(data)
+      } else {
+        console.log('Connection has to be open to publish!')
+      }
+    },
+    [state]
+  )
 
   const subscribe = useCallback((id, callback) => {
     if (typeof callback !== 'function') {
