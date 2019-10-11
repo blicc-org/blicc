@@ -1,10 +1,11 @@
-import { useEffect, useState, useRef, useContext } from 'react'
+import { useEffect, useState, useRef, useContext, useCallback } from 'react'
+import { SubscriberContext } from '../context/SubscriberContext'
 import { AppContext } from '../context/AppContext'
 import { DELIVERY } from '../config/env'
 
-let sockets = null
+export let sockets = null
 
-const WebSocketStates = {
+export const WebSocketState = {
   [WebSocket.CONNECTING]: 'connecting',
   [WebSocket.OPEN]: 'open',
   [WebSocket.CLOSING]: 'closing',
@@ -12,12 +13,18 @@ const WebSocketStates = {
 }
 
 export function useDeliveryEndpoint() {
+  const [subscriberStack, setSubscriberStack] = useContext(SubscriberContext)
   const [appState] = useContext(AppContext)
   const { loggedIn } = appState
   const ref = useRef(null)
   const [state, setState] = useState(WebSocket.CLOSED)
 
-  console.log(WebSocketStates[state])
+  const handleOnMessage = useCallback(
+    msg => {
+      Object.keys(subscriberStack).map(key => subscriberStack[key](msg))
+    },
+    [subscriberStack]
+  )
 
   useEffect(() => {
     if (loggedIn && ref.current === null) {
@@ -32,12 +39,9 @@ export function useDeliveryEndpoint() {
         setState(WebSocket.CLOSED)
       }
 
-      sockets.onmessage = ({ data }) => {
-        console.log(`Socket received message: ${data}`)
-      }
-
-      sockets.onerror = event => {
-        console.log(`Socket error occured: ${event}`)
+      sockets.onmessage = event => {
+        console.log('message data: ', event.data)
+        handleOnMessage(event.data)
       }
 
       ref.current = sockets
@@ -55,11 +59,22 @@ export function useDeliveryEndpoint() {
         ref.current = null
       }
     }
-  }, [loggedIn])
+  }, [loggedIn, handleOnMessage])
 
-  function publish() {}
+  const publish = useCallback(data => {
+    ref.current.send(data)
+  }, [])
 
-  function subscribe() {}
+  const subscribe = useCallback((id, callback) => {
+    if (typeof callback !== 'function') {
+      return
+    }
 
-  return [publish, subscribe]
+    setSubscriberStack(stack => ({
+      ...stack,
+      [id]: callback,
+    }))
+  }, [])
+
+  return [publish, subscribe, state]
 }
