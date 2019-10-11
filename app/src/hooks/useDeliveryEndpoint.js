@@ -71,16 +71,19 @@ export function useDeliveryEndpoint() {
     [state]
   )
 
-  const subscribe = useCallback((id, callback) => {
-    if (typeof callback !== 'function') {
-      return
-    }
+  const subscribe = useCallback(
+    (id, callback) => {
+      if (typeof callback !== 'function') {
+        return
+      }
 
-    setSubscriberStack(stack => ({
-      ...stack,
-      [id]: callback,
-    }))
-  }, [setSubscriberStack])
+      setSubscriberStack(stack => ({
+        ...stack,
+        [id]: callback,
+      }))
+    },
+    [setSubscriberStack]
+  )
 
   return [publish, subscribe, state]
 }
