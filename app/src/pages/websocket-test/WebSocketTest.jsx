@@ -9,7 +9,7 @@ export function WebSocketTest() {
 
   useEffect(() => {
     subscribe('example', data => console.log(data))
-  }, [state])
+  }, [subscribe])
 
   return (
     <div className="col-md-5 mx-auto py-5 my-5 text-center">

@@ -80,7 +80,7 @@ export function useDeliveryEndpoint() {
       ...stack,
       [id]: callback,
     }))
-  }, [])
+  }, [setSubscriberStack])
 
   return [publish, subscribe, state]
 }
