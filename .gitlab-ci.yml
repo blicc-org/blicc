@@ -31,8 +31,8 @@ test:
     - service docker start
     - yarn
     - yarn --cwd 'db' build
-    - nohup start yarn --cwd 'db' start
-    - nohup start yarn --cwd 'api' start
+    - nohup yarn --cwd 'db' start
+    - nohup yarn --cwd 'api' start
     - yarn --cwd 'api' test
 
 deploy:
