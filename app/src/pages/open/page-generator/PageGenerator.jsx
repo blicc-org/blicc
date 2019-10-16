@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Markdown from 'react-markdown'
-import { Highlighter } from '../../components/syntax-highlighting/Highlighter'
-import { APP } from '../../config/env'
+import { Highlighter } from '../../../components/syntax-highlighting/Highlighter'
+import { APP } from '../../../config/env'
 import './PageGenerator.scss'
 
 export function PageGenerator({ location }) {

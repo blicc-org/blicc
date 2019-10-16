@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { useApiEndpoint } from '../../hooks/useApiEndpoint'
-import { AppContext } from '../../context/AppContext'
+import { useApiEndpoint } from '../../../hooks/useApiEndpoint'
+import { AppContext } from '../../../context/AppContext'
 
 export function Profile() {
   const [appState] = useContext(AppContext)

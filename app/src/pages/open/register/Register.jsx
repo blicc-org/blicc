@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react'
 import { Redirect } from 'react-router-dom'
 import { RegisterForm } from './RegisterForm'
-import { useApiEndpoint } from '../../hooks/useApiEndpoint'
-import { useSession } from '../../hooks/useSession'
+import { useApiEndpoint } from '../../../hooks/useApiEndpoint'
+import { useSession } from '../../../hooks/useSession'
 import { RegisterService } from './RegisterService'
-import { ToastContext } from '../../context/ToastContext'
+import { ToastContext } from '../../../context/ToastContext'
 import statusCode from 'http-status-codes'
 
 export function Register() {

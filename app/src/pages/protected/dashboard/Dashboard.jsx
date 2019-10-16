@@ -1,6 +1,6 @@
 import React from 'react'
-import { LineChart } from '../../components/charts/Linechart'
-import { Table } from '../../components/charts/Table'
+import { LineChart } from '../../../components/charts/Linechart'
+import { Table } from '../../../components/charts/Table'
 import { DashboardHeader } from './DashboardHeader'
 
 export function Dashboard() {
