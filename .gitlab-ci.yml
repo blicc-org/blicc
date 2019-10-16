@@ -29,6 +29,7 @@ test:
   script:
     - yarn
     - curl -fsSL https://get.docker.com | sh;
+    - apt-get install systemd
     - service docker start
     - yarn --cwd 'db' build
     - systemctl yarn --cwd 'db' start
