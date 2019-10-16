@@ -25,12 +25,12 @@ build:
 
 test:
   stage: test
-  image: node:12-alpine
+  image: node:12
   script:
     - yarn
-    - cd $PWD/db
-    - cd $PWD/api
-    - pwd
+    - yarn --cwd 'db' build && yarn --cwd 'db' start
+    - yarn --cwd 'api' start
+    - yarn --cwd 'api' test
 
 deploy:
   stage: deploy
