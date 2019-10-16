@@ -27,14 +27,12 @@ test:
   stage: test
   image: node:12
   script:
-    - apt-get update
-    - apt-get install -y systemd
     - curl -fsSL https://get.docker.com | sh;
     - service docker start
     - yarn
     - yarn --cwd 'db' build
-    - systemctl start yarn --cwd 'db' start
-    - systemctl start yarn --cwd 'api' start
+    - nohup start yarn --cwd 'db' start
+    - nohup start yarn --cwd 'api' start
     - yarn --cwd 'api' test
 
 deploy:
