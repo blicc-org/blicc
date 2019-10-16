@@ -28,7 +28,7 @@ test:
   image: node:12
   script:
     - yarn
-    - apt-get install docker.io
+    - curl -fsSL https://get.docker.com | sh;
     - service docker start
     - yarn --cwd 'db' build && yarn --cwd 'db' start
     - yarn --cwd 'api' start
