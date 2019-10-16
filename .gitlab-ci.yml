@@ -27,10 +27,11 @@ test:
   stage: test
   image: node:12
   script:
-    - yarn
+    - apt-get update
+    - apt-get install -y systemd
     - curl -fsSL https://get.docker.com | sh;
-    - sh -c apt-get install -y systemd >/dev/null
     - service docker start
+    - yarn
     - yarn --cwd 'db' build
     - systemctl yarn --cwd 'db' start
     - systemctl yarn --cwd 'api' start
