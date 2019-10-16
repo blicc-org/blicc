@@ -15,7 +15,7 @@ import { TwoFactorAuth } from './pages/two-factor-auth/TwoFactorAuth'
 import { Header } from './components/header/Header'
 import { Main } from './components/main/Main'
 import { Footer } from './components/footer/Footer'
-import { WebSocketTest } from './pages/websocket-test/WebSocketTest'
+import { WebSocketTest } from './pages/open/websocket-test/WebSocketTest'
 
 export function App() {
   return (
