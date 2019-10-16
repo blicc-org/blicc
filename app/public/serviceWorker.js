@@ -9,5 +9,4 @@ self.addEventListener('activate', () =>
 
 self.addEventListener('fetch', event => {
   console.log('Request url: ', event.request.url)
-  caches.match(event.request).then(res)
 })
