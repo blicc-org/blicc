@@ -10,26 +10,20 @@ import { TokenRouter } from './token/token.router'
 import { DashboardRouter } from './dashboard/dashboard.router'
 import { TwoFactorAuthRouter } from './two-factor-auth/two-factor-auth.router'
 
-export class App {
-  private koa: Koa
-
+export class App extends Koa {
   public constructor() {
-    this.koa = new Koa()
+    super()
 
-    this.koa.proxy = true // forward for TSL encyrption on edge proxy level
-    this.koa.use(cors({ credentials: true }))
-    this.koa.use(logger())
-    this.koa.use(bodyParser())
-    this.koa.use(serve(`${__dirname}/../public`))
-    this.koa.use(new ApiDocsRouter('/').routes())
-    this.koa.use(new AdminRouter('/admin').routes())
-    this.koa.use(new UserRouter('/users').routes())
-    this.koa.use(new TokenRouter('/tokens').routes())
-    this.koa.use(new DashboardRouter('/dashboards').routes())
-    this.koa.use(new TwoFactorAuthRouter('/two-factor-auth').routes())
-  }
-
-  public listen(port: number): void {
-    this.koa.listen(port)
+    this.proxy = true // forward for TSL encyrption on edge proxy level
+    this.use(cors({ credentials: true }))
+    this.use(logger())
+    this.use(bodyParser())
+    this.use(serve(`${__dirname}/../public`))
+    this.use(new ApiDocsRouter('/').routes())
+    this.use(new AdminRouter('/admin').routes())
+    this.use(new UserRouter('/users').routes())
+    this.use(new TokenRouter('/tokens').routes())
+    this.use(new DashboardRouter('/dashboards').routes())
+    this.use(new TwoFactorAuthRouter('/two-factor-auth').routes())
   }
 }

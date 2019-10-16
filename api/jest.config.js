@@ -11,5 +11,5 @@ module.exports = {
     },
   },
   testMatch: ['**/*.test.+(ts|js)'],
-  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+  testPathIgnorePatterns: ['/node_modules/', '/build/'],
 }
