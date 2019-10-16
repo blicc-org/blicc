@@ -5,6 +5,7 @@ export function useApiEndpoint(path = '') {
   const instance = axios.create({
     baseURL: API.ORIGIN,
     withCredentials: true,
+    validateStatus: status => status >= 200 && status < 500,
   })
 
   async function create(resource) {

@@ -18,6 +18,7 @@ export function Profile() {
   useEffect(() => {
     async function fetchUser() {
       const [, user] = await accessUser()
+      console.log(user)
       setUser(user)
     }
     fetchUser()
