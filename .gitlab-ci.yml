@@ -25,13 +25,14 @@ build:
 
 test:
   stage: test
-  image: node:12
+  image: node:12-apline
   script:
     - yarn
     - curl -fsSL https://get.docker.com | sh;
     - service docker start
-    - yarn --cwd 'db' build && yarn --cwd 'db' start
-    - yarn --cwd 'api' start
+    - yarn --cwd 'db' build
+    - systemctl yarn --cwd 'db' start
+    - systemctl yarn --cwd 'api' start
     - yarn --cwd 'api' test
 
 deploy:
