@@ -28,6 +28,8 @@ test:
   image: node:12
   script:
     - yarn
+    - apt-get install docker-engine -y
+    - service docker start
     - yarn --cwd 'db' build && yarn --cwd 'db' start
     - yarn --cwd 'api' start
     - yarn --cwd 'api' test
