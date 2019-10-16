@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+
 export function register() {
   if ('serviceWorker' in navigator) {
     console.log('browser supports service worker')
@@ -8,3 +10,10 @@ export function register() {
       .catch(e => console.log('service worker failed to register: ', e))
   }
 }
+
+self.addEventListener('install', () =>
+  console.log('Service worker is installed')
+)
+self.addEventListener('activate', () =>
+  console.log('Service worker is activated')
+)
