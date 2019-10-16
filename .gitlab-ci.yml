@@ -27,7 +27,11 @@ test:
   stage: test
   image: node:12-alpine
   script:
+    - yarn
+    - cd $PWD/db
+    - cd $PWD/api
     - pwd
+
 deploy:
   stage: deploy
   image: docker:git
