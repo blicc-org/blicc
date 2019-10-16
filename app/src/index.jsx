@@ -4,8 +4,8 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { App } from './App'
-import * as serviceWorker from './serviceWorker'
+import { registerServiceWorker } from './register'
 
 ReactDOM.render(<App />, document.getElementById('root'))
 
-serviceWorker.register()
+registerServiceWorker()
