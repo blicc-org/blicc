@@ -33,7 +33,7 @@ test:
     # - yarn --cwd 'db' build
     # - nohup yarn --cwd 'db' start
     # - nohup yarn --cwd 'api' start
-    # - yarn --cwd 'api' test
+    - yarn --cwd 'api' test
 
 deploy:
   stage: deploy
