@@ -2,7 +2,6 @@ import { Repository, getRepository } from 'typeorm'
 import { User } from './user.entity'
 import { Hash } from '../util/hash'
 import { MailService } from '../util/mail-service/mail-service'
-import { SentMessageInfo } from 'nodemailer'
 import { MailType } from '../util/mail-service/mail-service'
 import shortid from 'shortid'
 
@@ -32,8 +31,14 @@ export class UserService {
       hasTwoFactorAuth,
       twoFactorAuthSecret
     )
+
     user = await this.repo.save(user)
-    // await new MailService().send(user, MailType.WELCOME)
+
+    try {
+      await new MailService().send(user, MailType.WELCOME)
+    } catch (e) {
+      console.log('Mailserver failed to send Welcome mail!', e)
+    }
     return user
   }
 
@@ -63,13 +68,5 @@ export class UserService {
     const id = shortid.generate()
     const response = await this.repo.findOne(id)
     return response === undefined ? id : await this.generateId()
-  }
-
-  public async requestPasswordReset(user: User): Promise<void> {
-    const info: SentMessageInfo = await new MailService().send(
-      user,
-      MailType.RESET_PASSWORD
-    )
-    console.log(info)
   }
 }

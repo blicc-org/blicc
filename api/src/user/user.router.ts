@@ -149,55 +149,6 @@ export class UserRouter {
       handler: this.controller.register.bind(this.controller),
     })
 
-    /**
-     * @swagger
-     *
-     * /users/password:
-     *   put:
-     *     security:
-     *       - cookieAuth: []
-     *     tags:
-     *       - User
-     *     summary: Reset password
-     *     description: Request a password reset link sent to the given email incase a regarding user exists
-     *     requestBody:
-     *         content:
-     *           application/json:
-     *             schema:
-     *               required:
-     *               - email
-     *               properties:
-     *                 email:
-     *                   type: object
-     *                   required:
-     *                   - email
-     *                   properties:
-     *                     email:
-     *                       type: string
-     *             examples:
-     *               filter:
-     *                 value: {
-     *                   "email": "john.doe@email.com"
-     *                 }
-     *     responses:
-     *       204:
-     *         description: No content
-     *       401:
-     *         description: Unauthorized
-     *       403:
-     *         description: Forbidden
-     *       404:
-     *         description: Not found
-     *       500:
-     *         description: Internal Server Error
-     */
-    this.router.route({
-      method: 'put',
-      path: '/password',
-      validate: { type: 'json' },
-      handler: this.controller.reset.bind(this.controller),
-    })
-
     return this.router.middleware()
   }
 }
