@@ -3,8 +3,8 @@ const isDev = process.env.NODE_ENV === 'development'
 export const APP_HOSTNAME = isDev ? 'localhost' : 'blicc.org'
 
 export const API = {
-    ORIGIN: isDev ? 'http://localhost' : 'https://api.blicc.org',
-    HOSTNAME: isDev ? 'localhost' : 'api.blicc.org',
+  ORIGIN: isDev ? 'http://localhost' : 'https://api.blicc.org',
+  HOSTNAME: isDev ? 'localhost' : 'api.blicc.org',
 }
 
 export const IS_PROD = !isDev
