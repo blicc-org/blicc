@@ -28,7 +28,7 @@ test:
   image: node:12
   script:
     - yarn
-    - yarn --cwd 'api' cross-env API_TESTS_TARGET=$API_TESTS_TARGET jest
+    - yarn --cwd 'api' cross-env API_TEST_TARGET=$API_TESTS_TARGET jest
 
 deploy:
   stage: deploy

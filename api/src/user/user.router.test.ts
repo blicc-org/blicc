@@ -6,7 +6,7 @@ import { API_TESTS_TARGET } from '../config'
 describe('POST: /users', () => {
   let email = ''
   const instance = axios.create({
-    baseURL: API_TESTS_TARGET,
+    baseURL: API_TEST_TARGET,
     withCredentials: true,
     validateStatus: status => status >= 200 && status < 500,
   })

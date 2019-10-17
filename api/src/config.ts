@@ -12,4 +12,4 @@ export const MAIL_HOST = process.env.MAIL_HOST
 
 export const CERTS = `${__dirname}/../../certs`
 
-export const API_TESTS_TARGET = process.env.API_TESTS_TARGET
+export const API_TEST_TARGET = process.env.API_TEST_TARGET
