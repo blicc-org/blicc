@@ -28,13 +28,12 @@ test:
   image: node:12
   script:
     - curl -fsSL https://get.docker.com | sh;
-    - service docker start
-    - yarn
-    - yarn --cwd 'db' build
-    - netstat | grep 5432
-    - nohup yarn --cwd 'db' start
-    - nohup yarn --cwd 'api' start
-    - yarn --cwd 'api' test
+    # - service docker start
+    # - yarn
+    # - yarn --cwd 'db' build
+    # - nohup yarn --cwd 'db' start
+    # - nohup yarn --cwd 'api' start
+    # - yarn --cwd 'api' test
 
 deploy:
   stage: deploy
