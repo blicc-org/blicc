@@ -8,7 +8,7 @@
     "start": "nodemon -r dotenv/config ./src/index.ts",
     "start:prod": "node ./build/index.js -p 80",
     "build": "tsc",
-    "test": "jest",
+    "test": "cross-env API_TESTS_TARGET=http://localhost jest",
     "fix": "eslint --fix \"src/**/*.+(ts|tsx)\""
   },
   "author": "Thilo Ilg",
@@ -52,6 +52,7 @@
     "@types/swagger-jsdoc": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^2.3.2",
     "@typescript-eslint/parser": "^2.3.2",
+    "cross-env": "^6.0.3",
     "dotenv": "^8.1.0",
     "eslint": "^6.5.1",
     "eslint-config-airbnb-base": "^14.0.0",

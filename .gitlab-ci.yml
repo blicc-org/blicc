@@ -27,13 +27,8 @@ test:
   stage: test
   image: node:12
   script:
-    # - curl -fsSL https://get.docker.com | sh;
-    # - service docker start
     - yarn
-    # - yarn --cwd 'db' build
-    # - nohup yarn --cwd 'db' start
-    # - nohup yarn --cwd 'api' start
-    - yarn --cwd 'api' test
+    - yarn --cwd 'api' cross-env API_TESTS_TARGET=$API_TESTS_TARGET jest
 
 deploy:
   stage: deploy

@@ -13,5 +13,5 @@ createConnection()
   .then((): void => {
     const port = flags.port ? flags.port : PORT
     new App().listen(port)
-    console.log(`The server is listening on port ${port} ...`)
+    console.log(`Listening on port ${port}...`)
   })
