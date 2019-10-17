@@ -1,5 +1,5 @@
 import { Middleware } from 'koa'
-import createRouter, { Router } from 'koa-joi-router'
+import createRouter, { Router, Joi } from 'koa-joi-router'
 import { UserController } from './user.controller'
 import { AuthMiddleware } from '../middleware/auth-middleware'
 import { PermissionMiddleware } from '../middleware/permission-middleware'
@@ -135,6 +135,8 @@ export class UserRouter {
      *     responses:
      *       201:
      *         description: Created
+     *       400:
+     *         description: Bad request
      *       409:
      *         description: Conflict
      *       422:
@@ -145,7 +147,27 @@ export class UserRouter {
     this.router.route({
       method: 'post',
       path: '/',
-      validate: { type: 'json' },
+      validate: {
+        type: 'json',
+        body: {
+          firstName: Joi.string(),
+          lastName: Joi.string(),
+          email: Joi.string(),
+          password: Joi.string(),
+        },
+        output: {
+          201: {
+            body: {
+              firstName: Joi.string(),
+              lastName: Joi.string(),
+              email: Joi.string(),
+              role: Joi.string(),
+              hasTwoFactorAuth: Joi.boolean(),
+              id: Joi.string(),
+            },
+          },
+        },
+      },
       handler: this.controller.register.bind(this.controller),
     })
 

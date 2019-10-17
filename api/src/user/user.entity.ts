@@ -8,7 +8,7 @@ import {
 import { UserService } from './user.service'
 
 @Entity()
-export class User extends BaseEntity {
+export class UserEntity extends BaseEntity {
   @PrimaryColumn()
   public id?: string
 
