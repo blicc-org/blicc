@@ -178,20 +178,20 @@ export class UserRouter {
       validate: {
         type: 'json',
         body: {
-          firstName: Joi.string(),
-          lastName: Joi.string(),
-          email: Joi.string(),
-          password: Joi.string(),
+          firstName: Joi.string().required(),
+          lastName: Joi.string().required(),
+          email: Joi.string().required(),
+          password: Joi.string().required(),
         },
         output: {
           201: {
             body: {
-              id: Joi.string(),
-              firstName: Joi.string(),
-              lastName: Joi.string(),
-              email: Joi.string(),
-              role: Joi.string(),
-              hasTwoFactorAuth: Joi.boolean(),
+              id: Joi.string().required(),
+              firstName: Joi.string().required(),
+              lastName: Joi.string().required(),
+              email: Joi.string().required(),
+              role: Joi.string().required(),
+              hasTwoFactorAuth: Joi.boolean().required(),
             },
           },
         },

@@ -28,7 +28,12 @@ describe('POST: /users', () => {
       'no json',
       {
         ...user,
-        additionalField: '<script>alert("inject")</script>',
+        field: 'more than requested',
+      },
+      {
+        firstName: 'John',
+        email: 'john@example.com',
+        password: 'BES7/y!mczU#D]FK',
       },
     ]
     for (const input of invalidInputs) {
