@@ -1,12 +1,12 @@
 import fs from 'fs'
 import jwt from 'jsonwebtoken'
 import { TokenPayload } from '../token/token-payload.interface'
+import { CERTS } from '../config'
 
 export class JWT {
   private static ALGORITHM = 'RS256'
-  private static CERTS = `${__dirname}/../../certs`
-  private static PRIVATE = `${JWT.CERTS}/rsa.pem`
-  private static PUBLIC = `${JWT.CERTS}/rsa_pub.pem`
+  private static PRIVATE = `${CERTS}/rsa.pem`
+  private static PUBLIC = `${CERTS}/rsa_pub.pem`
 
   public static generate(
     email: string

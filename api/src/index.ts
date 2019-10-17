@@ -4,7 +4,6 @@ import { createConnection } from 'typeorm'
 import { PORT } from './config'
 
 flags.option('-p, --port <number>', 'Port the server listens on')
-
 flags.parse(process.argv)
 
 createConnection()
