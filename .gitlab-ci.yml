@@ -27,9 +27,9 @@ test:
   stage: test
   image: node:12
   script:
-    - curl -fsSL https://get.docker.com | sh;
+    # - curl -fsSL https://get.docker.com | sh;
     # - service docker start
-    # - yarn
+    - yarn
     # - yarn --cwd 'db' build
     # - nohup yarn --cwd 'db' start
     # - nohup yarn --cwd 'api' start
