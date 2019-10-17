@@ -46,7 +46,7 @@ export class UserController {
     }
 
     try {
-      const { ...user } = await this.userService.register(
+      const user = await this.userService.register(
         firstName,
         lastName,
         email,
