@@ -1,7 +1,7 @@
 import axios from 'axios'
 import uuid from 'uuid/v4'
 import { mockUser } from './user.mock'
-import { API_TESTS_TARGET } from '../config'
+import { API_TEST_TARGET } from '../config'
 
 describe('POST: /users', () => {
   let email = ''
