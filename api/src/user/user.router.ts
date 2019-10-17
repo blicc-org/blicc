@@ -27,6 +27,12 @@ export class UserRouter {
      *       - cookieAuth: []
      *     tags:
      *       - User
+     *     parameters:
+     *       - in: path
+     *         name: userId
+     *         required: true
+     *         schema:
+     *           type: string
      *     summary: Retrieve user details
      *     securitySchemes:
      *       bearerAuth:
@@ -53,6 +59,7 @@ export class UserRouter {
      *                   - lastName
      *                   - email
      *                   - role
+     *                   - hasTwoFactorAuth
      *                   properties:
      *                     id:
      *                       type: string
@@ -64,6 +71,8 @@ export class UserRouter {
      *                       type: string
      *                     role:
      *                       type: string
+     *                     hasTwoFactorAuth:
+     *                       type: boolean
      *             examples:
      *               filter:
      *                 value: {
@@ -135,6 +144,25 @@ export class UserRouter {
      *     responses:
      *       201:
      *         description: Created
+     *         content:
+     *           application/json:
+     *             schema:
+     *               properties:
+     *                 user:
+     *                   type: object
+     *                   properties:
+     *                     id:
+     *                       type: string
+     *                     firstName:
+     *                       type: string
+     *                     lastName:
+     *                       type: string
+     *                     email:
+     *                       type: string
+     *                     role:
+     *                       type: string
+     *                     hasTwoFactorAuth:
+     *                       type: boolean
      *       400:
      *         description: Bad request
      *       409:
@@ -158,12 +186,12 @@ export class UserRouter {
         output: {
           201: {
             body: {
+              id: Joi.string(),
               firstName: Joi.string(),
               lastName: Joi.string(),
               email: Joi.string(),
               role: Joi.string(),
               hasTwoFactorAuth: Joi.boolean(),
-              id: Joi.string(),
             },
           },
         },
