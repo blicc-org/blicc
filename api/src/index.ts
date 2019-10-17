@@ -3,11 +3,9 @@ import { App } from './app'
 import { createConnection } from 'typeorm'
 import { PORT } from './config'
 
-flags
-  .option('-p, --port <number>', 'Port the server listens on')
-  .option('-c, --certificate-path <string>', 'Path to certificates')
+flags.option('-p, --port <number>', 'Port the server listens on')
 
-flags.parse(process.argv);
+flags.parse(process.argv)
 
 createConnection()
   .catch((e): void => {
