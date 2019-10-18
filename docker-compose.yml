@@ -31,7 +31,7 @@ services:
     image: registry.thiloilg.com/repo/blicc/db:latest
     restart: always
     volumes:
-      - ./db-data:/var/lib/postgresql/data
+      - /root/db-data/data:/var/lib/postgresql/data
     labels:
       - traefik.enable=false
   api:
