@@ -39,7 +39,7 @@ test:
   script:
     - scp -r ./docker-compose.test.yml root@$TEST_IP:/root/
     - ssh -tt root@$TEST_IP "docker image prune -a -f"
-    - ssh -tt root@$TEST_IP "export MAIL_ADDRESS=$MAIL_ADDRESS MAIL_PASSWORD=$MAIL_PASSWORD MAIL_HOST=$MAIL_HOST && docker-compose pull && docker-compose down && docker-compose -f /root/docker-compose.test.yml up -d --force-recreate --remove-orphans"
+    - ssh -tt root@$TEST_IP "export MAIL_ADDRESS=$MAIL_ADDRESS MAIL_PASSWORD=$MAIL_PASSWORD MAIL_HOST=$MAIL_HOST && docker-compose -f /root/docker-compose.test.yml pull && docker-compose -f /root/docker-compose.test.yml down && docker-compose -f /root/docker-compose.test.yml up -d --force-recreate --remove-orphans"
     - yarn
     - yarn --cwd 'api' cross-env API_TEST_TARGET=$API_TESTS_TARGET jest
 
@@ -63,4 +63,4 @@ deploy:
     - docker push $REGISTRY_DOMAIN/repo/$REPO/delivery
     - scp -r ./docker-compose.yml root@$PROD_IP:/root/
     - ssh -tt root@$PROD_IP "docker image prune -a -f"
-    - ssh -tt root@$PROD_IP‚ "export MAIL_ADDRESS=$MAIL_ADDRESS MAIL_PASSWORD=$MAIL_PASSWORD MAIL_HOST=$MAIL_HOST && docker-compose pull && docker-compose down && docker-compose -f /root/docker-compose.yml up -d --force-recreate --remove-orphans"
+    - ssh -tt root@$PROD_IP‚ "export MAIL_ADDRESS=$MAIL_ADDRESS MAIL_PASSWORD=$MAIL_PASSWORD MAIL_HOST=$MAIL_HOST && docker-compose pull && docker-compose down && docker-compose up -d --force-recreate --remove-orphans"
