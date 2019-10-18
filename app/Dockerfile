@@ -12,3 +12,5 @@ COPY --from=node /app/build /var/www/blicc.org/html
 COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
+
+HEALTHCHECK CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
