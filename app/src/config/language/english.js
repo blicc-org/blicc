@@ -1,7 +1,7 @@
 export const content = {
   metadata: {
     title: 'blicc.org',
-    description: 'Visualize your process data with customizable dashboards.',
+    description: 'Visualize your data with customizable dashboards.',
     copyright: 'Open Source MIT license',
   },
   pages: {
