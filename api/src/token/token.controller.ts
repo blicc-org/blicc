@@ -14,7 +14,7 @@ export class TokenController {
     this.userService = new UserService()
   }
 
-  public async request(ctx: Koa.BaseContext, next: Function): Promise<void> {
+  public async request(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
 
     const { body } = ctx.request
@@ -76,7 +76,7 @@ export class TokenController {
     }
   }
 
-  public async clear(ctx: Koa.BaseContext, next: Function): Promise<void> {
+  public async clear(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     ctx.cookies.set('access_token', null)
     ctx.status = status.NO_CONTENT

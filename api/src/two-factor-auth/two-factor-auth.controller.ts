@@ -12,7 +12,7 @@ export class TwoFactorAuthController {
     this.twoFactorAuthService = new TwoFactorAuthService()
   }
 
-  public async request(ctx: Koa.BaseContext, next: Function): Promise<void> {
+  public async request(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
 
     if (ctx.user.hasTwoFactorAuth) {
@@ -26,7 +26,7 @@ export class TwoFactorAuthController {
     }
   }
 
-  public async enable(ctx: Koa.BaseContext, next: Function): Promise<void> {
+  public async enable(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
 
     const { token } = ctx.request.body

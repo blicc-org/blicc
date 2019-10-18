@@ -10,7 +10,7 @@ export class UserController {
     this.userService = new UserService()
   }
 
-  public async access(ctx: Koa.BaseContext, next: Function): Promise<void> {
+  public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     try {
       const { id } = ctx.params
@@ -25,7 +25,10 @@ export class UserController {
     }
   }
 
-  public async register(ctx: Koa.BaseContext, next: Function): Promise<void> {
+  public async register(
+    ctx: Koa.DefaultContext,
+    next: Function
+  ): Promise<void> {
     await next()
 
     const { firstName, lastName, email, password } = ctx.request.body

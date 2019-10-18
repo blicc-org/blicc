@@ -8,7 +8,7 @@ export class ApiDocsController {
     this.apiDocsService = new ApiDocsService()
   }
 
-  public async swagger(ctx: Koa.BaseContext, next: Function): Promise<void> {
+  public async swagger(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     ctx.set('Content-Type', 'application/json')
     ctx.body = this.apiDocsService.getSwaggerJSON()

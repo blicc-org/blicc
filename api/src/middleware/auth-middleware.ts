@@ -7,7 +7,7 @@ import { TokenPayload } from '../token/token-payload.interface'
 
 export class AuthMiddleware {
   public static async handle(
-    ctx: Koa.BaseContext,
+    ctx: Koa.DefaultContext,
     next: Function
   ): Promise<void> {
     try {
