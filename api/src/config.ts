@@ -1,8 +1,8 @@
 const isDev = process.env.NODE_ENV === 'development'
 
 export const APP = {
-    HOSTNAME: isDev ? 'localhost' : 'blicc.org',
-    ORIGIN: isDev ? 'http://localhost' : 'https://blicc.org'
+  HOSTNAME: isDev ? 'localhost' : 'blicc.org',
+  ORIGIN: isDev ? 'http://localhost' : 'https://blicc.org',
 }
 
 export const IS_PROD = !isDev
