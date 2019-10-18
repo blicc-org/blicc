@@ -13,16 +13,18 @@ build:
     - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t api ./api
     - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t db ./db
     - docker build -t delivery ./delivery
+
+    ## tag and deploy for testing stage
+    - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api-testing-stage
+    - docker tag db $REGISTRY_DOMAIN/repo/$REPO/db-testing-stage
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/api-testing-stage
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/db-testing-stage
+
+    ## tag for production
     - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api
     - docker tag db $REGISTRY_DOMAIN/repo/$REPO/db
     - docker tag app $REGISTRY_DOMAIN/repo/$REPO/app
     - docker tag delivery $REGISTRY_DOMAIN/repo/$REPO/delivery
-
-    ## tag and deploy for testing stage
-    - docker tag api-testing-stage $REGISTRY_DOMAIN/repo/$REPO/api-testing-stage
-    - docker tag db-testing-stage $REGISTRY_DOMAIN/repo/$REPO/db-testing-stage
-    - docker push $REGISTRY_DOMAIN/repo/$REPO/api-testing-stage
-    - docker push $REGISTRY_DOMAIN/repo/$REPO/db-testing-stage
 
 test:
   stage: test
