@@ -1,5 +1,10 @@
 #!/bin/sh
 
+apt update
+
+curl -fsSL https://get.docker.com | sh;
+apt -y install docker-compose
+
 # file for traefik to store certificates
 touch acme.json
 chmod 600 acme.json
