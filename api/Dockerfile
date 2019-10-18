@@ -9,4 +9,4 @@ EXPOSE 80
 
 CMD [ "yarn", "start:prod" ]
 
-HEALTHCHECK CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
+HEALTHCHECK CMD wget --quiet --tries=1 --spider http://localhost || exit 1
