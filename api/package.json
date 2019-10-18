@@ -62,7 +62,7 @@
   },
   "scripts": {
     "start": "nodemon -r dotenv/config ./src/index.ts",
-    "start:prod": "node ./build/src/index.js -p 80",
+    "start:prod": "node ./build/index.js -p 80",
     "build": "tsc",
     "test": "cross-env API_TEST_TARGET=http://localhost jest",
     "fix": "eslint --fix \"src/**/*.+(ts|tsx)\""
