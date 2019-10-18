@@ -43,7 +43,7 @@ test:
     - for ((;;)); do curl -s --fail $API_TEST_TARGET > /dev/null && exit 0; sleep 1; done
     - yarn
     - yarn --cwd 'api' cross-env API_TEST_TARGET=$API_TEST_TARGET jest
-    
+
 deploy:
   stage: deploy
   image: docker:git
