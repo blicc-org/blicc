@@ -28,12 +28,12 @@ services:
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
   db:
-    image: registry.thiloilg.com/repo/blicc/db:latest
+    image: registry.thiloilg.com/repo/blicc/db-testing-stage:latest
     restart: always
     labels:
       - traefik.enable=false
   api:
-    image: registry.thiloilg.com/repo/blicc/api:latest
+    image: registry.thiloilg.com/repo/blicc/api-testing-stage:latest
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
