@@ -18,7 +18,7 @@ export class App extends Koa {
     this.use(cors({ credentials: true }))
     this.use(logger())
     this.use(bodyParser())
-    this.use(serve(`${__dirname}/../../public`))
+    this.use(serve(`${__dirname}/../public`))
     this.use(new ApiDocsRouter('/').routes())
     this.use(new AdminRouter('/admin').routes())
     this.use(new UserRouter('/users').routes())
