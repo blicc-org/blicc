@@ -3,6 +3,7 @@ import logger from 'koa-logger'
 import bodyParser from 'koa-bodyparser'
 import cors from '@koa/cors'
 import serve from 'koa-static'
+import { APP } from './config'
 import { ApiDocsRouter } from './api-docs/api-docs.router'
 import { AdminRouter } from './admin/admin.router'
 import { UserRouter } from './user/user.router'
@@ -15,7 +16,7 @@ export class App extends Koa {
     super()
 
     this.proxy = true // forward for TSL encyrption on edge proxy level
-    this.use(cors({ origin: '*', credentials: true }))
+    this.use(cors({ credentials: true }))
     this.use(logger())
     this.use(bodyParser())
     this.use(serve(`${__dirname}/../public`))

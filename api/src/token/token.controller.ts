@@ -3,7 +3,7 @@ import status from 'http-status-codes'
 import { TokenService } from './token.service'
 import { UserService } from '../user/user.service'
 import { JWT } from '../util/jwt'
-import { IS_PROD, APP_HOSTNAME } from '../config'
+import { IS_PROD, APP } from '../config'
 
 export class TokenController {
   private tokenService: TokenService
@@ -64,7 +64,7 @@ export class TokenController {
 
     ctx.cookies.set('access_token', token, {
       maxAge,
-      domain: APP_HOSTNAME,
+      domain: APP.HOSTNAME,
       secure: IS_PROD,
       httpOnly: IS_PROD,
       sameSite: IS_PROD ? 'Strict' : undefined,
