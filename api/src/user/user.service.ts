@@ -43,7 +43,14 @@ export class UserService {
   }
 
   public stripSecrets(user: User): User {
-    return (({ id, firstName, lastName, email, role, hasTwoFactorAuth }): User => ({
+    return (({
+      id,
+      firstName,
+      lastName,
+      email,
+      role,
+      hasTwoFactorAuth,
+    }): User => ({
       id,
       firstName,
       lastName,
