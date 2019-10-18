@@ -1,17 +1,10 @@
 {
   "name": "api",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "description": "backend api",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon -r dotenv/config ./src/index.ts",
-    "start:prod": "node ./build/src/index.js -p 80",
-    "build": "tsc",
-    "test": "cross-env API_TEST_TARGET=http://localhost jest",
-    "fix": "eslint --fix \"src/**/*.+(ts|tsx)\""
-  },
   "author": "Thilo Ilg",
+  "main": "index.js",
   "dependencies": {
     "@koa/cors": "^3.0.0",
     "axios": "^0.19.0",
@@ -66,5 +59,12 @@
     "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.3"
+  },
+  "scripts": {
+    "start": "nodemon -r dotenv/config ./src/index.ts",
+    "start:prod": "node ./build/src/index.js -p 80",
+    "build": "tsc",
+    "test": "cross-env API_TEST_TARGET=http://localhost jest",
+    "fix": "eslint --fix \"src/**/*.+(ts|tsx)\""
   }
 }

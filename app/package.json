@@ -1,8 +1,9 @@
 {
   "name": "app",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "description": "frontend app",
+  "author": "Thilo Ilg",
   "dependencies": {
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
