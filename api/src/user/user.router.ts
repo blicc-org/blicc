@@ -1,5 +1,5 @@
 import { Middleware } from 'koa'
-import createRouter, { Router } from 'koa-joi-router'
+import createRouter, { Router, Joi } from 'koa-joi-router'
 import { UserController } from './user.controller'
 import { AuthMiddleware } from '../middleware/auth-middleware'
 import { PermissionMiddleware } from '../middleware/permission-middleware'
@@ -27,6 +27,12 @@ export class UserRouter {
      *       - cookieAuth: []
      *     tags:
      *       - User
+     *     parameters:
+     *       - in: path
+     *         name: userId
+     *         required: true
+     *         schema:
+     *           type: string
      *     summary: Retrieve user details
      *     securitySchemes:
      *       bearerAuth:
@@ -53,6 +59,7 @@ export class UserRouter {
      *                   - lastName
      *                   - email
      *                   - role
+     *                   - hasTwoFactorAuth
      *                   properties:
      *                     id:
      *                       type: string
@@ -64,6 +71,8 @@ export class UserRouter {
      *                       type: string
      *                     role:
      *                       type: string
+     *                     hasTwoFactorAuth:
+     *                       type: boolean
      *             examples:
      *               filter:
      *                 value: {
@@ -135,6 +144,27 @@ export class UserRouter {
      *     responses:
      *       201:
      *         description: Created
+     *         content:
+     *           application/json:
+     *             schema:
+     *               properties:
+     *                 user:
+     *                   type: object
+     *                   properties:
+     *                     id:
+     *                       type: string
+     *                     firstName:
+     *                       type: string
+     *                     lastName:
+     *                       type: string
+     *                     email:
+     *                       type: string
+     *                     role:
+     *                       type: string
+     *                     hasTwoFactorAuth:
+     *                       type: boolean
+     *       400:
+     *         description: Bad request
      *       409:
      *         description: Conflict
      *       422:
@@ -145,57 +175,28 @@ export class UserRouter {
     this.router.route({
       method: 'post',
       path: '/',
-      validate: { type: 'json' },
+      validate: {
+        type: 'json',
+        body: {
+          firstName: Joi.string().required(),
+          lastName: Joi.string().required(),
+          email: Joi.string().required(),
+          password: Joi.string().required(),
+        },
+        output: {
+          201: {
+            body: {
+              id: Joi.string().required(),
+              firstName: Joi.string().required(),
+              lastName: Joi.string().required(),
+              email: Joi.string().required(),
+              role: Joi.string().required(),
+              hasTwoFactorAuth: Joi.boolean().required(),
+            },
+          },
+        },
+      },
       handler: this.controller.register.bind(this.controller),
-    })
-
-    /**
-     * @swagger
-     *
-     * /users/password:
-     *   put:
-     *     security:
-     *       - cookieAuth: []
-     *     tags:
-     *       - User
-     *     summary: Reset password
-     *     description: Request a password reset link sent to the given email incase a regarding user exists
-     *     requestBody:
-     *         content:
-     *           application/json:
-     *             schema:
-     *               required:
-     *               - email
-     *               properties:
-     *                 email:
-     *                   type: object
-     *                   required:
-     *                   - email
-     *                   properties:
-     *                     email:
-     *                       type: string
-     *             examples:
-     *               filter:
-     *                 value: {
-     *                   "email": "john.doe@email.com"
-     *                 }
-     *     responses:
-     *       204:
-     *         description: No content
-     *       401:
-     *         description: Unauthorized
-     *       403:
-     *         description: Forbidden
-     *       404:
-     *         description: Not found
-     *       500:
-     *         description: Internal Server Error
-     */
-    this.router.route({
-      method: 'put',
-      path: '/password',
-      validate: { type: 'json' },
-      handler: this.controller.reset.bind(this.controller),
     })
 
     return this.router.middleware()

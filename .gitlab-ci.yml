@@ -28,13 +28,13 @@ test:
   image: node:12
   script:
     - yarn
-    - yarn --cwd 'api' cross-env API_TESTS_TARGET=$API_TESTS_TARGET jest
+    # - yarn --cwd 'api' cross-env API_TEST_TARGET=$API_TESTS_TARGET jest
 
 deploy:
   stage: deploy
   image: docker:git
-  only:
-    - master
+  # only:
+  #   - master
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'

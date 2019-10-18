@@ -1,13 +1,13 @@
 import { Repository, getRepository } from 'typeorm'
 import speakeasy from 'speakeasy'
-import { User } from '../user/user.entity'
+import { UserEntity } from '../user/user.entity'
 import { TwoFactorAuthSecret } from './two-factor-auth-secret.interface'
 
 export class TwoFactorAuthService {
-  private userRepo: Repository<User>
+  private userRepo: Repository<UserEntity>
 
   public constructor() {
-    this.userRepo = getRepository(User)
+    this.userRepo = getRepository(UserEntity)
   }
 
   public generateSecret(): TwoFactorAuthSecret {

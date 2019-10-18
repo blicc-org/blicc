@@ -1,16 +1,16 @@
 import { Repository, getRepository } from 'typeorm'
-import { User } from './user.entity'
+import { UserEntity } from './user.entity'
+import { User } from './user.interface'
 import { Hash } from '../util/hash'
 import { MailService } from '../util/mail-service/mail-service'
-import { SentMessageInfo } from 'nodemailer'
 import { MailType } from '../util/mail-service/mail-service'
 import shortid from 'shortid'
 
 export class UserService {
-  private repo: Repository<User>
+  private repo: Repository<UserEntity>
 
   public constructor() {
-    this.repo = getRepository(User)
+    this.repo = getRepository(UserEntity)
   }
 
   public async register(
@@ -23,18 +23,41 @@ export class UserService {
     const passwordHash = Hash.generate(password)
     const hasTwoFactorAuth = false
     const twoFactorAuthSecret = ''
-    let user = new User(
+
+    const user = this.stripSecrets(
+      await this.repo.save(
+        new UserEntity(
+          firstName,
+          lastName,
+          email,
+          passwordHash,
+          role,
+          hasTwoFactorAuth,
+          twoFactorAuthSecret
+        )
+      )
+    )
+
+    await new MailService().send(user, MailType.WELCOME)
+    return user
+  }
+
+  public stripSecrets(user: User): User {
+    return (({
+      id,
       firstName,
       lastName,
       email,
-      passwordHash,
       role,
       hasTwoFactorAuth,
-      twoFactorAuthSecret
-    )
-    user = await this.repo.save(user)
-    // await new MailService().send(user, MailType.WELCOME)
-    return user
+    }): User => ({
+      id,
+      firstName,
+      lastName,
+      email,
+      role,
+      hasTwoFactorAuth,
+    }))(user)
   }
 
   public async update(user: User): Promise<User> {
@@ -50,26 +73,12 @@ export class UserService {
   }
 
   public async selectById(id: string): Promise<User | undefined> {
-    let response
-    try {
-      response = await this.repo.findOne(id)
-    } catch (e) {
-      throw Error(e)
-    }
-    return response
+    return await this.repo.findOne(id)
   }
 
   public async generateId(): Promise<string> {
     const id = shortid.generate()
     const response = await this.repo.findOne(id)
     return response === undefined ? id : await this.generateId()
-  }
-
-  public async requestPasswordReset(user: User): Promise<void> {
-    const info: SentMessageInfo = await new MailService().send(
-      user,
-      MailType.RESET_PASSWORD
-    )
-    console.log(info)
   }
 }

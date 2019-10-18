@@ -1,6 +1,9 @@
 const isDev = process.env.NODE_ENV === 'development'
 
-export const APP_HOSTNAME = isDev ? 'localhost' : 'blicc.org'
+export const APP = {
+  HOSTNAME: isDev ? 'localhost' : 'blicc.org',
+  ORIGIN: isDev ? 'http://localhost' : 'https://blicc.org',
+}
 
 export const IS_PROD = !isDev
 
@@ -12,4 +15,4 @@ export const MAIL_HOST = process.env.MAIL_HOST
 
 export const CERTS = `${__dirname}/../../certs`
 
-export const API_TESTS_TARGET = process.env.API_TESTS_TARGET
+export const API_TEST_TARGET = process.env.API_TEST_TARGET

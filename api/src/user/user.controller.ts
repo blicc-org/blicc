@@ -46,7 +46,7 @@ export class UserController {
     }
 
     try {
-      const { ...user } = await this.userService.register(
+      const user = await this.userService.register(
         firstName,
         lastName,
         email,
@@ -58,31 +58,6 @@ export class UserController {
         return
       }
     } catch (e) {
-      ctx.status = status.INTERNAL_SERVER_ERROR
-    }
-  }
-
-  public async reset(ctx: Koa.BaseContext, next: Function): Promise<void> {
-    await next()
-
-    const { email } = ctx.request.body
-
-    if (!email || !(await this.userService.exists(email))) {
-      ctx.status = status.NOT_FOUND
-      return
-    }
-
-    try {
-      const user = await this.userService.select(email)
-      if (!user) {
-        ctx.status = status.INTERNAL_SERVER_ERROR
-        return
-      }
-
-      await this.userService.requestPasswordReset(user)
-      ctx.status = status.NO_CONTENT
-    } catch (e) {
-      console.log(e)
       ctx.status = status.INTERNAL_SERVER_ERROR
     }
   }

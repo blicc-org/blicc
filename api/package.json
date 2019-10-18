@@ -6,9 +6,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -r dotenv/config ./src/index.ts",
-    "start:prod": "node ./build/index.js -p 80",
+    "start:prod": "node ./build/src/index.js -p 80",
     "build": "tsc",
-    "test": "cross-env API_TESTS_TARGET=http://localhost jest",
+    "test": "cross-env API_TEST_TARGET=http://localhost jest",
     "fix": "eslint --fix \"src/**/*.+(ts|tsx)\""
   },
   "author": "Thilo Ilg",
@@ -31,7 +31,8 @@
     "shortid": "^2.2.15",
     "speakeasy": "^2.0.0",
     "swagger-jsdoc": "^3.4.0",
-    "typeorm": "^0.3.0-alpha.23"
+    "typeorm": "^0.3.0-alpha.23",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -50,6 +51,7 @@
     "@types/shortid": "^0.0.29",
     "@types/speakeasy": "^2.0.5",
     "@types/swagger-jsdoc": "^3.0.2",
+    "@types/uuid": "^3.4.5",
     "@typescript-eslint/eslint-plugin": "^2.3.2",
     "@typescript-eslint/parser": "^2.3.2",
     "cross-env": "^6.0.3",

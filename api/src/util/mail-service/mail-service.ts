@@ -1,10 +1,6 @@
-import Mailer, {
-  Transporter,
-  SentMessageInfo,
-  SendMailOptions,
-} from 'nodemailer'
+import Mailer, { Transporter, SendMailOptions } from 'nodemailer'
 import { MailGenerator } from './mail-generator'
-import { User } from '../../user/user.entity'
+import { User } from '../../user/user.interface'
 import { MAIL_ADDRESS, MAIL_PASSWORD, MAIL_HOST } from '../../config'
 
 export const MailType = {
@@ -29,14 +25,18 @@ export class MailService {
     this.generator = new MailGenerator()
   }
 
-  public async send(user: User, type: string): Promise<SentMessageInfo> {
-    const { email, firstName, lastName } = user
-    const mail: SendMailOptions = await this.generator.generateMail(
-      email,
-      firstName,
-      lastName,
-      type
-    )
-    return await this.transporter.sendMail(mail)
+  public async send(user: User, type: string): Promise<void> {
+    try {
+      const { email, firstName, lastName } = user
+      const mail: SendMailOptions = await this.generator.generateMail(
+        email,
+        firstName,
+        lastName,
+        type
+      )
+      await this.transporter.sendMail(mail)
+    } catch (e) {
+      console.log('Mailserver failed to send Welcome mail!', e)
+    }
   }
 }
