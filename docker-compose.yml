@@ -14,7 +14,7 @@ services:
     command:
       - --api=true
       - --ping=true
-      - --log.level='INFO'
+      - --log.level=DEBUG
       - --providers.docker=true
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
