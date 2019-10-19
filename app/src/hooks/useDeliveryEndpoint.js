@@ -33,7 +33,7 @@ export function useDeliveryEndpoint() {
       }
 
       sockets.onerror = e => {
-        console.log(`An websocket error occured: ${e}`)
+        console.log(`An websocket error occured: ${JSON.stringify(e)}`)
       }
 
       ref.current = sockets
