@@ -1,4 +1,4 @@
-FROM postgres:12
+FROM postgres:11
 
 ENV POSTGRES_DB=db
 ENV POSTGRES_USER=api
