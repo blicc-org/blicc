@@ -86,8 +86,6 @@ export class UserRouter {
      *         description: Unauthorized
      *       403:
      *         description: Forbidden
-     *       404:
-     *         description: Not found
      *       500:
      *         description: Internal Server Error
      */
@@ -96,7 +94,7 @@ export class UserRouter {
       path: '/:id',
       pre: [
         AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, 'user'),
+        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
       ],
       handler: this.controller.access.bind(this.controller),
     })

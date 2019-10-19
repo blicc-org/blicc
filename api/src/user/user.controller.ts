@@ -15,11 +15,12 @@ export class UserController {
     try {
       const { id } = ctx.params
       const user = await this.userService.selectById(id)
-      if (user !== undefined) {
+      if (user !== undefined && ctx.user.id === id) {
         ctx.body = user
         ctx.status = status.OK
         return
       }
+      ctx.status = status.FORBIDDEN
     } catch (e) {
       ctx.status = status.INTERNAL_SERVER_ERROR
     }

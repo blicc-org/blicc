@@ -142,7 +142,7 @@ export class TokenRouter {
       path: '/',
       pre: [
         AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, 'user'),
+        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
       ],
       handler: this.controller.clear.bind(this.controller),
     })

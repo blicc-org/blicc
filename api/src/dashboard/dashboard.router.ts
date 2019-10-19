@@ -19,7 +19,7 @@ export class DashboardRouter {
     this.router.prefix(this.prefix)
     this.router.use(
       AuthMiddleware.handle,
-      PermissionMiddleware.handle.bind(null, 'user')
+      PermissionMiddleware.handle.bind(null, ['user', 'admin'])
     )
 
     this.router.route({

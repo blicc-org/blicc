@@ -19,7 +19,7 @@ export class AdminRouter {
     this.router.prefix(this.prefix)
     this.router.use(
       AuthMiddleware.handle,
-      PermissionMiddleware.handle.bind(null, 'admin')
+      PermissionMiddleware.handle.bind(null, ['admin'])
     )
 
     this.router.route({

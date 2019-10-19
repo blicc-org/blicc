@@ -65,7 +65,7 @@ export class TwoFactorAuthRouter {
       path: '/',
       pre: [
         AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, 'user'),
+        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
       ],
       handler: this.controller.request.bind(this.controller),
     })
@@ -116,7 +116,7 @@ export class TwoFactorAuthRouter {
       path: '/',
       pre: [
         AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, 'user'),
+        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
       ],
       validate: { type: 'json' },
       handler: this.controller.enable.bind(this.controller),
