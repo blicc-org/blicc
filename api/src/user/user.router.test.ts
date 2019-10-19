@@ -1,6 +1,11 @@
 import axios from 'axios'
 import uuid from 'uuid/v4'
-import { user, invalidEmails, invalidPasswords } from '../../mocks/user.mock'
+import {
+  user,
+  invalidEmails,
+  invalidPasswords,
+  injectionAttacks,
+} from '../../mocks/user.mock'
 import { API_TEST_TARGET } from '../config'
 
 describe('POST: /users', () => {
@@ -36,9 +41,25 @@ describe('POST: /users', () => {
         password: 'BES7/y!mczU#D]FK',
       },
     ]
+
     for (const input of invalidInputs) {
       const response = await instance.post('/users', input)
       expect(response.status).toBe(400)
+    }
+
+    const validUser = {
+      ...user,
+      email,
+    }
+
+    for (const injection of injectionAttacks) {
+      Object.keys(validUser).forEach(async key => {
+        const response = await instance.post('/users', {
+          ...validUser,
+          [key]: injection,
+        })
+        expect(response.status).toBeGreaterThanOrEqual(400)
+      })
     }
   })
 

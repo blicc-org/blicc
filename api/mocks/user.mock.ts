@@ -26,3 +26,5 @@ export const invalidPasswords = [
   'AD63KE8RE52DL834',
   '193"$874$§%)"=62',
 ]
+
+export const injectionAttacks = ['']
