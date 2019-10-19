@@ -1,4 +1,4 @@
-FROM postgres:11-alpine
+FROM postgres:12
 
 ENV POSTGRES_DB=db
 ENV POSTGRES_USER=api
