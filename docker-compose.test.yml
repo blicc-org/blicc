@@ -3,11 +3,17 @@ version: '2'
 services:
   traefik:
     image: traefik:v2.0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/acme.json:/root/acme.json
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck"]
     ports:
       - 80:80
       - 443:443
     command:
       - --api=true
+      - --ping=true
       - --providers.docker=true
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
@@ -15,9 +21,6 @@ services:
       - --certificatesresolvers.secure.acme.httpchallenge.entrypoint=web
       - --certificatesresolvers.secure.acme.email=${MAIL_ADDRESS}
       - --certificatesresolvers.secure.acme.storage=/root/acme.json
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /root/acme.json:/root/acme.json
     labels:
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.testing-stage.org`)
