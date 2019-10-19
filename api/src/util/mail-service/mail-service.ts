@@ -26,8 +26,8 @@ export class MailService {
   }
 
   public async send(user: User, type: string): Promise<void> {
+    const { email, firstName, lastName } = user
     try {
-      const { email, firstName, lastName } = user
       const mail: SendMailOptions = await this.generator.generateMail(
         email,
         firstName,
@@ -36,7 +36,7 @@ export class MailService {
       )
       await this.transporter.sendMail(mail)
     } catch (e) {
-      console.log('Mailserver failed to send Welcome mail!', e)
+      console.log(`Mailserver failed to send Welcome mail to ${email}!`, e)
     }
   }
 }
