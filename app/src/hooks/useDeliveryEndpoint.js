@@ -19,13 +19,6 @@ export function useDeliveryEndpoint() {
   const ref = useRef(null)
   const [state, setState] = useState(WebSocket.CLOSED)
 
-  const handleOnMessage = useCallback(
-    msg => {
-      Object.keys(subscriberStack).map(key => subscriberStack[key](msg))
-    },
-    [subscriberStack]
-  )
-
   useEffect(() => {
     if (loggedIn && ref.current === null) {
       setState(WebSocket.CONNECTING)
@@ -39,14 +32,22 @@ export function useDeliveryEndpoint() {
         setState(WebSocket.CLOSED)
       }
 
-      sockets.onmessage = event => {
-        handleOnMessage(event.data)
+      sockets.onerror = e => {
+        console.log(`An websocket error occured: ${e}`)
       }
 
       ref.current = sockets
 
       return () => {
         sockets = {}
+      }
+    }
+
+    if (loggedIn && ref.current !== null) {
+      ref.current.onmessage = event => {
+        Object.keys(subscriberStack).map(key =>
+          subscriberStack[key](event.data)
+        )
       }
     }
 
@@ -58,7 +59,7 @@ export function useDeliveryEndpoint() {
         ref.current = null
       }
     }
-  }, [loggedIn, handleOnMessage])
+  }, [loggedIn, subscriberStack])
 
   const publish = useCallback(
     data => {
