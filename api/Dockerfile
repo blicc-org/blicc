@@ -4,6 +4,7 @@ WORKDIR /root
 COPY . .
 RUN yarn
 RUN yarn build
+COPY ./src/util/mail-service/templates/ ./build/util/mail-service/templates/
 
 EXPOSE 80
 

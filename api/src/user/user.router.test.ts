@@ -35,7 +35,7 @@ describe('GET: /users/:id', () => {
 
     const cookies = response.headers['set-cookie']
     const cookie = cookies
-      .find((cookie: string): Boolean => cookie.startsWith('access_token'))
+      .find((cookie: string): boolean => cookie.startsWith('access_token'))
       .split(';')[0]
     const { status } = await instance.get(`/users/${id}`, {
       headers: {
@@ -70,7 +70,7 @@ describe('GET: /users/:id', () => {
 
     const cookies = response.headers['set-cookie']
     const cookie = cookies
-      .find((cookie: string): Boolean => cookie.startsWith('access_token'))
+      .find((cookie: string): boolean => cookie.startsWith('access_token'))
       .split(';')[0]
     const { status } = await instance.get(`/users/not-yours-or-non-existent`, {
       headers: {
