@@ -3,6 +3,11 @@ stages:
   - test
   - deploy
 
+variables:
+  IP: 195.201.39.96
+  REGISTRY_DOMAIN: registry.thiloilg.com
+  REPO: blicc
+
 build:
   stage: build
   image: docker:git
@@ -13,34 +18,17 @@ build:
     - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t api ./api
     - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t db ./db
     - docker build -t delivery ./delivery
+    - docker tag app $REGISTRY_DOMAIN/repo/$REPO/app
     - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api
     - docker tag db $REGISTRY_DOMAIN/repo/$REPO/db
-    - docker tag app $REGISTRY_DOMAIN/repo/$REPO/app
     - docker tag delivery $REGISTRY_DOMAIN/repo/$REPO/delivery
 
-    ## tag and deploy for testing stage
-    # - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api-testing-stage
-    # - docker tag db $REGISTRY_DOMAIN/repo/$REPO/db-testing-stage
-    # - docker push $REGISTRY_DOMAIN/repo/$REPO/api-testing-stage
-    # - docker push $REGISTRY_DOMAIN/repo/$REPO/db-testing-stage
-
-# test:
-#   stage: test
-#   image: node:12
-#   before_script:
-#     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-#     - eval $(ssh-agent -s)
-#     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-#     - mkdir -p ~/.ssh
-#     - chmod 700 ~/.ssh
-#     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-#   script:
-#     - scp -r ./docker-compose.test.yml root@$TEST_IP:/root/docker-compose.yml
-#     - ssh -tt root@$TEST_IP "docker image prune -a -f"
-#     - ssh -tt root@$TEST_IP "export MAIL_ADDRESS=$MAIL_ADDRESS MAIL_PASSWORD=$MAIL_PASSWORD MAIL_HOST=$MAIL_HOST && docker-compose pull && docker-compose down && docker-compose up -d --force-recreate --remove-orphans"
-#     - for ((;;)); do curl -s $API_TEST_TARGET > /dev/null && break; sleep 1; done
-#     - yarn
-#     - yarn --cwd 'api' cross-env API_TEST_TARGET=$API_TEST_TARGET jest
+test:
+  stage: test
+  image: node:12-alpine
+  script:
+    - yarn && yarn --cwd 'app' && yarn --cwd 'api'
+    - yarn test
 
 deploy:
   stage: deploy
@@ -56,10 +44,12 @@ deploy:
     - chmod 700 ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/app
     - docker push $REGISTRY_DOMAIN/repo/$REPO/api
     - docker push $REGISTRY_DOMAIN/repo/$REPO/db
-    - docker push $REGISTRY_DOMAIN/repo/$REPO/app
     - docker push $REGISTRY_DOMAIN/repo/$REPO/delivery
-    - scp -r ./docker-compose.yml root@$PROD_IP:/root/
-    - ssh -tt root@$PROD_IP "docker image prune -a -f"
-    - ssh -tt root@$PROD_IP "export MAIL_ADDRESS=$MAIL_ADDRESS MAIL_PASSWORD=$MAIL_PASSWORD MAIL_HOST=$MAIL_HOST && docker-compose pull && docker-compose down && docker-compose -f /root/docker-compose.yml up -d --force-recreate --remove-orphans"
+    - scp -r ./docker-compose.yml root@$IP:/root/
+    - ssh -tt root@$IP "openssl genrsa -out rsa.pem 2048"
+    - ssh -tt root@$IP "openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem"
+    - ssh -tt root@$IP "docker image prune -a -f"
+    - ssh -tt root@$IP "export MAIL_ADDRESS=$MAIL_ADDRESS MAIL_PASSWORD=$MAIL_PASSWORD MAIL_HOST=$MAIL_HOST && docker-compose pull && docker-compose down && docker-compose -f /root/docker-compose.yml up -d --force-recreate --remove-orphans"
