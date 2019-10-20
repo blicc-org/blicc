@@ -6,8 +6,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
-    healthcheck:
-      test: ['CMD', 'traefik', 'healthcheck']
     ports:
       - 80:80
       - 443:443
@@ -31,6 +29,8 @@ services:
       - traefik.http.routers.detour.rule=hostregexp(`{host:[a-z-.]+}`)
       - traefik.http.routers.detour.entrypoints=web
       - traefik.http.routers.detour.middlewares=redirect-to-https
+    healthcheck:
+      test: ['CMD', 'traefik', 'healthcheck']
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
     restart: always
