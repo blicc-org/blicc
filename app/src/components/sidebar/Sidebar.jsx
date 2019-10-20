@@ -9,6 +9,7 @@ import {
   Heart,
   PieChart,
   BarChart2,
+  Activity,
 } from 'react-feather'
 import { SidebarContext } from '../../context/SidebarContext'
 import { sidebarWidth } from '../../config/gui'
@@ -116,6 +117,20 @@ export function Sidebar({ open }) {
               style={{ cursor: 'pointer' }}
             >
               <BarChart2 className="feather" /> Bar Chart
+            </div>
+          </li>
+          <li className="nav-item">
+            <div
+              id="line-chart"
+              draggable="true"
+              onDragStart={event => {
+                event.dataTransfer.setData('chart_type', event.target.id)
+              }}
+              className="nav-link"
+              onClick={closeOnClick}
+              style={{ cursor: 'pointer' }}
+            >
+              <Activity className="feather" /> Line Chart
             </div>
           </li>
         </ul>
