@@ -6,14 +6,11 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
-    healthcheck:
-      test: ['CMD', 'traefik', 'healthcheck']
     ports:
       - 80:80
       - 443:443
     command:
       - --api=true
-      - --ping=true
       - --log.level=DEBUG
       - --providers.docker=true
       - --entrypoints.web.address=:80
