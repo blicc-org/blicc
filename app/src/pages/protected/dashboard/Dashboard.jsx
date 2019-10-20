@@ -6,7 +6,7 @@ import { DashboardHeader } from './DashboardHeader'
 export function Dashboard() {
   return (
     <div className="container-fluid">
-      <main className="col px-4">
+      <main className="col p-0 m-0">
         <DashboardHeader />
         <LineChart />
         <Table />
