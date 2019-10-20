@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export const CHART_TYPE = {
   pieChart: 'pie-chart',
@@ -6,20 +6,16 @@ export const CHART_TYPE = {
 }
 
 export function Dashboard() {
+  const [chartType, setChartType] = useState('init')
+  const [pos, setPos] = useState({
+    x: 0,
+    y: 0,
+  })
+
   function drop(event) {
-    console.log(event.clientX, event.clientY)
     event.preventDefault()
-    const type = event.dataTransfer.getData('chart_type')
-    switch (type) {
-      case CHART_TYPE.pieChart:
-        console.log(CHART_TYPE.pieChart)
-        break
-      case CHART_TYPE.barChart:
-        console.log(CHART_TYPE.barChart)
-        break
-      default:
-        console.log('No case found for: ', type)
-    }
+    setChartType(event.dataTransfer.getData('chart_type'))
+    setPos({ x: event.clientX, y: event.clientY })
   }
 
   return (
@@ -30,12 +26,12 @@ export function Dashboard() {
         onDrop={drop}
         onDragOver={event => event.preventDefault()}
         style={{
-          width: '350px',
-          height: '70px',
-          padding: '10px',
+          width: '500px',
+          height: '250px',
           border: '1px solid #aaaaaa',
         }}
-      ></div>
+      />
+      <p>{`You just dropped a ${chartType} on position x=${pos.x}, y=${pos.y}`}</p>
     </div>
   )
 }

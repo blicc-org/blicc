@@ -115,7 +115,7 @@ export function Sidebar({ open }) {
               onClick={closeOnClick}
               style={{ cursor: 'pointer' }}
             >
-              <BarChart2 className="feather" /> Pie Chart
+              <BarChart2 className="feather" /> Bar Chart
             </div>
           </li>
         </ul>
