@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pin } from '../../../components/form/pin/Pin'
+import { Pin } from '../../components/form/pin/Pin'
 
 export function LoginTwoFactorAuth({ setToken, login }) {
   return (

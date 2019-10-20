@@ -16,6 +16,8 @@ export function Dashboard() {
       case CHART_TYPE.barChart:
         console.log(CHART_TYPE.barChart)
         break
+      default:
+        console.log('No case found for: ', type)
     }
   }
 
