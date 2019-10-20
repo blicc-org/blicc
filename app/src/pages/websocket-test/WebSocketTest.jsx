@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import {
   useDeliveryEndpoint,
   WebSocketState,
-} from '../../../hooks/useDeliveryEndpoint'
+} from '../../hooks/useDeliveryEndpoint'
 
 export function WebSocketTest() {
   const [publish, subscribe, state] = useDeliveryEndpoint()

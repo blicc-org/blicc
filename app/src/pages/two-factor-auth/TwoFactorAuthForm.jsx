@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import { QRCode } from '../../../components/qr-code/QRCode'
-import { Pin } from '../../../components/form/pin/Pin'
+import { QRCode } from '../../components/qr-code/QRCode'
+import { Pin } from '../../components/form/pin/Pin'
 import './TwoFactorAuthForm.scss'
 
 export function TwoFactorAuthForm({ url, enable }) {

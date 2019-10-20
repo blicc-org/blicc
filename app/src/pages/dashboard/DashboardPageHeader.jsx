@@ -1,8 +1,8 @@
 import React from 'react'
 import { Calendar } from 'react-feather'
-import './DashboardHeader.scss'
+import './DashboardPageHeader.scss'
 
-export function DashboardHeader() {
+export function DashboardPageHeader() {
   return (
     <div className="dashboard-header d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h1 className="h2 pr-3">Dashboard</h1>

@@ -7,6 +7,8 @@ import {
   PlusCircle,
   FileText,
   Heart,
+  PieChart,
+  BarChart2,
 } from 'react-feather'
 import { SidebarContext } from '../../context/SidebarContext'
 import { sidebarWidth } from '../../config/gui'
@@ -82,6 +84,39 @@ export function Sidebar({ open }) {
             <Link className="nav-link" to="/" onClick={closeOnClick}>
               <FileText className="feather" /> Last quarter
             </Link>
+          </li>
+        </ul>
+        <h6 className="sidebar-heading d-flex align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Charts</span>
+        </h6>
+        <ul className="nav flex-column mb-2 px-2 py-3">
+          <li className="nav-item">
+            <div
+              id="pie-chart"
+              draggable="true"
+              onDragStart={event => {
+                event.dataTransfer.setData('chart_type', event.target.id)
+              }}
+              className="nav-link"
+              onClick={closeOnClick}
+              style={{ cursor: 'pointer' }}
+            >
+              <PieChart className="feather" /> Pie Chart
+            </div>
+          </li>
+          <li className="nav-item">
+            <div
+              id="bar-chart"
+              draggable="true"
+              onDragStart={event => {
+                event.dataTransfer.setData('chart_type', event.target.id)
+              }}
+              className="nav-link"
+              onClick={closeOnClick}
+              style={{ cursor: 'pointer' }}
+            >
+              <BarChart2 className="feather" /> Pie Chart
+            </div>
           </li>
         </ul>
       </div>
