@@ -23,12 +23,12 @@ build:
     - docker tag db $REGISTRY_DOMAIN/repo/$REPO/db
     - docker tag delivery $REGISTRY_DOMAIN/repo/$REPO/delivery
 
-test:
-  stage: test
-  image: node:12-alpine
-  script:
-    - yarn && yarn --cwd 'app' && yarn --cwd 'api'
-    - yarn test
+# test:
+#   stage: test
+#   image: node:12-alpine
+#   script:
+#     - yarn && yarn --cwd 'app' && yarn --cwd 'api'
+#     - yarn test
 
 deploy:
   stage: deploy
