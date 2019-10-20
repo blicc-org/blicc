@@ -12,6 +12,6 @@ RUN go build -o main ./cmd/delivery.go
 
 EXPOSE 80
 
-HEALTHCHECK CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
+# HEALTHCHECK CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
 
 CMD ["/root/main"]
