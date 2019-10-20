@@ -6,6 +6,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
+    healthcheck:
+      test: ['CMD', 'traefik', 'healthcheck']
     ports:
       - 80:80
       - 443:443
@@ -21,16 +23,14 @@ services:
       - --certificatesresolvers.secure.acme.email=${MAIL_ADDRESS}
       - --certificatesresolvers.secure.acme.storage=/root/acme.json
     labels:
-      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-      - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.testing-stage.org`)
       - traefik.http.routers.traefik.tls.certresolver=secure
       - traefik.http.routers.detour.rule=hostregexp(`{host:[a-z-.]+}`)
       - traefik.http.routers.detour.entrypoints=web
       - traefik.http.routers.detour.middlewares=redirect-to-https
-    healthcheck:
-      test: ['CMD', 'traefik', 'healthcheck']
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
   db:
     image: registry.thiloilg.com/repo/blicc/db-testing-stage:latest
     restart: always
