@@ -4,7 +4,7 @@ services:
   traefik:
     image: traefik:v2.0
     healthcheck:
-      test: "exit 0"
+      test: [CMD, traefik, healthcheck]
     ports:
       - 80:80
       - 443:443
@@ -32,6 +32,8 @@ services:
 
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
+    volumes:
+      - /root/db-data/data:/var/lib/postgresql/data
     restart: always
     labels:
       - traefik.enable=false
