@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   traefik:
@@ -21,14 +21,14 @@ services:
       - --certificatesresolvers.secure.acme.email=${MAIL_ADDRESS}
       - --certificatesresolvers.secure.acme.storage=/root/acme.json
     labels:
-      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-      - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
       - traefik.http.routers.traefik.tls.certresolver=secure
       - traefik.http.routers.detour.rule=hostregexp(`{host:[a-z-.]+}`)
       - traefik.http.routers.detour.entrypoints=web
       - traefik.http.routers.detour.middlewares=redirect-to-https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
     healthcheck:
       test: ['CMD', 'traefik', 'healthcheck']
   db:
