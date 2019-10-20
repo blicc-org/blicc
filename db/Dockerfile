@@ -1,7 +1,7 @@
-FROM postgres:11-alpine
+FROM postgres:12
 
 ENV POSTGRES_DB=db
 ENV POSTGRES_USER=api
 ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
-HEALTHCHECK CMD pg_isready -U postgres -h db
+HEALTHCHECK CMD pg_isready
