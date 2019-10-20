@@ -7,6 +7,7 @@ export const CHART_TYPE = {
 
 export function Dashboard() {
   function drop(event) {
+    console.log(event.clientX, event.clientY)
     event.preventDefault()
     const type = event.dataTransfer.getData('chart_type')
     switch (type) {
