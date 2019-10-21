@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
+import uuid from 'uuid'
+import { Chart } from './Chart'
+import './Dashboard.scss'
 
 export function Dashboard() {
   const [chartType, setChartType] = useState('init')
+  const [charts, setCharts] = useState([])
   const [pos, setPos] = useState({
     x: 0,
     y: 0,
@@ -9,24 +13,29 @@ export function Dashboard() {
 
   function drop(event) {
     event.preventDefault()
-    setChartType(event.dataTransfer.getData('chart_type'))
+    const type = event.dataTransfer.getData('chart_type')
+    setChartType(type)
+    setCharts(prev => [...prev, type])
     setPos({ x: event.clientX, y: event.clientY })
   }
 
   return (
-    <div className="col-md-5 mx-auto py-5 my-5 text-center">
-      <h1>Drag in here</h1>
+    <>
       <div
-        id="div1"
+        className="dashboard"
         onDrop={drop}
         onDragOver={event => event.preventDefault()}
-        style={{
-          width: '500px',
-          height: '250px',
-          border: '1px solid #aaaaaa',
-        }}
-      />
+      >
+        <div className="container">
+          <div className="row">
+            {charts.map(type => {
+              const id = uuid()
+              return <Chart key={id} id={id} type={type} />
+            })}
+          </div>
+        </div>
+      </div>
       <p>{`You just dropped a ${chartType} on position x=${pos.x}, y=${pos.y}`}</p>
-    </div>
+    </>
   )
 }
