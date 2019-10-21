@@ -42,7 +42,7 @@ export function Selector({ id, onDragStart }) {
     >
       {icon}
       {name}
-      <Menu className="feather drag-icon float-right"/>
+      <Menu className="feather drag-icon float-right" />
     </div>
   )
 }
