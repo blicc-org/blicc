@@ -1,5 +1,6 @@
 import React from 'react'
-import { PieChart, BarChart2, Activity } from 'react-feather'
+import { PieChart, BarChart2, Activity, Menu } from 'react-feather'
+import './Selector.scss'
 
 export const CHART_TYPE = {
   pieChart: 'pie-chart',
@@ -12,15 +13,15 @@ export function Selector({ id, onDragStart }) {
   let name
   switch (id) {
     case CHART_TYPE.pieChart:
-      icon = <PieChart className="feather" />
+      icon = <PieChart className="feather icon" />
       name = 'Pie Chart'
       break
     case CHART_TYPE.barChart:
-      icon = <BarChart2 className="feather" />
+      icon = <BarChart2 className="feather icon" />
       name = 'Bar Chart'
       break
     case CHART_TYPE.lineChart:
-      icon = <Activity className="feather" />
+      icon = <Activity className="feather icon" />
       name = 'Line Chart'
       break
     default:
@@ -31,7 +32,7 @@ export function Selector({ id, onDragStart }) {
   return (
     <div
       id={id}
-      className="px-3 py-2"
+      className="selector px-3 py-2"
       draggable="true"
       onDragStart={event => {
         onDragStart()
@@ -41,6 +42,7 @@ export function Selector({ id, onDragStart }) {
     >
       {icon}
       {name}
+      <Menu className="feather drag-icon float-right"/>
     </div>
   )
 }
