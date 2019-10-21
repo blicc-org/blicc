@@ -7,13 +7,11 @@ import {
   PlusCircle,
   FileText,
   Heart,
-  PieChart,
-  BarChart2,
-  Activity,
 } from 'react-feather'
 import { SidebarContext } from '../../context/SidebarContext'
 import { sidebarWidth } from '../../config/gui'
 import { useDimensions } from '../../hooks/useDimensions'
+import { Selector, CHART_TYPE } from '../dashboard/Selector'
 import './Sidebar.scss'
 
 export function Sidebar({ open }) {
@@ -22,7 +20,7 @@ export function Sidebar({ open }) {
   const [blackoutStyle, setBlackoutStyle] = useState({})
   const isMobile = useDimensions()
 
-  function closeOnClick() {
+  function close() {
     if (open && isMobile) {
       setSidebarState(prev => {
         return { ...prev, open: false }
@@ -45,44 +43,40 @@ export function Sidebar({ open }) {
       <div className="sidebar" style={sidebarStyle}>
         <ul className="nav flex-column px-2 pt-3">
           <li className="nav-item">
-            <Link
-              className="nav-link active"
-              to="/dashboards"
-              onClick={closeOnClick}
-            >
+            <Link className="nav-link active" to="/dashboards" onClick={close}>
               <Home className="feather" /> Dashboard
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/test" onClick={closeOnClick}>
+            <Link className="nav-link" to="/test" onClick={close}>
               <Heart className="feather" /> Test
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/" onClick={closeOnClick}>
+            <Link className="nav-link" to="/" onClick={close}>
               <File className="feather" /> Orders
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/" onClick={closeOnClick}>
+            <Link className="nav-link" to="/" onClick={close}>
               <ShoppingCart className="feather" /> Products
             </Link>
           </li>
         </ul>
         <h6 className="sidebar-heading d-flex align-items-center px-3 mt-4 mb-1 text-muted">
           <span>Saved reports</span>
-          <Link className="text-muted pl-3" to="/" onClick={closeOnClick}>
+          <Link className="text-muted pl-3" to="/" onClick={close}>
             <PlusCircle className="feather" />
           </Link>
         </h6>
         <ul className="nav flex-column mb-2 px-2 py-3">
           <li className="nav-item">
-            <Link className="nav-link" to="/" onClick={closeOnClick}>
+            <Link className="nav-link" to="/" onClick={close}>
               <FileText className="feather" /> Current month
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/" onClick={closeOnClick}>
+            <Link className="nav-link" to="/" onClick={close}>
               <FileText className="feather" /> Last quarter
             </Link>
           </li>
@@ -92,54 +86,17 @@ export function Sidebar({ open }) {
         </h6>
         <ul className="nav flex-column mb-2 px-2 py-3">
           <li className="nav-item">
-            <div
-              id="pie-chart"
-              draggable="true"
-              onDragStart={event => {
-                event.dataTransfer.setData('chart_type', event.target.id)
-              }}
-              className="nav-link"
-              onClick={closeOnClick}
-              style={{ cursor: 'pointer' }}
-            >
-              <PieChart className="feather" /> Pie Chart
-            </div>
+            <Selector id={CHART_TYPE.lineChart} onDragStart={close} />
           </li>
           <li className="nav-item">
-            <div
-              id="bar-chart"
-              draggable="true"
-              onDragStart={event => {
-                event.dataTransfer.setData('chart_type', event.target.id)
-              }}
-              className="nav-link"
-              onClick={closeOnClick}
-              style={{ cursor: 'pointer' }}
-            >
-              <BarChart2 className="feather" /> Bar Chart
-            </div>
+            <Selector id={CHART_TYPE.barChart} onDragStart={close} />
           </li>
           <li className="nav-item">
-            <div
-              id="line-chart"
-              draggable="true"
-              onDragStart={event => {
-                event.dataTransfer.setData('chart_type', event.target.id)
-              }}
-              className="nav-link"
-              onClick={closeOnClick}
-              style={{ cursor: 'pointer' }}
-            >
-              <Activity className="feather" /> Line Chart
-            </div>
+            <Selector id={CHART_TYPE.pieChart} onDragStart={close} />
           </li>
         </ul>
       </div>
-      <div
-        className="blackout"
-        onClick={closeOnClick}
-        style={blackoutStyle}
-      ></div>
+      <div className="blackout" onClick={close} style={blackoutStyle}></div>
     </>
   )
 }

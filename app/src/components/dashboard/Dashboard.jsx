@@ -1,11 +1,5 @@
 import React, { useState } from 'react'
 
-export const CHART_TYPE = {
-  pieChart: 'pie-chart',
-  barChart: 'bar-chart',
-  lineChart: 'line-chart',
-}
-
 export function Dashboard() {
   const [chartType, setChartType] = useState('init')
   const [pos, setPos] = useState({
