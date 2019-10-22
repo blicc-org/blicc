@@ -77,6 +77,7 @@ export function Sidebar({ open }) {
             <Selector id={CHART_TYPE.pieChart} onDragStart={close} />
           </li>
         </ul>
+        <SidebarHeader name="Data" />
       </div>
       <div className="blackout" onClick={close} style={blackoutStyle}></div>
     </>

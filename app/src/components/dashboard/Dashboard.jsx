@@ -11,6 +11,8 @@ export function Dashboard() {
     y: 0,
   })
 
+  const targetChart = ''
+
   function drop(event) {
     event.preventDefault()
     const type = event.dataTransfer.getData('chart_type')
@@ -35,7 +37,7 @@ export function Dashboard() {
           </div>
         </div>
       </div>
-      <p>{`You just dropped a ${chartType} on position x=${pos.x}, y=${pos.y}`}</p>
+      <p>{`You just dropped a ${chartType} on ${targetChart} with pos x=${pos.x}, y=${pos.y}`}</p>
     </>
   )
 }
