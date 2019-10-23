@@ -15,7 +15,7 @@ describe('POST: /tokens', () => {
 
   beforeEach(async () => {
     email = `${uuid()}@example.com`
-    let response = await instance.post('/users', {
+    const response = await instance.post('/users', {
       ...user,
       email,
     })
