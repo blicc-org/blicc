@@ -10,23 +10,22 @@ import { API_TEST_TARGET } from '../config'
 
 describe('GET: /users/:id', () => {
   let email = ''
+  let userId = ''
+  let cookie = ''
   const instance = axios.create({
     baseURL: API_TEST_TARGET,
     withCredentials: true,
     validateStatus: status => status >= 200 && status < 500,
   })
 
-  beforeEach(() => {
+  beforeEach(async () => {
     email = `${uuid()}@example.com`
-  })
-
-  it('200: OK', async () => {
-    const {
-      data: { id },
-    } = await instance.post('/users', {
+    const { data } = await instance.post('/users', {
       ...user,
       email,
     })
+
+    userId = data.id
 
     const response = await instance.post('/tokens', {
       email,
@@ -34,10 +33,13 @@ describe('GET: /users/:id', () => {
     })
 
     const cookies = response.headers['set-cookie']
-    const cookie = cookies
+    cookie = cookies
       .find((cookie: string): boolean => cookie.startsWith('access_token'))
       .split(';')[0]
-    const { status } = await instance.get(`/users/${id}`, {
+  })
+
+  it('200: OK', async () => {
+    const { status } = await instance.get(`/users/${userId}`, {
       headers: {
         Cookie: cookie,
       },
@@ -46,32 +48,11 @@ describe('GET: /users/:id', () => {
   })
 
   it('401: Unauthorized', async () => {
-    const {
-      data: { id },
-    } = await instance.post('/users', {
-      ...user,
-      email,
-    })
-
-    const { status } = await instance.get(`/users/${id}`)
+    const { status } = await instance.get(`/users/${userId}`)
     expect(status).toBe(401)
   })
 
   it('403: Forbidden', async () => {
-    await instance.post('/users', {
-      ...user,
-      email,
-    })
-
-    const response = await instance.post('/tokens', {
-      email,
-      password: user.password,
-    })
-
-    const cookies = response.headers['set-cookie']
-    const cookie = cookies
-      .find((cookie: string): boolean => cookie.startsWith('access_token'))
-      .split(';')[0]
     const { status } = await instance.get(`/users/not-yours-or-non-existent`, {
       headers: {
         Cookie: cookie,
