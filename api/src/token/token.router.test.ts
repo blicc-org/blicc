@@ -255,7 +255,7 @@ describe('DELETE: /tokens', () => {
     expect(response.status).toBe(205)
   })
   it('401: Unauthorized', async () => {
-    let response = await instance.delete('/tokens')
+    const response = await instance.delete('/tokens')
     expect(response.status).toBe(401)
   })
 })
