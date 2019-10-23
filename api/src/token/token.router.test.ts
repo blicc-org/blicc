@@ -235,25 +235,25 @@ describe('DELETE: /tokens', () => {
     userId = response.data.id
   })
 
-  // it('205: Reset content', async () => {
-  //   let response = await instance.post('/tokens', {
-  //     email,
-  //     password: user.password,
-  //   })
-  //   expect(response.status).toBe(202)
+  it('205: Reset content', async () => {
+    let response = await instance.post('/tokens', {
+      email,
+      password: user.password,
+    })
+    expect(response.status).toBe(202)
 
-  //   const cookies = response.headers['set-cookie']
-  //   const cookie = cookies
-  //     .find((cookie: string): boolean => cookie.startsWith('access_token'))
-  //     .split(';')[0]
+    const cookies = response.headers['set-cookie']
+    const cookie = cookies
+      .find((cookie: string): boolean => cookie.startsWith('access_token'))
+      .split(';')[0]
 
-  //   response = await instance.delete('/tokens', {
-  //     headers: {
-  //       Cookie: cookie,
-  //     },
-  //   })
-  //   expect(response.status).toBe(205)
-  // })
+    response = await instance.delete('/tokens', {
+      headers: {
+        Cookie: cookie,
+      },
+    })
+    expect(response.status).toBe(205)
+  })
 
   it('401: Unauthorized', async () => {
     const response = await instance.delete('/tokens')
