@@ -218,21 +218,10 @@ describe('POST: /tokens', () => {
 })
 
 describe('DELETE: /tokens', () => {
-  let email = ''
-  let userId = ''
   const instance = axios.create({
     baseURL: API_TEST_TARGET,
     withCredentials: true,
     validateStatus: status => status >= 200 && status < 500,
-  })
-
-  beforeEach(async () => {
-    email = `${uuid()}@example.com`
-    const response = await instance.post('/users', {
-      ...user,
-      email,
-    })
-    userId = response.data.id
   })
 
   it('205: Reset content', async () => {
