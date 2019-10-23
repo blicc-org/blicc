@@ -87,3 +87,13 @@ describe('GET: /two-factor-auth', () => {
     expect(response.status).toBe(409)
   })
 })
+
+describe('POST: /two-factor-auth', () => {
+  beforeEach(() => {})
+
+  it('204: No content', () => {})
+  it('400: Bad request', () => {})
+  it('401: Unauthorized', () => {})
+  it('403: Forbidden', () => {})
+  it('404: Not found', () => {})
+})
