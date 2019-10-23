@@ -1,5 +1,5 @@
 import { Middleware } from 'koa'
-import createRouter, { Router } from 'koa-joi-router'
+import createRouter, { Router, Joi } from 'koa-joi-router'
 import { ApiDocsController } from './api-docs.controller'
 
 export class ApiDocsRouter {
@@ -19,6 +19,9 @@ export class ApiDocsRouter {
     this.router.route({
       method: 'get',
       path: '/specs.json',
+      validate: {
+        type: 'json',
+      },
       handler: this.controller.swagger.bind(this.controller),
     })
 

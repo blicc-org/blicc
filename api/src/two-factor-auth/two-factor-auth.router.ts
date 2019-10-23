@@ -1,5 +1,5 @@
 import { Middleware } from 'koa'
-import createRouter, { Router } from 'koa-joi-router'
+import createRouter, { Router, Joi } from 'koa-joi-router'
 import { TwoFactorAuthController } from './two-factor-auth.controller'
 import { AuthMiddleware } from '../middleware/auth-middleware'
 import { PermissionMiddleware } from '../middleware/permission-middleware'
@@ -118,7 +118,12 @@ export class TwoFactorAuthRouter {
         AuthMiddleware.handle,
         PermissionMiddleware.handle.bind(null, ['user', 'admin']),
       ],
-      validate: { type: 'json' },
+      validate: {
+        type: 'json',
+        body: {
+          token: Joi.string().required(),
+        },
+      },
       handler: this.controller.enable.bind(this.controller),
     })
 

@@ -1,5 +1,5 @@
 import { Middleware } from 'koa'
-import createRouter, { Router } from 'koa-joi-router'
+import createRouter, { Router, Joi } from 'koa-joi-router'
 import { TokenController } from './token.controller'
 import { AuthMiddleware } from '../middleware/auth-middleware'
 import { PermissionMiddleware } from '../middleware/permission-middleware'
@@ -110,7 +110,31 @@ export class TokenRouter {
     this.router.route({
       method: 'post',
       path: '/',
-      validate: { type: 'json' },
+      validate: {
+        type: 'json',
+        body: {
+          email: Joi.string().required(),
+          password: Joi.string().required(),
+          token: Joi.string(),
+        },
+        output: {
+          200: {
+            body: {
+              hasTwoFactorAuth: Joi.boolean().required(),
+            },
+          },
+          202: {
+            body: {
+              id: Joi.string().required(),
+              firstName: Joi.string().required(),
+              lastName: Joi.string().required(),
+              email: Joi.string().required(),
+              role: Joi.string().required(),
+              hasTwoFactorAuth: Joi.boolean().required(),
+            },
+          },
+        },
+      },
       handler: this.controller.request.bind(this.controller),
     })
 
