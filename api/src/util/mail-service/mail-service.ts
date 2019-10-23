@@ -36,7 +36,7 @@ export class MailService {
       )
       await this.transporter.sendMail(mail)
     } catch (e) {
-      console.log(`Mailserver failed to send Welcome mail to ${email}!`, e)
+      console.log(`Mailserver failed to send Welcome mail to ${email}!`)
     }
   }
 }

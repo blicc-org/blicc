@@ -33,7 +33,7 @@ export class TwoFactorAuthController {
 
     if (await this.twoFactorAuthService.authenticate(ctx.user.email, token)) {
       ctx.user.hasTwoFactorAuth = true
-      this.userService.update(ctx.user)
+      await this.userService.update(ctx.user)
       ctx.status = status.NO_CONTENT
     } else {
       ctx.status = status.BAD_REQUEST

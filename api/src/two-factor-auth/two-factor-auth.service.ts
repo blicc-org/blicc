@@ -12,7 +12,6 @@ export class TwoFactorAuthService {
 
   public generateSecret(): TwoFactorAuthSecret {
     const secret = speakeasy.generateSecret()
-    console.log(secret)
     return { secret: secret.base32, otpAuthUrl: secret.otpauth_url }
   }
 
