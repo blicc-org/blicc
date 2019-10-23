@@ -143,8 +143,6 @@ export class TokenRouter {
      *
      * /tokens:
      *   delete:
-     *     security:
-     *       - cookieAuth: []
      *     tags:
      *       - Tokens
      *     summary: Clear token
@@ -152,22 +150,12 @@ export class TokenRouter {
      *     responses:
      *       205:
      *         description: Reset content
-     *       401:
-     *         description: Unauthorized
-     *       403:
-     *         description: Forbidden
-     *       404:
-     *         description: Not found
      *       500:
      *         description: Internal Server Error
      */
     this.router.route({
       method: 'delete',
       path: '/',
-      pre: [
-        AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
-      ],
       handler: this.controller.clear.bind(this.controller),
     })
 
