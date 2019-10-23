@@ -177,9 +177,9 @@ describe('POST: /tokens', () => {
 
     const secret = response.data.otpAuthUrl.split('=')[1]
     const d = new Date()
-    let seconds = d.getTime() / 1000
+    const seconds = d.getTime() / 1000
 
-    let token = speakeasy.totp({
+    const token = speakeasy.totp({
       secret,
       encoding: 'base32',
       time: seconds,
@@ -209,10 +209,53 @@ describe('POST: /tokens', () => {
   })
 
   it('404: Not found', async () => {
-    let response = await instance.post('/tokens', {
-      email: 'not_registered_yet@email_38u472342.com',
+    const response = await instance.post('/tokens', {
+      email: 'not_registered_yet_email@example.com',
       password: '123456',
     })
     expect(response.status).toBe(404)
+  })
+})
+
+describe('DELETE: /tokens', () => {
+  let email = ''
+  let userId = ''
+  const instance = axios.create({
+    baseURL: API_TEST_TARGET,
+    withCredentials: true,
+    validateStatus: status => status >= 200 && status < 500,
+  })
+
+  beforeEach(async () => {
+    email = `${uuid()}@example.com`
+    const response = await instance.post('/users', {
+      ...user,
+      email,
+    })
+    userId = response.data.id
+  })
+
+  it('205: Reset content', async () => {
+    let response = await instance.post('/tokens', {
+      email,
+      password: user.password,
+    })
+    expect(response.status).toBe(202)
+
+    const cookies = response.headers['set-cookie']
+    const cookie = cookies
+      .find((cookie: string): boolean => cookie.startsWith('access_token'))
+      .split(';')[0]
+
+    response = await instance.delete('/tokens', {
+      headers: {
+        Cookie: cookie,
+      },
+    })
+    expect(response.status).toBe(205)
+  })
+  it('401: Unauthorized', async () => {
+    let response = await instance.delete('/tokens')
+    expect(response.status).toBe(401)
   })
 })
