@@ -1,8 +1,6 @@
 import { Middleware } from 'koa'
 import createRouter, { Router, Joi } from 'koa-joi-router'
 import { TokenController } from './token.controller'
-import { AuthMiddleware } from '../middleware/auth-middleware'
-import { PermissionMiddleware } from '../middleware/permission-middleware'
 
 export class TokenRouter {
   private prefix: string
