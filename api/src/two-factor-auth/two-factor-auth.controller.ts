@@ -20,7 +20,7 @@ export class TwoFactorAuthController {
     } else {
       const { secret, otpAuthUrl } = this.twoFactorAuthService.generateSecret()
       ctx.user.twoFactorAuthSecret = secret
-      this.userService.update(ctx.user)
+      await this.userService.update(ctx.user)
       ctx.body = { otpAuthUrl }
       ctx.status = status.OK
     }

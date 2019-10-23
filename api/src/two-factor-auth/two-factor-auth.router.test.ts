@@ -89,11 +89,88 @@ describe('GET: /two-factor-auth', () => {
 })
 
 describe('POST: /two-factor-auth', () => {
-  beforeEach(() => {})
+  let email = ''
+  let cookie = ''
+  const instance = axios.create({
+    baseURL: API_TEST_TARGET,
+    withCredentials: true,
+    validateStatus: status => status >= 200 && status < 500,
+  })
 
-  it('204: No content', () => {})
-  it('400: Bad request', () => {})
-  it('401: Unauthorized', () => {})
-  it('403: Forbidden', () => {})
-  it('404: Not found', () => {})
+  beforeEach(async () => {
+    email = `${uuid()}@example.com`
+    await instance.post('/users', {
+      ...user,
+      email,
+    })
+
+    const response = await instance.post('/tokens', {
+      email,
+      password: user.password,
+    })
+
+    const cookies = response.headers['set-cookie']
+    cookie = cookies
+      .find((cookie: string): boolean => cookie.startsWith('access_token'))
+      .split(';')[0]
+  })
+
+  it('204: No content', async () => {
+    let response = await instance.get('/two-factor-auth', {
+      headers: {
+        Cookie: cookie,
+      },
+    })
+    expect(response.status).toBe(200)
+
+    const secret = response.data.otpAuthUrl.split('=')[1]
+    const d = new Date()
+    const seconds = d.getTime() / 1000
+
+    const token = speakeasy.totp({
+      secret,
+      encoding: 'base32',
+      time: seconds,
+    })
+
+    response = await instance.post(
+      '/two-factor-auth',
+      {
+        token,
+      },
+      {
+        headers: {
+          Cookie: cookie,
+        },
+      }
+    )
+    expect(response.status).toBe(204)
+  })
+  it('400: Bad request', async () => {
+    let response = await instance.get('/two-factor-auth', {
+      headers: {
+        Cookie: cookie,
+      },
+    })
+    expect(response.status).toBe(200)
+    const wrongToken = '923532'
+    response = await instance.post(
+      '/two-factor-auth',
+      {
+        token: wrongToken,
+      },
+      {
+        headers: {
+          Cookie: cookie,
+        },
+      }
+    )
+    expect(response.status).toBe(400)
+  })
+  it('401: Unauthorized', async () => {
+    const response = await instance.post('/two-factor-auth', {
+      token: '323436',
+    })
+    expect(response.status).toBe(401)
+  })
 })
