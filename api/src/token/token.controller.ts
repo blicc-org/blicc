@@ -20,11 +20,6 @@ export class TokenController {
     const { body } = ctx.request
     const { email, password } = body
 
-    if (!email || !password) {
-      ctx.status = status.UNPROCESSABLE_ENTITY
-      return
-    }
-
     const user = await this.userService.select(email)
 
     if (!user) {

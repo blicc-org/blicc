@@ -134,4 +134,85 @@ describe('POST: /tokens', () => {
     expect(response.status).toBe(202)
     expect(response.data.id).toBe(userId)
   })
+
+  it('400: Bad request', async () => {
+    let response = await instance.post('/tokens', {
+      email,
+    })
+    expect(response.status).toBe(400)
+
+    response = await instance.post('/tokens', {
+      password: user.password,
+    })
+    expect(response.status).toBe(400)
+  })
+
+  it('403: Forbidden', async () => {
+    // wrong password
+    const wrongPassword = ';Kf,wxXPB5"c7z!q'
+    let response = await instance.post('/tokens', {
+      email,
+      password: wrongPassword,
+    })
+    expect(response.status).toBe(403)
+
+    // wrong two factor auth
+    response = await instance.post('/tokens', {
+      email,
+      password: user.password,
+    })
+    expect(response.status).toBe(202)
+
+    const cookies = response.headers['set-cookie']
+    const cookie = cookies
+      .find((cookie: string): boolean => cookie.startsWith('access_token'))
+      .split(';')[0]
+
+    response = await instance.get('/two-factor-auth', {
+      headers: {
+        Cookie: cookie,
+      },
+    })
+    expect(response.status).toBe(200)
+
+    const secret = response.data.otpAuthUrl.split('=')[1]
+    const d = new Date()
+    let seconds = d.getTime() / 1000
+
+    let token = speakeasy.totp({
+      secret,
+      encoding: 'base32',
+      time: seconds,
+    })
+
+    response = await instance.post(
+      '/two-factor-auth',
+      {
+        token,
+      },
+      {
+        headers: {
+          Cookie: cookie,
+        },
+      }
+    )
+    expect(response.status).toBe(204)
+
+    const wrongToken = '234745'
+
+    response = await instance.post('/tokens', {
+      email,
+      password: user.password,
+      token: wrongToken,
+    })
+    expect(response.status).toBe(403)
+  })
+
+  it('404: Not found', async () => {
+    let response = await instance.post('/tokens', {
+      email: 'not_registered_yet@email_38u472342.com',
+      password: '123456',
+    })
+    expect(response.status).toBe(404)
+  })
 })

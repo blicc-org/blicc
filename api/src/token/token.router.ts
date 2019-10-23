@@ -98,12 +98,12 @@ export class TokenRouter {
      *                   "role": "user",
      *                   "hasTwoFactorAuth": "true"
      *                 }
+     *       400:
+     *         description: Bad request
      *       403:
      *         description: Forbidden
      *       404:
      *         description: Not found
-     *       422:
-     *         description: Unprocessable entity
      *       500:
      *         description: Internal Server Error
      */
