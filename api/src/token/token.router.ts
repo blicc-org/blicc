@@ -140,7 +140,7 @@ export class TokenRouter {
      * @swagger
      *
      * /tokens:
-     *   delete:
+     *   put:
      *     tags:
      *       - Tokens
      *     summary: Clear token
@@ -152,7 +152,7 @@ export class TokenRouter {
      *         description: Internal Server Error
      */
     this.router.route({
-      method: 'delete',
+      method: 'put',
       path: '/',
       handler: this.controller.clear.bind(this.controller),
     })
