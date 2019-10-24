@@ -146,7 +146,7 @@ export class TokenRouter {
      *     summary: Clear token
      *     description: Clear up JWT within the cookies
      *     responses:
-     *       205:
+     *       200:
      *         description: Reset content
      *       500:
      *         description: Internal Server Error
@@ -156,7 +156,7 @@ export class TokenRouter {
       path: '/',
       handler: this.controller.clear.bind(this.controller),
     })
-
+    4
     return this.router.middleware()
   }
 }

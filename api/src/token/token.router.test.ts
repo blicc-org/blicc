@@ -230,7 +230,7 @@ describe('DELETE: /tokens', () => {
     const cookie = cookies
       .find((cookie: string): boolean => cookie.startsWith('access_token'))
       .split(';')[0]
-    expect(response.status).toBe(205)
+    expect(response.status).toBe(200)
     expect(cookie).toBe('access_token=')
   })
 })
