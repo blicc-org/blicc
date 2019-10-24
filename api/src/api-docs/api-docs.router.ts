@@ -19,9 +19,6 @@ export class ApiDocsRouter {
     this.router.route({
       method: 'get',
       path: '/specs.json',
-      validate: {
-        type: 'json',
-      },
       handler: this.controller.swagger.bind(this.controller),
     })
 
