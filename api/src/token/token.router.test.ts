@@ -225,7 +225,7 @@ describe('DELETE: /tokens', () => {
   })
 
   it('205: Reset content', async () => {
-    const { status } = await instance.put('/tokens')
+    const { status } = await instance.delete('/tokens')
     expect(status).toBe(205)
   })
 })

@@ -73,7 +73,9 @@ export class TokenController {
 
   public async clear(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    ctx.cookies.set('access_token', null)
     ctx.status = status.RESET_CONTENT
+    ctx.cookies.set('access_token', '', {
+      maxAge: new Date().getTime(),
+    })
   }
 }
