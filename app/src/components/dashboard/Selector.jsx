@@ -33,10 +33,11 @@ export function Selector({ id, onDragStart }) {
     <div
       id={id}
       className="selector px-3 py-2"
-      draggable="true"
+      draggable={true}
       onDragStart={event => {
         onDragStart()
         event.dataTransfer.setData('chart_type', event.target.id)
+        event.dataTransfer.setDragImage(event.target, 0, 0)
       }}
       style={{ cursor: 'pointer' }}
     >
