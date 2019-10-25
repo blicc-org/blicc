@@ -21,7 +21,10 @@ export function NavBar({ toggleMenu }) {
 
   return (
     <>
-      <nav className="navbar navbar-expand fixed-top navbar-dark bg-dark p-0">
+      <nav
+        className="navbar navbar-expand fixed-top navbar-dark bg-dark p-0"
+        style={{ width: window.innerWidth }}
+      >
         <div
           className="menu-button nav-link pl-4 pr-3 py-2"
           style={{ marginBottom: '2px' }}
