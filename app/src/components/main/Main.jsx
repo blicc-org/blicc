@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { SidebarContext } from '../../context/SidebarContext'
-import { useDimensions } from '../../hooks/useDimensions'
+import { useMobile } from '../../hooks/useMobile'
 import { sidebarWidth } from '../../config/gui'
 import './Main.scss'
 
@@ -8,7 +8,7 @@ export function Main({ children }) {
   const [sidebarState] = useContext(SidebarContext)
   const { open } = sidebarState
   const [style, setStyle] = useState({})
-  const isMobile = useDimensions()
+  const isMobile = useMobile()
 
   useEffect(() => {
     setStyle({

@@ -2,14 +2,14 @@ import React, { useContext, useState, useEffect } from 'react'
 import { SidebarContext } from '../../context/SidebarContext'
 import { FooterLogo } from './FooterLogo'
 import { FooterNav } from './footer-nav/FooterNav'
-import { useDimensions } from '../../hooks/useDimensions'
+import { useMobile } from '../../hooks/useMobile'
 import { sidebarWidth } from '../../config/gui'
 import './Footer.scss'
 
 export function Footer() {
   const [sidebarState] = useContext(SidebarContext)
   const [style, setStyle] = useState({})
-  const isMobile = useDimensions()
+  const isMobile = useMobile()
   const { open } = sidebarState
 
   useEffect(() => {

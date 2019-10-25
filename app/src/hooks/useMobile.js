@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { breakpoints } from '../config/gui'
 
-export function useDimensions() {
+export function useMobile() {
   const [isMobile, setIsMobile] = useState(breakpoints.md > window.innerWidth)
 
   useEffect(() => {

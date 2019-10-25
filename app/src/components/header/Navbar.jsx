@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { content } from '../../config/language/english'
 import { AppContext } from '../../context/AppContext'
@@ -12,6 +12,16 @@ export function NavBar({ toggleMenu }) {
   const [appState] = useContext(AppContext)
   const { firstName, lastName, loggedIn } = appState
   const [, logout] = useSession()
+  const [width, setWidth] = useState(window.innerWidth)
+
+  useLayoutEffect(() => {
+    function updateSize() {
+      setWidth(window.innerWidth)
+    }
+    window.addEventListener('resize', updateSize)
+    updateSize()
+    return () => window.removeEventListener('resize', updateSize)
+  }, [])
 
   const style = {
     paddingTop: '0.5rem',
@@ -23,7 +33,7 @@ export function NavBar({ toggleMenu }) {
     <>
       <nav
         className="navbar navbar-expand fixed-top navbar-dark bg-dark p-0"
-        style={{ width: window.innerWidth }}
+        style={{ width }}
       >
         <div
           className="menu-button nav-link pl-4 pr-3 py-2"

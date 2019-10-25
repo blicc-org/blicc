@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Home, File, ShoppingCart, Heart } from 'react-feather'
 import { SidebarContext } from '../../context/SidebarContext'
 import { sidebarWidth } from '../../config/gui'
-import { useDimensions } from '../../hooks/useDimensions'
+import { useMobile } from '../../hooks/useMobile'
 import { Selector, CHART_TYPE } from '../dashboard/Selector'
 import './Sidebar.scss'
 
@@ -22,7 +22,7 @@ export function Sidebar({ open }) {
   const [, setSidebarState] = useContext(SidebarContext)
   const [sidebarStyle, setSidebarStyle] = useState({})
   const [blackoutStyle, setBlackoutStyle] = useState({})
-  const isMobile = useDimensions()
+  const isMobile = useMobile()
 
   function close() {
     if (open && isMobile) {
