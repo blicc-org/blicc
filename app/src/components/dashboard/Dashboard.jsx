@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useMobile } from '../../hooks/useMobile'
 import { Chart } from './Chart'
-import { init } from './arrangement'
+import { init } from './arrangement2'
 import './Dashboard.scss'
 
 function Row({ row, onDrop, isMobile, depth = 1 }) {
@@ -22,6 +22,7 @@ function Row({ row, onDrop, isMobile, depth = 1 }) {
           ) : (
             <Chart
               id={obj.id}
+              isMobile={isMobile}
               type={obj.type}
               onDrop={(sector, type) => onDrop(obj.id, sector, type)}
             />
@@ -34,17 +35,24 @@ function Row({ row, onDrop, isMobile, depth = 1 }) {
 
 export function Dashboard() {
   const isMobile = useMobile()
-  console.log(isMobile)
+  const [id, setId] = useState('')
+  const [pos, setPos] = useState(0)
+  const [type, setType] = useState('initial')
   const [arrangement] = useState(init)
   return (
-    <div className="dashboard" onDragOver={event => event.preventDefault()}>
-      <Row
-        row={arrangement.row}
-        isMobile={isMobile}
-        onDrop={(id, pos, type) =>
-          console.log('id: ', id, ', pos: ', pos, ', type: ', type)
-        }
-      />
-    </div>
+    <>
+      <div className="dashboard" onDragOver={event => event.preventDefault()}>
+        <Row
+          row={arrangement.row}
+          isMobile={isMobile}
+          onDrop={(id, pos, type) => {
+            setId(id)
+            setPos(pos)
+            setType(type)
+          }}
+        />
+      </div>
+      <p>{`id: ${id}, pos: ${pos}, type: ${type}`}</p>
+    </>
   )
 }
