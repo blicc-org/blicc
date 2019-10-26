@@ -74,7 +74,10 @@ export function Positioning({ onDrop }) {
             : getDirection(normalizedX, normalizedY)
         )
       }}
-      onDrop={() => onDrop(sector)}
+      onDrop={event => {
+        const type = event.dataTransfer.getData('chart_type')
+        onDrop(sector, type)
+      }}
     ></canvas>
   )
 }

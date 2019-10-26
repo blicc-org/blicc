@@ -1,43 +1,44 @@
 import React, { useState } from 'react'
 import uuid from 'uuid'
 import { Chart } from './Chart'
+import { init } from './arrangement'
 import './Dashboard.scss'
 
 export function Dashboard() {
-  const [chartType, setChartType] = useState('init')
-  const [charts, setCharts] = useState([])
-  const [pos, setPos] = useState({
-    x: 0,
-    y: 0,
-  })
+  const [arrangement] = useState(init)
 
-  const targetChart = ''
+  function onDropHandler(id, pos, type) {
+    console.log('id: ', id, ', pos: ', pos, ', type: ', type)
+  }
 
-  function drop(event) {
-    event.preventDefault()
-    const type = event.dataTransfer.getData('chart_type')
-    setChartType(type)
-    setCharts(prev => [...prev, type])
-    setPos({ x: event.clientX, y: event.clientY })
+  function Arrangement({ row }) {
+    return (
+      <>
+        {row.map(obj => {
+          if (obj.row) {
+            return <Arrangement key={uuid()} row={obj.row} />
+          } else {
+            return (
+              <Chart
+                id={obj.id}
+                key={uuid()}
+                type={obj.type}
+                onDrop={(sector, type) => onDropHandler(obj.id, sector, type)}
+              />
+            )
+          }
+        })}
+      </>
+    )
   }
 
   return (
     <>
-      <div
-        className="dashboard"
-        onDrop={drop}
-        onDragOver={event => event.preventDefault()}
-      >
+      <div className="dashboard" onDragOver={event => event.preventDefault()}>
         <div className="container">
-          <div className="row">
-            {charts.map(type => {
-              const id = uuid()
-              return <Chart key={id} id={id} type={type} />
-            })}
-          </div>
+          <Arrangement row={arrangement.row} />
         </div>
       </div>
-      <p>{`You just dropped a ${chartType} on ${targetChart} with pos x=${pos.x}, y=${pos.y}`}</p>
     </>
   )
 }
