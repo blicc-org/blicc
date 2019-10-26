@@ -101,7 +101,12 @@ export function Sidebar({ open }) {
           </>
         )}
       </div>
-      <div className="blackout" onClick={close} style={blackoutStyle}></div>
+      <div
+        className="blackout"
+        onTouchStart={close}
+        onClick={close}
+        style={blackoutStyle}
+      ></div>
     </>
   )
 }
