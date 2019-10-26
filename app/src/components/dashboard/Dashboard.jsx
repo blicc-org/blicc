@@ -10,7 +10,7 @@ function Row({ row, onDrop, depth = 1 }) {
   return (
     <div className="row">
       {row.map((obj, index) => (
-        <div key={index} className="col col-6">
+        <div key={index} className={`col col-${12 / numOfRows}`}>
           {obj.row ? (
             <Row row={obj.row} depth={depth + 1} onDrop={onDrop} />
           ) : (
