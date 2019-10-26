@@ -12,9 +12,19 @@ export const init = {
               type: 'bar-chart',
             },
             {
-              id: '1',
               col: '12',
-              type: 'bar-chart',
+              row: [
+                {
+                  id: '1',
+                  col: '6',
+                  type: 'bar-chart',
+                },
+                {
+                  id: '1',
+                  col: '6',
+                  type: 'bar-chart',
+                },
+              ],
             },
           ],
         },
@@ -29,17 +39,47 @@ export const init = {
       col: '12',
       row: [
         {
-          id: '3',
-          col: '6',
-          type: 'pie-chart',
-        },
-        {
           col: '6',
           row: [
             {
               id: '3',
               col: '6',
               type: 'pie-chart',
+            },
+            {
+              id: '3',
+              col: '6',
+              type: 'pie-chart',
+            },
+            {
+              id: '3',
+              col: '6',
+              type: 'pie-chart',
+            },
+            {
+              id: '3',
+              col: '6',
+              type: 'pie-chart',
+            },
+          ],
+        },
+        {
+          col: '6',
+          row: [
+            {
+              col: '6',
+              row: [
+                {
+                  id: '3',
+                  col: '12',
+                  type: 'pie-chart',
+                },
+                {
+                  id: '3',
+                  col: '12',
+                  type: 'pie-chart',
+                },
+              ],
             },
             {
               id: '3',
