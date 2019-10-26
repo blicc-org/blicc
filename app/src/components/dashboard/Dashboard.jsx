@@ -4,13 +4,10 @@ import { init } from './arrangement'
 import './Dashboard.scss'
 
 function Row({ row, onDrop, depth = 1 }) {
-  const numOfRows = row.length
-  console.log(numOfRows)
-
   return (
-    <div className="row">
+    <div className="row h-100">
       {row.map((obj, index) => (
-        <div key={index} className={`col col-${12 / numOfRows}`}>
+        <div key={index} className={`col col-${obj.col}`}>
           {obj.row ? (
             <Row row={obj.row} depth={depth + 1} onDrop={onDrop} />
           ) : (
