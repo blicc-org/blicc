@@ -11,24 +11,24 @@ export function Dashboard() {
     console.log('id: ', id, ', pos: ', pos, ', type: ', type)
   }
 
-  function Arrangement({ row }) {
+  function Row({ row }) {
     return (
-      <>
+      <div className="row">
         {row.map(obj => {
-          if (obj.row) {
-            return <Arrangement key={uuid()} row={obj.row} />
-          } else {
-            return (
-              <Chart
-                id={obj.id}
-                key={uuid()}
-                type={obj.type}
-                onDrop={(sector, type) => onDropHandler(obj.id, sector, type)}
-              />
-            )
-          }
+          return obj.row ? (
+            <div className="col" key={uuid()}>
+              <Row row={obj.row} />
+            </div>
+          ) : (
+            <Chart
+              id={obj.id}
+              key={uuid()}
+              type={obj.type}
+              onDrop={(sector, type) => onDropHandler(obj.id, sector, type)}
+            />
+          )
         })}
-      </>
+      </div>
     )
   }
 
@@ -36,7 +36,7 @@ export function Dashboard() {
     <>
       <div className="dashboard" onDragOver={event => event.preventDefault()}>
         <div className="container">
-          <Arrangement row={arrangement.row} />
+          <Row row={arrangement.row} />
         </div>
       </div>
     </>

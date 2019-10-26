@@ -3,17 +3,17 @@ export const init = {
     {
       row: [
         {
-          id: '289342374893',
+          id: '1',
           type: 'bar-chart',
         },
         {
-          id: '289342374893',
+          id: '2',
           type: 'line-chart',
         },
       ],
     },
     {
-      id: '289342374893',
+      id: '3',
       type: 'pie-chart',
     },
   ],
