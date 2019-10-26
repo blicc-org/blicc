@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useMobile } from '../../hooks/useMobile'
 import { Chart } from './Chart'
-import { init } from './arrangement2'
+import { init } from './arrangement'
 import './Dashboard.scss'
 
 function Row({ row, onDrop, isMobile, depth = 1 }) {
