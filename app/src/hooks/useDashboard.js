@@ -2,20 +2,16 @@ import { useState } from 'react'
 import uuid from 'uuid'
 import { POSITION } from '../components/dashboard/Positioning'
 import { TYPE } from '../components/charts/Chart'
+import { GRID } from '../components/dashboard/Row'
 
 const INITIAL = {
   row: [
     {
-      id: '1',
-      col: '12',
+      id: uuid(),
+      col: GRID.FULL,
       type: TYPE.DRAG_HERE,
     },
   ],
-}
-
-export const GRID = {
-  FULL: '12',
-  HALF: '6',
 }
 
 export function useDashboard() {
