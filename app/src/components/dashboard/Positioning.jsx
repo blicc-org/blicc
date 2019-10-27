@@ -21,7 +21,7 @@ export function Positioning({ onDrop }) {
     canvasRef.current.width = width
     canvasRef.current.height = height
 
-    ctx.lineWidth = scale
+    // ctx.lineWidth = scale
     // ctx.beginPath()
     // ctx.moveTo(0, 0)
     // ctx.lineTo(width, height)
