@@ -1,5 +1,5 @@
 import React from 'react'
-import { Chart } from './Chart'
+import { Chart } from '../charts/Chart'
 import './Dashboard.scss'
 
 export function Row({ row, onDrop, isMobile, depth = 1 }) {

@@ -1,10 +1,10 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { Chart } from 'chart.js'
-
 import theme from '../../config/Theme.scss'
+import './LineChart.scss'
 
-export function LineChart() {
+export function LineChart({ id }) {
   useEffect(() => {
     const data = {
       type: 'line',
@@ -44,15 +44,13 @@ export function LineChart() {
         },
       },
     }
-    new Chart(document.getElementById('myChart'), data)
-  }, [])
+    new Chart(document.getElementById(id), data)
+  }, [id])
 
   return (
-    <canvas
-      className="my-4 w-100"
-      id="myChart"
-      width="900"
-      height="380"
-    ></canvas>
+    <div className="line-chart text-center pt-4">
+      <p>Line chart!!!</p>
+      <canvas className="my-4 w-100" id={id} width="900" height="380"></canvas>
+    </div>
   )
 }

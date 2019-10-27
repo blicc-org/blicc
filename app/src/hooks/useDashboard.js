@@ -20,11 +20,6 @@ export function useDashboard() {
       if (prev.id === id) {
         if (prev.type === INITIAL) pos = POSITION.REPLACE
         switch (pos) {
-          case POSITION.REPLACE:
-            return {
-              ...prev,
-              ...item,
-            }
           case POSITION.TOP:
             return {
               col: prev.col,
@@ -46,7 +41,10 @@ export function useDashboard() {
               row: [{ ...item, col: '6' }, { ...prev, col: '6' }],
             }
           default:
-            return prev
+            return {
+              ...prev,
+              ...item,
+            }
         }
       } else return prev
     } else {
