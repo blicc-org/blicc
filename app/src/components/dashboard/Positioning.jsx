@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react'
 
+export const POSITION = {
+  NONE: 0,
+  TOP: 1,
+  RIGHT: 2,
+  BOTTOM: 3,
+  LEFT: 4,
+  REPLACE: 5,
+}
+
 export function Positioning({ onDrop }) {
-  // 0: none, 1: top, 2: right, 3: bottom, 4: left, 5: middle
   const [sector, setSector] = useState(0)
   const canvasRef = useRef(null)
 
