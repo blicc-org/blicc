@@ -5,7 +5,8 @@ import { Home, File, ShoppingCart, Heart } from 'react-feather'
 import { SidebarContext } from '../../context/SidebarContext'
 import { sidebarWidth } from '../../config/gui'
 import { useMobile } from '../../hooks/useMobile'
-import { Selector, CHART_TYPE } from '../dashboard/Selector'
+import { Selector } from '../dashboard/Selector'
+import { TYPE } from '../charts/Chart'
 import './Sidebar.scss'
 
 function SidebarHeader({ name }) {
@@ -77,13 +78,13 @@ export function Sidebar({ open }) {
             <SidebarHeader name="Charts" />
             <ul className="nav flex-column px-2">
               <li className="nav-item">
-                <Selector id={CHART_TYPE.lineChart} onDragStart={close} />
+                <Selector type={TYPE.LINE_CHART} onDragStart={close} />
               </li>
               <li className="nav-item">
-                <Selector id={CHART_TYPE.barChart} onDragStart={close} />
+                <Selector type={TYPE.BAR_CHART} onDragStart={close} />
               </li>
               <li className="nav-item">
-                <Selector id={CHART_TYPE.pieChart} onDragStart={close} />
+                <Selector type={TYPE.PIE_CHART} onDragStart={close} />
               </li>
             </ul>
             <SidebarHeader name="Data" />

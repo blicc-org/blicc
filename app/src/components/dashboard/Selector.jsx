@@ -1,48 +1,34 @@
 import React from 'react'
 import { PieChart, BarChart2, Activity, Menu } from 'react-feather'
+import { TYPE } from '../charts/Chart'
 import './Selector.scss'
 
-export const CHART_TYPE = {
-  pieChart: 'pie-chart',
-  barChart: 'bar-chart',
-  lineChart: 'line-chart',
-}
+export function Selector({ type, onDragStart }) {
+  function getIcon(type) {
+    switch (type) {
+      case TYPE.LINE_CHART:
+        return <Activity className="feather icon" />
+      case TYPE.BAR_CHART:
+        return <BarChart2 className="feather icon" />
+      default:
+        return <PieChart className="feather icon" />
+    }
+  }
 
-export function Selector({ id, onDragStart }) {
-  let icon
-  let name
-  switch (id) {
-    case CHART_TYPE.pieChart:
-      icon = <PieChart className="feather icon" />
-      name = 'Pie Chart'
-      break
-    case CHART_TYPE.barChart:
-      icon = <BarChart2 className="feather icon" />
-      name = 'Bar Chart'
-      break
-    case CHART_TYPE.lineChart:
-      icon = <Activity className="feather icon" />
-      name = 'Line Chart'
-      break
-    default:
-      icon = <></>
-      name = ''
+  function onDragStartHandler(event) {
+    event.dataTransfer.setData('chart_type', type)
+    event.dataTransfer.setDragImage(event.target, 0, 0)
+    onDragStart()
   }
 
   return (
     <div
-      id={id}
       className="selector px-3 py-2"
+      onDragStart={onDragStartHandler}
       draggable={true}
-      onDragStart={event => {
-        onDragStart()
-        event.dataTransfer.setData('chart_type', event.target.id)
-        event.dataTransfer.setDragImage(event.target, 0, 0)
-      }}
-      style={{ cursor: 'pointer' }}
     >
-      {icon}
-      {name}
+      {getIcon(type)}
+      {type}
       <Menu className="feather drag-icon float-right" />
     </div>
   )

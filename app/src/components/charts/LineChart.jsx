@@ -49,7 +49,7 @@ export function LineChart({ id }) {
 
   return (
     <div className="line-chart text-center pt-4">
-      <p>Line chart!!!</p>
+      <p>Line chart</p>
       <canvas className="my-4 w-100" id={id} width="900" height="380"></canvas>
     </div>
   )
