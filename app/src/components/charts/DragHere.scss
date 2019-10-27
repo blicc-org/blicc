@@ -1,8 +1,10 @@
+@import "../../config/Theme";
+
 .drag-here {
   height: 100%;
   border-style: dashed;
   border-width: 2px;
   border-color: #ccc;
-  border-radius: 25px;
+  border-radius: $border-radius;
   background-color: #eee;
 }
