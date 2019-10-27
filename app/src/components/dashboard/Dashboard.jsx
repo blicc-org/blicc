@@ -7,10 +7,15 @@ import './Dashboard.scss'
 export function Dashboard() {
   const isMobile = useMobile()
   const [dashboard, update] = useDashboard()
+  const { row } = dashboard
+
+  function onDragOver(event) {
+    event.preventDefault()
+  }
 
   return (
-    <div className="dashboard" onDragOver={event => event.preventDefault()}>
-      <Row row={dashboard.row} isMobile={isMobile} onDrop={update} />
+    <div className="dashboard" onDragOver={onDragOver}>
+      <Row row={row} isMobile={isMobile} onDrop={update} />
     </div>
   )
 }

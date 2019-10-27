@@ -1,50 +1,53 @@
 import { useState } from 'react'
 import uuid from 'uuid'
 import { POSITION } from '../components/dashboard/Positioning'
+import { TYPE } from '../components/charts/Chart'
 
-export const INITIAL = 'drag-here'
+const INITIAL = {
+  row: [
+    {
+      id: '1',
+      col: '12',
+      type: TYPE.DRAG_HERE,
+    },
+  ],
+}
+
+export const GRID = {
+  FULL: '12',
+  HALF: '6',
+}
 
 export function useDashboard() {
-  const [dashboard, setDashboard] = useState({
-    row: [
-      {
-        id: '1',
-        col: '12',
-        type: INITIAL,
-      },
-    ],
-  })
+  const [dashboard, setDashboard] = useState(INITIAL)
+
+  function createRow(prev, pos, item) {
+    switch (pos) {
+      case POSITION.TOP:
+        return [{ ...item, col: GRID.FULL }, { ...prev, col: GRID.FULL }]
+      case POSITION.RIGHT:
+        return [{ ...prev, col: GRID.HALF }, { ...item, col: GRID.HALF }]
+      case POSITION.BOTTOM:
+        return [{ ...prev, col: GRID.FULL }, { ...item, col: GRID.FULL }]
+      case POSITION.LEFT:
+        return [{ ...item, col: GRID.HALF }, { ...prev, col: GRID.HALF }]
+      default:
+    }
+  }
 
   function add(prev, id, pos, item) {
     if (prev.id) {
       if (prev.id === id) {
-        if (prev.type === INITIAL) pos = POSITION.REPLACE
-        switch (pos) {
-          case POSITION.TOP:
-            return {
-              col: prev.col,
-              row: [{ ...item, col: '12' }, { ...prev, col: '12' }],
-            }
-          case POSITION.RIGHT:
-            return {
-              col: prev.col,
-              row: [{ ...prev, col: '6' }, { ...item, col: '6' }],
-            }
-          case POSITION.BOTTOM:
-            return {
-              col: prev.col,
-              row: [{ ...prev, col: '12' }, { ...item, col: '12' }],
-            }
-          case POSITION.LEFT:
-            return {
-              col: prev.col,
-              row: [{ ...item, col: '6' }, { ...prev, col: '6' }],
-            }
-          default:
-            return {
-              ...prev,
-              ...item,
-            }
+        if (prev.type === TYPE.DRAG_HERE || pos === POSITION.REPLACE) {
+          return {
+            ...prev,
+            ...item,
+          }
+        } else {
+          return {
+            col: prev.col,
+            row: createRow(prev, pos, item),
+          }
         }
       } else return prev
     } else {
@@ -62,7 +65,6 @@ export function useDashboard() {
         type,
       })
     )
-    console.log(`id: ${id}, pos: ${pos}, type: ${type}`)
   }
 
   return [dashboard, update]
