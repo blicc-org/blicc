@@ -1,14 +1,24 @@
 import { useState } from 'react'
 import uuid from 'uuid'
 import { POSITION } from '../components/dashboard/Positioning'
-import { simple } from './arrangements/simple'
+
+export const INITIAL = 'drag-here'
 
 export function useDashboard() {
-  const [dashboard, setDashboard] = useState(simple)
+  const [dashboard, setDashboard] = useState({
+    row: [
+      {
+        id: '1',
+        col: '12',
+        type: INITIAL,
+      },
+    ],
+  })
 
   function add(prev, id, pos, item) {
     if (prev.id) {
       if (prev.id === id) {
+        if (prev.type === INITIAL) pos = POSITION.REPLACE
         switch (pos) {
           case POSITION.REPLACE:
             return {
