@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import './Positioning.scss'
 
 export const POSITION = {
   NONE: 0,
@@ -54,38 +55,30 @@ export function Positioning({ onDrop }) {
     return [clientX - rect.left, clientY - rect.top]
   }
 
+  function onDragOver(event) {
+    const [x, y] = getCanvasCoordinates(event.clientX, event.clientY)
+
+    const width = canvasRef.current.offsetWidth
+    const height = canvasRef.current.offsetHeight
+    const [normalizedX, normalizedY] = normalize(x, y, width, height)
+
+    setSector(
+      isCenter(normalizedX, normalizedY)
+        ? POSITION.REPLACE
+        : getDirection(normalizedX, normalizedY)
+    )
+  }
+
+  function onDropHandler(event) {
+    onDrop(sector, event.dataTransfer.getData('chart_type'))
+  }
+
   return (
     <canvas
+      className="positioning"
       ref={canvasRef}
-      style={{
-        width: '100%',
-        height: '100%',
-        display: 'transparent',
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
-      }}
-      onDragEnter={() => setSector(0)}
-      onDragLeave={() => setSector(0)}
-      onDragOver={event => {
-        const [x, y] = getCanvasCoordinates(event.clientX, event.clientY)
-
-        const width = canvasRef.current.offsetWidth
-        const height = canvasRef.current.offsetHeight
-        const [normalizedX, normalizedY] = normalize(x, y, width, height)
-
-        setSector(
-          isCenter(normalizedX, normalizedY)
-            ? 5
-            : getDirection(normalizedX, normalizedY)
-        )
-      }}
-      onDrop={event => {
-        const type = event.dataTransfer.getData('chart_type')
-        onDrop(sector, type)
-      }}
+      onDragOver={onDragOver}
+      onDrop={onDropHandler}
     ></canvas>
   )
 }
