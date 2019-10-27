@@ -1,4 +1,6 @@
+@import '../../config/Theme';
+
 .user {
-  background-color: #ccc;
+  background-color: $lightgray;
   border-radius: 100px;
 }
