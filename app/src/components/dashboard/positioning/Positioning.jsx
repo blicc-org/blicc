@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import theme from '../../config/Theme.scss'
+import { useColor } from '../../../hooks/useColor'
+import theme from '../../../config/Theme.scss'
 import './Positioning.scss'
 
 export const POSITION = {
@@ -15,18 +16,9 @@ export function Positioning({ onDrop }) {
   const [sector, setSector] = useState(0)
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
+  const [hexToRgb] = useColor()
   const color = hexToRgb(theme.primary)
-
-  function hexToRgb(hex) {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-    return result
-      ? {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16),
-        }
-      : null
-  }
+  const rgba = `rgba(${color.r}, ${color.g}, ${color.b}, 0.25)`
 
   useEffect(() => {
     const ctx = canvasRef.current.getContext('2d')
@@ -75,7 +67,7 @@ export function Positioning({ onDrop }) {
   }, [sector, color])
 
   function drawQuad(p1, p2, p3, p4) {
-    contextRef.current.fillStyle = `rgba(${color.r}, ${color.g}, ${color.b}, 0.25)`
+    contextRef.current.fillStyle = rgba
     contextRef.current.beginPath()
     contextRef.current.moveTo(p1.x, p1.y)
     contextRef.current.lineTo(p2.x, p2.y)
