@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import theme from '../../config/Theme.scss'
 import './Positioning.scss'
 
 export const POSITION = {
@@ -13,6 +14,19 @@ export const POSITION = {
 export function Positioning({ onDrop }) {
   const [sector, setSector] = useState(0)
   const canvasRef = useRef(null)
+  const contextRef = useRef(null)
+  const color = hexToRgb(theme.primary)
+
+  function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : null
+  }
 
   useEffect(() => {
     const ctx = canvasRef.current.getContext('2d')
@@ -21,18 +35,55 @@ export function Positioning({ onDrop }) {
     const height = canvasRef.current.offsetHeight * scale
     canvasRef.current.width = width
     canvasRef.current.height = height
-
     ctx.lineWidth = scale
-    ctx.beginPath()
-    ctx.moveTo(0, 0)
-    ctx.lineTo(width, height)
-    ctx.stroke()
-    ctx.beginPath()
-    ctx.moveTo(0, height)
-    ctx.lineTo(width, 0)
-    ctx.stroke()
-    ctx.strokeRect(width / 4, height / 4, width / 2, height / 2)
+    contextRef.current = ctx
   })
+
+  useEffect(() => {
+    function draw() {
+      const width = canvasRef.current.width
+      const height = canvasRef.current.height
+      const p1 = { x: 0, y: 0 }
+      const p2 = { x: width, y: 0 }
+      const p3 = { x: width, y: height }
+      const p4 = { x: 0, y: height }
+      const p5 = { x: width / 4, y: height / 4 }
+      const p6 = { x: (width * 3) / 4, y: height / 4 }
+      const p7 = { x: (width * 3) / 4, y: (height * 3) / 4 }
+      const p8 = { x: width / 4, y: (height * 3) / 4 }
+
+      switch (sector) {
+        case POSITION.TOP:
+          drawQuad(p1, p2, p6, p5)
+          break
+        case POSITION.RIGHT:
+          drawQuad(p2, p3, p7, p6)
+          break
+        case POSITION.BOTTOM:
+          drawQuad(p3, p4, p8, p7)
+          break
+        case POSITION.LEFT:
+          drawQuad(p4, p1, p5, p8)
+          break
+        case POSITION.REPLACE:
+          drawQuad(p5, p6, p7, p8)
+          break
+        default:
+      }
+    }
+    draw()
+  }, [sector, color])
+
+  function drawQuad(p1, p2, p3, p4) {
+    contextRef.current.fillStyle = `rgba(${color.r}, ${color.g}, ${color.b}, 0.25)`
+    contextRef.current.beginPath()
+    contextRef.current.moveTo(p1.x, p1.y)
+    contextRef.current.lineTo(p2.x, p2.y)
+    contextRef.current.lineTo(p3.x, p3.y)
+    contextRef.current.lineTo(p4.x, p4.y)
+    contextRef.current.closePath()
+    contextRef.current.fill()
+  }
 
   function isCenter(x, y) {
     return x > 0.25 && x < 0.75 && (y > 0.25 && y < 0.75)
@@ -70,7 +121,12 @@ export function Positioning({ onDrop }) {
   }
 
   function onDropHandler(event) {
+    setSector(POSITION.NONE)
     onDrop(sector, event.dataTransfer.getData('chart_type'))
+  }
+
+  function onDragLeave() {
+    setSector(POSITION.NONE)
   }
 
   return (
@@ -79,6 +135,7 @@ export function Positioning({ onDrop }) {
       ref={canvasRef}
       onDragOver={onDragOver}
       onDrop={onDropHandler}
+      onDragLeave={onDragLeave}
     ></canvas>
   )
 }

@@ -5,6 +5,7 @@ import { DragHere } from './DragHere'
 import { LineChart } from './LineChart'
 import { PieChart } from './PieChart'
 import { BarChart } from './BarChart'
+import { X } from 'react-feather'
 import './Chart.scss'
 
 export const TYPE = {
@@ -20,7 +21,7 @@ export function Chart({ type, id, onDrop }) {
   function getChart(type) {
     switch (type) {
       case TYPE.DRAG_HERE:
-        return <DragHere />
+        return
       case TYPE.LINE_CHART:
         return <LineChart id={id} />
       case TYPE.PIE_CHART:
@@ -34,7 +35,23 @@ export function Chart({ type, id, onDrop }) {
 
   return (
     <div className="chart" key={id}>
-      {getChart(type)}
+      {type === TYPE.DRAG_HERE ? (
+        <DragHere />
+      ) : (
+        <>
+          <div className="row text-muted px-2">
+            <div className="col col-8">
+              <p>{type}</p>
+            </div>
+            <div className="col col-4 text-right">
+              <X size={18} />
+            </div>
+          </div>
+          <hr />
+          <div className="px-2">{getChart(type)}</div>
+        </>
+      )}
+
       {dragging && <Positioning onDrop={onDrop} />}
     </div>
   )

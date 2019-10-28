@@ -1,6 +1,5 @@
 import React from 'react'
 import { Row } from './Row'
-import { useMobile } from '../../hooks/useMobile'
 import { useDashboard } from '../../hooks/useDashboard'
 import './Dashboard.scss'
 
