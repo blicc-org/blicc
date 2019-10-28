@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Positioning } from '../dashboard/Positioning'
+import { DragContext } from '../../context/DragContext'
 import { DragHere } from './DragHere'
 import { LineChart } from './LineChart'
 import { PieChart } from './PieChart'
@@ -14,6 +15,8 @@ export const TYPE = {
 }
 
 export function Chart({ type, id, onDrop }) {
+  const [dragging] = useContext(DragContext)
+
   function getChart(type) {
     switch (type) {
       case TYPE.DRAG_HERE:
@@ -31,8 +34,8 @@ export function Chart({ type, id, onDrop }) {
 
   return (
     <div className="chart" key={id}>
-      <Positioning onDrop={onDrop} />
       {getChart(type)}
+      {dragging && <Positioning onDrop={onDrop} />}
     </div>
   )
 }

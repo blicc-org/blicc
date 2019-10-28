@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { PieChart, BarChart2, Activity, Menu } from 'react-feather'
+import { DragContext } from '../../context/DragContext'
 import { TYPE } from '../charts/Chart'
 import './Selector.scss'
 
 export function Selector({ type, onDragStart }) {
+  const [, setDragState] = useContext(DragContext)
   function getIcon(type) {
     switch (type) {
       case TYPE.LINE_CHART:
@@ -18,13 +20,19 @@ export function Selector({ type, onDragStart }) {
   function onDragStartHandler(event) {
     event.dataTransfer.setData('chart_type', type)
     event.dataTransfer.setDragImage(event.target, 0, 0)
+    setDragState(true)
     onDragStart()
+  }
+
+  function onDragEndHandler() {
+    setDragState(false)
   }
 
   return (
     <div
       className="selector px-3 py-2"
       onDragStart={onDragStartHandler}
+      onDragEnd={onDragEndHandler}
       draggable={true}
     >
       {getIcon(type)}

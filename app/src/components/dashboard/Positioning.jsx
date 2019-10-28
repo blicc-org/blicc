@@ -23,15 +23,15 @@ export function Positioning({ onDrop }) {
     canvasRef.current.height = height
 
     ctx.lineWidth = scale
-    // ctx.beginPath()
-    // ctx.moveTo(0, 0)
-    // ctx.lineTo(width, height)
-    // ctx.stroke()
-    // ctx.beginPath()
-    // ctx.moveTo(0, height)
-    // ctx.lineTo(width, 0)
-    // ctx.stroke()
-    // ctx.strokeRect(width / 4, height / 4, width / 2, height / 2)
+    ctx.beginPath()
+    ctx.moveTo(0, 0)
+    ctx.lineTo(width, height)
+    ctx.stroke()
+    ctx.beginPath()
+    ctx.moveTo(0, height)
+    ctx.lineTo(width, 0)
+    ctx.stroke()
+    ctx.strokeRect(width / 4, height / 4, width / 2, height / 2)
   })
 
   function isCenter(x, y) {
