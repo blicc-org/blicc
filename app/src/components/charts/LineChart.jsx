@@ -24,7 +24,7 @@ export function LineChart({ id }) {
             lineTension: 0,
             backgroundColor: 'transparent',
             borderColor: theme.primary,
-            borderWidth: 4,
+            borderWidth: 2,
             pointBackgroundColor: theme.secondary,
           },
         ],
