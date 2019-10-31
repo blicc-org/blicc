@@ -57,7 +57,6 @@ export function NavBar({ toggleMenu }) {
           />
         </div>
       </nav>
-      <div style={{ height: '40px' }}></div>
     </>
   )
 }

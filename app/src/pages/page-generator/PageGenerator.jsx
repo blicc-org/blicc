@@ -22,7 +22,7 @@ export function PageGenerator({ location }) {
 
   return (
     <>
-      <div className="container py-5 pages">
+      <div className="container px-5 py-5 pages">
         <Markdown
           source={text}
           renderers={{

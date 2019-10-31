@@ -10,6 +10,16 @@
   background-color: $light;
 }
 
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: $light;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: $lightgray;
+}
+
 .sidebar .feather {
   width: 16px;
   height: 16px;
