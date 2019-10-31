@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useColor } from '../../../hooks/useColor'
 import theme from '../../../config/Theme.scss'
 import './Positioning.scss'
@@ -30,6 +30,20 @@ export function Positioning({ onDrop }) {
     ctx.lineWidth = scale
     contextRef.current = ctx
   })
+
+  const drawQuad = useCallback(
+    (p1, p2, p3, p4) => {
+      contextRef.current.fillStyle = rgba
+      contextRef.current.beginPath()
+      contextRef.current.moveTo(p1.x, p1.y)
+      contextRef.current.lineTo(p2.x, p2.y)
+      contextRef.current.lineTo(p3.x, p3.y)
+      contextRef.current.lineTo(p4.x, p4.y)
+      contextRef.current.closePath()
+      contextRef.current.fill()
+    },
+    [rgba]
+  )
 
   useEffect(() => {
     function draw() {
@@ -64,18 +78,7 @@ export function Positioning({ onDrop }) {
       }
     }
     draw()
-  }, [sector, color])
-
-  function drawQuad(p1, p2, p3, p4) {
-    contextRef.current.fillStyle = rgba
-    contextRef.current.beginPath()
-    contextRef.current.moveTo(p1.x, p1.y)
-    contextRef.current.lineTo(p2.x, p2.y)
-    contextRef.current.lineTo(p3.x, p3.y)
-    contextRef.current.lineTo(p4.x, p4.y)
-    contextRef.current.closePath()
-    contextRef.current.fill()
-  }
+  }, [sector, color, drawQuad])
 
   function isCenter(x, y) {
     return x > 0.25 && x < 0.75 && (y > 0.25 && y < 0.75)

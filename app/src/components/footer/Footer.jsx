@@ -16,6 +16,8 @@ export function Footer() {
     setStyle({ marginLeft: open && !isMobile ? sidebarWidth : 0 })
   }, [open, isMobile])
 
+  console.log(window.location.pathname)
+
   return (
     <>
       <footer style={style}>

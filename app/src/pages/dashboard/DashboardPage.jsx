@@ -5,7 +5,7 @@ import { Dashboard } from '../../components/dashboard/Dashboard'
 export function DashboardPage() {
   return (
     <div className="container-fluid">
-      <main className="col p-0 m-0">
+      <main className="dashboard-page">
         <DashboardPageHeader />
         <Dashboard />
       </main>
