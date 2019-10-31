@@ -8,6 +8,7 @@ import { useMobile } from '../../hooks/useMobile'
 import { Selector } from '../dashboard/Selector'
 import { TYPE } from '../charts/Chart'
 import { Footer } from '../footer/Footer'
+import theme from '../../config/Theme.scss'
 import './Sidebar.scss'
 
 function SidebarHeader({ name }) {
@@ -24,6 +25,7 @@ export function Sidebar({ open }) {
   const [, setSidebarState] = useContext(SidebarContext)
   const [sidebarStyle, setSidebarStyle] = useState({})
   const [blackoutStyle, setBlackoutStyle] = useState({})
+  const [showScrollbar, setShowScrollbar] = useState(false)
   const isMobile = useMobile()
 
   function close() {
@@ -44,9 +46,22 @@ export function Sidebar({ open }) {
     })
   }, [open, isMobile])
 
+  function onMouseEnter() {
+    setShowScrollbar(true)
+  }
+
+  function onMouseLeave() {
+    setShowScrollbar(false)
+  }
+
   return (
     <>
-      <nav className="sidebar" style={sidebarStyle}>
+      <nav
+        className="sidebar"
+        style={sidebarStyle}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
         {loggedIn ? (
           <>
             <SidebarHeader name="Dashboards" />
@@ -122,6 +137,15 @@ export function Sidebar({ open }) {
         onClick={close}
         style={blackoutStyle}
       ></div>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: [
+            '.sidebar::-webkit-scrollbar-thumb {',
+            '  background: ' + (showScrollbar ? theme.lightgray : theme.light),
+            '}',
+          ].join('\n'),
+        }}
+      ></style>
     </>
   )
 }
