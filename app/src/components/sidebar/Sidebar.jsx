@@ -79,25 +79,25 @@ export function Sidebar({ open }) {
             <SidebarHeader name="Charts" />
             <ul className="nav flex-column px-2">
               <li className="nav-item">
-                <Selector type={TYPE.LINE_CHART} onDragStart={close} />
+                <Selector type={TYPE.LINE_CHART} closeSidebar={close} />
               </li>
               <li className="nav-item">
-                <Selector type={TYPE.BAR_CHART} onDragStart={close} />
+                <Selector type={TYPE.BAR_CHART} closeSidebar={close} />
               </li>
               <li className="nav-item">
-                <Selector type={TYPE.PIE_CHART} onDragStart={close} />
+                <Selector type={TYPE.PIE_CHART} closeSidebar={close} />
               </li>
             </ul>
             <SidebarHeader name="Data" />
             <ul className="nav flex-column px-2">
               <li className="nav-item">
-                <Selector type={TYPE.LINE_CHART} onDragStart={close} />
+                <Selector type={TYPE.LINE_CHART} closeSidebar={close} />
               </li>
               <li className="nav-item">
-                <Selector type={TYPE.BAR_CHART} onDragStart={close} />
+                <Selector type={TYPE.BAR_CHART} closeSidebar={close} />
               </li>
               <li className="nav-item">
-                <Selector type={TYPE.PIE_CHART} onDragStart={close} />
+                <Selector type={TYPE.PIE_CHART} closeSidebar={close} />
               </li>
             </ul>
           </>

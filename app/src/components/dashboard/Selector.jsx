@@ -4,7 +4,7 @@ import { DragContext } from '../../context/DragContext'
 import { TYPE } from '../charts/Chart'
 import './Selector.scss'
 
-export function Selector({ type, onDragStart }) {
+export function Selector({ type, closeSidebar }) {
   const [, setDragState] = useContext(DragContext)
   function getIcon(type) {
     switch (type) {
@@ -21,7 +21,7 @@ export function Selector({ type, onDragStart }) {
     event.dataTransfer.setData('chart_type', type)
     event.dataTransfer.setDragImage(event.target, 0, 0)
     setDragState(true)
-    onDragStart()
+    closeSidebar()
   }
 
   function onDragEndHandler() {
