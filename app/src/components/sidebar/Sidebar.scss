@@ -1,7 +1,8 @@
 @import '../../config/Theme';
 
 .sidebar {
-  height: 100%;
+  top: 40px;
+  bottom: 0;
   position: fixed;
   z-index: 1000;
   overflow-x: hidden;

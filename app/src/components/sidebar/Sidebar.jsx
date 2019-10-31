@@ -7,6 +7,7 @@ import { sidebarWidth } from '../../config/gui'
 import { useMobile } from '../../hooks/useMobile'
 import { Selector } from '../dashboard/Selector'
 import { TYPE } from '../charts/Chart'
+import { Footer } from '../footer/Footer'
 import './Sidebar.scss'
 
 function SidebarHeader({ name }) {
@@ -88,6 +89,17 @@ export function Sidebar({ open }) {
               </li>
             </ul>
             <SidebarHeader name="Data" />
+            <ul className="nav flex-column px-2">
+              <li className="nav-item">
+                <Selector type={TYPE.LINE_CHART} onDragStart={close} />
+              </li>
+              <li className="nav-item">
+                <Selector type={TYPE.BAR_CHART} onDragStart={close} />
+              </li>
+              <li className="nav-item">
+                <Selector type={TYPE.PIE_CHART} onDragStart={close} />
+              </li>
+            </ul>
           </>
         ) : (
           <>
@@ -101,6 +113,8 @@ export function Sidebar({ open }) {
             </ul>
           </>
         )}
+        <hr className="mx-3" />
+        <Footer />
       </div>
       <div
         className="blackout"
