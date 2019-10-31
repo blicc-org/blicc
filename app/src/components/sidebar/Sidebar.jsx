@@ -46,7 +46,7 @@ export function Sidebar({ open }) {
 
   return (
     <>
-      <div className="sidebar" style={sidebarStyle}>
+      <nav className="sidebar" style={sidebarStyle}>
         {loggedIn ? (
           <>
             <SidebarHeader name="Dashboards" />
@@ -115,7 +115,7 @@ export function Sidebar({ open }) {
         )}
         <hr className="mx-3" />
         <Footer />
-      </div>
+      </nav>
       <div
         className="blackout"
         onTouchStart={close}
