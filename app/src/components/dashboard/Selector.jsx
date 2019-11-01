@@ -10,7 +10,7 @@ import './Selector.scss'
 export function Selector({ type, closeSidebar }) {
   const [, setDragState] = useContext(DragContext)
   const [draggable, setDraggable] = useState(false)
-  const isTouch = true //useTouch()
+  const isTouch = useTouch()
   const ref = useRef()
 
   function getIcon(type) {
