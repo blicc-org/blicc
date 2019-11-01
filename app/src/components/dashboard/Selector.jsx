@@ -13,8 +13,6 @@ export function Selector({ type, closeSidebar }) {
   const isTouch = useTouch()
   const ref = useRef()
 
-  console.log(isTouch)
-
   function getIcon(type) {
     switch (type) {
       case TYPE.LINE_CHART:
@@ -38,7 +36,6 @@ export function Selector({ type, closeSidebar }) {
   }
 
   function onDragCapture(event) {
-    console.log(event.clientX, sidebarWidth)
     if (event.clientX > sidebarWidth) {
       closeSidebar()
     }
