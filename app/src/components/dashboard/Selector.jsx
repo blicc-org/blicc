@@ -4,6 +4,7 @@ import { PieChart, BarChart2, Activity, Menu } from 'react-feather'
 import { DragContext } from '../../context/DragContext'
 import { useTouch } from '../../hooks/useTouch'
 import { TYPE } from '../charts/Chart'
+import { sidebarWidth } from '../../config/gui'
 import './Selector.scss'
 
 export function Selector({ type, closeSidebar }) {
@@ -35,23 +36,13 @@ export function Selector({ type, closeSidebar }) {
     setDragState(false)
   }
 
+  function onDragOver(event) {
+    if (event.clientX > sidebarWidth) closeSidebar()
+  }
+
   useEffect(() => {
     if (draggable) ref.current.click()
   }, [draggable])
-
-  const selector = (
-    <div
-      ref={ref}
-      className="selector px-3 py-2"
-      onDragStart={onDragStartHandler}
-      onDragEnd={onDragEndHandler}
-      draggable={draggable}
-    >
-      {getIcon(type)}
-      {type}
-      <Menu className="feather drag-icon float-right" />
-    </div>
-  )
 
   return (
     <>
@@ -62,10 +53,31 @@ export function Selector({ type, closeSidebar }) {
             setDraggable(true)
           }}
         >
-          {selector}
+          <div
+            ref={ref}
+            className="selector px-3 py-2"
+            onDragStart={onDragStartHandler}
+            onDragOver={onDragOver}
+            onDragEnd={onDragEndHandler}
+            draggable={draggable}
+          >
+            {getIcon(type)}
+            {type}
+            <Menu className="feather drag-icon float-right" />
+          </div>
         </Holdable>
       ) : (
-        selector
+        <div
+          ref={ref}
+          className="selector px-3 py-2"
+          onDragStart={onDragStartHandler}
+          onDragEnd={onDragEndHandler}
+          draggable={true}
+        >
+          {getIcon(type)}
+          {type}
+          <Menu className="feather drag-icon float-right" />
+        </div>
       )}
     </>
   )
