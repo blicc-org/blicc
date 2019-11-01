@@ -29,8 +29,8 @@ export function Selector({ type, closeSidebar }) {
   }
 
   function onDragEndHandler() {
-    setDragState(false)
     setDraggable(false)
+    setDragState(false)
   }
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export function Selector({ type, closeSidebar }) {
 
   return (
     <Holdable
-      config={defineHold({ updateEvery: 50, holdFor: 250 })}
+      config={defineHold({ updateEvery: 5, holdFor: 250 })}
       onHoldComplete={() => {
         setDraggable(true)
       }}
