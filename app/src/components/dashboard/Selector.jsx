@@ -10,7 +10,7 @@ import './Selector.scss'
 export function Selector({ type, closeSidebar }) {
   const [, setDragState] = useContext(DragContext)
   const [draggable, setDraggable] = useState(false)
-  const isTouch = useTouch()
+  const isTouch = true //useTouch()
   const ref = useRef()
 
   function getIcon(type) {
@@ -35,7 +35,7 @@ export function Selector({ type, closeSidebar }) {
     setDragState(false)
   }
 
-  function onDragCapture(event) {
+  function onDrag(event) {
     if (event.clientX > sidebarWidth) {
       closeSidebar()
     }
@@ -47,7 +47,7 @@ export function Selector({ type, closeSidebar }) {
 
   return (
     <Holdable
-      config={defineHold({ updateEvery: 10, holdFor: 125 })}
+      config={defineHold({ updateEvery: 10, holdFor: 75 })}
       onHoldComplete={() => {
         setDraggable(true)
       }}
@@ -56,7 +56,7 @@ export function Selector({ type, closeSidebar }) {
         ref={ref}
         className="selector px-3 py-2"
         onDragStart={onDragStartHandler}
-        onDragCapture={onDragCapture}
+        onDrag={onDrag}
         onDragEnd={onDragEndHandler}
         draggable={isTouch ? draggable : true}
       >
