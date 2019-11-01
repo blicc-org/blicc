@@ -20,7 +20,8 @@
     "react-markdown": "^4.2.2",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.2.0",
-    "react-syntax-highlighter": "^11.0.2"
+    "react-syntax-highlighter": "^11.0.2",
+    "react-touch": "^0.4.4"
   },
   "devDependencies": {
     "@testing-library/react": "^9.3.0",

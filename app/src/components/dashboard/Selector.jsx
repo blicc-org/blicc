@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { Holdable } from 'react-touch'
 import { PieChart, BarChart2, Activity, Menu } from 'react-feather'
 import { DragContext } from '../../context/DragContext'
 import { TYPE } from '../charts/Chart'
@@ -30,15 +31,21 @@ export function Selector({ type, closeSidebar }) {
   }
 
   return (
-    <div
-      className="selector px-3 py-2"
-      onDragStart={onDragStartHandler}
-      onDragEnd={onDragEndHandler}
-      draggable={true}
+    <Holdable
+      onHoldComplete={() => {
+        alert('yayyy')
+      }}
     >
-      {getIcon(type)}
-      {type}
-      <Menu className="feather drag-icon float-right" />
-    </div>
+      <div
+        className="selector px-3 py-2"
+        onDragStart={onDragStartHandler}
+        onDragEnd={onDragEndHandler}
+        draggable={true}
+      >
+        {getIcon(type)}
+        {type}
+        <Menu className="feather drag-icon float-right" />
+      </div>
+    </Holdable>
   )
 }
