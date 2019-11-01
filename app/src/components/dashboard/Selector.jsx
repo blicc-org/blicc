@@ -10,7 +10,7 @@ import './Selector.scss'
 export function Selector({ type, closeSidebar }) {
   const [, setDragState] = useContext(DragContext)
   const [draggable, setDraggable] = useState(false)
-  const isTouch = useTouch()
+  const isTouch = true //useTouch()
   const ref = useRef()
 
   function getIcon(type) {
@@ -28,7 +28,6 @@ export function Selector({ type, closeSidebar }) {
     event.dataTransfer.setData('chart_type', type)
     event.dataTransfer.setDragImage(event.target, 0, 0)
     setDragState(true)
-    closeSidebar()
   }
 
   function onDragEndHandler() {
@@ -36,7 +35,7 @@ export function Selector({ type, closeSidebar }) {
     setDragState(false)
   }
 
-  function onDragOver(event) {
+  function onDragCapture(event) {
     if (event.clientX > sidebarWidth) closeSidebar()
   }
 
@@ -57,7 +56,7 @@ export function Selector({ type, closeSidebar }) {
             ref={ref}
             className="selector px-3 py-2"
             onDragStart={onDragStartHandler}
-            onDragOver={onDragOver}
+            onDragCapture={onDragCapture}
             onDragEnd={onDragEndHandler}
             draggable={draggable}
           >
