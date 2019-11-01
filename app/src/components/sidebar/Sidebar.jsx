@@ -25,7 +25,6 @@ export function Sidebar({ open }) {
   const [, setSidebarState] = useContext(SidebarContext)
   const [sidebarStyle, setSidebarStyle] = useState({})
   const [blackoutStyle, setBlackoutStyle] = useState({})
-  const [showScrollbar, setShowScrollbar] = useState(false)
   const isMobile = useMobile()
 
   function close() {
@@ -45,23 +44,9 @@ export function Sidebar({ open }) {
       width: open && isMobile ? '100%' : 0,
     })
   }, [open, isMobile])
-
-  function onMouseEnter() {
-    setShowScrollbar(true)
-  }
-
-  function onMouseLeave() {
-    setShowScrollbar(false)
-  }
-
   return (
     <>
-      <nav
-        className="sidebar"
-        style={sidebarStyle}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      >
+      <nav className="sidebar" style={sidebarStyle}>
         {loggedIn ? (
           <>
             <SidebarHeader name="Dashboards" />
@@ -137,15 +122,6 @@ export function Sidebar({ open }) {
         onClick={close}
         style={blackoutStyle}
       ></div>
-      <style
-        dangerouslySetInnerHTML={{
-          __html: [
-            '.sidebar::-webkit-scrollbar-thumb {',
-            '  background: ' + (showScrollbar ? theme.lightgray : theme.light),
-            '}',
-          ].join('\n'),
-        }}
-      ></style>
     </>
   )
 }
