@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from 'react'
+import React, { useContext, useState, useRef, useEffect } from 'react'
 import { Holdable, defineHold } from 'react-touch'
 import { PieChart, BarChart2, Activity, Menu } from 'react-feather'
 import { DragContext } from '../../context/DragContext'
@@ -33,12 +33,15 @@ export function Selector({ type, closeSidebar }) {
     setDraggable(false)
   }
 
+  useEffect(() => {
+    if (draggable) ref.current.click()
+  }, [draggable])
+
   return (
     <Holdable
       config={defineHold({ updateEvery: 50, holdFor: 250 })}
       onHoldComplete={() => {
         setDraggable(true)
-        ref.current.click()
       }}
     >
       <div
