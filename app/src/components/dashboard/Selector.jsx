@@ -6,6 +6,7 @@ import './Selector.scss'
 
 export function Selector({ type, closeSidebar }) {
   const [, setDragState] = useContext(DragContext)
+
   function getIcon(type) {
     switch (type) {
       case TYPE.LINE_CHART:

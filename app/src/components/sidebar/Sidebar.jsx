@@ -8,7 +8,6 @@ import { useMobile } from '../../hooks/useMobile'
 import { Selector } from '../dashboard/Selector'
 import { TYPE } from '../charts/Chart'
 import { Footer } from '../footer/Footer'
-import theme from '../../config/Theme.scss'
 import './Sidebar.scss'
 
 function SidebarHeader({ name }) {
