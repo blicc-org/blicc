@@ -13,6 +13,8 @@ export function Selector({ type, closeSidebar }) {
   const isTouch = useTouch()
   const ref = useRef()
 
+  console.log(isTouch)
+
   function getIcon(type) {
     switch (type) {
       case TYPE.LINE_CHART:
@@ -36,7 +38,10 @@ export function Selector({ type, closeSidebar }) {
   }
 
   function onDragCapture(event) {
-    if (event.clientX > sidebarWidth) closeSidebar()
+    console.log(event.clientX, sidebarWidth)
+    if (event.clientX > sidebarWidth) {
+      closeSidebar()
+    }
   }
 
   useEffect(() => {
@@ -44,40 +49,24 @@ export function Selector({ type, closeSidebar }) {
   }, [draggable])
 
   return (
-    <>
-      {isTouch ? (
-        <Holdable
-          config={defineHold({ updateEvery: 10, holdFor: 150 })}
-          onHoldComplete={() => {
-            setDraggable(true)
-          }}
-        >
-          <div
-            ref={ref}
-            className="selector px-3 py-2"
-            onDragStart={onDragStartHandler}
-            onDragCapture={onDragCapture}
-            onDragEnd={onDragEndHandler}
-            draggable={draggable}
-          >
-            {getIcon(type)}
-            {type}
-            <Menu className="feather drag-icon float-right" />
-          </div>
-        </Holdable>
-      ) : (
-        <div
-          ref={ref}
-          className="selector px-3 py-2"
-          onDragStart={onDragStartHandler}
-          onDragEnd={onDragEndHandler}
-          draggable={true}
-        >
-          {getIcon(type)}
-          {type}
-          <Menu className="feather drag-icon float-right" />
-        </div>
-      )}
-    </>
+    <Holdable
+      config={defineHold({ updateEvery: 10, holdFor: 125 })}
+      onHoldComplete={() => {
+        setDraggable(true)
+      }}
+    >
+      <div
+        ref={ref}
+        className="selector px-3 py-2"
+        onDragStart={onDragStartHandler}
+        onDragCapture={onDragCapture}
+        onDragEnd={onDragEndHandler}
+        draggable={isTouch ? draggable : true}
+      >
+        {getIcon(type)}
+        {type}
+        <Menu className="feather drag-icon float-right" />
+      </div>
+    </Holdable>
   )
 }
