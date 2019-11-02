@@ -1,7 +1,14 @@
 import uuid from 'uuid/v4'
 import speakeasy from 'speakeasy'
 import { user } from '../../mocks/user.mock'
-import { instance } from '../test/helper'
+import axios from 'axios'
+import { API_TEST_TARGET } from '../config'
+
+const instance = axios.create({
+  baseURL: API_TEST_TARGET,
+  withCredentials: true,
+  validateStatus: status => status >= 200 && status < 500,
+})
 
 describe('POST: /tokens', () => {
   let email = ''
