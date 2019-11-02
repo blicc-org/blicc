@@ -6,7 +6,7 @@ export function NavbarCreate() {
   return (
     <li className="nav-item text-nowrap">
       <Link className="nav-link" to="/create">
-        <Plus className="create" size={24} />
+        <Plus className="plus" size={24} />
       </Link>
     </li>
   )
