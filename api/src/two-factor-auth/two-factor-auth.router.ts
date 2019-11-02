@@ -67,6 +67,15 @@ export class TwoFactorAuthRouter {
         AuthMiddleware.handle,
         PermissionMiddleware.handle.bind(null, ['user', 'admin']),
       ],
+      validate: {
+        output: {
+          200: {
+            body: {
+              otpAuthUrl: Joi.string().required(),
+            },
+          },
+        },
+      },
       handler: this.controller.request.bind(this.controller),
     })
 

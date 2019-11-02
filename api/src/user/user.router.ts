@@ -96,6 +96,21 @@ export class UserRouter {
         AuthMiddleware.handle,
         PermissionMiddleware.handle.bind(null, ['user', 'admin']),
       ],
+      validate: {
+        output: {
+          200: {
+            body: {
+              id: Joi.string().required(),
+              firstName: Joi.string().required(),
+              lastName: Joi.string().required(),
+              email: Joi.string().required(),
+              role: Joi.string().required(),
+              hasTwoFactorAuth: Joi.boolean().required(),
+              creationDate: Joi.string().required(),
+            },
+          },
+        },
+      },
       handler: this.controller.access.bind(this.controller),
     })
 
