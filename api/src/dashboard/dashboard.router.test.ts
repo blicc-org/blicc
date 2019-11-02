@@ -1,4 +1,3 @@
-import { user } from '../../mocks/user.mock'
 import { instance, initializeUser } from '../test/user.helper'
 
 describe('POST: /dashboards', () => {
@@ -9,18 +8,16 @@ describe('POST: /dashboards', () => {
 
   it('201: Created', async () => {
     const data = {
-      name: 'Dashboard Name',
-      userId: params.userId,
-      creationDate: 'isostring',
-      views: 0,
-      watchTimeInSeconds: 0,
+      title: 'Dashboard Name',
       data: {},
     }
-    // const response = await instance.post('/dashboards', data, {
-    //   headers: {
-    //     Cookie: params.cookie,
-    //   },
-    // })
+
+    const response = await instance.post('/dashboards', data, {
+      headers: {
+        Cookie: params.cookie,
+      },
+    })
+    expect(response.status).toBe(201)
   })
 })
 

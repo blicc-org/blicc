@@ -1,5 +1,5 @@
 import { Middleware } from 'koa'
-import createRouter, { Router } from 'koa-joi-router'
+import createRouter, { Router, Joi } from 'koa-joi-router'
 import { DashboardController } from './dashboard.controller'
 import { AuthMiddleware } from '../middleware/auth-middleware'
 import { PermissionMiddleware } from '../middleware/permission-middleware'
@@ -17,6 +17,7 @@ export class DashboardRouter {
 
   public routes(): Middleware {
     this.router.prefix(this.prefix)
+
     this.router.use(
       AuthMiddleware.handle,
       PermissionMiddleware.handle.bind(null, ['user', 'admin'])
@@ -25,7 +26,24 @@ export class DashboardRouter {
     this.router.route({
       method: 'post',
       path: '/',
-      validate: { type: 'json' },
+      validate: {
+        type: 'json',
+        body: {
+          title: Joi.string().required(),
+          data: Joi.object().required(),
+        },
+        output: {
+          201: {
+            body: {
+              id: Joi.string().required(),
+              title: Joi.string().required(),
+              userId: Joi.string().required(),
+              data: Joi.object().required(),
+              creationDate: Joi.string().required(),
+            },
+          },
+        },
+      },
       handler: this.controller.create.bind(this.controller),
     })
 
