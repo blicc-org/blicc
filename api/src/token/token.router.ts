@@ -129,6 +129,7 @@ export class TokenRouter {
               email: Joi.string().required(),
               role: Joi.string().required(),
               hasTwoFactorAuth: Joi.boolean().required(),
+              creationDate: Joi.string().required(),
             },
           },
         },
@@ -156,7 +157,6 @@ export class TokenRouter {
       path: '/',
       handler: this.controller.clear.bind(this.controller),
     })
-    4
     return this.router.middleware()
   }
 }

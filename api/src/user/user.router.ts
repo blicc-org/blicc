@@ -190,6 +190,7 @@ export class UserRouter {
               email: Joi.string().required(),
               role: Joi.string().required(),
               hasTwoFactorAuth: Joi.boolean().required(),
+              creationDate: Joi.string().required(),
             },
           },
         },

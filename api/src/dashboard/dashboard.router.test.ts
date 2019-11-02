@@ -7,7 +7,21 @@ describe('POST: /dashboards', () => {
     params = await initializeUser()
   })
 
-  it('201: Created', () => {})
+  it('201: Created', async () => {
+    const data = {
+      name: 'Dashboard Name',
+      userId: params.userId,
+      creationDate: 'isostring',
+      views: 0,
+      watchTimeInSeconds: 0,
+      data: {},
+    }
+    // const response = await instance.post('/dashboards', data, {
+    //   headers: {
+    //     Cookie: params.cookie,
+    //   },
+    // })
+  })
 })
 
 describe('PUT: /dashboards/:id', () => {

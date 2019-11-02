@@ -33,10 +33,14 @@ export class UserEntity extends BaseEntity {
   @Column({ select: false })
   public twoFactorAuthSecret: string
 
+  @Column()
+  public creationDate?: string
+
   @BeforeInsert()
   private async beforeInsert(): Promise<void> {
     const userService = new UserService()
     this.id = await userService.generateId()
+    this.creationDate = new Date().toISOString()
   }
 
   public constructor(

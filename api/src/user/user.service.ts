@@ -50,6 +50,7 @@ export class UserService {
       email,
       role,
       hasTwoFactorAuth,
+      creationDate,
     }): User => ({
       id,
       firstName,
@@ -57,6 +58,7 @@ export class UserService {
       email,
       role,
       hasTwoFactorAuth,
+      creationDate,
     }))(user)
   }
 
