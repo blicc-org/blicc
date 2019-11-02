@@ -13,8 +13,16 @@ export function Profile() {
     lastName: '',
     email: '',
     role: '',
+    creationDate: '',
   })
-  const { firstName, lastName, email, role, hasTwoFactorAuth } = user
+  const {
+    firstName,
+    lastName,
+    email,
+    role,
+    creationDate,
+    hasTwoFactorAuth,
+  } = user
 
   useEffect(() => {
     async function fetchUser() {
@@ -56,6 +64,12 @@ export function Profile() {
                     <b>Role:</b>
                   </td>
                   <td>{role}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Registration date:</b>
+                  </td>
+                  <td>{creationDate.split('T')[0]}</td>
                 </tr>
               </tbody>
             </table>
