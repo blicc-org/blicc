@@ -1,3 +1,4 @@
+import axios from 'axios'
 import uuid from 'uuid/v4'
 import {
   user,
@@ -5,62 +6,56 @@ import {
   invalidPasswords,
   injectionAttacks,
 } from '../../mocks/user.mock'
-import axios from 'axios'
 import { API_TEST_TARGET } from '../config'
 
-const instance = axios.create({
-  baseURL: API_TEST_TARGET,
-  withCredentials: true,
-  validateStatus: status => status >= 200 && status < 500,
-})
-
-async function initializeUser() {
-  const email = `${uuid()}@example.com`
-  const { data } = await instance.post('/users', {
-    ...user,
-    email,
-  })
-
-  const userId = data.id
-
-  const response = await instance.post('/tokens', {
-    email,
-    password: user.password,
-  })
-
-  const cookies = response.headers['set-cookie']
-  const cookie = cookies
-    .find((cookie: string): boolean => cookie.startsWith('access_token'))
-    .split(';')[0]
-
-  return { email, userId, cookie }
-}
-
 describe('GET: /users/:id', () => {
-  let params = { email: '', userId: '', cookie: '' }
+  let email = ''
+  let userId = ''
+  let cookie = ''
+  const instance = axios.create({
+    baseURL: API_TEST_TARGET,
+    withCredentials: true,
+    validateStatus: status => status >= 200 && status < 500,
+  })
 
   beforeEach(async () => {
-    params = await initializeUser()
+    email = `${uuid()}@example.com`
+    const { data } = await instance.post('/users', {
+      ...user,
+      email,
+    })
+
+    userId = data.id
+
+    const response = await instance.post('/tokens', {
+      email,
+      password: user.password,
+    })
+
+    const cookies = response.headers['set-cookie']
+    cookie = cookies
+      .find((cookie: string): boolean => cookie.startsWith('access_token'))
+      .split(';')[0]
   })
 
   it('200: OK', async () => {
-    const { status } = await instance.get(`/users/${params.userId}`, {
+    const { status } = await instance.get(`/users/${userId}`, {
       headers: {
-        Cookie: params.cookie,
+        Cookie: cookie,
       },
     })
     expect(status).toBe(200)
   })
 
   it('401: Unauthorized', async () => {
-    const { status } = await instance.get(`/users/${params.userId}`)
+    const { status } = await instance.get(`/users/${userId}`)
     expect(status).toBe(401)
   })
 
   it('403: Forbidden', async () => {
     const { status } = await instance.get(`/users/not-yours-or-non-existent`, {
       headers: {
-        Cookie: params.cookie,
+        Cookie: cookie,
       },
     })
     expect(status).toBe(403)
@@ -69,6 +64,11 @@ describe('GET: /users/:id', () => {
 
 describe('POST: /users', () => {
   let email = ''
+  const instance = axios.create({
+    baseURL: API_TEST_TARGET,
+    withCredentials: true,
+    validateStatus: status => status >= 200 && status < 500,
+  })
 
   beforeEach(() => {
     email = `${uuid()}@example.com`

@@ -1,18 +1,17 @@
+import axios from 'axios'
 import uuid from 'uuid/v4'
 import speakeasy from 'speakeasy'
 import { user } from '../../mocks/user.mock'
-import axios from 'axios'
 import { API_TEST_TARGET } from '../config'
-
-const instance = axios.create({
-  baseURL: API_TEST_TARGET,
-  withCredentials: true,
-  validateStatus: status => status >= 200 && status < 500,
-})
 
 describe('POST: /tokens', () => {
   let email = ''
   let userId = ''
+  const instance = axios.create({
+    baseURL: API_TEST_TARGET,
+    withCredentials: true,
+    validateStatus: status => status >= 200 && status < 500,
+  })
 
   beforeEach(async () => {
     email = `${uuid()}@example.com`
@@ -219,6 +218,12 @@ describe('POST: /tokens', () => {
 })
 
 describe('DELETE: /tokens', () => {
+  const instance = axios.create({
+    baseURL: API_TEST_TARGET,
+    withCredentials: true,
+    validateStatus: status => status >= 200 && status < 500,
+  })
+
   it('205: Reset content', async () => {
     const response = await instance.delete('/tokens')
     const cookies = response.headers['set-cookie']
