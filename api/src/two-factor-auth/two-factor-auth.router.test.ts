@@ -1,34 +1,17 @@
-import uuid from 'uuid/v4'
 import speakeasy from 'speakeasy'
-import { user } from '../../mocks/user.mock'
-import { instance } from '../test/helper'
+import { instance, initializeUser } from '../test/helper'
 
 describe('GET: /two-factor-auth', () => {
-  let email = ''
-  let cookie = ''
+  let params = { email: '', userId: '', cookie: '' }
 
   beforeEach(async () => {
-    email = `${uuid()}@example.com`
-    await instance.post('/users', {
-      ...user,
-      email,
-    })
-
-    const response = await instance.post('/tokens', {
-      email,
-      password: user.password,
-    })
-
-    const cookies = response.headers['set-cookie']
-    cookie = cookies
-      .find((cookie: string): boolean => cookie.startsWith('access_token'))
-      .split(';')[0]
+    params = await initializeUser()
   })
 
   it('200: OK', async () => {
     const response = await instance.get('/two-factor-auth', {
       headers: {
-        Cookie: cookie,
+        Cookie: params.cookie,
       },
     })
     expect(response.status).toBe(200)
@@ -45,7 +28,7 @@ describe('GET: /two-factor-auth', () => {
   it('409: Conflict', async () => {
     let response = await instance.get('/two-factor-auth', {
       headers: {
-        Cookie: cookie,
+        Cookie: params.cookie,
       },
     })
     expect(response.status).toBe(200)
@@ -67,7 +50,7 @@ describe('GET: /two-factor-auth', () => {
       },
       {
         headers: {
-          Cookie: cookie,
+          Cookie: params.cookie,
         },
       }
     )
@@ -75,7 +58,7 @@ describe('GET: /two-factor-auth', () => {
 
     response = await instance.get('/two-factor-auth', {
       headers: {
-        Cookie: cookie,
+        Cookie: params.cookie,
       },
     })
     expect(response.status).toBe(409)
@@ -83,31 +66,16 @@ describe('GET: /two-factor-auth', () => {
 })
 
 describe('POST: /two-factor-auth', () => {
-  let email = ''
-  let cookie = ''
+  let params = { email: '', userId: '', cookie: '' }
 
   beforeEach(async () => {
-    email = `${uuid()}@example.com`
-    await instance.post('/users', {
-      ...user,
-      email,
-    })
-
-    const response = await instance.post('/tokens', {
-      email,
-      password: user.password,
-    })
-
-    const cookies = response.headers['set-cookie']
-    cookie = cookies
-      .find((cookie: string): boolean => cookie.startsWith('access_token'))
-      .split(';')[0]
+    params = await initializeUser()
   })
 
   it('204: No content', async () => {
     let response = await instance.get('/two-factor-auth', {
       headers: {
-        Cookie: cookie,
+        Cookie: params.cookie,
       },
     })
     expect(response.status).toBe(200)
@@ -129,7 +97,7 @@ describe('POST: /two-factor-auth', () => {
       },
       {
         headers: {
-          Cookie: cookie,
+          Cookie: params.cookie,
         },
       }
     )
@@ -138,7 +106,7 @@ describe('POST: /two-factor-auth', () => {
   it('400: Bad request', async () => {
     let response = await instance.get('/two-factor-auth', {
       headers: {
-        Cookie: cookie,
+        Cookie: params.cookie,
       },
     })
     expect(response.status).toBe(200)
@@ -150,7 +118,7 @@ describe('POST: /two-factor-auth', () => {
       },
       {
         headers: {
-          Cookie: cookie,
+          Cookie: params.cookie,
         },
       }
     )
