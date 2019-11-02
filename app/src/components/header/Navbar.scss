@@ -1,4 +1,20 @@
+@import '../../config/Theme';
+
 .menu-button {
   cursor: pointer;
   user-select: none;
+}
+
+.burger,
+.grid {
+  fill: $lightgray;
+}
+
+.user {
+  background-color: $lightgray;
+  border-radius: 100px;
+}
+
+.create {
+  color: $lightgray;
 }

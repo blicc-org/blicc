@@ -1,16 +1,11 @@
-import React, { useContext, useState, useRef, useEffect } from 'react'
-import { Holdable, defineHold } from 'react-touch'
+import React, { useContext, useRef } from 'react'
 import { PieChart, BarChart2, Activity, Menu } from 'react-feather'
 import { DragContext } from '../../context/DragContext'
-import { useTouch } from '../../hooks/useTouch'
 import { TYPE } from '../charts/Chart'
 import './Selector.scss'
 
 export function Selector({ type, closeSidebar }) {
   const [, setDragState] = useContext(DragContext)
-  const [draggable, setDraggable] = useState(false)
-  const isTouch = useTouch()
-  const ref = useRef()
 
   function getIcon(type) {
     switch (type) {
@@ -24,6 +19,7 @@ export function Selector({ type, closeSidebar }) {
   }
 
   function onDragStartHandler(event) {
+    console.log('start drag')
     event.dataTransfer.setData('chart_type', type)
     event.dataTransfer.setDragImage(event.target, 0, 0)
     setDragState(true)
@@ -31,32 +27,19 @@ export function Selector({ type, closeSidebar }) {
   }
 
   function onDragEndHandler() {
-    setDraggable(false)
     setDragState(false)
   }
 
-  useEffect(() => {
-    if (draggable) ref.current.click()
-  }, [draggable])
-
   return (
-    <Holdable
-      config={defineHold({ updateEvery: 10, holdFor: 50 })}
-      onHoldComplete={() => {
-        setDraggable(true)
-      }}
+    <div
+      className="selector px-3 py-2"
+      onDragStart={onDragStartHandler}
+      onDragEnd={onDragEndHandler}
+      draggable={true}
     >
-      <div
-        ref={ref}
-        className="selector px-3 py-2"
-        onDragStart={onDragStartHandler}
-        onDragEnd={onDragEndHandler}
-        draggable={isTouch ? draggable : true}
-      >
-        {getIcon(type)}
-        {type}
-        <Menu className="feather drag-icon float-right" />
-      </div>
-    </Holdable>
+      {getIcon(type)}
+      {type}
+      <Menu className="feather drag-icon float-right" />
+    </div>
   )
 }
