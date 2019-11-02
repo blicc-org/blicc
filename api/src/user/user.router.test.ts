@@ -1,4 +1,3 @@
-import axios from 'axios'
 import uuid from 'uuid/v4'
 import {
   user,
@@ -6,56 +5,33 @@ import {
   invalidPasswords,
   injectionAttacks,
 } from '../../mocks/user.mock'
-import { API_TEST_TARGET } from '../config'
+import { instance, initializeUser } from '../test/user.helper'
 
 describe('GET: /users/:id', () => {
-  let email = ''
-  let userId = ''
-  let cookie = ''
-  const instance = axios.create({
-    baseURL: API_TEST_TARGET,
-    withCredentials: true,
-    validateStatus: status => status >= 200 && status < 500,
-  })
+  let params = { email: '', userId: '', cookie: '' }
 
   beforeEach(async () => {
-    email = `${uuid()}@example.com`
-    const { data } = await instance.post('/users', {
-      ...user,
-      email,
-    })
-
-    userId = data.id
-
-    const response = await instance.post('/tokens', {
-      email,
-      password: user.password,
-    })
-
-    const cookies = response.headers['set-cookie']
-    cookie = cookies
-      .find((cookie: string): boolean => cookie.startsWith('access_token'))
-      .split(';')[0]
+    params = await initializeUser()
   })
 
   it('200: OK', async () => {
-    const { status } = await instance.get(`/users/${userId}`, {
+    const { status } = await instance.get(`/users/${params.userId}`, {
       headers: {
-        Cookie: cookie,
+        Cookie: params.cookie,
       },
     })
     expect(status).toBe(200)
   })
 
   it('401: Unauthorized', async () => {
-    const { status } = await instance.get(`/users/${userId}`)
+    const { status } = await instance.get(`/users/${params.userId}`)
     expect(status).toBe(401)
   })
 
   it('403: Forbidden', async () => {
     const { status } = await instance.get(`/users/not-yours-or-non-existent`, {
       headers: {
-        Cookie: cookie,
+        Cookie: params.cookie,
       },
     })
     expect(status).toBe(403)
@@ -64,11 +40,6 @@ describe('GET: /users/:id', () => {
 
 describe('POST: /users', () => {
   let email = ''
-  const instance = axios.create({
-    baseURL: API_TEST_TARGET,
-    withCredentials: true,
-    validateStatus: status => status >= 200 && status < 500,
-  })
 
   beforeEach(() => {
     email = `${uuid()}@example.com`
