@@ -11,7 +11,7 @@ import './Navbar.scss'
 
 export function NavBar({ toggleMenu }) {
   const [appState] = useContext(AppContext)
-  const { firstName, lastName } = appState
+  const { firstName, lastName, loggedIn } = appState
   const [, logout] = useSession()
   const [width, setWidth] = useState(window.innerWidth)
 
@@ -56,6 +56,7 @@ export function NavBar({ toggleMenu }) {
             <NavbarUser
               firstName={firstName}
               lastName={lastName}
+              loggedIn={loggedIn}
               logout={logout}
             />
           </ul>
