@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react'
+import React, { useContext } from 'react'
 import { PieChart, BarChart2, Activity, Menu } from 'react-feather'
 import { DragContext } from '../../context/DragContext'
 import { TYPE } from '../charts/Chart'
