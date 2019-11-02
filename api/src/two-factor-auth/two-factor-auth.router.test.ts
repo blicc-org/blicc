@@ -1,17 +1,11 @@
-import axios from 'axios'
 import uuid from 'uuid/v4'
 import speakeasy from 'speakeasy'
 import { user } from '../../mocks/user.mock'
-import { API_TEST_TARGET } from '../config'
+import { instance } from '../test/helper'
 
 describe('GET: /two-factor-auth', () => {
   let email = ''
   let cookie = ''
-  const instance = axios.create({
-    baseURL: API_TEST_TARGET,
-    withCredentials: true,
-    validateStatus: status => status >= 200 && status < 500,
-  })
 
   beforeEach(async () => {
     email = `${uuid()}@example.com`
@@ -91,11 +85,6 @@ describe('GET: /two-factor-auth', () => {
 describe('POST: /two-factor-auth', () => {
   let email = ''
   let cookie = ''
-  const instance = axios.create({
-    baseURL: API_TEST_TARGET,
-    withCredentials: true,
-    validateStatus: status => status >= 200 && status < 500,
-  })
 
   beforeEach(async () => {
     email = `${uuid()}@example.com`
