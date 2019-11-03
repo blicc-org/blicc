@@ -27,13 +27,15 @@
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-react": "^7.16.0"
+    "eslint-plugin-react": "^7.16.0",
+    "source-map-explorer": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "analyze": "source-map-explorer './build/static/js/*.js'",
     "fix": "eslint --fix \"src/**/*.+(js|jsx)\""
   },
   "eslintConfig": {
