@@ -18,6 +18,10 @@ export class DashboardService {
     return await this.repo.save(new DashboardEntity(title, userId, data))
   }
 
+  public async selectById(id: string): Promise<Dashboard | undefined> {
+    return await this.repo.findOne(id)
+  }
+
   public async generateId(): Promise<string> {
     const id = shortid.generate()
     const response = await this.repo.findOne(id)

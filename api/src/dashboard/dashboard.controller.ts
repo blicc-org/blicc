@@ -1,4 +1,5 @@
 import Koa from 'koa'
+import status from 'http-status-codes'
 import { DashboardService } from './dashboard.service'
 
 export class DashboardController {
@@ -16,8 +17,19 @@ export class DashboardController {
     ctx.status = 201
   }
 
-  public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    ctx.body = 'Has to be logged in!!!'
+    try {
+      const { id } = ctx.params
+      const dashboard = await this.dashboardService.selectById(id)
+      if (dashboard !== undefined && ctx.user.id === dashboard.userId) {
+        ctx.body = dashboard
+        ctx.status = status.OK
+        return
+      }
+      ctx.status = status.FORBIDDEN
+    } catch (e) {
+      ctx.status = status.INTERNAL_SERVER_ERROR
+    }
   }
 }

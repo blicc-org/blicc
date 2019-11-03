@@ -38,9 +38,9 @@ export class DashboardRouter {
      *     produces:
      *       - application/json
      *     tags:
-     *       - Dashboard
+     *       - Dashboards
      *     summary: Create dashboard
-     *     description: create a dasbhoard
+     *     description: Create a dasbhoard with the given title and data which includes the setup of the dasboard.
      *     requestBody:
      *         content:
      *           application/json:
@@ -130,10 +130,91 @@ export class DashboardRouter {
       handler: this.controller.create.bind(this.controller),
     })
 
+    /**
+     * @swagger
+     *
+     * /dashboards{id}:
+     *   get:
+     *     security:
+     *       - cookieAuth: []
+     *     securitySchemes:
+     *       bearerAuth:
+     *         type: http
+     *         scheme: bearer
+     *         bearerFormat: JWT
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: string
+     *     produces:
+     *       - application/json
+     *     tags:
+     *       - Dashboards
+     *     summary: Get dashboard by id
+     *     description: Get a specific dashboard by the given id.
+     *     responses:
+     *       200:
+     *         description: OK
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - dashboard
+     *               properties:
+     *                 dashboard:
+     *                   type: object
+     *                   required:
+     *                   - id
+     *                   - title
+     *                   - userId
+     *                   - data
+     *                   - creationDate
+     *                   properties:
+     *                     id:
+     *                       type: string
+     *                     title:
+     *                       type: string
+     *                     userId:
+     *                       type: string
+     *                     data:
+     *                       type: json
+     *                     creationDate:
+     *                       type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   id: "WaDQc9_H",
+     *                   title: "Dashboard",
+     *                   userId: "b1x_S29n",
+     *                   data: {},
+     *                   creationDate: "2019-11-02T15:45:58.284Z"
+     *                 }
+     *       401:
+     *         description: Unauthorized
+     *       404:
+     *         description: Not found
+     *       500:
+     *         description: Internal Server Error
+     */
     this.router.route({
       method: 'get',
       path: '/',
-      handler: this.controller.list.bind(this.controller),
+      validate: {
+        output: {
+          200: {
+            body: {
+              id: Joi.string().required(),
+              title: Joi.string().required(),
+              userId: Joi.string().required(),
+              data: Joi.object().required(),
+              creationDate: Joi.string().required(),
+            },
+          },
+        },
+      },
+      handler: this.controller.access.bind(this.controller),
     })
 
     return this.router.middleware()

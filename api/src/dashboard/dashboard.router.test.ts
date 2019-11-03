@@ -1,11 +1,12 @@
 import { instance, initializeUser } from '../test/user.helper'
 
 describe('POST: /dashboards', () => {
+  let params = { email: '', userId: '', cookie: '' }
   const body = {
-    title: 'Dashboard Name',
+    title: 'Title',
     data: {},
   }
-  let params = { email: '', userId: '', cookie: '' }
+
   beforeEach(async () => {
     params = await initializeUser()
   })
@@ -29,6 +30,35 @@ describe('POST: /dashboards', () => {
   })
 })
 
+describe('GET: /dashboards/:id', () => {
+  let params = { email: '', userId: '', cookie: '' }
+  let id = ''
+  const body = {
+    title: 'Title',
+    data: {},
+  }
+
+  beforeEach(async () => {
+    params = await initializeUser()
+    const { data } = await instance.post('/dashboards', body, {
+      headers: {
+        Cookie: params.cookie,
+      },
+    })
+    id = data.id
+  })
+
+  it('200: OK', async () => {
+    const { status, data } = await instance.get(`/dashboards/${id}`, {
+      headers: {
+        Cookie: params.cookie,
+      },
+    })
+    expect(status).toBe(200)
+    expect(data).toBe(body)
+  })
+})
+
 describe('PUT: /dashboards/:id', () => {
   it('200: OK', () => {})
 })
@@ -38,9 +68,5 @@ describe('DELETE: /dashboards/:id', () => {
 })
 
 describe('GET: /dashboards', () => {
-  it('200: OK', () => {})
-})
-
-describe('GET: /dashboards/:id', () => {
   it('200: OK', () => {})
 })
