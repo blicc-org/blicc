@@ -73,7 +73,7 @@ describe('GET: /dashboards/:id', () => {
     expect(response.status).toBe(403)
 
     // none existing id
-    const noneExistingId = '§fhsoER=§EdSND§E'
+    const noneExistingId = '0FTY2Ne6iE42E'
     response = await instance.get(`/dashboards/${noneExistingId}`, {
       headers: {
         Cookie: params.cookie,
