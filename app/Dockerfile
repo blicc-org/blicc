@@ -7,7 +7,7 @@ COPY . .
 RUN yarn build
 
 # production environment
-FROM nginx:1.17-alpine
+FROM nginx:1.17
 COPY --from=node /app/build /var/www/blicc.org/html
 COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
