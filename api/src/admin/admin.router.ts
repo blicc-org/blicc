@@ -17,14 +17,14 @@ export class AdminRouter {
 
   public routes(): Middleware {
     this.router.prefix(this.prefix)
-    this.router.use(
-      AuthMiddleware.handle,
-      PermissionMiddleware.handle.bind(null, ['admin'])
-    )
 
     this.router.route({
       method: 'get',
       path: '/',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+      ],
       handler: this.controller.settings.bind(this.controller),
     })
 

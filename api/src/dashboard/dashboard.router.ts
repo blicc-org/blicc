@@ -18,11 +18,6 @@ export class DashboardRouter {
   public routes(): Middleware {
     this.router.prefix(this.prefix)
 
-    this.router.use(
-      AuthMiddleware.handle,
-      PermissionMiddleware.handle.bind(null, ['user', 'admin'])
-    )
-
     /**
      * @swagger
      *
@@ -109,6 +104,10 @@ export class DashboardRouter {
     this.router.route({
       method: 'post',
       path: '/',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+      ],
       validate: {
         type: 'json',
         body: {
@@ -193,14 +192,18 @@ export class DashboardRouter {
      *                 }
      *       401:
      *         description: Unauthorized
-     *       404:
-     *         description: Not found
+     *       403:
+     *         description: Forbidden
      *       500:
      *         description: Internal Server Error
      */
     this.router.route({
       method: 'get',
-      path: '/',
+      path: '/:id',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+      ],
       validate: {
         output: {
           200: {
