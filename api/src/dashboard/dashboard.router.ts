@@ -193,14 +193,14 @@ export class DashboardRouter {
      *                 }
      *       401:
      *         description: Unauthorized
-     *       404:
-     *         description: Not found
+     *       403:
+     *         description: Forbidden
      *       500:
      *         description: Internal Server Error
      */
     this.router.route({
       method: 'get',
-      path: '/',
+      path: '/:id',
       validate: {
         output: {
           200: {

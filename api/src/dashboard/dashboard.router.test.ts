@@ -49,24 +49,36 @@ describe('GET: /dashboards/:id', () => {
   })
 
   it('200: OK', async () => {
-    const { status, data } = await instance.get(`/dashboards/${id}`, {
+    const { status } = await instance.get(`/dashboards/${id}`, {
       headers: {
         Cookie: params.cookie,
       },
     })
     expect(status).toBe(200)
-    expect(data).toBe(body)
   })
-})
 
-describe('PUT: /dashboards/:id', () => {
-  it('200: OK', () => {})
-})
+  it('401: Unauthorized', async () => {
+    const { status } = await instance.get(`/dashboards/${id}`)
+    expect(status).toBe(401)
+  })
 
-describe('DELETE: /dashboards/:id', () => {
-  it('200: OK', () => {})
-})
+  it('403: Forbidden', async () => {
+    // wrong user with no permissions
+    const wrongUser = await initializeUser()
+    let response = await instance.get(`/dashboards/${id}`, {
+      headers: {
+        Cookie: wrongUser.cookie,
+      },
+    })
+    expect(response.status).toBe(403)
 
-describe('GET: /dashboards', () => {
-  it('200: OK', () => {})
+    // none existing id
+    const noneExistingId = '§fhsoER=§EdSND§E'
+    response = await instance.get(`/dashboards/${noneExistingId}`, {
+      headers: {
+        Cookie: params.cookie,
+      },
+    })
+    expect(response.status).toBe(403)
+  })
 })
