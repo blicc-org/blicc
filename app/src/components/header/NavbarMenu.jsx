@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ReactComponent as Grid } from './Grid.svg'
+import { ReactComponent as Grid } from '../../assets/img/Grid.svg'
 
 export function NavbarMenu() {
   return (
