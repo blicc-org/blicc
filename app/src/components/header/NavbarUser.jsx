@@ -35,7 +35,7 @@ export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-            onClick={(event) => {
+            onClick={event => {
               event.preventDefault()
               toggle()
             }}
@@ -43,7 +43,6 @@ export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
             <User className="user" size={24}></User>
           </a>
           <div
-            
             className={`dropdown-menu dropdown-menu-right ${
               dropdownOpen ? 'show' : ''
             }`}
