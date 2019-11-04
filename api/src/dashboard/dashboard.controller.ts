@@ -32,4 +32,17 @@ export class DashboardController {
       ctx.status = status.INTERNAL_SERVER_ERROR
     }
   }
+
+  public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+    await next()
+    try {
+      const dashboards = await this.dashboardService.selectAllByUserId(
+        ctx.user.id
+      )
+      ctx.body = { dashboards }
+      ctx.status = status.OK
+    } catch (e) {
+      ctx.status = status.INTERNAL_SERVER_ERROR
+    }
+  }
 }

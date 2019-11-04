@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom'
 import { User } from 'react-feather'
 
 export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
-  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [open, setOpen] = useState(false)
   const ref = useRef()
 
   function toggle() {
-    setDropdownOpen(prevState => !prevState)
+    setOpen(prevState => !prevState)
   }
 
   useEffect(() => {
     function handleClick(event) {
       if (ref.current && !ref.current.contains(event.target)) {
-        setDropdownOpen(false)
+        setOpen(false)
       }
     }
 
@@ -44,7 +44,7 @@ export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
           </a>
           <div
             className={`dropdown-menu dropdown-menu-right ${
-              dropdownOpen ? 'show' : ''
+              open ? 'show' : ''
             }`}
             aria-labelledby="navbarDropdown"
           >

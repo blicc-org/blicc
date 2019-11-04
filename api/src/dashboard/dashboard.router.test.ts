@@ -82,3 +82,66 @@ describe('GET: /dashboards/:id', () => {
     expect(response.status).toBe(403)
   })
 })
+
+describe('GET: /dashboards', () => {
+  let params = { email: '', userId: '', cookie: '' }
+
+  beforeEach(async () => {
+    params = await initializeUser()
+    await instance.post(
+      '/dashboards',
+      {
+        title: 'Title',
+        data: {},
+      },
+      {
+        headers: {
+          Cookie: params.cookie,
+        },
+      }
+    )
+    await instance.post(
+      '/dashboards',
+      {
+        title: 'Title2',
+        data: {},
+      },
+      {
+        headers: {
+          Cookie: params.cookie,
+        },
+      }
+    )
+  })
+
+  it('200: OK', async () => {
+    let response = await instance.get('/dashboards', {
+      headers: {
+        Cookie: params.cookie,
+      },
+    })
+    expect(response.status).toBe(200)
+
+    // check validation for empty result
+    params = await initializeUser()
+    const { status } = await instance.get('/dashboards', {
+      headers: {
+        Cookie: params.cookie,
+      },
+    })
+    expect(response.status).toBe(200)
+  })
+
+  it('401: Unauthorized', async () => {
+    const { status } = await instance.get('/dashboards')
+    expect(status).toBe(401)
+  })
+})
+
+describe('PUT: /dashboards/:id', () => {
+  it('200: OK', () => {})
+})
+
+describe('DELETE: /dashboards/:id', () => {
+  it('200: OK', () => {})
+})

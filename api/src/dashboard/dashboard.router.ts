@@ -132,7 +132,7 @@ export class DashboardRouter {
     /**
      * @swagger
      *
-     * /dashboards{id}:
+     * /dashboards/{id}:
      *   get:
      *     security:
      *       - cookieAuth: []
@@ -218,6 +218,99 @@ export class DashboardRouter {
         },
       },
       handler: this.controller.access.bind(this.controller),
+    })
+
+    /**
+     * @swagger
+     *
+     * /dashboards:
+     *   get:
+     *     security:
+     *       - cookieAuth: []
+     *     securitySchemes:
+     *       bearerAuth:
+     *         type: http
+     *         scheme: bearer
+     *         bearerFormat: JWT
+     *     produces:
+     *       - application/json
+     *     tags:
+     *       - Dashboards
+     *     summary: List dashboards
+     *     description: List dashboards by given filter.
+     *     responses:
+     *       200:
+     *         description: OK
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - dashboards
+     *               properties:
+     *                 dashboards:
+     *                   type: object
+     *                   properties:
+     *                     dashboard:
+     *                       type: object
+     *                       properties:
+     *                         id:
+     *                           type: string
+     *                         title:
+     *                           type: string
+     *                         userId:
+     *                           type: string
+     *                         data:
+     *                           type: json
+     *                         creationDate:
+     *                           type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   dashboards: [
+     *                     {
+     *                       id: "WaDQc9_H",
+     *                       title: "Dashboard 1",
+     *                       userId: "b1x_S29n",
+     *                       data: {},
+     *                       creationDate: "2019-11-02T15:45:58.284Z"
+     *                     },
+     *                     {
+     *                       id: "vUtM3jpW",
+     *                       title: "Dashboard 2",
+     *                       userId: "0FTY2Ne8",
+     *                       data: {},
+     *                       creationDate: "2019-10-01T11:32:12.534Z"
+     *                     },
+     *                   ]
+     *                 }
+     *       401:
+     *         description: Unauthorized
+     *       500:
+     *         description: Internal Server Error
+     */
+    this.router.route({
+      method: 'get',
+      path: '/',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+      ],
+      validate: {
+        output: {
+          200: {
+            body: {
+              dashboards: Joi.array().items({
+                id: Joi.string().required(),
+                title: Joi.string().required(),
+                userId: Joi.string().required(),
+                data: Joi.object().required(),
+                creationDate: Joi.string().required(),
+              }),
+            },
+          },
+        },
+      },
+      handler: this.controller.list.bind(this.controller),
     })
 
     return this.router.middleware()
