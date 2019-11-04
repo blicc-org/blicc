@@ -4,6 +4,7 @@ import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
 import { Redirect } from 'react-router-dom'
 import { LoginTwoFactorAuth } from './LoginTwoFactorAuth'
+import { MetaData } from '../../components/meta-data/MetaData'
 import './Login.scss'
 
 const Steps = {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { DashboardPageHeader } from './DashboardPageHeader'
 import { Dashboard } from '../../components/dashboard/Dashboard'
-import MetaData from '../../components/meta-data/MetaData'
+import { MetaData } from '../../components/meta-data/MetaData'
 
 export function DashboardPage() {
   const title = 'Dashboards'
