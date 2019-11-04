@@ -286,13 +286,13 @@ describe('DELETE: /dashboards/:id', () => {
   })
 
   it('401: Unauthorized', async () => {
-    let response = await instance.delete(`/dashboards/${id}`)
+    const response = await instance.delete(`/dashboards/${id}`)
     expect(response.status).toBe(401)
   })
 
   it('403: Forbidden', async () => {
     params = await initializeUser()
-    let response = await instance.delete(`/dashboards/${id}`, {
+    const response = await instance.delete(`/dashboards/${id}`, {
       headers: {
         Cookie: params.cookie,
       },
