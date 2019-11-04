@@ -19,7 +19,6 @@ export function Selector({ type, closeSidebar }) {
   }
 
   function onDragStartHandler(event) {
-    console.log('start drag')
     event.dataTransfer.setData('chart_type', type)
     event.dataTransfer.setDragImage(event.target, 0, 0)
     setDragState(true)

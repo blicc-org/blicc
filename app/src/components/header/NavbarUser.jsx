@@ -18,9 +18,11 @@ export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
     }
 
     document.addEventListener('mousedown', event => handleClick(event))
-    return document.removeEventListener('mousedown', event =>
-      handleClick(event)
-    )
+    document.addEventListener('touchstart', event => handleClick(event))
+    return () => {
+      document.removeEventListener('mousedown', event => handleClick(event))
+      document.removeEventListener('touchstart', event => handleClick(event))
+    }
   }, [])
 
   return (
