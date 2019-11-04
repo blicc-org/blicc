@@ -35,7 +35,7 @@ export function Profile() {
 
   return (
     <>
-      <div className="col-md-8 mx-auto py-5 my-5">
+      <div className="col-lg-8 mx-auto py-5 my-5">
         <div className="card">
           <h5 className="card-header">Profile</h5>
           <div className="card-body">
