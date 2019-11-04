@@ -102,7 +102,7 @@ export function Sidebar({ open }) {
           </>
         ) : (
           <>
-            <ul className="nav flex-column px-2 pt-4">
+            <ul className="nav flex-column px-3 pt-4">
               <li className="nav-item">
                 <p className="text-muted">
                   <Link to="/register">Register now</Link>
