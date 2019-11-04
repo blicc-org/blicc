@@ -45,4 +45,32 @@ export class DashboardController {
       ctx.status = status.INTERNAL_SERVER_ERROR
     }
   }
+
+  public async update(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+    await next()
+    try {
+      const { id } = ctx.params
+      const dashboard = await this.dashboardService.selectById(id)
+      if (dashboard !== undefined && ctx.user.id === dashboard.userId) {
+        if (ctx.request.body.title) dashboard.title = ctx.request.body.title
+        if (ctx.request.body.data) dashboard.data = ctx.request.body.data
+        if (
+          ctx.request.body.id !== dashboard.id ||
+          ctx.request.body.userId !== dashboard.userId ||
+          ctx.request.body.creationDate !== dashboard.creationDate
+        ) {
+          ctx.status = status.BAD_REQUEST
+          return
+        }
+
+        await this.dashboardService.update(dashboard)
+        ctx.body = dashboard
+        ctx.status = status.OK
+        return
+      }
+      ctx.status = status.FORBIDDEN
+    } catch (e) {
+      ctx.status = status.INTERNAL_SERVER_ERROR
+    }
+  }
 }

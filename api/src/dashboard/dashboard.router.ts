@@ -313,6 +313,136 @@ export class DashboardRouter {
       handler: this.controller.list.bind(this.controller),
     })
 
+    /**
+     * @swagger
+     *
+     * /dashboards/{id}:
+     *   put:
+     *     security:
+     *       - cookieAuth: []
+     *     securitySchemes:
+     *       bearerAuth:
+     *         type: http
+     *         scheme: bearer
+     *         bearerFormat: JWT
+     *     produces:
+     *       - application/json
+     *     tags:
+     *       - Dashboards
+     *     summary: Update dashboard
+     *     description: Update dashboard by id.
+     *     requestBody:
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - dashboard
+     *               properties:
+     *                 dashboard:
+     *                   type: object
+     *                   required:
+     *                   - id
+     *                   - title
+     *                   - userId
+     *                   - data
+     *                   - creationDate
+     *                   properties:
+     *                     id:
+     *                       type: string
+     *                     title:
+     *                       type: string
+     *                     userId:
+     *                       type: string
+     *                     data:
+     *                       type: json
+     *                     creationDate:
+     *                       type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   id: "WaDQc9_H",
+     *                   title: "New Title",
+     *                   userId: "b1x_S29n",
+     *                   data: {},
+     *                   creationDate: "2019-11-02T15:45:58.284Z"
+     *                 }
+     *     responses:
+     *       200:
+     *         description: Created
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - dashboard
+     *               properties:
+     *                 dashboard:
+     *                   type: object
+     *                   required:
+     *                   - id
+     *                   - title
+     *                   - userId
+     *                   - data
+     *                   - creationDate
+     *                   properties:
+     *                     id:
+     *                       type: string
+     *                     title:
+     *                       type: string
+     *                     userId:
+     *                       type: string
+     *                     data:
+     *                       type: json
+     *                     creationDate:
+     *                       type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   id: "WaDQc9_H",
+     *                   title: "New Title",
+     *                   userId: "b1x_S29n",
+     *                   data: {},
+     *                   creationDate: "2019-11-02T15:45:58.284Z"
+     *                 }
+     *       400:
+     *         description: Bad request
+     *       401:
+     *         description: Unauthorized
+     *       403:
+     *         description: Forbidden
+     *       500:
+     *         description: Internal Server Error
+     */
+    this.router.route({
+      method: 'put',
+      path: '/:id',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+      ],
+      validate: {
+        type: 'json',
+        body: {
+          id: Joi.string().required(),
+          title: Joi.string().required(),
+          userId: Joi.string().required(),
+          data: Joi.object().required(),
+          creationDate: Joi.string().required(),
+        },
+        output: {
+          200: {
+            body: {
+              id: Joi.string().required(),
+              title: Joi.string().required(),
+              userId: Joi.string().required(),
+              data: Joi.object().required(),
+              creationDate: Joi.string().required(),
+            },
+          },
+        },
+      },
+      handler: this.controller.update.bind(this.controller),
+    })
+
     return this.router.middleware()
   }
 }

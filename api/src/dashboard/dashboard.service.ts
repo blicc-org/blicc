@@ -26,6 +26,10 @@ export class DashboardService {
     return await this.repo.find({ where: { userId } })
   }
 
+  public async update(dashboard: Dashboard): Promise<Dashboard> {
+    return await this.repo.save(dashboard)
+  }
+
   public async generateId(): Promise<string> {
     const id = shortid.generate()
     const response = await this.repo.findOne(id)
