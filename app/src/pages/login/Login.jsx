@@ -12,6 +12,10 @@ const Steps = {
 }
 
 export function Login() {
+  const title = 'Login'
+  const description = 'Login to be able to view your private content.'
+  const path = '/login'
+
   const [step, setStep] = useState(Steps.PASSWORD)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -34,6 +38,7 @@ export function Login() {
   return (
     <>
       {appState.loggedIn && <Redirect to="/dashboards" />}
+      <MetaData title={title} description={description} path={path} />
       <div className="col-md-5 mx-auto py-5 my-5 text-center">
         {step === Steps.PASSWORD ? (
           <LoginPassword
