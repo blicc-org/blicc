@@ -368,7 +368,7 @@ export class DashboardRouter {
      *                 }
      *     responses:
      *       200:
-     *         description: Created
+     *         description: OK
      *         content:
      *           application/json:
      *             schema:
@@ -441,6 +441,86 @@ export class DashboardRouter {
         },
       },
       handler: this.controller.update.bind(this.controller),
+    })
+
+    /**
+     * @swagger
+     *
+     * /dashboards/{id}:
+     *   delete:
+     *     security:
+     *       - cookieAuth: []
+     *     securitySchemes:
+     *       bearerAuth:
+     *         type: http
+     *         scheme: bearer
+     *         bearerFormat: JWT
+     *     produces:
+     *       - application/json
+     *     tags:
+     *       - Dashboards
+     *     summary: Delete dashboard
+     *     description: Update dashboard by id.
+     *     responses:
+     *       200:
+     *         description: OK
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - dashboard
+     *               properties:
+     *                 dashboard:
+     *                   type: object
+     *                   required:
+     *                   - title
+     *                   - userId
+     *                   - data
+     *                   - creationDate
+     *                   properties:
+     *                     title:
+     *                       type: string
+     *                     userId:
+     *                       type: string
+     *                     data:
+     *                       type: json
+     *                     creationDate:
+     *                       type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   title: "New Title",
+     *                   userId: "b1x_S29n",
+     *                   data: {},
+     *                   creationDate: "2019-11-02T15:45:58.284Z"
+     *                 }
+     *       401:
+     *         description: Unauthorized
+     *       403:
+     *         description: Forbidden
+     *       500:
+     *         description: Internal Server Error
+     */
+    this.router.route({
+      method: 'delete',
+      path: '/:id',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+      ],
+      validate: {
+        output: {
+          200: {
+            body: {
+              title: Joi.string().required(),
+              userId: Joi.string().required(),
+              data: Joi.object().required(),
+              creationDate: Joi.string().required(),
+            },
+          },
+        },
+      },
+      handler: this.controller.delete.bind(this.controller),
     })
 
     return this.router.middleware()

@@ -24,42 +24,23 @@ export class UserService {
     const hasTwoFactorAuth = false
     const twoFactorAuthSecret = ''
 
-    const user = this.stripSecrets(
-      await this.repo.save(
-        new UserEntity(
-          firstName,
-          lastName,
-          email,
-          passwordHash,
-          role,
-          hasTwoFactorAuth,
-          twoFactorAuthSecret
-        )
+    const user = await this.repo.save(
+      new UserEntity(
+        firstName,
+        lastName,
+        email,
+        passwordHash,
+        role,
+        hasTwoFactorAuth,
+        twoFactorAuthSecret
       )
     )
 
+    delete user.twoFactorAuthSecret
+    delete user.passwordHash
+
     await new MailService().send(user, MailType.WELCOME)
     return user
-  }
-
-  public stripSecrets(user: User): User {
-    return (({
-      id,
-      firstName,
-      lastName,
-      email,
-      role,
-      hasTwoFactorAuth,
-      creationDate,
-    }): User => ({
-      id,
-      firstName,
-      lastName,
-      email,
-      role,
-      hasTwoFactorAuth,
-      creationDate,
-    }))(user)
   }
 
   public async update(user: User): Promise<User> {
