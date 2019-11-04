@@ -460,7 +460,7 @@ export class DashboardRouter {
      *     tags:
      *       - Dashboards
      *     summary: Delete dashboard
-     *     description: Update dashboard by id.
+     *     description: Delete dashboard by id.
      *     responses:
      *       200:
      *         description: OK
@@ -489,7 +489,7 @@ export class DashboardRouter {
      *             examples:
      *               filter:
      *                 value: {
-     *                   title: "New Title",
+     *                   title: "Dashboard",
      *                   userId: "b1x_S29n",
      *                   data: {},
      *                   creationDate: "2019-11-02T15:45:58.284Z"
