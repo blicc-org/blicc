@@ -124,7 +124,7 @@ describe('GET: /dashboards', () => {
 
     // check validation for empty result
     params = await initializeUser()
-    const { status } = await instance.get('/dashboards', {
+    response = await instance.get('/dashboards', {
       headers: {
         Cookie: params.cookie,
       },
