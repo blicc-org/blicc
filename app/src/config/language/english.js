@@ -40,12 +40,12 @@ export const content = {
       category: 'About',
       items: [
         {
-          title: 'About',
-          link: '/pages/about',
+          title: 'Docs',
+          link: '/pages/docs',
         },
         {
-          title: 'Impressum',
-          link: '/pages/impressum',
+          title: 'Imprint',
+          link: '/pages/imprint',
         },
       ],
     },

@@ -1,10 +1,5 @@
 # Impressum
 
-Diese Website wird von dem Unternehmen **Beispielfirma** betrieben. Das Unternehmen wird gesetzlich durch den Geschäftsführer **Max Mustermann** vertreten.
-
-Steuernummer: Nummer  
-USt-IdNr.: Nummer
-
 **Beispielfirma**
 Straße 1  
 10317 Berlin  
@@ -12,7 +7,7 @@ Deutschland
 
 E-Mail: email@example.com  
 
-### Haftungsausschluss (Disclamer)
+### Haftungsausschluss
 
 #### Haftung für Inhalte
 Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
