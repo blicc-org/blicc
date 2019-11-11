@@ -1,5 +1,5 @@
 import React from 'react'
-import { content } from '../../config/language/english'
+import { content } from '../../content/english'
 
 export function NotFound() {
   const { pages } = content

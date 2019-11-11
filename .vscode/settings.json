@@ -33,6 +33,12 @@
       "extensions": ["cmd", "command", "commands", "cli"],
       "format": "FileFormat.svg",
       "disabled": false
+    },
+    {
+      "icon": "locale",
+      "extensions": ["language", "content"],
+      "format": "FileFormat.svg",
+      "disabled": false
     }
   ]
 }
