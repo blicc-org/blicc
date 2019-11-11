@@ -6,6 +6,7 @@ export const INITIAL_APP_STATE = {
   firstName: '',
   lastName: '',
   loggedIn: false,
+  language: 'en',
 }
 
 export const AppContext = createContext()

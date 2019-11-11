@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Markdown from 'react-markdown'
 import { Highlighter } from '../../components/syntax-highlighting/Highlighter'
 import { APP } from '../../config'
+import { AppContext } from '../../context/AppContext'
 import './PageGenerator.scss'
 
 export function PageGenerator({ location }) {
+  const [appState] = useContext(AppContext)
   const [text, setText] = useState('')
   const [notFound, setNotFound] = useState(false)
   let { pathname } = location
@@ -14,14 +16,16 @@ export function PageGenerator({ location }) {
   useEffect(() => {
     async function getText() {
       try {
-        const { data } = await axios.get(`${APP.ORIGIN}${pathname}.en.md`)
+        const { data } = await axios.get(
+          `${APP.ORIGIN}${pathname}.${appState.language}.md`
+        )
         setText(data)
       } catch (e) {
         setNotFound(true)
       }
     }
     getText()
-  }, [pathname, location])
+  }, [pathname, appState])
 
   return (
     <>

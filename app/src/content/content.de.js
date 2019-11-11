@@ -1,7 +1,8 @@
 const content = {
   title: 'Blicc',
-  description: 'Visualize your data with customizable dashboards.',
-  copyright: 'Open Source MIT license',
+  description:
+    'Veranschauliche deine Daten mit individualisierbaren Dashboards',
+  copyright: 'Open Source MIT Lizenz',
 }
 
 export default content

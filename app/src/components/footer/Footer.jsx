@@ -1,25 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FooterNav } from './FooterNav'
-import { content } from '../../content/content'
+import { FooterLanguageSelect } from './FooterLanguageSelect'
+import { useContent } from '../../hooks/useContent'
 
 export function Footer() {
-  const languages = ['german', 'english']
-  const [language, setLanguage] = useState()
+  const content = useContent()
 
   return (
     <footer>
       <FooterNav />
-      <div className="m-3">
-        <select className="form-control form-control-sm">
-          {languages.map(lg => {
-            return <option key={lg}>{lg}</option>
-          })}
-        </select>
-      </div>
+      <FooterLanguageSelect />
       <div className="m-3">
         <h3>blicc.org</h3>
         <small className="d-block mb-3 text-muted">
-          <p> {`${content.en.copyright} ${new Date().getFullYear()}`}</p>
+          <p> {`${content.copyright} ${new Date().getFullYear()}`}</p>
         </small>
       </div>
     </footer>
