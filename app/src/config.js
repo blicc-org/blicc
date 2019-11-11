@@ -24,4 +24,7 @@ export const breakpoints = {
 
 export const sidebarWidth = 232
 
-export const languages = ['en', 'de']
+export const languages = {
+  en: 'English',
+  de: 'Deutsch',
+}

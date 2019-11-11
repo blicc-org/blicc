@@ -1,6 +1,6 @@
 import React from 'react'
 import { FooterNav } from './FooterNav'
-import { FooterLanguageSelect } from './FooterLanguageSelect'
+import { LanguageSelect } from '../language-select/LanguageSelect'
 import { useContent } from '../../hooks/useContent'
 
 export function Footer() {
@@ -9,7 +9,9 @@ export function Footer() {
   return (
     <footer>
       <FooterNav />
-      <FooterLanguageSelect />
+      <div className="m-3">
+        <LanguageSelect />
+      </div>
       <div className="m-3">
         <h3>blicc.org</h3>
         <small className="d-block mb-3 text-muted">
