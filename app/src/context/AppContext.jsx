@@ -1,13 +1,12 @@
 import React, { createContext } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
-import { languages } from '../config'
 
 export const INITIAL_APP_STATE = {
   id: '',
   firstName: '',
   lastName: '',
   loggedIn: false,
-  language: languages.en,
+  language: 'en',
 }
 
 export const AppContext = createContext()
