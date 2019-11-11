@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { User } from 'react-feather'
+import { useContent } from '../../hooks/useContent'
 
 export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
+  const content = useContent()
   const [open, setOpen] = useState(false)
   const ref = useRef()
 
@@ -50,10 +52,10 @@ export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
             }`}
             aria-labelledby="navbarDropdown"
           >
-            <h6 className="dropdown-header">{`Welcome ${firstName} ${lastName}`}</h6>
+            <h6 className="dropdown-header">{`${content.navbar.welcome} ${firstName} ${lastName}`}</h6>
             <div className="dropdown-divider"></div>
             <Link className="dropdown-item" to="/profile" onClick={toggle}>
-              Profile
+              {content.navbar.profile}
             </Link>
             <div className="dropdown-divider"></div>
             <Link
@@ -64,14 +66,14 @@ export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
                 logout()
               }}
             >
-              Logout
+              {content.navbar.logout}
             </Link>
           </div>
         </li>
       ) : (
         <li className="nav-item text-nowrap">
           <Link className="nav-link" to="/login">
-            Sign in
+            {content.navbar.signin}
           </Link>
         </li>
       )}

@@ -9,6 +9,7 @@ import { Selector } from '../dashboard/Selector'
 import { TYPE } from '../charts/Chart'
 import { Footer } from '../footer/Footer'
 import './Sidebar.scss'
+import { useContent } from '../../hooks/useContent'
 
 function SidebarHeader({ name }) {
   return (
@@ -19,6 +20,7 @@ function SidebarHeader({ name }) {
 }
 
 export function Sidebar({ open }) {
+  const content = useContent()
   const [appState] = useContext(AppContext)
   const { loggedIn } = appState
   const [, setSidebarState] = useContext(SidebarContext)
@@ -105,8 +107,8 @@ export function Sidebar({ open }) {
             <ul className="nav flex-column px-3 pt-4">
               <li className="nav-item">
                 <p className="text-muted">
-                  <Link to="/register">Register now</Link>
-                  {`  to start designing and analysing your data.`}
+                  <Link to="/register">{content.sidebar.registerNow}</Link>
+                  {` ${content.sidebar.registerNowFollowUp}`}
                 </p>
               </li>
             </ul>

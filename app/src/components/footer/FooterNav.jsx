@@ -1,8 +1,9 @@
 import React from 'react'
 import { FooterNavList } from './FooterNavList'
-import { arrangement } from './arrangement'
+import { useFooterArrangement } from './useFooterArrangement'
 
 export function FooterNav() {
+  const arrangement = useFooterArrangement()
   return (
     <>
       {arrangement.map(list => (
