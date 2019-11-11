@@ -1,11 +1,11 @@
 import React from 'react'
 import { FooterNavList } from './FooterNavList'
-import { content } from '../../content/english'
+import { arrangement } from './arrangement'
 
 export function FooterNav() {
   return (
     <>
-      {content.footerNavigation.map(list => (
+      {arrangement.map(list => (
         <FooterNavList key={list.category} list={list} />
       ))}
     </>

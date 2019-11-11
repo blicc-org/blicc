@@ -2,7 +2,7 @@ import React, { useContext, useState, useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
-import { content } from '../../content/english'
+import { content } from '../../content/content'
 import { ReactComponent as Burger } from '../../assets/img/Burger.svg'
 import { ReactComponent as Maskot } from '../../assets/img/Maskot.svg'
 import { NavbarCreate } from './NavbarCreate'
@@ -46,7 +46,7 @@ export function NavBar({ toggleMenu }) {
         </div>
         <Link className="navbar-brand p-1" style={style} to="/">
           <Maskot className="maskot" />
-          <div className="title">{content.metadata.title} </div>
+          <div className="title">{content.en.title} </div>
         </Link>
         <div
           className="collapse navbar-collapse px-3"
