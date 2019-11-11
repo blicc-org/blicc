@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API } from '../config/env'
+import { API } from '../config'
 
 export function useApiEndpoint(path = '') {
   const instance = axios.create({

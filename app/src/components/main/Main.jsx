@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { SidebarContext } from '../../context/SidebarContext'
 import { useMobile } from '../../hooks/useMobile'
-import { sidebarWidth } from '../../config/gui'
+import { sidebarWidth } from '../../config'
 import './Main.scss'
 
 export function Main({ children }) {

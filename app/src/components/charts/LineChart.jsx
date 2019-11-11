@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { Chart } from 'chart.js'
-import theme from '../../config/Theme.scss'
+import theme from '../../Theme.scss'
 import './LineChart.scss'
 
 export function LineChart({ id }) {

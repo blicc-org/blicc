@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useColor } from '../../../hooks/useColor'
-import theme from '../../../config/Theme.scss'
+import theme from '../../../Theme.scss'
 import './Positioning.scss'
 
 export const POSITION = {

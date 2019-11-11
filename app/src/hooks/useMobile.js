@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { breakpoints } from '../config/gui'
+import { breakpoints } from '../config'
 
 export function useMobile() {
   const [isMobile, setIsMobile] = useState(breakpoints.md > window.innerWidth)
