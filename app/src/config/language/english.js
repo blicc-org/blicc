@@ -1,6 +1,6 @@
 export const content = {
   metadata: {
-    title: 'blicc.org',
+    title: 'Blicc',
     description: 'Visualize your data with customizable dashboards.',
     copyright: 'Open Source MIT license',
   },
