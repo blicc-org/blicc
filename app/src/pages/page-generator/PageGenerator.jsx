@@ -15,7 +15,7 @@ export function PageGenerator({ location }) {
     async function getText() {
       try {
         const { data } = await axios.get(
-          `${APP.ORIGIN}${pathname.replace('/pages', '')}`
+          `${APP.ORIGIN}${pathname.replace('/pages', '')}.md`
         )
         setText(data)
       } catch (e) {

@@ -31,10 +31,6 @@ export const content = {
           link: 'https://github.com/blicc-org/blicc',
         },
         {
-          title: 'Read me',
-          link: '/pages/README.md',
-        },
-        {
           title: 'OpenAPI 3.0 docs',
           link: 'https://api.blicc.org',
         },
@@ -44,8 +40,12 @@ export const content = {
       category: 'About',
       items: [
         {
+          title: 'About',
+          link: '/pages/about',
+        },
+        {
           title: 'Impressum',
-          link: '/pages/impressum.md',
+          link: '/pages/impressum',
         },
       ],
     },
