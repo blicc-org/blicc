@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Search as SearchIcon, ArrowLeft } from 'react-feather'
 import { useMobile } from '../../hooks/useMobile'
 import theme from '../../Theme.scss'
@@ -14,7 +15,13 @@ export function Search() {
         <div className="mobile-search">
           <form className="form-inline input-group search w-100">
             <div className="input-group-prepend">
-              <button className="btn" onClick={() => setOpen(false)}>
+              <button
+                className="btn"
+                onClick={event => {
+                  event.preventDefault()
+                  setOpen(false)
+                }}
+              >
                 <ArrowLeft />
               </button>
             </div>
@@ -33,13 +40,17 @@ export function Search() {
         </div>
       )}
       {isMobile ? (
-        <a
+        <Link
+          to="/"
           className="nav-link ml-auto"
           style={{ cursor: 'pointer' }}
-          onClick={() => setOpen(true)}
+          onClick={event => {
+            event.preventDefault()
+            setOpen(true)
+          }}
         >
           <SearchIcon style={{ color: theme.lightgray }} />
-        </a>
+        </Link>
       ) : (
         <form className="form-inline input-group search w-100 pr-5">
           <input
