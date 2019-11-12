@@ -65,7 +65,7 @@
     "start:prod": "node ./build/index.js -p 80",
     "debug": "node ./src/intex.ts",
     "build": "tsc -p tsconfig.prod.json",
-    "test": "cross-env API_TEST_TARGET=http://localhost jest",
+    "test": "cross-env API_TEST_TARGET=http://localhost jest --debug",
     "fix": "eslint --fix \"src/**/*.+(ts|tsx)\""
   }
 }

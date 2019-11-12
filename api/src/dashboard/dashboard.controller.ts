@@ -36,9 +36,18 @@ export class DashboardController {
   public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     try {
+      const fields: string[] = ctx.query.fields
+        ? ctx.query.fields.split(',')
+        : undefined
       const dashboards = await this.dashboardService.selectAllByUserId(
-        ctx.user.id
+        ctx.user.id,
+        fields
       )
+      if (!dashboards) {
+        ctx.status = status.BAD_REQUEST
+        return
+      }
+
       ctx.body = { dashboards }
       ctx.status = status.OK
     } catch (e) {

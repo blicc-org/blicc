@@ -1,4 +1,5 @@
 import { instance, initializeUser } from '../test/user.helper'
+import { Dashboard } from './dashboard.interface'
 
 describe('POST: /dashboards', () => {
   let params = { email: '', userId: '', cookie: '' }
@@ -121,6 +122,23 @@ describe('GET: /dashboards', () => {
       },
     })
     expect(response.status).toBe(200)
+
+    response = await instance.get('/dashboards?fields=id,data', {
+      headers: {
+        Cookie: params.cookie,
+      },
+    })
+    const fields = ['id', 'data']
+    expect(response.status).toBe(200)
+    expect(
+      response.data.dashboards.every(
+        (dashboard: Dashboard): Boolean => {
+          return Object.keys(dashboard).every(field => {
+            return fields.includes(field)
+          })
+        }
+      )
+    ).toBe(true)
 
     // check validation for empty result
     params = await initializeUser()

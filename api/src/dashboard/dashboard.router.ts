@@ -236,6 +236,14 @@ export class DashboardRouter {
      *       - application/json
      *     tags:
      *       - Dashboards
+     *     parameters:
+     *       - in: query
+     *         name: fields
+     *         schema:
+     *           type: array
+     *         style: form
+     *         explode: false
+     *         description: Concatenate field names you want to receive like this ?fields=id,title,userId,creationDate,data . If you do not provide the field query you get all fields.
      *     summary: List dashboards
      *     description: List dashboards by given filter.
      *     responses:
@@ -300,11 +308,11 @@ export class DashboardRouter {
           200: {
             body: {
               dashboards: Joi.array().items({
-                id: Joi.string().required(),
-                title: Joi.string().required(),
-                userId: Joi.string().required(),
-                data: Joi.object().required(),
-                creationDate: Joi.string().required(),
+                id: Joi.string(),
+                title: Joi.string(),
+                userId: Joi.string(),
+                data: Joi.object(),
+                creationDate: Joi.string(),
               }),
             },
           },
