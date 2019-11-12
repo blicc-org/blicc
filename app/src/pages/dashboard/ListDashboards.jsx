@@ -3,26 +3,30 @@ import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 import statusCode from 'http-status-codes'
 
 export function ListDashboards() {
-  const [data, setData] = useState('')
-  const [, access, ,] = useApiEndpoint('/dashboards')
+  const [dashboards, setDashboards] = useState([])
+  const [, access, ,] = useApiEndpoint(
+    '/dashboards?fields=id,title,creationDate'
+  )
 
   useEffect(() => {
     async function fetchData() {
       const [status, data] = await access()
-      console.log(status)
-      console.log(data)
       if (status === statusCode.OK) {
-        setData(JSON.stringify(data))
+        setDashboards(data.dashboards)
       }
     }
     fetchData()
   }, [access])
 
   return (
-    <>
-      <div>
-        <p>{data}</p>
-      </div>
-    </>
+    <ul>
+      {dashboards.map(dashboard => {
+        return (
+          <li key={dashboard.id}>
+            Title: {dashboard.title}, erstellt am: {dashboard.creationDate}
+          </li>
+        )
+      })}
+    </ul>
   )
 }

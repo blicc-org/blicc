@@ -8,6 +8,7 @@ import { ReactComponent as Maskot } from '../../assets/img/Maskot.svg'
 import { NavbarCreate } from './NavbarCreate'
 import { NavbarMenu } from './NavbarMenu'
 import { NavbarUser } from './NavbarUser'
+import { Search } from '../search/Search'
 import './Navbar.scss'
 
 export function NavBar({ toggleMenu }) {
@@ -38,32 +39,38 @@ export function NavBar({ toggleMenu }) {
         className="navbar navbar-expand fixed-top navbar-dark bg-dark p-0"
         style={{ width }}
       >
-        <div
-          className="menu-button nav-link pl-4 pr-3 py-2"
-          style={{ marginBottom: '2px' }}
-          onClick={toggleMenu}
-        >
-          <Burger className="burger" />
-        </div>
-        <Link className="navbar-brand p-1" style={style} to="/">
-          <Maskot className="maskot" />
-          <div className="title">{content.title} </div>
-        </Link>
-        <div
-          className="collapse navbar-collapse px-3"
-          id="navbarSupportedContent"
-        >
-          <ul className="navbar-nav ml-auto">
-            <NavbarCreate />
-            <NavbarMenu />
-            <NavbarUser
-              firstName={firstName}
-              lastName={lastName}
-              loggedIn={loggedIn}
-              logout={logout}
-            />
-          </ul>
-        </div>
+        <ul className="navbar-nav pull-left">
+          <li className="nav-item">
+            <div
+              className="menu-button nav-link pl-4 pr-3 py-2"
+              style={{ marginBottom: '2px' }}
+              onClick={toggleMenu}
+            >
+              <Burger className="burger" />
+            </div>
+          </li>
+          <li className="nav-item">
+            <Link className="navbar-brand p-1" style={style} to="/">
+              <Maskot className="maskot" />
+              <div className="title">{content.title} </div>
+            </Link>
+          </li>
+        </ul>
+        <ul className="navbar-nav mx-auto">
+          <li className="nav-item">
+            <Search />
+          </li>
+        </ul>
+        <ul className="navbar-nav pull-right pr-3">
+          <NavbarCreate />
+          <NavbarMenu />
+          <NavbarUser
+            firstName={firstName}
+            lastName={lastName}
+            loggedIn={loggedIn}
+            logout={logout}
+          />
+        </ul>
       </nav>
     </>
   )
