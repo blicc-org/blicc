@@ -17,3 +17,13 @@
   height: 40px;
   background-color: $light;
 }
+
+.mobile-search {
+  z-index: 1000;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 40px;
+  background-color: $light;
+}
