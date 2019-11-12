@@ -5,10 +5,9 @@ import { useSession } from '../../hooks/useSession'
 import { useContent } from '../../hooks/useContent'
 import { ReactComponent as Burger } from '../../assets/img/Burger.svg'
 import { ReactComponent as Maskot } from '../../assets/img/Maskot.svg'
-import { NavbarCreate } from './NavbarCreate'
-import { NavbarMenu } from './NavbarMenu'
 import { NavbarUser } from './NavbarUser'
 import { Search } from '../search/Search'
+import { sidebarWidth } from '../../config'
 import './Navbar.scss'
 
 export function NavBar({ toggleMenu }) {
@@ -39,7 +38,10 @@ export function NavBar({ toggleMenu }) {
         className="navbar navbar-expand fixed-top navbar-dark bg-dark p-0"
         style={{ width }}
       >
-        <ul className="navbar-nav pull-left">
+        <ul
+          className="navbar-nav"
+          style={{ width: `${sidebarWidth}px`, flexShrink: 0 }}
+        >
           <li className="nav-item">
             <div
               className="menu-button nav-link pl-4 pr-3 py-2"
@@ -56,14 +58,10 @@ export function NavBar({ toggleMenu }) {
             </Link>
           </li>
         </ul>
-        <ul className="navbar-nav mx-auto">
-          <li className="nav-item">
-            <Search />
-          </li>
+        <ul className="navbar-nav w-100">
+          <Search />
         </ul>
-        <ul className="navbar-nav pull-right pr-3">
-          <NavbarCreate />
-          <NavbarMenu />
+        <ul className="navbar-nav ml-auto pr-3">
           <NavbarUser
             firstName={firstName}
             lastName={lastName}

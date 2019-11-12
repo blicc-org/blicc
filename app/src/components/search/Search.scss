@@ -1,7 +1,19 @@
-.search button {
-  padding: 0px 8px;
+@import '../../Theme';
+
+.search .form-control {
+  border-radius: 0;
+  border: none;
 }
 
-.search-icon {
-  size: 16px;
+.search button {
+  color: $secondary;
+  border: none;
+  border-radius: 0;
+  padding: 0px 9px;
+  background-color: $light;
+}
+
+.search input {
+  height: 40px;
+  background-color: $light;
 }

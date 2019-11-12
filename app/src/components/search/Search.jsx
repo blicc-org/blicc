@@ -4,19 +4,17 @@ import './Search.scss'
 
 export function Search() {
   return (
-    <form className="form-inline search">
-      <div className="input-group ">
-        <input
-          className="form-control"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <div className="input-group-append">
-          <button className="btn btn-light" type="submit">
-            <SearchIcon className="search-icon" />
-          </button>
-        </div>
+    <form className="form-inline input-group search w-100 pr-5">
+      <input
+        className="form-control"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <div className="input-group-append">
+        <button className="btn" type="submit">
+          <SearchIcon className="search-icon" />
+        </button>
       </div>
     </form>
   )
