@@ -58,7 +58,7 @@ export class DashboardService {
     return dashboard
   }
 
-  private validateFields(fields: string[]): Boolean {
+  private validateFields(fields: string[]): boolean {
     return fields.every(field => this.dashboardFields.includes(field))
   }
 }

@@ -291,6 +291,8 @@ export class DashboardRouter {
      *                     },
      *                   ]
      *                 }
+     *       400:
+     *         description: Bad request
      *       401:
      *         description: Unauthorized
      *       500:

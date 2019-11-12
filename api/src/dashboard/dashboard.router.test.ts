@@ -131,13 +131,11 @@ describe('GET: /dashboards', () => {
     const fields = ['id', 'data']
     expect(response.status).toBe(200)
     expect(
-      response.data.dashboards.every(
-        (dashboard: Dashboard): Boolean => {
-          return Object.keys(dashboard).every(field => {
-            return fields.includes(field)
-          })
-        }
-      )
+      response.data.dashboards.every((dashboard: Dashboard): boolean => {
+        return Object.keys(dashboard).every(field => {
+          return fields.includes(field)
+        })
+      })
     ).toBe(true)
 
     // check validation for empty result
@@ -148,6 +146,15 @@ describe('GET: /dashboards', () => {
       },
     })
     expect(response.status).toBe(200)
+  })
+
+  it('400: Bad request', async () => {
+    const { status } = await instance.get('/dashboards?fields=wrongFieldName', {
+      headers: {
+        Cookie: params.cookie,
+      },
+    })
+    expect(status).toBe(400)
   })
 
   it('401: Unauthorized', async () => {
