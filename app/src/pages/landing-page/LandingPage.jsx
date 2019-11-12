@@ -17,7 +17,7 @@ export function LandingPage() {
         <h1 className="display-4 font-weight-normal">{content.title}</h1>
         <p className="lead font-weight-normal">{content.description}</p>
         <Link className="btn btn-outline-primary" to="/dashboards">
-          Get started
+          {content.getStarted}
         </Link>
       </div>
     </>
