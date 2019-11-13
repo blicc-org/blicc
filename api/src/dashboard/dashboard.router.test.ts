@@ -138,6 +138,14 @@ describe('GET: /dashboards', () => {
       })
     ).toBe(true)
 
+    response = await instance.get('dashboards?search=Title2',{
+      headers: {
+        Cookie: params.cookie,
+      },
+    })
+    expect(response.status).toBe(200)
+    expect(response.data.dashboards[0].title).toEqual('Title2')
+
     // check validation for empty result
     params = await initializeUser()
     response = await instance.get('/dashboards', {

@@ -31,14 +31,21 @@ export class DashboardService {
 
   public async selectAllByUserId(
     userId: string,
-    fields: string[] = this.dashboardFields
+    fields: string[] = this.dashboardFields,
+    searchTerm: string = ''
   ): Promise<Dashboard[] | undefined> {
     if (!this.validateFields(fields)) return undefined
+
     fields = fields.map(field => 'dashboard.' + field)
+    searchTerm = this.escapeSearchQuery(searchTerm)
+
     return await this.repo
       .createQueryBuilder('dashboard')
       .select(fields)
       .where('dashboard.userId = :userId', { userId })
+      .andWhere('LOWER(dashboard.title) like LOWER(:title)', {
+        title: '%' + searchTerm + '%',
+      })
       .getMany()
   }
 
@@ -60,5 +67,9 @@ export class DashboardService {
 
   private validateFields(fields: string[]): boolean {
     return fields.every(field => this.dashboardFields.includes(field))
+  }
+
+  private escapeSearchQuery(str: string): string {
+    return str.replace(/[^\w\s!?]/g, '')
   }
 }

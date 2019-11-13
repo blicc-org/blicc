@@ -244,6 +244,11 @@ export class DashboardRouter {
      *         style: form
      *         explode: false
      *         description: Concatenate field names you want to receive like this ?fields=id,title,userId,creationDate,data . If you do not provide the field query you get all fields.
+     *       - in: query
+     *         name: search
+     *         schema:
+     *           type: string
+     *         description: Select dashboards where the title matches the given search term like ?search=profit
      *     summary: List dashboards
      *     description: List dashboards by given filter.
      *     responses:

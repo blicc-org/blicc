@@ -41,7 +41,8 @@ export class DashboardController {
         : undefined
       const dashboards = await this.dashboardService.selectAllByUserId(
         ctx.user.id,
-        fields
+        fields,
+        ctx.query.search
       )
       if (!dashboards) {
         ctx.status = status.BAD_REQUEST
