@@ -4,19 +4,20 @@ import statusCode from 'http-status-codes'
 
 export function ListDashboards() {
   const [dashboards, setDashboards] = useState([])
-  const [, access, ,] = useApiEndpoint(
-    '/dashboards?fields=id,title,creationDate'
-  )
+  const [, access, ,] = useApiEndpoint('/dashboards')
 
   useEffect(() => {
     async function fetchData() {
-      const [status, data] = await access()
+      const [status, data] = await access({
+        params: { fields: 'id,title,creationDate' },
+      })
       if (status === statusCode.OK) {
         setDashboards(data.dashboards)
       }
     }
     fetchData()
-  }, [access])
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <ul>

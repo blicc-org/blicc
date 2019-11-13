@@ -42,9 +42,11 @@ export function Search() {
           </Link>
         </>
       ) : (
-        <form className="form-inline input-group w-100 pr-5">
-          <SearchInputField skin={'gray'} />
-        </form>
+        <div className=" w-100 pr-5">
+          <form className="form-inline input-group w-100">
+            <SearchInputField skin={'gray'} />
+          </form>
+        </div>
       )}
     </>
   )

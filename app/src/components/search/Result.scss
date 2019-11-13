@@ -1,0 +1,26 @@
+@import '../../Theme';
+
+.result {
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+  border-left: 1px solid $light;
+  border-bottom: 1px solid $light;
+  border-right: 1px solid $light;
+}
+
+.result h6 {
+  color: $secondary;
+  margin: 0px;
+}
+
+.result hr {
+  color: $secondary;
+  margin-top: 10px;
+}
+
+.result li{
+    margin-top: 12px;
+}

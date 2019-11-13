@@ -8,23 +8,23 @@ export function useApiEndpoint(path = '') {
     validateStatus: status => status >= 200 && status < 500,
   })
 
-  async function create(resource) {
-    const { data, status } = await instance.post(path, resource)
+  async function create(resource, config = {}) {
+    const { data, status } = await instance.post(path, resource, config)
     return [status, data]
   }
 
-  async function access() {
-    const { data, status } = await instance.get(path)
+  async function access(config = {}) {
+    const { data, status } = await instance.get(path, config)
     return [status, data]
   }
 
-  async function update(resource) {
-    const { data, status } = await instance.put(path, resource)
+  async function update(resource, config = {}) {
+    const { data, status } = await instance.put(path, resource, config)
     return [status, data]
   }
 
-  async function remove() {
-    const { data, status } = await instance.delete(path)
+  async function remove(config = {}) {
+    const { data, status } = await instance.delete(path, config)
     return [status, data]
   }
 
