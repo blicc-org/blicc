@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Result.scss'
 
-export function Result({ show, results }) {
+export function Result({ show, results, close }) {
   return (
     <>
       {show && (
@@ -16,7 +16,7 @@ export function Result({ show, results }) {
               return (
                 <li className="media" key={result.id}>
                   <div className="media-body">
-                    <Link to={`/dashboards/${result.id}`}>
+                    <Link to={`/dashboards/${result.id}`} onClick={() => close()}>
                       <h5 className="mt-0 mb-1">{result.title}</h5>
                     </Link>
                   </div>

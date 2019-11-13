@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import statusCode from 'http-status-codes'
 import { Search as SearchIcon, ArrowLeft } from 'react-feather'
 import { Result } from './Result'
@@ -12,6 +12,7 @@ export function SearchInputField({ isFullscreen = false, onExit = () => {} }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [focused, setFocused] = useState(false)
   const [dashboards, setDashboards] = useState([])
+  const ref = useRef()
 
   useEffect(() => {
     async function fetchData() {
@@ -40,11 +41,27 @@ export function SearchInputField({ isFullscreen = false, onExit = () => {} }) {
     setGgColor(theme.light)
   }
 
-  function onBlur() {
+
+  function close() {
     setFocused(false)
     setGgColor(getDefault())
     setSearchTerm('')
   }
+
+  useEffect(() => {
+    function handleClick(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        close(false)
+      }
+    }
+
+    document.addEventListener('mousedown', event => handleClick(event))
+    document.addEventListener('touchstart', event => handleClick(event))
+    return () => {
+      document.removeEventListener('mousedown', event => handleClick(event))
+      document.removeEventListener('touchstart', event => handleClick(event))
+    }
+  }, [])
 
   return (
     <>
@@ -53,7 +70,7 @@ export function SearchInputField({ isFullscreen = false, onExit = () => {} }) {
           isFullscreen ? 'search-mobile' : ''
         }`}
         onFocus={onFocus}
-        onBlur={onBlur}
+        ref={ref}
       >
         {isFullscreen && (
           <div className="input-group-prepend">
@@ -86,7 +103,7 @@ export function SearchInputField({ isFullscreen = false, onExit = () => {} }) {
             <SearchIcon />
           </button>
         </div>
-        <Result show={focused} results={dashboards} />
+        <Result show={focused} close={close} results={dashboards} />
       </form>
     </>
   )
