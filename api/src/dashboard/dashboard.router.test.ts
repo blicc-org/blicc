@@ -138,7 +138,7 @@ describe('GET: /dashboards', () => {
       })
     ).toBe(true)
 
-    response = await instance.get('dashboards?search=Title2',{
+    response = await instance.get('dashboards?search=Title2', {
       headers: {
         Cookie: params.cookie,
       },
