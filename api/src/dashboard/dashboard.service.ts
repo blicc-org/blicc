@@ -32,7 +32,7 @@ export class DashboardService {
   public async selectAllByUserId(
     userId: string,
     fields: string[] = this.dashboardFields,
-    searchTerm: string = ''
+    searchTerm = ''
   ): Promise<Dashboard[] | undefined> {
     if (!this.validateFields(fields)) return undefined
 

@@ -43,6 +43,7 @@ export function SearchInputField({ skin = 'light' }) {
   function onBlur() {
     setFocused(false)
     setGgColor(getDefault())
+    setSearchTerm('')
   }
 
   return (
@@ -56,6 +57,7 @@ export function SearchInputField({ skin = 'light' }) {
         onFocus={onFocus}
         onBlur={onBlur}
         onChange={event => setSearchTerm(event.target.value)}
+        value={searchTerm}
       />
       <div className="input-group-append">
         <button
@@ -66,7 +68,7 @@ export function SearchInputField({ skin = 'light' }) {
           <SearchIcon />
         </button>
       </div>
-      <Result show={true} results={dashboards} />
+      <Result show={focused} results={dashboards} />
     </>
   )
 }
