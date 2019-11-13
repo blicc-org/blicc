@@ -1,24 +1,6 @@
 @import '../../Theme';
 
-.search .form-control {
-  border-radius: 0;
-  border: none;
-}
-
-.search button {
-  color: $secondary;
-  border: none;
-  border-radius: 0;
-  padding: 0px 9px;
-  background-color: $light;
-}
-
-.search input {
-  height: 40px;
-  background-color: $light;
-}
-
-.mobile-search {
+.search-mobile {
   z-index: 1000;
   position: absolute;
   left: 0;

@@ -6,6 +6,7 @@ $warning: #dc3545;
 $danger: #dc3545;
 $light: #f8f8f8;
 $lightgray: #cccccc;
+$gray: #3c3c3c;
 $dark: #252725;
 
 $border-radius: 0.175rem;
@@ -26,6 +27,7 @@ $font-size-sm: $font-size-base;
   danger: $danger;
   light: $light;
   lightgray: $lightgray;
+  gray: $gray;
   dark: $dark;
   borderRadius: $border-radius;
 }

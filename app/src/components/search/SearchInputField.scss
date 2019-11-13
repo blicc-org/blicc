@@ -1,0 +1,14 @@
+@import '../../Theme';
+
+.search-input {
+  border-radius: 0;
+  border: none;
+  height: 40px;
+}
+
+.search-button {
+  color: $secondary;
+  border: none;
+  border-radius: 0;
+  padding: 0px 9px;
+}
