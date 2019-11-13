@@ -22,15 +22,23 @@ services:
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
       - traefik.http.routers.traefik.tls.certresolver=secure
-      - traefik.http.routers.detour.rule=hostregexp(`{host:[a-z-.]+}`)
-      - traefik.http.routers.detour.entrypoints=web
-      - traefik.http.routers.detour.middlewares=redirect-to-https
-      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
-      ## redirect www to non-www
-      - traefik.http.middlewares.to-non-www.redirectregex.regex=^https?://(?:www\\.)?(.+)
-      - traefik.http.middlewares.to-non-www.redirectregex.replacement=https://$${1}
-      - traefik.http.middlewares.to-non-www.redirectregex.permanent=true
+
+      # Global redirection: http to https
+      - traefik.http.routers.http-catchall.rule=HostRegexp(`{host:(www\\.)?.+}`)
+      - traefik.http.routers.http-catchall.entrypoints=web
+      - traefik.http.routers.http-catchall.middlewares=wwwtohttps
+      
+      # Global redirection: https (www.) to https
+      - traefik.http.routers.wwwsecure-catchall.rule=HostRegexp(`{host:(www\\.).+}`)
+      - traefik.http.routers.wwwsecure-catchall.entrypoints=websecure
+      - traefik.http.routers.wwwsecure-catchall.tls=true
+      - traefik.http.routers.wwwsecure-catchall.middlewares=wwwtohttps
+
+      # middleware: http(s)://(www.) to  https://
+      - traefik.http.middlewares.wwwtohttps.redirectregex.regex=^https?://(?:www\\.)?(.+)
+      - traefik.http.middlewares.wwwtohttps.redirectregex.replacement=https://$${1}
+      - traefik.http.middlewares.wwwtohttps.redirectregex.permanent=true
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
     volumes:
@@ -72,9 +80,7 @@ services:
       - db
       - delivery
     labels:
-      - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
+      - traefik.http.routers.app.rule=Host(`blicc.org`)
       - traefik.http.routers.app.tls.certresolver=secure
-      - traefik.http.routers.app.rule=HostRegexp(`{host:(www\\.).+}`)
       - traefik.http.routers.app.entrypoints=websecure
       - traefik.http.routers.app.tls=true
-      - traefik.http.routers.app.middlewares=to-non-www
