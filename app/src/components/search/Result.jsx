@@ -17,9 +17,8 @@ export function Result({ show, results }) {
                 <li className="media" key={result.id}>
                   <div className="media-body">
                     <Link to={`/dashboards/${result.id}`}>
-                      <h5 className="mt-0 mb-1">{result.name}</h5>
+                      <h5 className="mt-0 mb-1">{result.title}</h5>
                     </Link>
-                    {result.description}
                   </div>
                 </li>
               )

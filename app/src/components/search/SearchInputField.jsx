@@ -1,26 +1,35 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import statusCode from 'http-status-codes'
 import { Search as SearchIcon } from 'react-feather'
 import { Result } from './Result'
+import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 import theme from '../../Theme.scss'
 import './SearchInputField.scss'
 
 export function SearchInputField({ skin = 'light' }) {
+  const [, access, ,] = useApiEndpoint('/dashboards')
   const [backgroundColor, setGgColor] = useState(getDefault())
   const [searchTerm, setSearchTerm] = useState('')
   const [focused, setFocused] = useState(false)
+  const [dashboards, setDashboards] = useState([])
 
-  const dashboards = [
-    // {
-    //   name: 'Umsatz 2018',
-    //   description: 'Hier siehst du die Umstätze von 2018.',
-    //   id: '34280',
-    // },
-    // {
-    //   name: 'Umsatz 2018',
-    //   description: 'Hier siehst du die Umstätze von 2018.',
-    //   id: '231213',
-    // },
-  ]
+  useEffect(() => {
+    async function fetchData() {
+      const [status, data] = await access({
+        params: { fields: 'id,title', search: searchTerm },
+      })
+      if (status === statusCode.OK) {
+        setDashboards(data.dashboards)
+      }
+    }
+
+    if (searchTerm === '') {
+      setDashboards([])
+    } else {
+      fetchData()
+    }
+    // eslint-disable-next-line
+  }, [searchTerm])
 
   function getDefault() {
     return skin === 'light' ? theme.light : theme.gray
@@ -57,7 +66,7 @@ export function SearchInputField({ skin = 'light' }) {
           <SearchIcon />
         </button>
       </div>
-      <Result show={focused} results={dashboards} />
+      <Result show={true} results={dashboards} />
     </>
   )
 }
