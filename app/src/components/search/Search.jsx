@@ -11,7 +11,7 @@ export function Search() {
   return (
     <>
       {open && (
-        <SearchInputField isFullscreen={true} onExit={() => setOpen(false)} />
+        <SearchInputField isFullscreen={true} close={() => setOpen(false)} />
       )}
       {isMobile ? (
         <>

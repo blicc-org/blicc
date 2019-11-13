@@ -6,7 +6,7 @@ import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 import theme from '../../Theme.scss'
 import './SearchInputField.scss'
 
-export function SearchInputField({ isFullscreen = false, onExit = () => {} }) {
+export function SearchInputField({ isFullscreen = false, close = () => {} }) {
   const [, access, ,] = useApiEndpoint('/dashboards')
   const [backgroundColor, setGgColor] = useState(getDefault())
   const [searchTerm, setSearchTerm] = useState('')
@@ -41,8 +41,8 @@ export function SearchInputField({ isFullscreen = false, onExit = () => {} }) {
     setGgColor(theme.light)
   }
 
-
-  function close() {
+  function handleClose() {
+    close()
     setFocused(false)
     setGgColor(getDefault())
     setSearchTerm('')
@@ -51,7 +51,7 @@ export function SearchInputField({ isFullscreen = false, onExit = () => {} }) {
   useEffect(() => {
     function handleClick(event) {
       if (ref.current && !ref.current.contains(event.target)) {
-        close(false)
+        handleClose(false)
       }
     }
 
@@ -78,7 +78,7 @@ export function SearchInputField({ isFullscreen = false, onExit = () => {} }) {
               className="btn"
               onClick={event => {
                 event.preventDefault()
-                onExit()
+                close()
               }}
             >
               <ArrowLeft />
@@ -103,7 +103,7 @@ export function SearchInputField({ isFullscreen = false, onExit = () => {} }) {
             <SearchIcon />
           </button>
         </div>
-        <Result show={focused} close={close} results={dashboards} />
+        <Result show={focused} close={handleClose} results={dashboards} />
       </form>
     </>
   )
