@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Search as SearchIcon, ArrowLeft } from 'react-feather'
+import { Search as SearchIcon } from 'react-feather'
 import { useMobile } from '../../hooks/useMobile'
 import { SearchInputField } from './SearchInputField'
 import theme from '../../Theme.scss'
-import './Search.scss'
 
 export function Search() {
   const [open, setOpen] = useState(false)
@@ -12,20 +11,7 @@ export function Search() {
   return (
     <>
       {open && (
-        <form className="search-mobile form-inline input-group w-100">
-          <div className="input-group-prepend">
-            <button
-              className="btn"
-              onClick={event => {
-                event.preventDefault()
-                setOpen(false)
-              }}
-            >
-              <ArrowLeft />
-            </button>
-          </div>
-          <SearchInputField />
-        </form>
+        <SearchInputField isFullscreen={true} onExit={() => setOpen(false)} />
       )}
       {isMobile ? (
         <>
@@ -43,9 +29,7 @@ export function Search() {
         </>
       ) : (
         <div className=" w-100 pr-5">
-          <form className="form-inline input-group w-100">
-            <SearchInputField skin={'gray'} />
-          </form>
+          <SearchInputField />
         </div>
       )}
     </>
