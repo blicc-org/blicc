@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import statusCode from 'http-status-codes'
 import { Search as SearchIcon, ArrowLeft } from 'react-feather'
-import { Result } from './Result'
+import { useClickAway } from '../../hooks/useClickAway'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
+import { Result } from './Result'
 import theme from '../../Theme.scss'
 import './SearchInputField.scss'
 
@@ -13,6 +14,14 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
   const [focused, setFocused] = useState(false)
   const [dashboards, setDashboards] = useState([])
   const ref = useRef()
+  useClickAway(ref, () => handleClose(false))
+
+  function handleClose() {
+    setFocused(false)
+    setGgColor(getDefault())
+    setSearchTerm('')
+    close()
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -41,36 +50,14 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
     setGgColor(theme.light)
   }
 
-  function handleClose() {
-    close()
-    setFocused(false)
-    setGgColor(getDefault())
-    setSearchTerm('')
-  }
-
-  useEffect(() => {
-    function handleClick(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        handleClose(false)
-      }
-    }
-
-    document.addEventListener('mousedown', event => handleClick(event))
-    document.addEventListener('touchstart', event => handleClick(event))
-    return () => {
-      document.removeEventListener('mousedown', event => handleClick(event))
-      document.removeEventListener('touchstart', event => handleClick(event))
-    }
-  }, [])
-
   return (
     <>
       <form
+        ref={ref}
         className={`form-inline input-group w-100 ${
           isFullscreen ? 'search-mobile' : ''
         }`}
         onFocus={onFocus}
-        ref={ref}
       >
         {isFullscreen && (
           <div className="input-group-prepend">
@@ -103,7 +90,7 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
             <SearchIcon />
           </button>
         </div>
-        <Result show={focused} close={handleClose} results={dashboards} />
+        <Result show={focused} results={dashboards} close={handleClose} />
       </form>
     </>
   )

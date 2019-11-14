@@ -1,31 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { User } from 'react-feather'
 import { useContent } from '../../hooks/useContent'
+import { useClickAway } from '../../hooks/useClickAway'
 
 export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
   const content = useContent()
   const [open, setOpen] = useState(false)
   const ref = useRef()
+  useClickAway(ref, () => setOpen(false))
 
   function toggle() {
     setOpen(prevState => !prevState)
   }
-
-  useEffect(() => {
-    function handleClick(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setOpen(false)
-      }
-    }
-
-    document.addEventListener('mousedown', event => handleClick(event))
-    document.addEventListener('touchstart', event => handleClick(event))
-    return () => {
-      document.removeEventListener('mousedown', event => handleClick(event))
-      document.removeEventListener('touchstart', event => handleClick(event))
-    }
-  }, [])
 
   return (
     <>

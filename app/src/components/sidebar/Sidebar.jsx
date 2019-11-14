@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import { AppContext } from '../../context/AppContext'
 import { Link } from 'react-router-dom'
 import { Home, File, ShoppingCart, Heart } from 'react-feather'
@@ -10,6 +10,7 @@ import { TYPE } from '../charts/Chart'
 import { Footer } from '../footer/Footer'
 import './Sidebar.scss'
 import { useContent } from '../../hooks/useContent'
+import { useClickAway } from '../../hooks/useClickAway'
 
 function SidebarHeader({ name }) {
   return (
@@ -27,6 +28,7 @@ export function Sidebar({ open }) {
   const [sidebarStyle, setSidebarStyle] = useState({})
   const [blackoutStyle, setBlackoutStyle] = useState({})
   const isMobile = useMobile()
+  const ref = useRef()
 
   function close() {
     if (open && isMobile) {
@@ -45,34 +47,32 @@ export function Sidebar({ open }) {
       width: open && isMobile ? '100%' : 0,
     })
   }, [open, isMobile])
+
+  useClickAway(ref, () => close(), 'prevent-sidebar-click-away')
   return (
     <>
-      <nav className="sidebar" style={sidebarStyle}>
+      <nav className="sidebar" style={sidebarStyle} ref={ref}>
         {loggedIn ? (
           <>
             <SidebarHeader name="Dashboards" />
             <ul className="nav flex-column px-2">
               <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  to="/dashboards"
-                  onClick={close}
-                >
+                <Link className="nav-link active" to="/dashboards">
                   <Home className="feather" /> Dashboard
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/test" onClick={close}>
-                  <Heart className="feather" /> Test
+                <Link className="nav-link" to="/test">
+                  <Heart className="feather trigger-close" /> Test
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/" onClick={close}>
+                <Link className="nav-link" to="/">
                   <File className="feather" /> Orders
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/" onClick={close}>
+                <Link className="nav-link" to="/">
                   <ShoppingCart className="feather" /> Products
                 </Link>
               </li>
@@ -80,25 +80,25 @@ export function Sidebar({ open }) {
             <SidebarHeader name="Charts" />
             <ul className="nav flex-column px-2">
               <li className="nav-item">
-                <Selector type={TYPE.LINE_CHART} closeSidebar={close} />
+                <Selector type={TYPE.LINE_CHART} />
               </li>
               <li className="nav-item">
-                <Selector type={TYPE.BAR_CHART} closeSidebar={close} />
+                <Selector type={TYPE.BAR_CHART} />
               </li>
               <li className="nav-item">
-                <Selector type={TYPE.PIE_CHART} closeSidebar={close} />
+                <Selector type={TYPE.PIE_CHART} />
               </li>
             </ul>
             <SidebarHeader name="Data" />
             <ul className="nav flex-column px-2">
               <li className="nav-item">
-                <Selector type={TYPE.LINE_CHART} closeSidebar={close} />
+                <Selector type={TYPE.LINE_CHART} />
               </li>
               <li className="nav-item">
-                <Selector type={TYPE.BAR_CHART} closeSidebar={close} />
+                <Selector type={TYPE.BAR_CHART} />
               </li>
               <li className="nav-item">
-                <Selector type={TYPE.PIE_CHART} closeSidebar={close} />
+                <Selector type={TYPE.PIE_CHART} />
               </li>
             </ul>
           </>
@@ -117,12 +117,7 @@ export function Sidebar({ open }) {
         <hr className="mx-3" />
         <Footer />
       </nav>
-      <div
-        className="blackout"
-        onTouchStart={close}
-        onClick={close}
-        style={blackoutStyle}
-      ></div>
+      <div className="blackout" style={blackoutStyle}></div>
     </>
   )
 }

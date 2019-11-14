@@ -44,11 +44,11 @@ export function NavBar({ toggleMenu }) {
         >
           <li className="nav-item">
             <div
-              className="menu-button nav-link pl-4 pr-3 py-2"
+              className="menu-button nav-link pl-4 pr-3 py-2 prevent-sidebar-click-away"
               style={{ marginBottom: '2px' }}
               onClick={toggleMenu}
             >
-              <Burger className="burger" />
+              <Burger className="burger prevent-sidebar-click-away" />
             </div>
           </li>
           <li className="nav-item">
