@@ -8,7 +8,7 @@ import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 import './DashboardList.scss'
 
 export function DashboardList() {
-  const title = 'List all dasbhoards'
+  const title = 'Dasbhoards'
   const description = 'View all dashboards'
   const path = '/dashboards'
 

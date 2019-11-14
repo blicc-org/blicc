@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import { AppContext } from '../../context/AppContext'
 import { Link } from 'react-router-dom'
-import { Home, Rss } from 'react-feather'
+import { Layout, Rss } from 'react-feather'
 import { SidebarContext } from '../../context/SidebarContext'
 import { sidebarWidth } from '../../config'
 import { useMobile } from '../../hooks/useMobile'
@@ -62,7 +62,7 @@ export function Sidebar({ open }) {
                   to="/dashboards"
                   onClick={() => close()}
                 >
-                  <Home className="feather" /> Dashboards
+                  <Layout className="feather" /> Dashboards
                 </Link>
               </li>
               <li className="nav-item">
