@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import uuid from 'uuid'
-import { POSITION } from '../components/dashboard/positioning/Positioning'
+import { POSITION } from '../components/dashboard-view/positioning/Positioning'
 import { TYPE } from '../components/charts/Chart'
-import { GRID } from '../components/dashboard/Row'
+import { GRID } from '../components/dashboard-view/Row'
 
 const INITIAL = {
   row: [

@@ -3,7 +3,7 @@ import { Row } from './Row'
 import { useDashboard } from '../../hooks/useDashboard'
 import './Dashboard.scss'
 
-export function Dashboard({ data }) {
+export function DashboardView({ data }) {
   const [dashboard, update] = useDashboard(data)
   const { row } = dashboard
 

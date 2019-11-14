@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Positioning } from '../dashboard/positioning/Positioning'
+import { Positioning } from '../dashboard-view/positioning/Positioning'
 import { DragContext } from '../../context/DragContext'
 import { DragHere } from './DragHere'
 import { LineChart } from './LineChart'

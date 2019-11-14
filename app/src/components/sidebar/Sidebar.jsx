@@ -5,12 +5,12 @@ import { Home, Rss } from 'react-feather'
 import { SidebarContext } from '../../context/SidebarContext'
 import { sidebarWidth } from '../../config'
 import { useMobile } from '../../hooks/useMobile'
-import { Selector } from '../dashboard/Selector'
+import { Selector } from '../dashboard-view/Selector'
 import { TYPE } from '../charts/Chart'
 import { Footer } from '../footer/Footer'
-import './Sidebar.scss'
 import { useContent } from '../../hooks/useContent'
 import { useClickAway } from '../../hooks/useClickAway'
+import './Sidebar.scss'
 
 function SidebarHeader({ name }) {
   return (
