@@ -14,8 +14,8 @@ const INITIAL = {
   ],
 }
 
-export function useDashboard() {
-  const [dashboard, setDashboard] = useState(INITIAL)
+export function useDashboard(data = INITIAL) {
+  const [dashboard, setDashboard] = useState(data)
 
   function createRow(prev, pos, item) {
     switch (pos) {

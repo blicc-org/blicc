@@ -85,6 +85,7 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
           <button
             className="btn search-button"
             type="submit"
+            onClick={event => event.preventDefault()}
             style={{ backgroundColor }}
           >
             <SearchIcon />

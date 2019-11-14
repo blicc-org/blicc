@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import { AppContext } from '../../context/AppContext'
 import { Link } from 'react-router-dom'
-import { Home, File, ShoppingCart, Heart } from 'react-feather'
+import { Home, Rss } from 'react-feather'
 import { SidebarContext } from '../../context/SidebarContext'
 import { sidebarWidth } from '../../config'
 import { useMobile } from '../../hooks/useMobile'
@@ -62,22 +62,12 @@ export function Sidebar({ open }) {
                   to="/dashboards"
                   onClick={() => close()}
                 >
-                  <Home className="feather" /> Dashboard
+                  <Home className="feather" /> Dashboards
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/test" onClick={() => close()}>
-                  <Heart className="feather" /> Test
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/" onClick={() => close()}>
-                  <File className="feather" /> Orders
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/" onClick={() => close()}>
-                  <ShoppingCart className="feather" /> Products
+                  <Rss className="feather" /> Websocket Test
                 </Link>
               </li>
             </ul>

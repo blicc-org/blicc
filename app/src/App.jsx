@@ -7,7 +7,8 @@ import { Login } from './pages/login/Login'
 import { Register } from './pages/register/Register'
 import { PageGenerator } from './pages/page-generator/PageGenerator'
 import { WebSocketTest } from './pages/websocket-test/WebSocketTest'
-import { DashboardPage } from './pages/dashboard/DashboardPage'
+import { Dashboard } from './pages/dashboard/Dashboard'
+import { DashboardList } from './pages/dashboard/DashboardList'
 import { Profile } from './pages/profile/Profile'
 import { TwoFactorAuth } from './pages/two-factor-auth/TwoFactorAuth'
 import { ProtectedRoute } from './components/protected-route/ProtectedRoute'
@@ -32,7 +33,8 @@ export function App() {
             <Route path="/offline" component={Offline} />
             <Route path="/test" component={WebSocketTest} />
             <ProtectedRoute path="/two-factor-auth" component={TwoFactorAuth} />
-            <ProtectedRoute path="/dashboards" component={DashboardPage} />
+            <ProtectedRoute path="/dashboards/:id" component={Dashboard} />
+            <ProtectedRoute path="/dashboards" component={DashboardList} />
             <ProtectedRoute path="/profile" component={Profile} />
             <Route component={NotFound} />
           </Switch>
