@@ -4,18 +4,21 @@ import { POSITION } from '../components/dashboard-view/positioning/Positioning'
 import { TYPE } from '../components/charts/Chart'
 import { GRID } from '../components/dashboard-view/Row'
 
-const INITIAL = {
-  row: [
-    {
-      id: uuid(),
-      col: GRID.FULL,
-      type: TYPE.DRAG_HERE,
-    },
-  ],
+export const INITIAL = {
+  title: 'Dashboard',
+  data: {
+    row: [
+      {
+        id: uuid(),
+        col: GRID.FULL,
+        type: TYPE.DRAG_HERE,
+      },
+    ],
+  },
 }
 
-export function useDashboard(data = INITIAL) {
-  const [dashboard, setDashboard] = useState(data)
+export function useDashboard(initial = INITIAL) {
+  const [dashboard, setDashboard] = useState(initial)
 
   function createRow(prev, pos, item) {
     switch (pos) {
@@ -54,14 +57,17 @@ export function useDashboard(data = INITIAL) {
     }
   }
 
-  function update(id, pos, type) {
-    setDashboard(prev =>
-      add(prev, id, pos, {
-        id: uuid(),
-        type,
-      })
-    )
+  function setData(id, pos, type) {
+    setDashboard(prev => {
+      return {
+        ...prev,
+        data: add(prev.data, id, pos, {
+          id: uuid(),
+          type,
+        }),
+      }
+    })
   }
 
-  return [dashboard, update]
+  return [dashboard, setData, setDashboard]
 }

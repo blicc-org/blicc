@@ -1,19 +1,15 @@
 import React from 'react'
 import { Row } from './Row'
-import { useDashboard } from '../../hooks/useDashboard'
 import './Dashboard.scss'
 
-export function DashboardView({ data }) {
-  const [dashboard, update] = useDashboard(data)
-  const { row } = dashboard
-
+export function DashboardView({ dashboard, update }) {
   function onDragOverHandler(event) {
     event.preventDefault()
   }
 
   return (
     <div className="dashboard" onDragOver={onDragOverHandler}>
-      <Row row={row} onDrop={update} />
+      <Row row={dashboard.data.row} onDrop={update} />
     </div>
   )
 }

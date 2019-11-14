@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { DashboardItem } from './DashboardItem'
+import { ModalContext } from '../../context/ModalContext'
 import { MetaData } from '../../components/meta-data/MetaData'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 import './DashboardList.scss'
@@ -12,6 +13,7 @@ export function DashboardList() {
 
   const [dashboards, setDashboards] = useState([])
   const [, access, ,] = useApiEndpoint(path)
+  const [, showModal] = useContext(ModalContext)
 
   useEffect(() => {
     async function fetchData() {
@@ -26,6 +28,18 @@ export function DashboardList() {
     // eslint-disable-next-line
   }, [])
 
+  async function createDashboard() {
+    showModal(
+      'Create Dashboard',
+      'Do you want to create a Dashboard?',
+      'Cancel',
+      'Create',
+      () => {},
+      () => {},
+      '/'
+    )
+  }
+
   return (
     <>
       <MetaData title={title} description={description} path={path} />
@@ -33,7 +47,11 @@ export function DashboardList() {
         <div className="dashboard-header d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 className="h2 pr-3">{title}</h1>
           <div className="btn-toolbar mb-2 mb-md-0">
-            <button type="button" className="btn btn-sm btn-primary">
+            <button
+              type="button"
+              className="btn btn-sm btn-primary"
+              onClick={createDashboard}
+            >
               New Dashboard
             </button>
           </div>
