@@ -57,22 +57,26 @@ export function Sidebar({ open }) {
             <SidebarHeader name="Dashboards" />
             <ul className="nav flex-column px-2">
               <li className="nav-item">
-                <Link className="nav-link active" to="/dashboards">
+                <Link
+                  className="nav-link active"
+                  to="/dashboards"
+                  onClick={() => close()}
+                >
                   <Home className="feather" /> Dashboard
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/test">
-                  <Heart className="feather trigger-close" /> Test
+                <Link className="nav-link" to="/test" onClick={() => close()}>
+                  <Heart className="feather" /> Test
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/">
+                <Link className="nav-link" to="/" onClick={() => close()}>
                   <File className="feather" /> Orders
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/">
+                <Link className="nav-link" to="/" onClick={() => close()}>
                   <ShoppingCart className="feather" /> Products
                 </Link>
               </li>
@@ -80,25 +84,25 @@ export function Sidebar({ open }) {
             <SidebarHeader name="Charts" />
             <ul className="nav flex-column px-2">
               <li className="nav-item">
-                <Selector type={TYPE.LINE_CHART} />
+                <Selector type={TYPE.LINE_CHART} closeSidebar={close} />
               </li>
               <li className="nav-item">
-                <Selector type={TYPE.BAR_CHART} />
+                <Selector type={TYPE.BAR_CHART} closeSidebar={close} />
               </li>
               <li className="nav-item">
-                <Selector type={TYPE.PIE_CHART} />
+                <Selector type={TYPE.PIE_CHART} closeSidebar={close} />
               </li>
             </ul>
             <SidebarHeader name="Data" />
             <ul className="nav flex-column px-2">
               <li className="nav-item">
-                <Selector type={TYPE.LINE_CHART} />
+                <Selector type={TYPE.LINE_CHART} closeSidebar={close} />
               </li>
               <li className="nav-item">
-                <Selector type={TYPE.BAR_CHART} />
+                <Selector type={TYPE.BAR_CHART} closeSidebar={close} />
               </li>
               <li className="nav-item">
-                <Selector type={TYPE.PIE_CHART} />
+                <Selector type={TYPE.PIE_CHART} closeSidebar={close} />
               </li>
             </ul>
           </>
@@ -107,7 +111,9 @@ export function Sidebar({ open }) {
             <ul className="nav flex-column px-3 pt-4">
               <li className="nav-item">
                 <p className="text-muted">
-                  <Link to="/register">{content.sidebar.registerNow}</Link>
+                  <Link to="/register" onClick={() => close()}>
+                    {content.sidebar.registerNow}
+                  </Link>
                   {` ${content.sidebar.registerNowFollowUp}`}
                 </p>
               </li>
@@ -115,7 +121,7 @@ export function Sidebar({ open }) {
           </>
         )}
         <hr className="mx-3" />
-        <Footer />
+        <Footer close={close} />
       </nav>
       <div className="blackout" style={blackoutStyle}></div>
     </>
