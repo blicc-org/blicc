@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { DashboardItem } from './DashboardItem'
 import { ModalContext } from '../../context/ModalContext'
+import { INITIAL } from '../../hooks/useDashboard'
 import { MetaData } from '../../components/meta-data/MetaData'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 import './DashboardList.scss'
@@ -12,7 +13,7 @@ export function DashboardList() {
   const path = '/dashboards'
 
   const [dashboards, setDashboards] = useState([])
-  const [, access, ,] = useApiEndpoint(path)
+  const [create, access, ,] = useApiEndpoint(path)
   const [, showModal] = useContext(ModalContext)
 
   useEffect(() => {
@@ -35,9 +36,17 @@ export function DashboardList() {
       'Cancel',
       'Create',
       () => {},
-      () => {},
-      '/'
+      () => sendData()
     )
+  }
+
+  async function sendData() {
+    const [status, data] = await create(INITIAL)
+    if (status === statusCode.CREATED) {
+      return `/dashboards/${data.id}`
+    } else {
+      return '/not-found'
+    }
   }
 
   return (

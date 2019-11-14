@@ -23,18 +23,18 @@ export function ModalProvider({ children }) {
     submitCallback,
     redirect = ''
   ) {
-    function cancel() {
+    async function cancel() {
+      const redirect = await cancelCallback()
       setModal(prev => {
-        return { ...prev, isActive: false }
+        return { ...prev, isActive: false, redirect }
       })
-      cancelCallback()
     }
 
-    function submit() {
+    async function submit() {
+      const redirect = await submitCallback()
       setModal(prev => {
-        return { ...prev, isActive: false }
+        return { ...prev, isActive: false, redirect }
       })
-      submitCallback()
     }
 
     setModal({

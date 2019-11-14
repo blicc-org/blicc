@@ -56,8 +56,8 @@ export function useSession() {
       () => {},
       () => {
         console.log('send reset link to email!')
-      },
-      '/'
+        return '/'
+      }
     )
   }
 
