@@ -12,8 +12,6 @@ export function Dashboard({ match }) {
   const [, access, update] = useApiEndpoint(path)
   const { title } = dashboard
 
-  console.log(JSON.stringify(dashboard))
-
   useEffect(() => {
     async function fetchData() {
       const [status, data] = await access()

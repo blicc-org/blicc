@@ -17,6 +17,35 @@ $font-size-base: 0.875rem !default; // Assumes the browser default, typically `1
 $font-size-lg: $font-size-base * 1.25 !default;
 $font-size-sm: $font-size-base;
 
+$spacer: 1rem !default;
+$spacers: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$spacers: map-merge(
+  (
+    0: 0,
+    1: (
+      $spacer * 0.25,
+    ),
+    2: (
+      $spacer * 0.5,
+    ),
+    3: $spacer,
+    4: (
+      $spacer * 1.5,
+    ),
+    5: (
+      $spacer * 3,
+    ),
+  ),
+  $spacers
+);
+
+$one: map-get($spacers, 1);
+$two: map-get($spacers, 2);
+$three: map-get($spacers, 3);
+$four: map-get($spacers, 4);
+$five: map-get($spacers, 5);
+
 // webpack export
 :export {
   primary: $primary;
@@ -30,4 +59,9 @@ $font-size-sm: $font-size-base;
   gray: $gray;
   dark: $dark;
   borderRadius: $border-radius;
+  one: $one;
+  two: $two;
+  three: $three;
+  four: $four;
+  five: $five;
 }

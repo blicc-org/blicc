@@ -8,7 +8,7 @@ import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 import './DashboardList.scss'
 
 export function DashboardList() {
-  const title = 'Dasbhoards'
+  const title = 'Dashboards'
   const description = 'View all dashboards'
   const path = '/dashboards'
 
@@ -53,9 +53,9 @@ export function DashboardList() {
     <>
       <MetaData title={title} description={description} path={path} />
       <div className="container-fluid">
-        <div className="dashboard-header d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 className="h2 pr-3">{title}</h1>
-          <div className="btn-toolbar mb-2 mb-md-0">
+        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-2">
+          <h4 className="my-0">{title}</h4>
+          <div className="btn-toolbar">
             <button
               type="button"
               className="btn btn-sm btn-primary"
@@ -65,11 +65,12 @@ export function DashboardList() {
             </button>
           </div>
         </div>
+        <hr className="my-2" />
         <div className="dashboard-list">
           <ul>
             {dashboards.map(dashboard => {
               return (
-                <li key={dashboard.id} className="my-3">
+                <li key={dashboard.id} className="my-2">
                   <DashboardItem
                     id={dashboard.id}
                     title={dashboard.title}
