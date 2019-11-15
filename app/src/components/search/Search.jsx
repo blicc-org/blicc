@@ -28,7 +28,7 @@ export function Search() {
           </Link>
         </>
       ) : (
-        <div className=" w-100 pr-5">
+        <div className=" w-100 pr-4">
           <SearchInputField />
         </div>
       )}
