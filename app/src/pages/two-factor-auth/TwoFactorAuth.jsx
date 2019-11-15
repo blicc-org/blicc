@@ -22,7 +22,6 @@ export function TwoFactorAuth() {
 
   return (
     <>
-      {' '}
       {onSuccess && <Redirect to="/dashboards" />}
       <div className="col-md-5 mx-auto py-5 my-5 text-center">
         <form className="form-two-factor-auth">
