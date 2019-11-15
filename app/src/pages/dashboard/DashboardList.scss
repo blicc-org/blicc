@@ -1,3 +1,11 @@
 .dashboard-list ul {
   list-style: none;
 }
+
+.dashboard-list .card {
+  border-width: 0;
+}
+
+.dashboard-list .card-body {
+  padding: 0;
+}

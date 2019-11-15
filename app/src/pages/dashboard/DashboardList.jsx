@@ -65,21 +65,21 @@ export function DashboardList() {
             </button>
           </div>
         </div>
-        <hr className="my-2" />
         <div className="dashboard-list">
-          <ul>
-            {dashboards.map(dashboard => {
-              return (
-                <li key={dashboard.id} className="my-2">
+          <table className="table">
+            <tbody>
+              {dashboards.map(dashboard => {
+                return (
                   <DashboardItem
+                    key={dashboard.id}
                     id={dashboard.id}
                     title={dashboard.title}
                     creationDate={dashboard.creationDate}
                   />
-                </li>
-              )
-            })}
-          </ul>
+                )
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     </>
