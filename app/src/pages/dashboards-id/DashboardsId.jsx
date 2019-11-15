@@ -6,7 +6,7 @@ import { useApiEndpoint } from '../../hooks/useApiEndpoint'
 import { useDashboard } from '../../hooks/useDashboard'
 import { MetaData } from '../../components/meta-data/MetaData'
 
-export function Dashboard({ match }) {
+export function DashboardsId({ match }) {
   const [dashboard, setData, setDashboard] = useDashboard()
   const path = `/dashboards/${match.params.id}`
   const [, access, update] = useApiEndpoint(path)

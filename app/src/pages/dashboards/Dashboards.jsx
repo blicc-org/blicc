@@ -5,9 +5,9 @@ import { ModalContext } from '../../context/ModalContext'
 import { INITIAL } from '../../hooks/useDashboard'
 import { MetaData } from '../../components/meta-data/MetaData'
 import { useApiEndpoint } from '../../hooks/useApiEndpoint'
-import './DashboardList.scss'
+import './Dashboards.scss'
 
-export function DashboardList() {
+export function Dashboards() {
   const title = 'Dashboards'
   const description = 'View all dashboards'
   const path = '/dashboards'

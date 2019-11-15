@@ -66,7 +66,7 @@ export function Sidebar({ open }) {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/test" onClick={() => close()}>
+                <Link className="nav-link" to="/websocket-test" onClick={() => close()}>
                   <Rss className="feather" /> Websocket Test
                 </Link>
               </li>
