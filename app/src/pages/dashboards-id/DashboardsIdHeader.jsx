@@ -1,7 +1,8 @@
 import React from 'react'
-import './DashboardHeader.scss'
+import { Link } from 'react-router-dom'
+import './DashboardsIdHeader.scss'
 
-export function DashboardHeader({ title, onSave }) {
+export function DashboardsIdHeader({ title, onSave }) {
   return (
     <>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-2">
@@ -19,14 +20,14 @@ export function DashboardHeader({ title, onSave }) {
       <div className="dashboard-tabs my-2">
         <ul className="nav nav-tabs">
           <li className="nav-item">
-            <a className="nav-link active" href="#">
+            <Link className="nav-link active" to="/">
               Dashboard
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <Link className="nav-link" to="/">
               Details
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { NotFound } from './pages/not-found/NotFound'
-import { Offline } from './pages/not-found/Offline'
+import { Offline } from './pages/offline/Offline'
 import { LandingPage } from './pages/landing-page/LandingPage'
 import { Login } from './pages/login/Login'
 import { Register } from './pages/register/Register'

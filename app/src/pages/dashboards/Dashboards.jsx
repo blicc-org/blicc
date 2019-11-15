@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import statusCode from 'http-status-codes'
-import { DashboardItem } from './DashboardItem'
+import { DashboardsItem } from './DashboardsItem'
 import { ModalContext } from '../../context/ModalContext'
 import { INITIAL } from '../../hooks/useDashboard'
 import { MetaData } from '../../components/meta-data/MetaData'
@@ -70,7 +70,7 @@ export function Dashboards() {
             <tbody>
               {dashboards.map(dashboard => {
                 return (
-                  <DashboardItem
+                  <DashboardsItem
                     key={dashboard.id}
                     id={dashboard.id}
                     title={dashboard.title}

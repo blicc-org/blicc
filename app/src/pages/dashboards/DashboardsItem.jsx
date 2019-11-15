@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export function DashboardItem({ id, title, creationDate }) {
+export function DashboardsItem({ id, title, creationDate }) {
   return (
     <tr>
       <td>
