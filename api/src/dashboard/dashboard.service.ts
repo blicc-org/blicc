@@ -33,8 +33,8 @@ export class DashboardService {
     userId: string,
     fields: string[] = this.dashboardFields,
     searchTerm = '',
-    skip: string = '0',
-    take: string = '0' // default select all
+    skip = '0',
+    take = '0' // default select all
   ): Promise<Dashboard[] | undefined> {
     const skipNumber = parseInt(skip)
     const takeNumber = parseInt(take)
