@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 import { AppContext } from '../context/AppContext'
-import { content as en } from '../../content/content.en'
-import { content as de } from '../../content/content.de'
+import { en } from '../../languages/en'
+import { de } from '../../languages/de'
 
-export function useContent() {
+export function useLanguage() {
   const content = { de, en }
   const [appState] = useContext(AppContext)
   return content[appState.language]

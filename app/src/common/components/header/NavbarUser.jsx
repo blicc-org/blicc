@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { User } from 'react-feather'
-import { useContent } from '../../hooks/useContent'
+import { useLanguage } from '../../hooks/useLanguage'
 import { useClickAway } from '../../hooks/useClickAway'
 
 export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
-  const content = useContent()
+  const content = useLanguage()
   const [open, setOpen] = useState(false)
   const ref = useRef()
   useClickAway(ref, () => setOpen(false))

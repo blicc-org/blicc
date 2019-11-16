@@ -41,8 +41,8 @@
       "disabled": false
     },
     {
-      "icon": "config",
-      "extensions": ["config", "common"],
+      "icon": "helper",
+      "extensions": ["helper", "common"],
       "format": "FileFormat.svg",
       "disabled": false
     }

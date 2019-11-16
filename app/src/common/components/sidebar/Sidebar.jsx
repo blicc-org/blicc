@@ -8,7 +8,7 @@ import { useMobile } from '../../hooks/useMobile'
 import { Selector } from '../dashboard-view/Selector'
 import { TYPE } from '../charts/Chart'
 import { Footer } from '../footer/Footer'
-import { useContent } from '../../hooks/useContent'
+import { useLanguage } from '../../hooks/useLanguage'
 import { useClickAway } from '../../hooks/useClickAway'
 import './Sidebar.scss'
 
@@ -21,7 +21,7 @@ function SidebarHeader({ name }) {
 }
 
 export function Sidebar({ open }) {
-  const content = useContent()
+  const content = useLanguage()
   const [appState] = useContext(AppContext)
   const { loggedIn } = appState
   const [, setSidebarState] = useContext(SidebarContext)

@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useContent } from '../../common/hooks/useContent'
+import { useLanguage } from '../../common/hooks/useLanguage'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { ReactComponent as Maskot } from '../../assets/img/Maskot.svg'
 
 export function LandingPage() {
-  const content = useContent()
+  const content = useLanguage()
   const title = 'blicc.org'
   const description = 'Visualize your data with customizable dashboards.'
   const path = '/'

@@ -1,4 +1,4 @@
-export const content = {
+export const de = {
   title: 'Blicc',
   description:
     'Veranschauliche deine Daten mit individualisierbaren Dashboards',

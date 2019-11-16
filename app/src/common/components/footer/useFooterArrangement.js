@@ -1,7 +1,7 @@
-import { useContent } from '../../hooks/useContent'
+import { useLanguage } from '../../hooks/useLanguage'
 
 export function useFooterArrangement() {
-  const content = useContent()
+  const content = useLanguage()
   return [
     {
       category: content.sidebar.navigation,
