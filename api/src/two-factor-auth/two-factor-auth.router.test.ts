@@ -1,5 +1,5 @@
 import speakeasy from 'speakeasy'
-import { instance, initializeUser } from '../common/test/user.helper'
+import { instance, initializeUser } from '../common/tests/user.helper'
 
 describe('GET: /two-factor-auth', () => {
   let params = { email: '', userId: '', cookie: '' }

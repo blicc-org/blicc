@@ -25,17 +25,25 @@ export class DashboardService {
     return await this.repo.save(new DashboardEntity(title, userId, data))
   }
 
-  public async selectById(id: string): Promise<DashboardEntity | undefined> {
+  public async select(id: string): Promise<DashboardEntity | undefined> {
     return await this.repo.findOne(id)
   }
 
-  public async selectAllByUserId(
+  public async selectAll(
     userId: string,
     fields: string[] = this.dashboardFields,
-    searchTerm = ''
+    searchTerm = '',
+    skip: string = '0',
+    take: string = '0' // default select all
   ): Promise<Dashboard[] | undefined> {
-    if (!this.validateFields(fields)) return undefined
-
+    const skipNumber = parseInt(skip)
+    const takeNumber = parseInt(take)
+    if (
+      !this.validateFields(fields) ||
+      !Number.isInteger(skipNumber) ||
+      !Number.isInteger(takeNumber)
+    )
+      return undefined
     fields = fields.map(field => 'dashboard.' + field)
     searchTerm = this.escapeSearchQuery(searchTerm)
 
@@ -46,6 +54,8 @@ export class DashboardService {
       .andWhere('LOWER(dashboard.title) like LOWER(:title)', {
         title: '%' + searchTerm + '%',
       })
+      .skip(skipNumber)
+      .take(takeNumber)
       .getMany()
   }
 

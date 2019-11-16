@@ -1,4 +1,4 @@
-import { instance, initializeUser } from '../common/test/user.helper'
+import { instance, initializeUser } from '../common/tests/user.helper'
 import { Dashboard } from './dashboard.interface'
 
 describe('POST: /dashboards', () => {
@@ -146,6 +146,30 @@ describe('GET: /dashboards', () => {
     expect(response.status).toBe(200)
     expect(response.data.dashboards[0].title).toEqual('Title2')
 
+    for (let i = 1; i <= 10; i++) {
+      await instance.post(
+        '/dashboards',
+        {
+          title: `Title${i + 2}`,
+          data: {},
+        },
+        {
+          headers: {
+            Cookie: params.cookie,
+          },
+        }
+      )
+    }
+
+    response = await instance.get('/dashboards?skip=2&take=10', {
+      headers: {
+        Cookie: params.cookie,
+      },
+    })
+    expect(response.status).toBe(200)
+    expect(response.data.dashboards.length).toEqual(10)
+    expect(response.data.dashboards[0].title).toEqual('Title3')
+
     // check validation for empty result
     params = await initializeUser()
     response = await instance.get('/dashboards', {
@@ -157,12 +181,19 @@ describe('GET: /dashboards', () => {
   })
 
   it('400: Bad request', async () => {
-    const { status } = await instance.get('/dashboards?fields=wrongFieldName', {
+    let response = await instance.get('/dashboards?fields=wrongFieldName', {
       headers: {
         Cookie: params.cookie,
       },
     })
-    expect(status).toBe(400)
+    expect(response.status).toBe(400)
+
+    response = await instance.get('/dashboards?take=noNumber&skip=noNumber', {
+      headers: {
+        Cookie: params.cookie,
+      },
+    })
+    expect(response.status).toBe(400)
   })
 
   it('401: Unauthorized', async () => {

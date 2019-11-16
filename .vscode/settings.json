@@ -45,6 +45,12 @@
       "extensions": ["helper", "common"],
       "format": "FileFormat.svg",
       "disabled": false
+    },
+    {
+      "icon": "plugin",
+      "extensions": ["plugin", "features"],
+      "format": "FileFormat.svg",
+      "disabled": false
     }
   ]
 }

@@ -21,7 +21,7 @@ export class DashboardController {
     await next()
     try {
       const { id } = ctx.params
-      const dashboard = await this.dashboardService.selectById(id)
+      const dashboard = await this.dashboardService.select(id)
       if (dashboard !== undefined && ctx.user.id === dashboard.userId) {
         ctx.body = dashboard
         ctx.status = status.OK
@@ -39,10 +39,12 @@ export class DashboardController {
       const fields: string[] = ctx.query.fields
         ? ctx.query.fields.split(',')
         : undefined
-      const dashboards = await this.dashboardService.selectAllByUserId(
+      const dashboards = await this.dashboardService.selectAll(
         ctx.user.id,
         fields,
-        ctx.query.search
+        ctx.query.search,
+        ctx.query.skip,
+        ctx.query.take
       )
       if (!dashboards) {
         ctx.status = status.BAD_REQUEST
@@ -60,7 +62,7 @@ export class DashboardController {
     await next()
     try {
       const { id } = ctx.params
-      const dashboard = await this.dashboardService.selectById(id)
+      const dashboard = await this.dashboardService.select(id)
       if (dashboard !== undefined && ctx.user.id === dashboard.userId) {
         if (ctx.request.body.title) dashboard.title = ctx.request.body.title
         if (ctx.request.body.data) dashboard.data = ctx.request.body.data
@@ -88,7 +90,7 @@ export class DashboardController {
     await next()
     try {
       const { id } = ctx.params
-      const dashboard = await this.dashboardService.selectById(id)
+      const dashboard = await this.dashboardService.select(id)
       if (dashboard !== undefined && ctx.user.id === dashboard.userId) {
         ctx.body = await this.dashboardService.remove(dashboard)
         ctx.status = status.OK
