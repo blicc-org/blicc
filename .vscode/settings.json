@@ -51,6 +51,12 @@
       "extensions": ["plugin", "features"],
       "format": "FileFormat.svg",
       "disabled": false
+    },
+    {
+      "icon": "test",
+      "extensions": ["test", "tests", "api-tests"],
+      "format": "FileFormat.svg",
+      "disabled": false
     }
   ]
 }
