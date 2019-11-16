@@ -1,4 +1,4 @@
-# Imprint
+## Imprint
 
 **Example Company**
 Street 1  

@@ -42,8 +42,10 @@ export class DashboardService {
       !this.validateFields(fields) ||
       !Number.isInteger(skipNumber) ||
       !Number.isInteger(takeNumber)
-    )
+    ) {
       return undefined
+    }
+
     fields = fields.map(field => 'dashboard.' + field)
     searchTerm = this.escapeSearchQuery(searchTerm)
 

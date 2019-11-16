@@ -12,6 +12,9 @@ export function PageGenerator({ location }) {
   const [text, setText] = useState('')
   const [notFound, setNotFound] = useState(false)
   let { pathname } = location
+  if (pathname.charAt(pathname.length - 1) === '/') {
+    pathname = pathname.substring(0, pathname.length - 1)
+  }
 
   useEffect(() => {
     async function getText() {
@@ -30,7 +33,7 @@ export function PageGenerator({ location }) {
   return (
     <>
       {notFound && <Redirect to={'/not-found'} />}
-      <div className="container px-5 py-5 pages">
+      <div className="container pages my-3">
         <Markdown
           source={text}
           renderers={{

@@ -1,3 +1,5 @@
+@import '../../Theme';
+
 .pages h2,
 .pages h3,
 .pages h4 {
@@ -12,4 +14,9 @@
 
 .syntax-highlighter {
   margin: 1em 0em;
+}
+
+.pages li {
+  position: relative;
+  left: $four;
 }
