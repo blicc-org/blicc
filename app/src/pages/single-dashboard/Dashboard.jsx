@@ -5,7 +5,7 @@ import { DashboardView } from '../../common/components/dashboard-view/DashboardV
 import { useApiEndpoint, useDashboard } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 
-export function DashboardsId({ match }) {
+export function Dashboard({ match }) {
   const [dashboard, setData, setDashboard] = useDashboard()
   const path = `/dashboards/${match.params.id}`
   const [, access, update] = useApiEndpoint(path)
