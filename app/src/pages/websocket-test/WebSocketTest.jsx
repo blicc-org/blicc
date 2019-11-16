@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
-import {
-  useDeliveryEndpoint,
-} from '../../common/hooks'
+import { useDeliveryEndpoint } from '../../common/hooks'
 
 const WebSocketState = {
   [WebSocket.CONNECTING]: 'connecting',
