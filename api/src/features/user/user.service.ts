@@ -1,9 +1,9 @@
 import { Repository, getRepository } from 'typeorm'
 import { UserEntity } from './user.entity'
 import { User } from './user.interface'
-import { Hash } from '../util/hash'
-import { MailService } from '../common/services/mail-service/mail-service'
-import { MailType } from '../common/services/mail-service/mail-service'
+import { Hash } from '../../util/hash'
+import { MailService } from '../../common/services/mail-service/mail-service'
+import { MailType } from '../../common/services/mail-service/mail-service'
 import shortid from 'shortid'
 
 export class UserService {

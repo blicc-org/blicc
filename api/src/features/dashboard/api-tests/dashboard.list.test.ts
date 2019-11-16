@@ -1,4 +1,4 @@
-import { instance, initializeUser } from '../../common/tests/user.helper'
+import { instance, initializeUser } from '../../../common/tests/user.helper'
 import { Dashboard } from '../dashboard.interface'
 
 describe('GET: /dashboards', () => {

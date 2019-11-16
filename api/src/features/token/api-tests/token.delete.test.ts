@@ -1,4 +1,4 @@
-import { instance } from '../../common/tests/user.helper'
+import { instance } from '../../../common/tests/user.helper'
 
 describe('DELETE: /tokens', () => {
   it('205: Reset content', async () => {

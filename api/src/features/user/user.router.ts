@@ -1,8 +1,8 @@
 import { Middleware } from 'koa'
 import createRouter, { Router, Joi } from 'koa-joi-router'
 import { UserController } from './user.controller'
-import { AuthMiddleware } from '../common/middleware/auth-middleware'
-import { PermissionMiddleware } from '../common/middleware/permission-middleware'
+import { AuthMiddleware } from '../../common/middleware/auth-middleware'
+import { PermissionMiddleware } from '../../common/middleware/permission-middleware'
 
 export class UserRouter {
   private prefix: string

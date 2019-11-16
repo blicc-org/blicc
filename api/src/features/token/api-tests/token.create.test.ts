@@ -1,7 +1,7 @@
 import uuid from 'uuid/v4'
 import speakeasy from 'speakeasy'
-import { user } from '../../../mocks/user.mock'
-import { instance } from '../../common/tests/user.helper'
+import { user } from '../../../../mocks/user.mock'
+import { instance } from '../../../common/tests/user.helper'
 
 describe('POST: /tokens', () => {
   let email = ''

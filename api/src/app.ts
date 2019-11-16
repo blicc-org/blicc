@@ -3,12 +3,12 @@ import logger from 'koa-logger'
 import bodyParser from 'koa-bodyparser'
 import cors from '@koa/cors'
 import serve from 'koa-static'
-import { ApiDocsRouter } from './api-docs/api-docs.router'
-import { AdminRouter } from './admin/admin.router'
-import { UserRouter } from './user/user.router'
-import { TokenRouter } from './token/token.router'
-import { DashboardRouter } from './dashboard/dashboard.router'
-import { TwoFactorAuthRouter } from './two-factor-auth/two-factor-auth.router'
+import { ApiDocsRouter } from './features/api-docs/api-docs.router'
+import { AdminRouter } from './features/admin/admin.router'
+import { UserRouter } from './features/user/user.router'
+import { TokenRouter } from './features/token/token.router'
+import { DashboardRouter } from './features/dashboard/dashboard.router'
+import { TwoFactorAuthRouter } from './features/two-factor-auth/two-factor-auth.router'
 
 export class App extends Koa {
   public constructor() {

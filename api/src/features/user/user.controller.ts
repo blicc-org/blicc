@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import status from 'http-status-codes'
 import { UserService } from './user.service'
-import { Validation } from '../util/validation'
+import { Validation } from '../../util/validation'
 
 export class UserController {
   private userService: UserService

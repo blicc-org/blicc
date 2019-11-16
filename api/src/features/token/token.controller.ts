@@ -2,8 +2,8 @@ import Koa from 'koa'
 import status from 'http-status-codes'
 import { TokenService } from './token.service'
 import { UserService } from '../user/user.service'
-import { JWT } from '../util/jwt'
-import { IS_PROD, APP } from '../config'
+import { JWT } from '../../util/jwt'
+import { IS_PROD, APP } from '../../config'
 
 export class TokenController {
   private tokenService: TokenService

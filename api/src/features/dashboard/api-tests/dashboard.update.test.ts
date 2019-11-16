@@ -1,4 +1,4 @@
-import { instance, initializeUser } from '../../common/tests/user.helper'
+import { instance, initializeUser } from '../../../common/tests/user.helper'
 
 describe('PUT: /dashboards/:id', () => {
   let params = { email: '', userId: '', cookie: '' }
