@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { PieChart, BarChart2, Activity, Menu } from 'react-feather'
-import { DragContext } from '../../context/DragContext'
+import { DragContext } from '../../context'
 import { TYPE } from '../charts/Chart'
 import './Selector.scss'
 

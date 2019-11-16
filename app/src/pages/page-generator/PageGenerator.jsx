@@ -4,7 +4,7 @@ import axios from 'axios'
 import Markdown from 'react-markdown'
 import { Highlighter } from '../../common/components/syntax-highlighting/Highlighter'
 import { APP } from '../../config'
-import { AppContext } from '../../common/context/AppContext'
+import { AppContext } from '../../common/context'
 import './PageGenerator.scss'
 
 export function PageGenerator({ location }) {

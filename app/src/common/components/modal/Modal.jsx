@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { Redirect } from 'react-router-dom'
-import { ModalContext } from '../../context/ModalContext'
+import { ModalContext } from '../../context'
 
 export function Modal() {
   const [modal] = useContext(ModalContext)

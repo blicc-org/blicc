@@ -1,6 +1,6 @@
 import React, { useContext, useState, useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { AppContext } from '../../context/AppContext'
+import { AppContext } from '../../context'
 import { useSession, useLanguage } from '../../hooks'
 import { ReactComponent as Burger } from '../../../assets/img/Burger.svg'
 import { ReactComponent as Maskot } from '../../../assets/img/Maskot.svg'

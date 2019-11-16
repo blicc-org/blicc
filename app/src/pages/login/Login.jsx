@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { LoginPassword } from './LoginPassword'
-import { AppContext } from '../../common/context/AppContext'
+import { AppContext } from '../../common/context'
 import { useSession } from '../../common/hooks'
 import { Redirect } from 'react-router-dom'
 import { LoginTwoFactorAuth } from './LoginTwoFactorAuth'

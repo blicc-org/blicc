@@ -4,7 +4,7 @@ import { POSITION } from '../components/dashboard-view/positioning/Positioning'
 import { TYPE } from '../components/charts/Chart'
 import { GRID } from '../components/dashboard-view/Row'
 
-export const INITIAL = {
+export const INITIAL_DASHBOARD = {
   title: 'Dashboard',
   data: {
     row: [
@@ -17,7 +17,7 @@ export const INITIAL = {
   },
 }
 
-export function useDashboard(initial = INITIAL) {
+export function useDashboard(initial = INITIAL_DASHBOARD) {
   const [dashboard, setDashboard] = useState(initial)
 
   function createRow(prev, pos, item) {

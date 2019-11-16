@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { RegisterForm } from './RegisterForm'
 import { useApiEndpoint, useSession } from '../../common/hooks'
 import { RegisterService } from './RegisterService'
-import { ToastContext } from '../../common/context/ToastContext'
+import { ToastContext } from '../../common/context'
 import statusCode from 'http-status-codes'
 
 export function Register() {

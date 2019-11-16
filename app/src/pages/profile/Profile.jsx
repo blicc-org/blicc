@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useApiEndpoint } from '../../common/hooks'
-import { AppContext } from '../../common/context/AppContext'
+import { AppContext } from '../../common/context'
 
 export function Profile() {
   const [appState] = useContext(AppContext)

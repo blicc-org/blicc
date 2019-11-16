@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef, useContext, useCallback } from 'react'
-import { SubscriberContext } from '../context/SubscriberContext'
-import { AppContext } from '../context/AppContext'
+import { SubscriberContext, AppContext } from '../context'
 import { DELIVERY } from '../../config'
 
 export let sockets = null

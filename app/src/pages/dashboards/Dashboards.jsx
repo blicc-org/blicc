@@ -1,26 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
-import uuid from 'uuid'
 import statusCode from 'http-status-codes'
 import { DashboardsItem } from './DashboardsItem'
-import { ModalContext } from '../../common/context/ModalContext'
-import { useApiEndpoint } from '../../common/hooks'
+import { ModalContext } from '../../common/context'
+import { useApiEndpoint, INITIAL_DASHBOARD } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import { TYPE } from '../../common/components/charts/Chart'
-import { GRID } from '../../common/components/dashboard-view/Row'
 import './Dashboards.scss'
-
-export const INITIAL = {
-  title: 'Dashboard',
-  data: {
-    row: [
-      {
-        id: uuid(),
-        col: GRID.FULL,
-        type: TYPE.DRAG_HERE,
-      },
-    ],
-  },
-}
 
 export function Dashboards() {
   const title = 'Dashboards'
@@ -56,7 +40,7 @@ export function Dashboards() {
   }
 
   async function sendData() {
-    const [status, data] = await create(INITIAL)
+    const [status, data] = await create(INITIAL_DASHBOARD)
     if (status === statusCode.CREATED) {
       return `/dashboards/${data.id}`
     } else {
