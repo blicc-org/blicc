@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import statusCode from 'http-status-codes'
-import { DashboardsIdHeader } from './DashboardsIdHeader'
+import { DashboardHeader } from './DashboardHeader'
 import { DashboardView } from '../../common/components/dashboard-view/DashboardView'
 import { useApiEndpoint, useDashboard } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
@@ -33,7 +33,7 @@ export function Dashboard({ match }) {
     <>
       <MetaData title={title} description={title} path={path} />
       <div className="container-fluid">
-        <DashboardsIdHeader title={title} onSave={updateDashboard} />
+        <DashboardHeader title={title} onSave={updateDashboard} />
         <DashboardView dashboard={dashboard} update={setData} />
       </div>
     </>
