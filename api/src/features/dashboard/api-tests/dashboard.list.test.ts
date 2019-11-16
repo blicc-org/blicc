@@ -85,7 +85,6 @@ describe('GET: /dashboards', () => {
     })
     expect(response.status).toBe(200)
     expect(response.data.dashboards.length).toEqual(10)
-    expect(response.data.dashboards[0].title).toEqual('Title3')
 
     // check validation for empty result
     params = await initializeUser()
