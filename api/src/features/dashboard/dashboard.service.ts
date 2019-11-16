@@ -56,6 +56,7 @@ export class DashboardService {
       .andWhere('LOWER(dashboard.title) like LOWER(:title)', {
         title: '%' + searchTerm + '%',
       })
+      .orderBy('dashboard.creationDate', 'DESC')
       .skip(skipNumber)
       .take(takeNumber)
       .getMany()
@@ -83,5 +84,12 @@ export class DashboardService {
 
   private escapeSearchQuery(str: string): string {
     return str.replace(/[^\w\s!?]/g, '')
+  }
+
+  public async getTotalEntries(): Promise<number> {
+    return await this.repo
+      .createQueryBuilder('dashboard')
+      .select('dashboard.id')
+      .getCount()
   }
 }

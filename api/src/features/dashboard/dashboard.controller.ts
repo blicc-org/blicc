@@ -46,12 +46,14 @@ export class DashboardController {
         ctx.query.skip,
         ctx.query.take
       )
+      const total = await this.dashboardService.getTotalEntries()
+
       if (!dashboards) {
         ctx.status = status.BAD_REQUEST
         return
       }
 
-      ctx.body = { dashboards }
+      ctx.body = { total, dashboards }
       ctx.status = status.OK
     } catch (e) {
       ctx.status = status.INTERNAL_SERVER_ERROR

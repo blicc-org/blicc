@@ -249,6 +249,16 @@ export class DashboardRouter {
      *         schema:
      *           type: string
      *         description: Select dashboards where the title matches the given search term like ?search=profit
+     *       - in: query
+     *         name: skip
+     *         schema:
+     *           type: number
+     *         description: Defines the offset of the requested dashboards.
+     *       - in: query
+     *         name: take
+     *         schema:
+     *           type: number
+     *         description: Defines the amount of the requested dashboards.
      *     summary: List dashboards
      *     description: List dashboards by given filter.
      *     responses:
@@ -314,6 +324,7 @@ export class DashboardRouter {
         output: {
           200: {
             body: {
+              total: Joi.number().required(),
               dashboards: Joi.array().items({
                 id: Joi.string(),
                 title: Joi.string(),
