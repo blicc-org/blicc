@@ -1,6 +1,6 @@
 import { Repository, getRepository } from 'typeorm'
 import speakeasy from 'speakeasy'
-import { UserEntity } from '../user/user.entity'
+import { UserEntity } from '../user'
 import { TwoFactorAuthSecret } from './two-factor-auth-secret.interface'
 
 export class TwoFactorAuthService {

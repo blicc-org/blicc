@@ -1,6 +1,6 @@
 import Koa from 'koa'
 import status from 'http-status-codes'
-import { UserService } from '../user/user.service'
+import { UserService } from '../user'
 import { TwoFactorAuthService } from './two-factor-auth.service'
 
 export class TwoFactorAuthController {

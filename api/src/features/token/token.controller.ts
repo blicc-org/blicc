@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import status from 'http-status-codes'
 import { TokenService } from './token.service'
-import { UserService } from '../user/user.service'
+import { UserService } from '../user'
 import { JWT } from '../../util/jwt'
 import { IS_PROD, APP } from '../../config'
 
