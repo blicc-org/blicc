@@ -4,7 +4,7 @@ import {
   invalidEmails,
   invalidPasswords,
   injectionAttacks,
-} from '../../../../mocks/user.mock'
+} from '../mocks/user.mock'
 import { instance } from '../../../common/tests/user.helper'
 
 describe('POST: /users', () => {

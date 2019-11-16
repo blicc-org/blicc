@@ -1,7 +1,7 @@
 import uuid from 'uuid/v4'
 import speakeasy from 'speakeasy'
-import { user } from '../../user/mocks/user.mock'
-import { instance } from '../../../common/tests/user.helper'
+import { user } from '../user/mocks/user.mock'
+import { instance } from '../../common/tests/user.helper'
 
 describe('POST: /tokens', () => {
   let email = ''
@@ -208,5 +208,17 @@ describe('POST: /tokens', () => {
       password: '123456',
     })
     expect(response.status).toBe(404)
+  })
+})
+
+describe('DELETE: /tokens', () => {
+  it('205: Reset content', async () => {
+    const response = await instance.delete('/tokens')
+    const cookies = response.headers['set-cookie']
+    const cookie = cookies
+      .find((cookie: string): boolean => cookie.startsWith('access_token'))
+      .split(';')[0]
+    expect(response.status).toBe(200)
+    expect(cookie).toBe('access_token=')
   })
 })
