@@ -9,7 +9,7 @@ export const instance = axios.create({
   validateStatus: status => status >= 200 && status < 500,
 })
 
-export async function initializeUser() {
+export async function initializeUser(): Promise<object> {
   const email = `${uuid()}@example.com`
   const { data } = await instance.post('/users', {
     ...user,
