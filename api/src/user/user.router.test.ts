@@ -5,7 +5,7 @@ import {
   invalidPasswords,
   injectionAttacks,
 } from '../../mocks/user.mock'
-import { instance, initializeUser } from '../test/user.helper'
+import { instance, initializeUser } from '../common/test/user.helper'
 
 describe('GET: /users/:id', () => {
   let params = { email: '', userId: '', cookie: '' }

@@ -1,8 +1,8 @@
 import { Middleware } from 'koa'
 import createRouter, { Router, Joi } from 'koa-joi-router'
 import { TwoFactorAuthController } from './two-factor-auth.controller'
-import { AuthMiddleware } from '../middleware/auth-middleware'
-import { PermissionMiddleware } from '../middleware/permission-middleware'
+import { AuthMiddleware } from '../common/middleware/auth-middleware'
+import { PermissionMiddleware } from '../common/middleware/permission-middleware'
 
 export class TwoFactorAuthRouter {
   private prefix: string

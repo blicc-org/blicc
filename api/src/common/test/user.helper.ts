@@ -1,7 +1,7 @@
 import axios from 'axios'
 import uuid from 'uuid/v4'
-import { user } from '../../mocks/user.mock'
-import { API_TEST_TARGET } from '../config'
+import { user } from '../../../mocks/user.mock'
+import { API_TEST_TARGET } from '../../config'
 
 export const instance = axios.create({
   baseURL: API_TEST_TARGET,

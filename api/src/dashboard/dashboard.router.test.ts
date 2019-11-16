@@ -1,4 +1,4 @@
-import { instance, initializeUser } from '../test/user.helper'
+import { instance, initializeUser } from '../common/test/user.helper'
 import { Dashboard } from './dashboard.interface'
 
 describe('POST: /dashboards', () => {

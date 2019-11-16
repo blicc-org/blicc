@@ -1,7 +1,7 @@
 import Mailer, { Transporter, SendMailOptions } from 'nodemailer'
 import { MailGenerator } from './mail-generator'
-import { User } from '../../user/user.interface'
-import { MAIL_ADDRESS, MAIL_PASSWORD, MAIL_HOST } from '../../config'
+import { User } from '../../../user/user.interface'
+import { MAIL_ADDRESS, MAIL_PASSWORD, MAIL_HOST } from '../../../config'
 
 export const MailType = {
   WELCOME: 'welcome',
