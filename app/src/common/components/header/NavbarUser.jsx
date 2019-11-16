@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { User } from 'react-feather'
-import { useLanguage } from '../../hooks/useLanguage'
-import { useClickAway } from '../../hooks/useClickAway'
+import { useLanguage, useClickAway } from '../../hooks'
 
 export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
   const content = useLanguage()

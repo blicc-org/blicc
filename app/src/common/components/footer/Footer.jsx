@@ -1,7 +1,7 @@
 import React from 'react'
 import { FooterNav } from './FooterNav'
 import { LanguageSelect } from '../language-select/LanguageSelect'
-import { useLanguage } from '../../hooks/useLanguage'
+import { useLanguage } from '../../hooks'
 
 export function Footer({ close }) {
   const content = useLanguage()

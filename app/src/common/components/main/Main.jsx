@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { SidebarContext } from '../../context/SidebarContext'
-import { useMobile } from '../../hooks/useMobile'
+import { useMobile } from '../../hooks'
 import { sidebarWidth } from '../../../config'
 import './Main.scss'
 

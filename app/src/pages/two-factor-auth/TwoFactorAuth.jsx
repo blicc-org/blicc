@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
+import { useApiEndpoint } from '../../common/hooks'
 import { Redirect } from 'react-router-dom'
 import { QRCode } from '../../common/components/qr-code/QRCode'
 import { Pin } from '../../common/components/form/pin/Pin'

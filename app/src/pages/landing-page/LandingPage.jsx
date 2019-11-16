@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useLanguage } from '../../common/hooks/useLanguage'
+import { useLanguage } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { ReactComponent as Maskot } from '../../assets/img/Maskot.svg'
 

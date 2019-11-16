@@ -1,11 +1,26 @@
 import React, { useState, useEffect, useContext } from 'react'
+import uuid from 'uuid'
 import statusCode from 'http-status-codes'
 import { DashboardsItem } from './DashboardsItem'
 import { ModalContext } from '../../common/context/ModalContext'
-import { INITIAL } from '../../common/hooks/useDashboard'
+import { useApiEndpoint } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
+import { TYPE } from '../../common/components/charts/Chart'
+import { GRID } from '../../common/components/dashboard-view/Row'
 import './Dashboards.scss'
+
+export const INITIAL = {
+  title: 'Dashboard',
+  data: {
+    row: [
+      {
+        id: uuid(),
+        col: GRID.FULL,
+        type: TYPE.DRAG_HERE,
+      },
+    ],
+  },
+}
 
 export function Dashboards() {
   const title = 'Dashboards'

@@ -1,4 +1,4 @@
-import { useLanguage } from '../../hooks/useLanguage'
+import { useLanguage } from '../../hooks'
 
 export function useFooterArrangement() {
   const content = useLanguage()

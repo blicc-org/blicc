@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Search as SearchIcon } from 'react-feather'
-import { useMobile } from '../../hooks/useMobile'
+import { useMobile } from '../../hooks'
 import { SearchInputField } from './SearchInputField'
 import theme from '../../../Theme.scss'
 

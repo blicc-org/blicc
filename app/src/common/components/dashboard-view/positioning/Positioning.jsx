@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { useColor } from '../../../hooks/useColor'
+import { useColor } from '../../../hooks'
 import theme from '../../../../Theme.scss'
 import './Positioning.scss'
 

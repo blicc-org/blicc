@@ -2,8 +2,7 @@ import React, { useEffect } from 'react'
 import statusCode from 'http-status-codes'
 import { DashboardsIdHeader } from './DashboardsIdHeader'
 import { DashboardView } from '../../common/components/dashboard-view/DashboardView'
-import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
-import { useDashboard } from '../../common/hooks/useDashboard'
+import { useApiEndpoint, useDashboard } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 
 export function DashboardsId({ match }) {

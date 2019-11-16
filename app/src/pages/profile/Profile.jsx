@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
+import { useApiEndpoint } from '../../common/hooks'
 import { AppContext } from '../../common/context/AppContext'
 
 export function Profile() {

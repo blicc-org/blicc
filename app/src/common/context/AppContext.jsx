@@ -1,5 +1,5 @@
 import React, { createContext } from 'react'
-import { useLocalStorage } from '../hooks/useLocalStorage'
+import { useLocalStorage } from '../hooks'
 
 export const INITIAL_APP_STATE = {
   id: '',

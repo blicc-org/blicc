@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react'
 import {
   useDeliveryEndpoint,
-  WebSocketState,
-} from '../../common/hooks/useDeliveryEndpoint'
+} from '../../common/hooks'
+
+const WebSocketState = {
+  [WebSocket.CONNECTING]: 'connecting',
+  [WebSocket.OPEN]: 'open',
+  [WebSocket.CLOSING]: 'closing',
+  [WebSocket.CLOSED]: 'closed',
+}
 
 export function WebSocketTest() {
   const [publish, subscribe, state] = useDeliveryEndpoint()

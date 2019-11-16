@@ -1,6 +1,6 @@
 import React from 'react'
 import { Chart } from '../charts/Chart'
-import { useMobile } from '../../hooks/useMobile'
+import { useMobile } from '../../hooks'
 import './Row.scss'
 
 export const GRID = {
