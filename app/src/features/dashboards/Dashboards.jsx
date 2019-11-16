@@ -51,9 +51,9 @@ export function Dashboards() {
   return (
     <>
       <MetaData title={title} description={description} path={path} />
-      <div className="container-fluid">
-        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-2">
-          <h4 className="my-0">{title}</h4>
+      <div className="container">
+        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
+          <h2 className="my-0">{title}</h2>
           <div className="btn-toolbar">
             <button
               type="button"
