@@ -2,7 +2,7 @@ import Koa from 'koa'
 import status from 'http-status-codes'
 import { JWT } from '../../util/jwt'
 import { UserService, User } from '../../features/user'
-import { TokenPayload } from '../../features/token/token-payload.interface'
+import { TokenPayload } from '../../features/token'
 
 export class AuthMiddleware {
   public static async handle(

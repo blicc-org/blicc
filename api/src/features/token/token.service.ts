@@ -1,5 +1,5 @@
 import { Repository, getRepository } from 'typeorm'
-import { TwoFactorAuthService } from '../two-factor-auth/two-factor-auth.service'
+import { TwoFactorAuthService } from '../two-factor-auth'
 import { UserEntity } from '../user'
 import { Hash } from '../../util/hash'
 

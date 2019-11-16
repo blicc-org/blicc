@@ -1,6 +1,6 @@
 import fs from 'fs'
 import jwt from 'jsonwebtoken'
-import { TokenPayload } from '../features/token/token-payload.interface'
+import { TokenPayload } from '../features/token'
 import { CERTS } from '../config'
 
 export class JWT {
