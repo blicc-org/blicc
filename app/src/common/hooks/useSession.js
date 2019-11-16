@@ -1,7 +1,12 @@
 import { useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint } from './useApiEndpoint'
-import { AppContext, ToastContext, ModalContext, INITIAL_APP_STATE } from '../context'
+import {
+  AppContext,
+  ToastContext,
+  ModalContext,
+  INITIAL_APP_STATE,
+} from '../context'
 
 export function useSession() {
   const [open, , , close] = useApiEndpoint('/tokens')
