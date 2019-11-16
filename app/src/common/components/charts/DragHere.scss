@@ -1,0 +1,10 @@
+@import '../../../Theme';
+
+.drag-here {
+  height: 100%;
+  border-style: dashed;
+  border-width: 2px;
+  border-color: $lightgray;
+  border-radius: $border-radius;
+  background-color: $light;
+}

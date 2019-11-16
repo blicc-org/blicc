@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Markdown from 'react-markdown'
-import { Highlighter } from '../../components/syntax-highlighting/Highlighter'
+import { Highlighter } from '../../common/components/syntax-highlighting/Highlighter'
 import { APP } from '../../config'
-import { AppContext } from '../../context/AppContext'
+import { AppContext } from '../../common/context/AppContext'
 import './PageGenerator.scss'
 
 export function PageGenerator({ location }) {

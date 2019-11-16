@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Input } from '../../components/form/Input'
+import { Input } from '../../common/components/form/Input'
 import { RegisterService } from './RegisterService'
 
 export function RegisterForm({ user, setUser, register }) {

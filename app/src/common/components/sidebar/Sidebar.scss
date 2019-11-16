@@ -1,0 +1,52 @@
+@import '../../../Theme';
+
+.sidebar {
+  top: 40px;
+  bottom: 0;
+  position: fixed;
+  z-index: 1000;
+  overflow-x: hidden;
+  transition: 0.15s;
+  background-color: $light;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: $light;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: $lightgray;
+}
+
+.sidebar .feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 14px;
+  color: #999;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.blackout {
+  width: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 900;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: background-color 0.15s;
+}

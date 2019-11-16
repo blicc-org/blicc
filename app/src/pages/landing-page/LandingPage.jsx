@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useContent } from '../../hooks/useContent'
-import { MetaData } from '../../components/meta-data/MetaData'
+import { useContent } from '../../common/hooks/useContent'
+import { MetaData } from '../../common/components/meta-data/MetaData'
 import { ReactComponent as Maskot } from '../../assets/img/Maskot.svg'
 
 export function LandingPage() {

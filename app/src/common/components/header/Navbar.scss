@@ -1,0 +1,29 @@
+@import '../../../Theme';
+
+.menu-button {
+  cursor: pointer;
+  user-select: none;
+}
+
+.burger,
+.grid {
+  fill: $lightgray;
+}
+
+.user {
+  background-color: $lightgray;
+  border-radius: 100px;
+}
+
+.plus {
+  color: $lightgray;
+}
+.maskot {
+  height: 24px;
+  padding-right: 8px;
+}
+
+.title {
+  padding: 2px 0px;
+  float: right;
+}

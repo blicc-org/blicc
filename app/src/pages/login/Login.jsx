@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react'
 import { LoginPassword } from './LoginPassword'
-import { AppContext } from '../../context/AppContext'
-import { useSession } from '../../hooks/useSession'
+import { AppContext } from '../../common/context/AppContext'
+import { useSession } from '../../common/hooks/useSession'
 import { Redirect } from 'react-router-dom'
 import { LoginTwoFactorAuth } from './LoginTwoFactorAuth'
-import { MetaData } from '../../components/meta-data/MetaData'
+import { MetaData } from '../../common/components/meta-data/MetaData'
 import './Login.scss'
 
 const Steps = {

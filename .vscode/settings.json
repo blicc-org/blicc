@@ -39,6 +39,12 @@
       "extensions": ["language", "content"],
       "format": "FileFormat.svg",
       "disabled": false
+    },
+    {
+      "icon": "config",
+      "extensions": ["config", "common"],
+      "format": "FileFormat.svg",
+      "disabled": false
     }
   ]
 }

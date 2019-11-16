@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useApiEndpoint } from '../../hooks/useApiEndpoint'
+import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
 import { Redirect } from 'react-router-dom'
-import { QRCode } from '../../components/qr-code/QRCode'
-import { Pin } from '../../components/form/pin/Pin'
+import { QRCode } from '../../common/components/qr-code/QRCode'
+import { Pin } from '../../common/components/form/pin/Pin'
 import './TwoFactorAuth.scss'
 
 export function TwoFactorAuth() {

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { DashboardsItem } from './DashboardsItem'
-import { ModalContext } from '../../context/ModalContext'
-import { INITIAL } from '../../hooks/useDashboard'
-import { MetaData } from '../../components/meta-data/MetaData'
-import { useApiEndpoint } from '../../hooks/useApiEndpoint'
+import { ModalContext } from '../../common/context/ModalContext'
+import { INITIAL } from '../../common/hooks/useDashboard'
+import { MetaData } from '../../common/components/meta-data/MetaData'
+import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
 import './Dashboards.scss'
 
 export function Dashboards() {

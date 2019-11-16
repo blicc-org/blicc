@@ -1,0 +1,21 @@
+@import '../../../Theme';
+
+.btn-copy {
+  color: $border-radius;
+}
+
+.btn-copy:hover {
+  color: $light;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.highlighter + .btn-copy {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.syntax-highlighter {
+  position: relative;
+}

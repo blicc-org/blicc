@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import statusCode from 'http-status-codes'
 import { DashboardsIdHeader } from './DashboardsIdHeader'
-import { DashboardView } from '../../components/dashboard-view/DashboardView'
-import { useApiEndpoint } from '../../hooks/useApiEndpoint'
-import { useDashboard } from '../../hooks/useDashboard'
-import { MetaData } from '../../components/meta-data/MetaData'
+import { DashboardView } from '../../common/components/dashboard-view/DashboardView'
+import { useApiEndpoint } from '../../common/hooks/useApiEndpoint'
+import { useDashboard } from '../../common/hooks/useDashboard'
+import { MetaData } from '../../common/components/meta-data/MetaData'
 
 export function DashboardsId({ match }) {
   const [dashboard, setData, setDashboard] = useDashboard()
