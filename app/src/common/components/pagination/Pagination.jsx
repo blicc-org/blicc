@@ -3,7 +3,7 @@ import { useMobile } from '../../hooks'
 
 export function Pagination({ page, setPage, itemsPerPage, total }) {
   const isMobile = useMobile()
-  const numOfPages = parseInt(total / itemsPerPage)
+  const numOfPages = Math.floor(total / itemsPerPage)
   const range = isMobile ? 2 : 4
   const buttom = page - range > 0 ? page - range : 0
   const top = page + range < numOfPages ? page + range : numOfPages

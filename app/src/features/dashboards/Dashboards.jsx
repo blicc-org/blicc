@@ -19,8 +19,6 @@ export function Dashboards() {
   const [create, access, ,] = useApiEndpoint(path)
   const [, showModal] = useContext(ModalContext)
 
-  console.log(page)
-
   useEffect(() => {
     async function fetchData() {
       const [status, data] = await access({
