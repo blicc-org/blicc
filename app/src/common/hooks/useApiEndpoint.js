@@ -33,7 +33,7 @@ export function useApiEndpoint(path = '') {
   }
 
   async function validateStatus(status) {
-    if (status === statusCode.UNAUTHORIZED || status === statusCode.NOT_FOUND) {
+    if (status === statusCode.UNAUTHORIZED) {
       await axios.delete('/tokens', {
         baseURL: API.ORIGIN,
         withCredentials: true,
