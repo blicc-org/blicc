@@ -76,13 +76,13 @@ export function Dashboards() {
           <ul className="nav nav-tabs">
             <li className="nav-item">
               <Link className="nav-link active" to="/">
-                {`Dashboards `}
+                {`Your Dashboards `}
                 <span className="badge badge-secondary">{result.total}</span>
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/">
-                Details
+                Explore Dashboards
               </Link>
             </li>
           </ul>
