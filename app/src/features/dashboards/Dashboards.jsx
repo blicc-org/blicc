@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import statusCode from 'http-status-codes'
 import { DashboardsItem } from './DashboardsItem'
 import { ModalContext } from '../../common/context'
@@ -10,18 +11,25 @@ export function Dashboards() {
   const title = 'Dashboards'
   const description = 'View all dashboards'
   const path = '/dashboards'
+  const itemsPerPage = 10
 
-  const [dashboards, setDashboards] = useState([])
+  const [currentPage, setCurrentPage] = useState(0)
+  const [result, setResult] = useState({ total: 0, dashboards: [] })
   const [create, access, ,] = useApiEndpoint(path)
   const [, showModal] = useContext(ModalContext)
 
   useEffect(() => {
     async function fetchData() {
       const [status, data] = await access({
-        params: { fields: 'id,title,creationDate' },
+        params: {
+          fields: 'id,title,creationDate',
+          skip: itemsPerPage * currentPage,
+          take: itemsPerPage,
+        },
       })
       if (status === statusCode.OK) {
-        setDashboards(data.dashboards)
+        setResult(data)
+        console.log(data.dashboards.length)
       }
     }
     fetchData()
@@ -64,10 +72,25 @@ export function Dashboards() {
             </button>
           </div>
         </div>
+        <div className="dashboard-tabs my-2">
+          <ul className="nav nav-tabs">
+            <li className="nav-item">
+              <Link className="nav-link active" to="/">
+                {`Dashboards `}
+                <span className="badge badge-secondary">{result.total}</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/">
+                Details
+              </Link>
+            </li>
+          </ul>
+        </div>
         <div className="dashboard-list">
           <table className="table">
             <tbody>
-              {dashboards.map(dashboard => {
+              {result.dashboards.map(dashboard => {
                 return (
                   <DashboardsItem
                     key={dashboard.id}
@@ -80,6 +103,43 @@ export function Dashboards() {
             </tbody>
           </table>
         </div>
+        <ul class="pagination justify-content-center pb-4">
+          <li class="page-item">
+            <a class="page-link" href="#">
+              First
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">
+              Previous
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">
+              1
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">
+              2
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">
+              3
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">
+              Next
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">
+              Last
+            </a>
+          </li>
+        </ul>
       </div>
     </>
   )
