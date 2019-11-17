@@ -10,7 +10,7 @@ export function useApiEndpoint(path = '') {
     baseURL: API.ORIGIN,
     withCredentials: true,
     validateStatus: status => {
-      if (status === statusCode.UNAUTHORIZED){
+      if (status === statusCode.UNAUTHORIZED) {
         setAppState({ ...appState, loggedIn: false })
       }
       return status >= 200 && status < 500

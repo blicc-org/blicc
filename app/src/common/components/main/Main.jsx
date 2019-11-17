@@ -10,7 +10,7 @@ export function Main({ children }) {
   const [style, setStyle] = useState({})
   const isMobile = useMobile()
   useAutoLogout()
-  
+
   useEffect(() => {
     setStyle({
       marginLeft: open && !isMobile ? sidebarWidth : 0,
