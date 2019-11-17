@@ -16,9 +16,9 @@ export function Modal() {
     redirect,
   } = modal
 
-  function submitHandler() {
+  async function submitHandler() {
+    await submit()
     setIsCompleted(true)
-    submit()
   }
 
   return (
