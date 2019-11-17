@@ -37,11 +37,11 @@ export function Profile() {
     <>
       <div className="container">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-          <h2 className="my-0">Websocket Test</h2>
+          <h2 className="my-0">Profile</h2>
         </div>
         <div className="col px-0">
           <div className="card">
-            <h5 className="card-header">Profile</h5>
+            <h5 className="card-header">Details</h5>
             <div className="card-body">
               <table style={{ width: '100%' }}>
                 <tbody>
