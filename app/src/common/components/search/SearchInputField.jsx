@@ -1,19 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react'
 import statusCode from 'http-status-codes'
 import { Search as SearchIcon, ArrowLeft } from 'react-feather'
-import { useClickAway, useApiEndpoint } from '../../hooks'
+import { useClose, useApiEndpoint } from '../../hooks'
 import { Result } from './Result'
 import theme from '../../../Theme.scss'
 import './SearchInputField.scss'
+
+const INIT_DATA = {
+  total: 0,
+  dashboards: [],
+}
 
 export function SearchInputField({ isFullscreen = false, close = () => {} }) {
   const [, access, ,] = useApiEndpoint('/dashboards')
   const [backgroundColor, setGgColor] = useState(getDefault())
   const [searchTerm, setSearchTerm] = useState('')
   const [focused, setFocused] = useState(false)
-  const [dashboards, setDashboards] = useState([])
+  const [data, setData] = useState(INIT_DATA)
   const ref = useRef()
-  useClickAway(ref, () => handleClose(false))
+  useClose(ref, () => handleClose(false))
 
   function handleClose() {
     setFocused(false)
@@ -25,15 +30,15 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
   useEffect(() => {
     async function fetchData() {
       const [status, data] = await access({
-        params: { fields: 'id,title', search: searchTerm },
+        params: { fields: 'id,title', search: searchTerm, take: 10 },
       })
       if (status === statusCode.OK) {
-        setDashboards(data.dashboards)
+        setData(data)
       }
     }
 
     if (searchTerm === '') {
-      setDashboards([])
+      setData(INIT_DATA)
     } else {
       fetchData()
     }
@@ -90,7 +95,7 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
             <SearchIcon />
           </button>
         </div>
-        <Result show={focused} results={dashboards} close={handleClose} />
+        <Result show={focused} results={data.dashboards} total={data.total} />
       </form>
     </>
   )

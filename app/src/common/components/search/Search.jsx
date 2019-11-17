@@ -8,11 +8,14 @@ import theme from '../../../Theme.scss'
 export function Search() {
   const [open, setOpen] = useState(false)
   const isMobile = useMobile()
+
+  function close() {
+    setOpen(false)
+  }
+
   return (
     <>
-      {open && (
-        <SearchInputField isFullscreen={true} close={() => setOpen(false)} />
-      )}
+      {open && <SearchInputField isFullscreen={true} close={close} />}
       {isMobile ? (
         <>
           <Link
@@ -29,7 +32,7 @@ export function Search() {
         </>
       ) : (
         <div className=" w-100 pr-4">
-          <SearchInputField />
+          <SearchInputField close={close} />
         </div>
       )}
     </>

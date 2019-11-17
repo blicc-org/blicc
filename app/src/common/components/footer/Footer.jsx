@@ -3,12 +3,12 @@ import { FooterNav } from './FooterNav'
 import { LanguageSelect } from '../language-select/LanguageSelect'
 import { useLanguage } from '../../hooks'
 
-export function Footer({ close }) {
+export function Footer() {
   const content = useLanguage()
 
   return (
     <footer>
-      <FooterNav close={close} />
+      <FooterNav />
       <div className="m-3">
         <LanguageSelect />
       </div>

@@ -1,13 +1,13 @@
 import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { User } from 'react-feather'
-import { useLanguage, useClickAway } from '../../hooks'
+import { useLanguage, useClose } from '../../hooks'
 
 export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
   const content = useLanguage()
   const [open, setOpen] = useState(false)
   const ref = useRef()
-  useClickAway(ref, () => setOpen(false))
+  useClose(ref, () => setOpen(false))
 
   function toggle() {
     setOpen(prevState => !prevState)
@@ -40,7 +40,7 @@ export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
           >
             <h6 className="dropdown-header">{`${content.navbar.welcome} ${firstName} ${lastName}`}</h6>
             <div className="dropdown-divider"></div>
-            <Link className="dropdown-item" to="/profile" onClick={toggle}>
+            <Link className="dropdown-item" to="/profile">
               {content.navbar.profile}
             </Link>
             <div className="dropdown-divider"></div>
@@ -48,7 +48,6 @@ export function NavbarUser({ firstName, lastName, loggedIn, logout }) {
               className="dropdown-item"
               to="/"
               onClick={() => {
-                toggle()
                 logout()
               }}
             >
