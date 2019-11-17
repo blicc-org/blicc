@@ -4,7 +4,12 @@ export function Digit({ index, size, digit, setDigit, isFocused, setPos }) {
   const ref = useRef(null)
 
   useEffect(() => {
-    if (isFocused) ref.current.focus()
+    if (isFocused) {
+      ref.current.dispatchEvent(new Event('touchstart'))
+      ref.current.dispatchEvent(new Event('touchend'))
+      ref.current.click()
+      ref.current.focus()
+    }
   })
 
   function onMouseDown() {
