@@ -19,6 +19,7 @@ import { Header } from './common/components/header/Header'
 import { Main } from './common/components/main/Main'
 import './App.scss'
 
+// test
 export function App() {
   return (
     <Provider>
