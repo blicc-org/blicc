@@ -1,11 +1,16 @@
 import axios from 'axios'
+import { AppContext } from '../context'
 import { API } from '../../config'
 
 export function useApiEndpoint(path = '') {
+  const [appState, setAppState] = useContext(AppContext)
   const instance = axios.create({
     baseURL: API.ORIGIN,
     withCredentials: true,
-    validateStatus: status => status >= 200 && status < 500,
+    validateStatus: status => {
+      if (status === 401) setAppState({ ...appState, loggedIn: false })
+      return status >= 200 && status < 500
+    },
   })
 
   async function create(resource, config = {}) {
