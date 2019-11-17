@@ -9,12 +9,7 @@ export function useApiEndpoint(path = '') {
   const instance = axios.create({
     baseURL: API.ORIGIN,
     withCredentials: true,
-    validateStatus: status => {
-      if (status === statusCode.UNAUTHORIZED) {
-        setAppState({ ...appState, loggedIn: false })
-      }
-      return status >= 200 && status < 500
-    },
+    validateStatus,
   })
 
   async function create(resource, config = {}) {
@@ -35,6 +30,23 @@ export function useApiEndpoint(path = '') {
   async function remove(config = {}) {
     const { data, status } = await instance.delete(path, config)
     return [status, data]
+  }
+
+  async function validateStatus(status) {
+    if (status === statusCode.UNAUTHORIZED) {
+      await axios.delete('/tokens', {
+        baseURL: API.ORIGIN,
+        withCredentials: true,
+      })
+      setAppState({
+        ...appState,
+        id: '',
+        firstName: '',
+        lastName: '',
+        loggedIn: false,
+      })
+    }
+    return status >= 200 && status < 500
   }
 
   return [create, access, update, remove]

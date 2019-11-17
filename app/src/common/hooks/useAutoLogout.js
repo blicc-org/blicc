@@ -1,20 +1,19 @@
+import { useEffect, useContext } from 'react'
 import { useApiEndpoint } from './useApiEndpoint'
-import statusCode from 'http-status-codes'
 import { AppContext } from '../context'
 
 export function useAutoLogout() {
-  const [, access, ,] = useApiEndpoint('/users')
-  const [appState, setAppState] = useContext(AppContext)
+  const [appState] = useContext(AppContext)
+  const { loggedIn, id } = appState
+  const [, access, ,] = useApiEndpoint(`/users/${id}`)
 
   useEffect(() => {
     async function checkStatus() {
-      const [status] = await access()
-      if (status === statusCode.UNAUTHORIZED) {
-        setAppState({ ...appState, loggedIn: false })
-      }
+      // auto logout triggered by useApiEndpoint on unauthorized
+      if (loggedIn) await access()
     }
 
     const refreshIntervalId = setInterval(checkStatus, 10000)
     return () => clearInterval(refreshIntervalId)
-  }, [])
+  }, [loggedIn, access])
 }

@@ -1,12 +1,7 @@
 import { useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint } from './useApiEndpoint'
-import {
-  AppContext,
-  ToastContext,
-  ModalContext,
-  INITIAL_APP_STATE,
-} from '../context'
+import { AppContext, ToastContext, ModalContext } from '../context'
 
 export function useSession() {
   const [open, , , close] = useApiEndpoint('/tokens')
@@ -47,7 +42,13 @@ export function useSession() {
     } catch (e) {
       // logout even though server is not reachable or user does not exist anymore
     }
-    setAppState(INITIAL_APP_STATE)
+    setAppState({
+      ...appState,
+      id: '',
+      firstName: '',
+      lastName: '',
+      loggedIn: false,
+    })
   }
 
   function wrongPassword() {
