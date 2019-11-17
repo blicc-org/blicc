@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import statusCode from 'http-status-codes'
 import axios from 'axios'
 import { AppContext } from '../context'
 import { API } from '../../config'
@@ -9,7 +10,9 @@ export function useApiEndpoint(path = '') {
     baseURL: API.ORIGIN,
     withCredentials: true,
     validateStatus: status => {
-      if (status === 401) setAppState({ ...appState, loggedIn: false })
+      if (status === statusCode.UNAUTHORIZED){
+        setAppState({ ...appState, loggedIn: false })
+      }
       return status >= 200 && status < 500
     },
   })
