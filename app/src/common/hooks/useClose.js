@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 
+// detects click away or click inside or on a link
 export function useClose(ref, callback, classNamesToIgnore = '') {
   useEffect(() => {
     function handleClick(event) {
