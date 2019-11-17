@@ -88,20 +88,27 @@ export function Dashboards() {
           </ul>
         </div>
         <div className="dashboard-list">
-          <table className="table">
-            <tbody>
-              {result.dashboards.map(dashboard => {
-                return (
-                  <DashboardsItem
-                    key={dashboard.id}
-                    id={dashboard.id}
-                    title={dashboard.title}
-                    creationDate={dashboard.creationDate}
-                  />
-                )
-              })}
-            </tbody>
-          </table>
+          {result.dashboards.length === 0 ? (
+            <p className="text-muted mx-auto py-5 my-5 text-center">
+              No dashboards found. Click in the top right corner on New
+              Dashboard to create one.
+            </p>
+          ) : (
+            <table className="table">
+              <tbody>
+                {result.dashboards.map(dashboard => {
+                  return (
+                    <DashboardsItem
+                      key={dashboard.id}
+                      id={dashboard.id}
+                      title={dashboard.title}
+                      creationDate={dashboard.creationDate}
+                    />
+                  )
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
         <Pagination
           page={page}
