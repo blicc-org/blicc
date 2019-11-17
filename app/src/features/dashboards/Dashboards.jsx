@@ -6,6 +6,7 @@ import { ModalContext } from '../../common/context'
 import { useApiEndpoint, INITIAL_DASHBOARD } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import './Dashboards.scss'
+import { Pagination } from '../../common/components/pagination/Pagination'
 
 export function Dashboards() {
   const title = 'Dashboards'
@@ -13,28 +14,29 @@ export function Dashboards() {
   const path = '/dashboards'
   const itemsPerPage = 10
 
-  const [currentPage, setCurrentPage] = useState(0)
+  const [page, setPage] = useState(0)
   const [result, setResult] = useState({ total: 0, dashboards: [] })
   const [create, access, ,] = useApiEndpoint(path)
   const [, showModal] = useContext(ModalContext)
+
+  console.log(page)
 
   useEffect(() => {
     async function fetchData() {
       const [status, data] = await access({
         params: {
           fields: 'id,title,creationDate',
-          skip: itemsPerPage * currentPage,
+          skip: itemsPerPage * page,
           take: itemsPerPage,
         },
       })
       if (status === statusCode.OK) {
         setResult(data)
-        console.log(data.dashboards.length)
       }
     }
     fetchData()
     // eslint-disable-next-line
-  }, [])
+  }, [page])
 
   async function createDashboard() {
     showModal(
@@ -103,43 +105,12 @@ export function Dashboards() {
             </tbody>
           </table>
         </div>
-        <ul class="pagination justify-content-center pb-4">
-          <li class="page-item">
-            <a class="page-link" href="#">
-              First
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              Previous
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              1
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              2
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              3
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              Next
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              Last
-            </a>
-          </li>
-        </ul>
+        <Pagination
+          page={page}
+          setPage={setPage}
+          itemsPerPage={itemsPerPage}
+          total={result.total}
+        />
       </div>
     </>
   )

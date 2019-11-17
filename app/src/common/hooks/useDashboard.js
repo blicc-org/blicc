@@ -18,7 +18,7 @@ export const INITIAL_DASHBOARD = {
 }
 
 export function useDashboard(initial = INITIAL_DASHBOARD) {
-  const [dashboard, setDashboard] = useState(initial)
+  const [data, setData] = useState(initial)
 
   function createRow(prev, pos, item) {
     switch (pos) {
@@ -57,8 +57,8 @@ export function useDashboard(initial = INITIAL_DASHBOARD) {
     }
   }
 
-  function setData(id, pos, type) {
-    setDashboard(prev => {
+  function setDashboard(id, pos, type) {
+    setData(prev => {
       return {
         ...prev,
         data: add(prev.data, id, pos, {
@@ -69,5 +69,5 @@ export function useDashboard(initial = INITIAL_DASHBOARD) {
     })
   }
 
-  return [dashboard, setData, setDashboard]
+  return [data, setData, setDashboard]
 }
