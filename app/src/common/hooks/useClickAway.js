@@ -6,6 +6,7 @@ export function useClickAway(ref, callback, classNamesToIgnore = '') {
       if (
         ref.current &&
         !ref.current.contains(event.target) &&
+        classNamesToIgnore &&
         !event.target.classList.contains(classNamesToIgnore)
       ) {
         callback()
