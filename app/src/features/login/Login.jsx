@@ -38,7 +38,7 @@ export function Login() {
 
   return (
     <>
-      {appState.loggedIn && <Redirect to="/dashboards" />}
+      {appState.loggedIn && <Redirect to="/" />}
       <MetaData title={title} description={description} path={path} />
       <div className="col-md-5 mx-auto py-5 my-5 text-center">
         {step === Steps.PASSWORD ? (
