@@ -6,16 +6,16 @@ import { useApiEndpoint, useDashboard } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 
 export function Dashboard({ match }) {
-  const [dashboard, setData, setDashboard] = useDashboard()
+  const [data, setData, setDashboard] = useDashboard()
   const path = `/dashboards/${match.params.id}`
   const [, access, update] = useApiEndpoint(path)
-  const { title } = dashboard
+  const { title } = data
 
   useEffect(() => {
     async function fetchData() {
       const [status, data] = await access()
       if (status === statusCode.OK) {
-        setDashboard(data)
+        setData(data)
       }
     }
     fetchData()
@@ -23,7 +23,7 @@ export function Dashboard({ match }) {
   }, [match])
 
   async function updateDashboard() {
-    const [status] = await update(dashboard)
+    const [status] = await update(data)
     if (status === statusCode.OK) {
       console.log('update was successful!')
     }
@@ -34,7 +34,7 @@ export function Dashboard({ match }) {
       <MetaData title={title} description={title} path={path} />
       <div className="container-fluid">
         <DashboardHeader title={title} onSave={updateDashboard} />
-        <DashboardView dashboard={dashboard} update={setData} />
+        <DashboardView data={data} update={setDashboard} />
       </div>
     </>
   )
