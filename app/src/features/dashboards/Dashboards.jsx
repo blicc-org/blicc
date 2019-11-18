@@ -75,14 +75,22 @@ export function Dashboards() {
         <div className="dashboard-tabs my-2">
           <ul className="nav nav-tabs">
             <li className="nav-item">
-              <Link className="nav-link active" to="/">
-                {`Your Dashboards `}
+              <Link
+                className="nav-link active"
+                to="/"
+                onClick={event => event.preventDefault()}
+              >
+                {'Your Dashboards '}
                 <span className="badge badge-secondary">{result.total}</span>
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Explore Dashboards
+              <Link
+                className="nav-link"
+                to="/"
+                onClick={event => event.preventDefault()}
+              >
+                {'Starred Dashboards '}
               </Link>
             </li>
           </ul>

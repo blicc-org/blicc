@@ -34,7 +34,7 @@ export function Chart({ type, id, onDrop }) {
   }
 
   return (
-    <div className="chart" key={id}>
+    <div className={`chart ${type !== TYPE.DRAG_HERE ? 'frame' : ''}`} key={id}>
       {type === TYPE.DRAG_HERE ? (
         <DragHere />
       ) : (

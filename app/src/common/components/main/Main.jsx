@@ -14,6 +14,7 @@ export function Main({ children }) {
   useEffect(() => {
     setStyle({
       marginLeft: open && !isMobile ? sidebarWidth : 0,
+      minHeight: '100vh',
     })
   }, [open, isMobile])
 

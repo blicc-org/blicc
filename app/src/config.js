@@ -23,6 +23,7 @@ export const breakpoints = {
 }
 
 export const sidebarWidth = 232
+export const navbarHight = 40
 
 export const languages = {
   en: 'English',

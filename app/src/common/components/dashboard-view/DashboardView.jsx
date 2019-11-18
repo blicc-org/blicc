@@ -1,6 +1,5 @@
 import React from 'react'
 import { Row } from './Row'
-import './Dashboard.scss'
 
 export function DashboardView({ data, update }) {
   function onDragOverHandler(event) {
@@ -8,7 +7,7 @@ export function DashboardView({ data, update }) {
   }
 
   return (
-    <div className="dashboard" onDragOver={onDragOverHandler}>
+    <div onDragOver={onDragOverHandler} style={{ height: '100%' }}>
       <Row row={data.data.row} onDrop={update} />
     </div>
   )

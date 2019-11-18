@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './DashboardHeader.scss'
 
-export function DashboardHeader({ title, onSave }) {
+export function DashboardHeader({ title, onSave, view, setView }) {
   return (
     <>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
@@ -20,12 +20,26 @@ export function DashboardHeader({ title, onSave }) {
       <div className="dashboard-tabs my-2">
         <ul className="nav nav-tabs">
           <li className="nav-item">
-            <Link className="nav-link active" to="/">
+            <Link
+              className={`nav-link ${view === 'dashboard' ? 'active' : ''}`}
+              to="/"
+              onClick={event => {
+                event.preventDefault()
+                setView('dashboard')
+              }}
+            >
               Dashboard
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/">
+            <Link
+              className={`nav-link ${view === 'details' ? 'active' : ''}`}
+              to="/"
+              onClick={event => {
+                event.preventDefault()
+                setView('details')
+              }}
+            >
               Details
             </Link>
           </li>

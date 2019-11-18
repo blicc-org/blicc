@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import statusCode from 'http-status-codes'
 import { DashboardHeader } from './DashboardHeader'
 import { DashboardView } from '../../common/components/dashboard-view/DashboardView'
 import { useApiEndpoint, useDashboard } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
+import { DashboardDetails } from './DashboardDetails'
+import './Dashboard.scss'
 
 export function Dashboard({ match }) {
   const [data, setData, setDashboard] = useDashboard()
+  const [view, setView] = useState('dashboard')
   const path = `/dashboards/${match.params.id}`
   const [, access, update] = useApiEndpoint(path)
   const { title } = data
@@ -32,9 +35,18 @@ export function Dashboard({ match }) {
   return (
     <>
       <MetaData title={title} description={title} path={path} />
-      <div className="container-fluid">
-        <DashboardHeader title={title} onSave={updateDashboard} />
-        <DashboardView data={data} update={setDashboard} />
+      <div className="container-fluid dashboard">
+        <DashboardHeader
+          title={title}
+          onSave={updateDashboard}
+          view={view}
+          setView={setView}
+        />
+        {view === 'dashboard' ? (
+          <DashboardView data={data} update={setDashboard} />
+        ) : (
+          <DashboardDetails data={data} />
+        )}
       </div>
     </>
   )

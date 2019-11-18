@@ -1,9 +1,6 @@
 @import '../../../Theme';
 
 .chart {
-  border-width: 1px;
-  border-style: solid;
-  border-color: $lightgray;
   height: 100%;
 }
 
@@ -13,4 +10,11 @@
 .chart .row {
   padding: 0;
   margin: 0;
+}
+
+.frame{
+  border-width: 1px;
+  border-style: solid;
+  border-color: $lightgray;
+  border-radius: $border-radius;
 }

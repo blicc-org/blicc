@@ -1,0 +1,9 @@
+@import '../../Theme.scss';
+
+.dashboard {
+  height: calc(100vh - 40px);
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  padding-bottom: $two;
+}
