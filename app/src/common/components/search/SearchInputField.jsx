@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import statusCode from 'http-status-codes'
 import { Search as SearchIcon, ArrowLeft } from 'react-feather'
-import { useClose, useApiEndpoint } from '../../hooks'
+import { useClickAway, useApiEndpoint } from '../../hooks'
 import { Result } from './Result'
 import theme from '../../../Theme.scss'
 import './SearchInputField.scss'
@@ -18,7 +18,7 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
   const [focused, setFocused] = useState(false)
   const [data, setData] = useState(INIT_DATA)
   const ref = useRef()
-  useClose(ref, () => handleClose(false))
+  useClickAway(ref, () => handleClose())
 
   function handleClose() {
     setFocused(false)
@@ -95,7 +95,12 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
             <SearchIcon />
           </button>
         </div>
-        <Result show={focused} results={data.dashboards} total={data.total} />
+        <Result
+          show={focused}
+          results={data.dashboards}
+          total={data.total}
+          close={handleClose}
+        />
       </form>
     </>
   )

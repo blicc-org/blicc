@@ -1,5 +1,5 @@
 export { useApiEndpoint } from './useApiEndpoint'
-export { useClose } from './useClose'
+export { useClickAway } from './useClickAway'
 export { useColor } from './useColor'
 export { useDashboard, INITIAL_DASHBOARD } from './useDashboard'
 export { useDeliveryEndpoint, WebSocketState } from './useDeliveryEndpoint'

@@ -39,14 +39,16 @@ export class DashboardController {
       const fields: string[] = ctx.query.fields
         ? ctx.query.fields.split(',')
         : undefined
-      const dashboards = await this.dashboardService.selectAll(
+      const dashboards = await this.dashboardService.selectAllByUserId(
         ctx.user.id,
         fields,
         ctx.query.search,
         ctx.query.skip,
         ctx.query.take
       )
-      const total = await this.dashboardService.getTotalEntries()
+      const total = await this.dashboardService.getTotalEntriesByUserId(
+        ctx.user.id
+      )
 
       if (!dashboards) {
         ctx.status = status.BAD_REQUEST

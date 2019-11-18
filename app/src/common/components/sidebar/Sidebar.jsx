@@ -3,7 +3,7 @@ import { AppContext, SidebarContext } from '../../context'
 import { Link } from 'react-router-dom'
 import { Layout, Rss } from 'react-feather'
 import { sidebarWidth } from '../../../config'
-import { useMobile, useLanguage, useClose } from '../../hooks'
+import { useMobile, useLanguage, useClickAway } from '../../hooks'
 import { Selector } from '../dashboard-view/Selector'
 import { TYPE } from '../charts/Chart'
 import { Footer } from '../footer/Footer'
@@ -26,6 +26,7 @@ export function Sidebar({ open }) {
   const [blackoutStyle, setBlackoutStyle] = useState({})
   const isMobile = useMobile()
   const ref = useRef()
+  useClickAway(ref, () => close(), 'prevent-sidebar-click-away')
 
   function close() {
     if (open && isMobile) {
@@ -44,8 +45,6 @@ export function Sidebar({ open }) {
       width: open && isMobile ? '100%' : 0,
     })
   }, [open, isMobile])
-
-  useClose(ref, () => close(), 'prevent-sidebar-click-away')
   return (
     <>
       <nav className="sidebar" style={sidebarStyle} ref={ref}>
@@ -54,12 +53,16 @@ export function Sidebar({ open }) {
             <SidebarHeader name="Dashboards" />
             <ul className="nav flex-column px-2">
               <li className="nav-item">
-                <Link className="nav-link active" to="/dashboards">
+                <Link
+                  className="nav-link active"
+                  to="/dashboards"
+                  onClick={close}
+                >
                   <Layout className="feather" /> Dashboards
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/websocket-test">
+                <Link className="nav-link" to="/websocket-test" onClick={close}>
                   <Rss className="feather" /> Websocket Test
                 </Link>
               </li>
@@ -94,7 +97,9 @@ export function Sidebar({ open }) {
             <ul className="nav flex-column px-3 pt-4">
               <li className="nav-item">
                 <p className="text-muted">
-                  <Link to="/register">{content.sidebar.registerNow}</Link>
+                  <Link to="/register" onClick={close}>
+                    {content.sidebar.registerNow}
+                  </Link>
                   {` ${content.sidebar.registerNowFollowUp}`}
                 </p>
               </li>
@@ -102,7 +107,7 @@ export function Sidebar({ open }) {
           </>
         )}
         <hr className="mx-3" />
-        <Footer />
+        <Footer close={close} />
       </nav>
       <div className="blackout" style={blackoutStyle}></div>
     </>

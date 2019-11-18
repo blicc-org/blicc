@@ -29,7 +29,7 @@ export class DashboardService {
     return await this.repo.findOne(id)
   }
 
-  public async selectAll(
+  public async selectAllByUserId(
     userId: string,
     fields: string[] = this.dashboardFields,
     searchTerm = '',
@@ -86,10 +86,11 @@ export class DashboardService {
     return str.replace(/[^\w\s!?]/g, '')
   }
 
-  public async getTotalEntries(): Promise<number> {
+  public async getTotalEntriesByUserId(userId: string): Promise<number> {
     return await this.repo
       .createQueryBuilder('dashboard')
       .select('dashboard.id')
+      .where('dashboard.userId = :userId', { userId })
       .getCount()
   }
 }
