@@ -36,7 +36,6 @@ export function useApiEndpoint(path = '') {
     if (status === statusCode.UNAUTHORIZED) {
       await axios.delete('/tokens', {
         baseURL: API.ORIGIN,
-        withCredentials: true,
       })
       setAppState({
         ...appState,
