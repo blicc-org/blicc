@@ -8,6 +8,6 @@ describe('DELETE: /tokens', () => {
       .find((cookie: string): boolean => cookie.startsWith('access_token'))
       .split(';')[0]
     expect(response.status).toBe(200)
-    expect(cookie).toBe('access_token=deleted')
+    expect(cookie).toBe('access_token=')
   })
 })
