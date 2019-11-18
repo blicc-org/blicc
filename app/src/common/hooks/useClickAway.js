@@ -3,13 +3,10 @@ import { useEffect } from 'react'
 export function useClickAway(ref, callback, classNamesToIgnore = '') {
   useEffect(() => {
     function handleClick(event) {
-      if (
-        ref.current &&
-        !ref.current.contains(event.target) &&
-        classNamesToIgnore &&
-        !event.target.classList.contains(classNamesToIgnore)
-      ) {
-        callback()
+      if (ref.current && !ref.current.contains(event.target)) {
+        if (classNamesToIgnore) {
+          if (!event.target.classList.contains(classNamesToIgnore)) callback()
+        } else callback()
       }
     }
 
