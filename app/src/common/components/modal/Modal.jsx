@@ -18,14 +18,15 @@ export function Modal() {
 
   async function submitHandler() {
     await submit()
+
+    // trigger redirect and reset
     setIsCompleted(true)
+    setIsCompleted(false)
   }
 
   return (
     <>
-      {isCompleted && (
-        <Redirect to={redirect} />
-      ) /* reset isCompleted after redirect */}
+      {isCompleted && <Redirect to={redirect} />}
       <div
         className={`modal fade ${isActive ? 'show' : ''}`}
         style={{ display: isActive ? 'block' : 'none' }}
