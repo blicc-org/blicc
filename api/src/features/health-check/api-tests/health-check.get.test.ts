@@ -15,7 +15,7 @@ describe('GET: /health-check/auth', () => {
   })
 
   it('200: OK', async () => {
-    const { status } = await instance.get('/health-check/auth/', {
+    const { status } = await instance.get('/health-check/auth', {
       headers: {
         Cookie: params.cookie,
       },
@@ -24,7 +24,7 @@ describe('GET: /health-check/auth', () => {
   })
 
   it('401: Unauthorized', async () => {
-    const { status } = await instance.get('/health-check/auth/')
+    const { status } = await instance.get('/health-check/auth')
     expect(status).toBe(401)
   })
 })
