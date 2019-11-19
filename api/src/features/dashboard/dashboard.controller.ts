@@ -47,7 +47,8 @@ export class DashboardController {
         ctx.query.take
       )
       const total = await this.dashboardService.getTotalEntriesByUserId(
-        ctx.user.id
+        ctx.user.id,
+        ctx.query.search
       )
 
       if (!dashboards) {

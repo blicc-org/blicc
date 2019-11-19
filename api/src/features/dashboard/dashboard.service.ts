@@ -86,11 +86,18 @@ export class DashboardService {
     return str.replace(/[^\w\s!?]/g, '')
   }
 
-  public async getTotalEntriesByUserId(userId: string): Promise<number> {
+  public async getTotalEntriesByUserId(
+    userId: string,
+    searchTerm: string = ''
+  ): Promise<number> {
+    searchTerm = this.escapeSearchQuery(searchTerm)
     return await this.repo
       .createQueryBuilder('dashboard')
       .select('dashboard.id')
       .where('dashboard.userId = :userId', { userId })
+      .andWhere('LOWER(dashboard.title) like LOWER(:title)', {
+        title: '%' + searchTerm + '%',
+      })
       .getCount()
   }
 }
