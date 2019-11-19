@@ -5,9 +5,16 @@ export function useClickAway(ref, callback, classNamesToIgnore = '') {
     function handleClick(event) {
       if (ref.current && !ref.current.contains(event.target)) {
         if (classNamesToIgnore) {
-          if (!event.target.classList.contains(classNamesToIgnore)) callback()
+          if (!hasParentWithClass(event.target, classNamesToIgnore)) callback()
         } else callback()
       }
+    }
+
+    function hasParentWithClass(node, className) {
+      if (node.nodeName === 'BODY') return false
+      if (node.classList.contains(className)) return true
+
+      return hasParentWithClass(node.parentNode, className)
     }
 
     document.addEventListener('mousedown', handleClick, false)

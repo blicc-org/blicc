@@ -47,7 +47,7 @@ export function NavBar({ toggleMenu }) {
               style={{ marginBottom: '2px' }}
               onClick={toggleMenu}
             >
-              <Burger className="burger prevent-sidebar-click-away" />
+              <Burger className="burger" />
             </div>
           </li>
           <li className="nav-item">
