@@ -88,7 +88,7 @@ export class DashboardService {
 
   public async getTotalEntriesByUserId(
     userId: string,
-    searchTerm: string = ''
+    searchTerm = ''
   ): Promise<number> {
     searchTerm = this.escapeSearchQuery(searchTerm)
     return await this.repo
