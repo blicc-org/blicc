@@ -6,6 +6,7 @@ import { useApiEndpoint } from './useApiEndpoint'
 import { AppContext } from '../context'
 
 export function useAutoLogout() {
+  const logoutInMs = 30000
   const [appState, setAppState] = useContext(AppContext)
   const [, healthCheck, ,] = useApiEndpoint('/health-check/auth')
 
@@ -31,7 +32,7 @@ export function useAutoLogout() {
       }
     }
 
-    const refreshIntervalId = setInterval(checkStatus, 10000)
+    const refreshIntervalId = setInterval(checkStatus, logoutInMs)
     return () => clearInterval(refreshIntervalId)
   }, [healthCheck, appState, setAppState])
 }
