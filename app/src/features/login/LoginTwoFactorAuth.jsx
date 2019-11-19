@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pin } from '../../common/components/form/pin/Pin'
+import { Lock } from 'react-feather'
 
 export function LoginTwoFactorAuth({ setToken, login }) {
   return (
@@ -11,7 +11,20 @@ export function LoginTwoFactorAuth({ setToken, login }) {
       <label htmlFor="token" className="sr-only">
         Token
       </label>
-      <Pin size={6} setPin={setToken} />
+      <div className="input-group mb-3 px-5">
+        <input
+          className="form-control"
+          type="text"
+          onChange={event => setToken(event.target.value)}
+          autoComplete="off"
+          required
+        />
+        <div className="input-group-append">
+          <span className="input-group-text">
+            <Lock size={18} />
+          </span>
+        </div>
+      </div>
       <button
         className="btn btn-lg btn-primary btn-block"
         type="submit"

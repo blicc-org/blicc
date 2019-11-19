@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { Lock } from 'react-feather'
 import { useApiEndpoint } from '../../common/hooks'
 import { Redirect } from 'react-router-dom'
 import { QRCode } from '../../common/components/qr-code/QRCode'
-import { Pin } from '../../common/components/form/pin/Pin'
 import './TwoFactorAuth.scss'
 
 export function TwoFactorAuth() {
@@ -34,7 +34,20 @@ export function TwoFactorAuth() {
           <label htmlFor="token" className="sr-only">
             Token
           </label>
-          <Pin size={6} setPin={setToken} />
+          <div className="input-group input-group-lg mb-3 px-5">
+            <input
+              className="form-control"
+              type="text"
+              onChange={({ target: t }) => setToken(t.value)}
+              autoComplete="off"
+              required
+            />
+            <div className="input-group-append">
+              <span className="input-group-text">
+                <Lock size={18} />
+              </span>
+            </div>
+          </div>
           <button
             className="btn btn-lg btn-primary btn-block"
             type="submit"
