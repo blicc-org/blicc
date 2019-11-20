@@ -1,14 +1,14 @@
 import { useEffect, useContext } from 'react'
 import statusCode from 'http-status-codes'
-import axios from 'axios'
-import { API } from '../../config'
 import { useApiEndpoint } from './useApiEndpoint'
 import { AppContext } from '../context'
+import { useLogout } from './useLogout'
 
 export function useAutoLogout() {
   const logoutInMs = 30000
-  const [appState, setAppState] = useContext(AppContext)
+  const [appState] = useContext(AppContext)
   const [, healthCheck, ,] = useApiEndpoint('/health-check/auth')
+  const logout = useLogout()
 
   useEffect(() => {
     async function checkStatus() {
@@ -18,21 +18,12 @@ export function useAutoLogout() {
           status === statusCode.NOT_FOUND ||
           status === statusCode.UNAUTHORIZED
         ) {
-          await axios.delete('/tokens', {
-            baseURL: API.ORIGIN,
-          })
-          setAppState({
-            ...appState,
-            id: '',
-            firstName: '',
-            lastName: '',
-            loggedIn: false,
-          })
+          await logout()
         }
       }
     }
 
     const refreshIntervalId = setInterval(checkStatus, logoutInMs)
     return () => clearInterval(refreshIntervalId)
-  }, [healthCheck, appState, setAppState])
+  }, [healthCheck, logout, appState])
 }

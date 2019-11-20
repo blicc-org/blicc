@@ -1,23 +1,37 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
 import { DashboardsItem } from './DashboardsItem'
-import { ModalContext } from '../../common/context'
 import { useApiEndpoint, INITIAL_DASHBOARD } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { Pagination } from '../../common/components/pagination/Pagination'
+import { useModal } from '../../common/hooks/useModal'
+import { CreateDashboardModal } from './CreateDashboardModal'
 import './Dashboards.scss'
 
 export function Dashboards() {
-  const title = 'Dashboards'
-  const description = 'View all dashboards'
-  const path = '/dashboards'
   const itemsPerPage = 10
-
   const [page, setPage] = useState(0)
   const [result, setResult] = useState({ total: 0, dashboards: [] })
-  const [create, access, ,] = useApiEndpoint(path)
-  const [, showModal] = useContext(ModalContext)
+  const [create, access, ,] = useApiEndpoint('/dashboards')
+  const [title, setTitle] = useState('Dashboard')
+  const [redirect, setRedirect] = useState('')
+
+  const [showModal, hideModal] = useModal(() => (
+    <CreateDashboardModal
+      setTitle={setTitle}
+      cancel={hideModal}
+      submit={submit}
+    />
+  ))
+
+  async function submit() {
+    const [status, data] = await create({ ...INITIAL_DASHBOARD, title })
+    if (status === statusCode.CREATED) {
+      setRedirect(`/dashboards/${data.id}`)
+    }
+    hideModal()
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -36,37 +50,22 @@ export function Dashboards() {
     // eslint-disable-next-line
   }, [page])
 
-  async function createDashboard() {
-    showModal(
-      'Create Dashboard',
-      'Do you want to create a Dashboard?',
-      'Cancel',
-      'Create',
-      () => {},
-      () => sendData()
-    )
-  }
-
-  async function sendData() {
-    const [status, data] = await create(INITIAL_DASHBOARD)
-    if (status === statusCode.CREATED) {
-      return `/dashboards/${data.id}`
-    } else {
-      return '/not-found'
-    }
-  }
-
   return (
     <>
-      <MetaData title={title} description={description} path={path} />
+      {redirect && <Redirect to={redirect} />}
+      <MetaData
+        title={'Dashboards'}
+        description={'Description'}
+        path={'/dashboards'}
+      />
       <div className="container">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-          <h2 className="my-0">{title}</h2>
+          <h2 className="my-0">Dashboards</h2>
           <div className="btn-toolbar">
             <button
               type="button"
               className="btn btn-sm btn-primary"
-              onClick={createDashboard}
+              onClick={showModal}
             >
               New Dashboard
             </button>

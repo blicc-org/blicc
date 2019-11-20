@@ -1,13 +1,12 @@
 import { useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint } from './useApiEndpoint'
-import { AppContext, ToastContext, ModalContext } from '../context'
+import { AppContext, ToastContext } from '../context'
 
-export function useSession() {
-  const [open, , , close] = useApiEndpoint('/tokens')
+export function useLogin(onSuccess = () => {}, onFailure = () => {}) {
+  const [open, , ,] = useApiEndpoint('/tokens')
   const [appState, setAppState] = useContext(AppContext)
   const [, showToast] = useContext(ToastContext)
-  const [, showModal] = useContext(ModalContext)
 
   async function login(email, password, token = '') {
     const requestBody =
@@ -26,8 +25,9 @@ export function useSession() {
         lastName: data.lastName,
         loggedIn: true,
       })
+      onSuccess()
     } else if (status === statusCode.FORBIDDEN) {
-      wrongPassword()
+      onFailure()
     } else if (status === statusCode.NOT_FOUND) {
       showToast('Please register', 'No account for the given email.')
     } else {
@@ -36,34 +36,5 @@ export function useSession() {
     return hasTwoFactorAuth
   }
 
-  async function logout() {
-    try {
-      await close()
-    } catch (e) {
-      // logout even though server is not reachable or user does not exist anymore
-    }
-    setAppState({
-      ...appState,
-      id: '',
-      firstName: '',
-      lastName: '',
-      loggedIn: false,
-    })
-  }
-
-  function wrongPassword() {
-    showModal(
-      'Did you forget your password?',
-      'In case you cannot remember your password, we can send you an email to reset it.',
-      'Try again',
-      'Reset password',
-      () => {},
-      () => {
-        console.log('send reset link to email!')
-        return '/'
-      }
-    )
-  }
-
-  return [login, logout]
+  return login
 }

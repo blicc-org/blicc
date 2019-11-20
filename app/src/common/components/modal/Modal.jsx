@@ -1,65 +1,16 @@
-import React, { useState, useContext } from 'react'
-import { Redirect } from 'react-router-dom'
-import { ModalContext } from '../../context'
+import React from 'react'
 
-export function Modal() {
-  const [modal] = useContext(ModalContext)
-  const [isCompleted, setIsCompleted] = useState(false)
-  const {
-    isActive,
-    label,
-    message,
-    cancelLabel,
-    submitLabel,
-    cancel,
-    submit,
-    redirect,
-  } = modal
-
-  async function submitHandler() {
-    await submit()
-
-    // trigger redirect and reset
-    setIsCompleted(true)
-    setIsCompleted(false)
-  }
-
+export function Modal({ show, content }) {
+  const modal = content()
   return (
     <>
-      {isCompleted && <Redirect to={redirect} />}
       <div
-        className={`modal fade ${isActive ? 'show' : ''}`}
-        style={{ display: isActive ? 'block' : 'none' }}
+        className={`modal fade ${show ? 'show' : ''}`}
+        style={{ display: show ? 'block' : 'none' }}
       >
-        <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">{label}</h5>
-              <button onClick={cancel} type="button" className="close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">{message}</div>
-            <div className="modal-footer">
-              <button
-                onClick={cancel}
-                type="button"
-                className="btn btn-outline-secondary"
-              >
-                {cancelLabel}
-              </button>
-              <button
-                onClick={submitHandler}
-                type="button"
-                className="btn btn-primary"
-              >
-                {submitLabel}
-              </button>
-            </div>
-          </div>
-        </div>
+        {modal}
       </div>
-      <div className={isActive ? 'modal-backdrop fade show' : ''}></div>
+      <div className={show ? 'modal-backdrop fade show' : ''}></div>
     </>
   )
 }

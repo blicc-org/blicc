@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { LoginPassword } from './LoginPassword'
-import { AppContext } from '../../common/context'
-import { useSession } from '../../common/hooks'
+import { useLogin, useModal } from '../../common/hooks'
 import { Redirect } from 'react-router-dom'
 import { LoginTwoFactorAuth } from './LoginTwoFactorAuth'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import './Login.scss'
+import { WrongPasswordModal } from './WrongPasswordModal'
 
 const Steps = {
   PASSWORD: 'password',
@@ -13,16 +13,28 @@ const Steps = {
 }
 
 export function Login() {
-  const title = 'Login'
-  const description = 'Login to be able to view your private content.'
-  const path = '/login'
-
   const [step, setStep] = useState(Steps.PASSWORD)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [token, setToken] = useState('')
-  const [appState] = useContext(AppContext)
-  const [login] = useSession()
+  const [redirect, setRedirect] = useState('')
+  const [showModal, hideModal] = useModal(() => (
+    <WrongPasswordModal
+      cancel={() => {
+        hideModal()
+        setRedirect('/')
+      }}
+      submit={hideModal}
+    />
+  ))
+  const login = useLogin(
+    () => {
+      setRedirect('/dashboards')
+    },
+    () => {
+      showModal()
+    }
+  )
 
   async function loginHandler() {
     const hasTwoFactorAuth = await login(email, password)
@@ -38,8 +50,12 @@ export function Login() {
 
   return (
     <>
-      {appState.loggedIn && <Redirect to="/dashboards" />}
-      <MetaData title={title} description={description} path={path} />
+      {redirect && <Redirect to={redirect} />}
+      <MetaData
+        title={'Login'}
+        description={'Login to be able to view your private content.'}
+        path={'/login'}
+      />
       <div className="col-md-5 mx-auto py-5 my-5 text-center">
         {step === Steps.PASSWORD ? (
           <LoginPassword

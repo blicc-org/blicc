@@ -1,11 +1,10 @@
-import { useContext } from 'react'
 import statusCode from 'http-status-codes'
 import axios from 'axios'
-import { AppContext } from '../context'
 import { API } from '../../config'
+import { useLogout } from './useLogout'
 
 export function useApiEndpoint(path = '') {
-  const [appState, setAppState] = useContext(AppContext)
+  const logout = useLogout()
   const instance = axios.create({
     baseURL: API.ORIGIN,
     withCredentials: true,
@@ -34,16 +33,7 @@ export function useApiEndpoint(path = '') {
 
   async function validateStatus(status) {
     if (status === statusCode.UNAUTHORIZED) {
-      await axios.delete('/tokens', {
-        baseURL: API.ORIGIN,
-      })
-      setAppState({
-        ...appState,
-        id: '',
-        firstName: '',
-        lastName: '',
-        loggedIn: false,
-      })
+      await logout()
     }
     return status >= 200 && status < 500
   }

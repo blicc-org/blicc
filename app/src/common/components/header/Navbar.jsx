@@ -1,7 +1,7 @@
 import React, { useContext, useState, useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AppContext } from '../../context'
-import { useSession, useLanguage } from '../../hooks'
+import { useLanguage } from '../../hooks'
 import { ReactComponent as Burger } from '../../../assets/img/Burger.svg'
 import { ReactComponent as Maskot } from '../../../assets/img/Maskot.svg'
 import { NavbarUser } from './NavbarUser'
@@ -13,7 +13,6 @@ export function NavBar({ toggleMenu }) {
   const content = useLanguage()
   const [appState] = useContext(AppContext)
   const { firstName, lastName, loggedIn } = appState
-  const [, logout] = useSession()
   const [width, setWidth] = useState(window.innerWidth)
 
   useLayoutEffect(() => {
@@ -65,7 +64,6 @@ export function NavBar({ toggleMenu }) {
             firstName={firstName}
             lastName={lastName}
             loggedIn={loggedIn}
-            logout={logout}
           />
         </ul>
       </nav>

@@ -14,9 +14,7 @@ import { Profile } from './features/profile/Profile'
 import { Charts } from './features/charts/Charts'
 import { TwoFactorAuth } from './features/two-factor-auth/TwoFactorAuth'
 import { ProtectedRoute } from './common/components/protected-route/ProtectedRoute'
-import { ToastContainer } from './common/components/toast/ToastContainer'
 import { Provider } from './common/context'
-import { Modal } from './common/components/modal/Modal'
 import { Header } from './common/components/header/Header'
 import { Main } from './common/components/main/Main'
 import './App.scss'
@@ -43,8 +41,6 @@ export function App() {
             <Route component={NotFound} />
           </Switch>
         </Main>
-        <Modal />
-        <ToastContainer />
       </Router>
     </Provider>
   )

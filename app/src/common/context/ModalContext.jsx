@@ -1,57 +1,31 @@
 import React, { useState } from 'react'
+import { Modal } from '../components/modal/Modal'
 
 export const ModalContext = React.createContext()
 
 export function ModalProvider({ children }) {
   const [modal, setModal] = useState({
-    isActive: false,
-    label: '',
-    message: '',
-    cancelLabel: '',
-    submitLabel: '',
-    cancel: () => {},
-    submit: () => {},
-    redirect: '',
+    show: false,
+    content: () => {
+      return <></>
+    },
   })
+  const { show, content } = modal
 
-  function showModal(
-    label,
-    message,
-    cancelLabel,
-    submitLabel,
-    cancelCallback,
-    submitCallback,
-    redirect = ''
-  ) {
-    async function cancel() {
-      const redirect = await cancelCallback()
-      setModal(prev => {
-        return { ...prev, isActive: false, redirect }
-      })
-    }
+  function showModal(content) {
+    setModal({ show: true, content })
+  }
 
-    async function submit() {
-      const redirect = await submitCallback()
-      setModal(prev => {
-        return { ...prev, isActive: false, redirect }
-      })
-    }
-
-    setModal({
-      isActive: true,
-      label,
-      message,
-      cancelLabel,
-      submitLabel,
-      cancel,
-      submit,
-      redirect,
+  function hideModal() {
+    setModal(prev => {
+      return { ...prev, show: false }
     })
   }
 
   return (
-    <ModalContext.Provider value={[modal, showModal]}>
+    <ModalContext.Provider value={[showModal, hideModal]}>
       {children}
+      <Modal show={show} content={content} />
     </ModalContext.Provider>
   )
 }
