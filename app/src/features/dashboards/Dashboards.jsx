@@ -5,8 +5,8 @@ import { DashboardsItem } from './DashboardsItem'
 import { ModalContext } from '../../common/context'
 import { useApiEndpoint, INITIAL_DASHBOARD } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import './Dashboards.scss'
 import { Pagination } from '../../common/components/pagination/Pagination'
+import './Dashboards.scss'
 
 export function Dashboards() {
   const title = 'Dashboards'

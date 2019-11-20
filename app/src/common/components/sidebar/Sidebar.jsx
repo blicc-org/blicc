@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
-import { AppContext, SidebarContext } from '../../context'
 import { Link } from 'react-router-dom'
-import { Layout, Rss } from 'react-feather'
+import { Layout, Rss, PieChart, Database } from 'react-feather'
+import { AppContext, SidebarContext } from '../../context'
 import { sidebarWidth } from '../../../config'
 import { useMobile, useLanguage, useClickAway } from '../../hooks'
 import { Selector } from '../dashboard-view/Selector'
@@ -50,7 +50,7 @@ export function Sidebar({ open }) {
       <nav className="sidebar" style={sidebarStyle} ref={ref}>
         {loggedIn ? (
           <>
-            <SidebarHeader name="Dashboards" />
+            <SidebarHeader name="Categories" />
             <ul className="nav flex-column px-2">
               <li className="nav-item">
                 <Link
@@ -59,6 +59,16 @@ export function Sidebar({ open }) {
                   onClick={close}
                 >
                   <Layout className="feather" /> Dashboards
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/charts" onClick={close}>
+                  <PieChart className="feather" /> Charts
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/data-sources" onClick={close}>
+                  <Database className="feather" /> Data Sources
                 </Link>
               </li>
               <li className="nav-item">
