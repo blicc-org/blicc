@@ -1,14 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import { useClickAway } from '../../hooks'
 import { Plus } from 'react-feather'
 import './Toolbox.scss'
 
 export function Toolbox() {
   const [show, setShow] = useState(false)
+  const ref = useRef()
+  useClickAway(ref, () => setShow(false), 'prevent-toolnox-click-away')
+
   return (
     <>
       <div className="dropdown dropup toolbox">
         <button
-          className="btn btn-primary"
+          className="btn btn-primary prevent-toolnox-click-away"
           type="button"
           id="dropdownMenuButton"
           data-toggle="dropdown"
@@ -19,6 +23,7 @@ export function Toolbox() {
           <Plus />
         </button>
         <div
+          ref={ref}
           className={`dropdown-menu dropdown-menu-right ${show ? 'show' : ''}`}
           aria-labelledby="dropdownMenuButton"
         >
