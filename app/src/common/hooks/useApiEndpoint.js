@@ -32,7 +32,11 @@ export function useApiEndpoint(path = '') {
   }
 
   async function validateStatus(status) {
-    if (status === statusCode.UNAUTHORIZED) {
+    // invalid authentication or deleted user
+    if (
+      status === statusCode.UNAUTHORIZED ||
+      (status === statusCode.NOT_FOUND && path.startsWith('/users/'))
+    ) {
       await logout()
     }
     return status >= 200 && status < 500
