@@ -1,5 +1,4 @@
 import { useEffect, useContext } from 'react'
-import statusCode from 'http-status-codes'
 import { useApiEndpoint } from './useApiEndpoint'
 import { AppContext } from '../context'
 import { useLogout } from './useLogout'
@@ -13,13 +12,7 @@ export function useAutoLogout() {
   useEffect(() => {
     async function checkStatus() {
       if (appState.loggedIn) {
-        const [status] = await healthCheck()
-        if (
-          status === statusCode.NOT_FOUND ||
-          status === statusCode.UNAUTHORIZED
-        ) {
-          await logout()
-        }
+        await healthCheck()
       }
     }
 

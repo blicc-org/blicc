@@ -14,16 +14,21 @@ export function Dashboards() {
   const [page, setPage] = useState(0)
   const [result, setResult] = useState({ total: 0, dashboards: [] })
   const [create, access, ,] = useApiEndpoint('/dashboards')
-  const [title, setTitle] = useState('Dashboard')
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
   const [redirect, setRedirect] = useState('')
 
-  const [showModal, hideModal] = useModal(() => (
-    <CreateDashboardModal
-      setTitle={setTitle}
-      cancel={hideModal}
-      submit={submit}
-    />
-  ))
+  const [showModal, hideModal] = useModal(
+    () => (
+      <CreateDashboardModal
+        setTitle={setTitle}
+        setDescription={setDescription}
+        cancel={hideModal}
+        submit={submit}
+      />
+    ),
+    [title, description]
+  )
 
   async function submit() {
     const [status, data] = await create({ ...INITIAL_DASHBOARD, title })
