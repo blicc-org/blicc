@@ -1,0 +1,17 @@
+@import '../../../Theme.scss';
+
+.toolbox {
+  right: 40px;
+  bottom: 40px;
+  position: absolute;
+  z-index: 1003;
+}
+
+.toolbox button {
+  border-radius: 100px !important;
+  padding: 10px;
+}
+
+.toolbox .dropdown-menu {
+  margin-bottom: 10px;
+}

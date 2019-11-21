@@ -5,6 +5,7 @@ import { DashboardView } from '../../common/components/dashboard-view/DashboardV
 import { useApiEndpoint, useDashboard } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DashboardDetails } from './DashboardDetails'
+import { Toolbox } from '../../common/components/toolbox/Toolbox'
 import './Dashboard.scss'
 
 export function Dashboard({ match }) {
@@ -35,6 +36,7 @@ export function Dashboard({ match }) {
   return (
     <>
       <MetaData title={title} description={title} path={path} />
+      <Toolbox />
       <div className="container-fluid dashboard">
         <DashboardHeader
           title={title}
