@@ -31,7 +31,11 @@ export function Dashboards() {
   )
 
   async function submit() {
-    const [status, data] = await create({ ...INITIAL_DASHBOARD, title })
+    const [status, data] = await create({
+      ...INITIAL_DASHBOARD,
+      title,
+      description,
+    })
     if (status === statusCode.CREATED) {
       setRedirect(`/dashboards/${data.id}`)
     }
@@ -42,7 +46,7 @@ export function Dashboards() {
     async function fetchData() {
       const [status, data] = await access({
         params: {
-          fields: 'id,title,creationDate',
+          fields: 'id,title,description,creationDate',
           skip: itemsPerPage * page,
           take: itemsPerPage,
         },
@@ -114,6 +118,7 @@ export function Dashboards() {
                       key={dashboard.id}
                       id={dashboard.id}
                       title={dashboard.title}
+                      description={dashboard.description}
                       creationDate={dashboard.creationDate}
                     />
                   )

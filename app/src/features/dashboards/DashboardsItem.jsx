@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export function DashboardsItem({ id, title, creationDate }) {
+export function DashboardsItem({ id, title, description, creationDate }) {
   return (
     <tr>
       <td>
@@ -9,7 +9,7 @@ export function DashboardsItem({ id, title, creationDate }) {
         <h6 className="card-subtitle mb-2 text-muted">
           {creationDate.split('T')[0]}
         </h6>
-        <p className="card-text">Some more information</p>
+        <p className="card-text">{description}</p>
         <Link className="card-link" to={`/dashboards/${id}`}>
           View Dashboard
         </Link>

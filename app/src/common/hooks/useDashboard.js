@@ -5,7 +5,8 @@ import { TYPE } from '../components/charts/Chart'
 import { GRID } from '../components/dashboard-view/Row'
 
 export const INITIAL_DASHBOARD = {
-  title: 'Dashboard',
+  title: '',
+  description: '',
   data: {
     row: [
       {

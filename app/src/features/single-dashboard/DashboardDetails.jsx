@@ -21,15 +21,15 @@ export function DashboardDetails({ data }) {
               </tr>
               <tr>
                 <td>
-                  <b>Description:</b>
-                </td>
-                <td>Coming soon...</td>
-              </tr>
-              <tr>
-                <td>
                   <b>Creation date:</b>
                 </td>
                 <td>{data.creationDate.split('T')[0]}</td>
+              </tr>
+              <tr>
+                <td>
+                  <b>Description:</b>
+                </td>
+                <td>{data.description}</td>
               </tr>
             </tbody>
           </table>
