@@ -15,6 +15,9 @@ export class DashboardEntity extends BaseEntity {
   @Column()
   public title: string
 
+  @Column({ type: 'text' })
+  public description: string
+
   @Column()
   public userId: string
 
@@ -31,9 +34,15 @@ export class DashboardEntity extends BaseEntity {
     this.creationDate = new Date().toISOString()
   }
 
-  public constructor(title: string, userId: string, data: object) {
+  public constructor(
+    title: string,
+    description: string,
+    userId: string,
+    data: object
+  ) {
     super()
     this.title = title
+    this.description = description
     this.userId = userId
     this.data = data
   }

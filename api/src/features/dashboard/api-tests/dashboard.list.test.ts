@@ -10,6 +10,7 @@ describe('GET: /dashboards', () => {
       '/dashboards',
       {
         title: 'Title',
+        description: '...',
         data: {},
       },
       {
@@ -22,6 +23,7 @@ describe('GET: /dashboards', () => {
       '/dashboards',
       {
         title: 'Title2',
+        description: 'Another description',
         data: {},
       },
       {
@@ -40,12 +42,12 @@ describe('GET: /dashboards', () => {
     })
     expect(response.status).toBe(200)
 
-    response = await instance.get('/dashboards?fields=id,data', {
+    response = await instance.get('/dashboards?fields=id,description,data', {
       headers: {
         Cookie: params.cookie,
       },
     })
-    const fields = ['id', 'data']
+    const fields = ['id', 'data', 'description']
     expect(response.status).toBe(200)
     expect(
       response.data.dashboards.every((dashboard: Dashboard): boolean => {
@@ -68,6 +70,7 @@ describe('GET: /dashboards', () => {
         '/dashboards',
         {
           title: `Title${i + 2}`,
+          description: '...',
           data: {},
         },
         {

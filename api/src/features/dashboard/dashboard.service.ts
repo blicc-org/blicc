@@ -8,6 +8,7 @@ export class DashboardService {
   private dashboardFields: string[] = [
     'id',
     'title',
+    'description',
     'userId',
     'creationDate',
     'data',
@@ -19,10 +20,13 @@ export class DashboardService {
 
   public async create(
     title: string,
+    description: string,
     userId: string,
     data: object
   ): Promise<Dashboard> {
-    return await this.repo.save(new DashboardEntity(title, userId, data))
+    return await this.repo.save(
+      new DashboardEntity(title, description, userId, data)
+    )
   }
 
   public async select(id: string): Promise<DashboardEntity | undefined> {

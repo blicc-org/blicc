@@ -6,6 +6,7 @@ describe('PUT: /dashboards/:id', () => {
   let creationDate = ''
   const body = {
     title: 'Title',
+    description: '...',
     data: {},
   }
 
@@ -24,6 +25,7 @@ describe('PUT: /dashboards/:id', () => {
     const newData = {
       id,
       title: 'New Title',
+      description: 'New Description',
       userId: params.userId,
       data: {},
       creationDate,
@@ -41,6 +43,7 @@ describe('PUT: /dashboards/:id', () => {
     let newData = {
       id: 'change dashboard id',
       title: 'New Title',
+      description: 'New Description',
       userId: params.userId,
       data: {},
       creationDate,
@@ -55,6 +58,7 @@ describe('PUT: /dashboards/:id', () => {
     newData = {
       id,
       title: 'New Title',
+      description: 'New Description',
       userId: 'change user id',
       data: {},
       creationDate,
@@ -69,6 +73,7 @@ describe('PUT: /dashboards/:id', () => {
     newData = {
       id,
       title: 'New Title',
+      description: 'New Description',
       userId: params.userId,
       data: {},
       creationDate: '2019-11-03T16:34:09.408Z',
@@ -85,6 +90,7 @@ describe('PUT: /dashboards/:id', () => {
     const newData = {
       id,
       title: 'New Title',
+      description: 'New Description',
       userId: params.userId,
       data: {},
       creationDate,
@@ -97,6 +103,7 @@ describe('PUT: /dashboards/:id', () => {
     const newData = {
       id,
       title: 'New Title',
+      description: 'New Description',
       userId: params.userId,
       data: {},
       creationDate,

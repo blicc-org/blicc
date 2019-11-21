@@ -5,6 +5,7 @@ describe('GET: /dashboards/:id', () => {
   let id = ''
   const body = {
     title: 'Title',
+    description: '...',
     data: {},
   }
 

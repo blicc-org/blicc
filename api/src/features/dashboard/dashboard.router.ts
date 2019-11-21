@@ -51,13 +51,16 @@ export class DashboardRouter {
      *                   properties:
      *                     title:
      *                       type: string
+     *                     description:
+     *                       type: string
      *                     data:
      *                       type: json
      *             examples:
      *               filter:
      *                 value: {
-     *                   "title": "Dashboard",
-     *                   "data": "{}",
+     *                   title: "Dashboard",
+     *                   description: "This dashboard illustrates...",
+     *                   data: "{}",
      *                 }
      *     responses:
      *       201:
@@ -73,6 +76,7 @@ export class DashboardRouter {
      *                   required:
      *                   - id
      *                   - title
+     *                   - description
      *                   - userId
      *                   - data
      *                   - creationDate
@@ -80,6 +84,8 @@ export class DashboardRouter {
      *                     id:
      *                       type: string
      *                     title:
+     *                       type: string
+     *                     description:
      *                       type: string
      *                     userId:
      *                       type: string
@@ -92,6 +98,7 @@ export class DashboardRouter {
      *                 value: {
      *                   id: "WaDQc9_H",
      *                   title: "Dashboard",
+     *                   description: "This dashboard illustrates...",
      *                   userId: "b1x_S29n",
      *                   data: {},
      *                   creationDate: "2019-11-02T15:45:58.284Z"
@@ -112,6 +119,9 @@ export class DashboardRouter {
         type: 'json',
         body: {
           title: Joi.string().required(),
+          description: Joi.string()
+            .allow('')
+            .optional(),
           data: Joi.object().required(),
         },
         output: {
@@ -119,6 +129,9 @@ export class DashboardRouter {
             body: {
               id: Joi.string().required(),
               title: Joi.string().required(),
+              description: Joi.string()
+                .allow('')
+                .optional(),
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),
@@ -167,6 +180,7 @@ export class DashboardRouter {
      *                   required:
      *                   - id
      *                   - title
+     *                   - description
      *                   - userId
      *                   - data
      *                   - creationDate
@@ -174,6 +188,8 @@ export class DashboardRouter {
      *                     id:
      *                       type: string
      *                     title:
+     *                       type: string
+     *                     description:
      *                       type: string
      *                     userId:
      *                       type: string
@@ -186,6 +202,7 @@ export class DashboardRouter {
      *                 value: {
      *                   id: "WaDQc9_H",
      *                   title: "Dashboard",
+     *                   description: "Dashboard",
      *                   userId: "b1x_S29n",
      *                   data: {},
      *                   creationDate: "2019-11-02T15:45:58.284Z"
@@ -210,6 +227,9 @@ export class DashboardRouter {
             body: {
               id: Joi.string().required(),
               title: Joi.string().required(),
+              description: Joi.string()
+                .allow('')
+                .optional(),
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),
@@ -280,6 +300,8 @@ export class DashboardRouter {
      *                           type: string
      *                         title:
      *                           type: string
+     *                         description:
+     *                           type: string
      *                         userId:
      *                           type: string
      *                         data:
@@ -293,6 +315,7 @@ export class DashboardRouter {
      *                     {
      *                       id: "WaDQc9_H",
      *                       title: "Dashboard 1",
+     *                       description: "This describes dashboard 1",
      *                       userId: "b1x_S29n",
      *                       data: {},
      *                       creationDate: "2019-11-02T15:45:58.284Z"
@@ -300,6 +323,7 @@ export class DashboardRouter {
      *                     {
      *                       id: "vUtM3jpW",
      *                       title: "Dashboard 2",
+     *                       description: "This describes dashboard 2",
      *                       userId: "0FTY2Ne8",
      *                       data: {},
      *                       creationDate: "2019-10-01T11:32:12.534Z"
@@ -328,6 +352,9 @@ export class DashboardRouter {
               dashboards: Joi.array().items({
                 id: Joi.string(),
                 title: Joi.string(),
+                description: Joi.string()
+                  .allow('')
+                  .optional(),
                 userId: Joi.string(),
                 data: Joi.object(),
                 creationDate: Joi.string(),
@@ -377,6 +404,8 @@ export class DashboardRouter {
      *                       type: string
      *                     title:
      *                       type: string
+     *                     description:
+     *                       type: string
      *                     userId:
      *                       type: string
      *                     data:
@@ -388,6 +417,7 @@ export class DashboardRouter {
      *                 value: {
      *                   id: "WaDQc9_H",
      *                   title: "New Title",
+     *                   description: "This dashboard illustrates...",
      *                   userId: "b1x_S29n",
      *                   data: {},
      *                   creationDate: "2019-11-02T15:45:58.284Z"
@@ -414,6 +444,8 @@ export class DashboardRouter {
      *                       type: string
      *                     title:
      *                       type: string
+     *                     description:
+     *                       type: string
      *                     userId:
      *                       type: string
      *                     data:
@@ -425,6 +457,7 @@ export class DashboardRouter {
      *                 value: {
      *                   id: "WaDQc9_H",
      *                   title: "New Title",
+     *                   description: "This dashboard illustrates...",
      *                   userId: "b1x_S29n",
      *                   data: {},
      *                   creationDate: "2019-11-02T15:45:58.284Z"
@@ -450,6 +483,9 @@ export class DashboardRouter {
         body: {
           id: Joi.string().required(),
           title: Joi.string().required(),
+          description: Joi.string()
+            .allow('')
+            .optional(),
           userId: Joi.string().required(),
           data: Joi.object().required(),
           creationDate: Joi.string().required(),
@@ -459,6 +495,9 @@ export class DashboardRouter {
             body: {
               id: Joi.string().required(),
               title: Joi.string().required(),
+              description: Joi.string()
+                .allow('')
+                .optional(),
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),
@@ -500,11 +539,14 @@ export class DashboardRouter {
      *                   type: object
      *                   required:
      *                   - title
+     *                   - description
      *                   - userId
      *                   - data
      *                   - creationDate
      *                   properties:
      *                     title:
+     *                       type: string
+     *                     description:
      *                       type: string
      *                     userId:
      *                       type: string
@@ -516,8 +558,9 @@ export class DashboardRouter {
      *               filter:
      *                 value: {
      *                   title: "Dashboard",
+     *                   description: "This dashboard illustrates....",
      *                   userId: "b1x_S29n",
-     *                   data: {},
+     *                   data: "{}",
      *                   creationDate: "2019-11-02T15:45:58.284Z"
      *                 }
      *       401:
@@ -539,6 +582,9 @@ export class DashboardRouter {
           200: {
             body: {
               title: Joi.string().required(),
+              description: Joi.string()
+                .allow('')
+                .optional(),
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),

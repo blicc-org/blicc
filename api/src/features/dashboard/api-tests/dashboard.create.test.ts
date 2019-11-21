@@ -4,6 +4,7 @@ describe('POST: /dashboards', () => {
   let params = { email: '', userId: '', cookie: '' }
   const body = {
     title: 'Title',
+    description: '...',
     data: {},
   }
 

@@ -11,9 +11,9 @@ export class DashboardController {
 
   public async create(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    const { title, data } = ctx.request.body
+    const { title, description = '', data } = ctx.request.body
     const { id } = ctx.user
-    ctx.body = await this.dashboardService.create(title, id, data)
+    ctx.body = await this.dashboardService.create(title, description, id, data)
     ctx.status = 201
   }
 
@@ -70,6 +70,8 @@ export class DashboardController {
       const dashboard = await this.dashboardService.select(id)
       if (dashboard !== undefined && ctx.user.id === dashboard.userId) {
         if (ctx.request.body.title) dashboard.title = ctx.request.body.title
+        if (ctx.request.body.description)
+          dashboard.description = ctx.request.body.description
         if (ctx.request.body.data) dashboard.data = ctx.request.body.data
         if (
           ctx.request.body.id !== dashboard.id ||
