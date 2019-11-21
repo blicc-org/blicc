@@ -30,7 +30,12 @@ export function CreateDashboardModal({
             </div>
             <div className="form-group">
               <label htmlFor="dashboard_description">Description</label>
-              <textarea className="form-control" id="dashboard_description" rows="3" onChange={event => setDescription(event.target.value)}></textarea>
+              <textarea
+                className="form-control"
+                id="dashboard_description"
+                rows="3"
+                onChange={event => setDescription(event.target.value)}
+              ></textarea>
               <small id="emailHelp" className="form-text text-muted">
                 Add a helpful description (optional).
               </small>
