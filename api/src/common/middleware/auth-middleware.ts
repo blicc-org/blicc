@@ -32,6 +32,9 @@ export class AuthMiddleware {
         ctx.body = `Authorization token has expired on ${new Date(
           e.expiredAt
         )}.`
+      } else if (e.name === 'ValidationError') {
+        ctx.status = status.NOT_FOUND
+        ctx.body = e.message
       } else {
         ctx.status = status.UNAUTHORIZED
         ctx.body = 'Please provide a valid authorization token.'
