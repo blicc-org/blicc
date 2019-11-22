@@ -15,7 +15,8 @@
     "format": "prettier --config .prettierrc --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|html)\"",
     "install": "yarn --cwd 'db' install && yarn --cwd 'app' install && yarn --cwd 'api' install",
     "build": "yarn --cwd 'app' build && yarn --cwd 'api' build",
-    "test": "cross-env CI=true yarn --cwd 'app' test && yarn --cwd 'api' test"
+    "test": "cross-env CI=true yarn --cwd 'app' test && yarn --cwd 'api' test",
+    "lines": "git ls-files | grep '\\(.js\\|.jsx\\|.ts\\|.tsx\\|.scss\\|.json\\|.go\\)$' | xargs cat | wc -l"
   },
   "husky": {
     "hooks": {
