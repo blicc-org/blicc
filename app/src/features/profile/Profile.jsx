@@ -73,7 +73,7 @@ export function Profile() {
                     <td>
                       <b>Registration date:</b>
                     </td>
-                    <td>{creationDate.split('T')[0]}</td>
+                    <td>{creationDate ? creationDate.split('T')[0] : ''}</td>
                   </tr>
                 </tbody>
               </table>
