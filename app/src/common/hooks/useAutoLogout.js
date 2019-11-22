@@ -4,7 +4,7 @@ import { AppContext } from '../context'
 import { useLogout } from './useLogout'
 
 export function useAutoLogout() {
-  const logoutInMs = 30000
+  const logoutInMs = 10000
   const [appState] = useContext(AppContext)
   const [, healthCheck, ,] = useApiEndpoint('/health-check/auth')
   const logout = useLogout()

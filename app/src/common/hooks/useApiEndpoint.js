@@ -35,7 +35,7 @@ export function useApiEndpoint(path = '') {
     // invalid authentication or deleted user
     if (
       status === statusCode.UNAUTHORIZED ||
-      (status === statusCode.NOT_FOUND && path.startsWith('/users/'))
+      (status === statusCode.NOT_FOUND && path.startsWith('/health-check'))
     ) {
       await logout()
     }
