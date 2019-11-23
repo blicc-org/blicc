@@ -3,15 +3,32 @@
 .toolbox {
   right: 40px;
   bottom: 40px;
+  border-radius: 100px;
   position: absolute;
   z-index: 1003;
+  background-color: $lightgray;
+}
+
+.toolbox-border {
+  border-radius: 100px;
+  background-color: $lightgray;
 }
 
 .toolbox button {
+  transition: 0.25s;
   border-radius: 100px;
-  padding: 10px;
+  padding: 12px;
 }
 
-.toolbox .dropdown-menu {
-  margin-bottom: 10px;
+.draggable {
+  transform: translate(0, 0);
+  cursor: grab;
+  margin: 0px;
+  border-radius: 100px;
+  padding: 12px;
+  margin-bottom: 3px;
+}
+
+.draggable:hover {
+  background-color: $secondary;
 }
