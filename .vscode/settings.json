@@ -47,8 +47,8 @@
       "disabled": false
     },
     {
-      "icon": "route",
-      "extensions": ["route", "routes", "features"],
+      "icon": "view",
+      "extensions": ["pages", "page", "features"],
       "format": "FileFormat.svg",
       "disabled": false
     },
