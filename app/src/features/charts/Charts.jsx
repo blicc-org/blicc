@@ -2,7 +2,7 @@ import React from 'react'
 import { ChartsItem } from './ChartsItem'
 
 export function Charts() {
-  const plugins = ['@features/pie-chart', '@features/line-chart']
+  const plugins = ['@essentials/pie-chart', '@essentials/line-chart']
 
   return (
     <>
