@@ -1,4 +1,5 @@
 import './assets/scss/Bootstrap.scss'
+import './assets/js/drag-drop-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { App } from './App'
