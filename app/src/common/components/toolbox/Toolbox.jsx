@@ -18,7 +18,7 @@ export function Toolbox() {
             <Selector type="chart">
               <PieChart />
             </Selector>
-            <Selector type="data-relation">
+            <Selector type="data">
               <Database />
             </Selector>
           </>

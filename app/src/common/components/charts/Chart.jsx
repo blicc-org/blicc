@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Positioning } from '../dashboard-view/positioning/Positioning'
 import { DragContext } from '../../context'
 import { DragHere } from './DragHere'
-import { LineChart } from './LineChart'
-import { PieChart } from './PieChart'
-import { BarChart } from './BarChart'
+import { ChartGenerator } from './ChartGenerator'
+import { ChartSelectionModal } from './ChartSelectionModal'
+import { useModal } from '../../hooks'
 import { X } from 'react-feather'
 import './Chart.scss'
 
@@ -18,18 +18,31 @@ export const TYPE = {
 export function Chart({ type, id, onDrop }) {
   const [dragging] = useContext(DragContext)
 
+  const [chartType, setChartType] = useState('')
+  const [sector, setSector] = useState(0)
+  const [showModal, hideModal] = useModal(() => (
+    <ChartSelectionModal
+      cancel={hideModal}
+      submit={() => {
+        setChartType('@essentials/pie-chart')
+        onDrop(sector, '@essentials/pie-chart')
+        hideModal()
+      }}
+    />
+  ))
+
+  function onDropHandler(sector, type) {
+    console.log('hier in chart: ', sector, type)
+    setSector(sector)
+    showModal()
+  }
+
   function getChart(type) {
     switch (type) {
       case TYPE.DRAG_HERE:
-        return
-      case TYPE.LINE_CHART:
-        return <LineChart id={id} />
-      case TYPE.PIE_CHART:
-        return <PieChart id={id} />
-      case TYPE.BAR_CHART:
-        return <BarChart id={id} />
-      default:
         return <DragHere />
+      default:
+        return <ChartGenerator chartType={type} />
     }
   }
 
@@ -52,7 +65,7 @@ export function Chart({ type, id, onDrop }) {
         </>
       )}
 
-      {dragging && <Positioning onDrop={onDrop} />}
+      {dragging && <Positioning onDrop={onDropHandler} />}
     </div>
   )
 }

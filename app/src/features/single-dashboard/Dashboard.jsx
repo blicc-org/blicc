@@ -45,7 +45,13 @@ export function Dashboard({ match }) {
           setView={setView}
         />
         {view === 'dashboard' ? (
-          <DashboardView data={data} update={setDashboard} />
+          <DashboardView
+            data={data}
+            update={(id, pos, type) => {
+              console.log('here in dashboard: ', id, pos, type)
+              setDashboard(id, pos, type)
+            }}
+          />
         ) : (
           <DashboardDetails data={data} />
         )}

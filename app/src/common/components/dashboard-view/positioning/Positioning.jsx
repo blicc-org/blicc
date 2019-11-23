@@ -117,7 +117,7 @@ export function Positioning({ onDrop }) {
 
   function onDropHandler(event) {
     setSector(POSITION.NONE)
-    onDrop(sector, event.dataTransfer.getData('chart_type'))
+    onDrop(sector, event.dataTransfer.getData('type'))
   }
 
   function onDragLeave() {
