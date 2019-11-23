@@ -17,8 +17,8 @@
       "disabled": false
     },
     {
-      "icon": "helper",
-      "extensions": ["helper", "helpers", "context"],
+      "icon": "services",
+      "extensions": ["services", "context"],
       "format": "FileFormat.svg",
       "disabled": false
     },
@@ -47,8 +47,8 @@
       "disabled": false
     },
     {
-      "icon": "plugin",
-      "extensions": ["plugin", "features"],
+      "icon": "route",
+      "extensions": ["route", "routes", "features"],
       "format": "FileFormat.svg",
       "disabled": false
     },
