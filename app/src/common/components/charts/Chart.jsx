@@ -32,7 +32,6 @@ export function Chart({ type, id, onDrop }) {
   ))
 
   function onDropHandler(sector, type) {
-    console.log('hier in chart: ', sector, type)
     setSector(sector)
     showModal()
   }
