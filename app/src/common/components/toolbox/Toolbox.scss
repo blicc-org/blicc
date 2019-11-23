@@ -19,16 +19,3 @@
   border-radius: 100px;
   padding: 12px;
 }
-
-.draggable {
-  transform: translate(0, 0);
-  cursor: grab;
-  margin: 0px;
-  border-radius: 100px;
-  padding: 12px;
-  margin-bottom: 3px;
-}
-
-.draggable:hover {
-  background-color: $secondary;
-}

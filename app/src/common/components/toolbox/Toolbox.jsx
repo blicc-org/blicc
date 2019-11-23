@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
-import { useClickAway } from '../../hooks'
 import { Plus, PieChart, Database } from 'react-feather'
+import { useClickAway } from '../../hooks'
+import { Selector } from './Selector'
 import './Toolbox.scss'
 
 export function Toolbox() {
@@ -14,12 +15,12 @@ export function Toolbox() {
       <div className="toolbox" ref={ref}>
         {show && (
           <>
-            <div className="draggable" draggable={true}>
+            <Selector type="chart">
               <PieChart />
-            </div>
-            <div className="draggable" draggable={true}>
+            </Selector>
+            <Selector type="data-relation">
               <Database />
-            </div>
+            </Selector>
           </>
         )}
         <button

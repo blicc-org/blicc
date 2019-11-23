@@ -4,8 +4,6 @@ import { Layout, Rss, PieChart, Database } from 'react-feather'
 import { AppContext, SidebarContext } from '../../context'
 import { sidebarWidth } from '../../../config'
 import { useMobile, useLanguage, useClickAway } from '../../hooks'
-import { Selector } from '../dashboard-view/Selector'
-import { TYPE } from '../charts/Chart'
 import { Footer } from '../footer/Footer'
 import './Sidebar.scss'
 
@@ -75,30 +73,6 @@ export function Sidebar({ open }) {
                 <Link className="nav-link" to="/websocket-test" onClick={close}>
                   <Rss className="feather" /> Websocket Test
                 </Link>
-              </li>
-            </ul>
-            <SidebarHeader name="Charts" />
-            <ul className="nav flex-column px-2">
-              <li className="nav-item">
-                <Selector type={TYPE.LINE_CHART} closeSidebar={close} />
-              </li>
-              <li className="nav-item">
-                <Selector type={TYPE.BAR_CHART} closeSidebar={close} />
-              </li>
-              <li className="nav-item">
-                <Selector type={TYPE.PIE_CHART} closeSidebar={close} />
-              </li>
-            </ul>
-            <SidebarHeader name="Data" />
-            <ul className="nav flex-column px-2">
-              <li className="nav-item">
-                <Selector type={TYPE.LINE_CHART} closeSidebar={close} />
-              </li>
-              <li className="nav-item">
-                <Selector type={TYPE.BAR_CHART} closeSidebar={close} />
-              </li>
-              <li className="nav-item">
-                <Selector type={TYPE.PIE_CHART} closeSidebar={close} />
               </li>
             </ul>
           </>
