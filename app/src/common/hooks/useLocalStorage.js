@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export function useLocalStorage(key, init = {}) {
+  const updateInMs = 3000
+
   if (localStorage.getItem(key) !== null) {
     init = JSON.parse(localStorage.getItem(key))
   } else {
@@ -13,6 +15,18 @@ export function useLocalStorage(key, init = {}) {
     localStorage.setItem(key, JSON.stringify(value))
     setState(value)
   }
+
+  useEffect(() => {
+    async function fetchLocalStorage() {
+      const val = localStorage.getItem(key)
+      if (JSON.stringify(state) !== val) {
+        setState(JSON.parse(val))
+      }
+    }
+
+    const refreshIntervalId = setInterval(fetchLocalStorage, updateInMs)
+    return () => clearInterval(refreshIntervalId)
+  }, [state, key])
 
   return [state, setLocalStorage]
 }
