@@ -1,13 +1,20 @@
-import React, { lazy, Suspense } from 'react'
+import React, { useEffect } from 'react'
+import { API } from '../../../config'
 
 export function ChartGenerator({ chartType }) {
-  const Plugin = lazy(() => import(`../../../plugins/${chartType}`))
+  useEffect(() => {
+    var script = document.createElement('script')
+    script.onload = function() {
+      console.log('loaded!!!')
+    }
 
-  return (
-    <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Plugin />
-      </Suspense>
-    </>
-  )
+    script.crossOrigin = 'use-credentials'
+    script.async = 'true'
+    script.type = 'module'
+    script.src = `${API.ORIGIN}/charts/plugin.mjs`
+
+    document.head.appendChild(script) //or something of the likes
+  }, [])
+
+  return <></>
 }

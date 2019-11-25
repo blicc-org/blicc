@@ -1,0 +1,22 @@
+{
+  "name": "@essentials/pie-chart",
+  "version": "0.0.1",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "webpack --env publish --mode production --watch",
+    "build": "webpack --env publish --mode production"
+  },
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "^16.12.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "react": "^16.12.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}
