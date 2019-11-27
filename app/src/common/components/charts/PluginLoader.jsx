@@ -3,7 +3,7 @@ import { Loading } from './Loading'
 
 export function PluginLoader({ name }) {
   const Plugin = lazy(() =>
-    import(/* webpackChunkName: "[request]" */ `../../../plugins/${name}`)
+    import(/* webpackChunkName: "[request]" */ `../../../plugins/${name}/index`)
   )
   return (
     <Suspense fallback={<Loading />}>

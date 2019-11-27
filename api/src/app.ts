@@ -10,6 +10,7 @@ import { TokenRouter } from './features/token'
 import { DashboardRouter } from './features/dashboard'
 import { TwoFactorAuthRouter } from './features/two-factor-auth'
 import { HealthCheckRouter } from './features/health-check/health-check.router'
+import { ChartRouter } from './features/chart/chart.router'
 
 export class App extends Koa {
   public constructor() {
@@ -23,6 +24,7 @@ export class App extends Koa {
     this.use(new ApiDocsRouter('/').routes())
     this.use(new AdminRouter('/admin').routes())
     this.use(new UserRouter('/users').routes())
+    this.use(new ChartRouter('/charts').routes())
     this.use(new TokenRouter('/tokens').routes())
     this.use(new DashboardRouter('/dashboards').routes())
     this.use(new HealthCheckRouter('/health-check').routes())
