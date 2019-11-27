@@ -1,5 +1,5 @@
 import React from 'react'
-import { Chart } from '../charts/Chart'
+import { ChartContainer } from '../charts/ChartContainer'
 import { useMobile } from '../../hooks'
 import './Row.scss'
 
@@ -20,7 +20,7 @@ export function Row({ row, onDrop, depth = 1 }) {
           {obj.row ? (
             <Row row={obj.row} depth={depth + 1} onDrop={onDrop} />
           ) : (
-            <Chart
+            <ChartContainer
               id={obj.id}
               type={obj.type}
               onDrop={(sector, type) => onDrop(obj.id, sector, type)}

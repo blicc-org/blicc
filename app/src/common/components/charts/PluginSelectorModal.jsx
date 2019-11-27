@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function ChartSelectionModal({ cancel, submit }) {
+export function PluginSelectorModal({ cancel, submit, plugins }) {
   return (
     <>
       <div className="modal-dialog modal-dialog-centered" role="document">
@@ -10,6 +10,24 @@ export function ChartSelectionModal({ cancel, submit }) {
             <button onClick={cancel} type="button" className="close">
               <span aria-hidden="true">&times;</span>
             </button>
+          </div>
+          <div className="modal-body">
+            <input
+              className="form-control"
+              type="text"
+              placeholder="Like Pie Chart..."
+            ></input>
+            <div className="plugin-results">
+              <ul>
+                {plugins.map(({ name, path, bundle, description }) => (
+                  <li key={path}>
+                    <h4>{name}</h4>
+                    <p>{bundle}</p>
+                    <p>{description}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
           <div className="modal-footer">
             <button

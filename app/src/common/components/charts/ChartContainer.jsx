@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react'
+import { X } from 'react-feather'
 import { Positioning } from '../dashboard-view/positioning/Positioning'
 import { DragContext } from '../../context'
 import { DragHere } from './DragHere'
-import { ChartGenerator } from './ChartGenerator'
-import { ChartSelectionModal } from './ChartSelectionModal'
+import { PluginSelectorModal } from './PluginSelectorModal'
 import { useModal } from '../../hooks'
-import { X } from 'react-feather'
-import './Chart.scss'
+import { PluginLoader } from './PluginLoader'
+import { plugins } from '../../../plugins/index'
+import './ChartContainer.scss'
 
 export const TYPE = {
   DRAG_HERE: 'drag-here',
@@ -15,16 +16,17 @@ export const TYPE = {
   BAR_CHART: 'bar-chart',
 }
 
-export function Chart({ type, id, onDrop }) {
+export function ChartContainer({ type, id, onDrop }) {
   const [dragging] = useContext(DragContext)
 
-  const [chartType, setChartType] = useState('')
+  const [pluginName, setPluginName] = useState('')
   const [sector, setSector] = useState(0)
   const [showModal, hideModal] = useModal(() => (
-    <ChartSelectionModal
+    <PluginSelectorModal
+      plugins={plugins}
       cancel={hideModal}
       submit={() => {
-        setChartType('@essentials/pie-chart')
+        setPluginName('@essentials/pie-chart')
         onDrop(sector, '@essentials/pie-chart')
         hideModal()
       }}
@@ -34,15 +36,6 @@ export function Chart({ type, id, onDrop }) {
   function onDropHandler(sector, type) {
     setSector(sector)
     showModal()
-  }
-
-  function getChart(type) {
-    switch (type) {
-      case TYPE.DRAG_HERE:
-        return <DragHere />
-      default:
-        return <ChartGenerator chartType={type} />
-    }
   }
 
   return (
@@ -60,7 +53,13 @@ export function Chart({ type, id, onDrop }) {
             </div>
           </div>
           <hr />
-          <div className="px-2">{getChart(type)}</div>
+          <div className="px-2">
+            {type === TYPE.DRAG_HERE ? (
+              <DragHere />
+            ) : (
+              <PluginLoader name={type} />
+            )}
+          </div>
         </>
       )}
 
