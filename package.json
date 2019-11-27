@@ -24,5 +24,6 @@
       "pre-commit": "yarn format",
       "pre-push": "yarn fix"
     }
-  }
+  },
+  "dependencies": {}
 }
