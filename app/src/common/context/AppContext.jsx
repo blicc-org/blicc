@@ -1,12 +1,18 @@
 import React, { createContext } from 'react'
 import { useLocalStorage } from '../hooks'
 
+function useBrowserLanguage() {
+  let language = 'en'
+  if (navigator.language.toLowerCase().startsWith('de')) language = 'de'
+  return language
+}
+
 export const INITIAL_APP_STATE = {
   id: '',
   firstName: '',
   lastName: '',
   loggedIn: false,
-  language: 'en',
+  language: useBrowserLanguage(),
 }
 
 export const AppContext = createContext()
