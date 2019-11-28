@@ -136,8 +136,14 @@ export class ChartController {
     var react_10 = react.Fragment;
     
     function MyPlugin(_ref) {
-      var data = _ref.data;
-      return react.createElement("div", null, "Hello ", JSON.stringify(data));
+      var data = _ref.data,
+          settings = _ref.settings,
+          setSettings = _ref.setSettings;
+      return react.createElement(react.Fragment, null, react.createElement("div", null, "Hello ", JSON.stringify(data)), react.createElement("button", {
+        onClick: function onClick() {
+          return setSettings();
+        }
+      }, "Click me to set settings"));
     }
     
     export default MyPlugin;

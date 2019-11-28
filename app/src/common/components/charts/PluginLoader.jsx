@@ -14,9 +14,15 @@ export function PluginLoader({ name }) {
     test: 'test',
   }
 
+  function setSettings() {
+    console.log('settings updated')
+  }
+
+  const settings = {}
+
   return (
     <Suspense fallback={<Loading />}>
-      <ApiPlugin data={data} />
+      <ApiPlugin data={data} settings={settings} setSettings={setSettings} />
     </Suspense>
   )
 }

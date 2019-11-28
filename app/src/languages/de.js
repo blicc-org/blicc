@@ -1,4 +1,4 @@
-export const de = {
+const de = {
   title: 'Blicc',
   description:
     'Veranschauliche deine Daten mit individualisierbaren Dashboards',
@@ -22,3 +22,5 @@ export const de = {
       'und fang an deine Daten darzustellen und zu analysieren.',
   },
 }
+
+export default de
