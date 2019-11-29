@@ -2,12 +2,15 @@ import Koa from 'koa'
 import status from 'http-status-codes'
 import { UserService } from './user.service'
 import { Validation } from '../../util/validation'
+import { TokenService } from '../token/token.service'
 
 export class UserController {
   private userService: UserService
+  private tokenService: TokenService
 
   public constructor() {
     this.userService = new UserService()
+    this.tokenService = new TokenService()
   }
 
   public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
@@ -60,6 +63,31 @@ export class UserController {
         ctx.status = status.CREATED
         ctx.body = user
         return
+      }
+    } catch (e) {
+      ctx.status = status.INTERNAL_SERVER_ERROR
+    }
+  }
+
+  public async delete(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+    await next()
+    try {
+      const { id } = ctx.params
+      const { password, token = '' } = ctx.request.body
+
+      if (
+        await this.tokenService.authenticate(
+          ctx.user.email,
+          password,
+          ctx.user.hasTwoFactorAuth,
+          token
+        )
+      ) {
+        if (await this.userService.deleteById(id)) {
+          ctx.status = status.OK
+          delete ctx.user.id
+          ctx.body = ctx.user
+        }else throw Error('An error occured while requesting a deletion.')
       }
     } catch (e) {
       ctx.status = status.INTERNAL_SERVER_ERROR

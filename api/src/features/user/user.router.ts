@@ -60,6 +60,7 @@ export class UserRouter {
      *                   - email
      *                   - role
      *                   - hasTwoFactorAuth
+     *                   - creationDate
      *                   properties:
      *                     id:
      *                       type: string
@@ -73,6 +74,8 @@ export class UserRouter {
      *                       type: string
      *                     hasTwoFactorAuth:
      *                       type: boolean
+     *                     creationDate:
+     *                       type string
      *             examples:
      *               filter:
      *                 value: {
@@ -80,7 +83,8 @@ export class UserRouter {
      *                   "firstName": "John",
      *                   "lastName": "Doe",
      *                   "email": "john.doe@email.com",
-     *                   "role": "user"
+     *                   "role": "user",
+     *                   "creationDate": "2019-11-02T15:45:58.284Z"
      *                 }
      *       401:
      *         description: Unauthorized
@@ -94,7 +98,7 @@ export class UserRouter {
       path: '/:id',
       pre: [
         AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
       ],
       validate: {
         output: {
@@ -176,6 +180,19 @@ export class UserRouter {
      *                       type: string
      *                     hasTwoFactorAuth:
      *                       type: boolean
+     *                     creationDate:
+     *                       type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   "id": "ojziCepXt",
+     *                   "firstName": "John",
+     *                   "lastName": "Doe",
+     *                   "email": "john.doe@email.com",
+     *                   "role": "user",
+     *                   "hasTwoFactorAuth": false,
+     *                   "creationDate": "2019-11-02T15:45:58.284Z"
+     *                 }
      *       400:
      *         description: Bad request
      *       409:
@@ -211,6 +228,122 @@ export class UserRouter {
         },
       },
       handler: this.controller.register.bind(this.controller),
+    })
+
+    /**
+     * @swagger
+     *
+     * /users/{userId}/delete:
+     *   post:
+     *     security:
+     *       - cookieAuth: []
+     *     tags:
+     *       - User
+     *     parameters:
+     *       - in: path
+     *         name: userId
+     *         required: true
+     *         schema:
+     *           type: string
+     *     summary: Delete user
+     *     securitySchemes:
+     *       bearerAuth:
+     *         type: http
+     *         scheme: bearer
+     *         bearerFormat: JWT
+     *     description: Delete user from database. In case two factor auth was enabled, it is mandatory to also pass the two factor auth token to delete the user. This action can not be revoked.
+     *     produces:
+     *       - application/json
+     *     requestBody:
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - password
+     *               properties:
+     *                 token:
+     *                   type: string
+     *                 password:
+     *                   type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   "token": "324534",
+     *                   "password": "PJTjthaX2kSM8hvG"
+     *                 }
+     *     responses:
+     *       200:
+     *         description: OK
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - user
+     *               properties:
+     *                 user:
+     *                   type: object
+     *                   required:
+     *                   - firstName
+     *                   - lastName
+     *                   - email
+     *                   - role
+     *                   - hasTwoFactorAuth
+     *                   - creationDate
+     *                   properties:
+     *                     firstName:
+     *                       type: string
+     *                     lastName:
+     *                       type: string
+     *                     email:
+     *                       type: string
+     *                     role:
+     *                       type: string
+     *                     hasTwoFactorAuth:
+     *                       type: boolean
+     *                     creationDate:
+     *                       type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   "firstName": "John",
+     *                   "lastName": "Doe",
+     *                   "email": "john.doe@email.com",
+     *                   "role": "user",
+     *                   "hasTwoFactorAuth": false,
+     *                   "creationDate": "2019-11-02T15:45:58.284Z"
+     *                 }
+     *       401:
+     *         description: Unauthorized
+     *       500:
+     *         description: Internal Server Error
+     */
+    this.router.route({
+      method: 'post',
+      path: '/:id/delete',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
+      ],
+      validate: {
+        type: 'json',
+        body: {
+          token: Joi.string(),
+          password: Joi.string().required(),
+        },
+        output: {
+          200: {
+            body: {
+              firstName: Joi.string().required(),
+              lastName: Joi.string().required(),
+              email: Joi.string().required(),
+              role: Joi.string().required(),
+              hasTwoFactorAuth: Joi.boolean().required(),
+              creationDate: Joi.string().required(),
+            },
+          },
+        },
+      },
+      handler: this.controller.delete.bind(this.controller),
     })
 
     return this.router.middleware()

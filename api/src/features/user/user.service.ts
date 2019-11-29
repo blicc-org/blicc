@@ -64,4 +64,9 @@ export class UserService {
     const response = await this.repo.findOne(id)
     return response === undefined ? id : await this.generateId()
   }
+
+  public async deleteById(id: string): Promise<boolean> {
+    const deleteResult = await this.repo.delete({ id })
+    return deleteResult.affected === 1
+  }
 }
