@@ -1,6 +1,7 @@
 import React from 'react'
 
-export function PluginSelectorModal({ cancel, submit, plugins }) {
+export function PluginSelectorModal({ cancel, submit }) {
+  const plugins = []
   return (
     <>
       <div className="modal-dialog modal-dialog-centered" role="document">

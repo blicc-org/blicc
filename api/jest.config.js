@@ -12,5 +12,5 @@ module.exports = {
   },
   testMatch: ['**/*.test.+(ts|js)'],
   testPathIgnorePatterns: ['/node_modules/', '/build/'],
-  setupFilesAfterEnv: ["./jest.setup.js"]
+  setupFilesAfterEnv: ['./jest.setup.js'],
 }

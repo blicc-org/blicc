@@ -6,7 +6,6 @@ import { DragHere } from './DragHere'
 import { PluginSelectorModal } from './PluginSelectorModal'
 import { useModal } from '../../hooks'
 import { PluginLoader } from './PluginLoader'
-import { plugins } from '../../../plugins/index'
 import './ChartContainer.scss'
 
 export const TYPE = {
@@ -23,7 +22,6 @@ export function ChartContainer({ type, id, onDrop }) {
   const [sector, setSector] = useState(0)
   const [showModal, hideModal] = useModal(() => (
     <PluginSelectorModal
-      plugins={plugins}
       cancel={hideModal}
       submit={() => {
         setPluginName('@essentials/pie-chart')
