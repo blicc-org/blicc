@@ -19,7 +19,7 @@ describe('POST: /users', () => {
   })
 
   it('201: Created', async () => {
-    let response = await instance.post('/users', {
+    const response = await instance.post('/users', {
       ...user,
       email,
     })

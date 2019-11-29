@@ -1,29 +1,27 @@
-import uuid from 'uuid/v4'
 import speakeasy from 'speakeasy'
 import { user } from '../../user/mocks/user.mock'
-import { instance } from '../../../common/tests/user.helper'
+import {
+  instance,
+  initializeUser,
+  clearUser,
+} from '../../../common/tests/user.helper'
 
 describe('POST: /tokens', () => {
-  let email = ''
-  let userId = ''
+  let params = { email: '', userId: '', cookie: '' }
 
   beforeEach(async () => {
-    email = `${uuid()}@example.com`
-    const response = await instance.post('/users', {
-      ...user,
-      email,
-    })
-    userId = response.data.id
+    params = await initializeUser()
   })
 
   it('200: OK', async () => {
     let response = await instance.post('/tokens', {
-      email,
+      email: params.email,
       password: user.password,
     })
 
     expect(response.status).toBe(202)
 
+    // request token with 2FA enabled
     const cookies = response.headers['set-cookie']
     const cookie = cookies
       .find((cookie: string): boolean => cookie.startsWith('access_token'))
@@ -40,7 +38,7 @@ describe('POST: /tokens', () => {
     const d = new Date()
     const seconds = d.getTime() / 1000
 
-    const token = speakeasy.totp({
+    let token = speakeasy.totp({
       secret,
       encoding: 'base32',
       time: seconds,
@@ -60,21 +58,29 @@ describe('POST: /tokens', () => {
     expect(response.status).toBe(204)
 
     response = await instance.post('/tokens', {
-      email,
+      email: params.email,
       password: user.password,
     })
     expect(response.status).toBe(200)
     expect(response.data.hasTwoFactorAuth).toBe(true)
+
+    // clear up
+    token = speakeasy.totp({
+      secret,
+      encoding: 'base32',
+      time: seconds,
+    })
+    clearUser(params.userId, cookie, user.password, token)
   })
 
   it('202: Accepted', async () => {
     // with hasTwoFactorAuth = false
     let response = await instance.post('/tokens', {
-      email,
+      email: params.email,
       password: user.password,
     })
     expect(response.status).toBe(202)
-    expect(response.data.id).toBe(userId)
+    expect(response.data.id).toBe(params.userId)
 
     // with hasTwoFactorAuth = true
     const cookies = response.headers['set-cookie']
@@ -121,17 +127,25 @@ describe('POST: /tokens', () => {
     })
 
     response = await instance.post('/tokens', {
-      email,
+      email: params.email,
       password: user.password,
       token,
     })
     expect(response.status).toBe(202)
-    expect(response.data.id).toBe(userId)
+    expect(response.data.id).toBe(params.userId)
+
+    // clear up
+    token = speakeasy.totp({
+      secret,
+      encoding: 'base32',
+      time: seconds,
+    })
+    clearUser(params.userId, cookie, user.password, token)
   })
 
   it('400: Bad request', async () => {
     let response = await instance.post('/tokens', {
-      email,
+      email: params.email,
     })
     expect(response.status).toBe(400)
 
@@ -139,20 +153,22 @@ describe('POST: /tokens', () => {
       password: user.password,
     })
     expect(response.status).toBe(400)
+
+    clearUser(params.userId, params.cookie)
   })
 
   it('403: Forbidden', async () => {
     // wrong password
     const wrongPassword = ';Kf,wxXPB5"c7z!q'
     let response = await instance.post('/tokens', {
-      email,
+      email: params.email,
       password: wrongPassword,
     })
     expect(response.status).toBe(403)
 
     // wrong two factor auth
     response = await instance.post('/tokens', {
-      email,
+      email: params.email,
       password: user.password,
     })
     expect(response.status).toBe(202)
@@ -173,7 +189,7 @@ describe('POST: /tokens', () => {
     const d = new Date()
     const seconds = d.getTime() / 1000
 
-    const token = speakeasy.totp({
+    let token = speakeasy.totp({
       secret,
       encoding: 'base32',
       time: seconds,
@@ -195,11 +211,19 @@ describe('POST: /tokens', () => {
     const wrongToken = '234745'
 
     response = await instance.post('/tokens', {
-      email,
+      email: params.email,
       password: user.password,
       token: wrongToken,
     })
     expect(response.status).toBe(403)
+
+    // clear up
+    token = speakeasy.totp({
+      secret,
+      encoding: 'base32',
+      time: seconds,
+    })
+    clearUser(params.userId, cookie, user.password, token)
   })
 
   it('404: Not found', async () => {
@@ -208,5 +232,6 @@ describe('POST: /tokens', () => {
       password: '123456',
     })
     expect(response.status).toBe(404)
+    clearUser(params.userId, params.cookie)
   })
 })
