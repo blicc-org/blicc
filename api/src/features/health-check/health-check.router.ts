@@ -68,7 +68,7 @@ export class HealthCheckRouter {
       path: '/auth',
       pre: [
         AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
       ],
       handler: this.controller.healthCheckAuth.bind(this.controller),
     })

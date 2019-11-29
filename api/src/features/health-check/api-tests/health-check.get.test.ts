@@ -1,4 +1,8 @@
-import { instance, initializeUser } from '../../../common/tests/user.helper'
+import {
+  instance,
+  initializeUser,
+  clearUser,
+} from '../../../common/tests/user.helper'
 
 describe('GET: /health-check', () => {
   it('200: OK', async () => {
@@ -12,6 +16,10 @@ describe('GET: /health-check/auth', () => {
 
   beforeEach(async () => {
     params = await initializeUser()
+  })
+
+  afterEach(async () => {
+    clearUser(params.userId, params.cookie)
   })
 
   it('200: OK', async () => {
