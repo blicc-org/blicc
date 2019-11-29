@@ -1,6 +1,10 @@
-import { instance } from '../../../common/tests/user.helper'
+import {
+  instance,
+  clearUser,
+  getCookie,
+} from '../../../common/tests/user.helper'
 
-describe('POST: /users', () => {
+describe('POST: /admins', () => {
   const admin = {
     firstName: 'Root',
     lastName: 'Admin',
@@ -9,6 +13,13 @@ describe('POST: /users', () => {
   }
 
   it('201: Created', async () => {
-    expect(true).toBe(true)
+    const response = await instance.post('/admins', {
+      ...admin,
+    })
+    expect(response.status).toBe(201)
+
+    // clear up
+    const cookie = await getCookie(admin.email)
+    await clearUser(response.data.id, cookie, admin.password)
   })
 })

@@ -50,7 +50,7 @@ export async function clearUser(
   password: string = user.password,
   token = ''
 ): Promise<void> {
-  await instance.post(
+  const response = await instance.post(
     `/users/${userId}/delete`,
     {
       token,
@@ -62,4 +62,8 @@ export async function clearUser(
       },
     }
   )
+
+  if(response.status !== 200){
+    console.log(response)
+  }
 }

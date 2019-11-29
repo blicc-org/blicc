@@ -327,7 +327,9 @@ export class UserRouter {
       validate: {
         type: 'json',
         body: {
-          token: Joi.string(),
+          token: Joi.string()
+            .allow('')
+            .optional(),
           password: Joi.string().required(),
         },
         output: {

@@ -88,6 +88,6 @@ describe('POST: /users/:id/delete', () => {
     expect(response.status).toBe(401)
 
     // clear up
-    await clearUser(response.data.id, params.cookie, user.password)
+    await clearUser(params.userId, params.cookie, user.password)
   })
 })

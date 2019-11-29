@@ -66,7 +66,7 @@ describe('POST: /users', () => {
   })
 
   it('409: Conflict', async () => {
-    await instance.post('/users', {
+    const response = await instance.post('/users', {
       ...user,
       email,
     })
@@ -75,6 +75,10 @@ describe('POST: /users', () => {
       email,
     })
     expect(status).toBe(409)
+
+    // clear up
+    const cookie = await getCookie(email)
+    await clearUser(response.data.id, cookie)
   })
 
   it('422: Unprocessable entity', async () => {
