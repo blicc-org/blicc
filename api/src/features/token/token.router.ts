@@ -145,7 +145,7 @@ export class TokenRouter {
      *     tags:
      *       - Tokens
      *     summary: Clear token
-     *     description: Clear up JWT within the cookies
+     *     description: Clean up JWT within the cookies
      *     responses:
      *       200:
      *         description: Reset content

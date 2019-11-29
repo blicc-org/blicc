@@ -25,7 +25,7 @@ describe('POST: /users', () => {
     })
     expect(response.status).toBe(201)
 
-    // clear up
+    // clean up
     const cookie = await getCookie(email)
     await clearUser(response.data.id, cookie, user.password)
   })
@@ -76,7 +76,7 @@ describe('POST: /users', () => {
     })
     expect(status).toBe(409)
 
-    // clear up
+    // clean up
     const cookie = await getCookie(email)
     await clearUser(response.data.id, cookie)
   })

@@ -64,7 +64,7 @@ describe('POST: /tokens', () => {
     expect(response.status).toBe(200)
     expect(response.data.hasTwoFactorAuth).toBe(true)
 
-    // clear up
+    // clean up
     token = speakeasy.totp({
       secret,
       encoding: 'base32',
@@ -134,7 +134,7 @@ describe('POST: /tokens', () => {
     expect(response.status).toBe(202)
     expect(response.data.id).toBe(params.userId)
 
-    // clear up
+    // clean up
     token = speakeasy.totp({
       secret,
       encoding: 'base32',
@@ -217,7 +217,7 @@ describe('POST: /tokens', () => {
     })
     expect(response.status).toBe(403)
 
-    // clear up
+    // clean up
     token = speakeasy.totp({
       secret,
       encoding: 'base32',

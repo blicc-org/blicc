@@ -44,7 +44,7 @@ describe('POST: /two-factor-auth', () => {
     )
     expect(response.status).toBe(204)
 
-    // clear up
+    // clean up
     token = speakeasy.totp({
       secret,
       encoding: 'base32',
@@ -74,7 +74,7 @@ describe('POST: /two-factor-auth', () => {
     )
     expect(response.status).toBe(400)
 
-    // clear up
+    // clean up
     await clearUser(params.userId, params.cookie)
   })
 
@@ -84,7 +84,7 @@ describe('POST: /two-factor-auth', () => {
     })
     expect(response.status).toBe(401)
 
-    // clear up
+    // clean up
     await clearUser(params.userId, params.cookie)
   })
 })

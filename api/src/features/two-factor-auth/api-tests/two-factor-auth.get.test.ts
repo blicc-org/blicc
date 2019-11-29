@@ -72,7 +72,7 @@ describe('GET: /two-factor-auth', () => {
     })
     expect(response.status).toBe(409)
 
-    // clear up
+    // clean up
     token = speakeasy.totp({
       secret,
       encoding: 'base32',
