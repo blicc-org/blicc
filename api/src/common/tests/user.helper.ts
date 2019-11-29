@@ -34,3 +34,34 @@ export async function initializeUser(): Promise<{
 
   return { email, userId, cookie }
 }
+
+export async function getCookie(email: string): Promise<string> {
+  const response = await instance.post('/tokens', {
+    email,
+    password: user.password,
+  })
+  const cookies = response.headers['set-cookie']
+  return cookies
+    .find((cookie: string): boolean => cookie.startsWith('access_token'))
+    .split(';')[0]
+}
+
+export async function clearUser(
+  userId: string,
+  cookie: string,
+  password: string = user.password,
+  token = ''
+): Promise<void> {
+  await instance.post(
+    `/users/${userId}/delete`,
+    {
+      token,
+      password,
+    },
+    {
+      headers: {
+        Cookie: cookie,
+      },
+    }
+  )
+}

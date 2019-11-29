@@ -5,7 +5,11 @@ import {
   invalidPasswords,
   injectionAttacks,
 } from '../mocks/user.mock'
-import { instance } from '../../../common/tests/user.helper'
+import {
+  instance,
+  getCookie,
+  clearUser,
+} from '../../../common/tests/user.helper'
 
 describe('POST: /users', () => {
   let email = ''
@@ -15,11 +19,15 @@ describe('POST: /users', () => {
   })
 
   it('201: Created', async () => {
-    const { status } = await instance.post('/users', {
+    let response = await instance.post('/users', {
       ...user,
       email,
     })
-    expect(status).toBe(201)
+    expect(response.status).toBe(201)
+
+    // clear up
+    const cookie = await getCookie(email)
+    await clearUser(response.data.id, cookie, user.password)
   })
 
   it('400: Bad request', async () => {

@@ -1,5 +1,9 @@
 import speakeasy from 'speakeasy'
-import { instance, initializeUser } from '../../../common/tests/user.helper'
+import {
+  instance,
+  initializeUser,
+  clearUser,
+} from '../../../common/tests/user.helper'
 import { user } from '../mocks/user.mock'
 
 describe('POST: /users/:id/delete', () => {
@@ -78,9 +82,12 @@ describe('POST: /users/:id/delete', () => {
   })
 
   it('401: Unauthorized', async () => {
-    const { status } = await instance.post(`/users/${params.userId}/delete`, {
+    const response = await instance.post(`/users/${params.userId}/delete`, {
       password: user.password,
     })
-    expect(status).toBe(401)
+    expect(response.status).toBe(401)
+
+    // clear up
+    await clearUser(response.data.id, params.cookie, user.password)
   })
 })
