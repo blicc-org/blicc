@@ -27,12 +27,12 @@ describe('POST: /users/:id/delete', () => {
     )
     expect(response.status).toBe(200)
 
-    // delete with two factor atuh
-    params = await initializeUser()
+    // delete with two factor auth
+    const newUser = await initializeUser()
 
     response = await instance.get('/two-factor-auth', {
       headers: {
-        Cookie: params.cookie,
+        Cookie: newUser.cookie,
       },
     })
     expect(response.status).toBe(200)
@@ -54,7 +54,7 @@ describe('POST: /users/:id/delete', () => {
       },
       {
         headers: {
-          Cookie: params.cookie,
+          Cookie: newUser.cookie,
         },
       }
     )
@@ -67,18 +67,19 @@ describe('POST: /users/:id/delete', () => {
     })
 
     response = await instance.post(
-      `/users/${params.userId}/delete`,
+      `/users/${newUser.userId}/delete`,
       {
         token,
         password: user.password,
       },
       {
         headers: {
-          Cookie: params.cookie,
+          Cookie: newUser.cookie,
         },
       }
     )
     expect(response.status).toBe(200)
+    await clearUser(newUser.userId, newUser.cookie)
   })
 
   it('401: Unauthorized', async () => {

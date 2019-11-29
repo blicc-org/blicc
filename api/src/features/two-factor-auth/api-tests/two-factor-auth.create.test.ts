@@ -75,7 +75,7 @@ describe('POST: /two-factor-auth', () => {
     expect(response.status).toBe(400)
 
     // clear up
-    clearUser(params.userId, params.cookie)
+    await clearUser(params.userId, params.cookie)
   })
 
   it('401: Unauthorized', async () => {
@@ -85,6 +85,6 @@ describe('POST: /two-factor-auth', () => {
     expect(response.status).toBe(401)
 
     // clear up
-    clearUser(params.userId, params.cookie)
+    await clearUser(params.userId, params.cookie)
   })
 })

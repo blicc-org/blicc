@@ -24,7 +24,7 @@ describe('GET: /dashboards/:id', () => {
   })
 
   afterEach(async () => {
-    clearUser(params.userId, params.cookie)
+    await clearUser(params.userId, params.cookie)
   })
 
   it('200: OK', async () => {
@@ -50,6 +50,7 @@ describe('GET: /dashboards/:id', () => {
       },
     })
     expect(response.status).toBe(403)
+    await clearUser(wrongUser.userId, wrongUser.cookie)
 
     // none existing id
     const noneExistingId = '0FTY2Ne6iE42E'

@@ -26,7 +26,7 @@ describe('PUT: /dashboards/:id', () => {
   })
 
   afterEach(async () => {
-    clearUser(params.userId, params.cookie)
+    await clearUser(params.userId, params.cookie)
   })
 
   it('200: OK', async () => {
@@ -116,12 +116,13 @@ describe('PUT: /dashboards/:id', () => {
       data: {},
       creationDate,
     }
-    params = await initializeUser()
+    const wrongUser = await initializeUser()
     const { status } = await instance.put(`/dashboards/${id}`, newData, {
       headers: {
-        Cookie: params.cookie,
+        Cookie: wrongUser.cookie,
       },
     })
     expect(status).toBe(403)
+    await clearUser(wrongUser.userId, wrongUser.cookie)
   })
 })

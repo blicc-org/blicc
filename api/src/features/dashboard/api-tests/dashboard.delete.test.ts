@@ -24,7 +24,7 @@ describe('DELETE: /dashboards/:id', () => {
   })
 
   afterEach(async () => {
-    clearUser(params.userId, params.cookie)
+    await clearUser(params.userId, params.cookie)
   })
 
   it('200: OK', async () => {
@@ -51,12 +51,13 @@ describe('DELETE: /dashboards/:id', () => {
   })
 
   it('403: Forbidden', async () => {
-    params = await initializeUser()
+    const wrongUser = await initializeUser()
     const response = await instance.delete(`/dashboards/${id}`, {
       headers: {
-        Cookie: params.cookie,
+        Cookie: wrongUser.cookie,
       },
     })
     expect(response.status).toBe(403)
+    await clearUser(wrongUser.userId, wrongUser.cookie)
   })
 })

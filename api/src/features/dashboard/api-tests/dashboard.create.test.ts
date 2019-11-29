@@ -17,7 +17,7 @@ describe('POST: /dashboards', () => {
   })
 
   afterEach(async () => {
-    clearUser(params.userId, params.cookie)
+    await clearUser(params.userId, params.cookie)
   })
 
   it('201: Created', async () => {

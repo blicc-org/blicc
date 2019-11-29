@@ -39,7 +39,7 @@ describe('GET: /dashboards', () => {
   })
 
   afterEach(async () => {
-    clearUser(params.userId, params.cookie)
+    await clearUser(params.userId, params.cookie)
   })
 
   it('200: OK', async () => {
@@ -98,13 +98,14 @@ describe('GET: /dashboards', () => {
     expect(response.data.dashboards.length).toEqual(10)
 
     // check validation for empty result
-    params = await initializeUser()
+    const newUser = await initializeUser()
     response = await instance.get('/dashboards', {
       headers: {
-        Cookie: params.cookie,
+        Cookie: newUser.cookie,
       },
     })
     expect(response.status).toBe(200)
+    await clearUser(newUser.userId, newUser.cookie)
   })
 
   it('400: Bad request', async () => {

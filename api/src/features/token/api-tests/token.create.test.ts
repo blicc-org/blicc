@@ -154,7 +154,7 @@ describe('POST: /tokens', () => {
     })
     expect(response.status).toBe(400)
 
-    clearUser(params.userId, params.cookie)
+    await clearUser(params.userId, params.cookie)
   })
 
   it('403: Forbidden', async () => {
@@ -232,6 +232,6 @@ describe('POST: /tokens', () => {
       password: '123456',
     })
     expect(response.status).toBe(404)
-    clearUser(params.userId, params.cookie)
+    await clearUser(params.userId, params.cookie)
   })
 })

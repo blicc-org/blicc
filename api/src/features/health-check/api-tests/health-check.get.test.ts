@@ -19,7 +19,7 @@ describe('GET: /health-check/auth', () => {
   })
 
   afterEach(async () => {
-    clearUser(params.userId, params.cookie)
+    await clearUser(params.userId, params.cookie)
   })
 
   it('200: OK', async () => {
