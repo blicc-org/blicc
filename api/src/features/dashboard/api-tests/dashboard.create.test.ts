@@ -1,4 +1,8 @@
-import { instance, initializeUser, clearUser } from '../../../common/tests/user.helper'
+import {
+  instance,
+  initializeUser,
+  clearUser,
+} from '../../../common/tests/user.helper'
 
 describe('POST: /dashboards', () => {
   let params = { email: '', userId: '', cookie: '' }
