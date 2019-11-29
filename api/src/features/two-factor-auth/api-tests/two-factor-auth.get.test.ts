@@ -1,5 +1,10 @@
 import speakeasy from 'speakeasy'
-import { instance, initializeUser } from '../../../common/tests/user.helper'
+import {
+  instance,
+  initializeUser,
+  clearUser,
+} from '../../../common/tests/user.helper'
+import { user } from '../../user/mocks/user.mock'
 
 describe('GET: /two-factor-auth', () => {
   let params = { email: '', userId: '', cookie: '' }
@@ -18,11 +23,15 @@ describe('GET: /two-factor-auth', () => {
     expect(response.data.otpAuthUrl.split('=')[0]).toBe(
       'otpauth://totp/SecretKey?secret'
     )
+
+    await clearUser(params.userId, params.cookie)
   })
 
   it('401: Unauthorized', async () => {
     const response = await instance.get('/two-factor-auth')
     expect(response.status).toBe(401)
+
+    await clearUser(params.userId, params.cookie)
   })
 
   it('409: Conflict', async () => {
@@ -37,7 +46,7 @@ describe('GET: /two-factor-auth', () => {
     const d = new Date()
     const seconds = d.getTime() / 1000
 
-    const token = speakeasy.totp({
+    let token = speakeasy.totp({
       secret,
       encoding: 'base32',
       time: seconds,
@@ -62,5 +71,13 @@ describe('GET: /two-factor-auth', () => {
       },
     })
     expect(response.status).toBe(409)
+
+    // clear up
+    token = speakeasy.totp({
+      secret,
+      encoding: 'base32',
+      time: seconds,
+    })
+    await clearUser(params.userId, params.cookie, user.password, token)
   })
 })

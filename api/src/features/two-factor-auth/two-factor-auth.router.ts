@@ -65,7 +65,7 @@ export class TwoFactorAuthRouter {
       path: '/',
       pre: [
         AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
       ],
       validate: {
         output: {
@@ -125,7 +125,7 @@ export class TwoFactorAuthRouter {
       path: '/',
       pre: [
         AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
       ],
       validate: {
         type: 'json',

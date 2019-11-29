@@ -1,5 +1,10 @@
 import speakeasy from 'speakeasy'
-import { instance, initializeUser } from '../../../common/tests/user.helper'
+import {
+  instance,
+  initializeUser,
+  clearUser,
+} from '../../../common/tests/user.helper'
+import { user } from '../../user/mocks/user.mock'
 
 describe('POST: /two-factor-auth', () => {
   let params = { email: '', userId: '', cookie: '' }
@@ -20,7 +25,7 @@ describe('POST: /two-factor-auth', () => {
     const d = new Date()
     const seconds = d.getTime() / 1000
 
-    const token = speakeasy.totp({
+    let token = speakeasy.totp({
       secret,
       encoding: 'base32',
       time: seconds,
@@ -38,7 +43,16 @@ describe('POST: /two-factor-auth', () => {
       }
     )
     expect(response.status).toBe(204)
+
+    // clear up
+    token = speakeasy.totp({
+      secret,
+      encoding: 'base32',
+      time: seconds,
+    })
+    await clearUser(params.userId, params.cookie, user.password, token)
   })
+
   it('400: Bad request', async () => {
     let response = await instance.get('/two-factor-auth', {
       headers: {
@@ -59,11 +73,18 @@ describe('POST: /two-factor-auth', () => {
       }
     )
     expect(response.status).toBe(400)
+
+    // clear up
+    clearUser(params.userId, params.cookie)
   })
+
   it('401: Unauthorized', async () => {
     const response = await instance.post('/two-factor-auth', {
       token: '323436',
     })
     expect(response.status).toBe(401)
+
+    // clear up
+    clearUser(params.userId, params.cookie)
   })
 })
