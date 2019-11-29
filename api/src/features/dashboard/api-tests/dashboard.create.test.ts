@@ -1,4 +1,4 @@
-import { instance, initializeUser } from '../../../common/tests/user.helper'
+import { instance, initializeUser, clearUser } from '../../../common/tests/user.helper'
 
 describe('POST: /dashboards', () => {
   let params = { email: '', userId: '', cookie: '' }
@@ -10,6 +10,10 @@ describe('POST: /dashboards', () => {
 
   beforeEach(async () => {
     params = await initializeUser()
+  })
+
+  afterEach(async () => {
+    clearUser(params.userId, params.cookie)
   })
 
   it('201: Created', async () => {

@@ -1,4 +1,8 @@
-import { instance, initializeUser } from '../../../common/tests/user.helper'
+import {
+  instance,
+  initializeUser,
+  clearUser,
+} from '../../../common/tests/user.helper'
 
 describe('GET: /dashboards/:id', () => {
   let params = { email: '', userId: '', cookie: '' }
@@ -17,6 +21,10 @@ describe('GET: /dashboards/:id', () => {
       },
     })
     id = data.id
+  })
+
+  afterEach(async () => {
+    clearUser(params.userId, params.cookie)
   })
 
   it('200: OK', async () => {

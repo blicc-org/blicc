@@ -113,7 +113,7 @@ export class DashboardRouter {
       path: '/',
       pre: [
         AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
       ],
       validate: {
         type: 'json',
@@ -219,7 +219,7 @@ export class DashboardRouter {
       path: '/:id',
       pre: [
         AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
       ],
       validate: {
         output: {
@@ -342,7 +342,7 @@ export class DashboardRouter {
       path: '/',
       pre: [
         AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
       ],
       validate: {
         output: {
@@ -476,7 +476,7 @@ export class DashboardRouter {
       path: '/:id',
       pre: [
         AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
       ],
       validate: {
         type: 'json',
@@ -575,7 +575,7 @@ export class DashboardRouter {
       path: '/:id',
       pre: [
         AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, ['user', 'admin']),
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
       ],
       validate: {
         output: {
