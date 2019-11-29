@@ -87,7 +87,7 @@ export class UserController {
           ctx.status = status.OK
           delete ctx.user.id
           ctx.body = ctx.user
-        }else throw Error('An error occured while requesting a deletion.')
+        } else throw Error('An error occured while requesting a deletion.')
       }
     } catch (e) {
       ctx.status = status.INTERNAL_SERVER_ERROR
