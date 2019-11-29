@@ -22,7 +22,7 @@ export class App extends Koa {
     this.use(bodyParser())
     this.use(serve(`${__dirname}/../public`))
     this.use(new ApiDocsRouter('/').routes())
-    this.use(new AdminRouter('/admin').routes())
+    this.use(new AdminRouter('/admins').routes())
     this.use(new UserRouter('/users').routes())
     this.use(new ChartRouter('/charts').routes())
     this.use(new TokenRouter('/tokens').routes())

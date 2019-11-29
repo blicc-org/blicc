@@ -20,8 +20,6 @@ export async function initializeUser(): Promise<{
     email,
   })
 
-  const userId = data.id
-
   const response = await instance.post('/tokens', {
     email,
     password: user.password,
@@ -32,7 +30,7 @@ export async function initializeUser(): Promise<{
     .find((cookie: string): boolean => cookie.startsWith('access_token'))
     .split(';')[0]
 
-  return { email, userId, cookie }
+  return { email, userId: data.id, cookie }
 }
 
 export async function getCookie(email: string): Promise<string> {
