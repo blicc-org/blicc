@@ -15,18 +15,26 @@ export async function initializeUser(): Promise<{
   cookie: string
 }> {
   const email = `${uuid()}@example.com`
-  const { data } = await instance.post('/users', {
+  let response = await instance.post('/users', {
     ...user,
     email,
   })
 
-  const response = await instance.post('/tokens', {
+  const { data } = response
+  console.log('create user')
+  console.log(response)
+
+  response = await instance.post('/tokens', {
     email,
     password: user.password,
   })
 
+  console.log('login')
   console.log(response)
+
   const cookies = response.headers['set-cookie']
+
+  console.log('extract cookie')
   console.log(cookies)
   const cookie = cookies
     .find((cookie: string): boolean => cookie.startsWith('access_token'))
