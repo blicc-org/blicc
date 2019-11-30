@@ -25,7 +25,9 @@ export async function initializeUser(): Promise<{
     password: user.password,
   })
 
+  console.log(response)
   const cookies = response.headers['set-cookie']
+  console.log(cookies)
   const cookie = cookies
     .find((cookie: string): boolean => cookie.startsWith('access_token'))
     .split(';')[0]
