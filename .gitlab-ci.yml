@@ -45,7 +45,7 @@ test:
     - scp -r ./docker-compose.test.yml root@$TEST_IP:/root/docker-compose.yml
     - ssh -tt root@$TEST_IP "docker image prune -a -f"
     - ssh -tt root@$TEST_IP "export MAIL_ADDRESS=$MAIL_ADDRESS MAIL_PASSWORD=$MAIL_PASSWORD MAIL_HOST=$MAIL_HOST && docker-compose pull && docker-compose down && docker-compose up -d --force-recreate --remove-orphans"
-    - for ((;;)); do curl -s $API_TEST_TARGET > /dev/null && break; sleep 1; done
+    - for ((;;)); do curl -s $API_TEST_TARGET/health-check > /dev/null && break; sleep 1; done
     - yarn
     - yarn --cwd 'api' cross-env API_TEST_TARGET=$API_TEST_TARGET jest
 
