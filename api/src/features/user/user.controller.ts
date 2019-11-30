@@ -47,11 +47,6 @@ export class UserController {
       return
     }
 
-    if (await this.userService.exists(email)) {
-      ctx.status = status.CONFLICT
-      return
-    }
-
     try {
       const user = await this.userService.register(
         firstName,
@@ -59,7 +54,10 @@ export class UserController {
         email,
         password
       )
-      if (user !== undefined) {
+      if (!user) {
+        ctx.status = status.CONFLICT
+        return
+      } else {
         ctx.status = status.CREATED
         ctx.body = user
         return

@@ -19,7 +19,8 @@ export class UserService {
     email: string,
     password: string,
     role = 'user'
-  ): Promise<User> {
+  ): Promise<User | undefined> {
+    if (await this.exists(email)) return
     const passwordHash = Hash.generate(password)
     const hasTwoFactorAuth = false
     const twoFactorAuthSecret = ''
