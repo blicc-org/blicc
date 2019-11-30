@@ -16,5 +16,5 @@ export const MAIL_HOST = process.env.MAIL_HOST
 export const CERTS = `${__dirname}/../certs`
 
 export const API_TEST_TARGET = process.env.API_TEST_TARGET
-export const ADMIN_MAIL = process.env.ADMIN_MAIL || ''
-export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || ''
+export const ADMIN_MAIL = process.env.ADMIN_MAIL || 'test'
+export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'test'
