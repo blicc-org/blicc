@@ -46,6 +46,8 @@ services:
       - MAIL_ADDRESS=${MAIL_ADDRESS}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - MAIL_HOST=${MAIL_HOST}
+      - ADMIN_MAIL=${ADMIN_MAIL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     labels:
       - traefik.http.routers.api.rule=Host(`api.blicc.org`)
       - traefik.http.routers.api.tls.certresolver=secure
