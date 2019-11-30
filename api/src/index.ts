@@ -12,8 +12,9 @@ createConnection()
     console.log(e)
   })
   .then((): void => {
-    new DatabaseInitializer().populate()
-    const port = flags.port ? flags.port : PORT
-    new App().listen(port)
-    console.log(`Listening on port ${port}...`)
+    new DatabaseInitializer().populate().then(() => {
+      const port = flags.port ? flags.port : PORT
+      new App().listen(port)
+      console.log(`Listening on port ${port}...`)
+    })
   })
