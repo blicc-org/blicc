@@ -15,8 +15,8 @@ build:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
     - docker build -t app ./app
-    - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD ADMIN_MAIL=$ADMIN_MAIL ADMIN_PASSWORD=$ADMIN_PASSWORD -t api ./api
-    - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD ADMIN_MAIL=$ADMIN_MAIL ADMIN_PASSWORD=$ADMIN_PASSWORD -t db ./db
+    - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD --build-arg ADMIN_MAIL=$ADMIN_MAIL --build-arg ADMIN_PASSWORD=$ADMIN_PASSWORD -t api ./api
+    - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD --build-arg ADMIN_MAIL=$ADMIN_MAIL --build-arg ADMIN_PASSWORD=$ADMIN_PASSWORD -t db ./db
     - docker build -t delivery ./delivery
 
     ## tag and deploy for testing stage
