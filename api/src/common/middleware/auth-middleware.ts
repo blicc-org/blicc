@@ -33,7 +33,7 @@ export class AuthMiddleware {
           e.expiredAt
         )}.`
       } else if (e.name === 'ValidationError') {
-        ctx.status = status.NOT_FOUND
+        ctx.status = status.BAD_REQUEST
         ctx.body = e.message
       } else {
         ctx.status = status.UNAUTHORIZED
