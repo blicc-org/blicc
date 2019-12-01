@@ -1,5 +1,4 @@
 import Koa from 'koa'
-import status from 'http-status-codes'
 import { ChartService } from './chart.service'
 
 export class ChartController {

@@ -12,14 +12,14 @@ export class RedisClient {
     })
   }
 
-  public static getInstance() {
+  public static getInstance(): RedisClient {
     if (!RedisClient.instance) {
       RedisClient.instance = new RedisClient()
     }
     return RedisClient.instance
   }
 
-  public set(key: string, value: string) {
+  public set(key: string, value: string): void {
     this.client.set(key, value)
   }
 
