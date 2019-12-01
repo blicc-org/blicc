@@ -18,7 +18,7 @@ export const TYPE = {
 export function ChartContainer({ type, id, onDrop }) {
   const [dragging] = useContext(DragContext)
 
-  const [pluginName, setPluginName] = useState('')
+  const [, setPluginName] = useState('')
   const [sector, setSector] = useState(0)
   const [showModal, hideModal] = useModal(() => (
     <PluginSelectorModal

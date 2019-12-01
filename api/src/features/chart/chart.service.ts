@@ -22,6 +22,10 @@ export class ChartService {
     )
   }
 
+  public async selectById(id: string): Promise<Chart | undefined> {
+    return await this.repo.findOne({ id })
+  }
+
   public async generateId(): Promise<string> {
     const id = shortid.generate()
     const response = await this.repo.findOne(id)
