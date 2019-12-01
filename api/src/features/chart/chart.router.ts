@@ -56,15 +56,12 @@ export class ChartRouter {
      *                       type: string
      *                     description:
      *                       type: string
-     *                     path:
-     *                       type: string
      *             examples:
      *               filter:
      *                 value: {
      *                   title: "Pie chart",
      *                   bundle: "Essentials",
-     *                   description: "Show your data in a pie chart.",
-     *                   path: "@essentials/pie-chart"
+     *                   description: "Show your data in a pie chart."
      *                 }
      *     responses:
      *       201:
@@ -83,7 +80,7 @@ export class ChartRouter {
      *                   - bundle
      *                   - description
      *                   - userId
-     *                   - path
+     *                   - slug
      *                   - creationDate
      *                   properties:
      *                     id:
@@ -96,19 +93,19 @@ export class ChartRouter {
      *                       type: string
      *                     userId:
      *                       type: string
-     *                     path:
-     *                       type: json
+     *                     slug:
+     *                       type: string
      *                     creationDate:
      *                       type: string
      *             examples:
      *               filter:
      *                 value: {
      *                   id: "WaDQc9_H",
-     *                   title: "Chart",
+     *                   title: "Pie chart",
      *                   bundle: "Essentials",
      *                   description: "Show your data in a pie chart.",
      *                   userId: "b1x_S29n",
-     *                   path: "@essentials/pie-chart",
+     *                   slug: "essentials/pie-chart",
      *                   creationDate: "2019-11-02T15:45:58.284Z"
      *                 }
      *       401:
@@ -133,7 +130,6 @@ export class ChartRouter {
           description: Joi.string()
             .allow('')
             .optional(),
-          path: Joi.string().required(),
         },
         output: {
           201: {
@@ -145,7 +141,7 @@ export class ChartRouter {
                 .allow('')
                 .optional(),
               userId: Joi.string().required(),
-              path: Joi.string().required(),
+              slug: Joi.string().required(),
               creationDate: Joi.string().required(),
             },
           },
@@ -195,7 +191,7 @@ export class ChartRouter {
      *                   - bundle
      *                   - description
      *                   - userId
-     *                   - path
+     *                   - slug
      *                   - creationDate
      *                   properties:
      *                     id:
@@ -208,19 +204,19 @@ export class ChartRouter {
      *                       type: string
      *                     userId:
      *                       type: string
-     *                     path:
-     *                       type: json
+     *                     slug:
+     *                       type: string
      *                     creationDate:
      *                       type: string
      *             examples:
      *               filter:
      *                 value: {
      *                   id: "WaDQc9_H",
-     *                   title: "Chart",
+     *                   title: "Pie chart",
      *                   bundle: "Essentials",
      *                   description: "Show your data in a pie chart.",
      *                   userId: "b1x_S29n",
-     *                   path: "@essentials/pie-chart",
+     *                   slug: "essentials/pie-chart",
      *                   creationDate: "2019-11-02T15:45:58.284Z"
      *                 }
      *       401:
@@ -246,7 +242,7 @@ export class ChartRouter {
                 .allow('')
                 .optional(),
               userId: Joi.string().required(),
-              path: Joi.string().required(),
+              slug: Joi.string().required(),
               creationDate: Joi.string().required(),
             },
           },

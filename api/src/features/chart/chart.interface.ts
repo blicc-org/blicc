@@ -5,5 +5,5 @@ export interface Chart {
   description?: string
   userId?: string
   creationDate?: string
-  path?: string
+  slug?: string
 }

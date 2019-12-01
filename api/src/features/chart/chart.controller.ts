@@ -12,16 +12,10 @@ export class ChartController {
   public async create(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     try {
-      const { title, bundle, description = '', path } = ctx.request.body
+      const { title, bundle, description = '' } = ctx.request.body
       const { id } = ctx.user
-      ctx.body = await this.chartService.create(
-        title,
-        bundle,
-        description,
-        id,
-        path
-      )
-      ctx.status = 201
+      ctx.body = await this.chartService.create(title, bundle, description, id)
+      ctx.status = statusCode.CREATED
     } catch (e) {
       ctx.status = statusCode.INTERNAL_SERVER_ERROR
       ctx.body = ''

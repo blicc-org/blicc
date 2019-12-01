@@ -25,7 +25,7 @@ export class ChartEntity extends BaseEntity {
   public userId: string
 
   @Column()
-  public path: string
+  public slug: string
 
   @Column()
   public creationDate?: string
@@ -42,13 +42,13 @@ export class ChartEntity extends BaseEntity {
     bundle: string,
     description: string,
     userId: string,
-    path: string
+    slug: string
   ) {
     super()
     this.title = title
     this.bundle = bundle
     this.description = description
     this.userId = userId
-    this.path = path
+    this.slug = slug
   }
 }
