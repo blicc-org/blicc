@@ -33,6 +33,11 @@ services:
     restart: always
     labels:
       - traefik.enable=false
+  redis:
+    image: registry.thiloilg.com/repo/blicc/redis:latest
+    restart: always
+    labels:
+      - traefik.enable=false
   api:
     image: registry.thiloilg.com/repo/blicc/api-testing-stage:latest
     volumes:

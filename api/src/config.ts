@@ -5,9 +5,12 @@ export const APP = {
   ORIGIN: isDev ? 'http://localhost' : 'https://blicc.org',
 }
 
+export const REDIS_HOST = isDev ? '127.0.0.1' : 'redis'
+
 export const IS_PROD = !isDev
 
 export const PORT = 80
+export const REDIS_PORT = 6379
 
 export const MAIL_ADDRESS = process.env.MAIL_ADDRESS
 export const MAIL_PASSWORD = process.env.MAIL_PASSWORD

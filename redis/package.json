@@ -1,0 +1,11 @@
+{
+  "name": "redis",
+  "version": "0.0.5",
+  "description": "redis plugin cache",
+  "author": "Thilo Ilg",
+  "license": "MIT",
+  "scripts": {
+    "start": "docker run -p 127.0.0.1:6379:6379 redis:latest",
+    "build": "docker build --no-cache -t redis ."
+  }
+}
