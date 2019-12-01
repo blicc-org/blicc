@@ -3,14 +3,10 @@ import {
   initializeUser,
   clearUser,
 } from '../../../common/tests/user.helper'
+import { dashboard } from '../mocks/dashboard.mock'
 
 describe('POST: /dashboards', () => {
   let params = { email: '', userId: '', cookie: '' }
-  const body = {
-    title: 'Title',
-    description: '...',
-    data: {},
-  }
 
   beforeEach(async () => {
     params = await initializeUser()
@@ -21,7 +17,7 @@ describe('POST: /dashboards', () => {
   })
 
   it('201: Created', async () => {
-    const { status, data } = await instance.post('/dashboards', body, {
+    const { status, data } = await instance.post('/dashboards', dashboard, {
       headers: {
         Cookie: params.cookie,
       },
@@ -31,7 +27,7 @@ describe('POST: /dashboards', () => {
   })
 
   it('401: Unauthorized', async () => {
-    let response = await instance.post('/dashboards', body, {})
+    let response = await instance.post('/dashboards', dashboard, {})
     expect(response.status).toBe(401)
 
     response = await instance.post('/dashboards', { data: {} }, {})

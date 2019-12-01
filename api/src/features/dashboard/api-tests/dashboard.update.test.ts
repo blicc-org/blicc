@@ -3,20 +3,16 @@ import {
   initializeUser,
   clearUser,
 } from '../../../common/tests/user.helper'
+import { dashboard } from '../mocks/dashboard.mock'
 
 describe('PUT: /dashboards/:id', () => {
   let params = { email: '', userId: '', cookie: '' }
   let id = ''
   let creationDate = ''
-  const body = {
-    title: 'Title',
-    description: '...',
-    data: {},
-  }
 
   beforeEach(async () => {
     params = await initializeUser()
-    const { data } = await instance.post('/dashboards', body, {
+    const { data } = await instance.post('/dashboards', dashboard, {
       headers: {
         Cookie: params.cookie,
       },

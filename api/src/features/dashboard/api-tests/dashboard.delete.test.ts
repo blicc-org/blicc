@@ -3,19 +3,15 @@ import {
   initializeUser,
   clearUser,
 } from '../../../common/tests/user.helper'
+import { dashboard } from '../mocks/dashboard.mock'
 
 describe('DELETE: /dashboards/:id', () => {
   let params = { email: '', userId: '', cookie: '' }
   let id = ''
-  const body = {
-    title: 'Title',
-    description: '...',
-    data: {},
-  }
 
   beforeEach(async () => {
     params = await initializeUser()
-    const { data } = await instance.post('/dashboards', body, {
+    const { data } = await instance.post('/dashboards', dashboard, {
       headers: {
         Cookie: params.cookie,
       },
@@ -35,7 +31,7 @@ describe('DELETE: /dashboards/:id', () => {
     })
     expect(response.status).toBe(200)
     expect(response.data.id).toBe(undefined)
-    expect(response.data.title).toBe(body.title)
+    expect(response.data.title).toBe(dashboard.title)
 
     response = await instance.get(`/dashboards/${id}`, {
       headers: {
