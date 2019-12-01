@@ -39,7 +39,7 @@ export class DashboardController {
       const fields: string[] = ctx.query.fields
         ? ctx.query.fields.split(',')
         : undefined
-      const dashboards = await this.dashboardService.selectAllByUserId(
+      const dashboards = await this.dashboardService.listByUserId(
         ctx.user.id,
         fields,
         ctx.query.search,

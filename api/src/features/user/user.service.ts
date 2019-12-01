@@ -44,12 +44,10 @@ export class UserService {
     return user
   }
 
-  public async update(user: User): Promise<User> {
-    return await this.repo.save(user)
-  }
-
-  public async exists(email: string): Promise<boolean> {
-    return (await this.repo.findOne({ email })) !== undefined
+  public async generateId(): Promise<string> {
+    const id = shortid.generate()
+    const response = await this.repo.findOne(id)
+    return response === undefined ? id : await this.generateId()
   }
 
   public async select(email: string): Promise<User | undefined> {
@@ -60,10 +58,27 @@ export class UserService {
     return await this.repo.findOne(id)
   }
 
-  public async generateId(): Promise<string> {
-    const id = shortid.generate()
-    const response = await this.repo.findOne(id)
-    return response === undefined ? id : await this.generateId()
+  public async list(): Promise<User[]> {
+    return await this.repo
+      .createQueryBuilder('user')
+      .select('user')
+      .orderBy('user.creationDate', 'DESC')
+      .getMany()
+  }
+
+  public async getTotalEntries(): Promise<number> {
+    return await this.repo
+      .createQueryBuilder('user')
+      .select('user.id')
+      .getCount()
+  }
+
+  public async exists(email: string): Promise<boolean> {
+    return (await this.repo.findOne({ email })) !== undefined
+  }
+
+  public async update(user: User): Promise<User> {
+    return await this.repo.save(user)
   }
 
   public async deleteById(id: string): Promise<boolean> {

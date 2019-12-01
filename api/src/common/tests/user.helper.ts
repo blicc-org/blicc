@@ -1,13 +1,32 @@
 import axios from 'axios'
 import uuid from 'uuid/v4'
 import { user } from '../../features/user/mocks/user.mock'
-import { API_TEST_TARGET } from '../../config'
+import { API_TEST_TARGET, ADMIN_MAIL, ADMIN_PASSWORD } from '../../config'
 
 export const instance = axios.create({
   baseURL: API_TEST_TARGET,
   withCredentials: true,
   validateStatus: status => status >= 200 && status < 500,
 })
+
+export async function getAdmin(): Promise<{
+  email: string
+  cookie: string
+}> {
+  const email = ADMIN_MAIL
+  const password = ADMIN_PASSWORD
+  const response = await instance.post('/tokens', {
+    email,
+    password,
+  })
+
+  const cookies = response.headers['set-cookie']
+  const cookie = cookies
+    .find((cookie: string): boolean => cookie.startsWith('access_token'))
+    .split(';')[0]
+
+  return { email, cookie }
+}
 
 export async function initializeUser(): Promise<{
   email: string
@@ -21,21 +40,13 @@ export async function initializeUser(): Promise<{
   })
 
   const { data } = response
-  console.log('create user')
-  console.log(response)
 
   response = await instance.post('/tokens', {
     email,
     password: user.password,
   })
 
-  console.log('login')
-  console.log(response)
-
   const cookies = response.headers['set-cookie']
-
-  console.log('extract cookie')
-  console.log(cookies)
   const cookie = cookies
     .find((cookie: string): boolean => cookie.startsWith('access_token'))
     .split(';')[0]

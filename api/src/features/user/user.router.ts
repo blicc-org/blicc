@@ -21,106 +21,6 @@ export class UserRouter {
     /**
      * @swagger
      *
-     * /users/{userId}:
-     *   get:
-     *     security:
-     *       - cookieAuth: []
-     *     tags:
-     *       - User
-     *     parameters:
-     *       - in: path
-     *         name: userId
-     *         required: true
-     *         schema:
-     *           type: string
-     *     summary: Retrieve user details
-     *     securitySchemes:
-     *       bearerAuth:
-     *         type: http
-     *         scheme: bearer
-     *         bearerFormat: JWT
-     *     description: Retrieve details of a specific user
-     *     produces:
-     *       - application/json
-     *     responses:
-     *       200:
-     *         description: OK
-     *         content:
-     *           application/json:
-     *             schema:
-     *               required:
-     *               - user
-     *               properties:
-     *                 user:
-     *                   type: object
-     *                   required:
-     *                   - id
-     *                   - firstName
-     *                   - lastName
-     *                   - email
-     *                   - role
-     *                   - hasTwoFactorAuth
-     *                   - creationDate
-     *                   properties:
-     *                     id:
-     *                       type: string
-     *                     firstName:
-     *                       type: string
-     *                     lastName:
-     *                       type: string
-     *                     email:
-     *                       type: string
-     *                     role:
-     *                       type: string
-     *                     hasTwoFactorAuth:
-     *                       type: boolean
-     *                     creationDate:
-     *                       type string
-     *             examples:
-     *               filter:
-     *                 value: {
-     *                   "id": "ojziCepXt",
-     *                   "firstName": "John",
-     *                   "lastName": "Doe",
-     *                   "email": "john.doe@email.com",
-     *                   "role": "user",
-     *                   "creationDate": "2019-11-02T15:45:58.284Z"
-     *                 }
-     *       401:
-     *         description: Unauthorized
-     *       403:
-     *         description: Forbidden
-     *       500:
-     *         description: Internal Server Error
-     */
-    this.router.route({
-      method: 'get',
-      path: '/:id',
-      pre: [
-        AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
-      ],
-      validate: {
-        output: {
-          200: {
-            body: {
-              id: Joi.string().required(),
-              firstName: Joi.string().required(),
-              lastName: Joi.string().required(),
-              email: Joi.string().required(),
-              role: Joi.string().required(),
-              hasTwoFactorAuth: Joi.boolean().required(),
-              creationDate: Joi.string().required(),
-            },
-          },
-        },
-      },
-      handler: this.controller.access.bind(this.controller),
-    })
-
-    /**
-     * @swagger
-     *
      * /users:
      *   post:
      *     tags:
@@ -228,6 +128,221 @@ export class UserRouter {
         },
       },
       handler: this.controller.register.bind(this.controller),
+    })
+
+    /**
+     * @swagger
+     *
+     * /users/{userId}:
+     *   get:
+     *     security:
+     *       - cookieAuth: []
+     *     tags:
+     *       - User
+     *     parameters:
+     *       - in: path
+     *         name: userId
+     *         required: true
+     *         schema:
+     *           type: string
+     *     summary: Retrieve user details
+     *     securitySchemes:
+     *       bearerAuth:
+     *         type: http
+     *         scheme: bearer
+     *         bearerFormat: JWT
+     *     description: Retrieve details of a specific user
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: OK
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - user
+     *               properties:
+     *                 user:
+     *                   type: object
+     *                   required:
+     *                   - id
+     *                   - firstName
+     *                   - lastName
+     *                   - email
+     *                   - role
+     *                   - hasTwoFactorAuth
+     *                   - creationDate
+     *                   properties:
+     *                     id:
+     *                       type: string
+     *                     firstName:
+     *                       type: string
+     *                     lastName:
+     *                       type: string
+     *                     email:
+     *                       type: string
+     *                     role:
+     *                       type: string
+     *                     hasTwoFactorAuth:
+     *                       type: boolean
+     *                     creationDate:
+     *                       type string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   "id": "ojziCepXt",
+     *                   "firstName": "John",
+     *                   "lastName": "Doe",
+     *                   "email": "john.doe@email.com",
+     *                   "role": "user",
+     *                   "creationDate": "2019-11-02T15:45:58.284Z"
+     *                 }
+     *       401:
+     *         description: Unauthorized
+     *       403:
+     *         description: Forbidden
+     *       500:
+     *         description: Internal Server Error
+     */
+    this.router.route({
+      method: 'get',
+      path: '/:id',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
+      ],
+      validate: {
+        output: {
+          200: {
+            body: {
+              id: Joi.string().required(),
+              firstName: Joi.string().required(),
+              lastName: Joi.string().required(),
+              email: Joi.string().required(),
+              role: Joi.string().required(),
+              hasTwoFactorAuth: Joi.boolean().required(),
+              creationDate: Joi.string().required(),
+            },
+          },
+        },
+      },
+      handler: this.controller.access.bind(this.controller),
+    })
+
+    /**
+     * @swagger
+     *
+     * /users:
+     *   get:
+     *     security:
+     *       - cookieAuth: []
+     *     tags:
+     *       - User
+     *     summary: List all users
+     *     securitySchemes:
+     *       bearerAuth:
+     *         type: http
+     *         scheme: bearer
+     *         bearerFormat: JWT
+     *     description: List all users with their given details. You have to be an administrator to be able to access this route.
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: OK
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - user
+     *               properties:
+     *                 total:
+     *                   type: number
+     *                 users:
+     *                   type: object
+     *                   properties:
+     *                     user:
+     *                       type: object
+     *                       required:
+     *                       - id
+     *                       - firstName
+     *                       - lastName
+     *                       - email
+     *                       - role
+     *                       - hasTwoFactorAuth
+     *                       - creationDate
+     *                       properties:
+     *                         id:
+     *                           type: string
+     *                         firstName:
+     *                           type: string
+     *                         lastName:
+     *                           type: string
+     *                         email:
+     *                           type: string
+     *                         role:
+     *                           type: string
+     *                         hasTwoFactorAuth:
+     *                           type: boolean
+     *                         creationDate:
+     *                           type string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   total: 2,
+     *                   users: [
+     *                     {
+     *                       "id": "ojziCepXt",
+     *                       "firstName": "John",
+     *                       "lastName": "Doe",
+     *                       "email": "john.doe@email.com",
+     *                       "role": "user",
+     *                       "creationDate": "2019-11-02T15:45:58.284Z"
+     *                     },
+     *                     {
+     *                       "id": "ojziCepXt",
+     *                       "firstName": "George",
+     *                       "lastName": "Donalds",
+     *                       "email": "george.donalds@email.com",
+     *                       "role": "developer",
+     *                       "creationDate": "2019-12-04T15:45:58.284Z"
+     *                     },
+     *                   ]
+     *                 }
+     *       401:
+     *         description: Unauthorized
+     *       403:
+     *         description: Forbidden
+     *       500:
+     *         description: Internal Server Error
+     */
+    this.router.route({
+      method: 'get',
+      path: '/',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['admin']),
+      ],
+      validate: {
+        output: {
+          200: {
+            body: {
+              total: Joi.number().required(),
+              users: Joi.array().items({
+                id: Joi.string().required(),
+                firstName: Joi.string().required(),
+                lastName: Joi.string().required(),
+                email: Joi.string().required(),
+                role: Joi.string().required(),
+                hasTwoFactorAuth: Joi.boolean().required(),
+                creationDate: Joi.string().required(),
+              }),
+            },
+          },
+        },
+      },
+      handler: this.controller.list.bind(this.controller),
     })
 
     /**

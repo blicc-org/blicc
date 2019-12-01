@@ -290,6 +290,8 @@ export class DashboardRouter {
      *               required:
      *               - dashboards
      *               properties:
+     *                 total:
+     *                   type: number
      *                 dashboards:
      *                   type: object
      *                   properties:
@@ -311,6 +313,7 @@ export class DashboardRouter {
      *             examples:
      *               filter:
      *                 value: {
+     *                   total: 2,
      *                   dashboards: [
      *                     {
      *                       id: "WaDQc9_H",

@@ -13,22 +13,6 @@ export class UserController {
     this.tokenService = new TokenService()
   }
 
-  public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
-    await next()
-    try {
-      const { id } = ctx.params
-      const user = await this.userService.selectById(id)
-      if (user !== undefined && ctx.user.id === id) {
-        ctx.body = user
-        ctx.status = status.OK
-        return
-      }
-      ctx.status = status.FORBIDDEN
-    } catch (e) {
-      ctx.status = status.INTERNAL_SERVER_ERROR
-    }
-  }
-
   public async register(
     ctx: Koa.DefaultContext,
     next: Function
@@ -64,6 +48,33 @@ export class UserController {
       }
     } catch (e) {
       ctx.status = status.INTERNAL_SERVER_ERROR
+    }
+  }
+
+  public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+    await next()
+    try {
+      const { id } = ctx.params
+      const user = await this.userService.selectById(id)
+      if (user !== undefined && ctx.user.id === id) {
+        ctx.body = user
+        ctx.status = status.OK
+        return
+      }
+      ctx.status = status.FORBIDDEN
+    } catch (e) {
+      ctx.status = status.INTERNAL_SERVER_ERROR
+    }
+  }
+
+  public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+    await next()
+    ctx.status = status.OK
+    const users = await this.userService.list()
+    const total = await this.userService.getTotalEntries()
+    ctx.body = {
+      total,
+      users,
     }
   }
 

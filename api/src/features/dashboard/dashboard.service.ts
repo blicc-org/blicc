@@ -33,7 +33,7 @@ export class DashboardService {
     return await this.repo.findOne(id)
   }
 
-  public async selectAllByUserId(
+  public async listByUserId(
     userId: string,
     fields: string[] = this.dashboardFields,
     searchTerm = '',
@@ -66,6 +66,21 @@ export class DashboardService {
       .getMany()
   }
 
+  public async getTotalEntriesByUserId(
+    userId: string,
+    searchTerm = ''
+  ): Promise<number> {
+    searchTerm = this.escapeSearchQuery(searchTerm)
+    return await this.repo
+      .createQueryBuilder('dashboard')
+      .select('dashboard.id')
+      .where('dashboard.userId = :userId', { userId })
+      .andWhere('LOWER(dashboard.title) like LOWER(:title)', {
+        title: '%' + searchTerm + '%',
+      })
+      .getCount()
+  }
+
   public async update(dashboard: Dashboard): Promise<Dashboard> {
     return await this.repo.save(dashboard)
   }
@@ -88,20 +103,5 @@ export class DashboardService {
 
   private escapeSearchQuery(str: string): string {
     return str.replace(/[^\w\s!?]/g, '')
-  }
-
-  public async getTotalEntriesByUserId(
-    userId: string,
-    searchTerm = ''
-  ): Promise<number> {
-    searchTerm = this.escapeSearchQuery(searchTerm)
-    return await this.repo
-      .createQueryBuilder('dashboard')
-      .select('dashboard.id')
-      .where('dashboard.userId = :userId', { userId })
-      .andWhere('LOWER(dashboard.title) like LOWER(:title)', {
-        title: '%' + searchTerm + '%',
-      })
-      .getCount()
   }
 }
