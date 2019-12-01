@@ -1,14 +1,14 @@
 {
   "name": "blicc",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
     "cross-env": "^6.0.3",
     "eslint-plugin-security": "^1.4.0",
-    "husky": "^3.0.9",
-    "prettier": "^1.18.2"
+    "husky": "^3.1.0",
+    "prettier": "^1.19.1"
   },
   "scripts": {
     "fix": "yarn --cwd 'app' fix && yarn --cwd 'api' fix",

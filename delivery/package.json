@@ -1,12 +1,12 @@
 {
   "name": "delivery",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Data delivery api",
   "main": "index.js",
   "author": "Thilo Ilg",
   "license": "MIT",
   "devDependencies": {
-    "nodemon": "^1.19.4"
+    "nodemon": "^2.0.1"
   },
   "scripts": {
     "start": "nodemon",

@@ -81,7 +81,7 @@ export function Positioning({ onDrop }) {
   }, [sector, color, drawQuad])
 
   function isCenter(x, y) {
-    return x > 0.25 && x < 0.75 && (y > 0.25 && y < 0.75)
+    return x > 0.25 && x < 0.75 && y > 0.25 && y < 0.75
   }
 
   function getDirection(x, y) {

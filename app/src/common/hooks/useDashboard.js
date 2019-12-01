@@ -24,13 +24,25 @@ export function useDashboard(initial = INITIAL_DASHBOARD) {
   function createRow(prev, pos, item) {
     switch (pos) {
       case POSITION.TOP:
-        return [{ ...item, col: GRID.FULL }, { ...prev, col: GRID.FULL }]
+        return [
+          { ...item, col: GRID.FULL },
+          { ...prev, col: GRID.FULL },
+        ]
       case POSITION.RIGHT:
-        return [{ ...prev, col: GRID.HALF }, { ...item, col: GRID.HALF }]
+        return [
+          { ...prev, col: GRID.HALF },
+          { ...item, col: GRID.HALF },
+        ]
       case POSITION.BOTTOM:
-        return [{ ...prev, col: GRID.FULL }, { ...item, col: GRID.FULL }]
+        return [
+          { ...prev, col: GRID.FULL },
+          { ...item, col: GRID.FULL },
+        ]
       case POSITION.LEFT:
-        return [{ ...item, col: GRID.HALF }, { ...prev, col: GRID.HALF }]
+        return [
+          { ...item, col: GRID.HALF },
+          { ...prev, col: GRID.HALF },
+        ]
       default:
     }
   }
