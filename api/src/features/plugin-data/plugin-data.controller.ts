@@ -1,25 +1,21 @@
 import Koa from 'koa'
 import statusCode from 'http-status-codes'
+import { RedisClient } from '../../util/redis-client'
 
 export class PluginDataController {
   public async set(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     const { bundle, title } = ctx.params
-    ctx.body = `${bundle}/${title}`
+    console.log(ctx.request.body)
+    RedisClient.getInstance().set(`${bundle}/${title}`, ctx.request.body)
     ctx.status = statusCode.OK
   }
 
   public async get(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     const { bundle, title } = ctx.params
-    ctx.body = `${bundle}/${title}`
-    ctx.status = statusCode.OK
-  }
-
-  public async flush(ctx: Koa.DefaultContext, next: Function): Promise<void> {
-    await next()
-    const { bundle, title } = ctx.params
-    ctx.body = `${bundle}/${title}`
+    ctx.set('Content-Type', 'text/javascript')
+    ctx.body = await RedisClient.getInstance().get(`${bundle}/${title}`)
     ctx.status = statusCode.OK
   }
 }

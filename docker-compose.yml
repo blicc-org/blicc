@@ -36,6 +36,8 @@ services:
       - traefik.enable=false
   redis:
     image: registry.thiloilg.com/repo/blicc/redis:latest
+    volumes:
+      - /root/db-data/redis-data:/data
     restart: always
     labels:
       - traefik.enable=false

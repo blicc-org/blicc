@@ -1,6 +1,8 @@
 import { Middleware } from 'koa'
-import createRouter, { Router } from 'koa-joi-router'
+import createRouter, { Router, Joi } from 'koa-joi-router'
 import { PluginDataController } from './plugin-data.controller'
+import { AuthMiddleware } from '../../common/middleware/auth-middleware'
+import { PermissionMiddleware } from '../../common/middleware/permission-middleware'
 
 export class PluginDataRouter {
   private prefix: string
@@ -19,19 +21,21 @@ export class PluginDataRouter {
     this.router.route({
       method: 'post',
       path: '/:bundle/:title',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['developer', 'admin']),
+      ],
       handler: this.controller.set.bind(this.controller),
     })
 
     this.router.route({
       method: 'get',
       path: '/:bundle/:title',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
+      ],
       handler: this.controller.get.bind(this.controller),
-    })
-
-    this.router.route({
-      method: 'delete',
-      path: '/:bundle/:title',
-      handler: this.controller.flush.bind(this.controller),
     })
 
     return this.router.middleware()
