@@ -34,7 +34,7 @@ services:
     labels:
       - traefik.enable=false
   redis:
-    image: registry.thiloilg.com/repo/blicc/redis:latest
+    image: registry.thiloilg.com/repo/blicc/redis-testing-stage:latest
     restart: always
     labels:
       - traefik.enable=false

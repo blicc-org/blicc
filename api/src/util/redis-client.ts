@@ -7,7 +7,7 @@ export class RedisClient {
 
   private constructor() {
     this.client = redis.createClient(REDIS_PORT, REDIS_HOST)
-    this.client.on('error', function(error) {
+    this.client.on('error', error => {
       console.log('Redis error: ' + error)
     })
   }

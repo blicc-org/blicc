@@ -70,6 +70,7 @@ deploy:
     - docker push $REGISTRY_DOMAIN/repo/$REPO/app
     - docker push $REGISTRY_DOMAIN/repo/$REPO/api
     - docker push $REGISTRY_DOMAIN/repo/$REPO/db
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/redis
     - docker push $REGISTRY_DOMAIN/repo/$REPO/delivery
     - scp -r ./docker-compose.yml root@$IP:/root/
     - ssh -tt root@$IP "openssl genrsa -out rsa.pem 2048"
