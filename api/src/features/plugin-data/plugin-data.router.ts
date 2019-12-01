@@ -18,8 +18,20 @@ export class PluginDataRouter {
 
     this.router.route({
       method: 'post',
-      path: '/:slug',
+      path: '/:bundle/:title',
       handler: this.controller.set.bind(this.controller),
+    })
+
+    this.router.route({
+      method: 'get',
+      path: '/:bundle/:title',
+      handler: this.controller.get.bind(this.controller),
+    })
+
+    this.router.route({
+      method: 'delete',
+      path: '/:bundle/:title',
+      handler: this.controller.flush.bind(this.controller),
     })
 
     return this.router.middleware()
