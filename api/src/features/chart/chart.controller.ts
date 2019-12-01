@@ -11,31 +11,15 @@ export class ChartController {
 
   public async create(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    const { title, bundle, description = '' } = ctx.request.body
+    const { title, bundle, description = '', path } = ctx.request.body
     const { id } = ctx.user
     ctx.body = await this.chartService.create(
       title,
       bundle,
       description,
       id,
-      ''
+      path
     )
     ctx.status = 201
-  }
-
-  public async uploadFile(
-    ctx: Koa.DefaultContext,
-    next: Function
-  ): Promise<void> {
-    await next()
-
-    ctx.status = 201
-  }
-
-  public async get(ctx: Koa.DefaultContext, next: Function): Promise<void> {
-    await next()
-    ctx.set('Content-Type', 'text/javascript')
-    ctx.body = ``
-    ctx.status = status.OK
   }
 }

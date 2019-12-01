@@ -15,10 +15,10 @@ export class ChartService {
     bundle: string,
     description: string,
     userId: string,
-    data: string
+    path: string
   ): Promise<Chart> {
     return await this.repo.save(
-      new ChartEntity(title, bundle, description, userId, data)
+      new ChartEntity(title, bundle, description, userId, path)
     )
   }
 
