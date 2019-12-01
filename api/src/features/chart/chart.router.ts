@@ -113,6 +113,8 @@ export class ChartRouter {
      *                 }
      *       401:
      *         description: Unauthorized
+     *       403:
+     *         description: Forbidden
      *       500:
      *         description: Internal Server Error
      */
@@ -231,7 +233,7 @@ export class ChartRouter {
       path: '/:id',
       pre: [
         AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, ['developer', 'admin']),
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
       ],
       validate: {
         output: {
