@@ -21,3 +21,11 @@ export const CERTS = `${__dirname}/../certs`
 export const API_TEST_TARGET = process.env.API_TEST_TARGET
 export const ADMIN_MAIL = process.env.ADMIN_MAIL || ''
 export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || ''
+
+export const bodyParserOptions = {
+  enableTypes: ['json', 'text'],
+  extendTypes: {
+    text: ['application/javascript'],
+  },
+  textLimit: '500kb'
+}

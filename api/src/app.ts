@@ -11,6 +11,7 @@ import { TwoFactorAuthRouter } from './features/two-factor-auth'
 import { HealthCheckRouter } from './features/health-check'
 import { ChartRouter } from './features/chart'
 import { PluginDataRouter } from './features/plugin-data'
+import { bodyParserOptions } from './config'
 
 export class App extends Koa {
   public constructor() {
@@ -19,7 +20,7 @@ export class App extends Koa {
     this.proxy = true // forward for TSL encryption on proxy level
     this.use(cors({ credentials: true }))
     this.use(logger())
-    this.use(bodyParser())
+    this.use(bodyParser(bodyParserOptions))
     this.use(serve(`${__dirname}/../public`))
     this.use(new ApiDocsRouter('/').routes())
     this.use(new UserRouter('/users').routes())
