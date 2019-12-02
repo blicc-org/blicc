@@ -13,8 +13,8 @@ export class PluginDataController {
   public async get(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     const { bundle, title } = ctx.params
-    ctx.set('Content-Type', 'text/javascript')
-    ctx.body = await RedisClient.getInstance().get(`${bundle}/${title}`)
+    ctx.set('Content-Type', 'application/javascript')
     ctx.status = statusCode.OK
+    ctx.body = await RedisClient.getInstance().get(`${bundle}/${title}`)
   }
 }

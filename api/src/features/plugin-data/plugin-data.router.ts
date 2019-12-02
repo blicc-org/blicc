@@ -32,7 +32,7 @@ export class PluginDataRouter {
      * @swagger
      *
      * /plugin-data/{bundle}/{plugin}:
-     *   post:
+     *   put:
      *     tags:
      *       - Plugin Data
      *     parameters:
@@ -71,7 +71,7 @@ export class PluginDataRouter {
      *         description: Internal Server Error
      */
     this.router.route({
-      method: 'post',
+      method: 'put',
       path: '/:bundle/:title',
       pre: [
         AuthMiddleware.handle,
