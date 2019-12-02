@@ -36,9 +36,4 @@ describe('GET: /plugin-data/:bundle/:plugin', () => {
     expect(response.status).toBe(200)
     expect(response.data).toBe(pluginData)
   })
-
-  it('401: OK', async () => {
-    const response = await instance.get(`/plugin-data/${bundle}/${plugin}`)
-    expect(response.status).toBe(401)
-  })
 })

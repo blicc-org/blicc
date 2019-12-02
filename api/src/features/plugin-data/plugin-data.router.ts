@@ -114,8 +114,6 @@ export class PluginDataRouter {
      *             examples:
      *               filter:
      *                 value: function somePlugin(a,b){...}
-     *       401:
-     *         description: Unauthorized
      *       500:
      *         description: Internal Server Error
      */
