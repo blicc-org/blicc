@@ -27,5 +27,5 @@ export const bodyParserOptions = {
   extendTypes: {
     text: ['application/javascript'],
   },
-  textLimit: '500kb'
+  textLimit: '500kb',
 }
