@@ -1,6 +1,5 @@
 import Koa from 'koa'
 import logger from 'koa-logger'
-import bodyParser from 'koa-bodyparser'
 import cors from '@koa/cors'
 import serve from 'koa-static'
 import { ApiDocsRouter } from './features/api-docs'
@@ -11,16 +10,14 @@ import { TwoFactorAuthRouter } from './features/two-factor-auth'
 import { HealthCheckRouter } from './features/health-check'
 import { ChartRouter } from './features/chart'
 import { PluginDataRouter } from './features/plugin-data'
-import { bodyParserOptions } from './config'
 
 export class App extends Koa {
   public constructor() {
     super()
 
     this.proxy = true // forward for TSL encryption on proxy level
-    this.use(cors({ credentials: true }))
     this.use(logger())
-    this.use(bodyParser(bodyParserOptions))
+    this.use(cors({ credentials: true }))
     this.use(serve(`${__dirname}/../public`))
     this.use(new ApiDocsRouter('/').routes())
     this.use(new UserRouter('/users').routes())

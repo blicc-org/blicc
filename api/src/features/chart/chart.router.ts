@@ -1,4 +1,5 @@
 import { Middleware } from 'koa'
+import bodyParser from 'koa-bodyparser'
 import createRouter, { Router, Joi } from 'koa-joi-router'
 import { ChartController } from './chart.controller'
 import { AuthMiddleware } from '../../common/middleware/auth-middleware'
@@ -17,6 +18,7 @@ export class ChartRouter {
 
   public routes(): Middleware {
     this.router.prefix(this.prefix)
+    this.router.use(bodyParser({ strict: true }))
 
     /**
      * @swagger

@@ -1,4 +1,5 @@
 import { Middleware } from 'koa'
+import bodyParser from 'koa-bodyparser'
 import createRouter, { Router, Joi } from 'koa-joi-router'
 import { TokenController } from './token.controller'
 
@@ -15,6 +16,8 @@ export class TokenRouter {
 
   public routes(): Middleware {
     this.router.prefix(this.prefix)
+    this.router.use(bodyParser({ strict: true }))
+
     /**
      * @swagger
      *

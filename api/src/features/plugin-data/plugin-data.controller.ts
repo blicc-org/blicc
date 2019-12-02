@@ -6,7 +6,6 @@ export class PluginDataController {
   public async set(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     const { bundle, title } = ctx.params
-    console.log(ctx.request.body)
     RedisClient.getInstance().set(`${bundle}/${title}`, ctx.request.body)
     ctx.status = statusCode.OK
   }
