@@ -183,9 +183,9 @@ export class ChartRouter {
      *           application/json:
      *             schema:
      *               required:
-     *               - dashboard
+     *               - chart
      *               properties:
-     *                 dashboard:
+     *                 chart:
      *                   type: object
      *                   required:
      *                   - id
@@ -251,6 +251,115 @@ export class ChartRouter {
         },
       },
       handler: this.controller.get.bind(this.controller),
+    })
+
+    /**
+     * @swagger
+     *
+     * /charts:
+     *   get:
+     *     security:
+     *       - cookieAuth: []
+     *     securitySchemes:
+     *       bearerAuth:
+     *         type: http
+     *         scheme: bearer
+     *         bearerFormat: JWT
+     *     produces:
+     *       - application/json
+     *     tags:
+     *       - Charts
+     *     summary: List charts
+     *     description: List all available charts
+     *     responses:
+     *       200:
+     *         description: OK
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - charts
+     *               properties:
+     *                 total:
+     *                   type: number
+     *                 charts:
+     *                   type: object
+     *                   properties:
+     *                     chart:
+     *                       type: object
+     *                       properties:
+     *                         id:
+     *                           type: string
+     *                         title:
+     *                           type: string
+     *                         bundle:
+     *                           type: string
+     *                         description:
+     *                           type: string
+     *                         userId:
+     *                           type: string
+     *                         slug:
+     *                           type: string
+     *                         creationDate:
+     *                           type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   total: 2,
+     *                   charts: [
+     *                     {
+     *                       id: "WaDQc9_H",
+     *                       title: "Pie chart",
+     *                       bundle: "Essentials",
+     *                       description: "Show your data in a pie chart.",
+     *                       userId: "b1x_S29n",
+     *                       slug: "essentials/pie-chart",
+     *                       creationDate: "2019-11-02T15:45:58.284Z"
+     *                     },
+     *                     {
+     *                       id: "Wdhs34A",
+     *                       title: "Line chart",
+     *                       bundle: "Essentials",
+     *                       description: "Show your data in a line chart.",
+     *                       userId: "b1x_S29n",
+     *                       slug: "essentials/pie-chart",
+     *                       creationDate: "2019-12-02T11:45:58.283Z"
+     *                     },
+     *                   ]
+     *                 }
+     *       401:
+     *         description: Unauthorized
+     *       500:
+     *         description: Internal Server Error
+     */
+    this.router.route({
+      method: 'get',
+      path: '/',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
+      ],
+      validate: {
+        output: {
+          200: {
+            body: {
+              total: Joi.number().required(),
+              charts: Joi.array().items({
+                id: Joi.string().required(),
+                title: Joi.string().required(),
+                bundle: Joi.string().required(),
+                description: Joi.string()
+                  .allow('')
+                  .optional(),
+                userId: Joi.string().required(),
+                slug: Joi.string().required(),
+                creationDate: Joi.string().required(),
+              }),
+            },
+          },
+        },
+      },
+      handler: this.controller.list.bind(this.controller),
     })
 
     return this.router.middleware()

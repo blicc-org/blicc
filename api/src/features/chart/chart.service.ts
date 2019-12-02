@@ -27,6 +27,17 @@ export class ChartService {
     return await this.repo.findOne({ id })
   }
 
+  public async selectAll(): Promise<Chart[]> {
+    return await this.repo.find()
+  }
+
+  public async getTotalEntries(): Promise<number> {
+    return await this.repo
+      .createQueryBuilder('chart')
+      .select('chart.id')
+      .getCount()
+  }
+
   public async generateId(): Promise<string> {
     const id = shortid.generate()
     const response = await this.repo.findOne(id)

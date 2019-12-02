@@ -33,4 +33,17 @@ export class ChartController {
       ctx.body = ''
     }
   }
+
+  public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+    await next()
+    try {
+      const total = await this.chartService.getTotalEntries()
+      const charts = await this.chartService.selectAll()
+      ctx.body = { total, charts }
+      ctx.status = statusCode.OK
+    } catch (e) {
+      ctx.status = statusCode.INTERNAL_SERVER_ERROR
+      ctx.body = ''
+    }
+  }
 }
