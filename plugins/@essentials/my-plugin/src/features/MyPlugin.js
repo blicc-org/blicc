@@ -1,10 +1,14 @@
 import React from 'react'
 
-export function MyPlugin({ data, settings, setSettings }) {
+export function MyPlugin({ data, onDataUpdate, settings, setSettings }) {
+  onDataUpdate(() => {})
+
   return (
     <>
-      <div>Hello {JSON.stringify(data)}</div>
-      <button onClick={() => setSettings()}>Click me to set settings</button>
+      <div style={settings}>Hello {JSON.stringify(data)}</div>
+      <button onClick={() => setSettings({ color: 'red' })}>
+        Click me to set settings
+      </button>
     </>
   )
 }

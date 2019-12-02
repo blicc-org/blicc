@@ -1,24 +1,29 @@
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, useState } from 'react'
 import { Loading } from './Loading'
+import { API } from '../../../config'
 
-export function PluginLoader({ name }) {
+export function PluginLoader({ slug }) {
   const ApiPlugin = lazy(() =>
-    import(/*webpackIgnore: true*/ 'http://localhost/charts')
+    import(/*webpackIgnore: true*/ `${API.ORIGIN}/plugin-data/${slug}`)
   )
+  const [settings, setSettings] = useState({})
 
   const data = {
     test: 'test',
   }
 
-  function setSettings() {
-    console.log('settings updated')
+  function onDataUpdate(callback) {
+    callback()
   }
-
-  const settings = {}
 
   return (
     <Suspense fallback={<Loading />}>
-      <ApiPlugin data={data} settings={settings} setSettings={setSettings} />
+      <ApiPlugin
+        data={data}
+        onDataUpdate={onDataUpdate}
+        settings={settings}
+        setSettings={setSettings}
+      />
     </Suspense>
   )
 }

@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import statusCode from 'http-status-codes'
+import { useApiEndpoint } from '../../hooks'
 
 export function PluginSelectorModal({ cancel, submit }) {
-  const plugins = []
+  const [result, setResult] = useState({ total: 0, charts: [] })
+  const [, access, ,] = useApiEndpoint('/charts')
+
+  useEffect(() => {
+    async function fetchData() {
+      const [status, data] = await access()
+      if (status === statusCode.OK) {
+        setResult(data)
+      }
+    }
+    fetchData()
+    // eslint-disable-next-line
+  }, [])
+
   return (
     <>
       <div className="modal-dialog modal-dialog-centered" role="document">
@@ -20,13 +35,15 @@ export function PluginSelectorModal({ cancel, submit }) {
             ></input>
             <div className="plugin-results">
               <ul>
-                {plugins.map(({ name, path, bundle, description }) => (
-                  <li key={path}>
-                    <h4>{name}</h4>
-                    <p>{bundle}</p>
-                    <p>{description}</p>
-                  </li>
-                ))}
+                {result.charts
+                  .slice(1, 3)
+                  .map(({ id, title, bundle, description }) => (
+                    <li key={id}>
+                      <h4>{title}</h4>
+                      <p>{bundle}</p>
+                      <p>{description}</p>
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>

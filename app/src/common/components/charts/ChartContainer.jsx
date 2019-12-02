@@ -24,8 +24,8 @@ export function ChartContainer({ type, id, onDrop }) {
     <PluginSelectorModal
       cancel={hideModal}
       submit={() => {
-        setPluginName('@essentials/pie-chart')
-        onDrop(sector, '@essentials/pie-chart')
+        setPluginName('essentials/my-plugin')
+        onDrop(sector, 'essentials/my-plugin')
         hideModal()
       }}
     />
@@ -55,7 +55,7 @@ export function ChartContainer({ type, id, onDrop }) {
             {type === TYPE.DRAG_HERE ? (
               <DragHere />
             ) : (
-              <PluginLoader name={type} />
+              <PluginLoader slug={'essentials/my-plugin'} />
             )}
           </div>
         </>

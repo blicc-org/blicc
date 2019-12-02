@@ -122,10 +122,6 @@ export class PluginDataRouter {
     this.router.route({
       method: 'get',
       path: '/:bundle/:title',
-      pre: [
-        AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
-      ],
       handler: this.controller.get.bind(this.controller),
     })
 
