@@ -1,6 +1,6 @@
 import { Middleware } from 'koa'
 import bodyParser from 'koa-bodyparser'
-import createRouter, { Router, Joi } from 'koa-joi-router'
+import createRouter, { Router } from 'koa-joi-router'
 import { PluginDataController } from './plugin-data.controller'
 import { AuthMiddleware } from '../../common/middleware/auth-middleware'
 import { PermissionMiddleware } from '../../common/middleware/permission-middleware'
