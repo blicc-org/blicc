@@ -1,29 +1,42 @@
-import React, { Suspense, lazy, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Loading } from './Loading'
 import { API } from '../../../config'
+import theme from '../../../Theme.scss'
 
 export function PluginLoader({ slug }) {
-  const ApiPlugin = lazy(() =>
-    import(/*webpackIgnore: true*/ `${API.ORIGIN}/plugin-data/${slug}`)
-  )
+  const [isLoading, setIsLoading] = useState(true)
   const [settings, setSettings] = useState({})
+  const ref = useRef()
 
-  const data = {
-    test: 'test',
-  }
+  useEffect(() => {
+    async function fetchPlugin() {
+      const Plugin = await import(
+        /*webpackIgnore: true*/ `${API.ORIGIN}/plugin-data/${slug}`
+      )
 
-  function onDataUpdate(callback) {
-    callback()
-  }
+      setIsLoading(false)
 
-  return (
-    <Suspense fallback={<Loading />}>
-      <ApiPlugin
-        data={data}
-        onDataUpdate={onDataUpdate}
-        settings={settings}
-        setSettings={setSettings}
-      />
-    </Suspense>
-  )
+      const data = [1.0, 0.4, 0.6, 2.3, 0.9, 7.5]
+      function onDataUpdate(callback) {
+        callback()
+      }
+
+      const layout = {
+        color: theme.primary,
+      }
+
+      Plugin.render(
+        ref.current,
+        data,
+        onDataUpdate,
+        settings,
+        setSettings,
+        layout
+      )
+    }
+
+    fetchPlugin()
+  }, [])
+
+  return <>{isLoading ? <Loading /> : <div ref={ref} />}</>
 }

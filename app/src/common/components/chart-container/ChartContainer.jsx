@@ -55,12 +55,11 @@ export function ChartContainer({ type, id, onDrop }) {
             {type === TYPE.DRAG_HERE ? (
               <DragHere />
             ) : (
-              <PluginLoader slug={'essentials/my-plugin'} />
+              <PluginLoader slug={type} />
             )}
           </div>
         </>
       )}
-
       {dragging && <Positioning onDrop={onDropHandler} />}
     </div>
   )
