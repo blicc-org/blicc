@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import uuid from 'uuid'
 import { POSITION } from '../components/dashboard-container/positioning/Positioning'
-import { TYPE } from '../components/charts/ChartContainer'
+import { TYPE } from '../components/chart-container/ChartContainer'
 import { GRID } from '../components/dashboard-container/Row'
 
 export const INITIAL_DASHBOARD = {

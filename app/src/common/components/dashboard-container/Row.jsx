@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChartContainer } from '../charts/ChartContainer'
+import { ChartContainer } from '../chart-container/ChartContainer'
 import { useMobile } from '../../hooks'
 import './Row.scss'
 
