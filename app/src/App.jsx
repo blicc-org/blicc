@@ -7,11 +7,12 @@ import { Login } from './features/login/Login'
 import { Register } from './features/register/Register'
 import { PageGenerator } from './features/page-generator/PageGenerator'
 import { WebSocketTest } from './features/websocket-test/WebSocketTest'
-import { Dashboard } from './features/single-dashboard/Dashboard'
+import { DashboardView } from './features/dashboard-view/DashboardView'
 import { DataSources } from './features/data-sources/DataSources'
 import { Dashboards } from './features/dashboards/Dashboards'
 import { Profile } from './features/profile/Profile'
 import { Charts } from './features/charts/Charts'
+import { ChartView } from './features/chart-view/ChartView'
 import { TwoFactorAuth } from './features/two-factor-auth/TwoFactorAuth'
 import { ProtectedRoute } from './common/components/protected-route/ProtectedRoute'
 import { Provider } from './common/context'
@@ -32,12 +33,13 @@ export function App() {
             <Route path="/pages" component={PageGenerator} />
             <Route path="/offline" component={Offline} />
             <Route path="/websocket-test" component={WebSocketTest} />
-            <ProtectedRoute path="/two-factor-auth" component={TwoFactorAuth} />
-            <ProtectedRoute path="/dashboards/:id" component={Dashboard} />
+            <ProtectedRoute path="/charts/:id" component={ChartView} />
+            <ProtectedRoute path="/charts" component={Charts} />
+            <ProtectedRoute path="/dashboards/:id" component={DashboardView} />
             <ProtectedRoute path="/dashboards" component={Dashboards} />
+            <ProtectedRoute path="/two-factor-auth" component={TwoFactorAuth} />
             <ProtectedRoute path="/data-sources" component={DataSources} />
             <ProtectedRoute path="/profile" component={Profile} />
-            <ProtectedRoute path="/charts" component={Charts} />
             <Route component={NotFound} />
           </Switch>
         </Main>

@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import uuid from 'uuid'
-import { POSITION } from '../components/dashboard-view/positioning/Positioning'
+import { POSITION } from '../components/dashboard-container/positioning/Positioning'
 import { TYPE } from '../components/charts/ChartContainer'
-import { GRID } from '../components/dashboard-view/Row'
+import { GRID } from '../components/dashboard-container/Row'
 
 export const INITIAL_DASHBOARD = {
   title: '',

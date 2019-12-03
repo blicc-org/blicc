@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row } from './Row'
 
-export function DashboardView({ data, update }) {
+export function DashboardContainer({ data, update }) {
   function onDragOverHandler(event) {
     event.preventDefault()
   }

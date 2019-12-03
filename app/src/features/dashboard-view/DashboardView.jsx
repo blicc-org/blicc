@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import statusCode from 'http-status-codes'
 import { DashboardHeader } from './DashboardHeader'
-import { DashboardView } from '../../common/components/dashboard-view/DashboardView'
+import { DashboardContainer } from '../../common/components/dashboard-container/DashboardContainer'
 import { useApiEndpoint, useDashboard } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DashboardDetails } from './DashboardDetails'
 import { Toolbox } from '../../common/components/toolbox/Toolbox'
-import './Dashboard.scss'
+import './DashboardView.scss'
 
-export function Dashboard({ match }) {
+export function DashboardView({ match }) {
   const [data, setData, setDashboard] = useDashboard()
   const [view, setView] = useState('dashboard')
   const path = `/dashboards/${match.params.id}`
@@ -45,7 +45,7 @@ export function Dashboard({ match }) {
           setView={setView}
         />
         {view === 'dashboard' ? (
-          <DashboardView data={data} update={setDashboard} />
+          <DashboardContainer data={data} update={setDashboard} />
         ) : (
           <DashboardDetails data={data} />
         )}

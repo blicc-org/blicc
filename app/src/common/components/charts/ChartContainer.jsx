@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { X } from 'react-feather'
-import { Positioning } from '../dashboard-view/positioning/Positioning'
+import { Positioning } from '../dashboard-container/positioning/Positioning'
 import { DragContext } from '../../context'
 import { DragHere } from './DragHere'
 import { PluginSelectorModal } from './PluginSelectorModal'
