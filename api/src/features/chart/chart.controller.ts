@@ -37,8 +37,9 @@ export class ChartController {
   public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     try {
-      const total = await this.chartService.getTotalEntries()
+      const total = await this.chartService.getTotalEntries(ctx.query.search)
       const charts = await this.chartService.selectAll(
+        ctx.query.search,
         ctx.query.skip,
         ctx.query.take
       )

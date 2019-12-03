@@ -28,6 +28,7 @@ export class ChartService {
   }
 
   public async selectAll(
+    searchTerm = '',
     skip = '0',
     take = '0' // default select all
   ): Promise<Chart[] | undefined> {
@@ -37,18 +38,26 @@ export class ChartService {
       return undefined
     }
 
+    searchTerm = this.escapeSearchQuery(searchTerm)
     return await this.repo
       .createQueryBuilder('chart')
+      .where('LOWER(chart.title) like LOWER(:title)', {
+        title: '%' + searchTerm + '%',
+      })
       .orderBy('chart.creationDate', 'DESC')
       .skip(skipNumber)
       .take(takeNumber)
       .getMany()
   }
 
-  public async getTotalEntries(): Promise<number> {
+  public async getTotalEntries(searchTerm = ''): Promise<number> {
+    searchTerm = this.escapeSearchQuery(searchTerm)
     return await this.repo
       .createQueryBuilder('chart')
       .select('chart.id')
+      .where('LOWER(chart.title) like LOWER(:title)', {
+        title: '%' + searchTerm + '%',
+      })
       .getCount()
   }
 
@@ -60,5 +69,9 @@ export class ChartService {
 
   private generateSlug(title: string, bundle: string): string {
     return `${Slug.generate(bundle)}/${Slug.generate(title)}`
+  }
+
+  private escapeSearchQuery(str: string): string {
+    return str.replace(/[^\w\s!?]/g, '')
   }
 }

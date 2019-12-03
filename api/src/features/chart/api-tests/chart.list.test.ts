@@ -51,6 +51,23 @@ describe('get: /charts', () => {
     })
     expect(response.status).toBe(200)
     expect(response.data.charts.length).toEqual(10)
+
+    await instance.post(
+      '/charts',
+      { ...chart, title: 'Line Chart' },
+      {
+        headers: {
+          Cookie: adminParams.cookie,
+        },
+      }
+    )
+    response = await instance.get('/charts?search=Line+Chart', {
+      headers: {
+        Cookie: userParams.cookie,
+      },
+    })
+    expect(response.status).toBe(200)
+    expect(response.data.charts[0].title).toEqual('Line Chart')
   })
 
   it('401: Unauthorized', async () => {
