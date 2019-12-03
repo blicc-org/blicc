@@ -23,9 +23,9 @@ export function ChartContainer({ type, id, onDrop }) {
   const [showModal, hideModal] = useModal(() => (
     <PluginSelectorModal
       cancel={hideModal}
-      submit={() => {
-        setPluginName('essentials/my-plugin')
-        onDrop(sector, 'essentials/my-plugin')
+      submit={slug => {
+        setPluginName(slug)
+        onDrop(sector, slug)
         hideModal()
       }}
     />

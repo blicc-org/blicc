@@ -3,19 +3,31 @@ import statusCode from 'http-status-codes'
 import { useApiEndpoint } from '../../hooks'
 
 export function PluginSelectorModal({ cancel, submit }) {
+  const maxNumberOfResults = 10
   const [result, setResult] = useState({ total: 0, charts: [] })
   const [, access, ,] = useApiEndpoint('/charts')
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     async function fetchData() {
-      const [status, data] = await access()
+      const [status, data] = await access({
+        params: {
+          search: searchTerm,
+          take: maxNumberOfResults,
+        },
+      })
       if (status === statusCode.OK) {
         setResult(data)
       }
     }
     fetchData()
     // eslint-disable-next-line
-  }, [])
+  }, [searchTerm])
+
+  function onSelect(event, slug) {
+    event.preventDefault()
+    submit(slug)
+  }
 
   return (
     <>
@@ -32,32 +44,26 @@ export function PluginSelectorModal({ cancel, submit }) {
               className="form-control"
               type="text"
               placeholder="Like Pie Chart..."
+              onChange={event => setSearchTerm(event.target.value)}
             ></input>
-            <div className="plugin-results">
+            <div className="pt-3">
               <ul>
-                {result.charts
-                  .slice(1, 3)
-                  .map(({ id, title, bundle, description }) => (
-                    <li key={id}>
-                      <h4>{title}</h4>
-                      <p>{bundle}</p>
-                      <p>{description}</p>
-                    </li>
-                  ))}
+                {result.charts.map(({ id, title, slug }) => (
+                  <li key={id}>
+                    <h5>
+                      <a href="/" onClick={event => onSelect(event, slug)}>
+                        {title}
+                      </a>
+                      <small className="text-muted">{` @${slug}`}</small>
+                    </h5>
+                  </li>
+                ))}
               </ul>
             </div>
-          </div>
-          <div className="modal-footer">
-            <button
-              onClick={cancel}
-              type="button"
-              className="btn btn-outline-secondary"
-            >
-              Cancel
-            </button>
-            <button onClick={submit} type="button" className="btn btn-primary">
-              Submit
-            </button>
+            <hr />
+            <h6>
+              Results <small>{`${result.total} found.`}</small>
+            </h6>
           </div>
         </div>
       </div>
