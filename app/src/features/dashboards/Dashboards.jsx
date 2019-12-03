@@ -114,13 +114,7 @@ export function Dashboards() {
               <tbody>
                 {result.dashboards.map(dashboard => {
                   return (
-                    <DashboardsItem
-                      key={dashboard.id}
-                      id={dashboard.id}
-                      title={dashboard.title}
-                      description={dashboard.description}
-                      creationDate={dashboard.creationDate}
-                    />
+                    <DashboardsItem key={dashboard.id} dashboard={dashboard} />
                   )
                 })}
               </tbody>

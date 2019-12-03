@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export function DashboardsItem({ id, title, description, creationDate }) {
+export function DashboardsItem({ dashboard }) {
+  const { id, title, description, creationDate } = dashboard
   return (
     <tr>
       <td>
