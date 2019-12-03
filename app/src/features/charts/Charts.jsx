@@ -9,7 +9,7 @@ export function Charts() {
   const [page, setPage] = useState(0)
   const [result, setResult] = useState({ total: 0, charts: [] })
   const [, access, ,] = useApiEndpoint('/charts')
-  
+
   useEffect(() => {
     async function fetchData() {
       const [status, data] = await access({
