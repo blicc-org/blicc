@@ -38,7 +38,16 @@ export class ChartController {
     await next()
     try {
       const total = await this.chartService.getTotalEntries()
-      const charts = await this.chartService.selectAll()
+      const charts = await this.chartService.selectAll(
+        ctx.query.skip,
+        ctx.query.take
+      )
+
+      if (!charts) {
+        ctx.status = statusCode.BAD_REQUEST
+        return
+      }
+
       ctx.body = { total, charts }
       ctx.status = statusCode.OK
     } catch (e) {

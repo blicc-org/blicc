@@ -27,8 +27,22 @@ export class ChartService {
     return await this.repo.findOne({ id })
   }
 
-  public async selectAll(): Promise<Chart[]> {
-    return await this.repo.find()
+  public async selectAll(
+    skip = '0',
+    take = '0' // default select all
+  ): Promise<Chart[] | undefined> {
+    const skipNumber = parseInt(skip)
+    const takeNumber = parseInt(take)
+    if (!Number.isInteger(skipNumber) || !Number.isInteger(takeNumber)) {
+      return undefined
+    }
+
+    return await this.repo
+      .createQueryBuilder('chart')
+      .orderBy('chart.creationDate', 'DESC')
+      .skip(skipNumber)
+      .take(takeNumber)
+      .getMany()
   }
 
   public async getTotalEntries(): Promise<number> {

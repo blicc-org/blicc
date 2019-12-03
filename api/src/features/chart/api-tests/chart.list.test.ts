@@ -6,7 +6,7 @@ import {
 } from '../../../common/tests/user.helper'
 import { chart } from '../mocks/chart.mock'
 
-describe('get: /charts/', () => {
+describe('get: /charts', () => {
   let userParams = { email: '', userId: '', cookie: '' }
   let adminParams = { email: '', cookie: '' }
   let id = ''
@@ -27,7 +27,7 @@ describe('get: /charts/', () => {
   })
 
   it('200: OK', async () => {
-    const response = await instance.get(`/charts`, {
+    let response = await instance.get(`/charts`, {
       headers: {
         Cookie: userParams.cookie,
       },
@@ -35,6 +35,22 @@ describe('get: /charts/', () => {
     expect(response.status).toBe(200)
     expect(response.data.total).toBeGreaterThan(0)
     expect(response.data.charts.length).toBeGreaterThan(0)
+
+    for (let i = 1; i <= 10; i++) {
+      await instance.post('/charts', chart, {
+        headers: {
+          Cookie: adminParams.cookie,
+        },
+      })
+    }
+
+    response = await instance.get('/charts?skip=2&take=10', {
+      headers: {
+        Cookie: userParams.cookie,
+      },
+    })
+    expect(response.status).toBe(200)
+    expect(response.data.charts.length).toEqual(10)
   })
 
   it('401: Unauthorized', async () => {

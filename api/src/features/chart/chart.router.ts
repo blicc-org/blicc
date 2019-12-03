@@ -174,6 +174,15 @@ export class ChartRouter {
      *         required: true
      *         schema:
      *           type: string
+     *       - in: query
+     *         name: skip
+     *         schema:
+     *           type: number
+     *         description: Defines the offset of the requested dashboards.
+     *       - in: query
+     *         name: take
+     *         schema:
+     *           type: number
      *     summary: Get chart
      *     description: Get a specific chart by the given id.
      *     responses:
