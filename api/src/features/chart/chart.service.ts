@@ -28,9 +28,9 @@ export class ChartService {
   }
 
   public async selectAll(
-    searchTerm: string = '',
-    skip: number = 0,
-    take: number = 0 // default select all
+    searchTerm = '',
+    skip = 0,
+    take = 0 // default select all
   ): Promise<Chart[]> {
     return await this.repo
       .createQueryBuilder('chart')
@@ -43,7 +43,7 @@ export class ChartService {
       .getMany()
   }
 
-  public async getTotalEntries(searchTerm: string = ''): Promise<number> {
+  public async getTotalEntries(searchTerm = ''): Promise<number> {
     return await this.repo
       .createQueryBuilder('chart')
       .select('chart.id')

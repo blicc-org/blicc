@@ -109,7 +109,7 @@ describe('GET: /dashboards', () => {
   })
 
   it('400: Bad request', async () => {
-    let response = await instance.get('/dashboards?fields=wrongFieldName', {
+    const response = await instance.get('/dashboards?fields=wrongFieldName', {
       headers: {
         Cookie: params.cookie,
       },

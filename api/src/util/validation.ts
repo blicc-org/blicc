@@ -17,11 +17,11 @@ export class Validation {
     )
   }
 
-  public static escapeSearchQuery(str: string = ''): string {
+  public static escapeSearchQuery(str = ''): string {
     return str.replace(/[^\w\s!?]/g, '')
   }
 
-  public static escapeQueryNumber(queryNumber: string = '0'): number {
+  public static escapeQueryNumber(queryNumber = '0'): number {
     let castedNumber = parseInt(queryNumber)
     if (!Number.isInteger(castedNumber)) castedNumber = 0
     return castedNumber
