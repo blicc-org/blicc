@@ -36,7 +36,7 @@ describe('get: /charts', () => {
     expect(response.data.total).toBeGreaterThan(0)
     expect(response.data.charts.length).toBeGreaterThan(0)
 
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 12; i++) {
       await instance.post('/charts', chart, {
         headers: {
           Cookie: adminParams.cookie,
