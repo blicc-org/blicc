@@ -1,6 +1,7 @@
 import Koa from 'koa'
 import status from 'http-status-codes'
 import { DashboardService } from './dashboard.service'
+import { Validation } from '../../util/validation'
 
 export class DashboardController {
   private dashboardService: DashboardService
@@ -39,16 +40,21 @@ export class DashboardController {
       const fields: string[] = ctx.query.fields
         ? ctx.query.fields.split(',')
         : undefined
+
+      const searchTerm = Validation.escapeSearchQuery(ctx.query.search)
+      const skip = Validation.escapeQueryNumber(ctx.query.skip)
+      const take = Validation.escapeQueryNumber(ctx.query.take)
+
       const dashboards = await this.dashboardService.listByUserId(
         ctx.user.id,
         fields,
-        ctx.query.search,
-        ctx.query.skip,
-        ctx.query.take
+        searchTerm,
+        skip,
+        take
       )
       const total = await this.dashboardService.getTotalEntriesByUserId(
         ctx.user.id,
-        ctx.query.search
+        searchTerm
       )
 
       if (!dashboards) {

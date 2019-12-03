@@ -37,21 +37,11 @@ export class DashboardService {
     userId: string,
     fields: string[] = this.dashboardFields,
     searchTerm = '',
-    skip = '0',
-    take = '0' // default select all
+    skip = 0,
+    take = 0 // default select all
   ): Promise<Dashboard[] | undefined> {
-    const skipNumber = parseInt(skip)
-    const takeNumber = parseInt(take)
-    if (
-      !this.validateFields(fields) ||
-      !Number.isInteger(skipNumber) ||
-      !Number.isInteger(takeNumber)
-    ) {
-      return undefined
-    }
-
+    if (!this.validateFields(fields)) return undefined
     fields = fields.map(field => 'dashboard.' + field)
-    searchTerm = this.escapeSearchQuery(searchTerm)
 
     return await this.repo
       .createQueryBuilder('dashboard')
@@ -61,8 +51,8 @@ export class DashboardService {
         title: '%' + searchTerm + '%',
       })
       .orderBy('dashboard.creationDate', 'DESC')
-      .skip(skipNumber)
-      .take(takeNumber)
+      .skip(skip)
+      .take(take)
       .getMany()
   }
 
@@ -70,7 +60,6 @@ export class DashboardService {
     userId: string,
     searchTerm = ''
   ): Promise<number> {
-    searchTerm = this.escapeSearchQuery(searchTerm)
     return await this.repo
       .createQueryBuilder('dashboard')
       .select('dashboard.id')
@@ -99,9 +88,5 @@ export class DashboardService {
 
   private validateFields(fields: string[]): boolean {
     return fields.every(field => this.dashboardFields.includes(field))
-  }
-
-  private escapeSearchQuery(str: string): string {
-    return str.replace(/[^\w\s!?]/g, '')
   }
 }

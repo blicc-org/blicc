@@ -1,6 +1,7 @@
 import Koa from 'koa'
 import statusCode from 'http-status-codes'
 import { ChartService } from './chart.service'
+import { Validation } from '../../util/validation'
 
 export class ChartController {
   private chartService: ChartService
@@ -37,17 +38,12 @@ export class ChartController {
   public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     try {
-      const total = await this.chartService.getTotalEntries(ctx.query.search)
-      const charts = await this.chartService.selectAll(
-        ctx.query.search,
-        ctx.query.skip,
-        ctx.query.take
-      )
+      const searchTerm = Validation.escapeSearchQuery(ctx.query.search)
+      const skip = Validation.escapeQueryNumber(ctx.query.skip)
+      const take = Validation.escapeQueryNumber(ctx.query.take)
 
-      if (!charts) {
-        ctx.status = statusCode.BAD_REQUEST
-        return
-      }
+      const total = await this.chartService.getTotalEntries(searchTerm)
+      const charts = await this.chartService.selectAll(searchTerm, skip, take)
 
       ctx.body = { total, charts }
       ctx.status = statusCode.OK

@@ -115,13 +115,6 @@ describe('GET: /dashboards', () => {
       },
     })
     expect(response.status).toBe(400)
-
-    response = await instance.get('/dashboards?take=noNumber&skip=noNumber', {
-      headers: {
-        Cookie: params.cookie,
-      },
-    })
-    expect(response.status).toBe(400)
   })
 
   it('401: Unauthorized', async () => {
