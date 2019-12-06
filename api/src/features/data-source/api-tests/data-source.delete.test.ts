@@ -39,7 +39,7 @@ describe('DELETE: /data-source/:id', () => {
   })
 
   it('401: Unauthorized', async () => {
-    const response = await instance.delete('/data-source')
+    const response = await instance.delete(`/data-source/${id}`)
     expect(response.status).toBe(401)
   })
 

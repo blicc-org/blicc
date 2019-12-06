@@ -9,13 +9,7 @@ flags.option('-p, --port <number>', 'Port the server listens on')
 flags.parse(process.argv)
 
 async function start(): Promise<void> {
-  RedisClient.getInstance().set('hello_world', 'Hello World!!!')
-  const helloWorld = await RedisClient.getInstance().get('hello_world')
-  console.log(
-    helloWorld === 'Hello World!!!'
-      ? 'It fucking works!!!!'
-      : 'Damn son try again'
-  )
+  RedisClient.getInstance()
   await createConnection()
   await new DatabaseInitializer().populate()
   const port = flags.port ? flags.port : PORT

@@ -70,7 +70,7 @@ export class DashboardService {
       .getCount()
   }
 
-  public async update(dashboard: Dashboard): Promise<Dashboard> {
+  public async update(dashboard: Dashboard): Promise<DashboardEntity> {
     return await this.repo.save(dashboard)
   }
 

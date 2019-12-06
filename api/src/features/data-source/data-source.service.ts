@@ -30,8 +30,34 @@ export class DataSourceService {
     )
   }
 
-  public async select(id: string): Promise<DataSource | undefined> {
+  public async select(id: string): Promise<DataSourceEntity | undefined> {
     return await this.repo.findOne(id)
+  }
+
+  public async listByUserId(userId: string): Promise<DataSource[]> {
+    return await this.repo
+      .createQueryBuilder('dataSource')
+      .where('dataSource.userId = :userId', { userId })
+      .orderBy('dataSource.creationDate', 'DESC')
+      .getMany()
+  }
+
+  public async getTotalEntriesByUserId(userId: string): Promise<number> {
+    return await this.repo
+      .createQueryBuilder('dataSource')
+      .select('dataSource.id')
+      .where('dataSource.userId = :userId', { userId })
+      .getCount()
+  }
+
+  public async update(dataSource: DataSource): Promise<DataSourceEntity> {
+    return await this.repo.save(dataSource)
+  }
+
+  public async remove(dataSource: DataSourceEntity): Promise<DataSource> {
+    dataSource = await dataSource.remove()
+    delete dataSource.id
+    return dataSource
   }
 
   public async generateId(): Promise<string> {
