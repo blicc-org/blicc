@@ -291,6 +291,11 @@ export class DataSourceRouter {
      *       - Data Source
      *     parameters:
      *       - in: query
+     *         name: search
+     *         schema:
+     *           type: string
+     *         description: Select data sources where the title matches the given search term like ?search=api
+     *       - in: query
      *         name: skip
      *         schema:
      *           type: number
@@ -518,6 +523,8 @@ export class DataSourceRouter {
      *                   fetchFrequency: 60000,
      *                   creationDate: "2019-12-06T16:12:21.944Z"
      *                 }
+     *       400:
+     *         description: Bad request
      *       401:
      *         description: Unauthorized
      *       403:

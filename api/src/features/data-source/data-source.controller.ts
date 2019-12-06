@@ -45,15 +45,25 @@ export class DataSourceController {
 
   public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
+
     const { id } = ctx.user
+    const searchTerm = Validation.escapeSearchQuery(ctx.query.search)
     const skip = Validation.escapeQueryNumber(ctx.query.skip)
     const take = Validation.escapeQueryNumber(ctx.query.take)
+
     const dataSources = await this.dataSourceService.listByUserId(
       id,
+      searchTerm,
       skip,
       take
     )
     const total = await this.dataSourceService.getTotalEntriesByUserId(id)
+
+    if (!dataSources) {
+      ctx.status = status.BAD_REQUEST
+      return
+    }
+
     ctx.body = { total, dataSources }
     ctx.status = status.OK
   }

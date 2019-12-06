@@ -36,12 +36,16 @@ export class DataSourceService {
 
   public async listByUserId(
     userId: string,
+    searchTerm = '',
     skip = 0,
     take = 0 // default select all
   ): Promise<DataSource[]> {
     return await this.repo
       .createQueryBuilder('dataSource')
       .where('dataSource.userId = :userId', { userId })
+      .andWhere('LOWER(dashboard.title) like LOWER(:title)', {
+        title: '%' + searchTerm + '%',
+      })
       .orderBy('dataSource.creationDate', 'DESC')
       .skip(skip)
       .take(take)
