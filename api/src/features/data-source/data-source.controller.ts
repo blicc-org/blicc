@@ -1,6 +1,7 @@
 import Koa from 'koa'
 import status from 'http-status-codes'
 import { DataSourceService } from './data-source.service'
+import { Validation } from '../../util/validation'
 
 export class DataSourceController {
   private dataSourceService: DataSourceService
@@ -45,7 +46,13 @@ export class DataSourceController {
   public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     const { id } = ctx.user
-    const dataSources = await this.dataSourceService.listByUserId(id)
+    const skip = Validation.escapeQueryNumber(ctx.query.skip)
+    const take = Validation.escapeQueryNumber(ctx.query.take)
+    const dataSources = await this.dataSourceService.listByUserId(
+      id,
+      skip,
+      take
+    )
     const total = await this.dataSourceService.getTotalEntriesByUserId(id)
     ctx.body = { total, dataSources }
     ctx.status = status.OK

@@ -34,11 +34,17 @@ export class DataSourceService {
     return await this.repo.findOne(id)
   }
 
-  public async listByUserId(userId: string): Promise<DataSource[]> {
+  public async listByUserId(
+    userId: string,
+    skip = 0,
+    take = 0 // default select all
+  ): Promise<DataSource[]> {
     return await this.repo
       .createQueryBuilder('dataSource')
       .where('dataSource.userId = :userId', { userId })
       .orderBy('dataSource.creationDate', 'DESC')
+      .skip(skip)
+      .take(take)
       .getMany()
   }
 
