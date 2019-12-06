@@ -24,14 +24,11 @@ describe('UPDATE: /data-source/:id', () => {
 
   it('200: OK', async () => {
     const newTitle = 'New Title'
-    let response = await instance.get(
-      `/data-source/${id}`,
-      {
-        headers: {
-          Cookie: params.cookie,
-        },
-      }
-    )
+    let response = await instance.get(`/data-source/${id}`, {
+      headers: {
+        Cookie: params.cookie,
+      },
+    })
     response = await instance.put(
       `/data-source/${id}`,
       { ...response.data, title: newTitle },
