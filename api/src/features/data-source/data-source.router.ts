@@ -298,7 +298,7 @@ export class DataSourceRouter {
      *         schema:
      *           type: number
      *         description: Defines the amount of the requested data sources.
-     *     summary: List data source
+     *     summary: List data sources
      *     description: List all the data sources.
      *     responses:
      *       200:
