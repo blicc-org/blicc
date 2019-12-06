@@ -27,7 +27,7 @@ describe('POST: /data-source', () => {
   })
 
   it('401: Unauthorized', async () => {
-    let response = await instance.post('/data-source', dataSource, {})
+    const response = await instance.post('/data-source', dataSource, {})
     expect(response.status).toBe(401)
   })
 })

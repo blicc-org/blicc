@@ -23,7 +23,7 @@ describe('GET: /data-source/:id', () => {
   })
 
   it('200: OK', async () => {
-    let response = await instance.get(`/data-source/${id}`, {
+    const response = await instance.get(`/data-source/${id}`, {
       headers: {
         Cookie: params.cookie,
       },
@@ -34,16 +34,19 @@ describe('GET: /data-source/:id', () => {
   })
 
   it('401: Unauthorized', async () => {
-    let response = await instance.get(`/data-source/${id}`)
+    const response = await instance.get(`/data-source/${id}`)
     expect(response.status).toBe(401)
   })
 
   it('403: Forbidden', async () => {
-    let response = await instance.get(`/data-source/id_which_does_not_exist`, {
-      headers: {
-        Cookie: params.cookie,
-      },
-    })
+    const response = await instance.get(
+      `/data-source/id_which_does_not_exist`,
+      {
+        headers: {
+          Cookie: params.cookie,
+        },
+      }
+    )
     expect(response.status).toBe(403)
   })
 })

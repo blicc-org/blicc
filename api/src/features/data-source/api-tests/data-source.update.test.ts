@@ -24,7 +24,7 @@ describe('UPDATE: /data-source/:id', () => {
 
   it('200: OK', async () => {
     const newTitle = 'New Title'
-    let response = await instance.put(
+    const response = await instance.put(
       `/data-source/${id}`,
       { ...dataSource, title: newTitle },
       {
@@ -39,7 +39,7 @@ describe('UPDATE: /data-source/:id', () => {
   })
 
   it('401: Unauthorized', async () => {
-    let response = await instance.put(`/data-source/${id}`)
+    const response = await instance.put(`/data-source/${id}`)
     expect(response.status).toBe(401)
   })
 })

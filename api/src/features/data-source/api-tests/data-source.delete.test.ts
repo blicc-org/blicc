@@ -39,12 +39,12 @@ describe('DELETE: /data-source/:id', () => {
   })
 
   it('401: Unauthorized', async () => {
-    let response = await instance.delete('/data-source')
+    const response = await instance.delete('/data-source')
     expect(response.status).toBe(401)
   })
 
   it('403: Forbidden', async () => {
-    let response = await instance.delete(
+    const response = await instance.delete(
       `/data-source/id_which_does_not_exist`,
       {
         headers: {

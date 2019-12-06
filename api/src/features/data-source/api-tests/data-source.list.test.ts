@@ -23,7 +23,7 @@ describe('GET: /data-source', () => {
   })
 
   it('200: OK', async () => {
-    let response = await instance.get('/data-source', {
+    const response = await instance.get('/data-source', {
       headers: {
         Cookie: params.cookie,
       },
@@ -34,7 +34,7 @@ describe('GET: /data-source', () => {
   })
 
   it('401: Unauthorized', async () => {
-    let response = await instance.get('/data-source')
+    const response = await instance.get('/data-source')
     expect(response.status).toBe(401)
   })
 })
