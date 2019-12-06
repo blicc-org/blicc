@@ -7,15 +7,13 @@ import { dataSource } from '../mocks/data-source.mock'
 
 describe('GET: /data-source', () => {
   let params = { email: '', userId: '', cookie: '' }
-  let id = ''
   beforeEach(async () => {
     params = await initializeUser()
-    const { data } = await instance.post('/data-source', dataSource, {
+    await instance.post('/data-source', dataSource, {
       headers: {
         Cookie: params.cookie,
       },
     })
-    id = data.id
   })
 
   afterEach(async () => {
