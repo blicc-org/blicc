@@ -1,5 +1,5 @@
 import Koa from 'koa'
-import status from 'http-status-codes'
+import statusCode from 'http-status-codes'
 import { UserService } from '../user'
 import { TwoFactorAuthService } from './two-factor-auth.service'
 
@@ -16,13 +16,13 @@ export class TwoFactorAuthController {
     await next()
 
     if (ctx.user.hasTwoFactorAuth) {
-      ctx.status = status.CONFLICT
+      ctx.status = statusCode.CONFLICT
     } else {
       const { secret, otpAuthUrl } = this.twoFactorAuthService.generateSecret()
       ctx.user.twoFactorAuthSecret = secret
       await this.userService.update(ctx.user)
       ctx.body = { otpAuthUrl }
-      ctx.status = status.OK
+      ctx.status = statusCode.OK
     }
   }
 
@@ -34,9 +34,9 @@ export class TwoFactorAuthController {
     if (await this.twoFactorAuthService.authenticate(ctx.user.email, token)) {
       ctx.user.hasTwoFactorAuth = true
       await this.userService.update(ctx.user)
-      ctx.status = status.NO_CONTENT
+      ctx.status = statusCode.NO_CONTENT
     } else {
-      ctx.status = status.BAD_REQUEST
+      ctx.status = statusCode.BAD_REQUEST
     }
   }
 }

@@ -1,5 +1,5 @@
 import Koa from 'koa'
-import status from 'http-status-codes'
+import statusCode from 'http-status-codes'
 import { DashboardService } from './dashboard.service'
 import { Validation } from '../../util/validation'
 
@@ -24,10 +24,10 @@ export class DashboardController {
     const dashboard = await this.dashboardService.select(id)
     if (dashboard !== undefined && ctx.user.id === dashboard.userId) {
       ctx.body = dashboard
-      ctx.status = status.OK
+      ctx.status = statusCode.OK
       return
     }
-    ctx.status = status.FORBIDDEN
+    ctx.status = statusCode.FORBIDDEN
   }
 
   public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
@@ -57,40 +57,40 @@ export class DashboardController {
     )
 
     ctx.body = { total, dashboards }
-    ctx.status = status.OK
+    ctx.status = statusCode.OK
   }
 
   public async update(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
+
     const { id } = ctx.params
     let dashboard = await this.dashboardService.select(id)
-    if (dashboard !== undefined && ctx.user.id === dashboard.userId) {
+
+    if (dashboard && ctx.user.id === dashboard.userId) {
       if (
-        ctx.request.body.id !== dashboard.id ||
-        ctx.request.body.userId !== dashboard.userId ||
-        ctx.request.body.creationDate !== dashboard.creationDate
+        ctx.request.body.id === dashboard.id &&
+        ctx.request.body.userId === dashboard.userId &&
+        ctx.request.body.creationDate === dashboard.creationDate
       ) {
-        ctx.status = status.BAD_REQUEST
+        ctx.body = await this.dashboardService.update(ctx.request.body)
+        ctx.status = statusCode.OK
         return
       }
-
-      dashboard = await this.dashboardService.update(ctx.request.body)
-      ctx.body = dashboard
-      ctx.status = status.OK
+      ctx.status = statusCode.BAD_REQUEST
       return
     }
-    ctx.status = status.FORBIDDEN
+    ctx.status = statusCode.FORBIDDEN
   }
 
   public async delete(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     const { id } = ctx.params
     const dashboard = await this.dashboardService.select(id)
-    if (dashboard !== undefined && ctx.user.id === dashboard.userId) {
+    if (dashboard && ctx.user.id === dashboard.userId) {
       ctx.body = await this.dashboardService.remove(dashboard)
-      ctx.status = status.OK
+      ctx.status = statusCode.OK
       return
     }
-    ctx.status = status.FORBIDDEN
+    ctx.status = statusCode.FORBIDDEN
   }
 }

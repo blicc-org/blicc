@@ -1,18 +1,11 @@
-import {
-  initializeUser,
-  instance,
-  getAdmin,
-  clearUser,
-} from '../../../common/tests/user.helper'
+import { instance, getAdmin } from '../../../common/tests/user.helper'
 import { chart } from '../mocks/chart.mock'
 
 describe('UPDATE: /charts/:id', () => {
-  let userParams = { email: '', userId: '', cookie: '' }
   let adminParams = { email: '', cookie: '' }
   let id = ''
 
   beforeEach(async () => {
-    userParams = await initializeUser()
     adminParams = await getAdmin()
     const response = await instance.post('/charts', chart, {
       headers: {
@@ -22,24 +15,27 @@ describe('UPDATE: /charts/:id', () => {
     id = response.data.id
   })
 
-  afterEach(async () => {
-    await clearUser(userParams.userId, userParams.cookie)
-  })
-
   it('200: OK', async () => {
+    const { data } = await instance.get(`/charts/${id}`, {
+      headers: {
+        Cookie: adminParams.cookie,
+      },
+    })
+
     let response = await instance.put(
       `/charts/${id}`,
-      { ...chart, title: 'Title2' },
+      { ...data, title: 'Title2' },
       {
         headers: {
-          Cookie: userParams.cookie,
+          Cookie: adminParams.cookie,
         },
       }
     )
     expect(response.status).toBe(200)
+
     response = await instance.get(`/charts/${id}`, {
       headers: {
-        Cookie: userParams.cookie,
+        Cookie: adminParams.cookie,
       },
     })
     expect(response.status).toBe(200)

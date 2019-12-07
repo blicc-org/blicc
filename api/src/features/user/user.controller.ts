@@ -1,5 +1,5 @@
 import Koa from 'koa'
-import status from 'http-status-codes'
+import statusCode from 'http-status-codes'
 import { UserService } from './user.service'
 import { Validation } from '../../util/validation'
 import { TokenService } from '../token/token.service'
@@ -27,7 +27,7 @@ export class UserController {
       !Validation.isEmail(email) ||
       !Validation.isPassword(password)
     ) {
-      ctx.status = status.UNPROCESSABLE_ENTITY
+      ctx.status = statusCode.UNPROCESSABLE_ENTITY
       return
     }
 
@@ -39,15 +39,15 @@ export class UserController {
         password
       )
       if (!user) {
-        ctx.status = status.CONFLICT
+        ctx.status = statusCode.CONFLICT
         return
       } else {
-        ctx.status = status.CREATED
+        ctx.status = statusCode.CREATED
         ctx.body = user
         return
       }
     } catch (e) {
-      ctx.status = status.INTERNAL_SERVER_ERROR
+      ctx.status = statusCode.INTERNAL_SERVER_ERROR
     }
   }
 
@@ -58,18 +58,18 @@ export class UserController {
       const user = await this.userService.selectById(id)
       if (user !== undefined && ctx.user.id === id) {
         ctx.body = user
-        ctx.status = status.OK
+        ctx.status = statusCode.OK
         return
       }
-      ctx.status = status.FORBIDDEN
+      ctx.status = statusCode.FORBIDDEN
     } catch (e) {
-      ctx.status = status.INTERNAL_SERVER_ERROR
+      ctx.status = statusCode.INTERNAL_SERVER_ERROR
     }
   }
 
   public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    ctx.status = status.OK
+    ctx.status = statusCode.OK
     const users = await this.userService.list()
     const total = await this.userService.getTotalEntries()
     ctx.body = {
@@ -93,13 +93,13 @@ export class UserController {
         )
       ) {
         if (await this.userService.deleteById(id)) {
-          ctx.status = status.OK
+          ctx.status = statusCode.OK
           delete ctx.user.id
           ctx.body = ctx.user
         } else throw Error('An error occured while requesting a deletion.')
       }
     } catch (e) {
-      ctx.status = status.INTERNAL_SERVER_ERROR
+      ctx.status = statusCode.INTERNAL_SERVER_ERROR
     }
   }
 }

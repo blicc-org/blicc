@@ -1,5 +1,5 @@
 import Koa from 'koa'
-import status from 'http-status-codes'
+import statusCode from 'http-status-codes'
 import { TokenService } from './token.service'
 import { UserService } from '../user'
 import { JWT } from '../../util/jwt'
@@ -23,18 +23,18 @@ export class TokenController {
     const user = await this.userService.select(email)
 
     if (!user) {
-      ctx.status = status.NOT_FOUND
+      ctx.status = statusCode.NOT_FOUND
       return
     }
 
     if (!body.token) {
       const check2FA = false
       if (!(await this.tokenService.authenticate(email, password, check2FA))) {
-        ctx.status = status.FORBIDDEN
+        ctx.status = statusCode.FORBIDDEN
         return
       }
       if (user.hasTwoFactorAuth) {
-        ctx.status = status.OK
+        ctx.status = statusCode.OK
         ctx.body = { hasTwoFactorAuth: true }
         return
       }
@@ -49,7 +49,7 @@ export class TokenController {
           token
         ))
       ) {
-        ctx.status = status.FORBIDDEN
+        ctx.status = statusCode.FORBIDDEN
         return
       }
     }
@@ -65,7 +65,7 @@ export class TokenController {
       sameSite: IS_PROD ? 'Strict' : undefined,
     })
 
-    ctx.status = status.ACCEPTED
+    ctx.status = statusCode.ACCEPTED
     ctx.body = {
       ...user,
     }
@@ -73,7 +73,7 @@ export class TokenController {
 
   public async clear(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    ctx.status = status.OK
+    ctx.status = statusCode.OK
     ctx.cookies.set('access_token', '', {
       maxAge: new Date().getTime(),
     })

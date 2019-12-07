@@ -52,4 +52,38 @@ export class ChartController {
     ctx.body = { total, charts }
     ctx.status = statusCode.OK
   }
+
+  public async update(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+    await next()
+
+    const { id } = ctx.params
+    const chart = await this.chartService.selectById(id)
+
+    if (chart && chart.userId === ctx.user.id) {
+      if (
+        ctx.request.body.id === chart.id &&
+        ctx.request.body.userId === chart.userId &&
+        ctx.request.body.creationDate === chart.creationDate
+      ) {
+        ctx.body = await this.chartService.update(ctx.request.body)
+        ctx.status = statusCode.OK
+        return
+      }
+      ctx.status = statusCode.BAD_REQUEST
+      return
+    }
+    ctx.status = statusCode.FORBIDDEN
+  }
+
+  public async remove(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+    await next()
+    const { id } = ctx.params
+    const chart = await this.chartService.selectById(id)
+    if (chart && ctx.user.id === chart.userId) {
+      ctx.body = await this.chartService.remove(chart)
+      ctx.status = statusCode.OK
+      return
+    }
+    ctx.status = statusCode.FORBIDDEN
+  }
 }

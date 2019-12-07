@@ -1,5 +1,5 @@
 import Koa from 'koa'
-import status from 'http-status-codes'
+import statusCode from 'http-status-codes'
 import { DataSourceService } from './data-source.service'
 import { Validation } from '../../util/validation'
 
@@ -37,10 +37,10 @@ export class DataSourceController {
     const dataSource = await this.dataSourceService.select(id)
     if (dataSource !== undefined && ctx.user.id === dataSource.userId) {
       ctx.body = dataSource
-      ctx.status = status.OK
+      ctx.status = statusCode.OK
       return
     }
-    ctx.status = status.FORBIDDEN
+    ctx.status = statusCode.FORBIDDEN
   }
 
   public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
@@ -72,12 +72,12 @@ export class DataSourceController {
     const total = await this.dataSourceService.getTotalEntriesByUserId(id)
 
     if (!dataSources) {
-      ctx.status = status.BAD_REQUEST
+      ctx.status = statusCode.BAD_REQUEST
       return
     }
 
     ctx.body = { total, dataSources }
-    ctx.status = status.OK
+    ctx.status = statusCode.OK
   }
 
   public async update(ctx: Koa.DefaultContext, next: Function): Promise<void> {
@@ -85,33 +85,31 @@ export class DataSourceController {
     const { id } = ctx.params
     let dataSource = await this.dataSourceService.select(id)
 
-    if (dataSource !== undefined && ctx.user.id === dataSource.userId) {
+    if (dataSource && ctx.user.id === dataSource.userId) {
       if (
-        ctx.request.body.id !== dataSource.id ||
-        ctx.request.body.userId !== dataSource.userId ||
-        ctx.request.body.creationDate !== dataSource.creationDate
+        ctx.request.body.id === dataSource.id &&
+        ctx.request.body.userId === dataSource.userId &&
+        ctx.request.body.creationDate === dataSource.creationDate
       ) {
-        ctx.status = status.BAD_REQUEST
+        ctx.body = await this.dataSourceService.update(ctx.request.body)
+        ctx.status = statusCode.OK
         return
       }
-
-      dataSource = await this.dataSourceService.update(ctx.request.body)
-      ctx.body = dataSource
-      ctx.status = status.OK
+      ctx.status = statusCode.BAD_REQUEST
       return
     }
-    ctx.status = status.FORBIDDEN
+    ctx.status = statusCode.FORBIDDEN
   }
 
   public async remove(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     const { id } = ctx.params
     const dataSource = await this.dataSourceService.select(id)
-    if (dataSource !== undefined && ctx.user.id === dataSource.userId) {
+    if (dataSource && ctx.user.id === dataSource.userId) {
       ctx.body = await this.dataSourceService.remove(dataSource)
-      ctx.status = status.OK
+      ctx.status = statusCode.OK
       return
     }
-    ctx.status = status.FORBIDDEN
+    ctx.status = statusCode.FORBIDDEN
   }
 }

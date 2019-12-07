@@ -23,7 +23,7 @@ export class ChartService {
     )
   }
 
-  public async selectById(id: string): Promise<Chart | undefined> {
+  public async selectById(id: string): Promise<ChartEntity | undefined> {
     return await this.repo.findOne({ id })
   }
 
@@ -55,6 +55,16 @@ export class ChartService {
         title: '%' + searchTerm + '%',
       })
       .getCount()
+  }
+
+  public async update(chart: Chart): Promise<ChartEntity> {
+    return await this.repo.save(chart)
+  }
+
+  public async remove(chart: ChartEntity): Promise<Chart> {
+    chart = await chart.remove()
+    delete chart.id
+    return chart
   }
 
   public async generateId(): Promise<string> {

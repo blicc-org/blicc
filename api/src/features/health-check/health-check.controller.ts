@@ -1,5 +1,5 @@
 import Koa from 'koa'
-import status from 'http-status-codes'
+import statusCode from 'http-status-codes'
 
 export class HealthCheckController {
   public async healthCheck(
@@ -7,7 +7,7 @@ export class HealthCheckController {
     next: Function
   ): Promise<void> {
     await next()
-    ctx.status = status.OK
+    ctx.status = statusCode.OK
   }
 
   public async healthCheckAuth(
@@ -15,6 +15,6 @@ export class HealthCheckController {
     next: Function
   ): Promise<void> {
     await next()
-    ctx.status = status.OK
+    ctx.status = statusCode.OK
   }
 }

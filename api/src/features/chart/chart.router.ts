@@ -170,7 +170,7 @@ export class ChartRouter {
      *       - Charts
      *     parameters:
      *       - in: path
-     *         name: userId
+     *         name: id
      *         required: true
      *         schema:
      *           type: string
@@ -381,6 +381,262 @@ export class ChartRouter {
         },
       },
       handler: this.controller.list.bind(this.controller),
+    })
+
+    /**
+     * @swagger
+     *
+     * /charts/{id}:
+     *   put:
+     *     security:
+     *       - cookieAuth: []
+     *     securitySchemes:
+     *       bearerAuth:
+     *         type: http
+     *         scheme: bearer
+     *         bearerFormat: JWT
+     *     produces:
+     *       - application/json
+     *     tags:
+     *       - Charts
+     *     summary: Update chart
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: string
+     *     description: Update a chart by the given id.
+     *     requestBody:
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - dashboard
+     *               properties:
+     *                 dashboard:
+     *                   type: object
+     *                   required:
+     *                   - id
+     *                   - title
+     *                   - bundle
+     *                   - description
+     *                   - userId
+     *                   - slug
+     *                   - creationDate
+     *                   properties:
+     *                     id:
+     *                       type: string
+     *                     title:
+     *                       type: string
+     *                     bundle:
+     *                       type: string
+     *                     description:
+     *                       type: string
+     *                     userId:
+     *                       type: string
+     *                     slug:
+     *                       type: string
+     *                     creationDate:
+     *                       type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   id: "WaDQc9_H",
+     *                   title: "Pie chart",
+     *                   bundle: "Essentials",
+     *                   description: "Show your data in a pie chart.",
+     *                   userId: "b1x_S29n",
+     *                   slug: "essentials/pie-chart",
+     *                   creationDate: "2019-11-02T15:45:58.284Z"
+     *                 }
+     *     responses:
+     *       200:
+     *         description: OK
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - dashboard
+     *               properties:
+     *                 dashboard:
+     *                   type: object
+     *                   required:
+     *                   - id
+     *                   - title
+     *                   - bundle
+     *                   - description
+     *                   - userId
+     *                   - slug
+     *                   - creationDate
+     *                   properties:
+     *                     id:
+     *                       type: string
+     *                     title:
+     *                       type: string
+     *                     bundle:
+     *                       type: string
+     *                     description:
+     *                       type: string
+     *                     userId:
+     *                       type: string
+     *                     slug:
+     *                       type: string
+     *                     creationDate:
+     *                       type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   id: "WaDQc9_H",
+     *                   title: "Updated Title",
+     *                   bundle: "Essentials",
+     *                   description: "Updated description.",
+     *                   userId: "b1x_S29n",
+     *                   slug: "essentials/updated-title",
+     *                   creationDate: "2019-11-02T15:45:58.284Z"
+     *                 }
+     *       401:
+     *         description: Unauthorized
+     *       403:
+     *         description: Forbidden
+     *       500:
+     *         description: Internal Server Error
+     */
+    this.router.route({
+      method: 'put',
+      path: '/:id',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['developer', 'admin']),
+      ],
+      validate: {
+        type: 'json',
+        body: {
+          id: Joi.string().required(),
+          title: Joi.string().required(),
+          bundle: Joi.string().required(),
+          description: Joi.string()
+            .allow('')
+            .optional(),
+          userId: Joi.string().required(),
+          slug: Joi.string().required(),
+          creationDate: Joi.string().required(),
+        },
+        output: {
+          200: {
+            body: {
+              id: Joi.string().required(),
+              title: Joi.string().required(),
+              bundle: Joi.string().required(),
+              description: Joi.string()
+                .allow('')
+                .optional(),
+              userId: Joi.string().required(),
+              slug: Joi.string().required(),
+              creationDate: Joi.string().required(),
+            },
+          },
+        },
+      },
+      handler: this.controller.update.bind(this.controller),
+    })
+
+    /**
+     * @swagger
+     *
+     * /charts/{id}:
+     *   delete:
+     *     security:
+     *       - cookieAuth: []
+     *     securitySchemes:
+     *       bearerAuth:
+     *         type: http
+     *         scheme: bearer
+     *         bearerFormat: JWT
+     *     produces:
+     *       - application/json
+     *     tags:
+     *       - Charts
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: string
+     *     summary: Delete chart
+     *     description: Delete a chart by the given id.
+     *     responses:
+     *       200:
+     *         description: OK
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - dashboard
+     *               properties:
+     *                 dashboard:
+     *                   type: object
+     *                   required:
+     *                   - title
+     *                   - bundle
+     *                   - description
+     *                   - userId
+     *                   - slug
+     *                   - creationDate
+     *                   properties:
+     *                     title:
+     *                       type: string
+     *                     bundle:
+     *                       type: string
+     *                     description:
+     *                       type: string
+     *                     userId:
+     *                       type: string
+     *                     slug:
+     *                       type: string
+     *                     creationDate:
+     *                       type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   title: "Updated Title",
+     *                   bundle: "Essentials",
+     *                   description: "Updated description.",
+     *                   userId: "b1x_S29n",
+     *                   slug: "essentials/updated-title",
+     *                   creationDate: "2019-11-02T15:45:58.284Z"
+     *                 }
+     *       401:
+     *         description: Unauthorized
+     *       403:
+     *         description: Forbidden
+     *       500:
+     *         description: Internal Server Error
+     */
+    this.router.route({
+      method: 'delete',
+      path: '/:id',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['developer', 'admin']),
+      ],
+      validate: {
+        output: {
+          200: {
+            body: {
+              title: Joi.string().required(),
+              bundle: Joi.string().required(),
+              description: Joi.string()
+                .allow('')
+                .optional(),
+              userId: Joi.string().required(),
+              slug: Joi.string().required(),
+              creationDate: Joi.string().required(),
+            },
+          },
+        },
+      },
+      handler: this.controller.remove.bind(this.controller),
     })
 
     return this.router.middleware()
