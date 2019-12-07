@@ -13,26 +13,30 @@ export function PluginLoader({ slug }) {
       const Plugin = await import(
         /*webpackIgnore: true*/ `${API.ORIGIN}/plugin-data/${slug}`
       )
+        .then(() => {
+          setIsLoading(false)
 
-      setIsLoading(false)
+          const data = [1.0, 0.4, 0.6, 2.3, 0.9, 7.5]
+          function onDataUpdate(callback) {
+            callback()
+          }
 
-      const data = [1.0, 0.4, 0.6, 2.3, 0.9, 7.5]
-      function onDataUpdate(callback) {
-        callback()
-      }
+          const layout = {
+            color: theme.primary,
+          }
 
-      const layout = {
-        color: theme.primary,
-      }
-
-      Plugin.render(
-        ref.current,
-        data,
-        onDataUpdate,
-        settings,
-        setSettings,
-        layout
-      )
+          Plugin.render(
+            ref.current,
+            data,
+            onDataUpdate,
+            settings,
+            setSettings,
+            layout
+          )
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
 
     fetchPlugin()
