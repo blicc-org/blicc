@@ -23,7 +23,7 @@ export class DataSourceRouter {
     /**
      * @swagger
      *
-     * /data-source:
+     * /data-sources:
      *   post:
      *     security:
      *       - cookieAuth: []
@@ -167,7 +167,7 @@ export class DataSourceRouter {
     /**
      * @swagger
      *
-     * /data-source/{id}:
+     * /data-sources/{id}:
      *   get:
      *     security:
      *       - cookieAuth: []
@@ -276,7 +276,7 @@ export class DataSourceRouter {
     /**
      * @swagger
      *
-     * /data-source:
+     * /data-sources:
      *   get:
      *     security:
      *       - cookieAuth: []
@@ -391,7 +391,6 @@ export class DataSourceRouter {
                   .optional(),
                 userId: Joi.string(),
                 requestConfig: Joi.object(),
-
                 creationDate: Joi.string(),
                 persistData: Joi.boolean(),
                 fetchFrequency: Joi.number(),
@@ -406,7 +405,7 @@ export class DataSourceRouter {
     /**
      * @swagger
      *
-     * /data-source/{id}:
+     * /data-sources/{id}:
      *   put:
      *     security:
      *       - cookieAuth: []
@@ -576,7 +575,7 @@ export class DataSourceRouter {
     /**
      * @swagger
      *
-     * /data-source/{id}:
+     * /data-sources/{id}:
      *   delete:
      *     security:
      *       - cookieAuth: []

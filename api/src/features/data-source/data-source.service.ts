@@ -43,7 +43,7 @@ export class DataSourceService {
     return await this.repo
       .createQueryBuilder('dataSource')
       .where('dataSource.userId = :userId', { userId })
-      .andWhere('LOWER(dashboard.title) like LOWER(:title)', {
+      .andWhere('LOWER(dataSource.title) like LOWER(:title)', {
         title: '%' + searchTerm + '%',
       })
       .orderBy('dataSource.creationDate', 'DESC')

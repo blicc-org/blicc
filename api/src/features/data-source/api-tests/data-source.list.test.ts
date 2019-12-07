@@ -5,23 +5,23 @@ import {
 } from '../../../common/tests/user.helper'
 import { dataSource } from '../mocks/data-source.mock'
 
-describe('GET: /data-source', () => {
+describe('GET: /data-sources', () => {
   let params = { email: '', userId: '', cookie: '' }
-  beforeEach(async () => {
+  beforeAll(async () => {
     params = await initializeUser()
-    await instance.post('/data-source', dataSource, {
+    await instance.post('/data-sources', dataSource, {
       headers: {
         Cookie: params.cookie,
       },
     })
   })
 
-  afterEach(async () => {
+  afterAll(async () => {
     await clearUser(params.userId, params.cookie)
   })
 
   it('200: OK', async () => {
-    let response = await instance.get('/data-source', {
+    let response = await instance.get('/data-sources', {
       headers: {
         Cookie: params.cookie,
       },
@@ -31,7 +31,7 @@ describe('GET: /data-source', () => {
     expect(response.data.dataSources.length).toBeGreaterThan(0)
 
     await instance.post(
-      '/data-source',
+      '/data-sources',
       { ...dataSource, title: 'Title2' },
       {
         headers: {
@@ -40,7 +40,7 @@ describe('GET: /data-source', () => {
       }
     )
 
-    response = await instance.get('/data-source?search=Title2', {
+    response = await instance.get('/data-sources?search=Title2', {
       headers: {
         Cookie: params.cookie,
       },
@@ -49,17 +49,8 @@ describe('GET: /data-source', () => {
     expect(response.data.dataSources[0].title).toEqual('Title2')
   })
 
-  it('400: Bad request', async () => {
-    const response = await instance.get('/data-source?fields=wrongFieldName', {
-      headers: {
-        Cookie: params.cookie,
-      },
-    })
-    expect(response.status).toBe(400)
-  })
-
   it('401: Unauthorized', async () => {
-    const response = await instance.get('/data-source')
+    const response = await instance.get('/data-sources')
     expect(response.status).toBe(401)
   })
 })

@@ -5,12 +5,12 @@ import {
 } from '../../../common/tests/user.helper'
 import { dataSource } from '../mocks/data-source.mock'
 
-describe('UPDATE: /data-source/:id', () => {
+describe('UPDATE: /data-sources/:id', () => {
   let params = { email: '', userId: '', cookie: '' }
   let id = ''
   beforeEach(async () => {
     params = await initializeUser()
-    const { data } = await instance.post('/data-source', dataSource, {
+    const { data } = await instance.post('/data-sources', dataSource, {
       headers: {
         Cookie: params.cookie,
       },
@@ -24,13 +24,13 @@ describe('UPDATE: /data-source/:id', () => {
 
   it('200: OK', async () => {
     const newTitle = 'New Title'
-    let response = await instance.get(`/data-source/${id}`, {
+    let response = await instance.get(`/data-sources/${id}`, {
       headers: {
         Cookie: params.cookie,
       },
     })
     response = await instance.put(
-      `/data-source/${id}`,
+      `/data-sources/${id}`,
       { ...response.data, title: newTitle },
       {
         headers: {
@@ -44,7 +44,7 @@ describe('UPDATE: /data-source/:id', () => {
   })
 
   it('401: Unauthorized', async () => {
-    const response = await instance.put(`/data-source/${id}`)
+    const response = await instance.put(`/data-sources/${id}`)
     expect(response.status).toBe(401)
   })
 })

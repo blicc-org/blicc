@@ -5,7 +5,7 @@ import {
 } from '../../../common/tests/user.helper'
 import { dataSource } from '../mocks/data-source.mock'
 
-describe('POST: /data-source', () => {
+describe('POST: /data-sources', () => {
   let params = { email: '', userId: '', cookie: '' }
 
   beforeEach(async () => {
@@ -17,7 +17,7 @@ describe('POST: /data-source', () => {
   })
 
   it('201: Created', async () => {
-    const { status, data } = await instance.post('/data-source', dataSource, {
+    const { status, data } = await instance.post('/data-sources', dataSource, {
       headers: {
         Cookie: params.cookie,
       },
@@ -27,7 +27,7 @@ describe('POST: /data-source', () => {
   })
 
   it('401: Unauthorized', async () => {
-    const response = await instance.post('/data-source', dataSource, {})
+    const response = await instance.post('/data-sources', dataSource, {})
     expect(response.status).toBe(401)
   })
 })
