@@ -64,7 +64,7 @@ export class DashboardController {
     await next()
 
     const { id } = ctx.params
-    let dashboard = await this.dashboardService.select(id)
+    const dashboard = await this.dashboardService.select(id)
 
     if (dashboard && ctx.user.id === dashboard.userId) {
       if (

@@ -83,7 +83,7 @@ export class DataSourceController {
   public async update(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     const { id } = ctx.params
-    let dataSource = await this.dataSourceService.select(id)
+    const dataSource = await this.dataSourceService.select(id)
 
     if (dataSource && ctx.user.id === dataSource.userId) {
       if (
