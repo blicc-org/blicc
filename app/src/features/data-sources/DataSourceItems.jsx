@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export function DashboardsItem({ dashboard }) {
-  const { id, title, description, creationDate } = dashboard
+export function DataSourceItems({ dataSource }) {
+  const { id, title, description, creationDate } = dataSource
   return (
     <tr>
       <td>
@@ -11,8 +11,8 @@ export function DashboardsItem({ dashboard }) {
           {creationDate.split('T')[0]}
         </h6>
         <p className="card-text">{description}</p>
-        <Link className="card-link" to={`/dashboards/${id}`}>
-          View Dashboard
+        <Link className="card-link" to={`/data-sources/${id}`}>
+          View Data Source
         </Link>
       </td>
     </tr>

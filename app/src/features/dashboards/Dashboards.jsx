@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
-import { DashboardsItem } from './DashboardsItem'
+import { DashboardItem } from './DashboardItem'
 import { useApiEndpoint, INITIAL_DASHBOARD } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { Pagination } from '../../common/components/pagination/Pagination'
@@ -114,7 +114,7 @@ export function Dashboards() {
               <tbody>
                 {result.dashboards.map(dashboard => {
                   return (
-                    <DashboardsItem key={dashboard.id} dashboard={dashboard} />
+                    <DashboardItem key={dashboard.id} dashboard={dashboard} />
                   )
                 })}
               </tbody>
