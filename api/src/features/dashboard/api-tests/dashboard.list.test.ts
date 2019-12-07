@@ -108,15 +108,6 @@ describe('GET: /dashboards', () => {
     await clearUser(newUser.userId, newUser.cookie)
   })
 
-  it('400: Bad request', async () => {
-    const response = await instance.get('/dashboards?fields=wrongFieldName', {
-      headers: {
-        Cookie: params.cookie,
-      },
-    })
-    expect(response.status).toBe(400)
-  })
-
   it('401: Unauthorized', async () => {
     const { status } = await instance.get('/dashboards')
     expect(status).toBe(401)

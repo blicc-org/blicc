@@ -5,14 +5,6 @@ import shortid from 'shortid'
 
 export class DashboardService {
   private repo: Repository<DashboardEntity>
-  private dashboardFields: string[] = [
-    'id',
-    'title',
-    'description',
-    'userId',
-    'creationDate',
-    'data',
-  ]
 
   public constructor() {
     this.repo = getRepository(DashboardEntity)
@@ -35,12 +27,11 @@ export class DashboardService {
 
   public async listByUserId(
     userId: string,
-    fields: string[] = this.dashboardFields,
+    fields: string[],
     searchTerm = '',
     skip = 0,
     take = 0 // default select all
-  ): Promise<Dashboard[] | undefined> {
-    if (!this.validateFields(fields)) return undefined
+  ): Promise<Dashboard[]> {
     fields = fields.map(field => 'dashboard.' + field)
 
     return await this.repo
@@ -84,9 +75,5 @@ export class DashboardService {
     dashboard = await dashboard.remove()
     delete dashboard.id
     return dashboard
-  }
-
-  private validateFields(fields: string[]): boolean {
-    return fields.every(field => this.dashboardFields.includes(field))
   }
 }

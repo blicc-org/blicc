@@ -32,10 +32,14 @@ export class DashboardController {
 
   public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    const fields: string[] = ctx.query.fields
-      ? ctx.query.fields.split(',')
-      : undefined
-
+    const fields = Validation.escapeFields(ctx.query.fields, [
+      'id',
+      'title',
+      'description',
+      'userId',
+      'creationDate',
+      'data',
+    ])
     const searchTerm = Validation.escapeSearchQuery(ctx.query.search)
     const skip = Validation.escapeQueryNumber(ctx.query.skip)
     const take = Validation.escapeQueryNumber(ctx.query.take)
@@ -51,11 +55,6 @@ export class DashboardController {
       ctx.user.id,
       searchTerm
     )
-
-    if (!dashboards) {
-      ctx.status = status.BAD_REQUEST
-      return
-    }
 
     ctx.body = { total, dashboards }
     ctx.status = status.OK

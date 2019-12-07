@@ -26,4 +26,16 @@ export class Validation {
     if (!Number.isInteger(castedNumber)) castedNumber = 0
     return castedNumber
   }
+
+  public static escapeFields(
+    requestedFields: string,
+    existingFields: string[]
+  ): string[] {
+    const fields = requestedFields ? requestedFields.split(',') : undefined
+    if (fields && fields.every(field => existingFields.includes(field))) {
+      return fields
+    } else {
+      return existingFields
+    }
+  }
 }
