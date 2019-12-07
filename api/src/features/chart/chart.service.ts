@@ -28,12 +28,16 @@ export class ChartService {
   }
 
   public async selectAll(
+    fields: string[],
     searchTerm = '',
     skip = 0,
     take = 0 // default select all
   ): Promise<Chart[]> {
+    fields = fields.map(field => 'chart.' + field)
+
     return await this.repo
       .createQueryBuilder('chart')
+      .select(fields)
       .where('LOWER(chart.title) like LOWER(:title)', {
         title: '%' + searchTerm + '%',
       })

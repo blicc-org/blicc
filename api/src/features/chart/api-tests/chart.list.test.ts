@@ -68,6 +68,16 @@ describe('get: /charts', () => {
     })
     expect(response.status).toBe(200)
     expect(response.data.charts[0].title).toEqual('Line Chart')
+
+    response = await instance.get('/charts?fields=id,slug', {
+      headers: {
+        Cookie: userParams.cookie,
+      },
+    })
+    expect(response.status).toBe(200)
+    expect(response.data.charts[0].id).toBeDefined()
+    expect(response.data.charts[0].slug).toBeDefined()
+    expect(response.data.charts[0].title).toBeUndefined()
   })
 
   it('401: Unauthorized', async () => {

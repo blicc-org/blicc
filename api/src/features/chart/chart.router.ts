@@ -271,6 +271,11 @@ export class ChartRouter {
      *       - Charts
      *     parameters:
      *       - in: query
+     *         name: fields
+     *         schema:
+     *           type: number
+     *         description: Define the fields which should be returned like fields=id,title,bundle,description,userId,creationDate,slug
+     *       - in: query
      *         name: skip
      *         schema:
      *           type: number
@@ -361,15 +366,15 @@ export class ChartRouter {
             body: {
               total: Joi.number().required(),
               charts: Joi.array().items({
-                id: Joi.string().required(),
-                title: Joi.string().required(),
-                bundle: Joi.string().required(),
+                id: Joi.string(),
+                title: Joi.string(),
+                bundle: Joi.string(),
                 description: Joi.string()
                   .allow('')
                   .optional(),
-                userId: Joi.string().required(),
-                slug: Joi.string().required(),
-                creationDate: Joi.string().required(),
+                userId: Joi.string(),
+                slug: Joi.string(),
+                creationDate: Joi.string(),
               }),
             },
           },
