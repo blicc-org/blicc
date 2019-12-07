@@ -36,12 +36,16 @@ export class DataSourceService {
 
   public async listByUserId(
     userId: string,
+    fields: string[],
     searchTerm = '',
     skip = 0,
     take = 0 // default select all
   ): Promise<DataSource[]> {
+    fields = fields.map(field => 'dataSource.' + field)
+
     return await this.repo
       .createQueryBuilder('dataSource')
+      .select(fields)
       .where('dataSource.userId = :userId', { userId })
       .andWhere('LOWER(dataSource.title) like LOWER(:title)', {
         title: '%' + searchTerm + '%',

@@ -47,12 +47,24 @@ export class DataSourceController {
     await next()
 
     const { id } = ctx.user
+
+    const fields = Validation.escapeFields(ctx.query.fields, [
+      'id',
+      'title',
+      'description',
+      'userId',
+      'creationDate',
+      'requestConfig',
+      'persistData',
+      'fetchFrequency',
+    ])
     const searchTerm = Validation.escapeSearchQuery(ctx.query.search)
     const skip = Validation.escapeQueryNumber(ctx.query.skip)
     const take = Validation.escapeQueryNumber(ctx.query.take)
 
     const dataSources = await this.dataSourceService.listByUserId(
       id,
+      fields,
       searchTerm,
       skip,
       take

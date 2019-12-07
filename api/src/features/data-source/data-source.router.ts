@@ -291,6 +291,11 @@ export class DataSourceRouter {
      *       - Data Source
      *     parameters:
      *       - in: query
+     *         name: fields
+     *         schema:
+     *           type: string
+     *         description: Define the fields you want to select like fields=id,title,description,userId,requestConfig,creationDate,persistData,fetchFrequency
+     *       - in: query
      *         name: search
      *         schema:
      *           type: string

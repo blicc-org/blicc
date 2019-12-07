@@ -47,6 +47,15 @@ describe('GET: /data-sources', () => {
     })
     expect(response.status).toBe(200)
     expect(response.data.dataSources[0].title).toEqual('Title2')
+
+    response = await instance.get('/data-sources?fields=id,fetchFrequency', {
+      headers: {
+        Cookie: params.cookie,
+      },
+    })
+    expect(response.status).toBe(200)
+    expect(response.data.dataSources[0].persistData).toBeUndefined()
+    expect(response.data.dataSources[0].fetchFrequency).toBeDefined()
   })
 
   it('401: Unauthorized', async () => {
