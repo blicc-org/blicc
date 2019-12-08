@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import statusCode from 'http-status-codes'
 import { Lock } from 'react-feather'
-import { useApiEndpoint } from '../../common/hooks'
+import { useApiEndpoint, useToast } from '../../common/hooks'
 import { Redirect } from 'react-router-dom'
 import { QRCode } from '../../common/components/qr-code/QRCode'
 import './TwoFactorAuth.scss'
@@ -10,6 +11,18 @@ export function TwoFactorAuth() {
   const [url, setUrl] = useState('')
   const [token, setToken] = useState('')
   const [onSuccess, setOnSuccess] = useState(false)
+  const showToast = useToast()
+
+  async function onClick(e) {
+    e.preventDefault()
+    const { status } = await enable({ token })
+    if (status === statusCode.NO_CONTENT) {
+      showToast('Success', 'Two-factor Authentication is enabled!')
+      setOnSuccess(true)
+    } else {
+      showToast('Error', 'Something went wrong, please try again!')
+    }
+  }
 
   useEffect(() => {
     async function fetchChallengeUrl() {
@@ -51,11 +64,7 @@ export function TwoFactorAuth() {
           <button
             className="btn btn-lg btn-primary btn-block"
             type="submit"
-            onClick={async e => {
-              e.preventDefault()
-              await enable({ token })
-              setOnSuccess(true)
-            }}
+            onClick={onClick}
           >
             Activate
           </button>

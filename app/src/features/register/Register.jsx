@@ -1,9 +1,8 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { RegisterForm } from './RegisterForm'
-import { useApiEndpoint, useLogin } from '../../common/hooks'
+import { useApiEndpoint, useLogin, useToast } from '../../common/hooks'
 import { RegisterService } from './RegisterService'
-import { ToastContext } from '../../common/context'
 import statusCode from 'http-status-codes'
 
 export function Register() {
@@ -17,7 +16,7 @@ export function Register() {
 
   const [createUser, , ,] = useApiEndpoint('/users')
   const [onRegister, setOnRegister] = useState(false)
-  const [, showToast] = useContext(ToastContext)
+  const showToast = useToast()
   const login = useLogin()
 
   async function register() {
