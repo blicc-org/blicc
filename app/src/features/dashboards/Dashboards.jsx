@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
-import { DashboardItem } from './DashboardItem'
 import { useApiEndpoint, INITIAL_DASHBOARD } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { Pagination } from '../../common/components/pagination/Pagination'
 import { useModal } from '../../common/hooks/useModal'
 import { CreateDashboardModal } from './CreateDashboardModal'
+import { Item } from '../../common/components/ui/Item'
 import './Dashboards.scss'
 
 export function Dashboards() {
@@ -112,9 +112,16 @@ export function Dashboards() {
           ) : (
             <table className="table">
               <tbody>
-                {result.dashboards.map(dashboard => {
+                {result.dashboards.map(d => {
                   return (
-                    <DashboardItem key={dashboard.id} dashboard={dashboard} />
+                    <Item
+                      key={d.id}
+                      title={d.title}
+                      subtitle={d.creationDate.split('T')[0]}
+                      description={d.description}
+                      link={`/dashboards/${d.id}`}
+                      linkLabel={'View Dashboard'}
+                    />
                   )
                 })}
               </tbody>
