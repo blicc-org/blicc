@@ -1,18 +1,27 @@
 import React, { useState, useContext, useEffect } from 'react'
 import statusCode from 'http-status-codes'
 import { Link } from 'react-router-dom'
-import { useApiEndpoint, useModal, useToast } from '../../common/hooks'
+import {
+  useApiEndpoint,
+  useModal,
+  useToast,
+  useLogout,
+} from '../../common/hooks'
 import { AppContext } from '../../common/context'
 import { Card } from '../../common/components/ui'
 import { Disable2FAModal } from './Disable2FAModal'
+import { DeleteUserModal } from './DeleteUserModal'
 
 export function Profile() {
   const [appState] = useContext(AppContext)
   const { id } = appState
   const [, accessUser, ,] = useApiEndpoint(`/users/${id}`)
+  const [deleteUser, , ,] = useApiEndpoint(`/users/${id}/delete`)
   const [disable, , ,] = useApiEndpoint('/two-factor-auth/delete')
   const [token, setToken] = useState('')
+  const [password, setPassword] = useState('')
   const showToast = useToast()
+  const logout = useLogout()
   const [reload, setReload] = useState(0)
   const [user, setUser] = useState({
     id: '',
@@ -41,24 +50,62 @@ export function Profile() {
     // eslint-disable-next-line
   }, [reload])
 
-  const [showModal, hideModal] = useModal(
+  const [showDisable2FAModal, hideDisable2FAModal] = useModal(
     () => (
-      <Disable2FAModal setToken={setToken} cancel={hideModal} submit={submit} />
+      <Disable2FAModal
+        setToken={setToken}
+        cancel={hideDisable2FAModal}
+        submit={submitDisable2FA}
+      />
     ),
     [token]
   )
 
-  async function submit() {
+  async function submitDisable2FA() {
     const [status] = await disable({ token })
+    setToken('')
     if (status === statusCode.NO_CONTENT) {
-      hideModal()
-      showToast('Success', 'Two-factor auth is now disabled.')
+      hideDisable2FAModal()
+      showToast('Success', 'Two-factor auth is now disabled.', 'success')
       setReload(prev => ++prev)
     } else {
-      hideModal()
+      hideDisable2FAModal()
       showToast(
         'Error',
-        'An error occured while trying to disable two-factor auth.'
+        'An error occured while trying to disable two-factor auth.',
+        'danger'
+      )
+      setReload(prev => ++prev)
+    }
+  }
+
+  const [showDeleteUserModal, hideDeleteUserModal] = useModal(
+    () => (
+      <DeleteUserModal
+        setToken={setToken}
+        setPassword={setPassword}
+        cancel={hideDeleteUserModal}
+        submit={submitDeleteUser}
+        hasTwoFactorAuth={hasTwoFactorAuth}
+      />
+    ),
+    [token, password]
+  )
+
+  async function submitDeleteUser() {
+    const [status] = await deleteUser({ token, password })
+    setPassword('')
+    setToken('')
+    if (status === statusCode.OK) {
+      hideDeleteUserModal()
+      showToast('Success', 'You successfully deleted your account.', 'success')
+      await logout()
+    } else {
+      hideDeleteUserModal()
+      showToast(
+        'Error',
+        'An error occured while trying to delete your account.',
+        'danger'
       )
       setReload(prev => ++prev)
     }
@@ -126,7 +173,7 @@ export function Profile() {
                   to="/"
                   onClick={e => {
                     e.preventDefault()
-                    showModal()
+                    showDisable2FAModal()
                   }}
                 >
                   Disable
@@ -150,7 +197,14 @@ export function Profile() {
               Deleting an account will also delete all the content created by
               the user.
             </p>
-            <Link className="btn btn-danger" to="/">
+            <Link
+              className="btn btn-danger"
+              to="/"
+              onClick={e => {
+                e.preventDefault()
+                showDeleteUserModal()
+              }}
+            >
               Delete
             </Link>
           </Card>

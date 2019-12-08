@@ -15,7 +15,7 @@ export function Register() {
   })
 
   const [createUser, , ,] = useApiEndpoint('/users')
-  const [onRegister, setOnRegister] = useState(false)
+  const [redirect, setRedirect] = useState('')
   const showToast = useToast()
   const login = useLogin()
 
@@ -34,8 +34,8 @@ export function Register() {
         password: user.password,
       })
       if (status === statusCode.CREATED) {
-        setOnRegister(true)
         await login(user.email, user.password)
+        setRedirect('/dashboards')
       } else if (status === statusCode.CONFLICT) {
         showToast('Conflict', 'The given email already exists.', 'warning')
       } else {
@@ -50,7 +50,7 @@ export function Register() {
 
   return (
     <>
-      {onRegister && <Redirect to="/dashboards" />}
+      {redirect && <Redirect to={redirect} />}
       <RegisterForm user={user} setUser={setUser} register={register} />
     </>
   )
