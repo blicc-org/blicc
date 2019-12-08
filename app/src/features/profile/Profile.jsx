@@ -36,7 +36,7 @@ export function Profile() {
 
   return (
     <>
-      <div className="container">
+      <div className="container pb-5">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
           <h2 className="my-0">Profile</h2>
         </div>
@@ -62,6 +62,13 @@ export function Profile() {
                   </td>
                   <td>{email}</td>
                 </tr>
+              </tbody>
+            </table>
+          </Card>
+          <br />
+          <Card title="Role">
+            <table style={{ width: '100%' }}>
+              <tbody>
                 <tr>
                   <td>
                     <b>Role:</b>
@@ -87,11 +94,21 @@ export function Profile() {
                   To increase the security of the entrance level of your
                   application, enable two-factor authorization.
                 </p>
-                <Link className="btn btn-primary" to="/two-factor-auth">
+                <Link className="btn btn-success" to="/two-factor-auth">
                   Enable
                 </Link>
               </>
             )}
+          </Card>
+          <br />
+          <Card title="Delete Account">
+            <p className="card-text">
+              Deleting an account will also delete all the content created by
+              the user.
+            </p>
+            <Link className="btn btn-danger" to="/">
+              Delete
+            </Link>
           </Card>
         </div>
       </div>
