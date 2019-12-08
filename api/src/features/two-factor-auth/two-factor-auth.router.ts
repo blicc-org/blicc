@@ -115,10 +115,6 @@ export class TwoFactorAuthRouter {
      *         description: Bad request
      *       401:
      *         description: Unauthorized
-     *       403:
-     *         description: Forbidden
-     *       404:
-     *         description: Not found
      *       500:
      *         description: Internal server error
      */
@@ -136,6 +132,59 @@ export class TwoFactorAuthRouter {
         },
       },
       handler: this.controller.enable.bind(this.controller),
+    })
+
+    /**
+     * @swagger
+     *
+     * /two-factor-auth/delete:
+     *   post:
+     *     security:
+     *       - cookieAuth: []
+     *     tags:
+     *       - Two-Factor Auth
+     *     summary: Disable two-factor auth
+     *     description: Disable two-factor Authentication.
+     *     requestBody:
+     *         content:
+     *           application/json:
+     *             schema:
+     *               required:
+     *               - token
+     *               properties:
+     *                 token:
+     *                   type: string
+     *                   required:
+     *                   - token
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   "token": "123456"
+     *                 }
+     *     responses:
+     *       204:
+     *         description: No content
+     *       400:
+     *         description: Bad request
+     *       401:
+     *         description: Unauthorized
+     *       500:
+     *         description: Internal server error
+     */
+    this.router.route({
+      method: 'post',
+      path: '/delete',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
+      ],
+      validate: {
+        type: 'json',
+        body: {
+          token: Joi.string().required(),
+        },
+      },
+      handler: this.controller.disable.bind(this.controller),
     })
 
     return this.router.middleware()

@@ -39,4 +39,19 @@ export class TwoFactorAuthController {
       ctx.status = statusCode.BAD_REQUEST
     }
   }
+
+  public async disable(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+    await next()
+
+    const { token } = ctx.request.body
+
+    if (await this.twoFactorAuthService.authenticate(ctx.user.email, token)) {
+      ctx.user.hasTwoFactorAuth = false
+      ctx.user.twoFactorAuthSecret = ''
+      await this.userService.update(ctx.user)
+      ctx.status = statusCode.NO_CONTENT
+    } else {
+      ctx.status = statusCode.BAD_REQUEST
+    }
+  }
 }
