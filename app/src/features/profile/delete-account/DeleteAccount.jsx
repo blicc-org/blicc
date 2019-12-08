@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import statusCode from 'http-status-codes'
 import { Link } from 'react-router-dom'
 import { Card } from '../../../common/components/ui'
-import { DeleteUserModal } from './DeleteUserModal'
+import { DeleteAccountModal } from './DeleteAccountModal'
 import {
   useModal,
   useLogout,
@@ -16,29 +16,29 @@ export function DeleteAccount({ id, hasTwoFactorAuth }) {
   const [password, setPassword] = useState('')
   const logout = useLogout()
   const showToast = useToast()
-  const [showDeleteUserModal, hideDeleteUserModal] = useModal(
+  const [showModal, hideModal] = useModal(
     () => (
-      <DeleteUserModal
+      <DeleteAccountModal
         setToken={setToken}
         setPassword={setPassword}
-        cancel={hideDeleteUserModal}
-        submit={submitDeleteUser}
+        cancel={hideModal}
+        submit={submit}
         hasTwoFactorAuth={hasTwoFactorAuth}
       />
     ),
     [token, password]
   )
 
-  async function submitDeleteUser() {
+  async function submit() {
     const [status] = await deleteUser({ token, password })
     setPassword('')
     setToken('')
     if (status === statusCode.OK) {
-      hideDeleteUserModal()
+      hideModal()
       showToast('Success', 'You successfully deleted your account.', 'success')
       await logout()
     } else {
-      hideDeleteUserModal()
+      hideModal()
       showToast(
         'Error',
         'An error occured while trying to delete your account.',
@@ -58,7 +58,7 @@ export function DeleteAccount({ id, hasTwoFactorAuth }) {
         to="/"
         onClick={e => {
           e.preventDefault()
-          showDeleteUserModal()
+          showModal()
         }}
       >
         Delete
