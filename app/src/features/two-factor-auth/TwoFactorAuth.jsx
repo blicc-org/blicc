@@ -10,17 +10,18 @@ export function TwoFactorAuth() {
   const [enable, requestSecret, ,] = useApiEndpoint('/two-factor-auth')
   const [url, setUrl] = useState('')
   const [token, setToken] = useState('')
-  const [onSuccess, setOnSuccess] = useState(false)
+  const [redirect, setRedirect] = useState('')
   const showToast = useToast()
 
   async function onClick(e) {
     e.preventDefault()
-    const { status } = await enable({ token })
+    const [status] = await enable({ token })
     if (status === statusCode.NO_CONTENT) {
       showToast('Success', 'Two-factor Authentication is enabled!', 'success')
-      setOnSuccess(true)
+      setRedirect('/dashboards')
     } else {
       showToast('Error', 'Something went wrong, please try again!', 'danger')
+      setRedirect('/profile')
     }
   }
 
@@ -35,7 +36,7 @@ export function TwoFactorAuth() {
 
   return (
     <>
-      {onSuccess && <Redirect to="/dashboards" />}
+      {redirect && <Redirect to={redirect} />}
       <div className="col-md-5 mx-auto py-5 my-5 text-center">
         <form className="form-two-factor-auth">
           <h1 className="h3 mb-3 font-weight-normal">Two-factor auth</h1>

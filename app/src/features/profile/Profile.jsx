@@ -1,13 +1,19 @@
 import React, { useState, useContext, useEffect } from 'react'
+import statusCode from 'http-status-codes'
 import { Link } from 'react-router-dom'
-import { useApiEndpoint } from '../../common/hooks'
+import { useApiEndpoint, useModal, useToast } from '../../common/hooks'
 import { AppContext } from '../../common/context'
 import { Card } from '../../common/components/ui'
+import { Disable2FAModal } from './Disable2FAModal'
 
 export function Profile() {
   const [appState] = useContext(AppContext)
   const { id } = appState
   const [, accessUser, ,] = useApiEndpoint(`/users/${id}`)
+  const [disable, , ,] = useApiEndpoint('/two-factor-auth/delete')
+  const [token, setToken] = useState('')
+  const showToast = useToast()
+  const [reload, setReload] = useState(0)
   const [user, setUser] = useState({
     id: '',
     firstName: '',
@@ -16,6 +22,7 @@ export function Profile() {
     role: '',
     creationDate: '',
   })
+
   const {
     firstName,
     lastName,
@@ -32,7 +39,30 @@ export function Profile() {
     }
     fetchUser()
     // eslint-disable-next-line
-  }, [])
+  }, [reload])
+
+  const [showModal, hideModal] = useModal(
+    () => (
+      <Disable2FAModal setToken={setToken} cancel={hideModal} submit={submit} />
+    ),
+    [token]
+  )
+
+  async function submit() {
+    const [status] = await disable({ token })
+    if (status === statusCode.NO_CONTENT) {
+      hideModal()
+      showToast('Success', 'Two-factor auth is now disabled.')
+      setReload(prev => ++prev)
+    } else {
+      hideModal()
+      showToast(
+        'Error',
+        'An error occured while trying to disable two-factor auth.'
+      )
+      setReload(prev => ++prev)
+    }
+  }
 
   return (
     <>
@@ -87,7 +117,21 @@ export function Profile() {
           <br />
           <Card title="Two-factor Authorization">
             {hasTwoFactorAuth ? (
-              <p className="card-text">Two-factor authorization is enabled.</p>
+              <>
+                <p className="card-text">
+                  Two-factor authorization is enabled.
+                </p>
+                <Link
+                  className="btn btn-outline-danger"
+                  to="/"
+                  onClick={e => {
+                    e.preventDefault()
+                    showModal()
+                  }}
+                >
+                  Disable
+                </Link>
+              </>
             ) : (
               <>
                 <p className="card-text">
