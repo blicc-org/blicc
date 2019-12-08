@@ -43,6 +43,7 @@ export function DeleteUserModal({
               <label htmlFor="password">Password</label>
               <input
                 id="password"
+                type="password"
                 className="form-control"
                 onChange={event => setPassword(event.target.value)}
               />
