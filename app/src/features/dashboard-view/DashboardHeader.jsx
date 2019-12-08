@@ -1,8 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Tabs } from '../../common/components/ui'
 import './DashboardHeader.scss'
 
-export function DashboardHeader({ title, onSave, view, setView }) {
+export function DashboardHeader({
+  title,
+  onSave,
+  tabs,
+  currentTab,
+  setCurrentTab,
+}) {
   return (
     <>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
@@ -17,34 +23,7 @@ export function DashboardHeader({ title, onSave, view, setView }) {
           </button>
         </div>
       </div>
-      <div className="dashboard-tabs my-2">
-        <ul className="nav nav-tabs">
-          <li className="nav-item">
-            <Link
-              className={`nav-link ${view === 'dashboard' ? 'active' : ''}`}
-              to="/"
-              onClick={event => {
-                event.preventDefault()
-                setView('dashboard')
-              }}
-            >
-              Dashboard
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              className={`nav-link ${view === 'details' ? 'active' : ''}`}
-              to="/"
-              onClick={event => {
-                event.preventDefault()
-                setView('details')
-              }}
-            >
-              Details
-            </Link>
-          </li>
-        </ul>
-      </div>
+      <Tabs tabs={tabs} currentTab={currentTab} setCurrentTab={setCurrentTab} />
     </>
   )
 }

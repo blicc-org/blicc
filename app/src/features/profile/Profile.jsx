@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useApiEndpoint } from '../../common/hooks'
 import { AppContext } from '../../common/context'
+import { Card } from '../../common/components/ui'
 
 export function Profile() {
   const [appState] = useContext(AppContext)
@@ -40,66 +41,58 @@ export function Profile() {
           <h2 className="my-0">Profile</h2>
         </div>
         <div className="col px-0">
-          <div className="card">
-            <h5 className="card-header">Details</h5>
-            <div className="card-body">
-              <table style={{ width: '100%' }}>
-                <tbody>
-                  <tr>
-                    <td>
-                      <b>First name:</b>
-                    </td>
-                    <td>{firstName}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <b>Last name:</b>
-                    </td>
-                    <td>{lastName}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <b>Email:</b>
-                    </td>
-                    <td>{email}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <b>Role:</b>
-                    </td>
-                    <td>{role}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <b>Registration date:</b>
-                    </td>
-                    <td>{creationDate ? creationDate.split('T')[0] : ''}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <Card title="Details">
+            <table style={{ width: '100%' }}>
+              <tbody>
+                <tr>
+                  <td>
+                    <b>First name:</b>
+                  </td>
+                  <td>{firstName}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Last name:</b>
+                  </td>
+                  <td>{lastName}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Email:</b>
+                  </td>
+                  <td>{email}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Role:</b>
+                  </td>
+                  <td>{role}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Registration date:</b>
+                  </td>
+                  <td>{creationDate ? creationDate.split('T')[0] : ''}</td>
+                </tr>
+              </tbody>
+            </table>
+          </Card>
           <br />
-          <div className="card">
-            <h5 className="card-header">Two-factor Authorization</h5>
-            <div className="card-body">
-              {hasTwoFactorAuth ? (
+          <Card title="Two-factor Authorization">
+            {hasTwoFactorAuth ? (
+              <p className="card-text">Two-factor authorization is enabled.</p>
+            ) : (
+              <>
                 <p className="card-text">
-                  Two-factor authorization is enabled.
+                  To increase the security of the entrance level of your
+                  application, enable two-factor authorization.
                 </p>
-              ) : (
-                <>
-                  <p className="card-text">
-                    To increase the security of the entrance level of your
-                    application, enable two-factor authorization.
-                  </p>
-                  <Link className="btn btn-primary" to="/two-factor-auth">
-                    Enable
-                  </Link>
-                </>
-              )}
-            </div>
-          </div>
+                <Link className="btn btn-primary" to="/two-factor-auth">
+                  Enable
+                </Link>
+              </>
+            )}
+          </Card>
         </div>
       </div>
     </>

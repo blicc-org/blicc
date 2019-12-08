@@ -10,10 +10,12 @@ import './DashboardView.scss'
 
 export function DashboardView({ match }) {
   const [data, setData, setDashboard] = useDashboard()
-  const [view, setView] = useState('dashboard')
   const path = `/dashboards/${match.params.id}`
   const [, access, update] = useApiEndpoint(path)
   const { title } = data
+
+  const tabs = ['Dashboard', 'Details']
+  const [currentTab, setCurrentTab] = useState(tabs[0])
 
   useEffect(() => {
     async function fetchData() {
@@ -41,10 +43,11 @@ export function DashboardView({ match }) {
         <DashboardHeader
           title={title}
           onSave={updateDashboard}
-          view={view}
-          setView={setView}
+          tabs={tabs}
+          currentTab={currentTab}
+          setCurrentTab={setCurrentTab}
         />
-        {view === 'dashboard' ? (
+        {currentTab === tabs[0] ? (
           <DashboardContainer data={data} update={setDashboard} />
         ) : (
           <DashboardDetails data={data} />
