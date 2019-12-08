@@ -25,10 +25,11 @@ Blicc is a lightweight, user-friendly and secure data visualiation plattform. Ma
 blicc/
 ├── api         # Api for controlling user and dashboard settings
 ├── app         # Application to display data and arrange dashboards
-├── redis       # Redis provides fast access to plugins, cached code splitting
 ├── db          # Posgres database for storing user and dashboard settings
 ├── delivery    # Realtime data streaming via websockets
 ├── docs        # Documentation
+├── plugins     # Data visualization plugins for displaying diagrams
+├── redis       # Redis provides fast access to plugins, cached code splitting
 ├── scripts     # scripts for the microservice setup
 ```
 
