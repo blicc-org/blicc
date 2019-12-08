@@ -43,13 +43,10 @@ describe('GET: /two-factor-auth', () => {
     expect(response.status).toBe(200)
 
     const secret = response.data.otpAuthUrl.split('=')[1]
-    const d = new Date()
-    const seconds = d.getTime() / 1000
 
     let token = speakeasy.totp({
       secret,
       encoding: 'base32',
-      time: seconds,
     })
 
     response = await instance.post(
@@ -76,7 +73,6 @@ describe('GET: /two-factor-auth', () => {
     token = speakeasy.totp({
       secret,
       encoding: 'base32',
-      time: seconds,
     })
     await clearUser(params.userId, params.cookie, user.password, token)
   })

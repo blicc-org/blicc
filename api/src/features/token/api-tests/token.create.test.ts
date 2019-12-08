@@ -35,13 +35,10 @@ describe('POST: /tokens', () => {
     expect(response.status).toBe(200)
 
     const secret = response.data.otpAuthUrl.split('=')[1]
-    const d = new Date()
-    const seconds = d.getTime() / 1000
 
     let token = speakeasy.totp({
       secret,
       encoding: 'base32',
-      time: seconds,
     })
 
     response = await instance.post(
@@ -68,7 +65,6 @@ describe('POST: /tokens', () => {
     token = speakeasy.totp({
       secret,
       encoding: 'base32',
-      time: seconds,
     })
     clearUser(params.userId, cookie, user.password, token)
   })
@@ -96,13 +92,10 @@ describe('POST: /tokens', () => {
     expect(response.status).toBe(200)
 
     const secret = response.data.otpAuthUrl.split('=')[1]
-    const d = new Date()
-    let seconds = d.getTime() / 1000
 
     let token = speakeasy.totp({
       secret,
       encoding: 'base32',
-      time: seconds,
     })
 
     response = await instance.post(
@@ -118,12 +111,9 @@ describe('POST: /tokens', () => {
     )
     expect(response.status).toBe(204)
 
-    seconds = d.getTime() / 1000
-
     token = speakeasy.totp({
       secret,
       encoding: 'base32',
-      time: seconds,
     })
 
     response = await instance.post('/tokens', {
@@ -138,7 +128,6 @@ describe('POST: /tokens', () => {
     token = speakeasy.totp({
       secret,
       encoding: 'base32',
-      time: seconds,
     })
     clearUser(params.userId, cookie, user.password, token)
   })
@@ -186,13 +175,10 @@ describe('POST: /tokens', () => {
     expect(response.status).toBe(200)
 
     const secret = response.data.otpAuthUrl.split('=')[1]
-    const d = new Date()
-    const seconds = d.getTime() / 1000
 
     let token = speakeasy.totp({
       secret,
       encoding: 'base32',
-      time: seconds,
     })
 
     response = await instance.post(
@@ -221,7 +207,6 @@ describe('POST: /tokens', () => {
     token = speakeasy.totp({
       secret,
       encoding: 'base32',
-      time: seconds,
     })
     clearUser(params.userId, cookie, user.password, token)
   })
