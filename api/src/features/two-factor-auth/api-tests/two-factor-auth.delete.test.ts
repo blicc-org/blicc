@@ -122,7 +122,7 @@ describe('DELETE: /two-factor-auth', () => {
   })
 
   it('401: Unauthorized', async () => {
-    let response = await instance.get('/two-factor-auth')
+    const response = await instance.get('/two-factor-auth')
     expect(response.status).toBe(401)
 
     await clearUser(params.userId, params.cookie, user.password)
