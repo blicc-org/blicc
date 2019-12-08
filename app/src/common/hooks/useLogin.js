@@ -30,9 +30,9 @@ export function useLogin(onSuccess = () => {}, onFailure = () => {}) {
     } else if (status === statusCode.FORBIDDEN) {
       onFailure()
     } else if (status === statusCode.NOT_FOUND) {
-      showToast('Please register', 'No account for the given email.')
+      showToast('Please register', 'No account for the given email.', 'warning')
     } else {
-      showToast('Login error', 'Login process failed.')
+      showToast('Login error', 'Login process failed.', 'danger')
     }
     return hasTwoFactorAuth
   }

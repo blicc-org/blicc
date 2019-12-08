@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 
-export function Toast({ label, message }) {
+export function Toast({ label, message, type = '' }) {
   const [hidden, setHidden] = useState(false)
+  const types = ['primary', 'success', 'danger', 'info', 'warning']
 
   return (
     <>
@@ -13,8 +14,16 @@ export function Toast({ label, message }) {
           aria-atomic="true"
           style={{ opacity: 100 }}
         >
-          <div className="toast-header">
-            <strong className="mr-auto">{label}</strong>
+          <div
+            className={`toast-header ${
+              types.includes(type) ? 'bg-' + type : ''
+            }`}
+          >
+            <strong
+              className={`mr-auto ${types.includes(type) ? 'text-light' : ''}`}
+            >
+              {label}
+            </strong>
             <button
               type="button"
               className="ml-2 mb-1 close"

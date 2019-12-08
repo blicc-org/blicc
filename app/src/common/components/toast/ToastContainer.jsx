@@ -8,8 +8,8 @@ export function ToastContainer() {
   return (
     <div aria-live="polite" aria-atomic="true">
       <div style={{ position: 'absolute', top: '48px', right: '1rem' }}>
-        {toasts.map(({ label, message }) => (
-          <Toast key={label} label={label} message={message} />
+        {toasts.map(({ label, message, type }) => (
+          <Toast key={label} label={label} message={message} type={type} />
         ))}
       </div>
     </div>

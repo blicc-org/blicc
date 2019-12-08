@@ -37,9 +37,13 @@ export function Register() {
         setOnRegister(true)
         await login(user.email, user.password)
       } else if (status === statusCode.CONFLICT) {
-        showToast('Conflict', 'The given email already exists.')
+        showToast('Conflict', 'The given email already exists.', 'warning')
       } else {
-        showToast('Register error', 'The registration process failed.')
+        showToast(
+          'Register error',
+          'The registration process failed.',
+          'danger'
+        )
       }
     }
   }

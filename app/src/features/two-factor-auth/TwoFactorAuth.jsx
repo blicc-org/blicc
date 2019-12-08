@@ -17,10 +17,10 @@ export function TwoFactorAuth() {
     e.preventDefault()
     const { status } = await enable({ token })
     if (status === statusCode.NO_CONTENT) {
-      showToast('Success', 'Two-factor Authentication is enabled!')
+      showToast('Success', 'Two-factor Authentication is enabled!', 'success')
       setOnSuccess(true)
     } else {
-      showToast('Error', 'Something went wrong, please try again!')
+      showToast('Error', 'Something went wrong, please try again!', 'danger')
     }
   }
 
