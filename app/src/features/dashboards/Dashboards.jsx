@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Link, Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
+import { Redirect } from 'react-router-dom'
 import { useApiEndpoint, INITIAL_DASHBOARD } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import { Pagination } from '../../common/components/pagination/Pagination'
 import { useModal } from '../../common/hooks/useModal'
 import { CreateDashboardModal } from './CreateDashboardModal'
-import { Item } from '../../common/components/ui/Item'
+import { Item, Tabs, Pagination } from '../../common/components/ui'
 import './Dashboards.scss'
 
 export function Dashboards() {
@@ -17,6 +16,9 @@ export function Dashboards() {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [redirect, setRedirect] = useState('')
+
+  const tabs = ['Your dashboards', 'Starred dashboards']
+  const [currentTab, setCurrentTab] = useState(tabs[0])
 
   const [showModal, hideModal] = useModal(
     () => (
@@ -80,29 +82,11 @@ export function Dashboards() {
             </button>
           </div>
         </div>
-        <div className="dashboard-tabs my-2">
-          <ul className="nav nav-tabs">
-            <li className="nav-item">
-              <Link
-                className="nav-link active"
-                to="/"
-                onClick={event => event.preventDefault()}
-              >
-                {'Your Dashboards '}
-                <span className="badge badge-secondary">{result.total}</span>
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className="nav-link"
-                to="/"
-                onClick={event => event.preventDefault()}
-              >
-                {'Starred Dashboards '}
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <Tabs
+          tabs={tabs}
+          currentTab={currentTab}
+          setCurrentTab={setCurrentTab}
+        />
         <div className="dashboard-list">
           {result.dashboards.length === 0 ? (
             <p className="text-muted mx-auto py-5 my-5 text-center">
@@ -112,18 +96,16 @@ export function Dashboards() {
           ) : (
             <table className="table">
               <tbody>
-                {result.dashboards.map(d => {
-                  return (
-                    <Item
-                      key={d.id}
-                      title={d.title}
-                      subtitle={d.creationDate.split('T')[0]}
-                      description={d.description}
-                      link={`/dashboards/${d.id}`}
-                      linkLabel={'View Dashboard'}
-                    />
-                  )
-                })}
+                {result.dashboards.map(d => (
+                  <Item
+                    key={d.id}
+                    title={d.title}
+                    subtitle={d.creationDate.split('T')[0]}
+                    description={d.description}
+                    link={`/dashboards/${d.id}`}
+                    linkLabel={'View Dashboard'}
+                  />
+                ))}
               </tbody>
             </table>
           )}

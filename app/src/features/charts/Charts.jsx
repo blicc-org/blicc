@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint } from '../../common/hooks'
-import { Pagination } from '../../common/components/pagination/Pagination'
-import { Item } from '../../common/components/ui/Item'
+import { Item, Pagination } from '../../common/components/ui'
 
 export function Charts() {
   const itemsPerPage = 10
@@ -39,18 +38,16 @@ export function Charts() {
         ) : (
           <table className="table">
             <tbody>
-              {result.charts.map(d => {
-                return (
-                  <Item
-                    key={d.id}
-                    title={d.title}
-                    subtitle={`@${d.slug}`}
-                    description={d.description}
-                    link={`/charts/${d.id}`}
-                    linkLabel={'View Dashboard'}
-                  />
-                )
-              })}
+              {result.charts.map(d => (
+                <Item
+                  key={d.id}
+                  title={d.title}
+                  subtitle={`@${d.slug}`}
+                  description={d.description}
+                  link={`/charts/${d.id}`}
+                  linkLabel={'View Dashboard'}
+                />
+              ))}
             </tbody>
           </table>
         )}

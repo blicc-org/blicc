@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import { Pagination } from '../../common/components/pagination/Pagination'
-import { Item } from '../../common/components/ui/Item'
+import { Item, Pagination } from '../../common/components/ui'
 
 export function DataSources() {
   const itemsPerPage = 10
@@ -57,18 +56,16 @@ export function DataSources() {
           ) : (
             <table className="table">
               <tbody>
-                {result.dataSources.map(d => {
-                  return (
-                    <Item
-                      key={d.id}
-                      title={d.title}
-                      subtitle={d.creationDate.split('T')[0]}
-                      description={d.description}
-                      link={`/data-sources/${d.id}`}
-                      linkLabel={'View Data Source'}
-                    />
-                  )
-                })}
+                {result.dataSources.map(d => (
+                  <Item
+                    key={d.id}
+                    title={d.title}
+                    subtitle={d.creationDate.split('T')[0]}
+                    description={d.description}
+                    link={`/data-sources/${d.id}`}
+                    linkLabel={'View Data Source'}
+                  />
+                ))}
               </tbody>
             </table>
           )}

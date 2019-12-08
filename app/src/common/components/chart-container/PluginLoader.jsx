@@ -40,7 +40,8 @@ export function PluginLoader({ slug }) {
     }
 
     fetchPlugin()
-  }, [])
+    // eslint-disable-next-line
+  }, [slug])
 
   return <>{isLoading ? <Loading /> : <div ref={ref} />}</>
 }
