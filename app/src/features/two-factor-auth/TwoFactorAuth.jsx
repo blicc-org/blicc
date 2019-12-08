@@ -48,7 +48,7 @@ export function TwoFactorAuth() {
           <label htmlFor="token" className="sr-only">
             Token
           </label>
-          <div className="input-group input-group-lg mb-3 px-5">
+          <div className="input-group input-group-lg mb-3">
             <input
               className="form-control"
               type="text"

@@ -9,7 +9,6 @@ export function Profile() {
   const [appState] = useContext(AppContext)
   const { id } = appState
   const [, accessUser, ,] = useApiEndpoint(`/users/${id}`)
-  const [reload, setReload] = useState(0)
 
   const [user, setUser] = useState({
     id: '',
@@ -21,8 +20,6 @@ export function Profile() {
     hasTwoFactorAuth: false,
   })
 
-  const { hasTwoFactorAuth } = user
-
   useEffect(() => {
     async function fetchUser() {
       const [, user] = await accessUser()
@@ -30,25 +27,18 @@ export function Profile() {
     }
     fetchUser()
     // eslint-disable-next-line
-  }, [reload])
+  }, [])
 
   return (
-    <>
-      <div className="container pb-5">
-        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-          <h2 className="my-0">Profile</h2>
-        </div>
-        <div className="col px-0">
-          <Details user={user} />
-          <br />
-          <TwoFactorAuth
-            hasTwoFactorAuth={hasTwoFactorAuth}
-            setReload={setReload}
-          />
-          <br />
-          <DeleteAccount id={id} hasTwoFactorAuth={hasTwoFactorAuth} />
-        </div>
+    <div className="container pb-5">
+      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
+        <h2 className="my-0">Profile</h2>
       </div>
-    </>
+      <div className="col px-0">
+        <Details user={user} />
+        <TwoFactorAuth user={user} setUser={setUser} />
+        <DeleteAccount user={user} />
+      </div>
+    </div>
   )
 }

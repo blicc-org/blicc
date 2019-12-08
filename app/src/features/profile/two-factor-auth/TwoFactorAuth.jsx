@@ -5,7 +5,8 @@ import { Card } from '../../../common/components/ui'
 import { useApiEndpoint, useToast, useModal } from '../../../common/hooks'
 import { TwoFactorAuthModal } from './TwoFactorAuthModal'
 
-export function TwoFactorAuth({ hasTwoFactorAuth, setReload }) {
+export function TwoFactorAuth({ user, setUser }) {
+  const { hasTwoFactorAuth } = user
   const [disable, , ,] = useApiEndpoint('/two-factor-auth/delete')
   const [token, setToken] = useState('')
   const showToast = useToast()
@@ -22,20 +23,24 @@ export function TwoFactorAuth({ hasTwoFactorAuth, setReload }) {
 
   async function submit() {
     const [status] = await disable({ token })
-    setToken('')
     if (status === statusCode.NO_CONTENT) {
-      hideModal()
+      setUser(prev => {
+        return { ...prev, hasTwoFactorAuth: false }
+      })
       showToast('Success', 'Two-factor auth is now disabled.', 'success')
-      setReload(prev => ++prev)
     } else {
-      hideModal()
       showToast(
         'Error',
         'An error occured while trying to disable two-factor auth.',
         'danger'
       )
-      setReload(prev => ++prev)
     }
+    hideModal()
+  }
+
+  function onClick(event) {
+    event.preventDefault()
+    showModal()
   }
 
   return (
@@ -43,14 +48,7 @@ export function TwoFactorAuth({ hasTwoFactorAuth, setReload }) {
       {hasTwoFactorAuth ? (
         <>
           <p className="card-text">Two-factor authorization is enabled.</p>
-          <Link
-            className="btn btn-outline-danger"
-            to="/"
-            onClick={e => {
-              e.preventDefault()
-              showModal()
-            }}
-          >
+          <Link className="btn btn-outline-danger" to="/" onClick={onClick}>
             Disable
           </Link>
         </>

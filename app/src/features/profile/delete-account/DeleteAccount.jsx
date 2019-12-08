@@ -10,12 +10,14 @@ import {
   useToast,
 } from '../../../common/hooks'
 
-export function DeleteAccount({ id, hasTwoFactorAuth }) {
+export function DeleteAccount({ user }) {
+  const { id, hasTwoFactorAuth } = user
+  const logout = useLogout()
+  const showToast = useToast()
   const [deleteUser, , ,] = useApiEndpoint(`/users/${id}/delete`)
   const [token, setToken] = useState('')
   const [password, setPassword] = useState('')
-  const logout = useLogout()
-  const showToast = useToast()
+
   const [showModal, hideModal] = useModal(
     () => (
       <DeleteAccountModal
@@ -31,14 +33,11 @@ export function DeleteAccount({ id, hasTwoFactorAuth }) {
 
   async function submit() {
     const [status] = await deleteUser({ token, password })
-    setPassword('')
-    setToken('')
+    hideModal()
     if (status === statusCode.OK) {
-      hideModal()
       showToast('Success', 'You successfully deleted your account.', 'success')
       await logout()
     } else {
-      hideModal()
       showToast(
         'Error',
         'An error occured while trying to delete your account.',
@@ -47,20 +46,18 @@ export function DeleteAccount({ id, hasTwoFactorAuth }) {
     }
   }
 
+  function onClick(event) {
+    event.preventDefault()
+    showModal()
+  }
+
   return (
     <Card title="Delete Account">
       <p className="card-text">
         Deleting an account will also delete all the content created by the
         user.
       </p>
-      <Link
-        className="btn btn-danger"
-        to="/"
-        onClick={e => {
-          e.preventDefault()
-          showModal()
-        }}
-      >
+      <Link className="btn btn-danger" to="/" onClick={onClick}>
         Delete
       </Link>
     </Card>
