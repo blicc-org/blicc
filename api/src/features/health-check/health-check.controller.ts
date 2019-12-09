@@ -7,7 +7,7 @@ export class HealthCheckController {
     next: Function
   ): Promise<void> {
     await next()
-    ctx.status = statusCode.OK
+    ctx.status = statusCode.NO_CONTENT
   }
 
   public async healthCheckAuth(
@@ -15,6 +15,6 @@ export class HealthCheckController {
     next: Function
   ): Promise<void> {
     await next()
-    ctx.status = statusCode.OK
+    ctx.status = statusCode.NO_CONTENT
   }
 }

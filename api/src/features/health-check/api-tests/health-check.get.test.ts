@@ -5,9 +5,9 @@ import {
 } from '../../../common/tests/user.helper'
 
 describe('GET: /health-check', () => {
-  it('200: OK', async () => {
+  it('204: No content', async () => {
     const { status } = await instance.get('/health-check')
-    expect(status).toBe(200)
+    expect(status).toBe(204)
   })
 })
 
@@ -22,13 +22,13 @@ describe('GET: /health-check/auth', () => {
     await clearUser(params.userId, params.cookie)
   })
 
-  it('200: OK', async () => {
+  it('204: No content', async () => {
     const { status } = await instance.get('/health-check/auth', {
       headers: {
         Cookie: params.cookie,
       },
     })
-    expect(status).toBe(200)
+    expect(status).toBe(204)
   })
 
   it('401: Unauthorized', async () => {

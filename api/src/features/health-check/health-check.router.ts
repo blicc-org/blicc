@@ -28,8 +28,8 @@ export class HealthCheckRouter {
      *     summary: Health Check
      *     description: Check if backend service is healthy
      *     responses:
-     *       200:
-     *         description: OK
+     *       204:
+     *         description: No content
      *       500:
      *         description: Internal Server Error
      */
@@ -56,8 +56,8 @@ export class HealthCheckRouter {
      *         bearerFormat: JWT
      *     description: Check if user authentication is healthy
      *     responses:
-     *       200:
-     *         description: OK
+     *       204:
+     *         description: No content
      *       401:
      *         description: Unauthorized
      *       500:
