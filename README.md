@@ -1,7 +1,5 @@
 ## What is Blicc?
 
-### Vision
-
 Blicc is a lightweight, user-friendly and secure data visualiation plattform. Make your data talk.
 
 ## Docs
