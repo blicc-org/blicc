@@ -11,22 +11,22 @@ export function useApiEndpoint(path = '') {
     validateStatus,
   })
 
-  async function create(resource, config = {}) {
+  async function postRequest(resource, config = {}) {
     const { data, status } = await instance.post(path, resource, config)
     return [status, data]
   }
 
-  async function access(config = {}) {
+  async function getRequest(config = {}) {
     const { data, status } = await instance.get(path, config)
     return [status, data]
   }
 
-  async function update(resource, config = {}) {
+  async function putRequest(resource, config = {}) {
     const { data, status } = await instance.put(path, resource, config)
     return [status, data]
   }
 
-  async function remove(config = {}) {
+  async function deleteRequest(config = {}) {
     const { data, status } = await instance.delete(path, config)
     return [status, data]
   }
@@ -42,5 +42,5 @@ export function useApiEndpoint(path = '') {
     return status >= 200 && status < 500
   }
 
-  return [create, access, update, remove]
+  return [postRequest, getRequest, putRequest, deleteRequest]
 }
