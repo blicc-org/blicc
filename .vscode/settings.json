@@ -57,6 +57,12 @@
       "extensions": ["test", "tests", "api-tests"],
       "format": "FileFormat.svg",
       "disabled": false
+    },
+    {
+      "icon": "story",
+      "extensions": ["stories", ".storybook"],
+      "format": "FileFormat.svg",
+      "disabled": false
     }
   ]
 }
