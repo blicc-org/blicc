@@ -12,7 +12,14 @@ export function PluginLoader({ slug }) {
         /*webpackIgnore: true*/ `${API.ORIGIN}/bundles/${slug}`
       ).then(module => {
         setLoading(false)
-        ref.current.appendChild(module['HelloWorld']())
+
+        const data = [12, 19, 3, 5, 2, 3]
+
+        function sayHello() {
+          console.log('Hello World!!!')
+        }
+
+        ref.current.appendChild(module['HelloWorld'](data, sayHello))
       })
     }
 
