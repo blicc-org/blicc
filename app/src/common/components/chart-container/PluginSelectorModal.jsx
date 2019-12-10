@@ -24,9 +24,9 @@ export function PluginSelectorModal({ cancel, submit }) {
     // eslint-disable-next-line
   }, [searchTerm])
 
-  function onSelect(event, slug) {
+  function onSelect(event, slug, key) {
     event.preventDefault()
-    submit(slug)
+    submit(slug + '/' + key)
   }
 
   return (
@@ -48,10 +48,10 @@ export function PluginSelectorModal({ cancel, submit }) {
             ></input>
             <div className="pt-3">
               <ul>
-                {result.charts.map(({ id, title, slug }) => (
+                {result.charts.map(({ id, title, slug, key }) => (
                   <li key={id}>
                     <h5>
-                      <a href="/" onClick={event => onSelect(event, slug)}>
+                      <a href="/" onClick={event => onSelect(event, slug, key)}>
                         {title}
                       </a>
                       <small className="text-muted">{` @${slug}`}</small>

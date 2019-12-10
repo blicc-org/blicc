@@ -3,13 +3,14 @@ import { Loading } from './Loading'
 import { API } from '../../../config'
 
 export function PluginLoader({ slug }) {
+  const [bundle, plugin] = slug.split('/')
   const ref = useRef()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function fetchPlugin() {
       await import(
-        /*webpackIgnore: true*/ `${API.ORIGIN}/bundles/${slug}`
+        /*webpackIgnore: true*/ `${API.ORIGIN}/bundles/${bundle}`
       ).then(module => {
         setLoading(false)
 
@@ -19,7 +20,7 @@ export function PluginLoader({ slug }) {
           console.log('Hello World!!!')
         }
 
-        ref.current.appendChild(module['HelloWorld'](data, sayHello))
+        ref.current.appendChild(module[plugin](data, sayHello))
       })
     }
 

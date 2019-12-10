@@ -13,7 +13,7 @@ flags.parse(process.argv)
   const title = 'Geil'
   const bundle = 'Essentials'
   const description = 'Use the pie chart to display data.'
-  const key = 'Geil'
+  const key = 'HelloWorld'
   const slug = flags.bundle
 
   const cookie = await getCookie(email, password)
