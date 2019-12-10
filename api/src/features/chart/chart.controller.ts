@@ -12,9 +12,16 @@ export class ChartController {
 
   public async create(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    const { title, bundle, description = '' } = ctx.request.body
+    const { title, bundle, description = '', key, slug } = ctx.request.body
     const { id } = ctx.user
-    ctx.body = await this.chartService.create(title, bundle, description, id)
+    ctx.body = await this.chartService.create(
+      title,
+      bundle,
+      description,
+      key,
+      slug,
+      id
+    )
     ctx.status = statusCode.CREATED
   }
 
@@ -35,6 +42,7 @@ export class ChartController {
       'description',
       'userId',
       'creationDate',
+      'key',
       'slug',
     ])
     const searchTerm = Validation.escapeSearchQuery(ctx.query.search)

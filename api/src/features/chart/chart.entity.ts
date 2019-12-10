@@ -25,6 +25,9 @@ export class ChartEntity extends BaseEntity {
   public userId: string
 
   @Column()
+  public key: string
+
+  @Column()
   public slug: string
 
   @Column()
@@ -42,6 +45,7 @@ export class ChartEntity extends BaseEntity {
     bundle: string,
     description: string,
     userId: string,
+    key: string,
     slug: string
   ) {
     super()
@@ -49,6 +53,7 @@ export class ChartEntity extends BaseEntity {
     this.bundle = bundle
     this.description = description
     this.userId = userId
+    this.key = key
     this.slug = slug
   }
 }

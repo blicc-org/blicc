@@ -50,7 +50,8 @@ export class ChartRouter {
      *                   required:
      *                   - title
      *                   - bundle
-     *                   - path
+     *                   - key
+     *                   - slug
      *                   properties:
      *                     title:
      *                       type: string
@@ -58,12 +59,18 @@ export class ChartRouter {
      *                       type: string
      *                     description:
      *                       type: string
+     *                     key:
+     *                       type: string
+     *                     slug:
+     *                       type: string
      *             examples:
      *               filter:
      *                 value: {
      *                   title: "Pie chart",
      *                   bundle: "Essentials",
      *                   description: "Show your data in a pie chart."
+     *                   key: "PieChart"
+     *                   slug: "essentials"
      *                 }
      *     responses:
      *       201:
@@ -82,6 +89,7 @@ export class ChartRouter {
      *                   - bundle
      *                   - description
      *                   - userId
+     *                   - key
      *                   - slug
      *                   - creationDate
      *                   properties:
@@ -95,6 +103,8 @@ export class ChartRouter {
      *                       type: string
      *                     userId:
      *                       type: string
+     *                     key:
+     *                       type: string
      *                     slug:
      *                       type: string
      *                     creationDate:
@@ -107,7 +117,8 @@ export class ChartRouter {
      *                   bundle: "Essentials",
      *                   description: "Show your data in a pie chart.",
      *                   userId: "b1x_S29n",
-     *                   slug: "essentials/pie-chart",
+     *                   key: "PieChart",
+     *                   slug: "essentials",
      *                   creationDate: "2019-11-02T15:45:58.284Z"
      *                 }
      *       401:
@@ -132,6 +143,8 @@ export class ChartRouter {
           description: Joi.string()
             .allow('')
             .optional(),
+          key: Joi.string().required(),
+          slug: Joi.string().required(),
         },
         output: {
           201: {
@@ -143,6 +156,7 @@ export class ChartRouter {
                 .allow('')
                 .optional(),
               userId: Joi.string().required(),
+              key: Joi.string().required(),
               slug: Joi.string().required(),
               creationDate: Joi.string().required(),
             },
@@ -193,6 +207,7 @@ export class ChartRouter {
      *                   - bundle
      *                   - description
      *                   - userId
+     *                   - key
      *                   - slug
      *                   - creationDate
      *                   properties:
@@ -206,6 +221,8 @@ export class ChartRouter {
      *                       type: string
      *                     userId:
      *                       type: string
+     *                     key:
+     *                       type: string
      *                     slug:
      *                       type: string
      *                     creationDate:
@@ -218,7 +235,8 @@ export class ChartRouter {
      *                   bundle: "Essentials",
      *                   description: "Show your data in a pie chart.",
      *                   userId: "b1x_S29n",
-     *                   slug: "essentials/pie-chart",
+     *                   slug: "PieChart",
+     *                   slug: "essentials",
      *                   creationDate: "2019-11-02T15:45:58.284Z"
      *                 }
      *       401:
@@ -244,6 +262,7 @@ export class ChartRouter {
                 .allow('')
                 .optional(),
               userId: Joi.string().required(),
+              key: Joi.string().required(),
               slug: Joi.string().required(),
               creationDate: Joi.string().required(),
             },
@@ -319,6 +338,8 @@ export class ChartRouter {
      *                           type: string
      *                         userId:
      *                           type: string
+     *                         key:
+     *                           type: string
      *                         slug:
      *                           type: string
      *                         creationDate:
@@ -334,7 +355,8 @@ export class ChartRouter {
      *                       bundle: "Essentials",
      *                       description: "Show your data in a pie chart.",
      *                       userId: "b1x_S29n",
-     *                       slug: "essentials/pie-chart",
+     *                       key: "PieChart",
+     *                       slug: "essentials",
      *                       creationDate: "2019-11-02T15:45:58.284Z"
      *                     },
      *                     {
@@ -343,7 +365,8 @@ export class ChartRouter {
      *                       bundle: "Essentials",
      *                       description: "Show your data in a line chart.",
      *                       userId: "b1x_S29n",
-     *                       slug: "essentials/pie-chart",
+     *                       key: "LineChart",
+     *                       slug: "essentials",
      *                       creationDate: "2019-12-02T11:45:58.283Z"
      *                     },
      *                   ]
@@ -373,6 +396,7 @@ export class ChartRouter {
                   .allow('')
                   .optional(),
                 userId: Joi.string(),
+                key: Joi.string(),
                 slug: Joi.string(),
                 creationDate: Joi.string(),
               }),
@@ -422,6 +446,7 @@ export class ChartRouter {
      *                   - bundle
      *                   - description
      *                   - userId
+     *                   - key
      *                   - slug
      *                   - creationDate
      *                   properties:
@@ -435,6 +460,8 @@ export class ChartRouter {
      *                       type: string
      *                     userId:
      *                       type: string
+     *                     key:
+     *                       type: string
      *                     slug:
      *                       type: string
      *                     creationDate:
@@ -447,7 +474,8 @@ export class ChartRouter {
      *                   bundle: "Essentials",
      *                   description: "Show your data in a pie chart.",
      *                   userId: "b1x_S29n",
-     *                   slug: "essentials/pie-chart",
+     *                   key: "PieChart",
+     *                   slug: "essentials",
      *                   creationDate: "2019-11-02T15:45:58.284Z"
      *                 }
      *     responses:
@@ -467,6 +495,7 @@ export class ChartRouter {
      *                   - bundle
      *                   - description
      *                   - userId
+     *                   - key
      *                   - slug
      *                   - creationDate
      *                   properties:
@@ -480,6 +509,8 @@ export class ChartRouter {
      *                       type: string
      *                     userId:
      *                       type: string
+     *                     key:
+     *                       type: string
      *                     slug:
      *                       type: string
      *                     creationDate:
@@ -492,7 +523,8 @@ export class ChartRouter {
      *                   bundle: "Essentials",
      *                   description: "Updated description.",
      *                   userId: "b1x_S29n",
-     *                   slug: "essentials/updated-title",
+     *                   key: "UpdatedTitle",
+     *                   slug: "essentials",
      *                   creationDate: "2019-11-02T15:45:58.284Z"
      *                 }
      *       401:
@@ -519,6 +551,7 @@ export class ChartRouter {
             .allow('')
             .optional(),
           userId: Joi.string().required(),
+          key: Joi.string().required(),
           slug: Joi.string().required(),
           creationDate: Joi.string().required(),
         },
@@ -532,6 +565,7 @@ export class ChartRouter {
                 .allow('')
                 .optional(),
               userId: Joi.string().required(),
+              key: Joi.string().required(),
               slug: Joi.string().required(),
               creationDate: Joi.string().required(),
             },
@@ -581,6 +615,7 @@ export class ChartRouter {
      *                   - bundle
      *                   - description
      *                   - userId
+     *                   - key
      *                   - slug
      *                   - creationDate
      *                   properties:
@@ -592,6 +627,8 @@ export class ChartRouter {
      *                       type: string
      *                     userId:
      *                       type: string
+     *                     key:
+     *                       type: string
      *                     slug:
      *                       type: string
      *                     creationDate:
@@ -599,11 +636,12 @@ export class ChartRouter {
      *             examples:
      *               filter:
      *                 value: {
-     *                   title: "Updated Title",
+     *                   title: "Pie Chart",
      *                   bundle: "Essentials",
      *                   description: "Updated description.",
      *                   userId: "b1x_S29n",
-     *                   slug: "essentials/updated-title",
+     *                   key: "PieChart",
+     *                   slug: "essentials",
      *                   creationDate: "2019-11-02T15:45:58.284Z"
      *                 }
      *       401:
@@ -630,6 +668,7 @@ export class ChartRouter {
                 .allow('')
                 .optional(),
               userId: Joi.string().required(),
+              key: Joi.string().required(),
               slug: Joi.string().required(),
               creationDate: Joi.string().required(),
             },

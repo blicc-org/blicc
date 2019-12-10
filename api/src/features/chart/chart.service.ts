@@ -2,7 +2,6 @@ import { Repository, getRepository } from 'typeorm'
 import { ChartEntity } from './chart.entity'
 import { Chart } from './chart.interface'
 import shortid from 'shortid'
-import { Slug } from '../../util/slug'
 
 export class ChartService {
   private repo: Repository<ChartEntity>
@@ -15,11 +14,12 @@ export class ChartService {
     title: string,
     bundle: string,
     description: string,
+    key: string,
+    slug: string,
     userId: string
   ): Promise<Chart> {
-    const slug = this.generateSlug(title, bundle)
     return await this.repo.save(
-      new ChartEntity(title, bundle, description, userId, slug)
+      new ChartEntity(title, bundle, description, userId, key, slug)
     )
   }
 
@@ -71,9 +71,5 @@ export class ChartService {
     const id = shortid.generate()
     const response = await this.repo.findOne(id)
     return response === undefined ? id : await this.generateId()
-  }
-
-  private generateSlug(title: string, bundle: string): string {
-    return `${Slug.generate(bundle)}/${Slug.generate(title)}`
   }
 }
