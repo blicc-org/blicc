@@ -1,47 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Loading } from './Loading'
+import React, { useEffect } from 'react'
 import { API } from '../../../config'
-import theme from '../../../Theme.scss'
 
 export function PluginLoader({ slug }) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [settings, setSettings] = useState({})
-  const ref = useRef()
-
   useEffect(() => {
     async function fetchPlugin() {
-      const Plugin = await import(
-        /*webpackIgnore: true*/ `${API.ORIGIN}/plugin-data/${slug}`
-      )
-        .then(() => {
-          setIsLoading(false)
-
-          const data = [1.0, 0.4, 0.6, 2.3, 0.9, 7.5]
-          function onDataUpdate(callback) {
-            callback()
-          }
-
-          const layout = {
-            color: theme.primary,
-          }
-
-          Plugin.render(
-            ref.current,
-            data,
-            onDataUpdate,
-            settings,
-            setSettings,
-            layout
-          )
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      await import(
+        /*webpackIgnore: true*/ `${API.ORIGIN}/bundles/${slug}`
+      ).then(module => {
+        module.default()
+        // → logs 'Hi from the default export!'
+        module.doStuff()
+        // → logs 'Doing stuff…'
+      })
     }
 
     fetchPlugin()
     // eslint-disable-next-line
   }, [slug])
 
-  return <>{isLoading ? <Loading /> : <div ref={ref} />}</>
+  return <div>Hello World!!!</div>
 }
