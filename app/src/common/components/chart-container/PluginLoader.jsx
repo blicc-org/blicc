@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
+import { Loading } from './Loading'
 import { API } from '../../../config'
 
 export function PluginLoader({ slug }) {
+  const ref = useRef()
+  const [loading, setLoading] = useState(true)
+
   useEffect(() => {
     async function fetchPlugin() {
       await import(
         /*webpackIgnore: true*/ `${API.ORIGIN}/bundles/${slug}`
       ).then(module => {
-        module.default()
-        // → logs 'Hi from the default export!'
-        module.doStuff()
-        // → logs 'Doing stuff…'
+        setLoading(false)
+        ref.current.appendChild(module['HelloWorld']())
       })
     }
 
@@ -18,5 +20,5 @@ export function PluginLoader({ slug }) {
     // eslint-disable-next-line
   }, [slug])
 
-  return <div>Hello World!!!</div>
+  return loading ? <Loading /> : <div ref={ref} />
 }

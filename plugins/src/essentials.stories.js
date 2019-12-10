@@ -1,9 +1,10 @@
-// Default export
-export default () => {
-  console.log('Hi from the default export!')
+export default {
+  title: 'Essentials',
 }
 
-// Named export `doStuff`
-export const doStuff = () => {
-  console.log('Doing stuff…')
+export function HelloWorld() {
+  var h = document.createElement('H1')
+  var t = document.createTextNode('Hello World')
+  h.appendChild(t)
+  return h
 }
