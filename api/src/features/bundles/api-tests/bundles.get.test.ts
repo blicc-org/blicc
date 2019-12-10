@@ -4,18 +4,17 @@ import {
   clearUser,
   getAdmin,
 } from '../../../common/tests/user.helper'
-import { pluginData } from '../mocks/plugin-data.mock'
+import { bundle } from '../mocks/bundles.mock'
 
-describe('GET: /plugin-data/:bundle/:plugin', () => {
+describe('GET: /bundles/:slug', () => {
   let userParams = { email: '', userId: '', cookie: '' }
   let adminParams = { email: '', cookie: '' }
-  const bundle = 'essentials'
-  const plugin = 'pie-chart'
+  const slug = 'essentials'
 
   beforeEach(async () => {
     userParams = await initializeUser()
     adminParams = await getAdmin()
-    await instance.put(`/plugin-data/${bundle}/${plugin}`, pluginData, {
+    await instance.put(`/bundles/${slug}`, bundle, {
       headers: {
         Cookie: adminParams.cookie,
         'Content-Type': 'application/javascript',
@@ -28,12 +27,12 @@ describe('GET: /plugin-data/:bundle/:plugin', () => {
   })
 
   it('200: OK', async () => {
-    const response = await instance.get(`/plugin-data/${bundle}/${plugin}`, {
+    const response = await instance.get(`/bundles/${slug}`, {
       headers: {
         Cookie: userParams.cookie,
       },
     })
     expect(response.status).toBe(200)
-    expect(response.data).toBe(pluginData)
+    expect(response.data).toBe(bundle)
   })
 })

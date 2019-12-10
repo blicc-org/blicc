@@ -1,19 +1,19 @@
 import { Middleware } from 'koa'
 import bodyParser from 'koa-bodyparser'
 import createRouter, { Router } from 'koa-joi-router'
-import { PluginDataController } from './plugin-data.controller'
+import { BundleController } from './bundles.controller'
 import { AuthMiddleware } from '../../common/middleware/auth-middleware'
 import { PermissionMiddleware } from '../../common/middleware/permission-middleware'
 
-export class PluginDataRouter {
+export class BundleRouter {
   private prefix: string
   private router: Router
-  private controller: PluginDataController
+  private controller: BundleController
 
   public constructor(prefix: string) {
     this.prefix = prefix
     this.router = createRouter()
-    this.controller = new PluginDataController()
+    this.controller = new BundleController()
   }
 
   public routes(): Middleware {
@@ -31,31 +31,26 @@ export class PluginDataRouter {
     /**
      * @swagger
      *
-     * /plugin-data/{bundle}/{plugin}:
+     * /bundles/{slug}
      *   put:
      *     tags:
-     *       - Plugin Data
+     *       - Bundles
      *     parameters:
      *       - in: path
-     *         name: bundle
-     *         required: true
-     *         schema:
-     *           type: string
-     *       - in: path
-     *         name: plugin
+     *         name: slug
      *         required: true
      *         schema:
      *           type: string
      *     summary: Set Data
-     *     description: Set the plugin data for a specific plugin
+     *     description: Set the bundle data for a specific bundle
      *     requestBody:
      *         content:
      *           application/javascript:
      *             schema:
      *               required:
-     *               - plugin data
+     *               - bundle data
      *               properties:
-     *                 plugin data:
+     *                 bundle data:
      *                   type: string
      *             examples:
      *               filter:
@@ -72,7 +67,7 @@ export class PluginDataRouter {
      */
     this.router.route({
       method: 'put',
-      path: '/:bundle/:title',
+      path: '/:slug',
       pre: [
         AuthMiddleware.handle,
         PermissionMiddleware.handle.bind(null, ['developer', 'admin']),
@@ -83,23 +78,18 @@ export class PluginDataRouter {
     /**
      * @swagger
      *
-     * /plugin-data/{bundle}/{plugin}:
+     * /bundles/{slug}:
      *   get:
      *     tags:
-     *       - Plugin Data
+     *       - Bundles
      *     parameters:
      *       - in: path
-     *         name: bundle
-     *         required: true
-     *         schema:
-     *           type: string
-     *       - in: path
-     *         name: plugin
+     *         name: slug
      *         required: true
      *         schema:
      *           type: string
      *     summary: Get Data
-     *     description: Get the plugin data from a specific plugin
+     *     description: Get the bundle data from a specific bundle
      *     responses:
      *       200:
      *         description: OK
@@ -107,9 +97,9 @@ export class PluginDataRouter {
      *           application/javascript:
      *             schema:
      *               required:
-     *               - plugin data
+     *               - bundle data
      *               properties:
-     *                 plugin data:
+     *                 bundle data:
      *                   type: string
      *             examples:
      *               filter:
@@ -119,7 +109,7 @@ export class PluginDataRouter {
      */
     this.router.route({
       method: 'get',
-      path: '/:bundle/:title',
+      path: '/:slug',
       handler: this.controller.get.bind(this.controller),
     })
 
