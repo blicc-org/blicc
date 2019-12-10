@@ -31,7 +31,7 @@ export class BundleRouter {
     /**
      * @swagger
      *
-     * /bundles/{slug}
+     * /bundles/{slug}:
      *   put:
      *     tags:
      *       - Bundles
@@ -48,9 +48,9 @@ export class BundleRouter {
      *           application/javascript:
      *             schema:
      *               required:
-     *               - bundle data
+     *               - bundle
      *               properties:
-     *                 bundle data:
+     *                 bundle:
      *                   type: string
      *             examples:
      *               filter:
@@ -97,9 +97,9 @@ export class BundleRouter {
      *           application/javascript:
      *             schema:
      *               required:
-     *               - bundle data
+     *               - bundle
      *               properties:
-     *                 bundle data:
+     *                 bundle:
      *                   type: string
      *             examples:
      *               filter:

@@ -68,8 +68,8 @@ export class ChartRouter {
      *                 value: {
      *                   title: "Pie chart",
      *                   bundle: "Essentials",
-     *                   description: "Show your data in a pie chart."
-     *                   key: "PieChart"
+     *                   description: "Show your data in a pie chart.",
+     *                   key: "PieChart",
      *                   slug: "essentials"
      *                 }
      *     responses:
@@ -235,7 +235,7 @@ export class ChartRouter {
      *                   bundle: "Essentials",
      *                   description: "Show your data in a pie chart.",
      *                   userId: "b1x_S29n",
-     *                   slug: "PieChart",
+     *                   key: "PieChart",
      *                   slug: "essentials",
      *                   creationDate: "2019-11-02T15:45:58.284Z"
      *                 }
