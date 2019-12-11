@@ -1,14 +1,8 @@
 import axios from 'axios'
 import fs from 'fs-extra'
 
-const instance = axios.create({
-  baseURL: 'http://localhost',
-  withCredentials: true,
-  validateStatus: status => status >= 200 && status < 500,
-})
-
-export async function setBundleData(slug, data, cookie) {
-  await instance.put(`/bundles/${slug}`, data, {
+export async function setBundleData(baseUrl, slug, data, cookie) {
+  await axios.put(`${baseUrl}/bundles/${slug}`, data, {
     headers: {
       Cookie: cookie,
       'Content-Type': 'application/javascript',
@@ -16,11 +10,11 @@ export async function setBundleData(slug, data, cookie) {
   })
 }
 
-export async function setChart(inputData, cookie) {
+export async function setChart(baseUrl, inputData, cookie) {
   const { title, bundle, description, key, slug } = inputData
   let id = ''
 
-  const { data: currentCharts } = await instance.get('/charts', {
+  const { data: currentCharts } = await axios.get(`${baseUrl}/charts`, {
     headers: {
       Cookie: cookie,
     },
@@ -30,14 +24,14 @@ export async function setChart(inputData, cookie) {
   })
 
   if (id) {
-    const { data: currentChart } = await instance.get(`/charts/${id}`, {
+    const { data: currentChart } = await axios.get(`${baseUrl}/charts/${id}`, {
       headers: {
         Cookie: cookie,
       },
     })
 
-    await instance.put(
-      `/charts/${id}`,
+    await axios.put(
+      `${baseUrl}/charts/${id}`,
       { ...currentChart, title, bundle, description },
       {
         headers: {
@@ -46,7 +40,7 @@ export async function setChart(inputData, cookie) {
       }
     )
   } else {
-    await instance.post('/charts', inputData, {
+    await axios.post(`${baseUrl}/charts`, inputData, {
       headers: {
         Cookie: cookie,
       },
@@ -58,8 +52,8 @@ export async function readData(file) {
   return await fs.readFile(`${__dirname}/../build/bundles/${file}`)
 }
 
-export async function getCookie(email, password) {
-  let response = await instance.post('/tokens', {
+export async function getCookie(baseUrl, email, password) {
+  let response = await axios.post(`${baseUrl}/tokens`, {
     email,
     password,
   })

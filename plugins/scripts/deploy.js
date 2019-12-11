@@ -15,14 +15,16 @@ async function main() {
 
   const email = process.env.ADMIN_MAIL
   const password = process.env.ADMIN_PASSWORD
+  const isDev = process.env.NODE_ENV === 'development'
+  const baseUrl = isDev ? 'http://localhost' : 'https://api.blicc.org'
 
-  const cookie = await getCookie(email, password)
+  const cookie = await getCookie(baseUrl, email, password)
 
   bundles.forEach(async ({ file, bundle, slug, plugins }) => {
     const data = await readData(file)
-    await setBundleData(slug, data, cookie)
+    await setBundleData(baseUrl, slug, data, cookie)
     plugins.forEach(async ({ title, description, key }) => {
-      await setChart({ title, bundle, description, key, slug }, cookie)
+      await setChart(baseUrl, { title, bundle, description, key, slug }, cookie)
     })
   })
 }
