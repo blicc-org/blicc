@@ -85,4 +85,4 @@ plugins:
     - master
   script:
     - yarn --cwd 'plugins' install
-    - yarn deploy
+    - yarn --cwd 'plugins' deploy
