@@ -44,8 +44,26 @@ export function PieChart(
   return div
 }
 
-export function LineChart(data = [], settings = {}, setSettings = () => {}) {
-  return '<h1>Line Chart</h1>'
+export function LineChart(
+  data = [],
+  settings = { value: 50 },
+  setSettings = () => {}
+) {
+  var slider = document.createElement('input')
+  slider.min = 1
+  slider.max = 100
+  slider.value = settings.value
+  slider.type = 'range'
+
+  slider.onmouseup = event => {
+    setSettings({ ...settings, value: event.target.value })
+  }
+
+  slider.ontouchend = event => {
+    setSettings({ ...settings, value: event.target.value })
+  }
+
+  return slider
 }
 
 export function BarChart(data = [], settings = {}, setSettings = () => {}) {
