@@ -20,7 +20,7 @@ export function PieChart(data = [], sayHello = () => {}) {
   const div = document.createElement('div')
 
   const h1 = document.createElement('H1')
-  h1.style.color = '#ff5555'
+  h1.style.color = '#ff55ff'
   const text = document.createTextNode('Click the button to change the color')
   h1.appendChild(text)
   div.appendChild(h1)
