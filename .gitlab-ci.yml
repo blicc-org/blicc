@@ -78,7 +78,6 @@ deploy:
     - ssh -tt root@$IP "docker image prune -a -f"
     - ssh -tt root@$IP "export ADMIN_MAIL=$ADMIN_MAIL ADMIN_PASSWORD=$ADMIN_PASSWORD MAIL_ADDRESS=$MAIL_ADDRESS MAIL_PASSWORD=$MAIL_PASSWORD MAIL_HOST=$MAIL_HOST && docker-compose pull && docker-compose down && docker-compose -f /root/docker-compose.yml up -d --force-recreate --remove-orphans"
 
-
 plugins:
   stage: deploy
   image: node:12
