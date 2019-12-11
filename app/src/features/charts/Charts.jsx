@@ -45,7 +45,7 @@ export function Charts() {
                   subtitle={`@${d.slug}`}
                   description={d.description}
                   link={`/charts/${d.id}`}
-                  linkLabel={'View Dashboard'}
+                  linkLabel={'View Chart'}
                 />
               ))}
             </tbody>

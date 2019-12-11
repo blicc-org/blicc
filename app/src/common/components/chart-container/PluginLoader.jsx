@@ -7,6 +7,8 @@ export function PluginLoader({ slug }) {
   const ref = useRef()
   const [loading, setLoading] = useState(true)
 
+  console.log(bundle + ' ' + plugin)
+
   useEffect(() => {
     async function fetchPlugin() {
       await import(
@@ -14,13 +16,13 @@ export function PluginLoader({ slug }) {
       ).then(module => {
         setLoading(false)
 
-        const data = [12, 19, 3, 5, 2, 3]
+        const node = module[plugin]()
 
-        function sayHello() {
-          console.log('Hello World!!!')
+        if (typeof node === 'string') {
+          ref.current.innerHTML = node
+        } else {
+          ref.current.appendChild(node)
         }
-
-        ref.current.appendChild(module[plugin](data, sayHello))
       })
     }
 

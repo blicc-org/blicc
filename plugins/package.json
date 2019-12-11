@@ -29,7 +29,7 @@
     "start": "start-storybook -p 6006",
     "build": "rollup -c rollup.config.js",
     "build:storyboard": "build-storybook",
-    "build:scripts": "babel ./scripts -d ./build",
+    "build:scripts": "babel ./scripts -d ./build && babel ./src -d ./build/es5",
     "deploy": "yarn build && yarn build:scripts && node build/deploy.js -b essentials",
     "deploy:prod": ""
   }

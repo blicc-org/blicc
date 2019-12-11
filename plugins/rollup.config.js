@@ -7,7 +7,7 @@ import minify from 'rollup-plugin-babel-minify'
 const config = {
   input: 'src/bundle.js',
   output: {
-    file: 'build/bundle.min.js',
+    file: 'build/bundles/bundle.min.js',
     format: 'esm',
     name: 'bundle',
   },
@@ -33,18 +33,16 @@ export default [
     ...config,
     input: 'src/essentials.stories.js',
     output: {
-      file: 'build/essentials.min.js',
+      dir: 'build/bundles',
       format: 'esm',
-      name: 'bundle',
     },
   },
   {
     ...config,
     input: 'src/special.stories.js',
     output: {
-      file: 'build/special.min.js',
+      dir: 'build/bundles',
       format: 'esm',
-      name: 'bundle',
     },
   },
 ]
