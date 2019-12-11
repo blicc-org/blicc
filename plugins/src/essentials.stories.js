@@ -16,22 +16,38 @@ export default {
   },
 }
 
-export function PieChart(data = [], sayHello = () => {}) {
+export function PieChart(
+  data = [],
+  settings = { color: '#ff55ff' },
+  setSettings = () => {}
+) {
+  console.log('render plugin')
   const div = document.createElement('div')
 
   const h1 = document.createElement('H1')
-  h1.style.color = '#ff55ff'
+  h1.style.color = settings.color
   const text = document.createTextNode('Click the button to change the color')
   h1.appendChild(text)
   div.appendChild(h1)
 
   const button = document.createElement('button')
   button.innerHTML = 'Change color'
-  button.onclick = sayHello
+  button.onclick = () => {
+    if (settings.color !== '#ff55ff') {
+      setSettings({ ...settings, color: '#ff55ff' })
+    } else {
+      setSettings({ ...settings, color: '#5555ff' })
+    }
+  }
   div.appendChild(button)
 
   return div
 }
 
-export const LineChart = () => '<h1>Line Chart</h1>'
-export const BarChart = () => '<h1>Bar Chart</h1>'
+export function LineChart(data = [], settings = {}, setSettings = () => {}) {
+  return '<h1>Line Chart</h1>'
+}
+
+export function BarChart(data = [], settings = {}, setSettings = () => {}) {
+  return '<h1>Bar Chart</h1>'
+}

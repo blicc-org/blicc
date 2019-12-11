@@ -11,6 +11,7 @@ export const INITIAL_DASHBOARD = {
     row: [
       {
         id: uuid(),
+        settings: {},
         col: GRID.FULL,
         type: TYPE.DRAG_HERE,
       },
@@ -70,13 +71,14 @@ export function useDashboard(initial = INITIAL_DASHBOARD) {
     }
   }
 
-  function setDashboard(id, pos, type) {
+  function setDashboard(id, pos, type, settings = {}) {
     setData(prev => {
       return {
         ...prev,
         data: add(prev.data, id, pos, {
           id: uuid(),
           type,
+          settings,
         }),
       }
     })

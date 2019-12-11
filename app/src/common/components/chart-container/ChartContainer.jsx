@@ -15,7 +15,7 @@ export const TYPE = {
   BAR_CHART: 'bar-chart',
 }
 
-export function ChartContainer({ type, id, onDrop }) {
+export function ChartContainer({ type, id, onDrop, settings, setSettings }) {
   const [dragging] = useContext(DragContext)
 
   const [, setPluginName] = useState('')
@@ -55,7 +55,11 @@ export function ChartContainer({ type, id, onDrop }) {
             {type === TYPE.DRAG_HERE ? (
               <DragHere />
             ) : (
-              <PluginLoader slug={type} />
+              <PluginLoader
+                slug={type}
+                settings={settings}
+                setSettings={setSettings}
+              />
             )}
           </div>
         </>

@@ -2,6 +2,7 @@ import React from 'react'
 import { ChartContainer } from '../chart-container/ChartContainer'
 import { useMobile } from '../../hooks'
 import './Row.scss'
+import { POSITION } from './positioning/Positioning'
 
 export const GRID = {
   FULL: '12',
@@ -23,7 +24,11 @@ export function Row({ row, onDrop, depth = 1 }) {
             <ChartContainer
               id={obj.id}
               type={obj.type}
+              settings={obj.settings}
               onDrop={(sector, type) => onDrop(obj.id, sector, type)}
+              setSettings={settings =>
+                onDrop(obj.id, POSITION.REPLACE, obj.type, settings)
+              }
             />
           )}
         </div>

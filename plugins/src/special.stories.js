@@ -2,4 +2,6 @@ export default {
   title: 'Special',
 }
 
-export const SpecialChart = () => '<h1>Special Chart</h1>'
+export function SpecialChart(data = [], settings = {}, setSettings = () => {}) {
+  return '<h1>Special Chart</h1>'
+}

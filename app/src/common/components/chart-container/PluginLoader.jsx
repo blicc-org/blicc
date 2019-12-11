@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Loading } from './Loading'
 import { API } from '../../../config'
 
-export function PluginLoader({ slug }) {
+export function PluginLoader({ slug, settings, setSettings }) {
   const [bundle, plugin] = slug.split('/')
   const ref = useRef()
   const [loading, setLoading] = useState(true)
@@ -16,7 +16,8 @@ export function PluginLoader({ slug }) {
       ).then(module => {
         setLoading(false)
 
-        const node = module[plugin]()
+        const data = [213, 342, 23, 123, 23]
+        const node = module[plugin](data, settings, setSettings)
 
         if (typeof node === 'string') {
           ref.current.innerHTML = node
