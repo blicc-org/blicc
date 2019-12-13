@@ -15,14 +15,23 @@ export class TwoFactorAuthController {
   public async request(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
 
-    if (ctx.user.hasTwoFactorAuth) {
-      ctx.status = statusCode.CONFLICT
+    const user = await this.userService.selectById(ctx.user.userId)
+
+    if (user) {
+      if (user.hasTwoFactorAuth) {
+        ctx.status = statusCode.CONFLICT
+      } else {
+        const {
+          secret,
+          otpAuthUrl,
+        } = this.twoFactorAuthService.generateSecret()
+        user.twoFactorAuthSecret = secret
+        await this.userService.update(user)
+        ctx.body = { otpAuthUrl }
+        ctx.status = statusCode.OK
+      }
     } else {
-      const { secret, otpAuthUrl } = this.twoFactorAuthService.generateSecret()
-      ctx.user.twoFactorAuthSecret = secret
-      await this.userService.update(ctx.user)
-      ctx.body = { otpAuthUrl }
-      ctx.status = statusCode.OK
+      ctx.status = statusCode.NOT_FOUND
     }
   }
 
@@ -30,13 +39,18 @@ export class TwoFactorAuthController {
     await next()
 
     const { token } = ctx.request.body
+    const user = await this.userService.selectById(ctx.user.userId)
 
-    if (await this.twoFactorAuthService.authenticate(ctx.user.email, token)) {
-      ctx.user.hasTwoFactorAuth = true
-      await this.userService.update(ctx.user)
-      ctx.status = statusCode.NO_CONTENT
+    if (user) {
+      if (await this.twoFactorAuthService.authenticate(user.email, token)) {
+        user.hasTwoFactorAuth = true
+        await this.userService.update(user)
+        ctx.status = statusCode.NO_CONTENT
+      } else {
+        ctx.status = statusCode.BAD_REQUEST
+      }
     } else {
-      ctx.status = statusCode.BAD_REQUEST
+      ctx.status = statusCode.NOT_FOUND
     }
   }
 
@@ -44,14 +58,19 @@ export class TwoFactorAuthController {
     await next()
 
     const { token } = ctx.request.body
+    const user = await this.userService.selectById(ctx.user.userId)
 
-    if (await this.twoFactorAuthService.authenticate(ctx.user.email, token)) {
-      ctx.user.hasTwoFactorAuth = false
-      ctx.user.twoFactorAuthSecret = ''
-      await this.userService.update(ctx.user)
-      ctx.status = statusCode.NO_CONTENT
+    if (user) {
+      if (await this.twoFactorAuthService.authenticate(user.email, token)) {
+        user.hasTwoFactorAuth = false
+        user.twoFactorAuthSecret = ''
+        await this.userService.update(user)
+        ctx.status = statusCode.NO_CONTENT
+      } else {
+        ctx.status = statusCode.BAD_REQUEST
+      }
     } else {
-      ctx.status = statusCode.BAD_REQUEST
+      ctx.status = statusCode.NOT_FOUND
     }
   }
 }

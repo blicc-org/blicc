@@ -13,8 +13,13 @@ export class DashboardController {
   public async create(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     const { title, description = '', data } = ctx.request.body
-    const { id } = ctx.user
-    ctx.body = await this.dashboardService.create(title, description, id, data)
+    const { userId } = ctx.user
+    ctx.body = await this.dashboardService.create(
+      title,
+      description,
+      userId,
+      data
+    )
     ctx.status = 201
   }
 
@@ -22,7 +27,7 @@ export class DashboardController {
     await next()
     const { id } = ctx.params
     const dashboard = await this.dashboardService.select(id)
-    if (dashboard !== undefined && ctx.user.id === dashboard.userId) {
+    if (dashboard && ctx.user.userId === dashboard.userId) {
       ctx.body = dashboard
       ctx.status = statusCode.OK
       return
@@ -32,6 +37,8 @@ export class DashboardController {
 
   public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
+    const { userId } = ctx.user
+
     const fields = Validation.escapeFields(ctx.query.fields, [
       'id',
       'title',
@@ -45,14 +52,14 @@ export class DashboardController {
     const take = Validation.escapeQueryNumber(ctx.query.take)
 
     const dashboards = await this.dashboardService.listByUserId(
-      ctx.user.id,
+      userId,
       fields,
       searchTerm,
       skip,
       take
     )
     const total = await this.dashboardService.getTotalEntriesByUserId(
-      ctx.user.id,
+      userId,
       searchTerm
     )
 
@@ -66,7 +73,7 @@ export class DashboardController {
     const { id } = ctx.params
     const dashboard = await this.dashboardService.select(id)
 
-    if (dashboard && ctx.user.id === dashboard.userId) {
+    if (dashboard && ctx.user.userId === dashboard.userId) {
       if (
         ctx.request.body.id === dashboard.id &&
         ctx.request.body.userId === dashboard.userId &&
@@ -86,7 +93,7 @@ export class DashboardController {
     await next()
     const { id } = ctx.params
     const dashboard = await this.dashboardService.select(id)
-    if (dashboard && ctx.user.id === dashboard.userId) {
+    if (dashboard && ctx.user.userId === dashboard.userId) {
       ctx.body = await this.dashboardService.remove(dashboard)
       ctx.status = statusCode.OK
       return

@@ -1,7 +1,6 @@
 import Koa from 'koa'
 import status from 'http-status-codes'
 import { JWT } from '../../util/jwt'
-import { UserService, User } from '../../features/user'
 import { TokenPayload } from '../../features/token'
 
 export class AuthMiddleware {
@@ -16,11 +15,8 @@ export class AuthMiddleware {
         token = authorization.split(' ')[1]
       }
       const payload: TokenPayload = JWT.verify(token)
-      const user: User | undefined = await new UserService().select(
-        payload.email
-      )
-      if (user) {
-        ctx.user = user
+      if (payload) {
+        ctx.user = payload
         await next()
       } else {
         ctx.status = status.NOT_FOUND

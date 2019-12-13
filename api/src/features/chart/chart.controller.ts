@@ -13,14 +13,14 @@ export class ChartController {
   public async create(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     const { title, bundle, description = '', key, slug } = ctx.request.body
-    const { id } = ctx.user
+    const { userId } = ctx.user
     ctx.body = await this.chartService.create(
       title,
       bundle,
       description,
       key,
       slug,
-      id
+      userId
     )
     ctx.status = statusCode.CREATED
   }
@@ -67,7 +67,7 @@ export class ChartController {
     const { id } = ctx.params
     const chart = await this.chartService.selectById(id)
 
-    if (chart && chart.userId === ctx.user.id) {
+    if (chart && chart.userId === ctx.user.userId) {
       if (
         ctx.request.body.id === chart.id &&
         ctx.request.body.userId === chart.userId &&
@@ -87,7 +87,7 @@ export class ChartController {
     await next()
     const { id } = ctx.params
     const chart = await this.chartService.selectById(id)
-    if (chart && ctx.user.id === chart.userId) {
+    if (chart && ctx.user.userId === chart.userId) {
       ctx.body = await this.chartService.remove(chart)
       ctx.status = statusCode.OK
       return

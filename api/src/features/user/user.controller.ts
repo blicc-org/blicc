@@ -56,7 +56,7 @@ export class UserController {
     try {
       const { id } = ctx.params
       const user = await this.userService.selectById(id)
-      if (user !== undefined && ctx.user.id === id) {
+      if (user && ctx.user.userId === id) {
         ctx.body = user
         ctx.status = statusCode.OK
         return
@@ -83,21 +83,26 @@ export class UserController {
     try {
       const { id } = ctx.params
       const { password, token = '' } = ctx.request.body
+      const user = await this.userService.selectById(id)
 
-      if (
-        await this.tokenService.authenticate(
-          ctx.user.email,
-          password,
-          ctx.user.hasTwoFactorAuth,
-          token
-        )
-      ) {
-        if (await this.userService.deleteById(id)) {
-          ctx.status = statusCode.OK
-          delete ctx.user.id
-          ctx.body = ctx.user
-        } else throw Error('An error occured while requesting a deletion.')
+      if (user && ctx.user.userId === id) {
+        if (
+          await this.tokenService.authenticate(
+            user.email,
+            password,
+            user.hasTwoFactorAuth,
+            token
+          )
+        ) {
+          if (await this.userService.deleteById(id)) {
+            ctx.status = statusCode.OK
+            delete user.id
+            ctx.body = user
+            return
+          } else throw Error('An error occured while requesting a deletion.')
+        }
       }
+      ctx.status = statusCode.FORBIDDEN
     } catch (e) {
       ctx.status = statusCode.INTERNAL_SERVER_ERROR
     }

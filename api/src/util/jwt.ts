@@ -2,20 +2,26 @@ import fs from 'fs'
 import jwt from 'jsonwebtoken'
 import { TokenPayload } from '../features/token'
 import { CERTS } from '../config'
+import { User } from '../features/user'
 
 export class JWT {
   private static ALGORITHM = 'RS256'
   private static PRIVATE = `${CERTS}/rsa.pem`
   private static PUBLIC = `${CERTS}/rsa_pub.pem`
 
-  public static generate(
-    email: string
-  ): { token: string; payload: TokenPayload } {
+  public static generate(user: User): { token: string; payload: TokenPayload } {
     const privateKey = fs.readFileSync(JWT.PRIVATE)
 
     const iat = Math.trunc(new Date().getTime() / 1000)
     const exp = iat + 2 * 24 * 60 * 60 // m * s => timeout of 10 minutes
-    const payload: TokenPayload = { iat, exp, email }
+    if (!user.id) throw Error('User id is undefined!')
+    const payload: TokenPayload = {
+      iat,
+      exp,
+      email: user.email,
+      userId: user.id,
+      role: user.role,
+    }
     return {
       token: jwt.sign(payload, privateKey, {
         algorithm: JWT.ALGORITHM,

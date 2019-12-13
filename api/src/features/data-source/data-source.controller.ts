@@ -19,11 +19,11 @@ export class DataSourceController {
       persistData,
       fetchFrequency,
     } = ctx.request.body
-    const { id } = ctx.user
+    const { userId } = ctx.user
     ctx.body = await this.dataSourceService.create(
       title,
       description,
-      id,
+      userId,
       requestConfig,
       persistData,
       fetchFrequency
@@ -35,7 +35,7 @@ export class DataSourceController {
     await next()
     const { id } = ctx.params
     const dataSource = await this.dataSourceService.select(id)
-    if (dataSource !== undefined && ctx.user.id === dataSource.userId) {
+    if (dataSource !== undefined && ctx.user.userId === dataSource.userId) {
       ctx.body = dataSource
       ctx.status = statusCode.OK
       return
@@ -46,7 +46,7 @@ export class DataSourceController {
   public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
 
-    const { id } = ctx.user
+    const { userId } = ctx.user
 
     const fields = Validation.escapeFields(ctx.query.fields, [
       'id',
@@ -63,13 +63,13 @@ export class DataSourceController {
     const take = Validation.escapeQueryNumber(ctx.query.take)
 
     const dataSources = await this.dataSourceService.listByUserId(
-      id,
+      userId,
       fields,
       searchTerm,
       skip,
       take
     )
-    const total = await this.dataSourceService.getTotalEntriesByUserId(id)
+    const total = await this.dataSourceService.getTotalEntriesByUserId(userId)
 
     if (!dataSources) {
       ctx.status = statusCode.BAD_REQUEST
@@ -85,7 +85,7 @@ export class DataSourceController {
     const { id } = ctx.params
     const dataSource = await this.dataSourceService.select(id)
 
-    if (dataSource && ctx.user.id === dataSource.userId) {
+    if (dataSource && ctx.user.userId === dataSource.userId) {
       if (
         ctx.request.body.id === dataSource.id &&
         ctx.request.body.userId === dataSource.userId &&
@@ -105,7 +105,7 @@ export class DataSourceController {
     await next()
     const { id } = ctx.params
     const dataSource = await this.dataSourceService.select(id)
-    if (dataSource && ctx.user.id === dataSource.userId) {
+    if (dataSource && ctx.user.userId === dataSource.userId) {
       ctx.body = await this.dataSourceService.remove(dataSource)
       ctx.status = statusCode.OK
       return
