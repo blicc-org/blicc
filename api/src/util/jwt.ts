@@ -18,7 +18,6 @@ export class JWT {
     const payload: TokenPayload = {
       iat,
       exp,
-      email: user.email,
       userId: user.id,
       role: user.role,
     }
