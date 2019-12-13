@@ -15,7 +15,7 @@ export class TwoFactorAuthController {
   public async request(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
 
-    const user = await this.userService.selectById(ctx.user.userId)
+    const user = await this.userService.selectById(ctx.jwt.userId)
 
     if (user) {
       if (user.hasTwoFactorAuth) {
@@ -39,7 +39,7 @@ export class TwoFactorAuthController {
     await next()
 
     const { token } = ctx.request.body
-    const user = await this.userService.selectById(ctx.user.userId)
+    const user = await this.userService.selectById(ctx.jwt.userId)
 
     if (user) {
       if (await this.twoFactorAuthService.authenticate(user.email, token)) {
@@ -58,7 +58,7 @@ export class TwoFactorAuthController {
     await next()
 
     const { token } = ctx.request.body
-    const user = await this.userService.selectById(ctx.user.userId)
+    const user = await this.userService.selectById(ctx.jwt.userId)
 
     if (user) {
       if (await this.twoFactorAuthService.authenticate(user.email, token)) {

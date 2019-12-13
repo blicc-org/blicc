@@ -56,7 +56,7 @@ export class UserController {
     try {
       const { id } = ctx.params
       const user = await this.userService.selectById(id)
-      if (user && ctx.user.userId === id) {
+      if (user && ctx.jwt.userId === id) {
         ctx.body = user
         ctx.status = statusCode.OK
         return
@@ -85,7 +85,7 @@ export class UserController {
       const { password, token = '' } = ctx.request.body
       const user = await this.userService.selectById(id)
 
-      if (user && ctx.user.userId === id) {
+      if (user && ctx.jwt.userId === id) {
         if (
           await this.tokenService.authenticate(
             user.email,
