@@ -35,7 +35,10 @@ export class DataSourceController {
     await next()
     const { id } = ctx.params
     const dataSource = await this.dataSourceService.select(id)
-    if (dataSource !== undefined && ctx.state.jwt.userId === dataSource.userId) {
+    if (
+      dataSource !== undefined &&
+      ctx.state.jwt.userId === dataSource.userId
+    ) {
       ctx.body = dataSource
       ctx.status = statusCode.OK
       return
