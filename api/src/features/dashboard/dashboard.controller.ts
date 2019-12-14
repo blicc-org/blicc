@@ -13,7 +13,7 @@ export class DashboardController {
   public async create(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     const { title, description = '', data } = ctx.request.body
-    const { userId } = ctx.jwt
+    const { userId } = ctx.state.jwt
     ctx.body = await this.dashboardService.create(
       title,
       description,
@@ -27,7 +27,7 @@ export class DashboardController {
     await next()
     const { id } = ctx.params
     const dashboard = await this.dashboardService.select(id)
-    if (dashboard && ctx.jwt.userId === dashboard.userId) {
+    if (dashboard && ctx.state.jwt.userId === dashboard.userId) {
       ctx.body = dashboard
       ctx.status = statusCode.OK
       return
@@ -37,7 +37,7 @@ export class DashboardController {
 
   public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    const { userId } = ctx.jwt
+    const { userId } = ctx.state.jwt
 
     const fields = Validation.escapeFields(ctx.query.fields, [
       'id',
@@ -73,7 +73,7 @@ export class DashboardController {
     const { id } = ctx.params
     const dashboard = await this.dashboardService.select(id)
 
-    if (dashboard && ctx.jwt.userId === dashboard.userId) {
+    if (dashboard && ctx.state.jwt.userId === dashboard.userId) {
       if (
         ctx.request.body.id === dashboard.id &&
         ctx.request.body.userId === dashboard.userId &&
@@ -93,7 +93,7 @@ export class DashboardController {
     await next()
     const { id } = ctx.params
     const dashboard = await this.dashboardService.select(id)
-    if (dashboard && ctx.jwt.userId === dashboard.userId) {
+    if (dashboard && ctx.state.jwt.userId === dashboard.userId) {
       ctx.body = await this.dashboardService.remove(dashboard)
       ctx.status = statusCode.OK
       return

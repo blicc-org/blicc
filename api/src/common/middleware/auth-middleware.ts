@@ -16,7 +16,7 @@ export class AuthMiddleware {
       }
       const payload: TokenPayload = JWT.verify(token)
       if (payload) {
-        ctx.jwt = payload
+        ctx.state.jwt = payload
         await next()
       } else {
         ctx.status = status.NOT_FOUND

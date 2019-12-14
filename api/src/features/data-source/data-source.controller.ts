@@ -19,7 +19,7 @@ export class DataSourceController {
       persistData,
       fetchFrequency,
     } = ctx.request.body
-    const { userId } = ctx.jwt
+    const { userId } = ctx.state.jwt
     ctx.body = await this.dataSourceService.create(
       title,
       description,
@@ -35,7 +35,7 @@ export class DataSourceController {
     await next()
     const { id } = ctx.params
     const dataSource = await this.dataSourceService.select(id)
-    if (dataSource !== undefined && ctx.jwt.userId === dataSource.userId) {
+    if (dataSource !== undefined && ctx.state.jwt.userId === dataSource.userId) {
       ctx.body = dataSource
       ctx.status = statusCode.OK
       return
@@ -46,7 +46,7 @@ export class DataSourceController {
   public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
 
-    const { userId } = ctx.jwt
+    const { userId } = ctx.state.jwt
 
     const fields = Validation.escapeFields(ctx.query.fields, [
       'id',
@@ -85,7 +85,7 @@ export class DataSourceController {
     const { id } = ctx.params
     const dataSource = await this.dataSourceService.select(id)
 
-    if (dataSource && ctx.jwt.userId === dataSource.userId) {
+    if (dataSource && ctx.state.jwt.userId === dataSource.userId) {
       if (
         ctx.request.body.id === dataSource.id &&
         ctx.request.body.userId === dataSource.userId &&
@@ -105,7 +105,7 @@ export class DataSourceController {
     await next()
     const { id } = ctx.params
     const dataSource = await this.dataSourceService.select(id)
-    if (dataSource && ctx.jwt.userId === dataSource.userId) {
+    if (dataSource && ctx.state.jwt.userId === dataSource.userId) {
       ctx.body = await this.dataSourceService.remove(dataSource)
       ctx.status = statusCode.OK
       return
