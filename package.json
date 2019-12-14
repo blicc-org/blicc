@@ -13,7 +13,7 @@
   "scripts": {
     "fix": "yarn --cwd 'app' fix && yarn --cwd 'api' fix",
     "format": "prettier --config .prettierrc --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|html|babelrc)\"",
-    "install": "yarn --cwd 'db' install && yarn --cwd 'app' install && yarn --cwd 'api' install",
+    "install": "yarn --cwd 'api' install && yarn --cwd 'app' install && yarn --cwd 'db' install && yarn --cwd 'delivery' install && yarn --cwd 'plugins' install",
     "build": "yarn --cwd 'app' build && yarn --cwd 'api' build",
     "test": "cross-env CI=true yarn --cwd 'app' test && yarn --cwd 'api' test",
     "lines": "git ls-files | grep '\\(.js\\|.jsx\\|.ts\\|.tsx\\|.scss\\|.json\\|.go\\)$' | xargs cat | wc -l"
