@@ -9,5 +9,6 @@ ReactDOM.render(<App />, document.getElementById('root'))
 
 registerServiceWorker()
 
-const memory = navigator.deviceMemory
-console.log ("This device has at least " + memory + " GiB of RAM.")
+console.log(
+  'This device has at least ' + navigator.deviceMemory + ' GiB of RAM.'
+)
