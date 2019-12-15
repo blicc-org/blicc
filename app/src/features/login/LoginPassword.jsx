@@ -41,6 +41,7 @@ export function LoginPassword({
         <Link to="/register">Register now</Link>
       </div>
       <button
+        title="Sign in"
         className="btn btn-lg btn-primary btn-block"
         type="submit"
         onClick={async e => {

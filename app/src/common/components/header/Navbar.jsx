@@ -36,36 +36,37 @@ export function NavBar({ toggleMenu }) {
         className="navbar navbar-expand fixed-top navbar-dark bg-dark p-0"
         style={{ width }}
       >
-        <ul
+        <div
           className="navbar-nav"
           style={{ width: `${sidebarWidth}px`, flexShrink: 0 }}
         >
-          <li className="nav-item">
+          <div className="nav-item">
             <div
+              title="Toggle Sidebar"
               className="menu-button nav-link pl-4 pr-3 py-2 prevent-sidebar-click-away"
               style={{ marginBottom: '2px' }}
               onClick={toggleMenu}
             >
               <Burger className="burger" />
             </div>
-          </li>
-          <li className="nav-item">
+          </div>
+          <div className="nav-item">
             <Link className="navbar-brand p-1" style={style} to="/">
               <Logo className="logo" />
               <div className="title">{content.title} </div>
             </Link>
-          </li>
-        </ul>
-        <ul className="navbar-nav w-100">
+          </div>
+        </div>
+        <div className="navbar-nav w-100">
           <Search />
-        </ul>
-        <ul className="navbar-nav ml-auto pr-3">
+        </div>
+        <div className="navbar-nav ml-auto pr-3">
           <NavbarUser
             firstName={firstName}
             lastName={lastName}
             loggedIn={loggedIn}
           />
-        </ul>
+        </div>
       </nav>
     </>
   )

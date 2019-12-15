@@ -26,6 +26,7 @@ export function LoginTwoFactorAuth({ setToken, login }) {
         </div>
       </div>
       <button
+        title="Submit two-factor authentication"
         className="btn btn-lg btn-primary btn-block"
         type="submit"
         onClick={login}

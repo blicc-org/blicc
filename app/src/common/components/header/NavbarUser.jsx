@@ -22,12 +22,13 @@ export function NavbarUser({ firstName, lastName, loggedIn }) {
   return (
     <>
       {loggedIn ? (
-        <li ref={ref} className="nav-item dropdown">
+        <div ref={ref} className="nav-item dropdown">
           <a
             className="nav-link dropdown-toggle"
             href="/"
             id="navbarDropdown"
             role="button"
+            title="View user"
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
@@ -61,13 +62,13 @@ export function NavbarUser({ firstName, lastName, loggedIn }) {
               {content.navbar.logout}
             </Link>
           </div>
-        </li>
+        </div>
       ) : (
-        <li className="nav-item text-nowrap">
+        <div className="nav-item text-nowrap">
           <Link className="nav-link" to="/login">
             {content.navbar.signin}
           </Link>
-        </li>
+        </div>
       )}
     </>
   )

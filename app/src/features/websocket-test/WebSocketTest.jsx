@@ -17,7 +17,10 @@ export function WebSocketTest() {
         <div className="col-md-5 mx-auto py-5 my-5 text-center">
           <p>
             {`WebSocket connection state: ${WebSocketState[state]}, click to test: `}
-            <button onClick={() => publish('Hello World!!!')}>
+            <button
+              title="Websocket test"
+              onClick={() => publish('Hello World!!!')}
+            >
               Say Hallo!
             </button>
           </p>

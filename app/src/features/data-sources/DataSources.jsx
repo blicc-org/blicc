@@ -39,6 +39,7 @@ export function DataSources() {
           <h2 className="my-0">Data Sources</h2>
           <div className="btn-toolbar">
             <button
+              title="Create new data source"
               type="button"
               className="btn btn-sm btn-primary"
               onClick={() => console.log('create new data source')}

@@ -13,6 +13,7 @@ export function Pagination({ page, setPage, itemsPerPage, total }) {
     pageLinks.push(
       <li key={i} className={`page-item ${page === i ? 'active' : ''}`}>
         <button
+          title="Go to specific page"
           className="page-link"
           onClick={() => {
             setPage(i)
@@ -29,13 +30,21 @@ export function Pagination({ page, setPage, itemsPerPage, total }) {
       {numOfPages > 0 && (
         <>
           <li className={`page-item ${page === 0 ? 'disabled' : ''}`}>
-            <button className="page-link" onClick={() => setPage(0)}>
+            <button
+              title="Go to first page"
+              className="page-link"
+              onClick={() => setPage(0)}
+            >
               « First
             </button>
           </li>
           {page > 0 && (
             <li className="page-item">
-              <button className="page-link" onClick={() => setPage(page - 1)}>
+              <button
+                title="Go to previous page"
+                className="page-link"
+                onClick={() => setPage(page - 1)}
+              >
                 Prev
               </button>
             </li>
@@ -43,13 +52,21 @@ export function Pagination({ page, setPage, itemsPerPage, total }) {
           {pageLinks}
           {page < numOfPages && (
             <li className="page-item">
-              <button className="page-link" onClick={() => setPage(page + 1)}>
+              <button
+                title="Go to next page"
+                className="page-link"
+                onClick={() => setPage(page + 1)}
+              >
                 Next
               </button>
             </li>
           )}
           <li className={`page-item ${page === numOfPages ? 'disabled' : ''}`}>
-            <button className="page-link" onClick={() => setPage(numOfPages)}>
+            <button
+              title="Go to last page"
+              className="page-link"
+              onClick={() => setPage(numOfPages)}
+            >
               Last »
             </button>
           </li>

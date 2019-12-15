@@ -7,7 +7,12 @@ export function WrongPasswordModal({ cancel, submit }) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">Title</h5>
-            <button onClick={cancel} type="button" className="close">
+            <button
+              title="Close modal"
+              onClick={cancel}
+              type="button"
+              className="close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -19,13 +24,19 @@ export function WrongPasswordModal({ cancel, submit }) {
           </div>
           <div className="modal-footer">
             <button
+              title="Cancel modal"
               onClick={cancel}
               type="button"
               className="btn btn-outline-secondary"
             >
               Send Email
             </button>
-            <button onClick={submit} type="button" className="btn btn-primary">
+            <button
+              title="Submit modal"
+              onClick={submit}
+              type="button"
+              className="btn btn-primary"
+            >
               Try it again
             </button>
           </div>

@@ -27,7 +27,11 @@ export function Highlighter({ language, value }) {
         >
           {value}
         </SyntaxHighlighter>
-        <button className="btn btn-sm btn-link btn-copy" onClick={() => copy()}>
+        <button
+          title="Copy source code"
+          className="btn btn-sm btn-link btn-copy"
+          onClick={() => copy()}
+        >
           Copy
         </button>
       </div>

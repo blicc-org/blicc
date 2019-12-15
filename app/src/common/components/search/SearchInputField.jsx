@@ -66,6 +66,7 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
         {isFullscreen && (
           <div className="input-group-prepend">
             <button
+              title="Close searchbar"
               className="btn"
               onClick={event => {
                 event.preventDefault()
@@ -77,16 +78,17 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
           </div>
         )}
         <input
+          label="Search input field"
           className="form-control search-input"
           type="search"
           placeholder="Search"
-          aria-label="Search"
           style={{ backgroundColor }}
           onChange={event => setSearchTerm(event.target.value)}
           value={searchTerm}
         />
         <div className="input-group-append">
           <button
+            title="Search"
             className="btn search-button"
             type="submit"
             onClick={event => event.preventDefault()}

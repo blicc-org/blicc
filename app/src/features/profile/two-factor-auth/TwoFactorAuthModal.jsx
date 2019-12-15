@@ -7,7 +7,12 @@ export function TwoFactorAuthModal({ cancel, submit, setToken }) {
       <div className="modal-content">
         <div className="modal-header">
           <h5 className="modal-title">Disable Two-factor authentication</h5>
-          <button onClick={cancel} type="button" className="close">
+          <button
+            title="Close modal"
+            onClick={cancel}
+            type="button"
+            className="close"
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -36,13 +41,19 @@ export function TwoFactorAuthModal({ cancel, submit, setToken }) {
         <div className="input-group input-group-lg mb-3 px-5"></div>
         <div className="modal-footer">
           <button
+            title="Cancel modal"
             onClick={cancel}
             type="button"
             className="btn btn-outline-secondary"
           >
             Cancel
           </button>
-          <button onClick={submit} type="button" className="btn btn-danger">
+          <button
+            title="Submit modal"
+            onClick={submit}
+            type="button"
+            className="btn btn-danger"
+          >
             Submit
           </button>
         </div>

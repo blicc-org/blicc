@@ -82,6 +82,7 @@ export function RegisterForm({ user, setUser, register }) {
         </Input>
         <hr className="mb-4" />
         <button
+          title="Submit registration"
           className="btn btn-primary btn-lg btn-block"
           type="submit"
           onClick={e => {

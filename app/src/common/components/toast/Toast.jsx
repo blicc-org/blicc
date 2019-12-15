@@ -25,10 +25,10 @@ export function Toast({ label, message, type = '' }) {
               {label}
             </strong>
             <button
+              title="Close hint"
               type="button"
               className="ml-2 mb-1 close"
               data-dismiss="toast"
-              aria-label="Close"
               onClick={() => setHidden(true)}
             >
               <span aria-hidden="true">&times;</span>

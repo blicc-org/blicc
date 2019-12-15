@@ -35,7 +35,12 @@ export function PluginSelectorModal({ cancel, submit }) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">Select a chart type</h5>
-            <button onClick={cancel} type="button" className="close">
+            <button
+              title="Close modal"
+              onClick={cancel}
+              type="button"
+              className="close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>

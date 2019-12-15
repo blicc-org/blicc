@@ -15,6 +15,7 @@ export function DashboardHeader({
         <h2 className="my-0">{title}</h2>
         <div className="btn-toolbar">
           <button
+            title="Save dashboard"
             type="button"
             className="btn btn-sm btn-primary"
             onClick={onSave}

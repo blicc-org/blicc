@@ -28,6 +28,7 @@ export function Toolbox() {
             show ? 'show' : ''
           }`}
           type="button"
+          title="Toggle toolbox"
           id="dropdownMenuButton"
           data-toggle="dropdown"
           aria-haspopup="true"

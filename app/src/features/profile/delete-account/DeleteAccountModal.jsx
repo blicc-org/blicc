@@ -13,7 +13,12 @@ export function DeleteAccountModal({
       <div className="modal-content">
         <div className="modal-header">
           <h5 className="modal-title">Delete Account</h5>
-          <button onClick={cancel} type="button" className="close">
+          <button
+            title="Close modal"
+            onClick={cancel}
+            type="button"
+            className="close"
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -55,13 +60,19 @@ export function DeleteAccountModal({
         </div>
         <div className="modal-footer">
           <button
+            title="Cancel modal"
             onClick={cancel}
             type="button"
             className="btn btn-outline-secondary"
           >
             Cancel
           </button>
-          <button onClick={submit} type="button" className="btn btn-danger">
+          <button
+            title="Submit modal"
+            onClick={submit}
+            type="button"
+            className="btn btn-danger"
+          >
             Delete
           </button>
         </div>

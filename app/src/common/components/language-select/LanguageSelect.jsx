@@ -12,6 +12,7 @@ export function LanguageSelect() {
 
   return (
     <select
+      label="Select a language"
       className="form-control form-control-sm language-select"
       onChange={onChange}
       value={appState.language}
