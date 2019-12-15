@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { AppContext } from '../../context'
 import { useLanguage } from '../../hooks'
 import { ReactComponent as Burger } from '../../../assets/img/Burger.svg'
-import { ReactComponent as Maskot } from '../../../assets/img/Maskot.svg'
+import { ReactComponent as Logo } from '../../../assets/img/Logo.svg'
 import { NavbarUser } from './NavbarUser'
 import { Search } from '../search/Search'
 import { sidebarWidth } from '../../../config'
@@ -51,7 +51,7 @@ export function NavBar({ toggleMenu }) {
           </li>
           <li className="nav-item">
             <Link className="navbar-brand p-1" style={style} to="/">
-              <Maskot className="maskot" />
+              <Logo className="logo" />
               <div className="title">{content.title} </div>
             </Link>
           </li>
