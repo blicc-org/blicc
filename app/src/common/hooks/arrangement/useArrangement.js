@@ -124,8 +124,7 @@ export function useArrangement() {
       if (prev.items.some(item => item.items)) {
         if (prev.items.length === 1) {
           return {
-            ...prev,
-            items: prev.items[0].items,
+            ...prev.items[0],
           }
         } else {
           return {

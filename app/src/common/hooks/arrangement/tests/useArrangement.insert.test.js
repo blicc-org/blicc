@@ -159,4 +159,45 @@ describe('useArrangement for inserting elements', () => {
       ],
     })
   })
+
+  it('Add four elements both row and column', () => {
+    const { result } = renderHook(() => useArrangement())
+    const ids = []
+
+    act(() => {
+      const [arrangement, insert] = result.current
+      ids[0] = insert(arrangement.id, ACTION.REPLACE)
+      ids[1] = insert(ids[0], ACTION.RIGHT)
+      ids[2] = insert(ids[1], ACTION.LEFT)
+      ids[3] = insert(ids[2], ACTION.BOTTOM)
+    })
+
+    expect(result.current[0]).toStrictEqual({
+      direction: 'row',
+      items: [
+        {
+          id: ids[0],
+        },
+        {
+          direction: 'row',
+          items: [
+            {
+              direction: 'column',
+              items: [
+                {
+                  id: ids[2],
+                },
+                {
+                  id: ids[3],
+                },
+              ],
+            },
+            {
+              id: ids[1],
+            },
+          ],
+        },
+      ],
+    })
+  })
 })
