@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import { useInsert, useRemove } from './helper'
+import { useContext } from 'react'
 import uuid from 'uuid'
+import { useInsert, useRemove } from './helper'
+import { ArrangementContext } from '../../context/ArrangementContext'
 
 export const ACTION = {
   TOP: 0,
@@ -13,7 +14,7 @@ export const ACTION = {
 }
 
 export function useArrangement() {
-  const [arrangement, setArrangement] = useState({})
+  const [arrangement, setArrangement] = useContext(ArrangementContext)
   const insertHelper = useInsert()
   const removeHelper = useRemove()
 

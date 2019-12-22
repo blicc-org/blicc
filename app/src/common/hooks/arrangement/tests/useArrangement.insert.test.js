@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks'
+import { renderHook, act } from '../../../tests/react-hooks'
 import { useArrangement, ACTION } from '../useArrangement'
 
 describe('useArrangement for inserting elements', () => {

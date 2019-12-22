@@ -63,6 +63,12 @@
       "extensions": ["stories", ".storybook"],
       "format": "FileFormat.svg",
       "disabled": false
+    },
+    {
+      "icon": "settings",
+      "extensions": ["settings"],
+      "format": "FileFormat.svg",
+      "disabled": true
     }
   ]
 }
