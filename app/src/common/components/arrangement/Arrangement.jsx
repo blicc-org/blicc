@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import uuid from 'uuid'
 import { useArrangement } from '../../hooks'
 import { DragHere } from './Draghere'
@@ -15,26 +15,28 @@ export function Arrangement() {
 }
 
 export function Box({ arr }) {
-  return (
-    <>
-      {(() => {
-        if (arr.id) {
-          return <Plugin id={arr.id} />
-        } else if (arr.items) {
-          return (
-            <div
-              className="spread"
-              style={{ display: 'flex', flexDirection: arr.direction }}
-            >
-              {arr.items.map(item => (
-                <Box key={uuid()} arr={item} />
-              ))}
-            </div>
-          )
-        } else {
-          return <DragHere />
-        }
-      })()}
-    </>
-  )
+  return useMemo(() => {
+    return (
+      <>
+        {(() => {
+          if (arr.id) {
+            return <Plugin id={arr.id} />
+          } else if (arr.items) {
+            return (
+              <div
+                className="spread"
+                style={{ display: 'flex', flexDirection: arr.direction }}
+              >
+                {arr.items.map(item => (
+                  <Box key={uuid()} arr={item} />
+                ))}
+              </div>
+            )
+          } else {
+            return <DragHere />
+          }
+        })()}
+      </>
+    )
+  }, [arr])
 }
