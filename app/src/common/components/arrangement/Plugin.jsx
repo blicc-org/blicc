@@ -17,7 +17,7 @@ export function Plugin({ id, onDrop }) {
     <div className="spread plugin">
       <div className="row text-muted px-2">
         <div className="col col-8">
-          <p>{type}</p>
+          <p>{id}</p>
         </div>
         <div className="col col-4 text-right">
           <X

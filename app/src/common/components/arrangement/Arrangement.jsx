@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import uuid from 'uuid'
-import { useArrangement, useModal, useSettings, ACTION } from '../../hooks'
+import { useArrangement, useModal, useSettings } from '../../hooks'
 import { DragHere } from './Draghere'
 import { Plugin } from './Plugin'
 import { PluginSelectorModal } from './PluginSelectorModal'
@@ -11,19 +11,22 @@ export function Arrangement() {
   const [, insertSet] = useSettings()
   const [targetId, setTargetId] = useState('')
   const [action, setAction] = useState(0)
-  const [showModal, hideModal] = useModal(() => (
-    <PluginSelectorModal
-      cancel={hideModal}
-      submit={slug => {
-        const id = insertArr(targetId, action)
-        insertSet(id, 'type', slug)
-        hideModal()
-      }}
-    />
-  ))
+
+  const [showModal, hideModal] = useModal(
+    () => (
+      <PluginSelectorModal
+        cancel={hideModal}
+        submit={slug => {
+          const id = insertArr(targetId, action)
+          insertSet(id, 'type', slug)
+          hideModal()
+        }}
+      />
+    ),
+    [targetId, action]
+  )
 
   function onDrop(action, id = '') {
-    if (id === '') action = ACTION.REPLACE
     setTargetId(id)
     setAction(action)
     showModal()

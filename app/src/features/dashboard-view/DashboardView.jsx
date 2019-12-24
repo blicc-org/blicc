@@ -42,10 +42,7 @@ export function DashboardView({ match }) {
       console.log('update was successful!')
     }
   }
-  console.log('settings: ')
-  console.log(settings)
-  console.log('arrangement: ')
-  console.log(arrangement)
+
   return useMemo(() => {
     return (
       <>

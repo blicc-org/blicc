@@ -11,7 +11,6 @@ addDecorator(story => {
   const data = [12, 19, 3, 5, 2, 3]
 
   function setSettings(value) {
-    console.log(value)
     settings = value
   }
 

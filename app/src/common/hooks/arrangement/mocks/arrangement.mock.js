@@ -86,3 +86,49 @@ export const complexTwo = {
     },
   ],
 }
+
+export const complexThree = {
+  direction: 'row',
+  items: [
+    { id: '35f90e91-6085-44d9-b54a-a5dc95c5d466' },
+    {
+      direction: 'column',
+      items: [
+        { id: 'f9f55502-2b69-458e-aa4b-6c2f8aff5d43' },
+        {
+          direction: 'row',
+          items: [
+            { id: 'a36bdb9b-afa6-48c9-bdce-df5d3e464031' },
+            { id: '83090288-c792-4b48-9166-1220fb735de2' },
+          ],
+        },
+      ],
+    },
+  ],
+}
+
+export const complexThreeWrongResult = {
+  direction: 'row',
+  items: [
+    { id: '35f90e91-6085-44d9-b54a-a5dc95c5d466' },
+    {
+      direction: 'column',
+      items: [
+        { id: 'f9f55502-2b69-458e-aa4b-6c2f8aff5d43' },
+        {
+          direction: 'row',
+          items: [
+            { id: 'a36bdb9b-afa6-48c9-bdce-df5d3e464031' },
+            {
+              direction: 'row',
+              items: [
+                { id: '92ccd5a7-772e-4b30-890c-6f1bde0dae9c' },
+                { id: '83090288-c792-4b48-9166-1220fb735de2' },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
