@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React, { useMemo } from 'react'
 import uuid from 'uuid'
 import { useArrangement } from '../../hooks'
 import { DragHere } from './Draghere'
