@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Loading } from './Loading'
 import { API } from '../../../config'
-import { useSettings } from '../../hooks/settings/useSettings'
 
 export function PluginLoader({ id }) {
-  const [set] = useSettings(id)
   const slug = 'essentials/PieChart'
   const [bundle, plugin] = slug.split('/')
   const ref = useRef()
@@ -30,7 +28,7 @@ export function PluginLoader({ id }) {
       })
     }
 
-    if (slug) fetchPlugin()
+    fetchPlugin()
     // eslint-disable-next-line
   }, [slug])
 
