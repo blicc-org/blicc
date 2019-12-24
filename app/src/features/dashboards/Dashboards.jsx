@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import statusCode from 'http-status-codes'
 import { Redirect } from 'react-router-dom'
-import { useApiEndpoint, INITIAL_DASHBOARD } from '../../common/hooks'
+import { useApiEndpoint } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useModal } from '../../common/hooks/useModal'
 import { CreateDashboardModal } from './CreateDashboardModal'
 import { Item, Tabs, Pagination } from '../../common/components/ui'
 import './Dashboards.scss'
+
+export const INITIAL_DASHBOARD = {
+  title: '',
+  description: '',
+  data: {
+    arrangement: {},
+    settings: {},
+  },
+}
 
 export function Dashboards() {
   const itemsPerPage = 10

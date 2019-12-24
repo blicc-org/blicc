@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Loading } from './Loading'
 import { API } from '../../../config'
+import { useSettings } from '../../hooks/settings/useSettings'
 
-export function PluginLoader({ slug, settings, setSettings }) {
+export function PluginLoader({ id }) {
+  const [set] = useSettings(id)
+  const slug = 'essentials/PieChart'
   const [bundle, plugin] = slug.split('/')
   const ref = useRef()
   const [loading, setLoading] = useState(true)
@@ -17,7 +20,7 @@ export function PluginLoader({ slug, settings, setSettings }) {
         setLoading(false)
 
         const data = [213, 342, 23, 123, 23]
-        const node = module[plugin](data, settings, setSettings)
+        const node = module[plugin](data, {}, () => {})
 
         if (typeof node === 'string') {
           ref.current.innerHTML = node
@@ -27,7 +30,7 @@ export function PluginLoader({ slug, settings, setSettings }) {
       })
     }
 
-    fetchPlugin()
+    if (slug) fetchPlugin()
     // eslint-disable-next-line
   }, [slug])
 

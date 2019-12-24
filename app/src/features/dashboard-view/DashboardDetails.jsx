@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card } from '../../common/components/ui'
 
-export function DashboardDetails({ data }) {
+export function DashboardDetails({ title, userId, creationDate, description }) {
   return (
     <div className="col px-0">
       <Card>
@@ -11,25 +11,25 @@ export function DashboardDetails({ data }) {
               <td>
                 <b>Title</b>
               </td>
-              <td>{data.title}</td>
+              <td>{title}</td>
             </tr>
             <tr>
               <td>
                 <b>Owner:</b>
               </td>
-              <td>{data.userId}</td>
+              <td>{userId}</td>
             </tr>
             <tr>
               <td>
                 <b>Creation date:</b>
               </td>
-              <td>{data.creationDate.split('T')[0]}</td>
+              <td>{creationDate.split('T')[0]}</td>
             </tr>
             <tr>
               <td>
                 <b>Description:</b>
               </td>
-              <td>{data.description}</td>
+              <td>{description}</td>
             </tr>
           </tbody>
         </table>

@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { DashboardHeader } from './DashboardHeader'
-import { DashboardContainer } from '../../common/components/dashboard-container/DashboardContainer'
-import { useApiEndpoint, useDashboard } from '../../common/hooks'
+import { Arrangement } from '../../common/components/arrangement/Arrangement'
+import { useApiEndpoint } from '../../common/hooks'
+import { ArrangementContext, SettingsContext } from '../../common/context'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DashboardDetails } from './DashboardDetails'
 import { Toolbox } from '../../common/components/toolbox/Toolbox'
 import './DashboardView.scss'
 
 export function DashboardView({ match }) {
-  const [data, setData, setDashboard] = useDashboard()
+  const [arrangement, setArrangement] = useContext(ArrangementContext)
+  const [settings, setSettings] = useContext(SettingsContext)
   const path = `/dashboards/${match.params.id}`
   const [, access, update] = useApiEndpoint(path)
-  const { title } = data
+  const [dashboard, setDashboard] = useState({})
+  const { title, userId, creationDate, description } = dashboard
 
   const tabs = ['Dashboard', 'Details']
   const [currentTab, setCurrentTab] = useState(tabs[0])
@@ -21,7 +24,9 @@ export function DashboardView({ match }) {
     async function fetchData() {
       const [status, data] = await access()
       if (status === statusCode.OK) {
-        setData(data)
+        setDashboard(data)
+        setArrangement(data.data.arrangement)
+        setSettings(data.data.settings)
       }
     }
     fetchData()
@@ -29,7 +34,10 @@ export function DashboardView({ match }) {
   }, [match])
 
   async function updateDashboard() {
-    const [status] = await update(data)
+    const [status] = await update({
+      ...dashboard,
+      data: { arrangement, settings },
+    })
     if (status === statusCode.OK) {
       console.log('update was successful!')
     }
@@ -48,9 +56,14 @@ export function DashboardView({ match }) {
           setCurrentTab={setCurrentTab}
         />
         {currentTab === tabs[0] ? (
-          <DashboardContainer data={data} update={setDashboard} />
+          <Arrangement />
         ) : (
-          <DashboardDetails data={data} />
+          <DashboardDetails
+            title={title}
+            userId={userId}
+            creationDate={creationDate}
+            description={description}
+          />
         )}
       </div>
     </>

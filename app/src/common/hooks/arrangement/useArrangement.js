@@ -4,13 +4,14 @@ import { useInsert, useRemove } from './helper'
 import { ArrangementContext } from '../../context/ArrangementContext'
 
 export const ACTION = {
-  TOP: 0,
-  BOTTOM: 1,
-  LEFT: 2,
-  RIGHT: 3,
-  BEFORE: 4,
-  AFTER: 5,
-  REPLACE: 6,
+  NONE: 0,
+  TOP: 1,
+  RIGHT: 2,
+  BOTTOM: 3,
+  LEFT: 4,
+  REPLACE: 5,
+  BEFORE: 6,
+  AFTER: 7,
 }
 
 export function useArrangement() {

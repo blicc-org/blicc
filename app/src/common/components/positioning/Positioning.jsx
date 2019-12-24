@@ -1,19 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { useColor } from '../../../hooks'
-import theme from '../../../../Theme.scss'
+import { useColor } from '../../hooks'
+import theme from '../../../Theme.scss'
+import { ACTION } from '../../hooks'
 import './Positioning.scss'
 
-export const POSITION = {
-  NONE: 0,
-  TOP: 1,
-  RIGHT: 2,
-  BOTTOM: 3,
-  LEFT: 4,
-  REPLACE: 5,
-}
-
 export function Positioning({ onDrop }) {
-  const [sector, setSector] = useState(0)
+  const [action, setAction] = useState(0)
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
   const [hexToRgb] = useColor()
@@ -58,27 +50,27 @@ export function Positioning({ onDrop }) {
       const p7 = { x: (width * 3) / 4, y: (height * 3) / 4 }
       const p8 = { x: width / 4, y: (height * 3) / 4 }
 
-      switch (sector) {
-        case POSITION.TOP:
+      switch (action) {
+        case ACTION.TOP:
           drawQuad(p1, p2, p6, p5)
           break
-        case POSITION.RIGHT:
+        case ACTION.RIGHT:
           drawQuad(p2, p3, p7, p6)
           break
-        case POSITION.BOTTOM:
+        case ACTION.BOTTOM:
           drawQuad(p3, p4, p8, p7)
           break
-        case POSITION.LEFT:
+        case ACTION.LEFT:
           drawQuad(p4, p1, p5, p8)
           break
-        case POSITION.REPLACE:
+        case ACTION.REPLACE:
           drawQuad(p5, p6, p7, p8)
           break
         default:
       }
     }
     draw()
-  }, [sector, color, drawQuad])
+  }, [action, color, drawQuad])
 
   function isCenter(x, y) {
     return x > 0.25 && x < 0.75 && y > 0.25 && y < 0.75
@@ -108,20 +100,20 @@ export function Positioning({ onDrop }) {
     const height = canvasRef.current.offsetHeight
     const [normalizedX, normalizedY] = normalize(x, y, width, height)
 
-    setSector(
+    setAction(
       isCenter(normalizedX, normalizedY)
-        ? POSITION.REPLACE
+        ? ACTION.REPLACE
         : getDirection(normalizedX, normalizedY)
     )
   }
 
   function onDropHandler(event) {
-    setSector(POSITION.NONE)
-    onDrop(sector, event.dataTransfer.getData('type'))
+    setAction(ACTION.NONE)
+    onDrop(action, event.dataTransfer.getData('type'))
   }
 
   function onDragLeave() {
-    setSector(POSITION.NONE)
+    setAction(ACTION.NONE)
   }
 
   return (
