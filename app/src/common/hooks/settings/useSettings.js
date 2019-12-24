@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import { SettingsContext } from '../../context'
 
-export function useSettings(id) {
+export function useSettings() {
   const [settings, setSettings] = useContext(SettingsContext)
 
-  function set(key, value) {
+  function insert(id, key, value) {
     setSettings(prev => {
       if (!prev[id]) prev[id] = {}
       prev[id][key] = value
@@ -12,9 +12,16 @@ export function useSettings(id) {
     })
   }
 
-  function get(key) {
+  function remove(id) {
+    setSettings(prev => {
+      if (prev[id]) delete prev[id]
+      return prev
+    })
+  }
+
+  function access(id, key) {
     return settings[id] && settings[id][key] ? settings[id][key] : ''
   }
 
-  return [set, get]
+  return [access, insert, remove]
 }

@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Loading } from './Loading'
+import { Loading } from '../loading/Loading'
 import { API } from '../../../config'
+import { useSettings } from '../../hooks/settings/useSettings'
 
 export function PluginLoader({ id }) {
-  const slug = 'essentials/PieChart'
+  const [accessSet] = useSettings()
+  const slug = accessSet(id, 'type')
   const [bundle, plugin] = slug.split('/')
   const ref = useRef()
   const [loading, setLoading] = useState(true)
-
-  console.log(bundle + ' ' + plugin)
 
   useEffect(() => {
     async function fetchPlugin() {
@@ -28,7 +28,7 @@ export function PluginLoader({ id }) {
       })
     }
 
-    fetchPlugin()
+    if (slug) fetchPlugin()
     // eslint-disable-next-line
   }, [slug])
 

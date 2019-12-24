@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, useMemo } from 'react'
 import statusCode from 'http-status-codes'
 import { DashboardHeader } from './DashboardHeader'
 import { Arrangement } from '../../common/components/arrangement/Arrangement'
@@ -42,30 +42,36 @@ export function DashboardView({ match }) {
       console.log('update was successful!')
     }
   }
-
-  return (
-    <>
-      <MetaData title={title} description={title} path={path} />
-      <Toolbox />
-      <div className="container-fluid dashboard">
-        <DashboardHeader
-          title={title}
-          onSave={updateDashboard}
-          tabs={tabs}
-          currentTab={currentTab}
-          setCurrentTab={setCurrentTab}
-        />
-        {currentTab === tabs[0] ? (
-          <Arrangement />
-        ) : (
-          <DashboardDetails
+  console.log('settings: ')
+  console.log(settings)
+  console.log('arrangement: ')
+  console.log(arrangement)
+  return useMemo(() => {
+    return (
+      <>
+        <MetaData title={title} description={title} path={path} />
+        <Toolbox />
+        <div className="container-fluid dashboard">
+          <DashboardHeader
             title={title}
-            userId={userId}
-            creationDate={creationDate}
-            description={description}
+            onSave={updateDashboard}
+            tabs={tabs}
+            currentTab={currentTab}
+            setCurrentTab={setCurrentTab}
           />
-        )}
-      </div>
-    </>
-  )
+          {currentTab === tabs[0] ? (
+            <>{dashboard.data && <Arrangement />}</>
+          ) : (
+            <DashboardDetails
+              title={title}
+              userId={userId}
+              creationDate={creationDate}
+              description={description}
+            />
+          )}
+        </div>
+      </>
+    )
+    // eslint-disable-next-line
+  }, [arrangement, currentTab])
 }
