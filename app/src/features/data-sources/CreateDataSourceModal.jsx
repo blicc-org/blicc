@@ -67,6 +67,7 @@ export function CreateDataSourceModal({
                 type="checkbox"
                 className="form-check-input"
                 id="data_source_persist"
+                onChange={event => setPersistData(event.target.checked)}
               />
               <label className="form-check-label" htmlFor="data_source_persist">
                 Persist data
