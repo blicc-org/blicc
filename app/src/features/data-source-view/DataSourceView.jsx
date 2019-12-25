@@ -13,7 +13,6 @@ export function DataSourceView({ match }) {
       const [status, data] = await access()
       if (status === statusCode.OK) {
         setData(data)
-        console.log(data)
       }
     }
     fetchData()
