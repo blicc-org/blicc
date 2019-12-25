@@ -6,14 +6,25 @@ import { MetaData } from '../../common/components/meta-data/MetaData'
 import { Item, Pagination } from '../../common/components/ui'
 import { CreateDataSourceModal } from './CreateDataSourceModal'
 
+export const INITIAL_DATA_SOURCE = {
+  title: '',
+  description: '',
+  requestConfig: {},
+  persistData: false,
+  fetchFrequency: 86400000,
+}
+
 export function DataSources() {
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
   const [result, setResult] = useState({ total: 0, dataSources: [] })
-  const [, access, ,] = useApiEndpoint('/data-sources')
+  const [create, access, ,] = useApiEndpoint('/data-sources')
   const [redirect, setRedirect] = useState('')
 
   const [title, setTitle] = useState('')
+  const [frequency, setFrequency] = useState('')
+  const [persistData, setPersistData] = useState('')
+  const [url, setUrl] = useState('')
 
   const [showModal, hideModal] = useModal(
     () => (
@@ -21,16 +32,25 @@ export function DataSources() {
         cancel={hideModal}
         submit={submit}
         setTitle={setTitle}
-        setFrequency={() => {}}
-        setPersistData={() => {}}
-        setUrl={() => {}}
+        setFrequency={setFrequency}
+        setPersistData={setPersistData}
+        setUrl={setUrl}
       />
     ),
-    [title]
+    [title, frequency, persistData, url]
   )
 
-  function submit() {
-    setRedirect('')
+  async function submit() {
+    const [status, data] = await create({
+      ...INITIAL_DATA_SOURCE,
+      title,
+      persistData,
+      requestConfig: { url },
+    })
+    if (status === statusCode.CREATED) {
+      setRedirect(`/data-sources/${data.id}`)
+    }
+    hideModal()
   }
 
   useEffect(() => {

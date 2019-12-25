@@ -8,8 +8,9 @@ import { Register } from './features/register/Register'
 import { PageGenerator } from './features/page-generator/PageGenerator'
 import { WebSocketTest } from './features/websocket-test/WebSocketTest'
 import { DashboardView } from './features/dashboard-view/DashboardView'
-import { DataSources } from './features/data-sources/DataSources'
 import { Dashboards } from './features/dashboards/Dashboards'
+import { DataSourceView } from './features/data-source-view/DataSourceView'
+import { DataSources } from './features/data-sources/DataSources'
 import { Profile } from './features/profile/Profile'
 import { Charts } from './features/charts/Charts'
 import { ChartView } from './features/chart-view/ChartView'
@@ -38,6 +39,10 @@ export function App() {
             <ProtectedRoute path="/dashboards/:id" component={DashboardView} />
             <ProtectedRoute path="/dashboards" component={Dashboards} />
             <ProtectedRoute path="/two-factor-auth" component={TwoFactorAuth} />
+            <ProtectedRoute
+              path="/data-sources/:id"
+              component={DataSourceView}
+            />
             <ProtectedRoute path="/data-sources" component={DataSources} />
             <ProtectedRoute path="/profile" component={Profile} />
             <Route component={NotFound} />
