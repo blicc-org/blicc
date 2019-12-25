@@ -3,12 +3,22 @@ import { Loading } from '../loading/Loading'
 import { API } from '../../../config'
 import { useSettings } from '../../hooks/settings/useSettings'
 
-export function PluginLoader({ id }) {
-  const [accessSet] = useSettings()
-  const slug = accessSet(id, 'type')
-  const [bundle, plugin] = slug.split('/')
+export function PluginLoader({ id, type }) {
+  const [accessSet, insertSet] = useSettings()
+  const [bundle, plugin] = type.split('/')
   const ref = useRef()
   const [loading, setLoading] = useState(true)
+
+  const data = [213, 342, 23, 123, 23]
+
+  function onDataUpdate() {}
+
+  const key = 'plugin_settings'
+  const settings = accessSet(id, key)
+
+  function setSettings(value) {
+    insertSet(id, key, value)
+  }
 
   useEffect(() => {
     async function fetchPlugin() {
@@ -17,8 +27,7 @@ export function PluginLoader({ id }) {
       ).then(module => {
         setLoading(false)
 
-        const data = [213, 342, 23, 123, 23]
-        const node = module[plugin](data, {}, () => {})
+        const node = module[plugin](data, onDataUpdate, settings, setSettings)
 
         if (typeof node === 'string') {
           ref.current.innerHTML = node
@@ -28,9 +37,9 @@ export function PluginLoader({ id }) {
       })
     }
 
-    if (slug) fetchPlugin()
+    if (type) fetchPlugin()
     // eslint-disable-next-line
-  }, [slug])
+  }, [type])
 
   return loading ? <Loading /> : <div ref={ref} />
 }

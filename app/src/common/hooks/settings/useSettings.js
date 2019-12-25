@@ -20,7 +20,9 @@ export function useSettings() {
   }
 
   function access(id, key) {
-    return settings[id] && settings[id][key] ? settings[id][key] : ''
+    if (!settings[id]) settings[id] = {}
+    if (!settings[id][key]) settings[id][key] = ''
+    return settings[id][key]
   }
 
   return [access, insert, remove]

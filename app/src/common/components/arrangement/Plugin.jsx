@@ -17,7 +17,7 @@ export function Plugin({ id, onDrop }) {
     <div className="spread plugin">
       <div className="row text-muted px-2">
         <div className="col col-8">
-          <p>{id}</p>
+          <p>{type}</p>
         </div>
         <div className="col col-4 text-right">
           <X
@@ -32,7 +32,7 @@ export function Plugin({ id, onDrop }) {
       </div>
       <hr />
       <div className="px-2">
-        <PluginLoader id={id} slug={type} />
+        <PluginLoader id={id} type={type} />
       </div>
       {dragging && <Positioning onDrop={action => onDrop(action, id)} />}
     </div>

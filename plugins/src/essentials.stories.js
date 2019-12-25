@@ -18,6 +18,7 @@ export default {
 
 export function PieChart(
   data = [],
+  onDataUpdate = () => {},
   settings = { color: '#ff55ff' },
   setSettings = () => {}
 ) {
@@ -46,6 +47,7 @@ export function PieChart(
 
 export function LineChart(
   data = [],
+  onDataUpdate = () => {},
   settings = { value: 50 },
   setSettings = () => {}
 ) {
@@ -66,6 +68,11 @@ export function LineChart(
   return slider
 }
 
-export function BarChart(data = [], settings = {}, setSettings = () => {}) {
+export function BarChart(
+  data = [],
+  onDataUpdate = () => {},
+  settings = {},
+  setSettings = () => {}
+) {
   return '<h1>Bar Chart</h1>'
 }
