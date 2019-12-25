@@ -1,14 +1,37 @@
 import React, { useState, useEffect } from 'react'
+import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
-import { useApiEndpoint } from '../../common/hooks'
+import { useApiEndpoint, useModal } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { Item, Pagination } from '../../common/components/ui'
+import { CreateDataSourceModal } from './CreateDataSourceModal'
 
 export function DataSources() {
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
   const [result, setResult] = useState({ total: 0, dataSources: [] })
   const [, access, ,] = useApiEndpoint('/data-sources')
+  const [redirect, setRedirect] = useState('')
+
+  const [title, setTitle] = useState('')
+
+  const [showModal, hideModal] = useModal(
+    () => (
+      <CreateDataSourceModal
+        cancel={hideModal}
+        submit={submit}
+        setTitle={setTitle}
+        setFrequency={() => {}}
+        setPersistData={() => {}}
+        setUrl={() => {}}
+      />
+    ),
+    [title]
+  )
+
+  function submit() {
+    setRedirect('')
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -29,6 +52,7 @@ export function DataSources() {
 
   return (
     <>
+      {redirect && <Redirect to={redirect} />}
       <MetaData
         title={'Data Sources'}
         description={'List all data sources.'}
@@ -42,7 +66,7 @@ export function DataSources() {
               title="Create new data source"
               type="button"
               className="btn btn-sm btn-primary"
-              onClick={() => console.log('create new data source')}
+              onClick={showModal}
             >
               New DataSource
             </button>
