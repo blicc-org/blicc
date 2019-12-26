@@ -32,7 +32,11 @@ export function PluginLoader({ id, type }) {
         if (typeof node === 'string') {
           ref.current.innerHTML = node
         } else {
-          ref.current.appendChild(node)
+          if (ref.current.hasChildNodes()) {
+            ref.current.replaceChild(node, ref.current.firstChild)
+          } else {
+            ref.current.appendChild(node)
+          }
         }
       })
     }
