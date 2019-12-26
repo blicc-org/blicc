@@ -46,7 +46,7 @@ export function DashboardView({ match }) {
   return useMemo(() => {
     return (
       <>
-        <MetaData title={title} description={title} path={path} />
+        <MetaData title={title} description={description} path={path} />
         <Toolbox />
         <div className="container-fluid dashboard">
           <DashboardHeader

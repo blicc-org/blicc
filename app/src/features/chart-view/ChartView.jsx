@@ -8,6 +8,7 @@ export function ChartView({ match }) {
   const path = `/charts/${match.params.id}`
   const [, access] = useApiEndpoint(path)
   const [data, setData] = useState({})
+  const { title, description } = data
 
   useEffect(() => {
     async function fetchData() {
@@ -22,11 +23,7 @@ export function ChartView({ match }) {
 
   return (
     <>
-      <MetaData
-        title={'chart view'}
-        description={'chart view ...'}
-        path={path}
-      />
+      <MetaData title={title} description={description} path={path} />
       <div className="container">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
           <h2 className="my-0">{data.title}</h2>

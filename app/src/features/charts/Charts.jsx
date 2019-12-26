@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import statusCode from 'http-status-codes'
+import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useApiEndpoint } from '../../common/hooks'
 import { Item, Pagination } from '../../common/components/ui'
 
@@ -26,38 +27,45 @@ export function Charts() {
   }, [page])
 
   return (
-    <div className="container">
-      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-        <h2 className="my-0">Charts</h2>
-      </div>
-      <div className="chart-list">
-        {result.total === 0 ? (
-          <p className="text-muted mx-auto py-5 my-5 text-center">
-            No charts fount.
-          </p>
-        ) : (
-          <table className="table">
-            <tbody>
-              {result.charts.map(d => (
-                <Item
-                  key={d.id}
-                  title={d.title}
-                  subtitle={`@${d.slug}`}
-                  description={d.description}
-                  link={`/charts/${d.id}`}
-                  linkLabel={'View Chart'}
-                />
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
-      <Pagination
-        page={page}
-        setPage={setPage}
-        itemsPerPage={itemsPerPage}
-        total={result.total}
+    <>
+      <MetaData
+        title={'Charts'}
+        description={'Browse through all the charts.'}
+        path={'/charts'}
       />
-    </div>
+      <div className="container">
+        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
+          <h2 className="my-0">Charts</h2>
+        </div>
+        <div className="chart-list">
+          {result.total === 0 ? (
+            <p className="text-muted mx-auto py-5 my-5 text-center">
+              No charts fount.
+            </p>
+          ) : (
+            <table className="table">
+              <tbody>
+                {result.charts.map(d => (
+                  <Item
+                    key={d.id}
+                    title={d.title}
+                    subtitle={`@${d.slug}`}
+                    description={d.description}
+                    link={`/charts/${d.id}`}
+                    linkLabel={'View Chart'}
+                  />
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+        <Pagination
+          page={page}
+          setPage={setPage}
+          itemsPerPage={itemsPerPage}
+          total={result.total}
+        />
+      </div>
+    </>
   )
 }

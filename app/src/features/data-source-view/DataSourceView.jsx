@@ -7,6 +7,7 @@ export function DataSourceView({ match }) {
   const path = `/data-sources/${match.params.id}`
   const [, access] = useApiEndpoint(path)
   const [data, setData] = useState({})
+  const { title, description, persistData, fetchFrequency, creationDate } = data
 
   useEffect(() => {
     async function fetchData() {
@@ -21,14 +22,10 @@ export function DataSourceView({ match }) {
 
   return (
     <>
-      <MetaData
-        title={'data source view'}
-        description={'data source view ...'}
-        path={path}
-      />
+      <MetaData title={title} description={description} path={path} />
       <div className="container">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-          <h2 className="my-0">{data.title}</h2>
+          <h2 className="my-0">{title}</h2>
         </div>
         <div className="col px-0">
           <div className="card">
@@ -40,35 +37,31 @@ export function DataSourceView({ match }) {
                     <td>
                       <b>Title:</b>
                     </td>
-                    <td>{data.title}</td>
+                    <td>{title}</td>
                   </tr>
                   <tr>
                     <td>
                       <b>Description:</b>
                     </td>
-                    <td>{data.description}</td>
+                    <td>{description}</td>
                   </tr>
                   <tr>
                     <td>
                       <b>Persist data:</b>
                     </td>
-                    <td>{data.persistData ? 'enabled' : 'disabled'}</td>
+                    <td>{persistData ? 'enabled' : 'disabled'}</td>
                   </tr>
                   <tr>
                     <td>
                       <b>Fetch frequency:</b>
                     </td>
-                    <td>
-                      Every {data.fetchFrequency / (60 * 60 * 1000)} hours
-                    </td>
+                    <td>Every {fetchFrequency / (60 * 60 * 1000)} hours</td>
                   </tr>
                   <tr>
                     <td>
                       <b>Registration date:</b>
                     </td>
-                    <td>
-                      {data.creationDate ? data.creationDate.split('T')[0] : ''}
-                    </td>
+                    <td>{creationDate ? creationDate.split('T')[0] : ''}</td>
                   </tr>
                 </tbody>
               </table>

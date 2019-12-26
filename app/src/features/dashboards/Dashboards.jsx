@@ -75,7 +75,7 @@ export function Dashboards() {
       {redirect && <Redirect to={redirect} />}
       <MetaData
         title={'Dashboards'}
-        description={'Description'}
+        description={'Browse through all the dashboards and analyse your data.'}
         path={'/dashboards'}
       />
       <div className="container">

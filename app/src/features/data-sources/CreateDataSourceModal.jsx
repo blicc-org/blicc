@@ -23,18 +23,18 @@ export function CreateDataSourceModal({
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="form-group">
-            <label htmlFor="data_source_title">Title</label>
-            <input
-              id="data_source_title"
-              className="form-control"
-              onChange={event => setTitle(event.target.value)}
-            />
-            <small id="emailHelp" className="form-text text-muted">
-              Name your data source with a significant title.
-            </small>
-          </div>
           <div className="modal-body">
+            <div className="form-group">
+              <label htmlFor="data_source_title">Title</label>
+              <input
+                id="data_source_title"
+                className="form-control"
+                onChange={event => setTitle(event.target.value)}
+              />
+              <small id="emailHelp" className="form-text text-muted">
+                Name your data source with a significant title.
+              </small>
+            </div>
             <div className="form-group">
               <label htmlFor="data_source_url">Target url</label>
               <input
