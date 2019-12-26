@@ -1,9 +1,7 @@
 import React, { useMemo, useState } from 'react'
-import uuid from 'uuid'
 import { useArrangement, useModal, useSettings } from '../../hooks'
-import { DragHere } from './Draghere'
-import { Plugin } from './Plugin'
 import { PluginSelectorModal } from './PluginSelectorModal'
+import { Box } from './Box'
 import './Arrangement.scss'
 
 export function Arrangement() {
@@ -40,29 +38,4 @@ export function Arrangement() {
     )
     // eslint-disable-next-line
   }, [arr])
-}
-
-export function Box({ arr, onDrop }) {
-  return (
-    <>
-      {(() => {
-        if (arr.id) {
-          return <Plugin id={arr.id} onDrop={onDrop} />
-        } else if (arr.items) {
-          return (
-            <div
-              className="spread"
-              style={{ display: 'flex', flexDirection: arr.direction }}
-            >
-              {arr.items.map(item => (
-                <Box key={uuid()} arr={item} onDrop={onDrop} />
-              ))}
-            </div>
-          )
-        } else {
-          return <DragHere onDrop={onDrop} />
-        }
-      })()}
-    </>
-  )
 }

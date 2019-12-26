@@ -4,7 +4,15 @@ import theme from '../../../Theme.scss'
 import { ACTION } from '../../hooks'
 import './Positioning.scss'
 
-export function Positioning({ onDrop }) {
+export const MASK = {
+  NONE: 0,
+  SINGLE: 1,
+  ROW: 2,
+  COLUMN: 3,
+}
+
+export function Positioning({ onDrop, mask }) {
+  console.log(mask)
   const [action, setAction] = useState(0)
   const canvasRef = useRef(null)
   const contextRef = useRef(null)

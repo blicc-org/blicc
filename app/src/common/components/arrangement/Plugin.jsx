@@ -7,7 +7,7 @@ import { DragContext } from '../../context'
 import { useArrangement } from '../../hooks'
 import './Plugin.scss'
 
-export function Plugin({ id, onDrop }) {
+export function Plugin({ id, onDrop, mask }) {
   const [accessSet, , removeSet] = useSettings()
   const type = accessSet(id, 'type')
   const [, , removeArr] = useArrangement()
@@ -34,7 +34,9 @@ export function Plugin({ id, onDrop }) {
       <div className="px-2">
         <PluginLoader id={id} type={type} />
       </div>
-      {dragging && <Positioning onDrop={action => onDrop(action, id)} />}
+      {dragging && (
+        <Positioning onDrop={action => onDrop(action, id)} mask={mask} />
+      )}
     </div>
   )
 }
