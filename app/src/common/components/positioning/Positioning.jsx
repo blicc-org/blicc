@@ -1,32 +1,34 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { ACTION } from '../../hooks'
+import React, { useState, useEffect, useRef } from 'react'
+import { usePositioning, ACTION, MASK } from '../../hooks'
 import './Positioning.scss'
-
-export const MASK = {
-  NONE: 0,
-  SINGLE: 1,
-  ROW: 2,
-  COLUMN: 3,
-}
 
 export function Positioning({ onDrop, mask }) {
   const canvasRef = useRef(null)
+  const ctxRef = useRef(null)
   const [action, setAction] = useState(ACTION.NONE)
+  const [whichAction, drawQuad] = usePositioning()
 
   useEffect(() => {
-    function draw() {
-      //TODO: draw mask according to action and mask
-    }
-    draw()
+    const ctx = canvasRef.current.getContext('2d')
+    const scale = window.devicePixelRatio
+    const width = canvasRef.current.offsetWidth * scale
+    const height = canvasRef.current.offsetHeight * scale
+    canvasRef.current.width = width
+    canvasRef.current.height = height
+    ctx.lineWidth = scale
+    ctxRef.current = ctx
+  })
+
+  useEffect(() => {
+    drawQuad(ctxRef, action)
   }, [action])
 
   function onDropHandler(evt) {
     onDrop(action, evt.dataTransfer.getData('type'))
   }
 
-  function onDragOver() {
-    // TODO: set action according to pos and mask
-    setAction(ACTION.REPLACE)
+  function onDragOver(evt) {
+    setAction(whichAction(evt, mask))
   }
 
   function onDragLeave() {

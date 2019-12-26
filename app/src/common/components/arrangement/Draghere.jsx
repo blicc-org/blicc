@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
-import { Positioning, MASK } from '../positioning/Positioning'
+import { Positioning } from '../positioning/Positioning'
+import { MASK } from '../../hooks'
 import { DragContext } from '../../context'
 import './DragHere.scss'
 

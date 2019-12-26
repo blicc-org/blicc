@@ -1,6 +1,6 @@
 import React from 'react'
 import uuid from 'uuid'
-import { MASK } from '../positioning/Positioning'
+import { MASK } from '../../hooks'
 import { DragHere } from './Draghere'
 import { Plugin } from './Plugin'
 
