@@ -51,11 +51,7 @@ export function Sidebar({ open }) {
             <SidebarHeader name="Categories" />
             <ul className="nav flex-column px-2">
               <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  to="/dashboards"
-                  onClick={close}
-                >
+                <Link className="nav-link" to="/dashboards" onClick={close}>
                   <Layout className="feather" /> Dashboards
                 </Link>
               </li>
