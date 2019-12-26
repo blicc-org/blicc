@@ -7,11 +7,7 @@ export const MASK = {
   COLUMN: 3,
 }
 
-export function usePositioning() {
-  function drawQuad(canvasRef, ctxRef, action, mask) {
-    //TODO: draw mask according to action and mask
-  }
-
+export function useSelectAction() {
   function getNormalizedCoordinates(canvasRef, clientX, clientY) {
     const rect = canvasRef.current.getBoundingClientRect()
     return [
@@ -61,5 +57,5 @@ export function usePositioning() {
     }
   }
 
-  return [whichAction, drawQuad]
+  return whichAction
 }
