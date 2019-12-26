@@ -15,7 +15,7 @@ const de = {
     register: 'Konto erstellen',
     landingPage: 'Startseite',
     development: 'Entwicklung',
-    about: 'Informationsseite',
+    about: 'Information',
     imprint: 'Impressum',
     registerNow: 'Erstelle jetzt ein Konto',
     registerNowFollowUp:
