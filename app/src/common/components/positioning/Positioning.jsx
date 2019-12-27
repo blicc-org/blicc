@@ -30,7 +30,6 @@ export function Positioning({ onDrop, mask }) {
 
   function onDragOver(evt) {
     setAction(selectAction(canvasRef, evt, mask))
-    console.log('action: ', selectAction(canvasRef, evt, mask))
   }
 
   function onDragLeave() {
