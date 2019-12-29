@@ -7,6 +7,8 @@ var settings = {}
 
 addDecorator(story => {
   const div = document.createElement('div')
+  div.style.width = '600px'
+  div.style.height = '400px'
 
   const data = [12, 19, 3, 5, 2, 3]
 
