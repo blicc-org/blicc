@@ -45,5 +45,5 @@ export function PluginLoader({ id, type }) {
     // eslint-disable-next-line
   }, [type])
 
-  return loading ? <Loading /> : <div ref={ref} />
+  return loading ? <Loading /> : <div style={{ flexGrow: 1 }} ref={ref} />
 }

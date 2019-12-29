@@ -1,8 +1,9 @@
 @import '../../../Theme';
 
 .plugin {
+  display: flex;
+  flex-direction: column;
   position: relative;
-  height: 100%;
   border-width: 1px;
   border-style: solid;
   border-color: $lightgray;

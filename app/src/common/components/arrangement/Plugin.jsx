@@ -31,9 +31,7 @@ export function Plugin({ id, onDrop, mask }) {
         </div>
       </div>
       <hr />
-      <div className="px-2">
-        <PluginLoader id={id} type={type} />
-      </div>
+      <PluginLoader id={id} type={type} />
       {dragging !== DRAG.NONE && (
         <Positioning
           type={dragging}
