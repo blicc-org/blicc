@@ -1,5 +1,5 @@
 import commonjs from 'rollup-plugin-commonjs'
-import resolve from 'rollup-plugin-node-resolve'
+import resolve from '@rollup/plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
 import replace from 'rollup-plugin-replace'
 import minify from 'rollup-plugin-babel-minify'
@@ -26,6 +26,10 @@ const config = {
       comments: false,
     }),
   ],
+  onwarn: function(warning, warn) {
+    if (warning.code === 'CIRCULAR_DEPENDENCY') return
+    warn(warning)
+  },
 }
 
 export default [
