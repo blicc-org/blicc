@@ -33,8 +33,12 @@ export function useFooterArrangement() {
       category: content.sidebar.about,
       items: [
         {
-          title: 'Docs',
-          link: '/pages/docs',
+          title: 'Manual',
+          link: '/pages/manual',
+        },
+        {
+          title: 'Plugin Development',
+          link: '/pages/plugins',
         },
         {
           title: content.sidebar.imprint,
