@@ -1,1 +1,1 @@
-export { PieChart } from './essentials/PieChart'
+export { PieChart } from './pie-chart/PieChart'

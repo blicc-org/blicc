@@ -4,5 +4,5 @@ export function PieChart(
   settings = {},
   setSettings = () => {}
 ) {
-  return '<h1>Plugin example</h1>'
+  return '<h1>Pie Chart</h1>'
 }
