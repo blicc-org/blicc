@@ -22,7 +22,7 @@ export function Positioning({ type, onDrop, mask }) {
 
   useEffect(() => {
     drawQuad(canvasRef, ctxRef, action, mask)
-  }, [action, drawQuad])
+  }, [action, drawQuad, mask])
 
   function onDropHandler() {
     onDrop(action)
