@@ -31,7 +31,7 @@ const config = {
 export default [
   {
     ...config,
-    input: 'src/essentials.stories.js',
+    input: 'src/essentials/essentials.stories.js',
     output: {
       dir: 'build/bundles',
       format: 'esm',
@@ -40,14 +40,6 @@ export default [
   {
     ...config,
     input: 'src/special.stories.js',
-    output: {
-      dir: 'build/bundles',
-      format: 'esm',
-    },
-  },
-  {
-    ...config,
-    input: 'src/exchange.stories.js',
     output: {
       dir: 'build/bundles',
       format: 'esm',

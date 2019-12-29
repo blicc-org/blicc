@@ -1,7 +1,3 @@
-export default {
-  title: 'Special',
-}
-
 export function SpecialChart(
   data = [],
   onDataUpdate = () => {},
