@@ -1,4 +1,4 @@
-## Plugin boilerplate
+## Plugin Development
 
 ### What is required?
 
