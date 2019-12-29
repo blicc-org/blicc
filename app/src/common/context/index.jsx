@@ -1,6 +1,6 @@
 export { Provider } from './Provider'
 export { AppContext } from './AppContext'
-export { DragContext } from './DragContext'
+export { DragContext, DRAG } from './DragContext'
 export { ModalContext } from './ModalContext'
 export { SidebarContext } from './SidebarContext'
 export { SubscriberContext } from './SubscriberContext'

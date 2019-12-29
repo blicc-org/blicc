@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useSelectAction, useDrawQuad, ACTION } from '../../hooks'
 import './Positioning.scss'
 
-export function Positioning({ onDrop, mask }) {
+export function Positioning({ type, onDrop, mask }) {
   const canvasRef = useRef(null)
   const ctxRef = useRef(null)
   const [action, setAction] = useState(ACTION.NONE)
@@ -24,8 +24,8 @@ export function Positioning({ onDrop, mask }) {
     drawQuad(canvasRef, ctxRef, action, mask)
   }, [action, drawQuad])
 
-  function onDropHandler(evt) {
-    onDrop(action, evt.dataTransfer.getData('type'))
+  function onDropHandler() {
+    onDrop(action)
   }
 
   function onDragOver(evt) {

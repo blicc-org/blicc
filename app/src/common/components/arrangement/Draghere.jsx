@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Positioning } from '../positioning/Positioning'
 import { MASK } from '../../hooks'
-import { DragContext } from '../../context'
+import { DragContext, DRAG } from '../../context'
 import './DragHere.scss'
 
 export function DragHere({ onDrop }) {
@@ -10,8 +10,12 @@ export function DragHere({ onDrop }) {
   return (
     <div className="drag-here text-center pt-4">
       <p className="text-muted">Drag a chart in here!</p>
-      {dragging && (
-        <Positioning onDrop={action => onDrop(action)} mask={MASK.NONE} />
+      {dragging !== DRAG.NONE && (
+        <Positioning
+          type={dragging}
+          onDrop={action => onDrop(action)}
+          mask={MASK.NONE}
+        />
       )}
     </div>
   )

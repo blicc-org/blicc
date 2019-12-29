@@ -1,18 +1,17 @@
 import React, { useContext } from 'react'
-import { DragContext } from '../../context'
+import { DragContext, DRAG } from '../../context'
 import './Selector.scss'
 
 export function Selector({ type, children }) {
   const [, setDragState] = useContext(DragContext)
 
   function onDragStart(event) {
-    event.dataTransfer.setData('type', type)
     event.dataTransfer.setDragImage(event.target, 0, 0)
-    setDragState(true)
+    setDragState(type)
   }
 
   function onDragEnd() {
-    setDragState(false)
+    setDragState(DRAG.NONE)
   }
 
   return (

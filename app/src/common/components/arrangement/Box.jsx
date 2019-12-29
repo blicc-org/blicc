@@ -1,7 +1,7 @@
 import React from 'react'
 import uuid from 'uuid'
 import { MASK } from '../../hooks'
-import { DragHere } from './Draghere'
+import { DragHere } from './DragHere'
 import { Plugin } from './Plugin'
 
 export function Box({ arr, onDrop, mask = MASK.SINGLE }) {

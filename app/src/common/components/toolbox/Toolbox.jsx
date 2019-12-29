@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import { Plus, PieChart, Database } from 'react-feather'
 import { useClickAway } from '../../hooks'
 import { Selector } from './Selector'
+import { DRAG } from '../../context'
 import './Toolbox.scss'
 
 export function Toolbox() {
@@ -15,10 +16,10 @@ export function Toolbox() {
       <div className="toolbox" ref={ref}>
         {show && (
           <>
-            <Selector type="chart">
+            <Selector type={DRAG.CHART}>
               <PieChart />
             </Selector>
-            <Selector type="data">
+            <Selector type={DRAG.DATA}>
               <Database />
             </Selector>
           </>

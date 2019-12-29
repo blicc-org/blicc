@@ -3,7 +3,7 @@ import { X } from 'react-feather'
 import { PluginLoader } from './PluginLoader'
 import { Positioning } from '../positioning/Positioning'
 import { useSettings } from '../../hooks/settings/useSettings'
-import { DragContext } from '../../context'
+import { DragContext, DRAG } from '../../context'
 import { useArrangement } from '../../hooks'
 import './Plugin.scss'
 
@@ -34,8 +34,12 @@ export function Plugin({ id, onDrop, mask }) {
       <div className="px-2">
         <PluginLoader id={id} type={type} />
       </div>
-      {dragging && (
-        <Positioning onDrop={action => onDrop(action, id)} mask={mask} />
+      {dragging !== DRAG.NONE && (
+        <Positioning
+          type={dragging}
+          onDrop={action => onDrop(action, id)}
+          mask={mask}
+        />
       )}
     </div>
   )
