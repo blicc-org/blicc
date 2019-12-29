@@ -13,11 +13,10 @@ dotenv.config()
 async function main() {
   const bundles = await getMetaInfo(`${__dirname}/es5/`)
 
-  const email = process.env.ADMIN_MAIL
-  const password = process.env.ADMIN_PASSWORD
-  const isDev = process.env.NODE_ENV === 'development'
-  const baseUrl = isDev ? 'http://localhost' : 'https://api.blicc.org'
-
+  const email = process.env.EMAIL
+  const password = process.env.PASSWORD
+  const baseUrl = process.env.SERVER
+  
   const cookie = await getCookie(baseUrl, email, password)
 
   bundles.forEach(async ({ name, bundle, slug, plugins }) => {
