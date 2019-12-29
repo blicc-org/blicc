@@ -63,22 +63,25 @@ export async function getCookie(baseUrl, email, password) {
 }
 
 export async function getMetaInfo(path) {
-  return fs.readdirSync(path).map(file => {
-    const fileExports = require(path + file)
-    const { title: bundle, meta = {} } = fileExports['default']
-    const keys = Object.keys(fileExports).filter(exp => exp !== 'default')
-    return {
-      file,
-      bundle,
-      slug: slug(bundle),
-      plugins: keys.map(key => {
-        const title = meta[key] && meta[key].title ? meta[key].title : key
-        const description =
-          meta[key] && meta[key].description ? meta[key].description : ''
-        return { title, description, key }
-      }),
-    }
-  })
+  return fs
+    .readdirSync(path, { withFileTypes: true })
+    .filter(dirent => !dirent.isDirectory())
+    .map(({ name }) => {
+      const fileExports = require(path + name)
+      const { title: bundle, meta = {} } = fileExports['default']
+      const keys = Object.keys(fileExports).filter(exp => exp !== 'default')
+      return {
+        name,
+        bundle,
+        slug: slug(bundle),
+        plugins: keys.map(key => {
+          const title = meta[key] && meta[key].title ? meta[key].title : key
+          const description =
+            meta[key] && meta[key].description ? meta[key].description : ''
+          return { title, description, key }
+        }),
+      }
+    })
 }
 
 function slug(str) {

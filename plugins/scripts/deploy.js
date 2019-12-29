@@ -20,8 +20,8 @@ async function main() {
 
   const cookie = await getCookie(baseUrl, email, password)
 
-  bundles.forEach(async ({ file, bundle, slug, plugins }) => {
-    const data = await readData(file)
+  bundles.forEach(async ({ name, bundle, slug, plugins }) => {
+    const data = await readData(name)
     await setBundleData(baseUrl, slug, data, cookie)
     plugins.forEach(async ({ title, description, key }) => {
       await setChart(baseUrl, { title, bundle, description, key, slug }, cookie)
