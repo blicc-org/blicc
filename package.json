@@ -2,7 +2,6 @@
   "name": "plugins",
   "version": "0.0.5",
   "description": "plugins",
-  "main": "index.js",
   "author": "Thilo Ilg",
   "license": "MIT",
   "devDependencies": {
