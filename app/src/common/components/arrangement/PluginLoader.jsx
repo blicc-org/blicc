@@ -9,26 +9,30 @@ export function PluginLoader({ id, type }) {
   const ref = useRef()
   const [loading, setLoading] = useState(true)
 
+  const labels = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'C',
+    'F',
+    'G',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+    'L',
+    'M',
+  ]
+
+  const dataArray = [12, 19, 3, 5, 2, 3, 7, 11, 16, 7, 3, 18, 16, 1, 6, 8]
+  const max = Math.floor(Math.random() * 15) + 1
   const data = {
-    labels: [
-      'A',
-      'B',
-      'C',
-      'D',
-      'C',
-      'F',
-      'G',
-      'E',
-      'F',
-      'G',
-      'H',
-      'I',
-      'J',
-      'K',
-      'L',
-      'M',
-    ],
-    data: [12, 19, 3, 5, 2, 3, 7, 11, 16, 7, 3, 18, 16, 1, 6, 8],
+    labels: labels.slice(0, max),
+    data: dataArray.slice(0, max),
   }
 
   function onDataUpdate() {}
