@@ -45,17 +45,5 @@ export function PluginLoader({ id, type }) {
     // eslint-disable-next-line
   }, [type])
 
-  return loading ? (
-    <Loading />
-  ) : (
-    <div
-      style={{
-        flexGrow: 1,
-        width: '100%',
-        height: '100%',
-        position: 'relative',
-      }}
-      ref={ref}
-    />
-  )
+  return loading ? <Loading /> : <div className="spread" ref={ref} />
 }
