@@ -9,7 +9,27 @@ export function PluginLoader({ id, type }) {
   const ref = useRef()
   const [loading, setLoading] = useState(true)
 
-  const data = [213, 342, 23, 123, 23]
+  const data = {
+    labels: [
+      'A',
+      'B',
+      'C',
+      'D',
+      'C',
+      'F',
+      'G',
+      'E',
+      'F',
+      'G',
+      'H',
+      'I',
+      'J',
+      'K',
+      'L',
+      'M',
+    ],
+    data: [12, 19, 3, 5, 2, 3, 7, 11, 16, 7, 3, 18, 16, 1, 6, 8],
+  }
 
   function onDataUpdate() {}
 
