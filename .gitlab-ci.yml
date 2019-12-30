@@ -84,5 +84,4 @@ plugins:
   only:
     - master
   script:
-    - yarn --cwd 'plugins' install
-    - yarn --cwd 'plugins' deploy
+    - cd plugins && yarn && yarn deploy
