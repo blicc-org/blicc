@@ -7,7 +7,6 @@ export function PieChart(
 ) {
   var canvas = document.createElement('canvas')
   var ctx = canvas.getContext('2d')
-  ctx.height = 500
 
   new Chart(ctx, {
     type: 'bar',
