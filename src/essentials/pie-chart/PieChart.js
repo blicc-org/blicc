@@ -7,10 +7,9 @@ export function PieChart(
 ) {
   var canvas = document.createElement('canvas')
   var ctx = canvas.getContext('2d')
-  ctx.height = 500;
+  ctx.height = 500
 
   new Chart(ctx, {
-    maintainAspectRatio: false,
     type: 'bar',
     data: {
       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -39,6 +38,8 @@ export function PieChart(
       ],
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         yAxes: [
           {
