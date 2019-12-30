@@ -19,7 +19,8 @@ export function LineChart(
         {
           label: 'Some kind of Label',
           data: data.data,
-          borderColor: colorPalette.map(value => hexToRgbaString(value, 0.75)),
+          backgroundColor: 'transparent',
+          borderColor: colorPalette.map(value => hexToRgbaString(value, 1)),
         },
       ],
     },
