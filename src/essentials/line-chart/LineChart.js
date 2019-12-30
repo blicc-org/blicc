@@ -1,18 +1,13 @@
 import Chart from 'chart.js'
 import { options, colorPalette, hexToRgbaString } from '../common'
 
-export function PieChart(
+export function LineChart(
   data = [],
   onDataUpdate = () => {},
   settings = {},
   setSettings = () => {}
 ) {
-  const type = 'pie'
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-  }
-
+  const type = 'line'
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
 
@@ -24,15 +19,20 @@ export function PieChart(
         {
           label: 'Some kind of Label',
           data: data.data,
-          backgroundColor: colorPalette.map(value =>
-            hexToRgbaString(value, 0.75)
-          ),
-          borderColor: colorPalette.map(value => hexToRgbaString(value, 1)),
-          borderWidth: 1,
+          borderColor: colorPalette.map(value => hexToRgbaString(value, 0.75)),
         },
       ],
     },
-    options,
+    options: {
+      ...options,
+      scales: {
+        yAxes: [
+          {
+            stacked: true,
+          },
+        ],
+      },
+    },
   })
   return canvas
 }

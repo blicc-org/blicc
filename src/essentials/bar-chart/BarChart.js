@@ -1,18 +1,13 @@
 import Chart from 'chart.js'
 import { options, colorPalette, hexToRgbaString } from '../common'
 
-export function PieChart(
-  data = [],
+export function BarChart(
+  data = {},
   onDataUpdate = () => {},
   settings = {},
   setSettings = () => {}
 ) {
-  const type = 'pie'
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-  }
-
+  const type = 'bar'
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
 
@@ -32,7 +27,18 @@ export function PieChart(
         },
       ],
     },
-    options,
+    options: {
+      ...options,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+    },
   })
   return canvas
 }
