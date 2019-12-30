@@ -15,7 +15,9 @@ async function main() {
 
   const email = process.env.EMAIL
   const password = process.env.PASSWORD
-  const baseUrl = process.env.SERVER ? process.env.SERVER : 'https://api.blicc.org'
+  const baseUrl = process.env.SERVER
+    ? process.env.SERVER
+    : 'https://api.blicc.org'
 
   const cookie = await getCookie(baseUrl, email, password)
 
