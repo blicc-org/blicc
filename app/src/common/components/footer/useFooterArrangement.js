@@ -20,6 +20,10 @@ export function useFooterArrangement() {
       category: content.sidebar.development,
       items: [
         {
+          title: 'Plugin Development',
+          link: '/pages/plugins',
+        },
+        {
           title: 'Github',
           link: 'https://github.com/blicc-org/blicc',
         },
@@ -35,10 +39,6 @@ export function useFooterArrangement() {
         {
           title: 'Manual',
           link: '/pages/manual',
-        },
-        {
-          title: 'Plugin Development',
-          link: '/pages/plugins',
         },
         {
           title: content.sidebar.imprint,
