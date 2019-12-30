@@ -31,6 +31,7 @@
     "deploy": "yarn build && yarn build:scripts && node build/deploy.js"
   },
   "dependencies": {
+    "chart.js": "^2.9.3",
     "d3": "^5.15.0"
   }
 }

@@ -8,4 +8,4 @@ export default {
   },
 }
 
-export { PieChart } from './essentials'
+export { PieChart, Responsive } from './essentials'
