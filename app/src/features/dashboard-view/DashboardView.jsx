@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useContext, useMemo } from 'react'
+import React, {
+  useEffect,
+  useState,
+  useContext,
+  useMemo,
+  useCallback,
+} from 'react'
 import statusCode from 'http-status-codes'
 import { DashboardHeader } from './DashboardHeader'
 import { Arrangement } from '../../common/components/arrangement/Arrangement'
@@ -33,7 +39,7 @@ export function DashboardView({ match }) {
     // eslint-disable-next-line
   }, [match])
 
-  async function updateDashboard() {
+  const updateDashboard = useCallback(async () => {
     const [status] = await update({
       ...dashboard,
       data: { arrangement, settings },
@@ -41,7 +47,7 @@ export function DashboardView({ match }) {
     if (status === statusCode.OK) {
       console.log('update was successful!')
     }
-  }
+  }, [arrangement, settings])
 
   return useMemo(() => {
     return (
