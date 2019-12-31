@@ -39,7 +39,7 @@ export function DashboardView({ match }) {
     // eslint-disable-next-line
   }, [match])
 
-  const updateDashboard = useCallback(async () => {
+  async function updateDashboard() {
     const [status] = await update({
       ...dashboard,
       data: { arrangement, settings },
@@ -47,34 +47,31 @@ export function DashboardView({ match }) {
     if (status === statusCode.OK) {
       console.log('update was successful!')
     }
-  }, [arrangement, settings, update, dashboard])
+  }
 
-  return useMemo(() => {
-    return (
-      <>
-        <MetaData title={title} description={description} path={path} />
-        <Toolbox />
-        <div className="container-fluid dashboard">
-          <DashboardHeader
+  return (
+    <>
+      <MetaData title={title} description={description} path={path} />
+      <Toolbox />
+      <div className="container-fluid dashboard">
+        <DashboardHeader
+          title={title}
+          onSave={updateDashboard}
+          tabs={tabs}
+          currentTab={currentTab}
+          setCurrentTab={setCurrentTab}
+        />
+        {currentTab === tabs[0] ? (
+          <>{dashboard.data && <Arrangement />}</>
+        ) : (
+          <DashboardDetails
             title={title}
-            onSave={updateDashboard}
-            tabs={tabs}
-            currentTab={currentTab}
-            setCurrentTab={setCurrentTab}
+            userId={userId}
+            creationDate={creationDate}
+            description={description}
           />
-          {currentTab === tabs[0] ? (
-            <>{dashboard.data && <Arrangement />}</>
-          ) : (
-            <DashboardDetails
-              title={title}
-              userId={userId}
-              creationDate={creationDate}
-              description={description}
-            />
-          )}
-        </div>
-      </>
-    )
-    // eslint-disable-next-line
-  }, [arrangement, currentTab])
+        )}
+      </div>
+    </>
+  )
 }
