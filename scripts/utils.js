@@ -58,6 +58,8 @@ export async function getCookie(baseUrl, email, password) {
     password,
   })
 
+  console.log(response)
+
   const cookies = response.headers['set-cookie']
   return cookies.find(cookie => cookie.startsWith('access_token')).split(';')[0]
 }
