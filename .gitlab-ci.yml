@@ -91,3 +91,4 @@ plugins:
   script:
     - yarn --cwd 'plugins'
     - yarn --cwd 'plugins' deploy
+
