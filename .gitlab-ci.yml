@@ -83,6 +83,8 @@ plugins:
   image: node:12
   only:
     - master
+  before_script:
+    - git submodule sync --recursive
+    - git submodule update --init --recursive
   script:
-    - cd plugins && pwd
     - cd plugins && yarn && yarn deploy
