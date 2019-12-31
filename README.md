@@ -25,7 +25,7 @@ yarn
 Create a `.env` file inside the root directory of your project and set the environment variables like the following. If you do not have a blicc developer account yet, you need to request one [here](mailto:help@blicc.org?subject=[DevAccount]%20Request).
 
 ```sh
-ADMIN_EMAIL='your@email.com'
+ADMIN_MAIL='your@email.com'
 ADMIN_PASSWORD='your_password'
 SERVER='https://api.blicc.org'
 ```
