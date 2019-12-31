@@ -47,7 +47,7 @@ export function DashboardView({ match }) {
     if (status === statusCode.OK) {
       console.log('update was successful!')
     }
-  }, [arrangement, settings])
+  }, [arrangement, settings, update, dashboard])
 
   return useMemo(() => {
     return (
