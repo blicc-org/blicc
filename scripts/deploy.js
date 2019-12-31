@@ -13,8 +13,8 @@ dotenv.config()
 async function main() {
   const bundles = await getMetaInfo(`${__dirname}/es5/`)
 
-  const email = process.env.DEVELOPER_MAIL
-  const password = process.env.DEVELOPER_PASSWORD
+  const email = process.env.ADMIN_EMAIL
+  const password = process.env.ADMIN_PASSWORD
   const baseUrl = process.env.SERVER
     ? process.env.SERVER
     : 'https://api.blicc.org'
