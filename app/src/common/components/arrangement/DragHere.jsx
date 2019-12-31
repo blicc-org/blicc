@@ -12,9 +12,8 @@ export function DragHere({ onDrop }) {
       <p className="text-muted">Drag a chart in here!</p>
       {dragging !== DRAG.NONE && (
         <Positioning
-          type={dragging}
-          onDrop={action => onDrop(action)}
-          mask={MASK.NONE}
+          onDrop={(type, payload) => onDrop(type, payload)}
+          mask={dragging === DRAG.CHART ? MASK.NONE : MASK.DATA}
         />
       )}
     </div>

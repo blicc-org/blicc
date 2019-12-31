@@ -67,6 +67,9 @@ export function useDrawQuad() {
         if (action === ACTION.BEFORE) draw(ctxRef, p1, p2, p6, p5, theme.info)
         if (action === ACTION.AFTER) draw(ctxRef, p7, p3, p4, p8, theme.info)
         break
+      case MASK.DATA:
+        draw(ctxRef, p1, p2, p3, p4, theme.blue)
+        break
       default:
     }
   }

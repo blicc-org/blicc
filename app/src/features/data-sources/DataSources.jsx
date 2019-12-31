@@ -22,8 +22,8 @@ export function DataSources() {
   const [redirect, setRedirect] = useState('')
 
   const [title, setTitle] = useState('')
-  const [frequency, setFrequency] = useState('')
-  const [persistData, setPersistData] = useState('')
+  const [frequency, setFrequency] = useState('daily')
+  const [persistData, setPersistData] = useState(true)
   const [url, setUrl] = useState('')
 
   const [showModal, hideModal] = useModal(

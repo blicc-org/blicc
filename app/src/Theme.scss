@@ -8,6 +8,7 @@ $light: #f8f8f8;
 $lightgray: #cccccc;
 $gray: #3c3c3c;
 $dark: #252725;
+$blue: #0d5dc7;
 
 $border-radius: 0.175rem;
 $border-radius-lg: $border-radius;
@@ -58,6 +59,7 @@ $five: map-get($spacers, 5);
   lightgray: $lightgray;
   gray: $gray;
   dark: $dark;
+  blue: $blue;
   borderRadius: $border-radius;
   one: $one;
   two: $two;

@@ -4,12 +4,12 @@ import { PluginLoader } from './PluginLoader'
 import { Positioning } from '../positioning/Positioning'
 import { useSettings } from '../../hooks/settings/useSettings'
 import { DragContext, DRAG } from '../../context'
-import { useArrangement } from '../../hooks'
+import { useArrangement, MASK } from '../../hooks'
 import './Plugin.scss'
 
 export function Plugin({ id, onDrop, mask }) {
   const [accessSet, , removeSet] = useSettings()
-  const type = accessSet(id, 'type')
+  const type = accessSet(id, 'chart_type')
   const [, , removeArr] = useArrangement()
   const [dragging] = useContext(DragContext)
 
@@ -34,9 +34,8 @@ export function Plugin({ id, onDrop, mask }) {
       <PluginLoader id={id} type={type} />
       {dragging !== DRAG.NONE && (
         <Positioning
-          type={dragging}
-          onDrop={action => onDrop(action, id)}
-          mask={mask}
+          onDrop={(type, payload) => onDrop(type, { ...payload, id })}
+          mask={dragging === DRAG.CHART ? mask : MASK.DATA}
         />
       )}
     </div>

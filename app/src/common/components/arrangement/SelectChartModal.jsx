@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint } from '../../hooks'
 
-export function PluginSelectorModal({ cancel, submit }) {
+export function SelectChartModal({ cancel, submit }) {
   const maxNumberOfResults = 10
   const [result, setResult] = useState({ total: 0, charts: [] })
   const [, access, ,] = useApiEndpoint('/charts')

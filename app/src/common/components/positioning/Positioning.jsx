@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useSelectAction, useDrawQuad, ACTION } from '../../hooks'
+import { useSelectAction, useDrawQuad, ACTION, MASK } from '../../hooks'
+import { DRAG } from '../../context'
 import './Positioning.scss'
 
-export function Positioning({ type, onDrop, mask }) {
+export function Positioning({ onDrop, mask }) {
   const canvasRef = useRef(null)
   const ctxRef = useRef(null)
   const [action, setAction] = useState(ACTION.NONE)
@@ -25,7 +26,11 @@ export function Positioning({ type, onDrop, mask }) {
   }, [action, drawQuad, mask])
 
   function onDropHandler() {
-    onDrop(action)
+    if (mask === MASK.DATA) {
+      onDrop(DRAG.DATA, {})
+    } else {
+      onDrop(DRAG.CHART, { action })
+    }
   }
 
   function onDragOver(evt) {

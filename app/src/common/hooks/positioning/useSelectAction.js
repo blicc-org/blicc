@@ -5,6 +5,7 @@ export const MASK = {
   SINGLE: 1,
   ROW: 2,
   COLUMN: 3,
+  DATA: 4,
 }
 
 export function useSelectAction() {
@@ -60,6 +61,8 @@ export function useSelectAction() {
         if (isRim && direction === ACTION.TOP) return ACTION.BEFORE
         if (isRim && direction === ACTION.BOTTOM) return ACTION.AFTER
         return direction
+      case MASK.DATA:
+        return ACTION.REPLACE
       default:
         return ACTION.NONE
     }
