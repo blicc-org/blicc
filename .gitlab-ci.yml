@@ -93,4 +93,5 @@ plugins:
     - git submodule sync --recursive
     - git submodule update --init --recursive
   script:
-    - cd plugins && yarn && yarn deploy
+    - yarn --cwd 'plugins'
+    - yarn --cwd 'plugins' deploy
