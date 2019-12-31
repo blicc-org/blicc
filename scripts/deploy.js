@@ -14,7 +14,9 @@ async function main() {
   const bundles = await getMetaInfo(`${__dirname}/es5/`)
 
   const email = process.env.EMAIL ? process.env.EMAIL : process.env.ADMIN_MAIL
-  const password = process.env.PASSWORD ? process.env.PASSWORD : process.env.ADMIN_PASSWORD
+  const password = process.env.PASSWORD
+    ? process.env.PASSWORD
+    : process.env.ADMIN_PASSWORD
   const baseUrl = process.env.SERVER
     ? process.env.SERVER
     : 'https://api.blicc.org'
