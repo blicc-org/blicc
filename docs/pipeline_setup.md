@@ -1,4 +1,4 @@
-## Pipeline setup
+## Pipeline environment variables
 
 Set the following environment variables in the gitlab CI/CD settings.
 
