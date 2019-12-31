@@ -319,11 +319,11 @@ export class DataSourceRouter {
      *           application/json:
      *             schema:
      *               required:
-     *               - data-sources
+     *               - dataSources
      *               properties:
      *                 total:
      *                   type: number
-     *                 data-sources:
+     *                 dataSources:
      *                   type: object
      *                   properties:
      *                     data-source:
@@ -358,7 +358,7 @@ export class DataSourceRouter {
      *               filter:
      *                 value: {
      *                   total: 1,
-     *                   data-sources: [
+     *                   dataSources: [
      *                     {
      *                       id: "3cT4lb0M",
      *                       title: "Api",
