@@ -1,6 +1,5 @@
 import React from 'react'
 import { Tabs } from '../../common/components/ui'
-import './DashboardHeader.scss'
 
 export function DashboardHeader({
   title,
