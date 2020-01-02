@@ -55,8 +55,8 @@ export function PluginLoader({ id, type }) {
 
         if (typeof node === 'string') {
           ref.current.innerHTML = node
-        } else {
-          if (ref.current && ref.current.hasChildNodes()) {
+        } else if(ref.current) {
+          if ( ref.current.hasChildNodes()) {
             ref.current.replaceChild(node, ref.current.firstChild)
           } else {
             ref.current.appendChild(node)
