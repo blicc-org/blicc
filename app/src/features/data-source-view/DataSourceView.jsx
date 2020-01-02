@@ -43,7 +43,7 @@ export function DataSourceView({ match }) {
           setCurrentTab={setCurrentTab}
         />
         {currentTab === tabs[0] ? (
-          <>{<h1>Data mapping</h1>}</>
+          <>{<p>nais</p>}</>
         ) : (
           <DataSourceDetails
             title={title}

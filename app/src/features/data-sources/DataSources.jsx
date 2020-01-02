@@ -9,7 +9,7 @@ import { CreateDataSourceModal } from './CreateDataSourceModal'
 export const INITIAL_DATA_SOURCE = {
   title: '',
   description: '',
-  requestConfig: {},
+  data: {},
   persistData: false,
   fetchFrequency: 86400000,
 }
@@ -45,7 +45,7 @@ export function DataSources() {
       ...INITIAL_DATA_SOURCE,
       title,
       persistData,
-      requestConfig: { url },
+      data: { url },
     })
     if (status === statusCode.CREATED) {
       setRedirect(`/data-sources/${data.id}`)
