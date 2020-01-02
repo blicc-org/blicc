@@ -14,7 +14,7 @@ export class DataSourceService {
     title: string,
     description: string,
     userId: string,
-    requestConfig: object,
+    data: object,
     persistData: boolean,
     fetchFrequency: number
   ): Promise<DataSource> {
@@ -23,7 +23,7 @@ export class DataSourceService {
         title,
         description,
         userId,
-        requestConfig,
+        data,
         persistData,
         fetchFrequency
       )

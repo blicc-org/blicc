@@ -49,7 +49,7 @@ export class DataSourceRouter {
      *                   type: object
      *                   required:
      *                   - title
-     *                   - requestConfig
+     *                   - data
      *                   - persistData
      *                   - fetchFrequency
      *                   properties:
@@ -57,7 +57,7 @@ export class DataSourceRouter {
      *                       type: string
      *                     description:
      *                       type: string
-     *                     requestConfig:
+     *                     data:
      *                       type: json
      *                     persistData:
      *                       type: boolean
@@ -68,7 +68,7 @@ export class DataSourceRouter {
      *                 value: {
      *                   title: "Api",
      *                   description: "Fetch data from a Api",
-     *                   requestConfig: {},
+     *                   data: {},
      *                   persistData: false,
      *                   fetchFrequency: 86400000
      *                 }
@@ -88,7 +88,7 @@ export class DataSourceRouter {
      *                   - title
      *                   - description
      *                   - userId
-     *                   - requestConfig
+     *                   - data
      *                   - creationDate
      *                   - persistData
      *                   - fetchFrequency
@@ -101,7 +101,7 @@ export class DataSourceRouter {
      *                       type: string
      *                     userId:
      *                       type: string
-     *                     requestConfig:
+     *                     data:
      *                       type: json
      *                     creationDate:
      *                       type: string
@@ -116,7 +116,7 @@ export class DataSourceRouter {
      *                   title: "Api",
      *                   description: "Fetch data from a Api",
      *                   userId: "sNTKqvsS",
-     *                   requestConfig: {},
+     *                   data: {},
      *                   persistData: false,
      *                   fetchFrequency: 86400000,
      *                   creationDate: "2019-12-06T16:12:21.944Z"
@@ -140,7 +140,7 @@ export class DataSourceRouter {
           description: Joi.string()
             .allow('')
             .optional(),
-          requestConfig: Joi.object(),
+          data: Joi.object(),
           persistData: Joi.boolean(),
           fetchFrequency: Joi.number(),
         },
@@ -153,7 +153,7 @@ export class DataSourceRouter {
                 .allow('')
                 .optional(),
               userId: Joi.string(),
-              requestConfig: Joi.object(),
+              data: Joi.object(),
               creationDate: Joi.string(),
               persistData: Joi.boolean(),
               fetchFrequency: Joi.number(),
@@ -204,7 +204,7 @@ export class DataSourceRouter {
      *                   - title
      *                   - description
      *                   - userId
-     *                   - requestConfig
+     *                   - data
      *                   - creationDate
      *                   - persistData
      *                   - fetchFrequency
@@ -217,7 +217,7 @@ export class DataSourceRouter {
      *                       type: string
      *                     userId:
      *                       type: string
-     *                     requestConfig:
+     *                     data:
      *                       type: json
      *                     creationDate:
      *                       type: string
@@ -232,7 +232,7 @@ export class DataSourceRouter {
      *                   title: "Api",
      *                   description: "Fetch data from a Api",
      *                   userId: "sNTKqvsS",
-     *                   requestConfig: {},
+     *                   data: {},
      *                   persistData: false,
      *                   fetchFrequency: 86400000,
      *                   creationDate: "2019-12-06T16:12:21.944Z"
@@ -261,7 +261,7 @@ export class DataSourceRouter {
                 .allow('')
                 .optional(),
               userId: Joi.string(),
-              requestConfig: Joi.object(),
+              data: Joi.object(),
 
               creationDate: Joi.string(),
               persistData: Joi.boolean(),
@@ -294,7 +294,7 @@ export class DataSourceRouter {
      *         name: fields
      *         schema:
      *           type: string
-     *         description: Define the fields you want to select like fields=id,title,description,userId,requestConfig,creationDate,persistData,fetchFrequency
+     *         description: Define the fields you want to select like fields=id,title,description,userId,data,creationDate,persistData,fetchFrequency
      *       - in: query
      *         name: search
      *         schema:
@@ -333,7 +333,7 @@ export class DataSourceRouter {
      *                       - title
      *                       - description
      *                       - userId
-     *                       - requestConfig
+     *                       - data
      *                       - creationDate
      *                       - persistData
      *                       - fetchFrequency
@@ -346,7 +346,7 @@ export class DataSourceRouter {
      *                           type: string
      *                         userId:
      *                           type: string
-     *                         requestConfig:
+     *                         data:
      *                           type: json
      *                         creationDate:
      *                           type: string
@@ -364,7 +364,7 @@ export class DataSourceRouter {
      *                       title: "Api",
      *                       description: "Fetch data from a Api",
      *                       userId: "sNTKqvsS",
-     *                       requestConfig: {},
+     *                       data: {},
      *                       persistData: false,
      *                       fetchFrequency: 86400000,
      *                       creationDate: "2019-12-06T16:12:21.944Z"
@@ -395,7 +395,7 @@ export class DataSourceRouter {
                   .allow('')
                   .optional(),
                 userId: Joi.string(),
-                requestConfig: Joi.object(),
+                data: Joi.object(),
                 creationDate: Joi.string(),
                 persistData: Joi.boolean(),
                 fetchFrequency: Joi.number(),
@@ -445,7 +445,7 @@ export class DataSourceRouter {
      *                   - title
      *                   - description
      *                   - userId
-     *                   - requestConfig
+     *                   - data
      *                   - creationDate
      *                   - persistData
      *                   - fetchFrequency
@@ -458,7 +458,7 @@ export class DataSourceRouter {
      *                       type: string
      *                     userId:
      *                       type: string
-     *                     requestConfig:
+     *                     data:
      *                       type: json
      *                     creationDate:
      *                       type: string
@@ -473,7 +473,7 @@ export class DataSourceRouter {
      *                   title: "Api",
      *                   description: "Fetch data from the api",
      *                   userId: "sNTKqvsS",
-     *                   requestConfig: {},
+     *                   data: {},
      *                   persistData: false,
      *                   fetchFrequency: 86400000,
      *                   creationDate: "2019-12-06T16:12:21.944Z"
@@ -494,7 +494,7 @@ export class DataSourceRouter {
      *                   - title
      *                   - description
      *                   - userId
-     *                   - requestConfig
+     *                   - data
      *                   - creationDate
      *                   - persistData
      *                   - fetchFrequency
@@ -507,7 +507,7 @@ export class DataSourceRouter {
      *                       type: string
      *                     userId:
      *                       type: string
-     *                     requestConfig:
+     *                     data:
      *                       type: json
      *                     creationDate:
      *                       type: string
@@ -522,7 +522,7 @@ export class DataSourceRouter {
      *                   title: "Updated api",
      *                   description: "Fetch data from the updated api",
      *                   userId: "sNTKqvsS",
-     *                   requestConfig: {},
+     *                   data: {},
      *                   persistData: true,
      *                   fetchFrequency: 60000,
      *                   creationDate: "2019-12-06T16:12:21.944Z"
@@ -552,7 +552,7 @@ export class DataSourceRouter {
             .allow('')
             .optional(),
           userId: Joi.string(),
-          requestConfig: Joi.object(),
+          data: Joi.object(),
           creationDate: Joi.string(),
           persistData: Joi.boolean(),
           fetchFrequency: Joi.number(),
@@ -566,7 +566,7 @@ export class DataSourceRouter {
                 .allow('')
                 .optional(),
               userId: Joi.string(),
-              requestConfig: Joi.object(),
+              data: Joi.object(),
               creationDate: Joi.string(),
               persistData: Joi.boolean(),
               fetchFrequency: Joi.number(),
@@ -616,7 +616,7 @@ export class DataSourceRouter {
      *                   - title
      *                   - description
      *                   - userId
-     *                   - requestConfig
+     *                   - data
      *                   - creationDate
      *                   - persistData
      *                   - fetchFrequency
@@ -627,7 +627,7 @@ export class DataSourceRouter {
      *                       type: string
      *                     userId:
      *                       type: string
-     *                     requestConfig:
+     *                     data:
      *                       type: json
      *                     creationDate:
      *                       type: string
@@ -641,7 +641,7 @@ export class DataSourceRouter {
      *                   title: "Api",
      *                   description: "Fetch data from the Api",
      *                   userId: "sNTKqvsS",
-     *                   requestConfig: {},
+     *                   data: {},
      *                   persistData: false,
      *                   fetchFrequency: 86400000,
      *                   creationDate: "2019-12-06T16:12:21.944Z"
@@ -669,7 +669,7 @@ export class DataSourceRouter {
                 .allow('')
                 .optional(),
               userId: Joi.string(),
-              requestConfig: Joi.object(),
+              data: Joi.object(),
               creationDate: Joi.string(),
               persistData: Joi.boolean(),
               fetchFrequency: Joi.number(),

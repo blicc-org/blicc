@@ -15,7 +15,7 @@ export class DataSourceController {
     const {
       title,
       description = '',
-      requestConfig,
+      data,
       persistData,
       fetchFrequency,
     } = ctx.request.body
@@ -24,7 +24,7 @@ export class DataSourceController {
       title,
       description,
       userId,
-      requestConfig,
+      data,
       persistData,
       fetchFrequency
     )
@@ -57,7 +57,7 @@ export class DataSourceController {
       'description',
       'userId',
       'creationDate',
-      'requestConfig',
+      'data',
       'persistData',
       'fetchFrequency',
     ])

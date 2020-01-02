@@ -22,7 +22,7 @@ export class DataSourceEntity extends BaseEntity {
   public userId: string
 
   @Column({ type: 'json' })
-  public requestConfig: object
+  public data: object
 
   @Column()
   public persistData: boolean
@@ -44,7 +44,7 @@ export class DataSourceEntity extends BaseEntity {
     title: string,
     description: string,
     userId: string,
-    requestConfig: object,
+    data: object,
     persistData: boolean,
     fetchFrequency: number
   ) {
@@ -52,7 +52,7 @@ export class DataSourceEntity extends BaseEntity {
     this.title = title
     this.description = description
     this.userId = userId
-    this.requestConfig = requestConfig
+    this.data = data
     this.persistData = persistData
     this.fetchFrequency = fetchFrequency
   }

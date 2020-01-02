@@ -4,7 +4,7 @@ export interface DataSource {
   description?: string
   userId?: string
   creationDate?: string
-  requestConfig?: object
+  data?: object
   persistData?: boolean
   fetchFrequency?: number
 }
