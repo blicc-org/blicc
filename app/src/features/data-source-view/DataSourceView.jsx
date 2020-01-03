@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react'
+import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
-import { useApiEndpoint } from '../../common/hooks'
+import { useApiEndpoint, useModal } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DataSourceDetails } from './DataSourceDetails'
 import { DataSourceHeader } from './DataSourceHeader'
+import { DeleteDataSourceModal } from './DeleteDataSourceModal'
 
-export function DataSourceView({ match }) {
+export function DataSourceView({ match, location }) {
   const path = `/data-sources/${match.params.id}`
-  const [, access] = useApiEndpoint(path)
+  const [, access, update, remove] = useApiEndpoint(path)
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [persistData, setPersistData] = useState(false)
+  const [fetchFrequency, setFetchFrequency] = useState(0)
   const [dataSource, setDataSource] = useState({})
-  const {
-    title,
-    description,
-    persistData,
-    fetchFrequency,
-    creationDate,
-    data,
-  } = dataSource
+  const { creationDate, data } = dataSource
+
+  const [redirect, setRedirect] = useState('')
+  const [edit, setEdit] = useState(
+    location.search && location.search === '?edit'
+  )
 
   const tabs = ['Data Mapping', 'Details']
   const [currentTab, setCurrentTab] = useState(tabs[0])
@@ -25,6 +29,10 @@ export function DataSourceView({ match }) {
     async function fetchData() {
       const [status, data] = await access()
       if (status === statusCode.OK) {
+        setTitle(data.title)
+        setDescription(data.description)
+        setPersistData(data.persistData)
+        setFetchFrequency(data.fetchFrequency)
         setDataSource(data)
       }
     }
@@ -32,26 +40,64 @@ export function DataSourceView({ match }) {
     // eslint-disable-next-line
   }, [match])
 
+  async function onSubmit(evt) {
+    evt.target.blur()
+    if (edit) {
+      await update({
+        ...dataSource,
+        title,
+        description,
+        persistData,
+        fetchFrequency,
+      })
+      setRedirect(`/data-sources/${match.params.id}`)
+      setEdit(false)
+    } else {
+      setEdit(true)
+    }
+  }
+
+  const [showModal, hideModal] = useModal(() => (
+    <DeleteDataSourceModal
+      submit={async () => {
+        hideModal()
+        const [status] = await remove()
+        if (status === statusCode.OK) {
+          setRedirect('/data-sources')
+        }
+      }}
+      cancel={hideModal}
+    />
+  ))
+
   return (
     <>
+      {redirect && <Redirect to={redirect} />}
       <MetaData title={title} description={description} path={path} />
       <div className="container-fluid dashboard">
         <DataSourceHeader
+          edit={edit}
           title={title}
-          onSave={() => {}}
+          onSubmit={onSubmit}
           tabs={tabs}
           currentTab={currentTab}
           setCurrentTab={setCurrentTab}
         />
         {currentTab === tabs[0] ? (
-          <>{JSON.stringify(data)}</>
+          <>{edit ? 'edit' : JSON.stringify(data)}</>
         ) : (
           <DataSourceDetails
+            edit={edit}
             title={title}
+            setTitle={setTitle}
             description={description}
+            setDescription={setDescription}
             persistData={persistData}
+            setPersistData={setPersistData}
             fetchFrequency={fetchFrequency}
+            setFetchFrequency={setFetchFrequency}
             creationDate={creationDate}
+            remove={showModal}
           />
         )}
       </div>

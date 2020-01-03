@@ -43,18 +43,15 @@ export function DashboardView({ match, location }) {
     // eslint-disable-next-line
   }, [match])
 
-  async function onSubmit(event) {
-    event.target.blur()
+  async function onSubmit(evt) {
+    evt.target.blur()
     if (edit) {
-      const [status] = await update({
+      await update({
         ...dashboard,
         title,
         description,
         data: { arrangement, settings },
       })
-      if (status === statusCode.OK) {
-        console.log('update was successful!')
-      }
       setEdit(false)
       setRedirect(`/dashboards/${match.params.id}`)
     } else {

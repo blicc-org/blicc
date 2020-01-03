@@ -48,7 +48,7 @@ export function ChartView({ match }) {
                   </tr>
                   <tr>
                     <td>
-                      <b>Registration date:</b>
+                      <b>Creation date:</b>
                     </td>
                     <td>
                       {data.creationDate ? data.creationDate.split('T')[0] : ''}

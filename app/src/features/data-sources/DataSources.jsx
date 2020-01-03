@@ -48,7 +48,7 @@ export function DataSources() {
       data: {},
     })
     if (status === statusCode.CREATED) {
-      setRedirect(`/data-sources/${data.id}`)
+      setRedirect(`/data-sources/${data.id}?edit`)
     }
     hideModal()
   }
