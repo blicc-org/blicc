@@ -1,4 +1,5 @@
 import React from 'react'
+import { FREQUENCY } from './DataSources'
 
 export function CreateDataSourceModal({
   cancel,
@@ -45,9 +46,9 @@ export function CreateDataSourceModal({
                   setFetchFrequency(parseInt(event.target.value))
                 }
               >
-                <option value={86400000}>daily</option>
-                <option value={2592000000}>mounthly</option>
-                <option value={31536000000}>yearly</option>
+                <option value={FREQUENCY.DAILY}>daily</option>
+                <option value={FREQUENCY.MONTHLY}>mounthly</option>
+                <option value={FREQUENCY.YEARLY}>yearly</option>
               </select>
               <small id="emailHelp" className="form-text text-muted">
                 Set a period for a data fetch cronjob.

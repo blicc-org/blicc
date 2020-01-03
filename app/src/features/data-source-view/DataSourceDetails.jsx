@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from '../../common/components/ui'
+import { FREQUENCY } from '../data-sources/DataSources'
 
 export function DataSourceDetails({
   edit,
@@ -85,9 +86,9 @@ export function DataSourceDetails({
                       setFetchFrequency(parseInt(event.target.value))
                     }
                   >
-                    <option value={86400000}>daily</option>
-                    <option value={2592000000}>mounthly</option>
-                    <option value={31536000000}>yearly</option>
+                    <option value={FREQUENCY.DAILY}>daily</option>
+                    <option value={FREQUENCY.MONTHLY}>mounthly</option>
+                    <option value={FREQUENCY.YEARLY}>yearly</option>
                   </select>
                 ) : (
                   <>Every {fetchFrequency / (60 * 60 * 1000)} hours</>

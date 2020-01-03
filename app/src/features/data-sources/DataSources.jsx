@@ -6,12 +6,18 @@ import { MetaData } from '../../common/components/meta-data/MetaData'
 import { Item, Pagination, Empty } from '../../common/components/ui'
 import { CreateDataSourceModal } from './CreateDataSourceModal'
 
+export const FREQUENCY = {
+  DAILY: 86400000,
+  MONTHLY: 2592000000,
+  YEARLY: 31536000000,
+}
+
 export const INITIAL_DATA_SOURCE = {
   title: '',
   description: '',
   data: {},
   persistData: false,
-  fetchFrequency: 86400000,
+  fetchFrequency: FREQUENCY.DAILY,
 }
 
 export function DataSources() {
@@ -22,7 +28,7 @@ export function DataSources() {
   const [redirect, setRedirect] = useState('')
 
   const [title, setTitle] = useState('')
-  const [fetchFrequency, setFetchFrequency] = useState(86400000)
+  const [fetchFrequency, setFetchFrequency] = useState(0)
   const [persistData, setPersistData] = useState(true)
 
   const [showModal, hideModal] = useModal(
