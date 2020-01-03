@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react'
+import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
 import { DashboardHeader } from './DashboardHeader'
 import { Arrangement } from '../../common/components/arrangement/Arrangement'
-import { useApiEndpoint } from '../../common/hooks'
+import { useApiEndpoint, useModal } from '../../common/hooks'
 import { ArrangementContext, SettingsContext } from '../../common/context'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DashboardDetails } from './DashboardDetails'
 import { Toolbox } from '../../common/components/toolbox/Toolbox'
+import { DeleteDashboardModal } from './DeleteDashboardModal'
 import './DashboardView.scss'
 
 export function DashboardView({ match, location }) {
@@ -15,12 +17,13 @@ export function DashboardView({ match, location }) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const path = `/dashboards/${match.params.id}`
-  const [, access, update] = useApiEndpoint(path)
+  const [, access, update, remove] = useApiEndpoint(path)
   const [dashboard, setDashboard] = useState({})
   const { userId, creationDate } = dashboard
   const [edit, setEdit] = useState(
     location.search && location.search === '?edit'
   )
+  const [redirect, setRedirect] = useState('')
 
   const tabs = ['Dashboard', 'Details']
   const [currentTab, setCurrentTab] = useState(tabs[0])
@@ -58,8 +61,22 @@ export function DashboardView({ match, location }) {
     }
   }
 
+  const [showModal, hideModal] = useModal(() => (
+    <DeleteDashboardModal
+      submit={async () => {
+        hideModal()
+        const [status] = await remove()
+        if (status === statusCode.OK) {
+          setRedirect('/dashboards')
+        }
+      }}
+      cancel={hideModal}
+    />
+  ))
+
   return (
     <>
+      {redirect && <Redirect to={redirect} />}
       <MetaData title={title} description={description} path={path} />
       <div className="container-fluid dashboard">
         <DashboardHeader
@@ -78,6 +95,7 @@ export function DashboardView({ match, location }) {
         ) : (
           <DashboardDetails
             edit={edit}
+            remove={showModal}
             title={title}
             setTitle={setTitle}
             userId={userId}

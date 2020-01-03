@@ -30,7 +30,7 @@ export function DeleteAccountModal({
                 <input
                   id="token"
                   className="form-control"
-                  autocomplete="off"
+                  autoComplete="off"
                   onChange={event => setToken(event.target.value)}
                 />
                 <div className="input-group-append">
@@ -50,7 +50,7 @@ export function DeleteAccountModal({
               id="password"
               type="password"
               className="form-control"
-              autocomplete="off"
+              autoComplete="off"
               onChange={event => setPassword(event.target.value)}
             />
             <small id="emailHelp" className="form-text text-muted">

@@ -1,5 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Card } from '../../common/components/ui'
+import { useModal } from '../../common/hooks'
+import { DeleteDashboardModal } from './DeleteDashboardModal'
 
 export function DashboardDetails({
   edit,
@@ -9,10 +12,11 @@ export function DashboardDetails({
   creationDate,
   description,
   setDescription,
+  remove,
 }) {
   return (
     <div className="col px-0">
-      <Card>
+      <Card title="Details">
         <table style={{ width: '100%' }}>
           <tbody>
             <tr>
@@ -62,6 +66,22 @@ export function DashboardDetails({
             </tr>
           </tbody>
         </table>
+      </Card>
+      <Card title="Delete">
+        <p className="card-text">
+          Keep in mind that you cannot restore the deleted dashboard as well as
+          its settings.
+        </p>
+        <Link
+          className="btn btn-danger"
+          to="/"
+          onClick={evt => {
+            evt.preventDefault()
+            remove()
+          }}
+        >
+          Delete
+        </Link>
       </Card>
     </div>
   )
