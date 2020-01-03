@@ -12,6 +12,11 @@ export class AuthMiddleware {
       let token: string = ctx.cookies.get('access_token')
       if (!token) {
         const { authorization } = ctx.headers
+        if (!authorization) {
+          ctx.status = status.UNAUTHORIZED
+          ctx.body = 'Please provide a valid authorization token.'
+          return
+        }
         token = authorization.split(' ')[1]
       }
       const payload: TokenPayload = JWT.verify(token)
