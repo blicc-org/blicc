@@ -15,6 +15,7 @@ export function DataSourceView({ match }) {
     persistData,
     fetchFrequency,
     creationDate,
+    data,
   } = dataSource
 
   const tabs = ['Data Mapping', 'Details']
@@ -43,7 +44,7 @@ export function DataSourceView({ match }) {
           setCurrentTab={setCurrentTab}
         />
         {currentTab === tabs[0] ? (
-          <>{<p>nais</p>}</>
+          <>{JSON.stringify(data)}</>
         ) : (
           <DataSourceDetails
             title={title}

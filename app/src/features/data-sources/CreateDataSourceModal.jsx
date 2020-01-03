@@ -5,8 +5,8 @@ export function CreateDataSourceModal({
   submit,
   setTitle,
   setPersistData,
-  setFrequency,
-  setUrl,
+  fetchFrequency,
+  setFetchFrequency,
 }) {
   return (
     <>
@@ -36,27 +36,18 @@ export function CreateDataSourceModal({
               </small>
             </div>
             <div className="form-group">
-              <label htmlFor="data_source_url">Target url</label>
-              <input
-                id="data_source_url"
-                className="form-control"
-                onChange={event => setUrl(event.target.value)}
-              />
-              <small id="emailHelp" className="form-text text-muted">
-                Set the data source url.
-              </small>
-            </div>
-            <div className="form-group">
               <label htmlFor="inputState">Fetch frequency</label>
               <select
                 id="inputState"
                 className="form-control"
-                value={'a'}
-                onChange={event => setFrequency(event.target.value)}
+                value={fetchFrequency}
+                onChange={event =>
+                  setFetchFrequency(parseInt(event.target.value))
+                }
               >
-                <option>daily</option>
-                <option>mounthly</option>
-                <option>yearly</option>
+                <option value={86400000}>daily</option>
+                <option value={2592000000}>mounthly</option>
+                <option value={31536000000}>yearly</option>
               </select>
               <small id="emailHelp" className="form-text text-muted">
                 Set a period for a data fetch cronjob.

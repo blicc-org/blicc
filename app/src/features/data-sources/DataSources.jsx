@@ -22,9 +22,8 @@ export function DataSources() {
   const [redirect, setRedirect] = useState('')
 
   const [title, setTitle] = useState('')
-  const [frequency, setFrequency] = useState('daily')
+  const [fetchFrequency, setFetchFrequency] = useState(86400000)
   const [persistData, setPersistData] = useState(true)
-  const [url, setUrl] = useState('')
 
   const [showModal, hideModal] = useModal(
     () => (
@@ -32,23 +31,24 @@ export function DataSources() {
         cancel={hideModal}
         submit={submit}
         setTitle={setTitle}
-        setFrequency={setFrequency}
         setPersistData={setPersistData}
-        setUrl={setUrl}
+        fetchFrequency={fetchFrequency}
+        setFetchFrequency={setFetchFrequency}
       />
     ),
-    [title, frequency, persistData, url]
+    [title, fetchFrequency, persistData]
   )
 
   async function submit() {
-    const [status, data] = await create({
+    const response = await create({
       ...INITIAL_DATA_SOURCE,
       title,
       persistData,
-      data: { url },
+      fetchFrequency,
+      data: {},
     })
-    if (status === statusCode.CREATED) {
-      setRedirect(`/data-sources/${data.id}`)
+    if (response.status === statusCode.CREATED) {
+      setRedirect(`/data-sources/${response.data.id}`)
     }
     hideModal()
   }
