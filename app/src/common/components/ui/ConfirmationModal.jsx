@@ -1,6 +1,12 @@
 import React from 'react'
 
-export function DeletionWarningModal({ title, description, cancel, submit }) {
+export function ConfirmationModal({
+  title,
+  description,
+  submitPhrase,
+  cancel,
+  submit,
+}) {
   return (
     <>
       <div className="modal-dialog modal-dialog-centered" role="document">
@@ -34,7 +40,7 @@ export function DeletionWarningModal({ title, description, cancel, submit }) {
               type="button"
               className="btn btn-danger"
             >
-              Delete
+              {submitPhrase}
             </button>
           </div>
         </div>

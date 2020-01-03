@@ -4,11 +4,7 @@ import statusCode from 'http-status-codes'
 import { useApiEndpoint, useModal } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DataSourceDetails } from './DataSourceDetails'
-import {
-  DeletionWarningModal,
-  Tabs,
-  PageHeader,
-} from '../../common/components/ui'
+import { ConfirmationModal, Tabs, PageHeader } from '../../common/components/ui'
 
 export function DataSourceView({ match, location }) {
   const path = `/data-sources/${match.params.id}`
@@ -61,9 +57,10 @@ export function DataSourceView({ match, location }) {
   }
 
   const [showModal, hideModal] = useModal(() => (
-    <DeletionWarningModal
+    <ConfirmationModal
       title="Delete data source"
       description="Do you really want to delete the data source?"
+      submitPhrase="Delete"
       submit={async () => {
         hideModal()
         const [status] = await remove()

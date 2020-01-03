@@ -7,11 +7,7 @@ import { ArrangementContext, SettingsContext } from '../../common/context'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DashboardDetails } from './DashboardDetails'
 import { Toolbox } from '../../common/components/toolbox/Toolbox'
-import {
-  DeletionWarningModal,
-  Tabs,
-  PageHeader,
-} from '../../common/components/ui'
+import { ConfirmationModal, Tabs, PageHeader } from '../../common/components/ui'
 import './DashboardView.scss'
 
 export function DashboardView({ match, location }) {
@@ -63,9 +59,10 @@ export function DashboardView({ match, location }) {
   }
 
   const [showModal, hideModal] = useModal(() => (
-    <DeletionWarningModal
+    <ConfirmationModal
       title="Delete Dashboard"
       description="Do you really want to delete the dashboard?"
+      submitPhrase="Delete"
       submit={async () => {
         hideModal()
         const [status] = await remove()
