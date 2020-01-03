@@ -41,7 +41,7 @@ export function Details({ user, setUser, update }) {
               <b>Last name:</b>
             </td>
             <td>
-            {edit ? (
+              {edit ? (
                 <input
                   className="form-control col-md-6 my-2"
                   value={lastName}
@@ -52,13 +52,14 @@ export function Details({ user, setUser, update }) {
               ) : (
                 lastName
               )}
-              </td>
+            </td>
           </tr>
           <tr>
             <td>
               <b>Email:</b>
             </td>
-            <td>{edit ? (
+            <td>
+              {edit ? (
                 <input
                   className="form-control col-md-6 my-2"
                   value={email}
@@ -68,7 +69,8 @@ export function Details({ user, setUser, update }) {
                 />
               ) : (
                 email
-              )}</td>
+              )}
+            </td>
           </tr>
           <tr>
             <td>
