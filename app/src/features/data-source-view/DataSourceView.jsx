@@ -5,7 +5,7 @@ import { useApiEndpoint, useModal } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DataSourceDetails } from './DataSourceDetails'
 import { DataSourceHeader } from './DataSourceHeader'
-import { DeleteDataSourceModal } from './DeleteDataSourceModal'
+import { DeletionWarningModal } from '../../common/components/ui'
 
 export function DataSourceView({ match, location }) {
   const path = `/data-sources/${match.params.id}`
@@ -58,7 +58,9 @@ export function DataSourceView({ match, location }) {
   }
 
   const [showModal, hideModal] = useModal(() => (
-    <DeleteDataSourceModal
+    <DeletionWarningModal
+      title="Delete data source"
+      description="Do you really want to delete the data source?"
       submit={async () => {
         hideModal()
         const [status] = await remove()

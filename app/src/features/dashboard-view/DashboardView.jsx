@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
+import { Redirect } from 'react-router-dom'
 import { DashboardHeader } from './DashboardHeader'
 import { Arrangement } from '../../common/components/arrangement/Arrangement'
 import { useApiEndpoint, useModal } from '../../common/hooks'
@@ -8,7 +8,7 @@ import { ArrangementContext, SettingsContext } from '../../common/context'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DashboardDetails } from './DashboardDetails'
 import { Toolbox } from '../../common/components/toolbox/Toolbox'
-import { DeleteDashboardModal } from './DeleteDashboardModal'
+import { DeletionWarningModal } from '../../common/components/ui'
 import './DashboardView.scss'
 
 export function DashboardView({ match, location }) {
@@ -60,7 +60,9 @@ export function DashboardView({ match, location }) {
   }
 
   const [showModal, hideModal] = useModal(() => (
-    <DeleteDashboardModal
+    <DeletionWarningModal
+      title="Delete Dashboard"
+      description="Do you really want to delete the dashboard?"
       submit={async () => {
         hideModal()
         const [status] = await remove()

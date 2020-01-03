@@ -1,12 +1,12 @@
 import React from 'react'
 
-export function DeleteDashboardModal({ cancel, submit }) {
+export function DeletionWarningModal({ title, description, cancel, submit }) {
   return (
     <>
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Delete dashboard</h5>
+            <h5 className="modal-title">{title}</h5>
             <button
               title="Close modal"
               onClick={cancel}
@@ -17,7 +17,7 @@ export function DeleteDashboardModal({ cancel, submit }) {
             </button>
           </div>
           <div className="modal-body">
-            <p>Do you really want to delete the dashboard?</p>
+            <p>{description}</p>
           </div>
           <div className="modal-footer">
             <button
