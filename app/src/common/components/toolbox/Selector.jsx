@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { DragContext, DRAG } from '../../context'
 import './Selector.scss'
 
-export function Selector({ type, children }) {
+export function Selector({ title, type, children }) {
   const [, setDragState] = useContext(DragContext)
 
   function onDragStart(event) {
@@ -17,6 +17,9 @@ export function Selector({ type, children }) {
   return (
     <>
       <div
+        title={title}
+        data-toggle="tooltip"
+        data-placement="left"
         className="draggable"
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}

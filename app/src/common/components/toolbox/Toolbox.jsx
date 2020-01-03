@@ -16,10 +16,16 @@ export function Toolbox() {
       <div className="toolbox" ref={ref}>
         {show && (
           <>
-            <Selector type={DRAG.CHART}>
+            <Selector
+              title="Drag and drop a chart type into a dashboard."
+              type={DRAG.CHART}
+            >
               <PieChart />
             </Selector>
-            <Selector type={DRAG.DATA}>
+            <Selector
+              title="Drag and drop a data source into a chart."
+              type={DRAG.DATA}
+            >
               <Database />
             </Selector>
           </>
