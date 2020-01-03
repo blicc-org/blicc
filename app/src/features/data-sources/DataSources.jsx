@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint, useModal } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import { Item, Pagination } from '../../common/components/ui'
+import { Item, Pagination, Empty } from '../../common/components/ui'
 import { CreateDataSourceModal } from './CreateDataSourceModal'
 
 export const INITIAL_DATA_SOURCE = {
@@ -94,10 +94,10 @@ export function DataSources() {
         </div>
         <div>
           {result.dataSources.length === 0 ? (
-            <p className="text-muted mx-auto py-5 my-5 text-center">
+            <Empty>
               No data sources found. Click in the top right corner on New Data
               Source to create one.
-            </p>
+            </Empty>
           ) : (
             <table className="table">
               <tbody>

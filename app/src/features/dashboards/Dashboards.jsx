@@ -5,7 +5,7 @@ import { useApiEndpoint } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useModal } from '../../common/hooks/useModal'
 import { CreateDashboardModal } from './CreateDashboardModal'
-import { Item, Tabs, Pagination } from '../../common/components/ui'
+import { Item, Tabs, Pagination, Empty } from '../../common/components/ui'
 import './Dashboards.scss'
 
 export const INITIAL_DASHBOARD = {
@@ -99,10 +99,10 @@ export function Dashboards() {
         />
         <div className="dashboard-list">
           {result.dashboards.length === 0 ? (
-            <p className="text-muted mx-auto py-5 my-5 text-center">
+            <Empty>
               No dashboards found. Click in the top right corner on New
               Dashboard to create one.
-            </p>
+            </Empty>
           ) : (
             <table className="table">
               <tbody>

@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Positioning } from '../positioning/Positioning'
 import { MASK } from '../../hooks'
 import { DragContext, DRAG } from '../../context'
+import { Empty } from '../ui'
 import './DragHere.scss'
 
 export function DragHere({ edit, onDrop }) {
@@ -19,10 +20,10 @@ export function DragHere({ edit, onDrop }) {
           )}
         </div>
       ) : (
-        <p className="text-muted mx-auto py-5 my-5 text-center">
+        <Empty>
           This dashboard does not contain any charts yet. Click on edit to start
           dragging new charts in the dashboard.
-        </p>
+        </Empty>
       )}
     </>
   )

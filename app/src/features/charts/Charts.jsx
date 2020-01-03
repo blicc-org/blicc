@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import statusCode from 'http-status-codes'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useApiEndpoint } from '../../common/hooks'
-import { Item, Pagination } from '../../common/components/ui'
+import { Item, Pagination, Empty } from '../../common/components/ui'
 
 export function Charts() {
   const itemsPerPage = 10
@@ -39,9 +39,7 @@ export function Charts() {
         </div>
         <div className="chart-list">
           {result.total === 0 ? (
-            <p className="text-muted mx-auto py-5 my-5 text-center">
-              No charts fount.
-            </p>
+            <Empty>No charts fount.</Empty>
           ) : (
             <table className="table">
               <tbody>
