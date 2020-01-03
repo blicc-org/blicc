@@ -24,7 +24,7 @@ export function DashboardDetails({
               <td>
                 {edit ? (
                   <input
-                    className="form-control col-6 my-2"
+                    className="form-control col-md-6 my-2"
                     value={title}
                     onChange={evt => setTitle(evt.target.value)}
                   />

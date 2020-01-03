@@ -1,8 +1,19 @@
-import React from 'react'
-import { Card } from '../../../common/components/ui'
+import React, { useState } from 'react'
+import { Card, UpdateButton } from '../../../common/components/ui'
 
-export function Details({ user }) {
+export function Details({ user, setUser, update }) {
   const { firstName, lastName, email, role, creationDate } = user
+  const [edit, setEdit] = useState(false)
+
+  async function onClick() {
+    if (edit) {
+      await update()
+      setEdit(false)
+    } else {
+      setEdit(true)
+    }
+  }
+
   return (
     <Card title="Details">
       <table style={{ width: '100%' }}>
@@ -11,19 +22,53 @@ export function Details({ user }) {
             <td>
               <b>First name:</b>
             </td>
-            <td>{firstName}</td>
+            <td>
+              {edit ? (
+                <input
+                  className="form-control col-md-6 my-2"
+                  value={firstName}
+                  onChange={evt =>
+                    setUser({ ...user, firstName: evt.target.value })
+                  }
+                />
+              ) : (
+                firstName
+              )}
+            </td>
           </tr>
           <tr>
             <td>
               <b>Last name:</b>
             </td>
-            <td>{lastName}</td>
+            <td>
+            {edit ? (
+                <input
+                  className="form-control col-md-6 my-2"
+                  value={lastName}
+                  onChange={evt =>
+                    setUser({ ...user, lastName: evt.target.value })
+                  }
+                />
+              ) : (
+                lastName
+              )}
+              </td>
           </tr>
           <tr>
             <td>
               <b>Email:</b>
             </td>
-            <td>{email}</td>
+            <td>{edit ? (
+                <input
+                  className="form-control col-md-6 my-2"
+                  value={email}
+                  onChange={evt =>
+                    setUser({ ...user, email: evt.target.value })
+                  }
+                />
+              ) : (
+                email
+              )}</td>
           </tr>
           <tr>
             <td>
@@ -39,6 +84,8 @@ export function Details({ user }) {
           </tr>
         </tbody>
       </table>
+      <br />
+      <UpdateButton edit={edit} onClick={onClick} />
     </Card>
   )
 }

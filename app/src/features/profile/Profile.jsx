@@ -8,7 +8,7 @@ import { TwoFactorAuth } from './two-factor-auth/TwoFactorAuth'
 export function Profile() {
   const [appState] = useContext(AppContext)
   const { id } = appState
-  const [, accessUser, ,] = useApiEndpoint(`/users/${id}`)
+  const [, access, update] = useApiEndpoint(`/users/${id}`)
 
   const [user, setUser] = useState({
     id: '',
@@ -22,7 +22,7 @@ export function Profile() {
 
   useEffect(() => {
     async function fetchUser() {
-      const [, user] = await accessUser()
+      const [, user] = await access()
       setUser(user)
     }
     fetchUser()
@@ -35,7 +35,11 @@ export function Profile() {
         <h2 className="my-0">Profile</h2>
       </div>
       <div className="col px-0">
-        <Details user={user} />
+        <Details
+          user={user}
+          setUser={setUser}
+          update={async () => await update(user)}
+        />
         <TwoFactorAuth user={user} setUser={setUser} />
         <DeleteAccount user={user} />
       </div>

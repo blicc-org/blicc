@@ -28,7 +28,7 @@ export function DataSourceDetails({
               <td>
                 {edit ? (
                   <input
-                    className="form-control col-6 my-2"
+                    className="form-control col-md-6 my-2"
                     value={title}
                     onChange={evt => setTitle(evt.target.value)}
                   />
@@ -80,7 +80,7 @@ export function DataSourceDetails({
               <td>
                 {edit ? (
                   <select
-                    className="form-control col-4 my-2"
+                    className="form-control col-md-4 my-2"
                     value={fetchFrequency}
                     onChange={event =>
                       setFetchFrequency(parseInt(event.target.value))
