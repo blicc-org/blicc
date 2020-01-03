@@ -40,15 +40,15 @@ export function DataSources() {
   )
 
   async function submit() {
-    const response = await create({
+    const [status, data] = await create({
       ...INITIAL_DATA_SOURCE,
       title,
       persistData,
       fetchFrequency,
       data: {},
     })
-    if (response.status === statusCode.CREATED) {
-      setRedirect(`/data-sources/${response.data.id}`)
+    if (status === statusCode.CREATED) {
+      setRedirect(`/data-sources/${data.id}`)
     }
     hideModal()
   }

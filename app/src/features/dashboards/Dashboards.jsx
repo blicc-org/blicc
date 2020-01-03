@@ -26,9 +26,6 @@ export function Dashboards() {
   const [description, setDescription] = useState('')
   const [redirect, setRedirect] = useState('')
 
-  const tabs = ['Your dashboards', 'Starred dashboards']
-  const [currentTab, setCurrentTab] = useState(tabs[0])
-
   const [showModal, hideModal] = useModal(
     () => (
       <CreateDashboardModal
@@ -92,11 +89,6 @@ export function Dashboards() {
             </button>
           </div>
         </div>
-        <Tabs
-          tabs={tabs}
-          currentTab={currentTab}
-          setCurrentTab={setCurrentTab}
-        />
         <div className="dashboard-list">
           {result.dashboards.length === 0 ? (
             <Empty>
