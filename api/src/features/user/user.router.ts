@@ -350,6 +350,138 @@ export class UserRouter {
     /**
      * @swagger
      *
+     * /users/{id}:
+     *   put:
+     *     tags:
+     *       - User
+     *     securitySchemes:
+     *       bearerAuth:
+     *         type: http
+     *         scheme: bearer
+     *         bearerFormat: JWT
+     *     parameters:
+     *       - in: path
+     *         name: userId
+     *         required: true
+     *         schema:
+     *           type: string
+     *     summary: Update user
+     *     description: Update a user
+     *     requestBody:
+     *         content:
+     *           application/json:
+     *             schema:
+     *               properties:
+     *                 user:
+     *                   type: object
+     *                   properties:
+     *                     id:
+     *                       type: string
+     *                     firstName:
+     *                       type: string
+     *                     lastName:
+     *                       type: string
+     *                     email:
+     *                       type: string
+     *                     role:
+     *                       type: string
+     *                     hasTwoFactorAuth:
+     *                       type: boolean
+     *                     creationDate:
+     *                       type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   "id": "ojziCepXt",
+     *                   "firstName": "New",
+     *                   "lastName": "Name",
+     *                   "email": "new@email.com",
+     *                   "role": "user",
+     *                   "hasTwoFactorAuth": false,
+     *                   "creationDate": "2019-11-02T15:45:58.284Z"
+     *                 }
+     *     responses:
+     *       200:
+     *         description: OK
+     *         content:
+     *           application/json:
+     *             schema:
+     *               properties:
+     *                 user:
+     *                   type: object
+     *                   properties:
+     *                     id:
+     *                       type: string
+     *                     firstName:
+     *                       type: string
+     *                     lastName:
+     *                       type: string
+     *                     email:
+     *                       type: string
+     *                     role:
+     *                       type: string
+     *                     hasTwoFactorAuth:
+     *                       type: boolean
+     *                     creationDate:
+     *                       type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   "id": "ojziCepXt",
+     *                   "firstName": "New",
+     *                   "lastName": "Name",
+     *                   "email": "new@email.com",
+     *                   "role": "user",
+     *                   "hasTwoFactorAuth": false,
+     *                   "creationDate": "2019-11-02T15:45:58.284Z"
+     *                 }
+     *       400:
+     *         description: Bad request
+     *       401:
+     *         description: Unauthorized
+     *       403:
+     *         description: Forbidden
+     *       500:
+     *         description: Internal Server Error
+     */
+    this.router.route({
+      method: 'put',
+      path: '/:id',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
+      ],
+      validate: {
+        type: 'json',
+        body: {
+          id: Joi.string().required(),
+          firstName: Joi.string().required(),
+          lastName: Joi.string().required(),
+          email: Joi.string().required(),
+          role: Joi.string().required(),
+          hasTwoFactorAuth: Joi.boolean().required(),
+          creationDate: Joi.string().required(),
+        },
+        output: {
+          200: {
+            body: {
+              id: Joi.string().required(),
+              firstName: Joi.string().required(),
+              lastName: Joi.string().required(),
+              email: Joi.string().required(),
+              role: Joi.string().required(),
+              hasTwoFactorAuth: Joi.boolean().required(),
+              creationDate: Joi.string().required(),
+            },
+          },
+        },
+      },
+      handler: this.controller.update.bind(this.controller),
+    })
+
+    /**
+     * @swagger
+     *
      * /users/{userId}/delete:
      *   post:
      *     security:

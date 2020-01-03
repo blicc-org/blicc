@@ -78,6 +78,26 @@ export class UserController {
     }
   }
 
+  public async update(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+    await next()
+    const { id } = ctx.params
+    const user = await this.userService.selectById(id)
+    if (user && ctx.state.jwt.userId === user.id) {
+      if (
+        ctx.request.body.id === user.id &&
+        ctx.request.body.role === user.role &&
+        ctx.request.body.creationDate === user.creationDate
+      ) {
+        ctx.body = await this.userService.update(ctx.request.body)
+        ctx.status = statusCode.OK
+        return
+      }
+      ctx.status = statusCode.BAD_REQUEST
+      return
+    }
+    ctx.status = statusCode.FORBIDDEN
+  }
+
   public async delete(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     try {
