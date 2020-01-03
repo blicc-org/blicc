@@ -52,12 +52,6 @@ export function DashboardDetails({
             </tr>
             <tr>
               <td>
-                <b>Owner:</b>
-              </td>
-              <td>{userId}</td>
-            </tr>
-            <tr>
-              <td>
                 <b>Creation date:</b>
               </td>
               <td>{creationDate.split('T')[0]}</td>

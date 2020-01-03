@@ -8,7 +8,10 @@ export function UpdateButton({ edit, onClick }) {
           title="Save dashboard"
           type="button"
           className="btn btn-primary"
-          onClick={onClick}
+          onClick={evt => {
+            evt.target.blur()
+            onClick(evt)
+          }}
         >
           Save
         </button>
@@ -17,7 +20,10 @@ export function UpdateButton({ edit, onClick }) {
           title="Edit dashboard"
           type="button"
           className="btn  btn-outline-secondary"
-          onClick={onClick}
+          onClick={evt => {
+            evt.target.blur()
+            onClick(evt)
+          }}
         >
           Edit
         </button>
