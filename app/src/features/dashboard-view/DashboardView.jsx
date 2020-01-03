@@ -1,14 +1,17 @@
 import React, { useEffect, useState, useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { Redirect } from 'react-router-dom'
-import { DashboardHeader } from './DashboardHeader'
 import { Arrangement } from '../../common/components/arrangement/Arrangement'
 import { useApiEndpoint, useModal } from '../../common/hooks'
 import { ArrangementContext, SettingsContext } from '../../common/context'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DashboardDetails } from './DashboardDetails'
 import { Toolbox } from '../../common/components/toolbox/Toolbox'
-import { DeletionWarningModal } from '../../common/components/ui'
+import {
+  DeletionWarningModal,
+  Tabs,
+  PageHeader,
+} from '../../common/components/ui'
 import './DashboardView.scss'
 
 export function DashboardView({ match, location }) {
@@ -43,7 +46,7 @@ export function DashboardView({ match, location }) {
     // eslint-disable-next-line
   }, [match])
 
-  async function onSubmit(evt) {
+  async function onClick(evt) {
     evt.target.blur()
     if (edit) {
       await update({
@@ -79,10 +82,8 @@ export function DashboardView({ match, location }) {
       {redirect && <Redirect to={redirect} />}
       <MetaData title={title} description={description} path={path} />
       <div className="container-fluid dashboard">
-        <DashboardHeader
-          edit={edit}
-          onSubmit={onSubmit}
-          title={title}
+        <PageHeader edit={edit} title={title} onClick={onClick} />
+        <Tabs
           tabs={tabs}
           currentTab={currentTab}
           setCurrentTab={setCurrentTab}

@@ -4,8 +4,12 @@ import statusCode from 'http-status-codes'
 import { useApiEndpoint, useModal } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DataSourceDetails } from './DataSourceDetails'
-import { DataSourceHeader } from './DataSourceHeader'
-import { DeletionWarningModal } from '../../common/components/ui'
+import {
+  DeletionWarningModal,
+  Tabs,
+  PageHeader,
+} from '../../common/components/ui'
+import {} from '../../common/components/ui/PageHeader'
 
 export function DataSourceView({ match, location }) {
   const path = `/data-sources/${match.params.id}`
@@ -40,7 +44,7 @@ export function DataSourceView({ match, location }) {
     // eslint-disable-next-line
   }, [match])
 
-  async function onSubmit(evt) {
+  async function onClick(evt) {
     evt.target.blur()
     if (edit) {
       await update({
@@ -77,10 +81,8 @@ export function DataSourceView({ match, location }) {
       {redirect && <Redirect to={redirect} />}
       <MetaData title={title} description={description} path={path} />
       <div className="container-fluid dashboard">
-        <DataSourceHeader
-          edit={edit}
-          title={title}
-          onSubmit={onSubmit}
+        <PageHeader edit={edit} title={title} onClick={onClick} />
+        <Tabs
           tabs={tabs}
           currentTab={currentTab}
           setCurrentTab={setCurrentTab}
