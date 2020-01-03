@@ -30,10 +30,15 @@ export class AuthMiddleware {
         )}.`
       } else if (e.name === 'ValidationError') {
         ctx.status = status.BAD_REQUEST
-        ctx.body = e.message
+        ctx.body = `A validation error occured: ${e.message}`
+      } else if (e.name === 'QueryFailedError') {
+        ctx.status = status.BAD_REQUEST
+        ctx.body = 'An error occured while querying the database.'
+        console.error('An error occured: ', e.message)
       } else {
-        ctx.status = status.UNAUTHORIZED
-        ctx.body = 'Please provide a valid authorization token.'
+        ctx.status = status.BAD_REQUEST
+        ctx.body = 'Please provide a proper request.'
+        console.error('An error occured: ', e.message)
       }
     }
   }

@@ -27,7 +27,7 @@ export class DataSourceEntity extends BaseEntity {
   @Column()
   public persistData: boolean
 
-  @Column()
+  @Column({ type: 'bigint' })
   public fetchFrequency: number
 
   @Column()
