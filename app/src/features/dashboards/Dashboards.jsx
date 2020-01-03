@@ -48,7 +48,7 @@ export function Dashboards() {
       description,
     })
     if (status === statusCode.CREATED) {
-      setRedirect(`/dashboards/${data.id}`)
+      setRedirect(`/dashboards/${data.id}?edit`)
     }
     hideModal()
   }

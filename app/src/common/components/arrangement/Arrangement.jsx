@@ -6,7 +6,7 @@ import { Box } from './Box'
 import './Arrangement.scss'
 import { DRAG } from '../../context'
 
-export function Arrangement() {
+export function Arrangement({ edit }) {
   const [arr, insertArr] = useArrangement()
   const [, insertSet] = useSettings()
   const [targetId, setTargetId] = useState('')
@@ -55,9 +55,9 @@ export function Arrangement() {
   return useMemo(() => {
     return (
       <div className="spread" onDragOver={evt => evt.preventDefault()}>
-        <Box arr={arr} onDrop={onDrop} />
+        <Box arr={arr} onDrop={onDrop} edit={edit} />
       </div>
     )
     // eslint-disable-next-line
-  }, [arr])
+  }, [edit, arr])
 }

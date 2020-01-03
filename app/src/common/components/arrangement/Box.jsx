@@ -4,7 +4,7 @@ import { MASK } from '../../hooks'
 import { DragHere } from './DragHere'
 import { Plugin } from './Plugin'
 
-export function Box({ arr, onDrop, mask = MASK.SINGLE }) {
+export function Box({ edit, arr, onDrop, mask = MASK.SINGLE }) {
   return (
     <>
       {(() => {
@@ -19,6 +19,7 @@ export function Box({ arr, onDrop, mask = MASK.SINGLE }) {
               {arr.items.map(item => (
                 <Box
                   key={uuid()}
+                  edit={edit}
                   arr={item}
                   onDrop={onDrop}
                   mask={arr.direction === 'row' ? MASK.ROW : MASK.COLUMN}
@@ -27,7 +28,7 @@ export function Box({ arr, onDrop, mask = MASK.SINGLE }) {
             </div>
           )
         } else {
-          return <DragHere onDrop={onDrop} />
+          return <DragHere edit={edit} onDrop={onDrop} />
         }
       })()}
     </>
