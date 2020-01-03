@@ -9,7 +9,6 @@ import {
   Tabs,
   PageHeader,
 } from '../../common/components/ui'
-import {} from '../../common/components/ui/PageHeader'
 
 export function DataSourceView({ match, location }) {
   const path = `/data-sources/${match.params.id}`
