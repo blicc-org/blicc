@@ -5,7 +5,7 @@ import { useApiEndpoint } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useModal } from '../../common/hooks/useModal'
 import { CreateDashboardModal } from './CreateDashboardModal'
-import { Item, Tabs, Pagination, Empty } from '../../common/components/ui'
+import { Item, Pagination, Empty } from '../../common/components/ui'
 import './Dashboards.scss'
 
 export const INITIAL_DASHBOARD = {

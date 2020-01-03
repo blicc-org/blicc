@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from '../../common/components/ui'
-import { useModal } from '../../common/hooks'
-import { DeleteDashboardModal } from './DeleteDashboardModal'
 
 export function DashboardDetails({
   edit,
