@@ -1,7 +1,15 @@
 import React from 'react'
 import { Card } from '../../common/components/ui'
 
-export function DashboardDetails({ title, userId, creationDate, description }) {
+export function DashboardDetails({
+  edit,
+  title,
+  setTitle,
+  userId,
+  creationDate,
+  description,
+  setDescription,
+}) {
   return (
     <div className="col px-0">
       <Card>
@@ -11,7 +19,34 @@ export function DashboardDetails({ title, userId, creationDate, description }) {
               <td>
                 <b>Title</b>
               </td>
-              <td>{title}</td>
+              <td>
+                {edit ? (
+                  <input
+                    className="form-control col-6 my-2"
+                    value={title}
+                    onChange={evt => setTitle(evt.target.value)}
+                  />
+                ) : (
+                  title
+                )}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b>Description:</b>
+              </td>
+              <td>
+                {edit ? (
+                  <textarea
+                    className="form-control my-2"
+                    value={description}
+                    rows="3"
+                    onChange={evt => setDescription(evt.target.value)}
+                  ></textarea>
+                ) : (
+                  description
+                )}
+              </td>
             </tr>
             <tr>
               <td>
@@ -24,12 +59,6 @@ export function DashboardDetails({ title, userId, creationDate, description }) {
                 <b>Creation date:</b>
               </td>
               <td>{creationDate.split('T')[0]}</td>
-            </tr>
-            <tr>
-              <td>
-                <b>Description:</b>
-              </td>
-              <td>{description}</td>
             </tr>
           </tbody>
         </table>

@@ -12,10 +12,12 @@ import './DashboardView.scss'
 export function DashboardView({ match, location }) {
   const [arrangement, setArrangement] = useContext(ArrangementContext)
   const [settings, setSettings] = useContext(SettingsContext)
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
   const path = `/dashboards/${match.params.id}`
   const [, access, update] = useApiEndpoint(path)
   const [dashboard, setDashboard] = useState({})
-  const { title, userId, creationDate, description } = dashboard
+  const { userId, creationDate } = dashboard
   const [edit, setEdit] = useState(
     location.search && location.search === '?edit'
   )
@@ -30,6 +32,8 @@ export function DashboardView({ match, location }) {
         setDashboard(data)
         setArrangement(data.data.arrangement)
         setSettings(data.data.settings)
+        setTitle(data.title)
+        setDescription(data.description)
       }
     }
     fetchData()
@@ -41,6 +45,8 @@ export function DashboardView({ match, location }) {
     if (edit) {
       const [status] = await update({
         ...dashboard,
+        title,
+        description,
         data: { arrangement, settings },
       })
       if (status === statusCode.OK) {
@@ -55,24 +61,29 @@ export function DashboardView({ match, location }) {
   return (
     <>
       <MetaData title={title} description={description} path={path} />
-      {edit && <Toolbox />}
       <div className="container-fluid dashboard">
         <DashboardHeader
-          title={title}
           edit={edit}
           onSubmit={onSubmit}
+          title={title}
           tabs={tabs}
           currentTab={currentTab}
           setCurrentTab={setCurrentTab}
         />
         {currentTab === tabs[0] ? (
-          <>{dashboard.data && <Arrangement edit={edit} />}</>
+          <>
+            {edit && <Toolbox />}
+            {dashboard.data && <Arrangement edit={edit} />}
+          </>
         ) : (
           <DashboardDetails
+            edit={edit}
             title={title}
+            setTitle={setTitle}
             userId={userId}
             creationDate={creationDate}
             description={description}
+            setDescription={setDescription}
           />
         )}
       </div>
