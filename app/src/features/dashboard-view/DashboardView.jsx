@@ -56,6 +56,7 @@ export function DashboardView({ match, location }) {
         console.log('update was successful!')
       }
       setEdit(false)
+      setRedirect(`/dashboards/${match.params.id}`)
     } else {
       setEdit(true)
     }
