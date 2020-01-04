@@ -53,13 +53,15 @@ export function PluginLoader({ id, type }) {
 
         const node = module[plugin](data, onDataUpdate, settings, setSettings)
 
-        if (typeof node === 'string') {
-          ref.current.innerHTML = node
-        } else if (ref.current) {
-          if (ref.current.hasChildNodes()) {
-            ref.current.replaceChild(node, ref.current.firstChild)
+        if (ref.current) {
+          if (typeof node === 'string') {
+            ref.current.innerHTML = node
           } else {
-            ref.current.appendChild(node)
+            if (ref.current.hasChildNodes()) {
+              ref.current.replaceChild(node, ref.current.firstChild)
+            } else {
+              ref.current.appendChild(node)
+            }
           }
         }
       })
