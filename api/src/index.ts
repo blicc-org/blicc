@@ -8,6 +8,8 @@ import { RedisClient } from './util/redis-client'
 flags.option('-p, --port <number>', 'Port the server listens on')
 flags.parse(process.argv)
 
+console.log('woohhh' + process.env.POSTGRES_PASSWORD)
+
 async function start(): Promise<void> {
   RedisClient.getInstance()
   await createConnection()
