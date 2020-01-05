@@ -44,7 +44,7 @@ services:
   mongo:
     image: registry.thiloilg.com/repo/blicc/mongo:latest
     volumes:
-      - /root/db-data/mongo-data:/data
+      - /root/db-data/mongo-data:/data/db
     restart: always
     labels:
       - traefik.enable=false
