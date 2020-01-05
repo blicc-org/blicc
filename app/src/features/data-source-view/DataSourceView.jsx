@@ -5,6 +5,7 @@ import { useApiEndpoint, useModal } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DataSourceDetails } from './DataSourceDetails'
 import { ConfirmationModal, Tabs, PageHeader } from '../../common/components/ui'
+import { DataFlow } from './DataFlow'
 
 const INITIAL = {
   title: '',
@@ -12,21 +13,21 @@ const INITIAL = {
   persistData: false,
   fetchFrequency: 0,
   creationDate: '',
-  data: {},
+  data: { url: '' },
 }
 
 export function DataSourceView({ match, location }) {
   const path = `/data-sources/${match.params.id}`
   const [, access, update, remove] = useApiEndpoint(path)
   const [dataSource, setDataSource] = useState(INITIAL)
-  const { title, description, data } = dataSource
+  const { title, description } = dataSource
 
   const [redirect, setRedirect] = useState('')
   const [edit, setEdit] = useState(
     location.search && location.search === '?edit'
   )
 
-  const tabs = ['Data Mapping', 'Details']
+  const tabs = ['Data Flow', 'Details']
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   useEffect(() => {
@@ -79,7 +80,7 @@ export function DataSourceView({ match, location }) {
           setCurrentTab={setCurrentTab}
         />
         {currentTab === tabs[0] ? (
-          <>{edit ? 'edit' : JSON.stringify(data)}</>
+          <DataFlow dataSource={dataSource} setDataSource={setDataSource} />
         ) : (
           <DataSourceDetails
             edit={edit}
