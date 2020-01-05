@@ -28,8 +28,9 @@ build:
     - docker build -t app ./app
     - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t api ./api
     - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t db ./db
+    - docker build --build-arg MONGODB_PASSWORD=$MONGODB_PASSWORD -t mongo ./mongo
+    - docker build --build-arg MONGODB_PASSWORD=$MONGODB_PASSWORD -t delivery ./delivery
     - docker build -t redis ./redis
-    - docker build -t delivery ./delivery
 
     ## tag and deploy for testing stage
     - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api-testing-stage
@@ -42,6 +43,7 @@ build:
     ## tag for production
     - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api
     - docker tag db $REGISTRY_DOMAIN/repo/$REPO/db
+    - docker tag mongo $REGISTRY_DOMAIN/repo/$REPO/mongo
     - docker tag redis $REGISTRY_DOMAIN/repo/$REPO/redis
     - docker tag app $REGISTRY_DOMAIN/repo/$REPO/app
     - docker tag delivery $REGISTRY_DOMAIN/repo/$REPO/delivery
@@ -83,6 +85,7 @@ deploy:
     - docker push $REGISTRY_DOMAIN/repo/$REPO/app
     - docker push $REGISTRY_DOMAIN/repo/$REPO/api
     - docker push $REGISTRY_DOMAIN/repo/$REPO/db
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/mongo
     - docker push $REGISTRY_DOMAIN/repo/$REPO/redis
     - docker push $REGISTRY_DOMAIN/repo/$REPO/delivery
     - scp -r ./docker-compose.yml root@$IP:/root/

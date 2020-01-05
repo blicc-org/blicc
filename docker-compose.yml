@@ -41,6 +41,13 @@ services:
     restart: always
     labels:
       - traefik.enable=false
+  mongo:
+    image: registry.thiloilg.com/repo/blicc/mongo:latest
+    volumes:
+      - /root/db-data/mongo-data:/data
+    restart: always
+    labels:
+      - traefik.enable=false
   api:
     image: registry.thiloilg.com/repo/blicc/api:latest
     volumes:
