@@ -19,6 +19,9 @@ variables:
 .login_docker: &login_docker |
   docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
+.docker_prune: &docker_prune |
+  ssh -tt root@$TEST_IP "docker image prune -a -f"
+
 build:
   stage: build
   image: docker:git
@@ -53,9 +56,10 @@ test:
   image: node:12
   before_script:
     - *enable_ssh
+    - *docker_prune
   script:
     - scp -r ./docker-compose.test.yml root@$TEST_IP:/root/docker-compose.yml
-    - ssh -tt root@$TEST_IP "docker image prune -a -f"
+   
     - ssh -tt root@$TEST_IP "export
       CI_REGISTRY=$CI_REGISTRY
       CI_REGISTRY_USER=$CI_REGISTRY_USER
@@ -81,6 +85,7 @@ deploy:
   before_script:
     - *login_docker
     - *enable_ssh
+    - *docker_prune
   script:
     - docker push $REGISTRY_DOMAIN/repo/$REPO/app
     - docker push $REGISTRY_DOMAIN/repo/$REPO/api
@@ -91,7 +96,6 @@ deploy:
     - scp -r ./docker-compose.yml root@$IP:/root/
     - ssh -tt root@$IP "openssl genrsa -out rsa.pem 2048"
     - ssh -tt root@$IP "openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem"
-    - ssh -tt root@$IP "docker system prune -a -f"
     - ssh -tt root@$IP "export
       CI_REGISTRY=$CI_REGISTRY
       CI_REGISTRY_USER=$CI_REGISTRY_USER
