@@ -10,6 +10,7 @@ MAIL_ADDRESS=noreply@example.org
 MAIL_HOST=smtp.ionos.de
 MAIL_PASSWORD=password
 POSTGRES_PASSWORD=password
+MONGODB_PASSWORD=password
 PROD_IP=0.0.0.0
 REGISTRY_DOMAIN=registry.example.com
 REPO=example
