@@ -59,7 +59,7 @@ test:
     - *docker_prune
   script:
     - scp -r ./docker-compose.test.yml root@$TEST_IP:/root/docker-compose.yml
-   
+
     - ssh -tt root@$TEST_IP "export
       CI_REGISTRY=$CI_REGISTRY
       CI_REGISTRY_USER=$CI_REGISTRY_USER
