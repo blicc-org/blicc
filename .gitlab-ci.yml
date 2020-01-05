@@ -91,7 +91,7 @@ deploy:
     - scp -r ./docker-compose.yml root@$IP:/root/
     - ssh -tt root@$IP "openssl genrsa -out rsa.pem 2048"
     - ssh -tt root@$IP "openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem"
-    - ssh -tt root@$IP "docker image prune -a -f"
+    - ssh -tt root@$IP "docker system prune -a -f"
     - ssh -tt root@$IP "export
       CI_REGISTRY=$CI_REGISTRY
       CI_REGISTRY_USER=$CI_REGISTRY_USER
