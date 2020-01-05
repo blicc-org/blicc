@@ -41,7 +41,12 @@ func connectToDB() {
 		host = "localhost"
 	}
 
+	fmt.Println(GO_ENV)
+	fmt.Println(MONGODB_PASSWORD)
+
 	uri := "mongodb://" + user + ":" + MONGODB_PASSWORD + "@" + host + ":" + port
+
+	fmt.Println(uri)
 
 	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
 
