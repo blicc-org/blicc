@@ -90,7 +90,7 @@ deploy:
     - docker push $REGISTRY_DOMAIN/repo/$REPO/mongo
     - docker push $REGISTRY_DOMAIN/repo/$REPO/redis
     - docker push $REGISTRY_DOMAIN/repo/$REPO/delivery
-    - scp -r ./docker-compose.yml root@$IP:/root/
+    - scp -r ./docker-compose.prod.yml root@$IP:/root/docker-compose.yml
     - ssh -tt root@$IP "openssl genrsa -out rsa.pem 2048"
     - ssh -tt root@$IP "openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem"
     - ssh -tt root@$IP "export
@@ -107,7 +107,7 @@ deploy:
       docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
       docker-compose pull &&
       docker-compose down &&
-      docker-compose -f /root/docker-compose.yml up -d --force-recreate --remove-orphans"
+      docker-compose up -d --force-recreate --remove-orphans"
 
 plugins:
   stage: deploy

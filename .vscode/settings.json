@@ -2,7 +2,14 @@
   "workbench.iconTheme": "vscode-icons",
   "editor.formatOnSave": false,
   "go.useLanguageServer": false,
-  "vsicons.associations.files": [],
+  "vsicons.associations.files": [
+    {
+      "icon": "docker",
+      "extensions": ["docker-compose.prod.yml"],
+      "filename": true,
+      "format": "svg"
+    }
+  ],
   "vsicons.associations.folders": [
     {
       "icon": "paket",
