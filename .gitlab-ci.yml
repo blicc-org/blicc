@@ -26,7 +26,7 @@ build:
     - *login_docker
   script:
     - docker build -t app ./app
-    - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t api ./api
+    - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t api ./api/prod.Dockerfile
     - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t db ./db
     - docker build --build-arg MONGODB_PASSWORD=$MONGODB_PASSWORD -t mongo ./mongo
     - docker build --build-arg MONGODB_PASSWORD=$MONGODB_PASSWORD -t delivery ./delivery
