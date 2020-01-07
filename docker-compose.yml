@@ -57,6 +57,7 @@ services:
     depends_on:
       - db
     environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - MAIL_ADDRESS=${MAIL_ADDRESS}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - MAIL_HOST=${MAIL_HOST}
@@ -72,6 +73,8 @@ services:
     restart: always
     depends_on:
       - api
+    environment:
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
     labels:
       - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
       - traefik.http.routers.delivery.tls.certresolver=secure

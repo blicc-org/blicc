@@ -47,6 +47,7 @@ services:
     depends_on:
       - db
     environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - MAIL_ADDRESS=${MAIL_ADDRESS}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - MAIL_HOST=${MAIL_HOST}
