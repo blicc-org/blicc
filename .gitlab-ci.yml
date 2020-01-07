@@ -55,7 +55,7 @@ test:
     - *enable_ssh
   script:
     - ssh -tt root@$TEST_IP "docker image prune -a -f"
-    - scp -r ./docker-compose.test.yml root@$TEST_IP:/root/docker-compose.yml
+    - scp -r ./docker-compose.testing-stage.yml root@$TEST_IP:/root/docker-compose.yml
     - ssh -tt root@$TEST_IP "export
       POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       CI_REGISTRY=$CI_REGISTRY

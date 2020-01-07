@@ -8,6 +8,12 @@
       "extensions": ["docker-compose.prod.yml"],
       "filename": true,
       "format": "svg"
+    },
+    {
+      "icon": "dockertest",
+      "extensions": ["docker-compose.testing-stage.yml"],
+      "filename": true,
+      "format": "svg"
     }
   ],
   "vsicons.associations.folders": [
