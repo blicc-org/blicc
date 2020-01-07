@@ -25,12 +25,12 @@ build:
   before_script:
     - *login_docker
   script:
-    - docker build -t app -f prod.Dockerfile ./app
-    - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t api -f prod.Dockerfile ./api
-    - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t db -f prod.Dockerfile ./db
-    - docker build --build-arg MONGODB_PASSWORD=$MONGODB_PASSWORD -t mongo -f prod.Dockerfile ./mongo
-    - docker build --build-arg MONGODB_PASSWORD=$MONGODB_PASSWORD -t delivery -f prod.Dockerfile ./delivery
-    - docker build -t redis -f prod.Dockerfile ./redis
+    - docker build -t app -f ./app/prod.Dockerfile ./app
+    - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t api -f ./api/prod.Dockerfile ./api
+    - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t db -f ./db/prod.Dockerfile ./db
+    - docker build --build-arg MONGODB_PASSWORD=$MONGODB_PASSWORD -t mongo -f ./mongo/prod.Dockerfile ./mongo
+    - docker build --build-arg MONGODB_PASSWORD=$MONGODB_PASSWORD -t delivery -f ./delivery/prod.Dockerfile ./delivery
+    - docker build -t redis -f ./redis/prod.Dockerfile ./redis
 
     ## tag and deploy for testing stage
     - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api-testing-stage
