@@ -6,6 +6,6 @@
   "license": "MIT",
   "scripts": {
     "start": "docker run --rm -p 127.0.0.1:5432:5432 db:latest",
-    "build": "docker build --no-cache --build-arg POSTGRES_PASSWORD=test -t db ."
+    "build": "docker build --no-cache --build-arg POSTGRES_PASSWORD=test -t db -f prod.Dockerfile ."
   }
 }

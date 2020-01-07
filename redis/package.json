@@ -6,6 +6,6 @@
   "license": "MIT",
   "scripts": {
     "start": "docker run -p 127.0.0.1:6379:6379 redis:latest",
-    "build": "docker build --no-cache -t redis ."
+    "build": "docker build --no-cache -t redis -f prod.Dockerfile ."
   }
 }
