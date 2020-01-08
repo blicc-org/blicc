@@ -14,7 +14,7 @@ async function start(): Promise<void> {
   await new DatabaseInitializer().populate()
   const port = flags.port ? flags.port : PORT
   new App().listen(port)
-  console.log(`Listening on port ${port}...`)
+  console.log(`Listening on port ${port} ...`)
 }
 
 start()

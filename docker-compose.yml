@@ -19,7 +19,7 @@ services:
     restart: always
     volumes:
       - ./certs:/root/certs
-      - ./api/src:/root/api/src
+      - ./api/src:/root/src
     depends_on:
       - db
       - redis
