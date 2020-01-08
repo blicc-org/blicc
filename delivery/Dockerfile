@@ -7,15 +7,11 @@ RUN go mod download
 
 COPY . .
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt -y update
-RUN apt -y install yarn
-
-RUN yarn
-
-EXPOSE 8080
+RUN go get -v github.com/cespare/reflex
+RUN go install github.com/cespare/reflex
 
 HEALTHCHECK CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
 
-CMD ["yarn", "start"]
+EXPOSE 8080
+
+CMD ["reflex", "-r", "\\.go$", "-s", "--", "sh", "-c", "go run ./cmd/delivery.go -p 8080"]

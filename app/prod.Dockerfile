@@ -1,5 +1,5 @@
 # build environment
-FROM node:12-alpine as node
+FROM node:12-alpine as builder
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install
@@ -19,7 +19,7 @@ RUN cd ngx_brotli && git submodule update --init
 RUN cd ~/nginx-1.17.4 && ./configure --with-compat --add-dynamic-module=../ngx_brotli && make modules && cp objs/*.so /etc/nginx/modules
 RUN chmod 644 /etc/nginx/modules/*.so
 
-COPY --from=node /app/build /var/www/blicc.org/html
+COPY --from=builder /app/build /var/www/blicc.org/html
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80

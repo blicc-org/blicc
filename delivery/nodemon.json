@@ -1,6 +1,0 @@
-{
-  "watch": ["*"],
-  "ext": "go",
-  "delay": "500",
-  "exec": "(pkill delivery &>/dev/null || true) && go run ./cmd/delivery.go -p 8080"
-}
