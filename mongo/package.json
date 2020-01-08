@@ -6,6 +6,6 @@
   "license": "MIT",
   "scripts": {
     "start": "docker run -p 127.0.0.1:27017:27017 mongo:latest",
-    "build": "docker build --no-cache --build-arg MONGODB_PASSWORD=test -t mongo -f prod.Dockerfile ."
+    "build": "docker build --no-cache --build-arg MONGODB_PASSWORD=test -t mongo ."
   }
 }

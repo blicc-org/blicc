@@ -5,7 +5,7 @@ export const APP = {
   ORIGIN: isDev ? 'http://localhost' : 'https://blicc.org',
 }
 
-export const REDIS_HOST = isDev ? '127.0.0.1' : 'redis'
+export const REDIS_HOST = 'redis'
 
 export const IS_PROD = !isDev
 

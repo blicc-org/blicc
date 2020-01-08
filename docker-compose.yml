@@ -1,0 +1,65 @@
+version: '3.7'
+
+services:
+  db:
+    build:
+      context: ./db
+      args:
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    restart: always
+    ports:
+      - 5432:5432
+  redis:
+    build: ./redis
+    restart: always
+    ports:
+      - 6379:6379
+  api:
+    build: ./api
+    restart: always
+    volumes:
+      - ./certs:/root/certs
+      - ./api/src:/root/api/src
+    depends_on:
+      - db
+      - redis
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - MAIL_ADDRESS=${MAIL_ADDRESS}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - MAIL_HOST=${MAIL_HOST}
+      - ADMIN_MAIL=${ADMIN_MAIL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - NODE_ENV=${NODE_ENV}
+    ports:
+      - 80:80
+  mongo:
+    build:
+      context: ./mongo
+      args:
+        MONGODB_PASSWORD: ${MONGODB_PASSWORD}
+    restart: always
+  delivery:
+    build: ./delivery
+    restart: always
+    volumes:
+      - ./certs:/root/certs
+      - ./delivery/cmd:/root/cmd
+      - ./delivery/pkg:/root/pkg
+      - ./delivery/public:/root/public
+    depends_on:
+      - mongo
+    environment:
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+    ports:
+      - 8080:8080
+  app:
+    build: ./app
+    restart: always
+    depends_on:
+      - api
+      - delivery
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    ports:
+      - 3000:3000

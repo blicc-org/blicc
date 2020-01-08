@@ -56,6 +56,7 @@ services:
     restart: always
     depends_on:
       - db
+      - redis
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - MAIL_ADDRESS=${MAIL_ADDRESS}
@@ -72,7 +73,7 @@ services:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
     restart: always
     depends_on:
-      - api
+      - mongo
     environment:
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
     labels:
@@ -84,7 +85,6 @@ services:
     restart: always
     depends_on:
       - api
-      - db
       - delivery
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
