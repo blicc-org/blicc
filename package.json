@@ -28,7 +28,7 @@
     "build": "rollup -c rollup.config.js",
     "build:storyboard": "build-storybook",
     "build:scripts": "babel ./scripts -d ./build && babel ./src -d ./build/es5",
-    "deploy": "yarn build && yarn build:scripts && node build/deploy.js"
+    "deploy": "yarn && yarn build && yarn build:scripts && node build/deploy.js"
   },
   "dependencies": {
     "chart.js": "^2.9.3",
