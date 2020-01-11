@@ -8,23 +8,26 @@ import { ModalProvider } from './ModalContext'
 import { DragProvider } from './DragContext'
 import { SettingsProvider } from './SettingsContext'
 import { ArrangementProvider } from './ArrangementContext'
+import { DataflowProvider } from './DataflowContext'
 
 export function Provider({ children }) {
   return (
     <HelmetProvider>
       <AppProvider>
         <SettingsProvider>
-          <ArrangementProvider>
-            <SubscriberProvider>
-              <SidebarProvider>
-                <ToastProvider>
-                  <ModalProvider>
-                    <DragProvider>{children}</DragProvider>
-                  </ModalProvider>
-                </ToastProvider>
-              </SidebarProvider>
-            </SubscriberProvider>
-          </ArrangementProvider>
+          <DataflowProvider>
+            <ArrangementProvider>
+              <SubscriberProvider>
+                <SidebarProvider>
+                  <ToastProvider>
+                    <ModalProvider>
+                      <DragProvider>{children}</DragProvider>
+                    </ModalProvider>
+                  </ToastProvider>
+                </SidebarProvider>
+              </SubscriberProvider>
+            </ArrangementProvider>
+          </DataflowProvider>
         </SettingsProvider>
       </AppProvider>
     </HelmetProvider>

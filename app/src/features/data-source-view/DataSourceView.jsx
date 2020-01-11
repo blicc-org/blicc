@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
-import { useApiEndpoint, useModal } from '../../common/hooks'
+import { useApiEndpoint, useModal, useDataflow } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DataSourceDetails } from './DataSourceDetails'
 import { ConfirmationModal, Tabs, PageHeader } from '../../common/components/ui'
@@ -29,6 +29,10 @@ export function DataSourceView({ match, location }) {
 
   const tabs = ['Data Flow', 'Details']
   const [currentTab, setCurrentTab] = useState(tabs[0])
+
+  const [test] = useDataflow()
+  const text = test()
+  console.log(text)
 
   useEffect(() => {
     async function fetchData() {
