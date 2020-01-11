@@ -15,7 +15,7 @@ export const FREQUENCY = {
 export const INITIAL_DATA_SOURCE = {
   title: '',
   description: '',
-  data: {},
+  data: { url: '' },
   persistData: false,
   fetchFrequency: FREQUENCY.DAILY,
 }
@@ -51,7 +51,6 @@ export function DataSources() {
       title,
       persistData,
       fetchFrequency,
-      data: {},
     })
     if (status === statusCode.CREATED) {
       setRedirect(`/data-sources/${data.id}?edit`)
