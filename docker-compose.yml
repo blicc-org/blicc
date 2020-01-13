@@ -58,6 +58,7 @@ services:
     restart: always
     volumes:
       - ./app/src:/app/src
+      - ./app/public:/app/public
     depends_on:
       - api
       - delivery

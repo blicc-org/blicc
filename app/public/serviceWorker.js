@@ -1,10 +1,11 @@
-self.addEventListener('install', event => {
-  console.log('Service worker has been installed')
-  event.waitUntil(console.log('caching shell assets'))
+self.addEventListener('install', () => {
+  console.log('Service worker has been installed.')
 })
 
 self.addEventListener('activate', () =>
-  console.log('Service worker has been activated')
+  console.log('Service worker has been activated.')
 )
 
-self.addEventListener('fetch', () => {})
+self.addEventListener('fetch', () => {
+  console.log('fetch was falled')
+})

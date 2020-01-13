@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useContext } from 'react'
 import { AppContext } from '../context'
 import { API } from '../../config'
@@ -7,8 +6,8 @@ export function useLogout() {
   const [appState, setAppState] = useContext(AppContext)
 
   async function logout() {
-    await axios.delete('/tokens', {
-      baseURL: API.ORIGIN,
+    await fetch(`${API.ORIGIN}/tokens`, {
+      method: 'DELETE',
     })
     setAppState({
       ...appState,

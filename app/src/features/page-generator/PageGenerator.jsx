@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link, Redirect } from 'react-router-dom'
-import axios from 'axios'
 import Markdown from 'react-markdown'
 import { Highlighter } from '../../common/components/syntax-highlighting/Highlighter'
 import { APP } from '../../config'
@@ -19,10 +18,10 @@ export function PageGenerator({ location }) {
   useEffect(() => {
     async function getText() {
       try {
-        const { data } = await axios.get(
+        const response = await fetch(
           `${APP.ORIGIN}${pathname}.${appState.language}.md`
         )
-        setText(data)
+        setText(await response.text())
       } catch (e) {
         setNotFound(true)
       }
