@@ -69,7 +69,7 @@ export function useApiEndpoint(path = '') {
     const { status } = res
     let result = [status, {}]
 
-    if (status === status.NO_CONTENT) return result
+    if (status === statusCode.NO_CONTENT) return result
 
     if (
       status === statusCode.UNAUTHORIZED ||

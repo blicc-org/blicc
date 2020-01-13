@@ -10,7 +10,6 @@ self.addEventListener('activate', () =>
 )
 
 self.addEventListener('fetch', evt => {
-  limitCacheSize('v1', 1)
   const { request } = evt
   const { url } = request
   if (url.indexOf('http') === 0 && url.includes('chunk')) {
