@@ -78,7 +78,8 @@ export function useApiEndpoint(path = '') {
     if (
       status === statusCode.UNAUTHORIZED ||
       status === statusCode.FORBIDDEN ||
-      (status === statusCode.BAD_REQUEST && fullPath.startsWith('/health-check'))
+      (status === statusCode.BAD_REQUEST &&
+        fullPath.startsWith('/health-check'))
     ) {
       await logout()
     }
