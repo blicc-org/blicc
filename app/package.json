@@ -6,7 +6,6 @@
   "author": "Thilo Ilg",
   "dependencies": {
     "bootstrap": "^4.4.1",
-    "chart.js": "^2.9.3",
     "http-status-codes": "^1.4.0",
     "node-sass": "^4.13.0",
     "qrcode": "^1.4.4",
