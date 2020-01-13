@@ -74,7 +74,7 @@ export function useApiEndpoint(path = '') {
     if (
       status === statusCode.UNAUTHORIZED ||
       status === statusCode.FORBIDDEN ||
-      isHealthCheckValid()
+      isHealthCheckInvalid(status)
     ) {
       await logout()
       return result
@@ -83,7 +83,7 @@ export function useApiEndpoint(path = '') {
     return [status, await res.json()]
   }
 
-  function isHealthCheckValid(status) {
+  function isHealthCheckInvalid(status) {
     return (
       (status === statusCode.BAD_REQUEST || status === statusCode.NOT_FOUND) &&
       path.startsWith('/health-check')
