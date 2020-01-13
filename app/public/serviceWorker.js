@@ -1,5 +1,5 @@
 const cacheName = 'v1'
-const limit = 50
+const limit = 100
 
 self.addEventListener('install', () =>
   console.log('Service worker has been installed')

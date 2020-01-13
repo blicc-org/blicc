@@ -11,77 +11,83 @@ export function useApiEndpoint(path = '') {
   }
 
   async function postRequest(resource, config = {}) {
-    const res = await fetch(fullPath, {
-      ...defaultConfig,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(resource),
-      ...config,
-    })
-    const { status } = res
-    const data = (await res.json()) || {}
-    await checkForLogout(res.status)
-    return [status, data]
+    return await handleRes(
+      await fetch(fullPath, {
+        ...defaultConfig,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(resource),
+        ...config,
+      })
+    )
   }
 
   async function getRequest(config = {}) {
-    const res = await fetch(fullPath, {
-      ...defaultConfig,
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-      },
-      ...config,
-    })
-    const { status } = res
-    const data = status === 204 ? {} : await res.json()
-    await checkForLogout(res.status)
-    return [status, data]
+    return await handleRes(
+      await fetch(fullPath, {
+        ...defaultConfig,
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+        },
+        ...config,
+      })
+    )
   }
 
   async function putRequest(resource, config = {}) {
-    const res = await fetch(fullPath, {
-      ...defaultConfig,
-      method: 'PUT',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(resource),
-      ...config,
-    })
-    const { status } = res
-    const data = (await res.json()) || {}
-    await checkForLogout(res.status)
-    return [status, data]
+    return handleRes(
+      await fetch(fullPath, {
+        ...defaultConfig,
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(resource),
+        ...config,
+      })
+    )
   }
 
   async function deleteRequest(config = {}) {
-    const res = await fetch(fullPath, {
-      ...defaultConfig,
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      ...config,
-    })
-    const { status } = res
-    const data = (await res.json()) || {}
-    await checkForLogout(res.status)
-    return [status, data]
+    return handleRes(
+      await fetch(fullPath, {
+        ...defaultConfig,
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        ...config,
+      })
+    )
   }
 
-  async function checkForLogout(status) {
-    // invalid authentication or deleted user
+  async function handleRes(res) {
+    const { status } = res
+    let result = [status, {}]
+
+    if (status === status.NO_CONTENT) return result
+
     if (
       status === statusCode.UNAUTHORIZED ||
       status === statusCode.FORBIDDEN ||
-      (status === statusCode.BAD_REQUEST && path.startsWith('/health-check'))
+      isHealthCheckValid()
     ) {
       await logout()
+      return result
     }
+
+    return [status, await res.json()]
+  }
+
+  function isHealthCheckValid(status) {
+    return (
+      (status === statusCode.BAD_REQUEST || status === statusCode.NOT_FOUND) &&
+      path.startsWith('/health-check')
+    )
   }
 
   return [postRequest, getRequest, putRequest, deleteRequest]
