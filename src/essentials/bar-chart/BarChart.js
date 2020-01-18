@@ -11,7 +11,7 @@ export function BarChart(
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
 
-  new Chart(ctx, {
+  const chart = new Chart(ctx, {
     type,
     data: {
       labels: data.labels,
@@ -40,5 +40,12 @@ export function BarChart(
       },
     },
   })
+
+  onDataUpdate(input => {
+    chart.data.labels = input.labels
+    chart.data.datasets[0].data = input.data
+    chart.update()
+  })
+
   return canvas
 }
