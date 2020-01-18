@@ -57,6 +57,8 @@ test:
     - ssh -tt root@$TEST_IP "docker image prune -a -f"
     - scp -r ./docker-compose.testing-stage.yml root@$TEST_IP:/root/docker-compose.yml
     - ssh -tt root@$TEST_IP "export
+      DOCKER_CLIENT_TIMEOUT=120
+      COMPOSE_HTTP_TIMEOUT=120
       POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       CI_REGISTRY=$CI_REGISTRY
       CI_REGISTRY_USER=$CI_REGISTRY_USER
@@ -94,6 +96,8 @@ deploy:
     - ssh -tt root@$IP "openssl genrsa -out rsa.pem 2048"
     - ssh -tt root@$IP "openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem"
     - ssh -tt root@$IP "export
+      DOCKER_CLIENT_TIMEOUT=120
+      COMPOSE_HTTP_TIMEOUT=120
       POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       MONGODB_PASSWORD=$MONGODB_PASSWORD
       CI_REGISTRY=$CI_REGISTRY
