@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { X } from 'react-feather'
-import { PluginLoader } from './PluginLoader'
+import { PluginLoader } from './../plugin-loader/PluginLoader'
 import { Positioning } from '../positioning/Positioning'
 import { useSettings } from '../../hooks/settings/useSettings'
 import { DragContext, DRAG } from '../../context'
