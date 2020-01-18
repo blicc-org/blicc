@@ -17,7 +17,6 @@ export function BarChart(
       labels: data.labels,
       datasets: [
         {
-          label: 'Some kind of Label',
           data: data.data,
           backgroundColor: colorPalette.map(value =>
             hexToRgbaString(value, 0.75)
