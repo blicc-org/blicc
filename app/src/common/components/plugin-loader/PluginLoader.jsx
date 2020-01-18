@@ -40,9 +40,7 @@ export function PluginLoader({ id, type }) {
       const [status, res] = await access()
       if (status === 200) {
         const { data } = res
-
         if (data && data.url) {
-          console.log(data.url)
           publish(data.url)
         }
       }
