@@ -97,7 +97,7 @@ export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
                     }
                   >
                     <option value={FREQUENCY.DAILY}>daily</option>
-                    <option value={FREQUENCY.MONTHLY}>mounthly</option>
+                    <option value={FREQUENCY.MONTHLY}>monthly</option>
                     <option value={FREQUENCY.YEARLY}>yearly</option>
                   </select>
                 ) : (
