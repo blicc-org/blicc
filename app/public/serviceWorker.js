@@ -1,5 +1,5 @@
 const cacheName = 'v1'
-const limit = 100
+const limit = 500
 const { scope } = registration
 
 self.addEventListener('install', () => console.log('Service worker installed'))
@@ -16,49 +16,34 @@ self.addEventListener('fetch', evt => {
 })
 
 async function cacheFirst(request) {
-  const { url } = request
   return await caches.match(request).then(res => {
-    if (res) console.log(`Service worker cache first ${url}`)
     return (
       res ||
       fetch(request)
-        .then(res => {
-          const resClone = res.clone()
-          caches.open(cacheName).then(cache => {
-            cache.put(request, resClone)
-            limitCacheSize(cacheName, limit)
-          })
-          return res
-        })
-        .catch(err => {
-          console.log('Service worker cache first error: ', err)
-        })
+        .then(res => setCache(res))
+        .catch(err => console.log('Service worker error: ', err))
     )
   })
 }
 
 async function networkFirst(request) {
-  const { url } = request
   return await fetch(request)
-    .then(res => {
-      const resClone = res.clone()
-      caches.open(cacheName).then(cache => {
-        cache.put(request, resClone)
-        limitCacheSize(cacheName, limit)
-      })
-      return res
-    })
+    .then(res => setCache(res))
     .catch(async () => {
       return await caches
         .match(request)
-        .then(res => {
-          console.log(`Service worker network first ${url}`)
-          return res
-        })
-        .catch(err => {
-          console.log('Service worker network first error: ', err)
-        })
+        .then(res => res)
+        .catch(err => console.log('Service worker error: ', err))
     })
+}
+
+function setCache(name, request, res) {
+  const resClone = res.clone()
+  caches.open(name).then(cache => {
+    cache.put(request, resClone)
+    limitCacheSize(name, limit)
+  })
+  return res
 }
 
 function limitCacheSize(name, size) {
