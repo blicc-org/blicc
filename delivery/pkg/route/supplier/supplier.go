@@ -1,6 +1,7 @@
 package supplier
 
 import (
+	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -15,14 +16,24 @@ var upgrader = websocket.Upgrader{
 
 func reader(conn *websocket.Conn) {
 	for {
+
 		messageType, p, err := conn.ReadMessage()
+
 		if err != nil {
 			log.Println(err)
 			return
 		}
-		log.Println(string(p))
 
-		if err := conn.WriteMessage(messageType, p); err != nil {
+		url := string(p)
+		response, err := http.Get(url)
+
+		if err != nil {
+			log.Println(err)
+		}
+
+		data, _ := ioutil.ReadAll(response.Body)
+
+		if err := conn.WriteMessage(messageType, data); err != nil {
 			log.Println(err)
 			return
 		}
