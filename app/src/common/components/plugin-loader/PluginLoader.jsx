@@ -1,41 +1,32 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Loading } from '../loading/Loading'
 import { API } from '../../../config'
-import { useSettings } from '../../hooks/settings/useSettings'
+import { useSettings, useApiEndpoint, useDeliveryEndpoint } from '../../hooks'
 
 export function PluginLoader({ id, type }) {
   const [accessSet, insertSet] = useSettings()
   const [bundle, plugin] = type.split('/')
   const ref = useRef()
   const [loading, setLoading] = useState(true)
+  const dataSourceId = accessSet(id, 'data_source')
+  const [, access] = useApiEndpoint(`/data-sources/${dataSourceId}`)
+  const [publish, subscribe] = useDeliveryEndpoint()
 
-  const labels = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'C',
-    'F',
-    'G',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-  ]
-
-  const dataArray = [12, 19, 3, 5, 2, 3, 7, 11, 16, 7, 3, 18, 16, 1, 6, 8]
-  const max = Math.floor(Math.random() * 15) + 1
-  const data = {
-    labels: labels.slice(0, max),
-    data: dataArray.slice(0, max),
+  function onDataUpdate(input = () => {}) {
+    subscribe(id, i => {
+      const tmp = JSON.parse(i)[0]
+      const data2 = {
+        labels: ['oeeAvailability', 'oeePerformance', 'oeeQuality', 'oee'],
+        data: [
+          tmp['oeeAvailability'],
+          tmp['oeePerformance'],
+          tmp['oeeQuality'],
+          tmp['oee'],
+        ],
+      }
+      input(data2)
+    })
   }
-
-  function onDataUpdate() {}
 
   const key = 'plugin_settings'
   const settings = accessSet(id, key)
@@ -45,12 +36,28 @@ export function PluginLoader({ id, type }) {
   }
 
   useEffect(() => {
+    async function getDataSource() {
+      const [status, res] = await access()
+      if (status === 200) {
+        const { data } = res
+
+        if (data && data.url) {
+          console.log(data.url)
+          publish(data.url)
+        }
+      }
+    }
+
+    getDataSource()
+  })
+
+  useEffect(() => {
     async function fetchPlugin() {
       await import(
         /*webpackIgnore: true*/ `${API.ORIGIN}/bundles/${bundle}`
       ).then(module => {
         setLoading(false)
-
+        const data = { labels: [], data: [] }
         const node = module[plugin](data, onDataUpdate, settings, setSettings)
 
         if (ref.current) {
