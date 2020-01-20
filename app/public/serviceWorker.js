@@ -20,7 +20,7 @@ async function cacheFirst(request) {
     return (
       res ||
       fetch(request)
-        .then(res => setCache(res))
+        .then(res => setCache(cacheName, request, res))
         .catch(err => console.log('Service worker error: ', err))
     )
   })
@@ -28,7 +28,7 @@ async function cacheFirst(request) {
 
 async function networkFirst(request) {
   return await fetch(request)
-    .then(res => setCache(res))
+    .then(res => setCache(cacheName, request, res))
     .catch(async () => {
       return await caches
         .match(request)
