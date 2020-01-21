@@ -4,10 +4,10 @@ export const options = {
 }
 
 export const colorPalette = [
-  '#ecc442',
-  '#80598f',
-  '#e58932',
-  '#a8caed',
+  '#ffff00',
+  '#0000ff',
+  '#ff0000',
+  '#008000',
   '#b12439',
   '#c0b285',
   '#848482',
@@ -34,4 +34,17 @@ export function hexToRgbaString(hex, alpha) {
     b: parseInt(result[3], 16),
   }
   return `rgba(${rgb.r},${rgb.g},${rgb.b},${alpha})`
+}
+
+export function addColors(data) {
+  if (!data.datasets) return data
+  const datasets = data.datasets.map((dataset, index) => {
+    return {
+      ...dataset,
+      backgroundColor: colorPalette[index],
+      borderColor: '#f8f8f8',
+      borderWidth: 1,
+    }
+  })
+  return { ...data, datasets }
 }

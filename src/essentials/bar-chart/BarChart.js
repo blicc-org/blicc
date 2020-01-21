@@ -1,5 +1,5 @@
 import Chart from 'chart.js'
-import { options, colorPalette, hexToRgbaString } from '../common'
+import { options, colorPalette, hexToRgbaString, addColors } from '../common'
 
 export function BarChart(
   data = {},
@@ -13,19 +13,7 @@ export function BarChart(
 
   const chart = new Chart(ctx, {
     type,
-    data: {
-      labels: data.labels,
-      datasets: [
-        {
-          data: data.data,
-          backgroundColor: colorPalette.map(value =>
-            hexToRgbaString(value, 0.75)
-          ),
-          borderColor: colorPalette.map(value => hexToRgbaString(value, 1)),
-          borderWidth: 1,
-        },
-      ],
-    },
+    data: addColors(data),
     options: {
       ...options,
       scales: {
@@ -40,9 +28,8 @@ export function BarChart(
     },
   })
 
-  onDataUpdate(input => {
-    chart.data.labels = input.labels
-    chart.data.datasets[0].data = input.data
+  onDataUpdate(updatedData => {
+    chart.data = addColors(updatedData)
     chart.update()
   })
 
