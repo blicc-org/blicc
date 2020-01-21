@@ -1,5 +1,5 @@
 import Chart from 'chart.js'
-import { options, colorPalette, hexToRgbaString } from '../common'
+import { options, colorPalette } from '../common'
 
 export function PieChart(
   data = [],
@@ -7,32 +7,33 @@ export function PieChart(
   settings = {},
   setSettings = () => {}
 ) {
-  const type = 'pie'
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-  }
-
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
 
-  new Chart(ctx, {
-    type,
-    data: {
-      labels: data.labels,
-      datasets: [
-        {
-          label: 'Some kind of Label',
-          data: data.data,
-          backgroundColor: colorPalette.map(value =>
-            hexToRgbaString(value, 0.75)
-          ),
-          borderColor: colorPalette.map(value => hexToRgbaString(value, 1)),
-          borderWidth: 1,
-        },
-      ],
-    },
+  const chart = new Chart(ctx, {
+    type: 'radar',
+    data: addStyles(data),
     options,
   })
+
+  onDataUpdate(updatedData => {
+    chart.data = addStyles(updatedData)
+    chart.update()
+  })
+
   return canvas
+}
+
+function addStyles(data) {
+  if (!data.datasets) return data
+  const datasets = data.datasets.map((dataset, index) => {
+    return {
+      ...dataset,
+      backgroundColor: colorPalette[index],
+      borderColor: colorPalette[index],
+      borderWidth: 2,
+      fill: false,
+    }
+  })
+  return { ...data, datasets }
 }

@@ -8,31 +8,28 @@ addDecorator(story => {
   div.style.width = '600px'
   div.style.height = '400px'
 
-  const labels = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'C',
-    'F',
-    'G',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-  ]
-
-  const dataArray = [12, 19, 3, 5, 2, 3, 7, 11, 16, 7, 3, 18, 16, 1, 6, 8]
-  const max = Math.floor(Math.random() * 15) + 1
   const data = {
-    labels: labels.slice(0, max),
-    data: dataArray.slice(0, max),
+    labels: ['Schicht 1', 'Schicht 2', 'Schicht 3'],
+    datasets: [
+      {
+        label: 'Verfügbarkeit',
+        data: [72.2, 68.8, 59.1],
+      },
+      {
+        label: 'Leistung',
+        data: [29.4, 29.2, 29.5],
+      },
+      {
+        label: 'Qualität',
+        data: [100, 100, 100],
+      },
+      {
+        label: 'OEE',
+        data: [21.2, 20.1, 17.4],
+      },
+    ],
   }
+  
   const onDataUpdate = () => {}
   const settings = {}
   const setSettings = () => {}

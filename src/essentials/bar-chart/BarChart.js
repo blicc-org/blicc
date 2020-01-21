@@ -1,5 +1,5 @@
 import Chart from 'chart.js'
-import { options, addColors } from '../common'
+import { options, colorPalette } from '../common'
 
 export function BarChart(
   data = {},
@@ -13,7 +13,7 @@ export function BarChart(
 
   const chart = new Chart(ctx, {
     type,
-    data: addColors(data),
+    data: addStyles(data),
     options: {
       ...options,
       scales: {
@@ -29,9 +29,22 @@ export function BarChart(
   })
 
   onDataUpdate(updatedData => {
-    chart.data = addColors(updatedData)
+    chart.data = addStyles(updatedData)
     chart.update()
   })
 
   return canvas
+}
+
+function addStyles(data) {
+  if (!data.datasets) return data
+  const datasets = data.datasets.map((dataset, index) => {
+    return {
+      ...dataset,
+      backgroundColor: colorPalette[index],
+      borderColor: '#f8f8f8',
+      borderWidth: 1,
+    }
+  })
+  return { ...data, datasets }
 }

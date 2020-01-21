@@ -1,5 +1,5 @@
 import Chart from 'chart.js'
-import { options, colorPalette, hexToRgbaString } from '../common'
+import { options, colorPalette } from '../common'
 
 export function LineChart(
   data = [],
@@ -7,23 +7,14 @@ export function LineChart(
   settings = {},
   setSettings = () => {}
 ) {
+
   const type = 'line'
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
 
-  new Chart(ctx, {
+  const chart = new Chart(ctx, {
     type,
-    data: {
-      labels: data.labels,
-      datasets: [
-        {
-          label: 'Some kind of Label',
-          data: data.data,
-          backgroundColor: 'transparent',
-          borderColor: colorPalette.map(value => hexToRgbaString(value, 1)),
-        },
-      ],
-    },
+    data: addStyles(data),
     options: {
       ...options,
       scales: {
@@ -35,5 +26,25 @@ export function LineChart(
       },
     },
   })
+
+  onDataUpdate(updatedData => {
+    chart.data = addStyles(updatedData)
+    chart.update()
+  })
+
   return canvas
+}
+
+function addStyles(data) {
+  if (!data.datasets) return data
+  const datasets = data.datasets.map((dataset, index) => {
+    return {
+      ...dataset,
+      backgroundColor: colorPalette[index],
+      borderColor: colorPalette[index],
+      borderWidth: 2,
+      fill: false
+    }
+  })
+  return { ...data, datasets }
 }

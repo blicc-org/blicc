@@ -36,15 +36,4 @@ export function hexToRgbaString(hex, alpha) {
   return `rgba(${rgb.r},${rgb.g},${rgb.b},${alpha})`
 }
 
-export function addColors(data) {
-  if (!data.datasets) return data
-  const datasets = data.datasets.map((dataset, index) => {
-    return {
-      ...dataset,
-      backgroundColor: colorPalette[index],
-      borderColor: '#f8f8f8',
-      borderWidth: 1,
-    }
-  })
-  return { ...data, datasets }
-}
+
