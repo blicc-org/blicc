@@ -1,5 +1,5 @@
 import Chart from 'chart.js'
-import { options, colorPalette, hexToRgbaString, addColors } from '../common'
+import { options, addColors } from '../common'
 
 export function BarChart(
   data = {},
