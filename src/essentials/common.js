@@ -35,5 +35,3 @@ export function hexToRgbaString(hex, alpha) {
   }
   return `rgba(${rgb.r},${rgb.g},${rgb.b},${alpha})`
 }
-
-

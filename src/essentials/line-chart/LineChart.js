@@ -7,7 +7,6 @@ export function LineChart(
   settings = {},
   setSettings = () => {}
 ) {
-
   const type = 'line'
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
@@ -43,7 +42,7 @@ function addStyles(data) {
       backgroundColor: colorPalette[index],
       borderColor: colorPalette[index],
       borderWidth: 2,
-      fill: false
+      fill: false,
     }
   })
   return { ...data, datasets }

@@ -29,7 +29,7 @@ addDecorator(story => {
       },
     ],
   }
-  
+
   const onDataUpdate = () => {}
   const settings = {}
   const setSettings = () => {}
