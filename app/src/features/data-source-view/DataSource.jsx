@@ -17,7 +17,7 @@ export function DataSource({ id, data, setData }) {
   useEffect(() => {
     subscribe(id, str => setInput(stringify(parse(str))))
     if (url) publish(url)
-  }, [id, url, setInput])
+  }, [id, url, setInput, publish, subscribe])
 
   useEffect(() => {
     if (input) {
