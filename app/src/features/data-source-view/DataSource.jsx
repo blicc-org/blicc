@@ -11,16 +11,18 @@ export function DataSource({ id, data, setData }) {
   const [publish, subscribe] = useDeliveryEndpoint()
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
+  const stringify = s => JSON.stringify(s, null, 4)
+  const parse = s => JSON.parse(s)
 
   useEffect(() => {
-    subscribe(id, str => setInput(JSON.stringify(JSON.parse(str), null, 4)))
+    subscribe(id, str => setInput(stringify(parse(str))))
     if (url) publish(url)
   }, [id, url, setInput])
 
   useEffect(() => {
     if (input) {
       try {
-        setOutput(JSON.stringify(search(JSON.parse(input), query), null, 4))
+        setOutput(stringify(search(parse(input), query)))
       } catch (e) {
         setOutput('')
       }
