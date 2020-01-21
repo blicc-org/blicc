@@ -1,11 +1,14 @@
 package supplier
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/gorilla/websocket"
+	"github.com/jmespath/go-jmespath"
 )
 
 var upgrader = websocket.Upgrader{
@@ -14,26 +17,43 @@ var upgrader = websocket.Upgrader{
 	CheckOrigin:     func(r *http.Request) bool { return true },
 }
 
+type Data struct {
+	Url   string
+	Query string
+}
+
 func reader(conn *websocket.Conn) {
 	for {
+		messageType, jsonData, err := conn.ReadMessage()
 
-		messageType, p, err := conn.ReadMessage()
-
+		var data Data
+		json.Unmarshal([]byte(jsonData), &data)
+		data.Query = strings.Replace(data.Query, "`", "'", -1)
 		if err != nil {
 			log.Println(err)
 			return
 		}
 
-		url := string(p)
-		response, err := http.Get(url)
+		response, err := http.Get(data.Url)
 
 		if err != nil {
 			log.Println(err)
 		}
 
-		data, _ := ioutil.ReadAll(response.Body)
+		res, _ := ioutil.ReadAll(response.Body)
 
-		if err := conn.WriteMessage(messageType, data); err != nil {
+		var d interface{}
+
+		json.Unmarshal([]byte(res), &d)
+
+		transformed, err := jmespath.Search(data.Query, d)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		marshalled, _ := json.Marshal(transformed)
+
+		if err := conn.WriteMessage(messageType, marshalled); err != nil {
 			log.Println(err)
 			return
 		}

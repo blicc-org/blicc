@@ -12,20 +12,8 @@ export function PluginLoader({ id, type }) {
   const [, access] = useApiEndpoint(`/data-sources/${dataSourceId}`)
   const [publish, subscribe] = useDeliveryEndpoint()
 
-  function onDataUpdate(input = () => {}) {
-    subscribe(id, i => {
-      const tmp = JSON.parse(i)[0]
-      const data2 = {
-        labels: ['oeeAvailability', 'oeePerformance', 'oeeQuality', 'oee'],
-        data: [
-          tmp['oeeAvailability'],
-          tmp['oeePerformance'],
-          tmp['oeeQuality'],
-          tmp['oee'],
-        ],
-      }
-      input(data2)
-    })
+  function onDataUpdate(callback = () => {}) {
+    subscribe(id, res => callback(JSON.parse(res)))
   }
 
   const key = 'plugin_settings'
@@ -40,12 +28,11 @@ export function PluginLoader({ id, type }) {
       const [status, res] = await access()
       if (status === 200) {
         const { data } = res
-        if (data && data.url) {
-          publish(data.url)
+        if (data && data.url && data.query) {
+          publish(JSON.stringify(data))
         }
       }
     }
-
     getDataSource()
   })
 
@@ -55,7 +42,7 @@ export function PluginLoader({ id, type }) {
         /*webpackIgnore: true*/ `${API.ORIGIN}/bundles/${bundle}`
       ).then(module => {
         setLoading(false)
-        const data = { labels: [], data: [] }
+        const data = { labels: [], datasets: [] }
         const node = module[plugin](data, onDataUpdate, settings, setSettings)
 
         if (ref.current) {
