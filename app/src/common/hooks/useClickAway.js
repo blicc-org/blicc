@@ -11,9 +11,8 @@ export function useClickAway(ref, callback, classNamesToIgnore = '') {
     }
 
     function hasParentWithClass(node, className) {
-      if (node.nodeName === 'BODY') return false
-      if (node.classList.contains(className)) return true
-
+      if (!node || node.nodeName === 'BODY') return false
+      if (node.classList && node.classList.contains(className)) return true
       return hasParentWithClass(node.parentNode, className)
     }
 
