@@ -4,7 +4,7 @@ import syntaxColors from './syntaxColors.js'
 import './Highlighter.scss'
 import theme from '../../../Theme.scss'
 
-export function Highlighter({ language, value }) {
+export function Highlighter({ language, value, displayCopyButton = true }) {
   function copy() {
     const el = document.createElement('textarea')
     el.value = value
@@ -27,13 +27,15 @@ export function Highlighter({ language, value }) {
         >
           {value}
         </SyntaxHighlighter>
-        <button
-          title="Copy source code"
-          className="btn btn-sm btn-link btn-copy"
-          onClick={() => copy()}
-        >
-          Copy
-        </button>
+        {displayCopyButton && (
+          <button
+            title="Copy source code"
+            className="btn btn-sm btn-link btn-copy"
+            onClick={() => copy()}
+          >
+            Copy
+          </button>
+        )}
       </div>
     </>
   )

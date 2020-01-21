@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
-import { useApiEndpoint, useModal, useDataflow } from '../../common/hooks'
+import { useApiEndpoint, useModal } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DataSourceDetails } from './DataSourceDetails'
 import { ConfirmationModal, Tabs, PageHeader } from '../../common/components/ui'
-import { DataFlow } from './DataFlow'
+import { DataSource } from './DataSource'
 
 const INITIAL = {
   title: '',
@@ -13,26 +13,22 @@ const INITIAL = {
   persistData: false,
   fetchFrequency: 0,
   creationDate: '',
-  data: { url: '' },
+  data: { url: '', query: '' },
 }
 
 export function DataSourceView({ match, location }) {
   const path = `/data-sources/${match.params.id}`
   const [, access, update, remove] = useApiEndpoint(path)
   const [dataSource, setDataSource] = useState(INITIAL)
-  const { title, description } = dataSource
+  const { id, title, description, data } = dataSource
 
   const [redirect, setRedirect] = useState('')
   const [edit, setEdit] = useState(
     location.search && location.search === '?edit'
   )
 
-  const tabs = ['Data Flow', 'Details']
+  const tabs = ['Data Source', 'Details']
   const [currentTab, setCurrentTab] = useState(tabs[0])
-
-  const [test] = useDataflow()
-  const text = test()
-  console.log(text)
 
   useEffect(() => {
     async function fetchData() {
@@ -84,7 +80,11 @@ export function DataSourceView({ match, location }) {
           setCurrentTab={setCurrentTab}
         />
         {currentTab === tabs[0] ? (
-          <DataFlow dataSource={dataSource} setDataSource={setDataSource} />
+          <DataSource
+            id={id}
+            data={data}
+            setData={d => setDataSource({ ...dataSource, data: d })}
+          />
         ) : (
           <DataSourceDetails
             edit={edit}
