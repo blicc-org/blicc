@@ -1,6 +1,6 @@
 {
   "name": "redis",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "redis plugin cache",
   "author": "Thilo Ilg",
   "license": "MIT",
