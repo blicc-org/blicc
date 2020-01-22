@@ -1,10 +1,10 @@
 pre {
-    color: lightgreen;
-    padding: 1em;
-    border-radius: 2.5px;
-    background-color: #333;
+  color: lightgreen;
+  padding: 1em;
+  border-radius: 2.5px;
+  background-color: #333;
 }
 
 code {
-    overflow: hidden;
+  overflow: hidden;
 }
