@@ -25,8 +25,12 @@ export function useApiEndpoint(path = '') {
   }
 
   async function getRequest(config = {}) {
+    var url = new URL(fullPath)
+    if (config.params) {
+      url.search = new URLSearchParams(config.params).toString()
+    }
     return await handleRes(
-      await fetch(fullPath, {
+      await fetch(url, {
         ...defaultConfig,
         method: 'GET',
         headers: {
