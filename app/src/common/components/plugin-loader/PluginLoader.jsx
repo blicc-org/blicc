@@ -11,9 +11,10 @@ export function PluginLoader({ id, type }) {
   const dataSourceId = accessSet(id, 'data_source')
   const [, access] = useApiEndpoint(`/data-sources/${dataSourceId}`)
   const [publish, subscribe] = useDeliveryEndpoint()
+  const channel = `/data-delivery/${dataSourceId}`
 
-  function onDataUpdate(callback = () => {}) {
-    subscribe(id, res => callback(JSON.parse(res)))
+  function onDataUpdate(callback = res => res) {
+    subscribe(channel, callback)
   }
 
   const key = 'plugin_settings'
@@ -29,7 +30,8 @@ export function PluginLoader({ id, type }) {
       if (status === 200) {
         const { data } = res
         if (data && data.url && data.query) {
-          publish(JSON.stringify(data))
+          console.log(JSON.stringify({ channel, data }))
+          publish(channel, data)
         }
       }
     }

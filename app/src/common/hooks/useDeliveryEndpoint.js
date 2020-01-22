@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef, useContext, useCallback } from 'react'
+import uuid from 'uuid'
 import { SubscriberContext, AppContext } from '../context'
 import { DELIVERY } from '../../config'
 
@@ -43,10 +44,13 @@ export function useDeliveryEndpoint() {
     }
 
     if (loggedIn && ref.current !== null) {
-      ref.current.onmessage = event => {
-        Object.keys(subscriberStack).map(key =>
-          subscriberStack[key](event.data)
-        )
+      ref.current.onmessage = evt => {
+        console.log(evt)
+        const { channel, data } = JSON.parse(evt.data)
+        console.log(data)
+        Object.keys(subscriberStack).map(key => {
+          if (key.includes(channel)) subscriberStack[key](data)
+        })
       }
     }
 
@@ -61,9 +65,9 @@ export function useDeliveryEndpoint() {
   }, [loggedIn, subscriberStack])
 
   const publish = useCallback(
-    data => {
+    (channel, data) => {
       if (state === WebSocket.OPEN) {
-        ref.current.send(data)
+        ref.current.send(JSON.stringify({ channel, data }))
       } else {
         console.log('Connection has to be open to publish!')
       }
@@ -72,11 +76,11 @@ export function useDeliveryEndpoint() {
   )
 
   const subscribe = useCallback(
-    (id, callback) => {
+    (channel, callback) => {
       if (typeof callback !== 'function') {
         return
       }
-
+      const id = channel + uuid()
       setSubscriberStack(stack => ({
         ...stack,
         [id]: callback,
