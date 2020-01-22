@@ -46,6 +46,7 @@ services:
       - ./certs:/root/certs
       - ./delivery/cmd:/root/cmd
       - ./delivery/pkg:/root/pkg
+      - ./delivery/docs:/root/docs
       - ./delivery/public:/root/public
     depends_on:
       - mongo
