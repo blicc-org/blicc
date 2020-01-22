@@ -30,7 +30,6 @@ export function PluginLoader({ id, type }) {
       if (status === 200) {
         const { data } = res
         if (data && data.url && data.query) {
-          console.log(JSON.stringify({ channel, data }))
           publish(channel, data)
         }
       }
