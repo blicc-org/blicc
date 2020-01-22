@@ -4,17 +4,17 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/blicc-org/blicc/delivery/pkg/channel"
 	"github.com/blicc-org/blicc/delivery/pkg/middleware/auth"
 	"github.com/blicc-org/blicc/delivery/pkg/middleware/logging"
-	"github.com/blicc-org/blicc/delivery/pkg/route/supplier"
 	"github.com/blicc-org/blicc/delivery/pkg/utils/connect"
 	"github.com/blicc-org/blicc/delivery/pkg/utils/flags"
 	"github.com/blicc-org/blicc/delivery/pkg/utils/generatedocs"
 )
 
-func serveSupplier() {
+func serveChannels() {
 	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		supplier.Route(w, r)
+		channel.ListenAndServe(w, r)
 	})
 	http.Handle("/connection", auth.Middleware(handler))
 }
@@ -28,7 +28,7 @@ func Start() {
 	generatedocs.GenerateDocs()
 	connect.ConnectToMongoDB()
 
-	serveSupplier()
+	serveChannels()
 	servePublicFolder()
 
 	port := flags.Instance().Port
