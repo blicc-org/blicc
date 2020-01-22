@@ -72,7 +72,7 @@ export function DataSourceView({ match, location }) {
     <>
       {redirect && <Redirect to={redirect} />}
       <MetaData title={title} description={description} path={path} />
-      <div className="container-fluid dashboard">
+      <div className="container-fluid">
         <PageHeader edit={edit} title={title} onClick={onClick} />
         <Tabs
           tabs={tabs}
