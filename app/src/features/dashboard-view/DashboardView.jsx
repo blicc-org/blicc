@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { Redirect } from 'react-router-dom'
 import { Arrangement } from '../../common/components/arrangement/Arrangement'
-import { useApiEndpoint, useModal } from '../../common/hooks'
+import { useApiEndpoint, useModal, usePublisher } from '../../common/hooks'
 import { ArrangementContext, SettingsContext } from '../../common/context'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DashboardDetails } from './DashboardDetails'
@@ -23,9 +23,9 @@ export function DashboardView({ match, location }) {
     location.search && location.search === '?edit'
   )
   const [redirect, setRedirect] = useState('')
-
   const tabs = ['Dashboard', 'Details']
   const [currentTab, setCurrentTab] = useState(tabs[0])
+  usePublisher()
 
   useEffect(() => {
     async function fetchData() {

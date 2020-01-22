@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Loading } from '../loading/Loading'
 import { API } from '../../../config'
-import { useSettings, useApiEndpoint, useDeliveryEndpoint } from '../../hooks'
+import { useSettings, useDeliveryEndpoint } from '../../hooks'
 
 export function PluginLoader({ id, type }) {
   const [accessSet, insertSet] = useSettings()
@@ -9,8 +9,7 @@ export function PluginLoader({ id, type }) {
   const ref = useRef()
   const [loading, setLoading] = useState(true)
   const dataSourceId = accessSet(id, 'data_source')
-  const [, access] = useApiEndpoint(`/data-sources/${dataSourceId}`)
-  const [publish, subscribe] = useDeliveryEndpoint()
+  const [, subscribe] = useDeliveryEndpoint()
   const channel = `/data-delivery/${dataSourceId}`
 
   function onDataUpdate(callback = res => res) {
@@ -23,19 +22,6 @@ export function PluginLoader({ id, type }) {
   function setSettings(value) {
     insertSet(id, key, value)
   }
-
-  useEffect(() => {
-    async function getDataSource() {
-      const [status, res] = await access()
-      if (status === 200) {
-        const { data } = res
-        if (data && data.url && data.query) {
-          publish(channel, data)
-        }
-      }
-    }
-    getDataSource()
-  })
 
   useEffect(() => {
     async function fetchPlugin() {

@@ -3,7 +3,7 @@ import { API } from '../../config'
 import { useLogout } from './useLogout'
 
 export function useApiEndpoint(path = '') {
-  const fullPath = `${API.ORIGIN}${path}`
+  var fullPath = `${API.ORIGIN}${path}`
   const logout = useLogout()
 
   const defaultConfig = {
@@ -25,6 +25,7 @@ export function useApiEndpoint(path = '') {
   }
 
   async function getRequest(config = {}) {
+    if (config.url) fullPath = config.url
     var url = new URL(fullPath)
     if (config.params) {
       url.search = new URLSearchParams(config.params).toString()
