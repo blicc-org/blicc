@@ -13,10 +13,13 @@ export function DataSource({ id, data, setData }) {
   const [output, setOutput] = useState('')
   const stringify = s => JSON.stringify(s, null, 4)
   const parse = s => JSON.parse(s)
+  const channel = `/forwarding/${id}`
 
   useEffect(() => {
-    subscribe(id, str => setInput(stringify(parse(str))))
-    if (url) publish(url)
+    subscribe(channel, str => {
+      setInput(stringify(str))
+    })
+    if (url) publish(channel, { url })
   }, [id, url, setInput, publish, subscribe])
 
   useEffect(() => {
