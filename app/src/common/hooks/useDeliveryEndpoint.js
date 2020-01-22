@@ -45,9 +45,7 @@ export function useDeliveryEndpoint() {
 
     if (loggedIn && ref.current !== null) {
       ref.current.onmessage = evt => {
-        console.log(evt)
         const { channel, data } = JSON.parse(evt.data)
-        console.log(data)
         Object.keys(subscriberStack).map(key => {
           if (key.includes(channel)) subscriberStack[key](data)
         })
