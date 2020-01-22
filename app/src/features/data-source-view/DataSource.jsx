@@ -8,7 +8,7 @@ export function DataSource({ id, data, setData }) {
   const { url, query } = data
   const setQuery = q => setData({ ...data, query: q })
   const setUrl = u => setData({ ...data, url: u })
-  const [publish, subscribe] = useDeliveryEndpoint()
+  const [publish, subscribe, state] = useDeliveryEndpoint()
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
   const stringify = s => JSON.stringify(s, null, 4)
@@ -16,11 +16,14 @@ export function DataSource({ id, data, setData }) {
   const channel = `/forwarding/${id}`
 
   useEffect(() => {
-    subscribe(channel, str => {
-      setInput(stringify(str))
-    })
-    if (url) publish(channel, { url })
-  }, [id, url, setInput, publish, subscribe])
+    if (state === WebSocket.OPEN && url) {
+      subscribe(channel, str => {
+        setInput(stringify(str))
+      })
+      publish(channel, { url })
+    }
+    // eslint-disable-next-line
+  }, [url, state])
 
   useEffect(() => {
     if (input) {

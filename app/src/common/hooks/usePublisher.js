@@ -12,10 +12,10 @@ export function usePublisher() {
 
   function retrieveIds() {
     const set = {}
-    Object.keys(settings).map(key => {
+    for (var key of Object.keys(settings)) {
       const value = settings[key]['data_source']
       set[value] = value
-    })
+    }
     return Object.keys(set).map(key => key)
   }
 
@@ -27,7 +27,6 @@ export function usePublisher() {
           url: `${API.ORIGIN}/data-sources/${id}`,
         })
         if (status === 200) {
-          console.log('publish', id)
           await publish(`/data-delivery/${id}`, data.data)
         }
       })
