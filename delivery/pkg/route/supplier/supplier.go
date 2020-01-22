@@ -22,26 +22,36 @@ type Data struct {
 	Query string
 }
 
+type Payload struct {
+	Channel string
+	Data    Data
+}
+
+type OutputPayload struct {
+	Channel string      `json:"channel"`
+	Data    interface{} `json:"data"`
+}
+
 func reader(conn *websocket.Conn) {
 	for {
 		messageType, jsonData, err := conn.ReadMessage()
 
-		var data Data
-		json.Unmarshal([]byte(jsonData), &data)
+		var payload Payload
+		json.Unmarshal([]byte(jsonData), &payload)
+
+		var data = payload.Data
+
 		data.Query = strings.Replace(data.Query, "`", "'", -1)
 		if err != nil {
 			log.Println(err)
 			return
 		}
-
 		response, err := http.Get(data.Url)
 
 		if err != nil {
 			log.Println(err)
 		}
-
 		res, _ := ioutil.ReadAll(response.Body)
-
 		var d interface{}
 
 		json.Unmarshal([]byte(res), &d)
@@ -51,7 +61,9 @@ func reader(conn *websocket.Conn) {
 			log.Fatal(err)
 		}
 
-		marshalled, _ := json.Marshal(transformed)
+		resultPayload := OutputPayload{Channel: payload.Channel, Data: transformed}
+
+		marshalled, _ := json.Marshal(resultPayload)
 
 		if err := conn.WriteMessage(messageType, marshalled); err != nil {
 			log.Println(err)
