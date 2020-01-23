@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { search } from 'jmespath'
 import { useDeliveryEndpoint, useJsonHighlighter } from '../../common/hooks'
@@ -15,6 +15,20 @@ export function DataSource({ id, data, setData }) {
   const parse = s => JSON.parse(s)
   const channel = `/forwarding/${id}`
   const highlighter = useJsonHighlighter()
+  const ref = useRef()
+  const [width, setWidth] = useState(0)
+
+  function updateSize() {
+    if (ref.current) {
+      setWidth(ref.current.offsetWidth / 2)
+    }
+  }
+
+  useLayoutEffect(() => {
+    updateSize()
+    window.addEventListener('resize', updateSize)
+    return () => window.removeEventListener('resize', updateSize)
+  }, [])
 
   useEffect(() => {
     if (state === WebSocket.OPEN && url) {
@@ -80,20 +94,20 @@ export function DataSource({ id, data, setData }) {
         <div className="col">
           <textarea
             className="form-control"
-            autocorrect="off"
-            autocapitalize="off"
-            spellcheck="false"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck="false"
             rows="3"
             value={query}
             onChange={evt => setQuery(evt.target.value)}
           />
         </div>
       </div>
-      <div className="my-3 code-container">
-        <div className="pr-2 item">
+      <div className="my-3 code-container" ref={ref}>
+        <div className="pr-2 item" style={{ width }}>
           <HighlightedJson>{input}</HighlightedJson>
         </div>
-        <div className="pl-2 item">
+        <div className="pl-2 item" style={{ width }}>
           <HighlightedJson>{output}</HighlightedJson>
         </div>
       </div>
