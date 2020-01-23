@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { search } from 'jmespath'
 import { useDeliveryEndpoint } from '../../common/hooks'
 import { DataQuery } from './DataQuery'
-import './DataSource.scss'
 
 export function DataSource({ id, data, setData }) {
   const { url, query } = data

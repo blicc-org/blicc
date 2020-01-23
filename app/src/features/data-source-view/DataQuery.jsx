@@ -1,6 +1,7 @@
 import React, { useRef, useState, useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useJsonHighlighter } from '../../common/hooks'
+import './DataQuery.scss'
 
 export function DataQuery({ input, output, query, setQuery }) {
   const highlighter = useJsonHighlighter()
