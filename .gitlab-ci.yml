@@ -120,10 +120,8 @@ plugins:
     - master
   before_script:
     - *enable_ssh
-    - git submodule foreach git stash
-    - git submodule foreach git pull
     - git submodule sync --recursive
-    - git submodule update --init --recursive
+    - git submodule update --init --recursive --checkout --force
   script:
     - yarn --cwd 'plugins'
     - yarn --cwd 'plugins' deploy
