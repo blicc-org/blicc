@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { Layout, Rss, PieChart, Database } from 'react-feather'
+import { Layout, PieChart, Database } from 'react-feather'
 import { AppContext, SidebarContext } from '../../context'
 import { sidebarWidth } from '../../../config'
 import { useMobile, useLanguage, useClickAway } from '../../hooks'
@@ -63,11 +63,6 @@ export function Sidebar({ open }) {
               <li className="nav-item">
                 <Link className="nav-link" to="/data-sources" onClick={close}>
                   <Database className="feather" /> Data Sources
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/websocket-test" onClick={close}>
-                  <Rss className="feather" /> Websocket Test
                 </Link>
               </li>
             </ul>

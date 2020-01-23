@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Loading } from '../loading/Loading'
 import { API } from '../../../config'
 import { useSettings, useDeliveryEndpoint } from '../../hooks'
-import { SettingsContext } from '../../context'
 
 export function PluginLoader({ id, type }) {
   const [accessSet, insertSet] = useSettings()

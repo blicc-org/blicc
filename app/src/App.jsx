@@ -6,7 +6,6 @@ import { LandingPage } from './features/landing-page/LandingPage'
 import { Login } from './features/login/Login'
 import { Register } from './features/register/Register'
 import { PageGenerator } from './features/page-generator/PageGenerator'
-import { WebSocketTest } from './features/websocket-test/WebSocketTest'
 import { DashboardView } from './features/dashboard-view/DashboardView'
 import { Dashboards } from './features/dashboards/Dashboards'
 import { DataSourceView } from './features/data-source-view/DataSourceView'
@@ -33,7 +32,6 @@ export function App() {
             <Route path="/register" component={Register} />
             <Route path="/pages" component={PageGenerator} />
             <Route path="/offline" component={Offline} />
-            <Route path="/websocket-test" component={WebSocketTest} />
             <ProtectedRoute path="/charts/:id" component={ChartView} />
             <ProtectedRoute path="/charts" component={Charts} />
             <ProtectedRoute path="/dashboards/:id" component={DashboardView} />
