@@ -13,7 +13,7 @@ const config = {
   },
   plugins: [
     resolve({
-      preferBuiltins: false
+      preferBuiltins: false,
     }),
     babel({
       exclude: 'node_modules/**',
