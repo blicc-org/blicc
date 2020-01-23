@@ -1,0 +1,31 @@
+@import '../../Theme.scss';
+
+.code-container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.code-container .item {
+  position: relative;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+}
+
+.code {
+  color: #0c5374;
+  padding: 15px;
+  border-radius: $border-radius;
+  background-color: $light;
+}
+
+.code span {
+  color: #ee7470;
+}
+
+code {
+  font-size: 87.5%;
+  color: #e83e8c;
+  word-wrap: break-word;
+}
