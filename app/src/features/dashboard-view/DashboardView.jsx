@@ -25,10 +25,10 @@ export function DashboardView({ match, location }) {
   const [redirect, setRedirect] = useState('')
   const tabs = ['Dashboard', 'Details']
   const [currentTab, setCurrentTab] = useState(tabs[0])
-  const publish = usePublisher()
+  const [publishAll] = usePublisher()
 
   useEffect(() => {
-    if (currentTab === tabs[0]) publish()
+    publishAll()
     // eslint-disable-next-line
   }, [settings, currentTab])
 

@@ -13,12 +13,12 @@ export function usePublisher() {
     const set = {}
     for (var key of Object.keys(settings)) {
       const value = settings[key]['data_source']
-      set[value] = value
+      if (value) set[value] = value
     }
     return Object.keys(set).map(key => key)
   }
 
-  return () => {
+  async function publishAll() {
     const ids = retrieveIds()
     if (state === WebSocket.OPEN && ids.length > 0) {
       ids.map(async id => {
@@ -31,4 +31,17 @@ export function usePublisher() {
       })
     }
   }
+
+  async function publishById(id) {
+    if (state === WebSocket.OPEN) {
+      const [status, data] = await access({
+        url: `${API.ORIGIN}/data-sources/${id}`,
+      })
+      if (status === 200) {
+        await publish(`/data-delivery/${id}`, data.data)
+      }
+    }
+  }
+
+  return [publishAll, publishById]
 }

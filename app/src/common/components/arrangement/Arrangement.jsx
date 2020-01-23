@@ -1,16 +1,22 @@
 import React, { useMemo, useState } from 'react'
-import { useArrangement, useModal, useSettings } from '../../hooks'
+import {
+  useArrangement,
+  useModal,
+  useSettings,
+  usePublisher,
+} from '../../hooks'
 import { SelectChartModal } from './SelectChartModal'
 import { SelectDataSourceModal } from './SelectDataSourceModal'
 import { Box } from './Box'
-import './Arrangement.scss'
 import { DRAG } from '../../context'
+import './Arrangement.scss'
 
 export function Arrangement({ edit }) {
   const [arr, insertArr] = useArrangement()
   const [, insertSet] = useSettings()
   const [targetId, setTargetId] = useState('')
   const [action, setAction] = useState(0)
+  const [, publishById] = usePublisher()
 
   const [showChartModal, hideChartModal] = useModal(
     () => (
@@ -32,6 +38,7 @@ export function Arrangement({ edit }) {
         cancel={hideDataSourceModal}
         submit={dataSourceId => {
           insertSet(targetId, 'data_source', dataSourceId)
+          publishById(dataSourceId)
           hideChartModal()
         }}
       />
@@ -59,5 +66,5 @@ export function Arrangement({ edit }) {
       </div>
     )
     // eslint-disable-next-line
-  }, [edit, arr])
+  }, [edit, arr, insertSet])
 }

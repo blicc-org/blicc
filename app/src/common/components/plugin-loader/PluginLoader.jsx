@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Loading } from '../loading/Loading'
 import { API } from '../../../config'
 import { useSettings, useDeliveryEndpoint } from '../../hooks'
+import { SettingsContext } from '../../context'
 
 export function PluginLoader({ id, type }) {
   const [accessSet, insertSet] = useSettings()
@@ -48,7 +49,7 @@ export function PluginLoader({ id, type }) {
 
     if (type) fetchPlugin()
     // eslint-disable-next-line
-  }, [type])
+  }, [type, dataSourceId])
 
   return loading ? <Loading /> : <div className="spread" ref={ref} />
 }
