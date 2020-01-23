@@ -24,10 +24,10 @@ export function PieChart(
   return canvas
 }
 
-function takeFirst(data){
-    if (!data.datasets) return data
-    data.datasets = [data.datasets[0]]
-    return data
+function takeFirst(data) {
+  if (!data.datasets) return data
+  data.datasets = [data.datasets[0]]
+  return data
 }
 
 function addStyles(data) {
