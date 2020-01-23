@@ -12,22 +12,16 @@ export function PieChart(
 
   const chart = new Chart(ctx, {
     type: 'pie',
-    data: takeFirst(addStyles(data)),
+    data: addStyles(data),
     options,
   })
 
   onDataUpdate(updatedData => {
-    chart.data = takeFirst(addStyles(updatedData))
+    chart.data = addStyles(updatedData)
     chart.update()
   })
 
   return canvas
-}
-
-function takeFirst(data) {
-  if (!data.datasets) return data
-  data.datasets = [data.datasets[0]]
-  return data
 }
 
 function addStyles(data) {
@@ -36,7 +30,7 @@ function addStyles(data) {
     return {
       ...dataset,
       backgroundColor: colorPalette,
-      borderColor: colorPalette,
+      borderColor: '#f8f8f8',
       borderWidth: 2,
       fill: false,
     }

@@ -12,7 +12,9 @@ const config = {
     name: 'bundle',
   },
   plugins: [
-    resolve(),
+    resolve({
+      preferBuiltins: false
+    }),
     babel({
       exclude: 'node_modules/**',
     }),
