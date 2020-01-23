@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useLayoutEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 import { search } from 'jmespath'
-import { useDeliveryEndpoint, useJsonHighlighter } from '../../common/hooks'
+import { useDeliveryEndpoint } from '../../common/hooks'
+import { DataQuery } from './DataQuery'
 import './DataSource.scss'
 
 export function DataSource({ id, data, setData }) {
@@ -14,21 +14,6 @@ export function DataSource({ id, data, setData }) {
   const stringify = s => JSON.stringify(s, null, 4)
   const parse = s => JSON.parse(s)
   const channel = `/forwarding/${id}`
-  const highlighter = useJsonHighlighter()
-  const ref = useRef()
-  const [width, setWidth] = useState(0)
-
-  function updateSize() {
-    if (ref.current) {
-      setWidth(ref.current.offsetWidth / 2)
-    }
-  }
-
-  useLayoutEffect(() => {
-    updateSize()
-    window.addEventListener('resize', updateSize)
-    return () => window.removeEventListener('resize', updateSize)
-  }, [])
 
   useEffect(() => {
     if (state === WebSocket.OPEN && url) {
@@ -49,13 +34,6 @@ export function DataSource({ id, data, setData }) {
       }
     }
   }, [input, query])
-
-  function HighlightedJson({ children }) {
-    const highlighted = highlighter(children)
-    return (
-      <p className="code" dangerouslySetInnerHTML={{ __html: highlighted }} />
-    )
-  }
 
   return (
     <>
@@ -79,38 +57,12 @@ export function DataSource({ id, data, setData }) {
           </table>
         </div>
       </div>
-      <div className="row">
-        <div className="col mt-3">
-          <h4>Query your data</h4>
-          <p>
-            The data has to be transformed to be used inside the diagrams. This
-            can be done with the help of <code>jmespath</code>, a json query
-            language. Read more about how to query the data{' '}
-            <Link to="/pages/docs/how-to-query-data">here</Link>.
-          </p>
-        </div>
-      </div>
-      <div className="row my-3">
-        <div className="col">
-          <textarea
-            className="form-control"
-            autoCorrect="off"
-            autoCapitalize="off"
-            spellCheck="false"
-            rows="3"
-            value={query}
-            onChange={evt => setQuery(evt.target.value)}
-          />
-        </div>
-      </div>
-      <div className="my-3 code-container" ref={ref}>
-        <div className="pr-2 item" style={{ width }}>
-          <HighlightedJson>{input}</HighlightedJson>
-        </div>
-        <div className="pl-2 item" style={{ width }}>
-          <HighlightedJson>{output}</HighlightedJson>
-        </div>
-      </div>
+      <DataQuery
+        input={input}
+        output={output}
+        query={query}
+        setQuery={setQuery}
+      />
     </>
   )
 }
