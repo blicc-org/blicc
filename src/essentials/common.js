@@ -1,6 +1,7 @@
 export const options = {
   responsive: true,
   maintainAspectRatio: false,
+  animation: false
 }
 
 export const colorPalette = [

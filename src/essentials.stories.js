@@ -13,7 +13,11 @@ export default {
       title: 'Pie Chart',
       description: 'Show your data proportion with the help of a pie chart.',
     },
+    RadarChart: {
+      title: 'Radar Chart',
+      description: 'Show your data proportion with the help of a pie chart.',
+    },
   },
 }
 
-export { BarChart, LineChart, PieChart } from './essentials'
+export { BarChart, LineChart, PieChart, RadarChart } from './essentials'
