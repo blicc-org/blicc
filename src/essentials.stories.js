@@ -1,5 +1,8 @@
+import { withKnobs, object } from '@storybook/addon-knobs'
+
 export default {
   title: 'Essentials',
+  decorators: [withKnobs],
   meta: {
     BarChart: {
       title: 'Bar Chart',
@@ -9,6 +12,10 @@ export default {
       title: 'Line Chart',
       description: 'Show your data proportion with the help of a line chart.',
     },
+    RadarChart: {
+      title: 'Radar Chart',
+      description: 'Show your data proportion with the help of a radar chart.',
+    },
     PieChart: {
       title: 'Pie Chart',
       description: 'Show your data proportion with the help of a pie chart.',
@@ -16,4 +23,4 @@ export default {
   },
 }
 
-export { BarChart, LineChart, PieChart } from './essentials'
+export { BarChart, LineChart, RadarChart, PieChart } from './essentials'

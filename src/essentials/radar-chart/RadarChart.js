@@ -1,7 +1,7 @@
 import Chart from 'chart.js'
 import { options, colorPalette } from '../common'
 
-export function PieChart(
+export function RadarChart(
   data = [],
   onDataUpdate = () => {},
   settings = {},
@@ -11,32 +11,26 @@ export function PieChart(
   const ctx = canvas.getContext('2d')
 
   const chart = new Chart(ctx, {
-    type: 'pie',
-    data: takeFirst(addStyles(data)),
+    type: 'radar',
+    data: addStyles(data),
     options,
   })
 
   onDataUpdate(updatedData => {
-    chart.data = takeFirst(addStyles(updatedData))
+    chart.data = addStyles(updatedData)
     chart.update()
   })
 
   return canvas
 }
 
-function takeFirst(data){
-    if (!data.datasets) return data
-    data.datasets = [data.datasets[0]]
-    return data
-}
-
 function addStyles(data) {
   if (!data.datasets) return data
-  const datasets = data.datasets.map(dataset => {
+  const datasets = data.datasets.map((dataset, index) => {
     return {
       ...dataset,
-      backgroundColor: colorPalette,
-      borderColor: colorPalette,
+      backgroundColor: colorPalette[index],
+      borderColor: colorPalette[index],
       borderWidth: 2,
       fill: false,
     }
