@@ -26,7 +26,7 @@ export function PieChart(
 
 function addStyles(data) {
   if (!data.datasets) return data
-  const datasets = data.datasets.map((dataset) => {
+  const datasets = data.datasets.map(dataset => {
     return {
       ...dataset,
       backgroundColor: colorPalette,
