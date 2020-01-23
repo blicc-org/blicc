@@ -11,7 +11,7 @@ export function PieChart(
   const ctx = canvas.getContext('2d')
 
   const chart = new Chart(ctx, {
-    type: 'pie',
+    type: 'radar',
     data: addStyles(data),
     options,
   })
@@ -26,11 +26,11 @@ export function PieChart(
 
 function addStyles(data) {
   if (!data.datasets) return data
-  const datasets = data.datasets.map(dataset => {
+  const datasets = data.datasets.map((dataset, index) => {
     return {
       ...dataset,
-      backgroundColor: colorPalette,
-      borderColor: '#f8f8f8',
+      backgroundColor: colorPalette[index],
+      borderColor: colorPalette[index],
       borderWidth: 2,
       fill: false,
     }
