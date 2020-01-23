@@ -6,10 +6,10 @@ import { useSettings, useDeliveryEndpoint } from '../../hooks'
 export function PluginLoader({ id, type }) {
   const [accessSet, insertSet] = useSettings()
   const [bundle, plugin] = type.split('/')
-  const ref = useRef()
   const [loading, setLoading] = useState(true)
-  const dataSourceId = accessSet(id, 'data_source')
   const [, subscribe] = useDeliveryEndpoint()
+  const ref = useRef()
+  const dataSourceId = accessSet(id, 'data_source')
   const channel = `/data-delivery/${dataSourceId}`
 
   function onDataUpdate(callback = res => res) {

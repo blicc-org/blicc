@@ -29,8 +29,7 @@ export function DashboardView({ match, location }) {
 
   useEffect(() => {
     publishAll()
-    // eslint-disable-next-line
-  }, [settings, currentTab])
+  })
 
   useEffect(() => {
     async function fetchData() {
