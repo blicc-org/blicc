@@ -66,5 +66,5 @@ export function Arrangement({ edit }) {
       </div>
     )
     // eslint-disable-next-line
-  }, [edit, arr, insertSet])
+  }, [edit, arr])
 }
