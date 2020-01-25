@@ -1,6 +1,6 @@
 {
   "name": "mongo",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "Database to store data to analyse.",
   "author": "Thilo Ilg",
   "license": "MIT",
