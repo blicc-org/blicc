@@ -20,7 +20,8 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
   const type = accessSet(id, 'chart_type')
   const [, , removeArr] = useArrangement()
   const [dragging] = useContext(DragContext)
-  const [unit, setUnit] = useState(null)
+  const [init, setInit] = useState(true)
+  const [unit, setUnit] = useState({ xAxis: UNIT.TIME, yAxis: UNIT.TIME })
 
   const style = isMobile
     ? {
@@ -33,16 +34,14 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
       }
 
   useEffect(() => {
-    if (!unit) {
+    if (init) {
       const pluginSettings = accessSet(id, 'plugin_settings')
-      if (pluginSettings) {
-        const initVal = pluginSettings.unit
-          ? pluginSettings.unit
-          : { xAxis: UNIT.TIME, yAxis: UNIT.TIME }
-        setUnit(initVal)
+      if (pluginSettings && pluginSettings.unit) {
+        setInit(false)
+        setUnit(pluginSettings.unit)
       }
     }
-  })
+  }, [id, unit, init, accessSet])
 
   const [showModal, hideModal] = useModal(
     () => (
