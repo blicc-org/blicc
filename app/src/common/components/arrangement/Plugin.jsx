@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
-import { Settings, X } from 'react-feather'
+import { X } from 'react-feather'
+import { ReactComponent as Tool } from '../../../assets/img/Tool.svg'
 import { PluginLoader } from './../plugin-loader/PluginLoader'
 import { Positioning } from '../positioning/Positioning'
 import { useSettings } from '../../hooks/settings/useSettings'
@@ -37,9 +38,8 @@ export function Plugin({ id, onDrop, mask }) {
           <p>{type}</p>
         </div>
         <div className="col col-4 text-right">
-          <Settings
-            className="toolbar-settings"
-            size={16}
+          <Tool
+            className="toolbar-tool"
             style={{ cursor: 'pointer' }}
             onClick={() => showModal()}
           />
