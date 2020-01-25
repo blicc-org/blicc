@@ -8,7 +8,7 @@ addDecorator(story => {
   div.style.width = '600px'
   div.style.height = '400px'
 
-  const data = {
+  let data = {
     labels: ['Schicht 1', 'Schicht 2', 'Schicht 3'],
     datasets: [
       {
@@ -29,6 +29,35 @@ addDecorator(story => {
       },
     ],
   }
+
+  const dataWithDate = {
+    labels: ['2020-01-01T00:00:00Z', '2020-03-10T00:00:00Z'],
+    datasets: [
+      {
+        label: 'Data',
+        data: [
+          {
+            x: '2020-01-02T00:00:00Z',
+            y: 1,
+          },
+          {
+            t: '2020-02-03T00:00:00Z',
+            y: 10,
+          },
+          {
+            t: '2020-02-05T00:00:00Z',
+            y: 3,
+          },
+          {
+            t: '2020-03-09T00:00:00Z',
+            y: 7,
+          },
+        ],
+      },
+    ],
+  }
+
+  data = dataWithDate
 
   const onDataUpdate = () => {}
   const settings = {}

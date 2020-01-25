@@ -7,22 +7,42 @@ export function LineChart(
   settings = {},
   setSettings = () => {}
 ) {
+  console.log(settings)
   const type = 'line'
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
+
+  let scales = {}
+
+  if (settings && settings.unit) {
+    if (settings.unit === 'time') {
+      scales = {
+        xAxes: [
+          {
+            type: 'time',
+            distribution: 'linear',
+          },
+        ],
+        yAxes: [
+          {
+            stacked: true,
+          },
+        ],
+      }
+    }
+  }
+
+  console.log({
+    ...options,
+    scales,
+  })
 
   const chart = new Chart(ctx, {
     type,
     data: addStyles(data),
     options: {
       ...options,
-      scales: {
-        yAxes: [
-          {
-            stacked: true,
-          },
-        ],
-      },
+      scales,
     },
   })
 
