@@ -4,19 +4,28 @@ import {
   useModal,
   useSettings,
   usePublisher,
+  useMobile,
 } from '../../hooks'
 import { SelectChartModal } from './SelectChartModal'
 import { SelectDataSourceModal } from './SelectDataSourceModal'
 import { Box } from './Box'
 import { DRAG } from '../../context'
-import './Arrangement.scss'
 
 export function Arrangement({ edit }) {
+  const isMobile = useMobile()
   const [arr, insertArr] = useArrangement()
   const [, insertSet] = useSettings()
   const [targetId, setTargetId] = useState('')
   const [action, setAction] = useState(0)
   const [, publishById] = usePublisher()
+
+  const style = isMobile
+    ? {}
+    : {
+        overflow: 'auto',
+        width: '100%',
+        height: '100%',
+      }
 
   const [showChartModal, hideChartModal] = useModal(
     () => (
@@ -61,10 +70,10 @@ export function Arrangement({ edit }) {
 
   return useMemo(() => {
     return (
-      <div className="spread" onDragOver={evt => evt.preventDefault()}>
-        <Box arr={arr} onDrop={onDrop} edit={edit} />
+      <div style={style} onDragOver={evt => evt.preventDefault()}>
+        <Box arr={arr} onDrop={onDrop} edit={edit} isMobile={isMobile} />
       </div>
     )
     // eslint-disable-next-line
-  }, [edit, arr])
+  }, [edit, arr, isMobile])
 }

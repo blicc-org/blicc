@@ -12,6 +12,12 @@ export function PluginLoader({ id, type }) {
   const dataSourceId = accessSet(id, 'data_source')
   const channel = `/data-delivery/${dataSourceId}`
 
+  const style = {
+    overflow: 'auto',
+    width: '100%',
+    height: '100%',
+  }
+
   function onDataUpdate(callback = res => res) {
     subscribe(channel, callback)
   }
@@ -50,5 +56,5 @@ export function PluginLoader({ id, type }) {
     // eslint-disable-next-line
   }, [type, dataSourceId])
 
-  return loading ? <Loading /> : <div className="spread" ref={ref} />
+  return loading ? <Loading /> : <div style={style} ref={ref} />
 }

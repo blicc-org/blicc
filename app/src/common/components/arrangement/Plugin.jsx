@@ -15,13 +15,22 @@ export const UNIT = {
   TIME: 'time',
 }
 
-export function Plugin({ id, onDrop, mask }) {
+export function Plugin({ id, onDrop, mask, isMobile }) {
   const [accessSet, insertSet, removeSet] = useSettings()
   const type = accessSet(id, 'chart_type')
   const [, , removeArr] = useArrangement()
   const [dragging] = useContext(DragContext)
-
   const [unit, setUnit] = useState(null)
+
+  const style = isMobile
+    ? {
+        height: '300px',
+      }
+    : {
+        overflow: 'auto',
+        width: '100%',
+        height: '100%',
+      }
 
   useEffect(() => {
     if (!unit) {
@@ -51,7 +60,7 @@ export function Plugin({ id, onDrop, mask }) {
   )
 
   return (
-    <div className="spread plugin">
+    <div className="plugin" style={style}>
       <div className="row text-muted px-2">
         <div className="col col-8">
           <p>{type}</p>
