@@ -11,20 +11,42 @@ export function LineChart(
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
 
-  let scales = {}
+  let scales = {
+    yAxis: [
+      {
+        stacked: true,
+      },
+    ],
+  }
 
   if (settings && settings.unit) {
-    if (settings.unit === 'time') {
+    const { xAxis, yAxis } = settings.unit
+    if (xAxis === 'time') {
       scales = {
+        ...scales,
         xAxes: [
           {
             type: 'time',
             distribution: 'linear',
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 10,
+            },
           },
         ],
+      }
+    }
+    if (yAxis === 'time') {
+      scales = {
+        ...scales,
         yAxes: [
           {
-            stacked: true,
+            type: 'time',
+            distribution: 'linear',
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 10,
+            },
           },
         ],
       }
@@ -57,6 +79,7 @@ function addStyles(data) {
       borderColor: colorPalette[index],
       borderWidth: 2,
       fill: false,
+      lineTension: 0,
     }
   })
   return { ...data, datasets }
