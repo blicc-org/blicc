@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { X } from 'react-feather'
+import { Settings, X } from 'react-feather'
 import { PluginLoader } from './../plugin-loader/PluginLoader'
 import { Positioning } from '../positioning/Positioning'
 import { useSettings } from '../../hooks/settings/useSettings'
@@ -20,7 +20,14 @@ export function Plugin({ id, onDrop, mask }) {
           <p>{type}</p>
         </div>
         <div className="col col-4 text-right">
+          <Settings
+            className="toolbar-settings"
+            size={16}
+            style={{ cursor: 'pointer' }}
+          />
+          {'|'}
           <X
+            className="toolbar-close"
             size={18}
             style={{ cursor: 'pointer' }}
             onClick={() => {
