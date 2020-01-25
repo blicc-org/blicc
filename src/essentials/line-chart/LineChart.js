@@ -32,11 +32,6 @@ export function LineChart(
     }
   }
 
-  console.log({
-    ...options,
-    scales,
-  })
-
   const chart = new Chart(ctx, {
     type,
     data: addStyles(data),
