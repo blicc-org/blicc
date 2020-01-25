@@ -7,7 +7,6 @@ export function LineChart(
   settings = {},
   setSettings = () => {}
 ) {
-  console.log(settings)
   const type = 'line'
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
