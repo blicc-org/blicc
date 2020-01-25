@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { X } from 'react-feather'
 import { ReactComponent as Tool } from '../../../assets/img/Tool.svg'
 import { PluginLoader } from './../plugin-loader/PluginLoader'
@@ -9,12 +9,31 @@ import { useArrangement, useModal, MASK } from '../../hooks'
 import { PluginSettingsModal } from './PluginSettingsModal'
 import './Plugin.scss'
 
+export const UNIT = {
+  NUMBER: 'number',
+  CATEGORY: 'category',
+  TIME: 'time',
+}
+
 export function Plugin({ id, onDrop, mask }) {
   const [accessSet, insertSet, removeSet] = useSettings()
   const type = accessSet(id, 'chart_type')
   const [, , removeArr] = useArrangement()
   const [dragging] = useContext(DragContext)
-  const [unit, setUnit] = useState('')
+
+  const [unit, setUnit] = useState(null)
+
+  useEffect(() => {
+    if (!unit) {
+      const pluginSettings = accessSet(id, 'plugin_settings')
+      if (pluginSettings) {
+        const initVal = pluginSettings.unit
+          ? pluginSettings.unit
+          : { xAxis: UNIT.TIME, yAxis: UNIT.TIME }
+        setUnit(initVal)
+      }
+    }
+  })
 
   const [showModal, hideModal] = useModal(
     () => (

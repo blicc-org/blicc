@@ -1,6 +1,10 @@
 import React from 'react'
+import { UNIT } from './Plugin'
 
 export function PluginSettingsModal({ cancel, submit, unit, setUnit }) {
+  const { xAxis, yAxis } = unit
+  const setXAxis = val => setUnit({ ...unit, xAxis: val })
+  const setYAxis = val => setUnit({ ...unit, yAxis: val })
   return (
     <>
       <div className="modal-dialog modal-dialog-centered" role="document">
@@ -18,19 +22,35 @@ export function PluginSettingsModal({ cancel, submit, unit, setUnit }) {
           </div>
           <div className="modal-body">
             <div className="form-group">
-              <label htmlFor="inputState">Select Unit</label>
+              <label htmlFor="inputState">Select Unit for X-Axis</label>
               <select
                 id="inputState"
                 className="form-control"
-                value={unit}
-                onChange={event => setUnit(event.target.value)}
+                value={xAxis}
+                onChange={evt => setXAxis(evt.target.value)}
               >
-                <option value={'time'}>Time</option>
-                <option value={'category'}>Category</option>
-                <option value={'number'}>Number</option>
+                <option value={UNIT.NUMBER}>Number</option>
+                <option value={UNIT.CATEGORY}>Category</option>
+                <option value={UNIT.TIME}>Time</option>
               </select>
               <small id="emailHelp" className="form-text text-muted">
-                Select unit for X-Axis.
+                Select either time, category or number as unit.
+              </small>
+            </div>
+            <div className="form-group">
+              <label htmlFor="inputState">Select Unit for Y-Axis</label>
+              <select
+                id="inputState"
+                className="form-control"
+                value={yAxis}
+                onChange={evt => setYAxis(evt.target.value)}
+              >
+                <option value={UNIT.NUMBER}>Number</option>
+                <option value={UNIT.CATEGORY}>Category</option>
+                <option value={UNIT.TIME}>Time</option>
+              </select>
+              <small id="emailHelp" className="form-text text-muted">
+                Select either time, category or number as unit.
               </small>
             </div>
           </div>
