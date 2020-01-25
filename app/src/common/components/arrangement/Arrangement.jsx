@@ -20,7 +20,7 @@ export function Arrangement({ edit }) {
   const [, publishById] = usePublisher()
 
   const style = isMobile
-    ? {}
+    ? { height: '100%' }
     : {
         overflow: 'auto',
         width: '100%',
