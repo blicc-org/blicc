@@ -107,9 +107,10 @@ func ListenAndServe(w http.ResponseWriter, r *http.Request) {
 
 func generateCacheKey(channel string, data []byte) string {
 	s := strings.Split(channel, "/")
-	id := s[2]
+	log.Println(channel)
+	id := s[len(s)-1]
 	hash := strconv.Itoa(int(hash.Generate(string(data))))
-
+	log.Println(hash)
 	var buffer bytes.Buffer
 	buffer.WriteString(id)
 	buffer.WriteString(hash)
