@@ -66,6 +66,7 @@ export function useDeliveryEndpoint() {
 
   const publish = useCallback(
     (channel, data) => {
+      console.log(channel, JSON.stringify(data))
       if (state === WebSocket.OPEN) {
         ref.current.send(JSON.stringify({ channel, data }))
       } else {
