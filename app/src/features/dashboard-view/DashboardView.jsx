@@ -26,11 +26,11 @@ export function DashboardView({ match, location }) {
   const tabs = ['Dashboard', 'Details']
   const [currentTab, setCurrentTab] = useState(tabs[0])
   const [publishAll] = usePublisher()
-  const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    if (ready && currentTab !== tabs[1]) publishAll()
-  }, [ready, currentTab])
+    publishAll()
+    // eslint-disable-next-line
+  }, [settings])
 
   useEffect(() => {
     async function fetchData() {
@@ -41,7 +41,6 @@ export function DashboardView({ match, location }) {
         setSettings(data.data.settings)
         setTitle(data.title)
         setDescription(data.description)
-        setReady(true)
       }
     }
     fetchData()
@@ -49,7 +48,6 @@ export function DashboardView({ match, location }) {
   }, [match])
 
   async function onClick(evt) {
-    setReady(false)
     evt.target.blur()
     if (edit) {
       await update({
@@ -63,7 +61,6 @@ export function DashboardView({ match, location }) {
     } else {
       setEdit(true)
     }
-    setReady(true)
   }
 
   const [showModal, hideModal] = useModal(() => (

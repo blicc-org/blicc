@@ -4,6 +4,7 @@ import { SubscriberContext, AppContext } from '../context'
 import { DELIVERY } from '../../config'
 
 export let socket = null
+export let cache = []
 
 export const WebSocketState = {
   [WebSocket.CONNECTING]: 'connecting',
@@ -42,6 +43,7 @@ export function useDeliveryEndpoint() {
     if (loggedIn && socket !== null) {
       socket.onmessage = evt => {
         const { channel, data } = JSON.parse(evt.data)
+        cache[channel] = data
         if (channel && data && subscriberStack) {
           for (var key of Object.keys(subscriberStack)) {
             if (key.includes(channel)) subscriberStack[key](data)
@@ -68,7 +70,7 @@ export function useDeliveryEndpoint() {
         console.log('Connection has to be open to publish!')
       }
     },
-    [state]
+    [state, cache]
   )
 
   const subscribe = useCallback(
@@ -81,6 +83,7 @@ export function useDeliveryEndpoint() {
         ...stack,
         [id]: callback,
       }))
+      return cache[channel] ? cache[channel] : null
     },
     [setSubscriberStack]
   )

@@ -11,6 +11,7 @@ export function PluginLoader({ id, type }) {
   const ref = useRef()
   const dataSourceId = accessSet(id, 'data_source')
   const channel = `/data-delivery/${dataSourceId}`
+  const data = { labels: [], datasets: [] }
 
   const style = {
     overflow: 'auto',
@@ -19,7 +20,8 @@ export function PluginLoader({ id, type }) {
   }
 
   function onDataUpdate(callback = res => res) {
-    subscribe(channel, callback)
+    const preloaded = subscribe(channel, callback)
+    if (preloaded) callback(preloaded)
   }
 
   const key = 'plugin_settings'
@@ -35,7 +37,6 @@ export function PluginLoader({ id, type }) {
         /*webpackIgnore: true*/ `${API.ORIGIN}/bundles/${bundle}`
       ).then(module => {
         setLoading(false)
-        const data = { labels: [], datasets: [] }
         const node = module[plugin](data, onDataUpdate, settings, setSettings)
 
         if (ref.current) {
