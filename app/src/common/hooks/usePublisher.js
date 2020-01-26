@@ -6,7 +6,7 @@ import { SettingsContext } from '../context'
 
 export function usePublisher() {
   const [settings] = useContext(SettingsContext)
-  const [publish, , state] = useDeliveryEndpoint()
+  const [publish] = useDeliveryEndpoint()
   const [, access] = useApiEndpoint()
 
   function retrieveIds() {
@@ -20,7 +20,7 @@ export function usePublisher() {
 
   async function publishAll() {
     const ids = retrieveIds()
-    if (state === WebSocket.OPEN && ids.length > 0) {
+    if (ids.length > 0) {
       ids.map(async id => {
         const [status, data] = await access({
           url: `${API.ORIGIN}/data-sources/${id}`,
@@ -33,13 +33,11 @@ export function usePublisher() {
   }
 
   async function publishById(id) {
-    if (state === WebSocket.OPEN) {
-      const [status, data] = await access({
-        url: `${API.ORIGIN}/data-sources/${id}`,
-      })
-      if (status === 200) {
-        await publish(`/data-delivery/${id}`, data.data)
-      }
+    const [status, data] = await access({
+      url: `${API.ORIGIN}/data-sources/${id}`,
+    })
+    if (status === 200) {
+      await publish(`/data-delivery/${id}`, data.data)
     }
   }
 

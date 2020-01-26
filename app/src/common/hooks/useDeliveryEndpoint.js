@@ -17,9 +17,8 @@ export function useDeliveryEndpoint() {
   const [subscriberStack, setSubscriberStack] = useContext(SubscriberContext)
   const [appState] = useContext(AppContext)
   const { loggedIn } = appState
-  const [state, setState] = useState(
-    socket && socket.readyState ? socket.readyState : WebSocket.CLOSED
-  )
+  const initialState = socket !== null ? socket.readyState : WebSocket.CLOSED
+  const [state, setState] = useState(initialState)
 
   useEffect(() => {
     if (loggedIn && socket === null) {
@@ -63,14 +62,8 @@ export function useDeliveryEndpoint() {
   }, [loggedIn, subscriberStack, state])
 
   const publish = useCallback(
-    (channel, data) => {
-      if (state === WebSocket.OPEN) {
-        socket.send(JSON.stringify({ channel, data }))
-      } else {
-        console.log('Connection has to be open to publish!')
-      }
-    },
-    [state, cache]
+    (channel, data) => socket.send(JSON.stringify({ channel, data })),
+    [state]
   )
 
   const subscribe = useCallback(

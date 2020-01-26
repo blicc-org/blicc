@@ -2,12 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { Redirect } from 'react-router-dom'
 import { Arrangement } from '../../common/components/arrangement/Arrangement'
-import {
-  useApiEndpoint,
-  useModal,
-  usePublisher,
-  useDeliveryEndpoint,
-} from '../../common/hooks'
+import { useApiEndpoint, useModal, usePublisher } from '../../common/hooks'
 import { ArrangementContext, SettingsContext } from '../../common/context'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DashboardDetails } from './DashboardDetails'
@@ -18,7 +13,6 @@ import './DashboardView.scss'
 export function DashboardView({ match, location }) {
   const [arrangement, setArrangement] = useContext(ArrangementContext)
   const [settings, setSettings] = useContext(SettingsContext)
-  const [, , state] = useDeliveryEndpoint()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const path = `/dashboards/${match.params.id}`
@@ -36,7 +30,7 @@ export function DashboardView({ match, location }) {
   useEffect(() => {
     publishAll()
     // eslint-disable-next-line
-  }, [settings, state])
+  }, [settings])
 
   useEffect(() => {
     async function fetchData() {
