@@ -8,11 +8,11 @@ self.addEventListener('activate', () => console.log('Service worker activated'))
 self.addEventListener('fetch', evt => {
   const { request } = evt
   const { url } = request
-  if (url.indexOf('http') === 0 && url.includes('chunk')) {
-    evt.respondWith(cacheFirst(request))
-  } else if (url.includes(scope)) {
-    evt.respondWith(networkFirst(request))
-  }
+  // if (url.indexOf('http') === 0 && url.includes('chunk')) {
+  //   evt.respondWith(cacheFirst(request))
+  // } else if (url.includes(scope)) {
+  //   evt.respondWith(networkFirst(request))
+  // }
 })
 
 async function cacheFirst(request) {
