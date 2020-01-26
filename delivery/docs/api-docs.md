@@ -8,7 +8,7 @@ Fetches data from api and queries JSON response with jmespath query (Uses cache 
 
 #### publish: /data-delivery/:id
 Message payload:
-```go
+```jsx
 {
     "channel": "/data-delivery/a1aMczof",
     "data": {
@@ -47,7 +47,7 @@ Forwards api request to prevent CORS issues.
 
 #### publish: /forwarding/:id
 Message payload:
-```go
+```jsx
 {
     "channel": "/forwarding/a1aMczof",
     "data": {
