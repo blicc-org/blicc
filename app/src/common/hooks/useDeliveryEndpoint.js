@@ -61,9 +61,18 @@ export function useDeliveryEndpoint() {
     }
   }, [loggedIn, subscriberStack, state])
 
-  function publish(channel, data) {
-    socket.send(JSON.stringify({ channel, data }))
-  }
+  const publish = useCallback(
+    (channel, data) => {
+      if (socket.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify({ channel, data }))
+      } else {
+        console.log(
+          `Cant publish on ${WebSocketState[socket.readyState]} connection.`
+        )
+      }
+    },
+    [socket]
+  )
 
   const subscribe = useCallback(
     (channel, callback) => {
