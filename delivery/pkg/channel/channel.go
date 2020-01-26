@@ -1,6 +1,7 @@
 package channel
 
 import (
+	"bytes"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -33,10 +34,16 @@ type Result struct {
 func reader(conn *websocket.Conn) {
 	for {
 		messageType, jsonData, err := conn.ReadMessage()
+		if err != nil {
+			log.Println(err)
+		}
 
-		hash := generateHash(jsonData)
+		var payload Payload
+		json.Unmarshal([]byte(jsonData), &payload)
 
-		cache, err := redisclient.Get(hash)
+		key := generateCacheKey(payload.Channel, jsonData)
+
+		cache, err := redisclient.Get(key)
 		if err == nil {
 			log.Println("Take from Cache")
 			if err := conn.WriteMessage(messageType, cache); err != nil {
@@ -45,9 +52,6 @@ func reader(conn *websocket.Conn) {
 			}
 		} else {
 			log.Println("Set to Cache")
-			var payload Payload
-			json.Unmarshal([]byte(jsonData), &payload)
-
 			d := channelSwitch(payload)
 			result := Result{Channel: payload.Channel, Data: d}
 			marshaled, _ := json.Marshal(result)
@@ -57,7 +61,7 @@ func reader(conn *websocket.Conn) {
 				return
 			}
 
-			err = redisclient.Set(hash, marshaled)
+			err = redisclient.Set(key, marshaled)
 			if err != nil {
 				log.Println(err)
 			}
@@ -94,6 +98,13 @@ func ListenAndServe(w http.ResponseWriter, r *http.Request) {
 	reader(ws)
 }
 
-func generateHash(p []byte) string {
-	return strconv.Itoa(int(hash.Generate(string(p))))
+func generateCacheKey(channel string, data []byte) string {
+	s := strings.Split(channel, "/")
+	id := s[2]
+	hash := strconv.Itoa(int(hash.Generate(string(data))))
+
+	var buffer bytes.Buffer
+	buffer.WriteString(id)
+	buffer.WriteString(hash)
+	return buffer.String()
 }
