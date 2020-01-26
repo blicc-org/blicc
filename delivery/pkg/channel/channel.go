@@ -43,29 +43,36 @@ func reader(conn *websocket.Conn) {
 
 		key := generateCacheKey(payload.Channel, jsonData)
 
-		cache, err := redisclient.Get(key)
-		if err == nil {
-			log.Println("Take from Cache")
-			if err := conn.WriteMessage(messageType, cache); err != nil {
-				log.Println(err)
-				return
-			}
-		} else {
-			log.Println("Set to Cache")
-			d := channelSwitch(payload)
-			result := Result{Channel: payload.Channel, Data: d}
-			marshaled, _ := json.Marshal(result)
+		publishCache(conn, messageType, key)
+		go updatePublishSetCache(conn, messageType, key, payload)
+	}
+}
 
-			if err := conn.WriteMessage(messageType, marshaled); err != nil {
-				log.Println(err)
-				return
-			}
-
-			err = redisclient.Set(key, marshaled)
-			if err != nil {
-				log.Println(err)
-			}
+func publishCache(conn *websocket.Conn, messageType int, key string) {
+	cache, err := redisclient.Get(key)
+	if err == nil {
+		log.Println("Take from Cache")
+		if err := conn.WriteMessage(messageType, cache); err != nil {
+			log.Println(err)
+			return
 		}
+	}
+}
+
+func updatePublishSetCache(conn *websocket.Conn, messageType int, key string, payload Payload) {
+	log.Println("Fetch from api and set the cache")
+	d := channelSwitch(payload)
+	result := Result{Channel: payload.Channel, Data: d}
+	marshaled, _ := json.Marshal(result)
+
+	if err := conn.WriteMessage(messageType, marshaled); err != nil {
+		log.Println(err)
+		return
+	}
+
+	err := redisclient.Set(key, marshaled)
+	if err != nil {
+		log.Println(err)
 	}
 }
 
