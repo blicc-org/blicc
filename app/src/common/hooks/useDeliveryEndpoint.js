@@ -71,7 +71,7 @@ export function useDeliveryEndpoint() {
         )
       }
     },
-    [socket]
+    [state]
   )
 
   const subscribe = useCallback(
