@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/blicc-org/blicc/delivery/pkg/utils/mongoclient"
+
 	"github.com/blicc-org/blicc/delivery/pkg/channel"
 	"github.com/blicc-org/blicc/delivery/pkg/middleware/auth"
 	"github.com/blicc-org/blicc/delivery/pkg/middleware/logging"
-	"github.com/blicc-org/blicc/delivery/pkg/utils/connect"
 	"github.com/blicc-org/blicc/delivery/pkg/utils/flags"
 	"github.com/blicc-org/blicc/delivery/pkg/utils/generatedocs"
 )
@@ -26,7 +27,7 @@ func servePublicFolder() {
 
 func Start() {
 	generatedocs.GenerateDocs()
-	connect.ConnectToMongoDB()
+	mongoclient.Connect()
 
 	serveChannels()
 	servePublicFolder()

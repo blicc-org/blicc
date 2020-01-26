@@ -4,10 +4,13 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/blicc-org/blicc/delivery/pkg/channel/datadelivery"
 	"github.com/blicc-org/blicc/delivery/pkg/channel/forwarding"
+	"github.com/blicc-org/blicc/delivery/pkg/utils/hash"
+	"github.com/blicc-org/blicc/delivery/pkg/utils/redisclient"
 	"github.com/gorilla/websocket"
 )
 
@@ -31,21 +34,33 @@ func reader(conn *websocket.Conn) {
 	for {
 		messageType, jsonData, err := conn.ReadMessage()
 
-		if err != nil {
-			log.Println(err)
-			return
-		}
+		hash := generateHash(jsonData)
 
-		var payload Payload
-		json.Unmarshal([]byte(jsonData), &payload)
+		cache, err := redisclient.Get(hash)
+		if err == nil {
+			log.Println("Take from Cache")
+			if err := conn.WriteMessage(messageType, cache); err != nil {
+				log.Println(err)
+				return
+			}
+		} else {
+			log.Println("Set to Cache")
+			var payload Payload
+			json.Unmarshal([]byte(jsonData), &payload)
 
-		d := channelSwitch(payload)
-		result := Result{Channel: payload.Channel, Data: d}
-		marshaled, _ := json.Marshal(result)
+			d := channelSwitch(payload)
+			result := Result{Channel: payload.Channel, Data: d}
+			marshaled, _ := json.Marshal(result)
 
-		if err := conn.WriteMessage(messageType, marshaled); err != nil {
-			log.Println(err)
-			return
+			if err := conn.WriteMessage(messageType, marshaled); err != nil {
+				log.Println(err)
+				return
+			}
+
+			err = redisclient.Set(hash, marshaled)
+			if err != nil {
+				log.Println(err)
+			}
 		}
 	}
 }
@@ -77,4 +92,8 @@ func ListenAndServe(w http.ResponseWriter, r *http.Request) {
 
 	log.Println("Connection established...")
 	reader(ws)
+}
+
+func generateHash(p []byte) string {
+	return strconv.Itoa(int(hash.Generate(string(p))))
 }

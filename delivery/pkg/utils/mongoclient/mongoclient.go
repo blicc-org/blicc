@@ -1,4 +1,4 @@
-package connect
+package mongoclient
 
 import (
 	"context"
@@ -12,7 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
-func ConnectToMongoDB() {
+func Connect() {
 	GO_ENV := os.Getenv("GO_ENV")
 	MONGODB_PASSWORD := os.Getenv("MONGODB_PASSWORD")
 
