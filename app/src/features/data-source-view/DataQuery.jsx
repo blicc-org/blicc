@@ -1,12 +1,18 @@
 import React, { useRef, useState, useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { Tabs } from '../../common/components/ui'
+import { useMobile } from '../../common/hooks'
 import { useJsonHighlighter } from '../../common/hooks'
 import './DataQuery.scss'
 
 export function DataQuery({ input, output, query, setQuery }) {
+  const isMobile = useMobile()
   const highlighter = useJsonHighlighter()
   const ref = useRef()
   const [width, setWidth] = useState(0)
+
+  const tabs = ['Result from API fetch', 'Queried Data']
+  const [currentTab, setCurrentTab] = useState(tabs[0])
 
   function updateSize() {
     if (ref.current) {
@@ -53,13 +59,34 @@ export function DataQuery({ input, output, query, setQuery }) {
           />
         </div>
       </div>
+      {isMobile && (
+        <Tabs
+          tabs={tabs}
+          currentTab={currentTab}
+          setCurrentTab={setCurrentTab}
+        />
+      )}
       <div className="my-3 code-container" ref={ref}>
-        <div className="pr-2 item" style={{ width }}>
-          <HighlightedJson>{input}</HighlightedJson>
-        </div>
-        <div className="pl-2 item" style={{ width }}>
-          <HighlightedJson>{output}</HighlightedJson>
-        </div>
+        {isMobile ? (
+          <>
+            <div style={{ width: '100%' }}>
+              {currentTab === tabs[0] ? (
+                <HighlightedJson>{input}</HighlightedJson>
+              ) : (
+                <HighlightedJson>{output}</HighlightedJson>
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="pr-2 item" style={{ width }}>
+              <HighlightedJson>{input}</HighlightedJson>
+            </div>
+            <div className="pl-2 item" style={{ width }}>
+              <HighlightedJson>{output}</HighlightedJson>
+            </div>
+          </>
+        )}
       </div>
     </>
   )
