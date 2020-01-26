@@ -25,10 +25,12 @@ export function useDeliveryEndpoint() {
       sockets = new WebSocket(`${DELIVERY.ORIGIN}/connection`)
 
       sockets.onopen = () => {
+        console.log('WebSocket connection opened')
         setState(WebSocket.OPEN)
       }
 
       sockets.onclose = () => {
+        console.log('WebSocket connection closed')
         setState(WebSocket.CLOSED)
       }
 
