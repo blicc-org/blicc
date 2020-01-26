@@ -29,7 +29,7 @@ export function DashboardView({ match, location }) {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    if(ready && currentTab !== tabs[1])publishAll()
+    if (ready && currentTab !== tabs[1]) publishAll()
   }, [ready, currentTab])
 
   useEffect(() => {
