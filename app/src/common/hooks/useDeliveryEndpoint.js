@@ -61,10 +61,9 @@ export function useDeliveryEndpoint() {
     }
   }, [loggedIn, subscriberStack, state])
 
-  const publish = useCallback(
-    (channel, data) => socket.send(JSON.stringify({ channel, data })),
-    [state]
-  )
+  function publish(channel, data) {
+    socket.send(JSON.stringify({ channel, data }))
+  }
 
   const subscribe = useCallback(
     (channel, callback) => {
