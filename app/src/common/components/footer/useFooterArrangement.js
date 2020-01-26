@@ -31,6 +31,10 @@ export function useFooterArrangement() {
           title: 'OpenAPI 3.0 docs',
           link: 'https://api.blicc.org',
         },
+        {
+          title: 'Data Delivery docs',
+          link: 'https://delivery.blicc.org',
+        },
       ],
     },
     {
