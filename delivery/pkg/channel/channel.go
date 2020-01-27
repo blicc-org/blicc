@@ -41,12 +41,10 @@ func reader(conn *websocket.Conn) {
 		var payload Payload
 		json.Unmarshal([]byte(jsonData), &payload)
 
-		key := generateCacheKey(payload.Channel, jsonData)
-		log.Println("00")
-		publishCache(conn, messageType, key)
-		log.Println("01")
+		key := generateCacheKey(&payload.Channel, &jsonData)
+
+		go publishCache(conn, messageType, key)
 		go updatePublishSetCache(conn, messageType, key, payload)
-		log.Println("02")
 	}
 }
 
@@ -63,24 +61,20 @@ func publishCache(conn *websocket.Conn, messageType int, key string) {
 
 func updatePublishSetCache(conn *websocket.Conn, messageType int, key string, payload Payload) {
 	log.Println("Fetch from api and set the cache")
+
 	d := channelSwitch(payload)
-	log.Println("1")
 	result := Result{Channel: payload.Channel, Data: d}
-	log.Println("2")
+
 	marshaled, _ := json.Marshal(result)
-	log.Println("3")
 	if err := conn.WriteMessage(messageType, marshaled); err != nil {
-		log.Println("4")
 		log.Println(err)
 		return
 	}
-	log.Println("5")
+
 	err := redisclient.Set(key, marshaled)
-	log.Println("6")
 	if err != nil {
 		log.Println(err)
 	}
-	log.Println("7")
 }
 
 func channelSwitch(payload Payload) interface{} {
@@ -112,14 +106,15 @@ func ListenAndServe(w http.ResponseWriter, r *http.Request) {
 	reader(ws)
 }
 
-func generateCacheKey(channel string, data []byte) string {
-	s := strings.Split(channel, "/")
-	log.Println(channel)
+func generateCacheKey(channel *string, data *[]byte) string {
+	s := strings.Split(*channel, "/")
 	id := s[len(s)-1]
-	hash := strconv.Itoa(int(hash.Generate(string(data))))
-	log.Println(hash)
+
+	hash := strconv.Itoa(int(hash.Generate(string(*data))))
+
 	var buffer bytes.Buffer
 	buffer.WriteString(id)
 	buffer.WriteString(hash)
+
 	return buffer.String()
 }
