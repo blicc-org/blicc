@@ -43,16 +43,16 @@ func reader(conn *websocket.Conn) {
 
 		key := generateCacheKey(&payload.Channel, &jsonData)
 
-		go publishCache(conn, messageType, key)
+		publishCache(conn, &messageType, &key)
 		go updatePublishSetCache(conn, messageType, key, payload)
 	}
 }
 
-func publishCache(conn *websocket.Conn, messageType int, key string) {
-	cache, err := redisclient.Get(key)
+func publishCache(conn *websocket.Conn, messageType *int, key *string) {
+	cache, err := redisclient.Get(*key)
 	if err == nil {
 		log.Println("Take from Cache")
-		if err := conn.WriteMessage(messageType, cache); err != nil {
+		if err := conn.WriteMessage(*messageType, cache); err != nil {
 			log.Println(err)
 			return
 		}
