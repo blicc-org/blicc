@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"strings"
 
 	"github.com/jmespath/go-jmespath"
 )
@@ -18,7 +17,7 @@ type Data struct {
 func Handle(data Data) interface{} {
 	var d interface{}
 
-	data.Query = strings.Replace(data.Query, "`", "'", -1)
+	// data.Query = strings.Replace(data.Query, "`", "'", -1)
 	response, err := http.Get(data.Url)
 	if err != nil {
 		log.Println(err)
