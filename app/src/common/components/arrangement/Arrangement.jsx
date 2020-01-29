@@ -70,7 +70,11 @@ export function Arrangement({ edit }) {
 
   return useMemo(() => {
     return (
-      <div style={style} onDragOver={evt => evt.preventDefault()}>
+      <div
+        className="col px-0"
+        style={style}
+        onDragOver={evt => evt.preventDefault()}
+      >
         <Box arr={arr} onDrop={onDrop} edit={edit} isMobile={isMobile} />
       </div>
     )
