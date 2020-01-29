@@ -16,20 +16,6 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-var upgrader = websocket.Upgrader{
-	ReadBufferSize:  1024,
-	WriteBufferSize: 1024,
-	CheckOrigin: func(r *http.Request) bool {
-		if r.Header.Get("Origin") == os.Getenv("APP_ORIGIN") {
-			log.Printf("Upgrade to origin %s was successful!", os.Getenv("APP_ORIGIN"))
-			return true
-		} else {
-			log.Printf("Origin %s has to be %s ", r.Header.Get("Origin"), os.Getenv("APP_ORIGIN"))
-			return true
-		}
-	},
-}
-
 type Payload struct {
 	Channel string          `json:"channel"`
 	Data    json.RawMessage `json:"data"`
@@ -40,11 +26,39 @@ type Result struct {
 	Data    interface{} `json:"data"`
 }
 
+var upgrader = websocket.Upgrader{
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
+	CheckOrigin: func(r *http.Request) bool {
+		incomingOrigin := r.Header.Get("Origin")
+		expectedOrigin := os.Getenv("APP_ORIGIN")
+
+		if incomingOrigin == expectedOrigin {
+			log.Printf("Upgrade to origin %s was successful! \n", incomingOrigin)
+			return true
+		} else {
+			log.Printf("Origin %s is not allowed. Expected %s as origin. \n", incomingOrigin, expectedOrigin)
+			return true
+		}
+	},
+}
+
+func ListenAndServe(w http.ResponseWriter, r *http.Request) {
+	ws, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	log.Println("Connection established...")
+	reader(ws)
+}
+
 func reader(conn *websocket.Conn) {
 	for {
 		messageType, jsonData, err := conn.ReadMessage()
 		if err != nil {
-			log.Println("Error occurred while reading incoming message!")
+			log.Println("Error occurred by reading incoming message!")
 			log.Println(err)
 		}
 
@@ -68,61 +82,63 @@ func reader(conn *websocket.Conn) {
 
 func publishCache(conn *websocket.Conn, messageType *int, key *string) {
 	cache, err := redisclient.Get(*key)
-	if err == nil {
-		log.Println("Take from Cache")
-		log.Println(*messageType)
-		if err := conn.WriteMessage(*messageType, cache); err != nil {
-			log.Println(err)
-			return
-		}
+
+	if err != nil {
+		log.Printf("Not yet in cache: %s \n", err)
+		return
+	}
+
+	err = conn.WriteMessage(*messageType, cache)
+	if err != nil {
+		log.Printf("Error occurred by sending message back from cache: %s \n", err)
 	}
 }
 
 func updatePublishSetCache(conn *websocket.Conn, messageType int, key string, payload Payload) {
 	log.Println("Fetch from api and set the cache")
 
-	d := channelSwitch(payload)
+	d := fetchAndProcessData(payload)
 	result := Result{Channel: payload.Channel, Data: d}
 
-	marshaled, _ := json.Marshal(result)
-	if err := conn.WriteMessage(messageType, marshaled); err != nil {
-		log.Println(err)
+	marshaled, err := json.Marshal(result)
+	if err != nil {
+		log.Printf("Error occurred by marshalling json: %s \n", err)
+	}
+
+	err = conn.WriteMessage(messageType, marshaled)
+	if err != nil {
+		log.Printf("Error occured by sending data: %s \n", err)
 		return
 	}
 
-	err := redisclient.Set(key, marshaled)
+	err = redisclient.Set(key, marshaled)
 	if err != nil {
 		log.Println(err)
 	}
 }
 
-func channelSwitch(payload Payload) interface{} {
+func fetchAndProcessData(payload Payload) interface{} {
 	var d interface{}
 
 	if strings.Contains(payload.Channel, "/data-delivery") {
 		var data datadelivery.Data
-		json.Unmarshal(payload.Data, &data)
+		err := json.Unmarshal(payload.Data, &data)
+		if err != nil {
+			log.Printf("Error occurred by unmarshalling json: %s \n", err)
+		}
 		return datadelivery.Handle(data)
 	}
 
 	if strings.Contains(payload.Channel, "/forwarding") {
 		var data forwarding.Data
-		json.Unmarshal(payload.Data, &data)
+		err := json.Unmarshal(payload.Data, &data)
+		if err != nil {
+			log.Printf("Error occurred by unmarshalling json: %s \n", err)
+		}
 		return forwarding.Handle(data)
 	}
 
 	return d
-}
-
-func ListenAndServe(w http.ResponseWriter, r *http.Request) {
-	ws, err := upgrader.Upgrade(w, r, nil)
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
-	log.Println("Connection established...")
-	reader(ws)
 }
 
 func generateCacheKey(channel *string, data *[]byte) string {

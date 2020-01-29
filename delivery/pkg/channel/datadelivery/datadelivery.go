@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/jmespath/go-jmespath"
 )
@@ -14,21 +15,29 @@ type Data struct {
 	Query string
 }
 
+var httpWithResponse = &http.Client{Timeout: 10 * time.Second}
+
 func Handle(data Data) interface{} {
 	var d interface{}
 
-	// data.Query = strings.Replace(data.Query, "`", "'", -1)
-	response, err := http.Get(data.Url)
+	response, err := httpWithResponse.Get(data.Url)
 	if err != nil {
-		log.Println(err)
+		log.Printf("Error occurred by fetching the data from external api: %s \n", err)
 	}
 
-	res, _ := ioutil.ReadAll(response.Body)
-	json.Unmarshal([]byte(res), &d)
+	res, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		log.Printf("Error occurred by reading external api response: %s \n", err)
+	}
+
+	err = json.Unmarshal([]byte(res), &d)
+	if err != nil {
+		log.Printf("Error occurred by unmarshalling external api response: %s \n", err)
+	}
 
 	queried, err := jmespath.Search(data.Query, d)
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Error occurred by querying response with given query: %s \n", err)
 	}
 	return queried
 }
