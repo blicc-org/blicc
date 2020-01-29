@@ -5,7 +5,7 @@ export const { Consumer: QueryStackConsumer } = QueryStackContext
 
 export function QueryStackProvider({ children }) {
   const [queryStack, setQueryStack] = useState([])
-  
+
   return (
     <QueryStackContext.Provider value={[queryStack, setQueryStack]}>
       {children}
