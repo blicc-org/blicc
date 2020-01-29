@@ -7,6 +7,6 @@ export function useLanguage() {
   const [appState] = useContext(AppContext)
   const content = { de, en }
   let selected = en
-  if(appState && appState.language) selected = content[appState.language]
+  if (appState && appState.language) selected = content[appState.language]
   return selected
 }
