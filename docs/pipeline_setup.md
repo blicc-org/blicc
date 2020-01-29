@@ -16,4 +16,5 @@ REGISTRY_DOMAIN=registry.example.com
 REPO=example
 SSH_PRIVATE_KEY=ssh_private_key_string
 TEST_IP=0.0.0.0
+APP_ORIGIN=https://example.com
 ```

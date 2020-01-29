@@ -8,14 +8,14 @@ import { ModalProvider } from './ModalContext'
 import { DragProvider } from './DragContext'
 import { SettingsProvider } from './SettingsContext'
 import { ArrangementProvider } from './ArrangementContext'
-import { DataflowProvider } from './DataflowContext'
+import { QueryStackProvider } from './QueryStackContext'
 
 export function Provider({ children }) {
   return (
     <HelmetProvider>
       <AppProvider>
         <SettingsProvider>
-          <DataflowProvider>
+          <QueryStackProvider>
             <ArrangementProvider>
               <SubscriberProvider>
                 <SidebarProvider>
@@ -27,7 +27,7 @@ export function Provider({ children }) {
                 </SidebarProvider>
               </SubscriberProvider>
             </ArrangementProvider>
-          </DataflowProvider>
+          </QueryStackProvider>
         </SettingsProvider>
       </AppProvider>
     </HelmetProvider>

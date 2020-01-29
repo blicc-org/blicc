@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 
@@ -18,7 +19,15 @@ import (
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
-	CheckOrigin:     func(r *http.Request) bool { return true },
+	CheckOrigin: func(r *http.Request) bool {
+		if r.Header.Get("Origin") == os.Getenv("APP_ORIGIN") {
+			log.Printf("Upgrade to origin %s was successful!", os.Getenv("APP_ORIGIN"))
+			return true
+		} else {
+			log.Printf("Origin %s has to be %s ", r.Header.Get("Origin"), os.Getenv("APP_ORIGIN"))
+			return true
+		}
+	},
 }
 
 type Payload struct {
@@ -35,16 +44,25 @@ func reader(conn *websocket.Conn) {
 	for {
 		messageType, jsonData, err := conn.ReadMessage()
 		if err != nil {
+			log.Println("Error occurred while reading incoming message!")
 			log.Println(err)
 		}
 
-		var payload Payload
-		json.Unmarshal([]byte(jsonData), &payload)
+		if messageType == websocket.TextMessage {
+			log.Println("Successful message type text message!")
 
-		key := generateCacheKey(&payload.Channel, &jsonData)
+			var payload Payload
+			json.Unmarshal([]byte(jsonData), &payload)
 
-		publishCache(conn, &messageType, &key)
-		go updatePublishSetCache(conn, messageType, key, payload)
+			key := generateCacheKey(&payload.Channel, &jsonData)
+
+			publishCache(conn, &messageType, &key)
+			go updatePublishSetCache(conn, messageType, key, payload)
+		} else {
+			conn.Close()
+			log.Printf("wrong messageType: %d \n", messageType)
+			break
+		}
 	}
 }
 
@@ -52,6 +70,7 @@ func publishCache(conn *websocket.Conn, messageType *int, key *string) {
 	cache, err := redisclient.Get(*key)
 	if err == nil {
 		log.Println("Take from Cache")
+		log.Println(*messageType)
 		if err := conn.WriteMessage(*messageType, cache); err != nil {
 			log.Println(err)
 			return

@@ -52,6 +52,7 @@ services:
       - mongo
     environment:
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+      - APP_ORIGIN=${APP_ORIGIN}
     ports:
       - 8080:8080
   app:

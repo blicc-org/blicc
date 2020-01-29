@@ -2,6 +2,7 @@ import { useEffect, useState, useContext, useCallback } from 'react'
 import uuid from 'uuid'
 import { SubscriberContext, AppContext } from '../context'
 import { DELIVERY } from '../../config'
+import { QueryStackContext } from '../context/QueryStackContext'
 
 export let socket = null
 export let cache = []
@@ -14,6 +15,7 @@ export const WebSocketState = {
 }
 
 export function useDeliveryEndpoint() {
+  const [queryStack, setQueryStack] = useContext(QueryStackContext)
   const [subscriberStack, setSubscriberStack] = useContext(SubscriberContext)
   const [appState] = useContext(AppContext)
   const { loggedIn } = appState
@@ -26,10 +28,20 @@ export function useDeliveryEndpoint() {
       socket = new WebSocket(`${DELIVERY.ORIGIN}/connection`)
 
       socket.onopen = () => {
+        console.log("open")
+        console.log(queryStack)
+        Object.keys(queryStack).forEach(channel => {
+          console.log("something gets published")
+          const payload = JSON.stringify({ channel, data: queryStack[channel] })
+          console.log(payload)
+          socket.send(payload)
+        })
         setState(WebSocket.OPEN)
+        setQueryStack([])
       }
 
       socket.onclose = () => {
+        console.log("close")
         socket = null
         setState(WebSocket.CLOSED)
       }
@@ -41,6 +53,7 @@ export function useDeliveryEndpoint() {
 
     if (loggedIn && socket !== null) {
       socket.onmessage = evt => {
+        console.log("on message")
         const { channel, data } = JSON.parse(evt.data)
         cache[channel] = data
         if (channel && data && subscriberStack) {
@@ -59,15 +72,17 @@ export function useDeliveryEndpoint() {
         socket = null
       }
     }
-  }, [loggedIn, subscriberStack, state])
+  }, [loggedIn, subscriberStack, state, queryStack, setQueryStack])
 
   function publish(channel, data) {
     if (socket.readyState === WebSocket.OPEN) {
+      console.log("something gets published: ", JSON.stringify({ channel, data }))
       socket.send(JSON.stringify({ channel, data }))
     } else {
-      console.log(
-        `Cant publish on ${WebSocketState[socket.readyState]} connection.`
-      )
+      setQueryStack(prev => {
+        prev[channel] = data
+        return prev
+      })
     }
   }
 
