@@ -28,12 +28,8 @@ export function useDeliveryEndpoint() {
       socket = new WebSocket(`${DELIVERY.ORIGIN}/connection`)
 
       socket.onopen = () => {
-        console.log('open')
-        console.log(queryStack)
         Object.keys(queryStack).forEach(channel => {
-          console.log('something gets published')
           const payload = JSON.stringify({ channel, data: queryStack[channel] })
-          console.log(payload)
           socket.send(payload)
         })
         setState(WebSocket.OPEN)
@@ -41,7 +37,6 @@ export function useDeliveryEndpoint() {
       }
 
       socket.onclose = () => {
-        console.log('close')
         socket = null
         setState(WebSocket.CLOSED)
       }
@@ -53,7 +48,6 @@ export function useDeliveryEndpoint() {
 
     if (loggedIn && socket !== null) {
       socket.onmessage = evt => {
-        console.log('on message')
         const { channel, data } = JSON.parse(evt.data)
         cache[channel] = data
         if (channel && data && subscriberStack) {
@@ -76,10 +70,6 @@ export function useDeliveryEndpoint() {
 
   function publish(channel, data) {
     if (socket.readyState === WebSocket.OPEN) {
-      console.log(
-        'something gets published: ',
-        JSON.stringify({ channel, data })
-      )
       socket.send(JSON.stringify({ channel, data }))
     } else {
       setQueryStack(prev => {
