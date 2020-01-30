@@ -3,7 +3,6 @@ const de = {
   description:
     'Veranschauliche deine Daten mit individualisierbaren Dashboards',
   getStarted: 'Jetzt loslegen',
-  copyright: 'Open Source MIT Lizenz',
   navbar: {
     signin: 'Anmelden',
     logout: 'Abmelden',

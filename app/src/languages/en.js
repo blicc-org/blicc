@@ -2,7 +2,6 @@ const en = {
   title: 'Blicc',
   description: 'Visualize your data with customizable dashboards.',
   getStarted: 'Get started',
-  copyright: 'Open Source MIT license',
   navbar: {
     signin: 'Sign in',
     logout: 'Logout',
