@@ -29,6 +29,19 @@ export function Arrangement({ edit }) {
         height: '100%',
       }
 
+  const [showDataSourceModal, hideDataSourceModal] = useModal(() => {
+    return (
+      <SelectDataSourceModal
+        cancel={hideDataSourceModal}
+        submit={dataSourceId => {
+          insertSet(targetId, 'data_source', dataSourceId)
+          publishById(dataSourceId)
+          hideChartModal()
+        }}
+      />
+    )
+  }, [update, targetId])
+
   const [showChartModal, hideChartModal] = useModal(
     () => (
       <SelectChartModal
@@ -42,19 +55,6 @@ export function Arrangement({ edit }) {
     ),
     [update, targetId, action]
   )
-
-  const [showDataSourceModal, hideDataSourceModal] = useModal(() => {
-    return (
-      <SelectDataSourceModal
-        cancel={hideDataSourceModal}
-        submit={dataSourceId => {
-          insertSet(targetId, 'data_source', dataSourceId)
-          publishById(dataSourceId)
-          hideChartModal()
-        }}
-      />
-    )
-  }, [update, targetId])
 
   function onDrop(type, payload) {
     if (type === DRAG.CHART) {
