@@ -78,6 +78,12 @@
       "disabled": false
     },
     {
+      "icon": "route",
+      "extensions": ["route", "routes", "channel", "channels"],
+      "format": "FileFormat.svg",
+      "disabled": false
+    },
+    {
       "icon": "settings",
       "extensions": ["settings"],
       "format": "FileFormat.svg",
