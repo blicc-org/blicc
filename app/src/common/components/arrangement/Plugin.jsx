@@ -21,7 +21,7 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
   const [, , removeArr] = useArrangement()
   const [dragging] = useContext(DragContext)
   const [init, setInit] = useState(true)
-  const [unit, setUnit] = useState({ xAxis: UNIT.TIME, yAxis: UNIT.TIME })
+  const [unit, setUnit] = useState({ xAxis: UNIT.CATEGORY, yAxis: UNIT.NUMBER })
 
   const style = isMobile
     ? {
