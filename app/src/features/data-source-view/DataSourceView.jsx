@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
-import { useApiEndpoint, useModal } from '../../common/hooks'
+import {
+  useApiEndpoint,
+  useDeliveryEndpoint,
+  useModal,
+} from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DataSourceDetails } from './DataSourceDetails'
 import { ConfirmationModal, Tabs, PageHeader } from '../../common/components/ui'
@@ -20,7 +24,12 @@ export function DataSourceView({ match, location }) {
   const path = `/data-sources/${match.params.id}`
   const [, access, update, remove] = useApiEndpoint(path)
   const [dataSource, setDataSource] = useState(INITIAL)
+  const [publish, subscribe, state] = useDeliveryEndpoint()
+  const [input, setInput] = useState('')
+  const stringify = s => JSON.stringify(s, null, 4)
   const { id, title, description, data } = dataSource
+  const { url } = data
+  const channel = `/forwarding/${id}`
 
   const [redirect, setRedirect] = useState('')
   const [edit, setEdit] = useState(
@@ -29,6 +38,16 @@ export function DataSourceView({ match, location }) {
 
   const tabs = ['Data Source', 'Details']
   const [currentTab, setCurrentTab] = useState(tabs[0])
+
+  useEffect(() => {
+    if (state === WebSocket.OPEN && url) {
+      subscribe(channel, str => {
+        setInput(stringify(str))
+      })
+      publish(channel, { url })
+    }
+    // eslint-disable-next-line
+  }, [url, state])
 
   useEffect(() => {
     async function fetchData() {
@@ -81,7 +100,7 @@ export function DataSourceView({ match, location }) {
         />
         {currentTab === tabs[0] ? (
           <DataSource
-            id={id}
+            input={input}
             data={data}
             setData={d => setDataSource({ ...dataSource, data: d })}
           />
