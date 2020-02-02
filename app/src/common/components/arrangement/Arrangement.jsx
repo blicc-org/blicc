@@ -5,6 +5,7 @@ import {
   useSettings,
   usePublisher,
   useMobile,
+  ACTION,
 } from '../../hooks'
 import { SelectChartModal } from './SelectChartModal'
 import { SelectDataSourceModal } from './SelectDataSourceModal'
@@ -14,7 +15,7 @@ import { DRAG } from '../../context'
 export function Arrangement({ edit }) {
   const isMobile = useMobile()
   const [arr, insertArr] = useArrangement()
-  const [, insertSet] = useSettings()
+  const [accessSet, insertSet] = useSettings()
   const [targetId, setTargetId] = useState('')
   const [update, setUpdate] = useState(0)
   const trigger = () => setUpdate(prev => ++prev)
@@ -48,6 +49,10 @@ export function Arrangement({ edit }) {
         cancel={hideChartModal}
         submit={slug => {
           const id = insertArr(targetId, action)
+          if (action === ACTION.REPLACE) {
+            const dataSourceId = accessSet(targetId, 'data_source')
+            insertSet(id, 'data_source', dataSourceId)
+          }
           insertSet(id, 'chart_type', slug)
           hideChartModal()
         }}
