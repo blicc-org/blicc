@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/jmespath/go-jmespath"
@@ -19,6 +20,8 @@ var httpWithResponse = &http.Client{Timeout: 10 * time.Second}
 
 func Handle(data Data) interface{} {
 	var d interface{}
+
+	data.Url = strings.TrimSpace(data.Url)
 
 	response, err := httpWithResponse.Get(data.Url)
 	if err != nil {

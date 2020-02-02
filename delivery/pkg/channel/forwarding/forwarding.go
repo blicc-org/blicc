@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 )
 
 type Data struct {
@@ -13,6 +14,8 @@ type Data struct {
 
 func Handle(data Data) interface{} {
 	var d interface{}
+
+	data.Url = strings.TrimSpace(data.Url)
 
 	response, err := http.Get(data.Url)
 	if err != nil {
