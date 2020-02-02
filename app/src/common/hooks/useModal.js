@@ -10,7 +10,7 @@ export function useModal(content, references = []) {
     setShow(true)
   }
 
-  function hideModal(){
+  function hideModal() {
     hideModalHandler()
     setShow(false)
   }

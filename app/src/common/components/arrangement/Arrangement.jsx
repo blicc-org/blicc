@@ -20,7 +20,7 @@ export function Arrangement({ edit }) {
   const trigger = () => setUpdate(prev => ++prev)
   const [action, setAction] = useState(0)
   const [, publishById] = usePublisher()
-  
+
   const style = isMobile
     ? { height: '100%' }
     : {
@@ -43,21 +43,18 @@ export function Arrangement({ edit }) {
     [update, targetId, action]
   )
 
-  const [showDataSourceModal, hideDataSourceModal] = useModal(
-    () => {
-      return (
-        <SelectDataSourceModal
-          cancel={hideDataSourceModal}
-          submit={dataSourceId => {
-            insertSet(targetId, 'data_source', dataSourceId)
-            publishById(dataSourceId)
-            hideChartModal()
-          }}
-        />
-      )
-    },
-    [update, targetId]
-  )
+  const [showDataSourceModal, hideDataSourceModal] = useModal(() => {
+    return (
+      <SelectDataSourceModal
+        cancel={hideDataSourceModal}
+        submit={dataSourceId => {
+          insertSet(targetId, 'data_source', dataSourceId)
+          publishById(dataSourceId)
+          hideChartModal()
+        }}
+      />
+    )
+  }, [update, targetId])
 
   function onDrop(type, payload) {
     if (type === DRAG.CHART) {
@@ -65,7 +62,7 @@ export function Arrangement({ edit }) {
       setTargetId(id)
       setAction(action)
       showChartModal()
-    } else if(type === DRAG.DATA){
+    } else if (type === DRAG.DATA) {
       const { id = '' } = payload
       setTargetId(id)
       showDataSourceModal()
