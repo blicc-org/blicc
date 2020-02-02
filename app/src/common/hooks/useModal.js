@@ -2,12 +2,17 @@ import { useContext, useEffect, useState } from 'react'
 import { ModalContext } from '../context'
 
 export function useModal(content, references = []) {
-  const [showModalHandler, hideModal] = useContext(ModalContext)
+  const [showModalHandler, hideModalHandler] = useContext(ModalContext)
   const [show, setShow] = useState(false)
 
   function showModal() {
     showModalHandler(content)
     setShow(true)
+  }
+
+  function hideModal(){
+    hideModalHandler()
+    setShow(false)
   }
 
   useEffect(() => {
