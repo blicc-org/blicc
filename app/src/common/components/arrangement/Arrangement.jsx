@@ -15,7 +15,7 @@ import { DRAG } from '../../context'
 export function Arrangement({ edit }) {
   const isMobile = useMobile()
   const [arr, insertArr] = useArrangement()
-  const [accessSet, insertSet] = useSettings()
+  const [accessSet, insertSet, removeSet] = useSettings()
   const [targetId, setTargetId] = useState('')
   const [update, setUpdate] = useState(0)
   const trigger = () => setUpdate(prev => ++prev)
@@ -51,6 +51,7 @@ export function Arrangement({ edit }) {
           const id = insertArr(targetId, action)
           if (action === ACTION.REPLACE) {
             const dataSourceId = accessSet(targetId, 'data_source')
+            removeSet(targetId)
             insertSet(id, 'data_source', dataSourceId)
           }
           insertSet(id, 'chart_type', slug)
