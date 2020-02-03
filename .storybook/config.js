@@ -57,7 +57,7 @@ addDecorator(story => {
     ],
   }
 
-  data = dataWithDate
+  data = data
 
   const onDataUpdate = () => {}
   const settings = {}

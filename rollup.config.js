@@ -49,4 +49,12 @@ export default [
       format: 'esm',
     },
   },
+  {
+    ...config,
+    input: 'src/news.stories.js',
+    output: {
+      dir: 'build/bundles',
+      format: 'esm',
+    },
+  },
 ]
