@@ -1,4 +1,4 @@
-package generatedocs
+package apidocs
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"github.com/gomarkdown/markdown"
 )
 
-func GenerateDocs() {
+func Generate() {
 	pwd, _ := os.Getwd()
 
 	file, err := os.Open(pwd + "/docs/api-docs.md")

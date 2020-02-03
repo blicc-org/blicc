@@ -1,17 +1,21 @@
 package channel
 
 import (
-	"bytes"
 	"encoding/json"
 	"log"
 	"net/http"
 	"os"
-	"strconv"
 	"strings"
 
-	"github.com/blicc-org/blicc/delivery/pkg/utils/hash"
+	"github.com/blicc-org/blicc/delivery/pkg/channel/datadelivery"
+	"github.com/blicc-org/blicc/delivery/pkg/channel/forwarding"
 	"github.com/gorilla/websocket"
 )
+
+type Payload struct {
+	Channel string          `json:"channel"`
+	Data    json.RawMessage `json:"data"`
+}
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
@@ -52,30 +56,21 @@ func reader(conn *websocket.Conn) {
 		if messageType == websocket.TextMessage {
 			log.Println("Successful message type text message!")
 
-			var payload Payload
-			json.Unmarshal([]byte(jsonData), &payload)
+			var p Payload
+			json.Unmarshal(jsonData, &p)
 
-			key := generateCacheKey(&payload.Channel, &jsonData)
-
-			PublishCache(conn, &messageType, &key)
-			go UpdatePublishSetCache(conn, messageType, key, payload)
+			switch c := strings.Split(p.Channel, "/")[1]; c {
+			case "data-delivery":
+				datadelivery.Handle(conn, &p.Channel, &p.Data)
+			case "forwarding":
+				forwarding.Handle(conn, &p.Channel, &p.Data)
+			default:
+				log.Println("No channel is matching")
+			}
 		} else {
 			conn.Close()
 			log.Printf("wrong messageType: %d \n", messageType)
 			break
 		}
 	}
-}
-
-func generateCacheKey(channel *string, data *[]byte) string {
-	s := strings.Split(*channel, "/")
-	id := s[len(s)-1]
-
-	hash := strconv.Itoa(int(hash.Generate(string(*data))))
-
-	var buffer bytes.Buffer
-	buffer.WriteString(id)
-	buffer.WriteString(hash)
-
-	return buffer.String()
 }
