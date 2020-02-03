@@ -75,6 +75,7 @@ func reader(conn *websocket.Conn) {
 			}
 		} else {
 			conn.Close()
+			publisher = make(map[string]bool)
 			log.Printf("wrong messageType: %d \n", messageType)
 			break
 		}
