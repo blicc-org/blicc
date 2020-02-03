@@ -26,7 +26,10 @@ export function usePublisher() {
           url: `${API.ORIGIN}/data-sources/${id}`,
         })
         if (status === 200) {
-          await publish(`/data-delivery/${id}`, {...data.data, interval: 5000})
+          await publish(`/data-delivery/${id}`, {
+            ...data.data,
+            interval: 5000,
+          })
         }
       })
     }
@@ -37,7 +40,7 @@ export function usePublisher() {
       url: `${API.ORIGIN}/data-sources/${id}`,
     })
     if (status === 200) {
-      await publish(`/data-delivery/${id}`,  {...data.data, interval: 5000})
+      await publish(`/data-delivery/${id}`, { ...data.data, interval: 5000 })
     }
   }
 
