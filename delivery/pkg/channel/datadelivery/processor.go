@@ -14,8 +14,6 @@ func Process(data Data) interface{} {
 
 	data.Url = strings.TrimSpace(data.Url)
 
-	log.Println(data.Interval)
-
 	response, err := httpWithResponse.Get(data.Url)
 	if err != nil {
 		log.Printf("Error occurred by fetching the data from external api: %s \n", err)

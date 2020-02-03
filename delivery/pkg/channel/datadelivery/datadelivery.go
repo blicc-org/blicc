@@ -34,6 +34,16 @@ func run(conn *websocket.Conn, channel string, key string, payload json.RawMessa
 		log.Printf("Error occurred by unmarshalling json: %s \n", err)
 	}
 
+	updateTicker := time.NewTicker(time.Duration(data.Interval) * time.Millisecond)
+
+	for {
+		<-updateTicker.C
+		go runInterval(conn, channel, key, data)
+	}
+}
+
+func runInterval(conn *websocket.Conn, channel string, key string, data Data) {
+	log.Println("Update data on interval")
 	var d = Process(data)
 	socketutil.WriteToConnSetCache(conn, &key, &channel, &d)
 }
