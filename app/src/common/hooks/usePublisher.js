@@ -8,6 +8,7 @@ export function usePublisher() {
   const [settings] = useContext(SettingsContext)
   const [publish] = useDeliveryEndpoint()
   const [, access] = useApiEndpoint()
+  const interval = 5000 // live time update interval
 
   function retrieveIds() {
     const set = {}
@@ -28,7 +29,7 @@ export function usePublisher() {
         if (status === 200) {
           await publish(`/data-delivery/${id}`, {
             ...data.data,
-            interval: 5000,
+            interval,
           })
         }
       })
@@ -40,7 +41,7 @@ export function usePublisher() {
       url: `${API.ORIGIN}/data-sources/${id}`,
     })
     if (status === 200) {
-      await publish(`/data-delivery/${id}`, { ...data.data, interval: 5000 })
+      await publish(`/data-delivery/${id}`, { ...data.data, interval })
     }
   }
 
