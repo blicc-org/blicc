@@ -39,11 +39,11 @@ func run(conn *websocket.Conn, channel string, key string, payload json.RawMessa
 	errors := make(chan error)
 
 	if publisher[channel] {
-		go runInterval(conn, channel, key, data, errors)
+		go exec(conn, channel, key, data, errors)
 	} else {
 		publisher[channel] = true
 		for {
-			go runInterval(conn, channel, key, data, errors)
+			go exec(conn, channel, key, data, errors)
 			select {
 			case err = <-errors:
 				if strings.Contains(err.Error(), "close sent") {
@@ -57,7 +57,7 @@ func run(conn *websocket.Conn, channel string, key string, payload json.RawMessa
 	}
 }
 
-func runInterval(conn *websocket.Conn, channel string, key string, data Data, errors chan<- error) {
+func exec(conn *websocket.Conn, channel string, key string, data Data, errors chan<- error) {
 	log.Println("Update data on interval")
 	var d = Process(data)
 	err := socketutil.WriteToConnSetCache(conn, &key, &channel, &d)
