@@ -1,11 +1,15 @@
 package channel
 
 import (
+	"bytes"
 	"encoding/json"
 	"log"
 	"net/http"
 	"os"
+	"strconv"
+	"strings"
 
+	"github.com/blicc-org/blicc/delivery/pkg/utils/hash"
 	"github.com/gorilla/websocket"
 )
 
@@ -51,7 +55,7 @@ func reader(conn *websocket.Conn) {
 			var payload Payload
 			json.Unmarshal([]byte(jsonData), &payload)
 
-			key := GenerateCacheKey(&payload.Channel, &jsonData)
+			key := generateCacheKey(&payload.Channel, &jsonData)
 
 			PublishCache(conn, &messageType, &key)
 			go UpdatePublishSetCache(conn, messageType, key, payload)
@@ -61,4 +65,17 @@ func reader(conn *websocket.Conn) {
 			break
 		}
 	}
+}
+
+func generateCacheKey(channel *string, data *[]byte) string {
+	s := strings.Split(*channel, "/")
+	id := s[len(s)-1]
+
+	hash := strconv.Itoa(int(hash.Generate(string(*data))))
+
+	var buffer bytes.Buffer
+	buffer.WriteString(id)
+	buffer.WriteString(hash)
+
+	return buffer.String()
 }

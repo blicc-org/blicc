@@ -1,15 +1,12 @@
 package channel
 
 import (
-	"bytes"
 	"encoding/json"
 	"log"
-	"strconv"
 	"strings"
 
 	"github.com/blicc-org/blicc/delivery/pkg/channel/datadelivery"
 	"github.com/blicc-org/blicc/delivery/pkg/channel/forwarding"
-	"github.com/blicc-org/blicc/delivery/pkg/utils/hash"
 	"github.com/blicc-org/blicc/delivery/pkg/utils/redisclient"
 	"github.com/gorilla/websocket"
 )
@@ -59,19 +56,6 @@ func UpdatePublishSetCache(conn *websocket.Conn, messageType int, key string, pa
 	if err != nil {
 		log.Println(err)
 	}
-}
-
-func GenerateCacheKey(channel *string, data *[]byte) string {
-	s := strings.Split(*channel, "/")
-	id := s[len(s)-1]
-
-	hash := strconv.Itoa(int(hash.Generate(string(*data))))
-
-	var buffer bytes.Buffer
-	buffer.WriteString(id)
-	buffer.WriteString(hash)
-
-	return buffer.String()
 }
 
 func fetchAndProcessData(payload Payload) interface{} {

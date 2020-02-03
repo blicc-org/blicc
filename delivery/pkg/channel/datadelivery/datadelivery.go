@@ -12,8 +12,9 @@ import (
 )
 
 type Data struct {
-	Url   string
-	Query string
+	Url      string
+	Interval int32
+	Query    string
 }
 
 var httpWithResponse = &http.Client{Timeout: 10 * time.Second}
@@ -22,6 +23,8 @@ func Handle(data Data) interface{} {
 	var d interface{}
 
 	data.Url = strings.TrimSpace(data.Url)
+
+	log.Println(data.Interval)
 
 	response, err := httpWithResponse.Get(data.Url)
 	if err != nil {
