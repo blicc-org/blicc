@@ -6,7 +6,6 @@ export function DashboardDetails({
   edit,
   title,
   setTitle,
-  userId,
   creationDate,
   description,
   setDescription,

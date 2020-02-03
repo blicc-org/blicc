@@ -82,7 +82,7 @@ export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
             </tr>
             <tr>
               <td>
-                <b>Fetch frequency:</b>
+                <b>Persist interval:</b>
               </td>
               <td>
                 {edit ? (
