@@ -46,6 +46,8 @@ func ListenAndServe(w http.ResponseWriter, r *http.Request) {
 }
 
 func reader(conn *websocket.Conn) {
+	publisher := make(map[string]bool)
+
 	for {
 		messageType, jsonData, err := conn.ReadMessage()
 		if err != nil {
@@ -59,9 +61,13 @@ func reader(conn *websocket.Conn) {
 			var p Payload
 			json.Unmarshal(jsonData, &p)
 
+			if _, ok := publisher[p.Channel]; !ok {
+				publisher[p.Channel] = false
+			}
+
 			switch c := strings.Split(p.Channel, "/")[1]; c {
 			case "data-delivery":
-				datadelivery.Handle(conn, &p.Channel, &p.Data)
+				datadelivery.Handle(conn, &p.Channel, &p.Data, publisher)
 			case "forwarding":
 				forwarding.Handle(conn, &p.Channel, &p.Data)
 			default:
