@@ -20,30 +20,39 @@ type Data struct {
 
 var httpWithResponse = &http.Client{Timeout: 10 * time.Second}
 
-func Handle(conn *websocket.Conn, channel *string, payload *json.RawMessage, publisher map[string]bool) {
-	key := cachekey.Generate(channel, payload)
+func Handle(conn *websocket.Conn, channel *string, updating map[string]bool, data map[string]json.RawMessage) {
+	payload := data[*channel]
+	key := cachekey.Generate(channel, &payload)
 
 	socketutil.WriteCacheToConn(conn, &key)
-	go run(conn, *channel, key, *payload, publisher)
+	go run(conn, *channel, key, updating, data)
 }
 
-func run(conn *websocket.Conn, channel string, key string, payload json.RawMessage, publisher map[string]bool) {
-	var data Data
-	err := json.Unmarshal(payload, &data)
+func run(conn *websocket.Conn, channel string, key string, updating map[string]bool, data map[string]json.RawMessage) {
+	var d Data
+	payload := data[channel]
+	err := json.Unmarshal(payload, &d)
 
 	if err != nil {
 		log.Printf("Error occurred by unmarshalling json: %s \n", err)
 	}
 
-	updateTicker := time.NewTicker(time.Duration(data.Interval) * time.Millisecond)
+	updateTicker := time.NewTicker(time.Duration(d.Interval) * time.Millisecond)
 	errors := make(chan error)
 
-	if publisher[channel] {
-		go exec(conn, channel, key, data, errors)
+	if updating[channel] {
+		go exec(conn, channel, key, d, errors)
 	} else {
-		publisher[channel] = true
+		updating[channel] = true
 		for {
-			go exec(conn, channel, key, data, errors)
+			var d Data
+			payload := data[channel]
+			err := json.Unmarshal(payload, &d)
+
+			if err != nil {
+				log.Printf("Error occurred by unmarshalling json: %s \n", err)
+			}
+			go exec(conn, channel, key, d, errors)
 			select {
 			case err = <-errors:
 				if strings.Contains(err.Error(), "close sent") {
