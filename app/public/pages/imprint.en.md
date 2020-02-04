@@ -1,12 +1,8 @@
-## Impressum
+## Imprint
 
 Diese Website wird von **Blicc** betrieben. Das Unternehmen wird gesetzlich durch den Geschäftsführer Thilo Ilg vertreten.
 
-#### Registrierung
-**Steuernummer:** 32/357/00686 (Finanzamt Lichtenberg)  
-**USt-IdNr.:** DE306142970
-
-### Postadresse
+### Address
 
 **Thilo Ilg**  
 Giselastr. 37  
