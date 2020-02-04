@@ -4,7 +4,7 @@
   height="100"
   viewBox="0 0 100 100"
 >
-  <g fill="#f39900">
+  <g fill="#0a9ee3">
     <rect width="20" height="20" x="10" y="70"></rect>
     <rect width="20" height="50" x="40" y="40"></rect>
     <rect width="20" height="80" x="70" y="10"></rect>
