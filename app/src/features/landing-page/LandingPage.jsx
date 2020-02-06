@@ -1,10 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {
-  useLanguage,
-  useDeliveryEndpoint,
-  useFeatures,
-} from '../../common/hooks'
+import { useLanguage, useDeliveryEndpoint } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { ReactComponent as Logo } from '../../assets/img/Logo.svg'
 
@@ -13,8 +9,6 @@ export function LandingPage() {
   const title = 'Blicc'
   const description = 'Visualize your data with customizable dashboards.'
   const path = '/'
-
-  const [isInstalled] = useFeatures()
 
   // close websocket connection on logged out
   useDeliveryEndpoint()
@@ -30,7 +24,6 @@ export function LandingPage() {
           {content.getStarted}
         </Link>
       </div>
-      {isInstalled && 'ITS WORKING!!!!'}
     </>
   )
 }

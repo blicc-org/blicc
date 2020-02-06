@@ -15,7 +15,7 @@ import { Charts } from './features/charts/Charts'
 import { ChartView } from './features/chart-view/ChartView'
 import { TwoFactorAuth } from './features/two-factor-auth/TwoFactorAuth'
 import { ProtectedRoute } from './common/components/protected-route/ProtectedRoute'
-import { MobileNavigation } from './common/components/mobile-navigation/MobileNavigation'
+import { NativeNavigation } from './common/components/native-navigation/NativeNavigation'
 import { Provider } from './common/context'
 import { Header } from './common/components/header/Header'
 import { Main } from './common/components/main/Main'
@@ -49,7 +49,7 @@ export function App() {
             <Route component={NotFound} />
           </Switch>
         </Main>
-        <MobileNavigation />
+        <NativeNavigation />
       </Router>
     </Provider>
   )

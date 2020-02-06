@@ -6,18 +6,24 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 50px;
+  height: 45px;
   border-top-style: solid;
   border-top-width: 1px;
   border-top-color: $lightgray;
-  background-color: $light;
+  background-color: white;
 }
 
 .mobile-navigation a {
   color: $gray;
+  text-align: center;
+  padding: 0px;
 }
 
-.bumper {
-  position: static;
-  height: 50px;
+.mobile-navigation svg {
+  margin-top: 2px;
+  padding-top: 2px;
+}
+
+.mobile-navigation p {
+  line-height: 14px;
 }

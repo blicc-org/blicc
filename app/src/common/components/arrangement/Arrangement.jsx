@@ -5,6 +5,7 @@ import {
   useSettings,
   usePublisher,
   useMobile,
+  useInstalled,
   ACTION,
 } from '../../hooks'
 import { SelectChartModal } from './SelectChartModal'
@@ -14,6 +15,7 @@ import { DRAG } from '../../context'
 
 export function Arrangement({ edit }) {
   const isMobile = useMobile()
+  const isInstalled = useInstalled()
   const [arr, insertArr] = useArrangement()
   const [accessSet, insertSet, removeSet] = useSettings()
   const [targetId, setTargetId] = useState('')
@@ -84,7 +86,7 @@ export function Arrangement({ edit }) {
         onDragOver={evt => evt.preventDefault()}
       >
         <Box arr={arr} onDrop={onDrop} edit={edit} isMobile={isMobile} />
-        <div style={isMobile ? { height: '60px' } : {}} />
+        <div style={isMobile && isInstalled ? { height: '60px' } : {}} />
       </div>
     )
     // eslint-disable-next-line
