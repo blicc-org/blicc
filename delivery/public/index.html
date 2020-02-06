@@ -1,32 +1,28 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-  </head>
 
-  <body>
-    <h1>Publish–Subscribe Data Delivery API v0.1.1</h1>
+<head>
 
-    <p>
-      The api provides you a fast access to your data api. The api aspects
-      queries in the
-      <a href="http://jmespath.org/specification.html">JMESPath Specification</a
-      >.
-    </p>
+<link rel='stylesheet' type='text/css' href='style.css'>
 
-    <h2>Data Delivery</h2>
+</head>
 
-    <p>
-      Fetches data from api and queries JSON response with jmespath query (Uses
-      cache first, then send update message).
-    </p>
+<body>
 
-    <h4>publish: /data-delivery/:id</h4>
+<h1>Publish–Subscribe Data Delivery API v0.1.1</h1>
 
-    <p>Message payload:</p>
+<p>The api provides you a fast access to your data api. The api aspects queries in the <a href="http://jmespath.org/specification.html">JMESPath Specification</a>.</p>
 
-    <pre><code class="language-jsx">{
+<h2>Data Delivery</h2>
+
+<p>Fetches data from api and queries JSON response with jmespath query (Uses cache first, then send update message).</p>
+
+<h4>publish: /data-delivery/:id</h4>
+
+<p>Message payload:</p>
+
+<pre><code class="language-jsx">{
     &quot;channel&quot;: &quot;/data-delivery/a1aMczof&quot;,
     &quot;data&quot;: {
         &quot;url&quot;: &quot;https://api.example.com/data&quot;,
@@ -36,11 +32,11 @@
 }
 </code></pre>
 
-    <h4>subscribe: /data-delivery/:id</h4>
+<h4>subscribe: /data-delivery/:id</h4>
 
-    <p>Message payload:</p>
+<p>Message payload:</p>
 
-    <pre><code class="language-jsx">{
+<pre><code class="language-jsx">{
     &quot;channel&quot;: &quot;/data-delivery/a1aMczof&quot;,
     &quot;data&quot;: {
         &quot;labels&quot;: [
@@ -60,15 +56,15 @@
 }
 </code></pre>
 
-    <h2>Forwarding</h2>
+<h2>Forwarding</h2>
 
-    <p>Forwards api request to prevent CORS issues.</p>
+<p>Forwards api request to prevent CORS issues.</p>
 
-    <h4>publish: /forwarding/:id</h4>
+<h4>publish: /forwarding/:id</h4>
 
-    <p>Message payload:</p>
+<p>Message payload:</p>
 
-    <pre><code class="language-jsx">{
+<pre><code class="language-jsx">{
     &quot;channel&quot;: &quot;/forwarding/a1aMczof&quot;,
     &quot;data&quot;: {
         &quot;url&quot;: &quot;https://api.example.com/data&quot;
@@ -76,16 +72,19 @@
 }
 </code></pre>
 
-    <h4>subscribe: /forwarding/:id</h4>
+<h4>subscribe: /forwarding/:id</h4>
 
-    <p>Message payload:</p>
+<p>Message payload:</p>
 
-    <pre><code class="language-jsx">{
+<pre><code class="language-jsx">{
     &quot;channel&quot;: &quot;/forwarding/a1aMczof&quot;,
     &quot;data&quot;: {
         &quot;content&quot;: &quot;content from api request&quot;
     }
 }
 </code></pre>
-  </body>
+
+
+</body>
+
 </html>

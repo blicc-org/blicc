@@ -24,6 +24,7 @@ export function LandingPage() {
           {content.getStarted}
         </Link>
       </div>
+      {window.matchMedia('(display-mode: standalone)').matches && "INSTALLED APP"}
     </>
   )
 }
