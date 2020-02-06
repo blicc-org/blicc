@@ -1,20 +1,22 @@
 import React, { useState, useRef } from 'react'
 import { Plus, PieChart, Database } from 'react-feather'
-import { useClickAway, useMobile } from '../../hooks'
+import { useClickAway, useMobile, useInstalled } from '../../hooks'
 import { Selector } from './Selector'
 import { DRAG } from '../../context'
 import './Toolbox.scss'
 
 export function Toolbox() {
   const isMobile = useMobile()
+  const isInstalled = useInstalled()
   const [show, setShow] = useState(false)
   const ref = useRef()
   useClickAway(ref, () => setShow(false), 'prevent-toolnox-click-away')
   let rotation = show ? -135 : 0
 
-  const style = isMobile
-    ? { right: '40px', bottom: '82px' }
-    : { right: '40px', bottom: '40px' }
+  const style =
+    isMobile && isInstalled
+      ? { right: '40px', bottom: '82px' }
+      : { right: '40px', bottom: '40px' }
 
   return (
     <>

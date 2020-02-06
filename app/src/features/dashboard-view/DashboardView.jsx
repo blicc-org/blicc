@@ -7,6 +7,7 @@ import {
   useModal,
   usePublisher,
   useMobile,
+  useInstalled,
 } from '../../common/hooks'
 import { ArrangementContext, SettingsContext } from '../../common/context'
 import { MetaData } from '../../common/components/meta-data/MetaData'
@@ -32,10 +33,12 @@ export function DashboardView({ match, location }) {
   const [currentTab, setCurrentTab] = useState(tabs[0])
   const [publishAll] = usePublisher()
   const isMobile = useMobile()
+  const isInstalled = useInstalled()
 
-  const style = isMobile
-    ? { height: window.innerHeight - 90 }
-    : { height: window.innerHeight - 40 }
+  const style =
+    isMobile && isInstalled
+      ? { height: window.innerHeight - 90 }
+      : { height: window.innerHeight - 40 }
 
   useEffect(() => {
     publishAll()
