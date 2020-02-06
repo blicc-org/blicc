@@ -38,7 +38,7 @@
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "theme_color": "#ffffff",
+  "theme_color": "#212529",
   "background_color": "#ffffff",
   "serviceworker": {
     "src": "serviceWorker.js",
