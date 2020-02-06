@@ -84,6 +84,7 @@ export function Arrangement({ edit }) {
         onDragOver={evt => evt.preventDefault()}
       >
         <Box arr={arr} onDrop={onDrop} edit={edit} isMobile={isMobile} />
+        <div style={isMobile ? { height: '60px' } : {}} />
       </div>
     )
     // eslint-disable-next-line
