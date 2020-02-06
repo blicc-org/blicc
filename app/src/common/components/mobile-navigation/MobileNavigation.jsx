@@ -5,13 +5,14 @@ import { useMobile } from '../../hooks'
 import './MobileNavigation.scss'
 
 export function MobileNavigation() {
+  const minHeightForMobileNav = 450
   const isMobile = useMobile()
-  const getRatio = () => window.innerHeight / window.innerWidth
-  const [isProperHeight, setIsProperHeight] = useState(getRatio() > 1)
+  const isProperHeight = () => window.innerHeight > minHeightForMobileNav
+  const [hide, setHide] = useState(isProperHeight())
 
   useEffect(() => {
     function handleResize() {
-      setIsProperHeight(getRatio() > 1)
+      setHide(isProperHeight())
     }
 
     window.addEventListener('resize', handleResize)
@@ -20,7 +21,7 @@ export function MobileNavigation() {
 
   return (
     <>
-      {isMobile && isProperHeight && (
+      {isMobile && hide && (
         <>
           <div className="mobile-navigation">
             <ul className="nav flex-row justify-content-around py-1">
