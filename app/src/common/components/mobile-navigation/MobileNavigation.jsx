@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import { Layout, PieChart, Database } from 'react-feather'
 import { useMobile } from '../../hooks'
@@ -6,9 +6,21 @@ import './MobileNavigation.scss'
 
 export function MobileNavigation() {
   const isMobile = useMobile()
+  const getRatio = () => window.innerHeight / window.innerWidth
+  const [isProperHeight, setIsProperHeight] = useState(getRatio() > 1)
+
+  useEffect(() => {
+    function handleResize() {
+      setIsProperHeight(getRatio() > 1)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <>
-      {isMobile && (
+      {isMobile && isProperHeight && (
         <>
           <div className="mobile-navigation">
             <ul className="nav flex-row justify-content-around py-1">
