@@ -35,7 +35,7 @@
     }
   ],
   "scope": "/",
-  "start_url": "/pwa",
+  "start_url": "/installed",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#212529",

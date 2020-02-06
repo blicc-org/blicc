@@ -9,26 +9,29 @@ import { DragProvider } from './DragContext'
 import { SettingsProvider } from './SettingsContext'
 import { ArrangementProvider } from './ArrangementContext'
 import { QueryStackProvider } from './QueryStackContext'
+import { FeatureProvider } from './FeatureContext'
 
 export function Provider({ children }) {
   return (
     <HelmetProvider>
       <AppProvider>
-        <SettingsProvider>
-          <QueryStackProvider>
-            <ArrangementProvider>
-              <SubscriberProvider>
-                <SidebarProvider>
-                  <ToastProvider>
-                    <ModalProvider>
-                      <DragProvider>{children}</DragProvider>
-                    </ModalProvider>
-                  </ToastProvider>
-                </SidebarProvider>
-              </SubscriberProvider>
-            </ArrangementProvider>
-          </QueryStackProvider>
-        </SettingsProvider>
+        <FeatureProvider>
+          <SettingsProvider>
+            <QueryStackProvider>
+              <ArrangementProvider>
+                <SubscriberProvider>
+                  <SidebarProvider>
+                    <ToastProvider>
+                      <ModalProvider>
+                        <DragProvider>{children}</DragProvider>
+                      </ModalProvider>
+                    </ToastProvider>
+                  </SidebarProvider>
+                </SubscriberProvider>
+              </ArrangementProvider>
+            </QueryStackProvider>
+          </SettingsProvider>
+        </FeatureProvider>
       </AppProvider>
     </HelmetProvider>
   )
