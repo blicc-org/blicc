@@ -1,17 +1,17 @@
 @import '../../../Theme';
 
-.mobile-navigation{
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 50px;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: $lightgray;
-    background-color: $light;
+.mobile-navigation {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: $lightgray;
+  background-color: $light;
 }
 
 .mobile-navigation a {
-    color: $gray;
+  color: $gray;
 }
