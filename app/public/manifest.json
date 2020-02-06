@@ -35,7 +35,7 @@
     }
   ],
   "scope": "/",
-  "start_url": "/",
+  "start_url": "/pwa",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#212529",

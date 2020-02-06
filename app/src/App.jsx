@@ -19,6 +19,7 @@ import { MobileNavigation } from './common/components/mobile-navigation/MobileNa
 import { Provider } from './common/context'
 import { Header } from './common/components/header/Header'
 import { Main } from './common/components/main/Main'
+import { Pwa } from './features/pwa/Pwa'
 import './App.scss'
 
 export function App() {
@@ -29,6 +30,7 @@ export function App() {
         <Main>
           <Switch>
             <Route path="/" exact component={LandingPage} />
+            <Route path="/pwa" component={Pwa} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/pages" component={PageGenerator} />
