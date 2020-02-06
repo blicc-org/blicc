@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Layout, PieChart, Database } from 'react-feather'
 import { useMobile } from '../../hooks'
