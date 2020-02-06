@@ -2,7 +2,12 @@ import React, { useEffect, useState, useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { Redirect } from 'react-router-dom'
 import { Arrangement } from '../../common/components/arrangement/Arrangement'
-import { useApiEndpoint, useModal, usePublisher } from '../../common/hooks'
+import {
+  useApiEndpoint,
+  useModal,
+  usePublisher,
+  useMobile,
+} from '../../common/hooks'
 import { ArrangementContext, SettingsContext } from '../../common/context'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DashboardDetails } from './DashboardDetails'
@@ -26,6 +31,11 @@ export function DashboardView({ match, location }) {
   const tabs = ['Dashboard', 'Details']
   const [currentTab, setCurrentTab] = useState(tabs[0])
   const [publishAll] = usePublisher()
+  const isMobile = useMobile()
+
+  const style = isMobile
+    ? { height: window.innerHeight - 90 }
+    : { height: window.innerHeight - 40 }
 
   useEffect(() => {
     publishAll()
@@ -83,7 +93,7 @@ export function DashboardView({ match, location }) {
     <>
       {redirect && <Redirect to={redirect} />}
       <MetaData title={title} description={description} path={path} />
-      <div className="container-fluid dashboard">
+      <div className="container-fluid dashboard" style={style}>
         <PageHeader edit={edit} title={title} onClick={onClick} />
         <Tabs
           tabs={tabs}

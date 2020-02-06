@@ -1,6 +1,7 @@
 @import '../../../Theme';
 
 .mobile-navigation {
+  z-index: 4;
   position: fixed;
   left: 0;
   right: 0;
@@ -10,8 +11,14 @@
   border-top-width: 1px;
   border-top-color: $lightgray;
   background-color: $light;
+  padding-right: 40px;
 }
 
 .mobile-navigation a {
   color: $gray;
+}
+
+.bumper {
+  position: static;
+  height: 50px;
 }
