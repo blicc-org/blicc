@@ -91,7 +91,7 @@
     },
     {
       "icon": "android",
-      "extensions": ["android",".well-known"],
+      "extensions": ["android", ".well-known"],
       "format": "FileFormat.svg",
       "disabled": true
     }
