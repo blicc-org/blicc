@@ -88,6 +88,12 @@
       "extensions": ["settings"],
       "format": "FileFormat.svg",
       "disabled": true
+    },
+    {
+      "icon": "android",
+      "extensions": ["android",".well-known"],
+      "format": "FileFormat.svg",
+      "disabled": true
     }
   ]
 }
