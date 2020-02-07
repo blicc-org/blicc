@@ -96,7 +96,7 @@ export function Sidebar({ open }) {
           <div className="sidebar-close-native" style={{ width: sidebarWidth }}>
             <a onClick={close}>
               <p className="text-muted float-right">
-                Close
+                Close Sidebar
                 <ChevronsLeft size={24} className="feather" />
               </p>
             </a>
