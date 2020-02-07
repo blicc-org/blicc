@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { Layout, PieChart, Database } from 'react-feather'
+import { Layout, PieChart, Database, ChevronsRight } from 'react-feather'
 import { useMobile, useInstalled } from '../../hooks'
+import { SidebarContext } from '../../context'
 import './NativeNavigation.scss'
 
 export function NativeNavigation() {
@@ -10,6 +11,9 @@ export function NativeNavigation() {
   const isInstalled = useInstalled()
   const isProperHeight = () => window.innerHeight > minHeightForMobileNav
   const [show, setShow] = useState(isProperHeight())
+  const [sidebarState, setSidebarState] = useContext(SidebarContext)
+  const { open } = sidebarState
+  const toggle = () => setSidebarState(prev => ({ ...prev, open: !open }))
 
   useEffect(() => {
     function handleResize() {
@@ -19,12 +23,19 @@ export function NativeNavigation() {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
-
   return (
     <>
       {isMobile && show && isInstalled && (
         <div className="mobile-navigation">
           <ul className="nav flex-row justify-content-around">
+            <li className="nav-item">
+              <a className="nav-link" onClick={toggle}>
+                <ChevronsRight className="feather" />
+                <p>
+                  <small>Sidebar</small>
+                </p>
+              </a>
+            </li>
             <li className="nav-item">
               <Link className="nav-link" to="/dashboards">
                 <Layout className="feather" />

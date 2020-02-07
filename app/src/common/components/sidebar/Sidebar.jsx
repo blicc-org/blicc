@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { Layout, PieChart, Database } from 'react-feather'
+import { Layout, PieChart, Database, ChevronsLeft } from 'react-feather'
 import { AppContext, SidebarContext } from '../../context'
 import { sidebarWidth } from '../../../config'
-import { useMobile, useLanguage, useClickAway } from '../../hooks'
+import { useMobile, useInstalled, useLanguage, useClickAway } from '../../hooks'
 import { Footer } from '../footer/Footer'
 import './Sidebar.scss'
 
@@ -23,6 +23,7 @@ export function Sidebar({ open }) {
   const [sidebarStyle, setSidebarStyle] = useState({})
   const [blackoutStyle, setBlackoutStyle] = useState({})
   const isMobile = useMobile()
+  const isInstalled = useInstalled()
   const ref = useRef()
   useClickAway(ref, () => close(), 'prevent-sidebar-click-away')
 
@@ -46,43 +47,61 @@ export function Sidebar({ open }) {
   return (
     <>
       <nav className="sidebar" style={sidebarStyle} ref={ref}>
-        {loggedIn ? (
+        {!isInstalled && (
           <>
-            <SidebarHeader name="Categories" />
-            <ul className="nav flex-column px-2">
-              <li className="nav-item">
-                <Link className="nav-link" to="/dashboards" onClick={close}>
-                  <Layout className="feather" /> Dashboards
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/charts" onClick={close}>
-                  <PieChart className="feather" /> Charts
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/data-sources" onClick={close}>
-                  <Database className="feather" /> Data Sources
-                </Link>
-              </li>
-            </ul>
-          </>
-        ) : (
-          <>
-            <ul className="nav flex-column px-3 pt-4">
-              <li className="nav-item">
-                <p className="text-muted">
-                  <Link to="/register" onClick={close}>
-                    {content.sidebar.registerNow}
-                  </Link>
-                  {` ${content.sidebar.registerNowFollowUp}`}
-                </p>
-              </li>
-            </ul>
+            {loggedIn ? (
+              <>
+                <SidebarHeader name="Categories" />
+                <ul className="nav flex-column px-2">
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/dashboards" onClick={close}>
+                      <Layout className="feather" /> Dashboards
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/charts" onClick={close}>
+                      <PieChart className="feather" /> Charts
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link"
+                      to="/data-sources"
+                      onClick={close}
+                    >
+                      <Database className="feather" /> Data Sources
+                    </Link>
+                  </li>
+                </ul>
+              </>
+            ) : (
+              <>
+                <ul className="nav flex-column px-3 pt-4">
+                  <li className="nav-item">
+                    <p className="text-muted">
+                      <Link to="/register" onClick={close}>
+                        {content.sidebar.registerNow}
+                      </Link>
+                      {` ${content.sidebar.registerNowFollowUp}`}
+                    </p>
+                  </li>
+                </ul>
+              </>
+            )}
+            <hr className="mx-3" />
           </>
         )}
-        <hr className="mx-3" />
         <Footer close={close} />
+        {isInstalled && open && (
+          <div className="sidebar-close-native" style={{ width: sidebarWidth }}>
+            <a onClick={close}>
+              <p className="text-muted float-right">
+                Close
+                <ChevronsLeft size={24} className="feather" />
+              </p>
+            </a>
+          </div>
+        )}
       </nav>
       <div className="blackout" style={blackoutStyle}></div>
     </>
