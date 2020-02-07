@@ -90,9 +90,3 @@ services:
     labels:
       - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
       - traefik.http.routers.app.tls.certresolver=secure
-  rancher:
-    image: rancher/rancher:latest
-    restart: always
-    labels:
-      - traefik.http.routers.api.rule=Host(`rancher.blicc.org`)
-      - traefik.http.routers.api.tls.certresolver=secure
