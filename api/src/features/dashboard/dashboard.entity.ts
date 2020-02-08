@@ -4,6 +4,7 @@ import {
   PrimaryColumn,
   BaseEntity,
   BeforeInsert,
+  Index,
 } from 'typeorm'
 import { DashboardService } from './dashboard.service'
 
@@ -12,6 +13,7 @@ export class DashboardEntity extends BaseEntity {
   @PrimaryColumn()
   public id?: string
 
+  @Index('dashboard-title-idx')
   @Column()
   public title: string
 

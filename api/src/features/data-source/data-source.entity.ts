@@ -4,6 +4,7 @@ import {
   PrimaryColumn,
   BaseEntity,
   BeforeInsert,
+  Index,
 } from 'typeorm'
 import { DataSourceService } from './data-source.service'
 
@@ -12,6 +13,7 @@ export class DataSourceEntity extends BaseEntity {
   @PrimaryColumn()
   public id?: string
 
+  @Index('data-source-title-idx')
   @Column()
   public title: string
 

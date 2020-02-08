@@ -4,6 +4,7 @@ import {
   BeforeInsert,
   Column,
   BaseEntity,
+  Index,
 } from 'typeorm'
 import { UserService } from './user.service'
 
@@ -18,6 +19,7 @@ export class UserEntity extends BaseEntity {
   @Column()
   public lastName: string
 
+  @Index('email-idx')
   @Column()
   public email: string
 

@@ -4,6 +4,7 @@ import {
   PrimaryColumn,
   BaseEntity,
   BeforeInsert,
+  Index,
 } from 'typeorm'
 import { ChartService } from './chart.service'
 
@@ -12,6 +13,7 @@ export class ChartEntity extends BaseEntity {
   @PrimaryColumn()
   public id?: string
 
+  @Index('chart-title-idx')
   @Column()
   public title: string
 
