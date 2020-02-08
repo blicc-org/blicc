@@ -20,19 +20,19 @@ export function useFooterArrangement() {
       category: content.sidebar.development,
       items: [
         {
-          title: 'Plugin Development',
-          link: '/pages/plugins',
-        },
-        {
           title: 'Github',
           link: 'https://github.com/blicc-org/blicc',
         },
         {
-          title: 'OpenAPI 3.0 docs',
+          title: 'Plugin Development',
+          link: '/pages/plugins',
+        },
+        {
+          title: 'Resource Management API',
           link: 'https://api.blicc.org',
         },
         {
-          title: 'Data Delivery docs',
+          title: 'Data Delivery API',
           link: 'https://delivery.blicc.org',
         },
       ],
