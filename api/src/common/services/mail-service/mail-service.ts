@@ -37,7 +37,7 @@ export class MailService {
       )
       await this.transporter.sendMail(mail)
     } catch (e) {
-      Logger.info(`[userId: ${user.id}] Failed to send Welcome mail`)
+      Logger.error(`[userId: ${user.id}] Failed to send Welcome mail`)
     }
   }
 }
