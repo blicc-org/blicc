@@ -11,13 +11,14 @@ import { HealthCheckRouter } from './features/health-check'
 import { ChartRouter } from './features/chart'
 import { BundleRouter } from './features/bundles'
 import { DataSourceRouter } from './features/data-source/data-source.router'
+import { Logger } from './util/logger'
 
 export class App extends Koa {
   public constructor() {
     super()
 
     this.proxy = true // forward for TSL encryption on proxy level
-    this.use(logger())
+    this.use(logger(s => Logger.info(s.trim())))
     this.use(cors({ credentials: true }))
     this.use(serve(`${__dirname}/../public`))
     this.use(new ApiDocsRouter('/').routes())

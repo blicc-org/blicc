@@ -2,6 +2,7 @@ import Koa from 'koa'
 import status from 'http-status-codes'
 import { JWT } from '../../util/jwt'
 import { TokenPayload } from '../../features/token'
+import { Logger } from '../../util/logger'
 
 export class AuthMiddleware {
   public static async handle(
@@ -39,11 +40,11 @@ export class AuthMiddleware {
       } else if (e.name === 'QueryFailedError') {
         ctx.status = status.BAD_REQUEST
         ctx.body = 'An error occured while querying the database.'
-        console.error('An error occured: ', e.message)
+        Logger.error(e.message)
       } else {
         ctx.status = status.BAD_REQUEST
         ctx.body = 'Please provide a proper request.'
-        console.error('An error occured: ', e.message)
+        Logger.error(e.message)
       }
     }
   }

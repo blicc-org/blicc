@@ -2,6 +2,7 @@ import Mailer, { Transporter, SendMailOptions } from 'nodemailer'
 import { MailGenerator } from './mail-generator'
 import { User } from '../../../features/user'
 import { MAIL_ADDRESS, MAIL_PASSWORD, MAIL_HOST } from '../../../config'
+import { Logger } from '../../../util/logger'
 
 export const MailType = {
   WELCOME: 'welcome',
@@ -36,7 +37,7 @@ export class MailService {
       )
       await this.transporter.sendMail(mail)
     } catch (e) {
-      console.log(`Mailserver failed to send Welcome mail to ${email}!`)
+      Logger.info(`[userId: ${user.id}] Failed to send Welcome mail`)
     }
   }
 }
