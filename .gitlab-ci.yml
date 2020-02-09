@@ -37,7 +37,7 @@ build:
     - docker push $REGISTRY_DOMAIN/repo/$REPO/api-testing-stage
     - docker push $REGISTRY_DOMAIN/repo/$REPO/db-testing-stage
     - docker push $REGISTRY_DOMAIN/repo/$REPO/redis-testing-stage
-      
+
     ## tag for production
     - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api
     - docker tag db $REGISTRY_DOMAIN/repo/$REPO/db
