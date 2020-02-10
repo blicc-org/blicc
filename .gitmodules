@@ -1,3 +1,6 @@
 [submodule "plugins"]
 	path = plugins
 	url = git@github.com:blicc-org/plugins.git
+[submodule "android"]
+	path = android
+	url = ssh://git@gitlab.thiloilg.com:2222/repo/android.git
