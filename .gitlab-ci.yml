@@ -117,8 +117,8 @@ plugins:
   only:
     - master
   before_script:
-    - git submodule sync --recursive
-    - git submodule update --init --recursive --checkout --force
+    - git submodule sync --recursive plugins
+    - git submodule update --init --recursive --checkout --force plugins
   script:
     - yarn --cwd 'plugins'
     - yarn --cwd 'plugins' deploy
