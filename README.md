@@ -1,6 +1,6 @@
 ## What is Blicc?
 
-Blicc is a lightweight, user-friendly and secure data visualiation plattform. Make your data talk.
+Blicc is a lightweight, user-friendly and secure data visualiation plattform.
 
 ## Docs
 
@@ -15,20 +15,23 @@ Blicc is a lightweight, user-friendly and secure data visualiation plattform. Ma
 - **React**: Progressive web app written in React
 - **Go**: Golang websocket api
 - **PostgreSQL** Relational database management system
-- **Redis** Cache data for code splitting
+- **MongoDB** Document-oriented database management system
+- **Redis** Redis in-memory-database for caching
 
 #### Folder structure
 
 ```bash
 blicc/
-├── api         # Api for controlling user and dashboard settings
-├── app         # Application to display data and arrange dashboards
-├── db          # Posgres database for storing user and dashboard settings
-├── delivery    # Realtime data streaming via websockets
+├── api         # TWA
+├── api         # Resource Management API
+├── app         # PWA
+├── db          # PostgreSQL database for Resource Management API
+├── delivery    # Data Delivery API
 ├── docs        # Documentation
+├── mongo       # MongoDB database for Data Delivery API
 ├── plugins     # Data visualization plugins for displaying diagrams
-├── redis       # Redis provides fast access to plugins, cached code splitting
-├── scripts     # scripts for the microservice setup
+├── redis       # Redis cache for both APIs
+├── scripts     # scripts for the infrastructure setup
 ```
 
 #### Code Style
