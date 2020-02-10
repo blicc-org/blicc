@@ -117,6 +117,7 @@ plugins:
   only:
     - master
   before_script:
+    - *enable_ssh
     - git submodule sync --recursive plugins
     - git submodule update --init --recursive --checkout --force plugins
   script:
