@@ -1,6 +1,6 @@
 {
   "name": "Blicc",
-  "description": "Blicc aims to provide a lightweight, user-friendly software to simplify data visualization on all devices.",
+  "description": "Lightweight, user-friendly web app to analyse data.",
   "short_name": "Blicc",
   "icons": [
     {
