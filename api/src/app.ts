@@ -11,7 +11,6 @@ import { HealthCheckRouter } from './features/health-check'
 import { ChartRouter } from './features/chart'
 import { BundleRouter } from './features/bundles'
 import { DataSourceRouter } from './features/data-source/data-source.router'
-import { DataDeliveryMockRouter } from './features/data-delivery-mock/data-delivery-mock.router'
 import { Logger } from './util/logger'
 
 export class App extends Koa {
@@ -31,6 +30,5 @@ export class App extends Koa {
     this.use(new DataSourceRouter('/data-sources').routes())
     this.use(new HealthCheckRouter('/health-check').routes())
     this.use(new TwoFactorAuthRouter('/two-factor-auth').routes())
-    this.use(new DataDeliveryMockRouter('/data-delivery-mock').routes())
   }
 }

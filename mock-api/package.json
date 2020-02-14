@@ -1,0 +1,26 @@
+{
+  "name": "mock-api",
+  "version": "0.1.1",
+  "description": "api mock for integration tests",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon ./src/index.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "commander": "^4.1.1",
+    "koa": "^2.11.0",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^8.0.7"
+  },
+  "devDependencies": {
+    "@types/commander": "^2.12.2",
+    "@types/koa": "^2.11.1",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-router": "^7.4.0",
+    "@types/node": "^13.7.1",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  }
+}

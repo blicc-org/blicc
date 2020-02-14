@@ -90,6 +90,12 @@
       "disabled": false
     },
     {
+      "icon": "mock",
+      "extensions": ["mocks", "mock-api"],
+      "format": "FileFormat.svg",
+      "disabled": false
+    },
+    {
       "icon": "settings",
       "extensions": ["settings"],
       "format": "FileFormat.svg",
