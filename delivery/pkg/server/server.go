@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/blicc-org/blicc/delivery/pkg/utils/apidocs"
-	"github.com/blicc-org/blicc/delivery/pkg/utils/mongoclient"
+	"github.com/blicc-org/blicc/delivery/pkg/common/apidocs"
+	"github.com/blicc-org/blicc/delivery/pkg/common/mongoclient"
 
 	"github.com/blicc-org/blicc/delivery/pkg/channel"
+	"github.com/blicc-org/blicc/delivery/pkg/common/flags"
 	"github.com/blicc-org/blicc/delivery/pkg/middleware/auth"
 	"github.com/blicc-org/blicc/delivery/pkg/middleware/logging"
-	"github.com/blicc-org/blicc/delivery/pkg/utils/flags"
 )
 
 func serveChannels() {

@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/blicc-org/blicc/delivery/pkg/utils/flags"
+	"github.com/blicc-org/blicc/delivery/pkg/common/flags"
 	"github.com/dgrijalva/jwt-go"
 )
 

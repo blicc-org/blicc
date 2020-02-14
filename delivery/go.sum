@@ -1,6 +1,7 @@
 github.com/DataDog/zstd v1.4.4 h1:+IawcoXhCBylN7ccwdwf8LOH2jKq7NavGpEPanrlTzE=
 github.com/DataDog/zstd v1.4.4/go.mod h1:1jcaCB/ufaK+sKp1NBhlGmpz41jOoPQ35bpF36t7BBo=
 github.com/blicc-org/blicc v0.0.6 h1:TM3TmGCR7LKNvsWvlvSYrRXHOxM0ywd6Ff8AElRRvbs=
+github.com/blicc-org/blicc v0.1.1 h1:y5lfel702kmprRbmfL1HcoanZJ+hsz0GiBFMozj2opc=
 github.com/cespare/reflex v0.2.0 h1:6d9WpWJseKjJvZEevKP7Pk42nPx2+BUTqmhNk8wZPwM=
 github.com/cespare/reflex v0.2.0/go.mod h1:ooqOLJ4algvHP/oYvKWfWJ9tFUzCLDk5qkIJduMYrgI=
 github.com/creack/pty v1.1.7 h1:6pwm8kMQKCmgUg0ZHTm5+/YvRK0s3THD/28+T6/kk4A=

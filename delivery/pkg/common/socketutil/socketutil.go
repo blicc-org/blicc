@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/blicc-org/blicc/delivery/pkg/utils/redisclient"
+	"github.com/blicc-org/blicc/delivery/pkg/common/redisclient"
 	"github.com/gorilla/websocket"
 )
 

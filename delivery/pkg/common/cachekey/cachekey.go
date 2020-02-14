@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/blicc-org/blicc/delivery/pkg/utils/hash"
+	"github.com/blicc-org/blicc/delivery/pkg/common/hash"
 )
 
 func Generate(channel *string, data *json.RawMessage) string {
