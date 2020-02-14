@@ -38,6 +38,11 @@ services:
     restart: always
     labels:
       - traefik.enable=false
+  mongo:
+    image: registry.thiloilg.com/repo/blicc/mongo-testing-stage:latest
+    restart: always
+    labels:
+      - traefik.enable=false
   api:
     image: registry.thiloilg.com/repo/blicc/api-testing-stage:latest
     volumes:
@@ -56,6 +61,21 @@ services:
     labels:
       - traefik.http.routers.api.rule=Host(`api.testing-stage.org`)
       - traefik.http.routers.api.tls.certresolver=secure
+  delivery:
+    image: registry.thiloilg.com/repo/blicc/delivery-testing-stage:latest
+    volumes:
+      - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
+    restart: always
+    depends_on:
+      - mongo
+      - mock-api
+    environment:
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+      - APP_ORIGIN=${APP_ORIGIN}
+    labels:
+      - traefik.http.routers.delivery.rule=Host(`delivery.testing-stage.org`)
+      - traefik.http.routers.delivery.tls.certresolver=secure
+      - traefik.http.routers.delivery.middlewares=sslheader
   mock-api:
     image: registry.thiloilg.com/repo/blicc/mock-api-testing-stage:latest
     restart: always
