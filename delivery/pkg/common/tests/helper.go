@@ -49,5 +49,7 @@ func getAcessToken(adminMail string, adminPassword string, apiTestTarget string)
 	cookie := resp.Header.Get("Set-Cookie")
 	s := strings.Split(cookie, ";")
 	token := s[0]
+	fmt.Println("token")
+	fmt.Println(token)
 	return token
 }
