@@ -1,7 +1,9 @@
 stages:
   - build
+  - test-preparation
   - test
   - deploy
+  - seed
 
 variables:
   REPO: blicc
@@ -56,7 +58,7 @@ build:
     - docker push $REGISTRY_DOMAIN/repo/$REPO/delivery-testing-stage
 
 test-preparation:
-  stage: test
+  stage: test-preparation
   image: node:12
   before_script:
     - *enable_ssh
@@ -132,7 +134,7 @@ deploy:
       docker-compose up -d --remove-orphans"
 
 plugins:
-  stage: deploy
+  stage: seed
   image: node:12
   only:
     - master
