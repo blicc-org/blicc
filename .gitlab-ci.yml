@@ -76,6 +76,11 @@ test:
     - for ((;;)); do curl -s $API_TEST_TARGET > /dev/null && break; sleep 1; done
     - yarn
     - yarn --cwd 'api' cross-env API_TEST_TARGET=$API_TEST_TARGET jest
+
+test-delivery:
+  stage: test
+  image: golang:1.13
+  script:
     - cd delivery && go test ./pkg/channel/datadelivery/datadelivery_test.go -v
 
 deploy:
