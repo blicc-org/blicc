@@ -4,6 +4,4 @@ WORKDIR /root
 COPY . .
 RUN yarn
 
-EXPOSE 80
-
 CMD [ "yarn", "start" ]

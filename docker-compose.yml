@@ -50,6 +50,7 @@ services:
       - ./delivery/public:/root/public
     depends_on:
       - mongo
+      - mock-api
     environment:
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
       - APP_ORIGIN=${APP_ORIGIN}
@@ -70,3 +71,10 @@ services:
       - NODE_ENV=${NODE_ENV}
     ports:
       - 3000:3000
+  mock-api:
+    build: ./mock-api
+    restart: always
+    volumes:
+      - ./mock-api/src:/root/src
+    ports:
+      - 9090:9090

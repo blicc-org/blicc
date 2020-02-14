@@ -4,7 +4,8 @@
   "description": "api mock for integration tests",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon ./src/index.ts",
+    "start": "nodemon ./src/index.ts -p 9090",
+    "start:prod": "node ./build/index.js -p 80",
     "build": "tsc"
   },
   "dependencies": {
