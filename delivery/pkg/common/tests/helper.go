@@ -35,10 +35,12 @@ func GetClientConn() *websocket.Conn {
 
 func getAcessToken(adminMail string, adminPassword string, apiTestTarget string) string {
 	var jsonStr = []byte(`{"email":"` + adminMail + `", "password":"` + adminPassword + `"}`)
+
 	req, err := http.NewRequest("POST", apiTestTarget+"/tokens", bytes.NewBuffer(jsonStr))
 	if err != nil {
 		fmt.Println(err)
 	}
+
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
@@ -46,10 +48,10 @@ func getAcessToken(adminMail string, adminPassword string, apiTestTarget string)
 	if err != nil {
 		fmt.Println(err)
 	}
+
 	cookie := resp.Header.Get("Set-Cookie")
 	s := strings.Split(cookie, ";")
 	token := s[0]
-	fmt.Println("token")
-	fmt.Println(token)
+
 	return token
 }

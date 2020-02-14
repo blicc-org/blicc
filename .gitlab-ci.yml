@@ -31,19 +31,13 @@ build:
     - docker build -t redis ./redis
     - docker build -t mock-api ./mock-api
 
-    ## tag and deploy for testing stage
+    ## tag for testing stage
     - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api-testing-stage
     - docker tag db $REGISTRY_DOMAIN/repo/$REPO/db-testing-stage
     - docker tag redis $REGISTRY_DOMAIN/repo/$REPO/redis-testing-stage
     - docker tag mongo $REGISTRY_DOMAIN/repo/$REPO/mongo-testing-stage
     - docker tag mock-api $REGISTRY_DOMAIN/repo/$REPO/mock-api-testing-stage
     - docker tag delivery $REGISTRY_DOMAIN/repo/$REPO/delivery-testing-stage
-    - docker push $REGISTRY_DOMAIN/repo/$REPO/api-testing-stage
-    - docker push $REGISTRY_DOMAIN/repo/$REPO/db-testing-stage
-    - docker push $REGISTRY_DOMAIN/repo/$REPO/redis-testing-stage
-    - docker push $REGISTRY_DOMAIN/repo/$REPO/mongo-testing-stage
-    - docker push $REGISTRY_DOMAIN/repo/$REPO/mock-api-testing-stage
-    - docker push $REGISTRY_DOMAIN/repo/$REPO/delivery-testing-stage
 
     ## tag for production
     - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api
@@ -53,7 +47,15 @@ build:
     - docker tag app $REGISTRY_DOMAIN/repo/$REPO/app
     - docker tag delivery $REGISTRY_DOMAIN/repo/$REPO/delivery
 
-test:
+    ## push for testing stage
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/api-testing-stage
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/db-testing-stage
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/redis-testing-stage
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/mongo-testing-stage
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/mock-api-testing-stage
+    - docker push $REGISTRY_DOMAIN/repo/$REPO/delivery-testing-stage
+
+test-preparation:
   stage: test
   image: node:12
   before_script:
@@ -78,6 +80,11 @@ test:
       docker-compose down &&
       docker-compose up -d --force-recreate --remove-orphans"
     - for ((;;)); do curl -s $API_TEST_TARGET > /dev/null && break; sleep 1; done
+
+test-api:
+  stage: test
+  image: node:12
+  script:
     - yarn
     - yarn --cwd 'api' cross-env API_TEST_TARGET=$API_TEST_TARGET jest
 

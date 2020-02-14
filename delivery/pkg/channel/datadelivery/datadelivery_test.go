@@ -1,7 +1,6 @@
 package datadelivery
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -16,8 +15,6 @@ func TestEndpoint(t *testing.T) {
 	godotenv.Load(filepath.Join("../../../", ".env"))
 
 	mockTestTarget := os.Getenv("MOCK_TEST_TARGET")
-
-	fmt.Println(mockTestTarget)
 
 	conn := helper.GetClientConn()
 
