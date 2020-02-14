@@ -1,6 +1,6 @@
 import { Middleware } from 'koa'
 import bodyParser from 'koa-bodyparser'
-import createRouter, { Router, Joi } from 'koa-joi-router'
+import createRouter, { Router } from 'koa-joi-router'
 import { DataDeliveryMockController } from './data-delivery-mock.controller'
 
 export class DataDeliveryMockRouter {
