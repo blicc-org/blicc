@@ -67,7 +67,7 @@ func getClientConn() *websocket.Conn {
 	godotenv.Load(filepath.Join("../../../", ".env"))
 
 	apiTestTarget := os.Getenv("API_TEST_TARGET")
-	deliveryTestTarget := os.Getenv("DELIVERY_TEST_TARGET")
+	deliveryTestTarget := os.Getenv("DELIVERY_TEST_TARGET_WEBSOCKET")
 	adminMail := os.Getenv("ADMIN_MAIL")
 	adminPassword := os.Getenv("ADMIN_PASSWORD")
 
