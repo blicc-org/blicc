@@ -35,10 +35,6 @@ blicc/
 ├── scripts     # scripts for the infrastructure setup
 ```
 
-#### Code Style
-
-Blicc uses git hooks for prettier and eslint.
-
 ## License
 
 MIT license, see the [LICENSE](./LICENSE) file.
