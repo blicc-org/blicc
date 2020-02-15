@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/gomarkdown/markdown"
 )
@@ -20,7 +21,7 @@ func Generate() {
 
 	md, err := ioutil.ReadAll(file)
 
-	body := markdown.ToHTML(md, nil, nil)
+	content := markdown.ToHTML(md, nil, nil)
 
 	f, err := os.Create(pwd + "/public/index.html")
 	if err != nil {
@@ -28,11 +29,15 @@ func Generate() {
 		return
 	}
 
-	openHTML := []byte("<!DOCTYPE html>\n\n<html>\n\n<head>\n\n<link rel='stylesheet' type='text/css' href='style.css'>\n\n</head>\n\n<body>\n\n")
-	closeHTML := []byte("\n\n</body>\n\n</html>")
-	html := append(openHTML, body...)
-	html = append(html, closeHTML...)
-	l, err := f.Write(html)
+	b, err := ioutil.ReadFile(pwd + "/docs/template.html")
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	str := string(b)
+	str = strings.Replace(str, "{{content}}", string(content), -1)
+
+	l, err := f.Write([]byte(str))
 	if err != nil {
 		fmt.Println(err)
 		f.Close()
