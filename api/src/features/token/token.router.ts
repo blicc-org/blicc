@@ -89,6 +89,8 @@ export class TokenRouter {
      *                   type: string
      *                 hasTwoFactorAuth:
      *                   type: string
+     *                 refreshToken:
+     *                   type: string
      *             examples:
      *               filter:
      *                 value: {
@@ -97,7 +99,8 @@ export class TokenRouter {
      *                   "lastName": "Doe",
      *                   "email": "john.doe@email.com",
      *                   "role": "user",
-     *                   "hasTwoFactorAuth": "true"
+     *                   "hasTwoFactorAuth": "true",
+     *                   "refreshToken": "123e4567-e89b-12d3-a456-426655440000",
      *                 }
      *       400:
      *         description: Bad request
@@ -133,6 +136,7 @@ export class TokenRouter {
               role: Joi.string().required(),
               hasTwoFactorAuth: Joi.boolean().required(),
               creationDate: Joi.string().required(),
+              refreshToken: Joi.string().required(),
             },
           },
         },

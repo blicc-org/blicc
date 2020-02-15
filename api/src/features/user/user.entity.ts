@@ -26,6 +26,9 @@ export class UserEntity extends BaseEntity {
   @Column({ select: false })
   public passwordHash: string
 
+  @Column({ select: false })
+  public refreshToken: string
+
   @Column()
   public role: string
 
@@ -50,6 +53,7 @@ export class UserEntity extends BaseEntity {
     lastName: string,
     email: string,
     passwordHash: string,
+    refreshToken: string,
     role: string,
     hasTwoFactorAuth: boolean,
     twoFactorAuthSecret: string
@@ -59,6 +63,7 @@ export class UserEntity extends BaseEntity {
     this.lastName = lastName
     this.email = email
     this.passwordHash = passwordHash
+    this.refreshToken = refreshToken
     this.role = role
     this.hasTwoFactorAuth = hasTwoFactorAuth
     this.twoFactorAuthSecret = twoFactorAuthSecret

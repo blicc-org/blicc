@@ -4,6 +4,7 @@ import { User } from './user.interface'
 import { Hash } from '../../util/hash'
 import { MailService } from '../../common/services/mail-service/mail-service'
 import { MailType } from '../../common/services/mail-service/mail-service'
+import uuid from 'uuid'
 import shortid from 'shortid'
 
 export class UserService {
@@ -24,6 +25,7 @@ export class UserService {
     const passwordHash = Hash.generate(password)
     const hasTwoFactorAuth = false
     const twoFactorAuthSecret = ''
+    const refreshToken = uuid()
 
     const user = await this.repo.save(
       new UserEntity(
@@ -31,6 +33,7 @@ export class UserService {
         lastName,
         email,
         passwordHash,
+        refreshToken,
         role,
         hasTwoFactorAuth,
         twoFactorAuthSecret
@@ -50,8 +53,14 @@ export class UserService {
     return response === undefined ? id : await this.generateId()
   }
 
-  public async select(email: string): Promise<User | undefined> {
-    return await this.repo.findOne({ email })
+  public async selectByEmailWithRefreshToken(
+    email: string
+  ): Promise<User | undefined> {
+    return await this.repo
+      .createQueryBuilder('user')
+      .addSelect('user.refreshToken')
+      .where('user.email = :email', { email })
+      .getOne()
   }
 
   public async selectById(id: string): Promise<User | undefined> {

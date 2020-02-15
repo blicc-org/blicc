@@ -4,6 +4,7 @@ export interface User {
   lastName: string
   email: string
   passwordHash?: string
+  refreshToken?: string
   role: string
   hasTwoFactorAuth: boolean
   twoFactorAuthSecret?: string

@@ -20,7 +20,7 @@ export class TokenController {
     const { body } = ctx.request
     const { email, password } = body
 
-    const user = await this.userService.select(email)
+    const user = await this.userService.selectByEmailWithRefreshToken(email)
 
     if (!user) {
       ctx.status = statusCode.NOT_FOUND
