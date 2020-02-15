@@ -1,0 +1,8 @@
+{
+  "channel": "/data-delivery/123456",
+  "data": {
+    "url": "{{url}}",
+    "query": "{labels: ['time'], datasets: [{label: 'time', data: [datetime]}]}",
+    "interval": 5000
+  }
+}

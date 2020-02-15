@@ -35,7 +35,7 @@ func Generate() {
 	}
 
 	str := string(b)
-	str = strings.Replace(str, "{{content}}", string(content), -1)
+	str = strings.Replace(str, "{{content}}", string(content), 1)
 
 	l, err := f.Write([]byte(str))
 	if err != nil {

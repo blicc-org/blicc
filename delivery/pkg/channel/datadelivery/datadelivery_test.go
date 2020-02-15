@@ -1,23 +1,27 @@
 package datadelivery
 
 import (
+	"os"
+	"strings"
 	"testing"
 
 	helper "github.com/blicc-org/blicc/delivery/pkg/common/tests"
 )
 
 func TestEndpoint(t *testing.T) {
+	pwd, _ := os.Getwd()
 	mockApi := helper.GetMockApi()
 
-	input := `{"channel":"/data-delivery/123456","data":{"url":"` + mockApi + `","query":"{labels: ['time'], datasets: [{label: 'time', data: [datetime]}]}","interval":5000}}`
-	expected := `{"channel":"/data-delivery/123456","data":{"datasets":[{"data":["2020-02-14T20:51:00.840199+01:00"],"label":"time"}],"labels":["time"]}}`
+	input := helper.GetMock(pwd + "/mocks/request.json")
+	input = strings.Replace(input, "{{url}}", mockApi, 1)
+	expected := helper.GetMock(pwd + "/mocks/expected.json")
 	result, err := helper.TestDelivery(input)
 
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if result != expected {
+	if !helper.Equals(result, expected) {
 		t.Fatal("expected:\n" + expected + "\ndoes not equal:\n" + result)
 	}
 

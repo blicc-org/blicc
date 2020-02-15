@@ -3,6 +3,7 @@ package helper
 import (
 	"bytes"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -12,6 +13,30 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/joho/godotenv"
 )
+
+func Equals(result string, expected string) bool {
+	result = trim(result)
+	expected = trim(expected)
+	return result == expected
+}
+
+func trim(str string) string {
+	str = strings.Replace(str, "\t", "", -1)
+	str = strings.Replace(str, "\r", "", -1)
+	str = strings.Replace(str, "\n", "", -1)
+	str = strings.Replace(str, " ", "", -1)
+	return str
+}
+
+func GetMock(path string) string {
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	str := string(b)
+	return str
+}
 
 func GetMockApi() string {
 	godotenv.Load(filepath.Join("../../../", ".env"))
