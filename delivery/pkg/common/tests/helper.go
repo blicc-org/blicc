@@ -3,6 +3,7 @@ package helper
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -12,7 +13,32 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func GetClientConn() *websocket.Conn {
+func GetMockApi() string {
+	godotenv.Load(filepath.Join("../../../", ".env"))
+	mockTestTarget := os.Getenv("MOCK_TEST_TARGET")
+	return mockTestTarget
+}
+
+func TestDelivery(input string, expected string) (string, error) {
+
+	conn := getClientConn()
+	err := conn.WriteMessage(websocket.TextMessage, []byte(input))
+	if err != nil {
+		log.Printf("Error occured by testing: %s \n", err)
+	}
+
+	_, jsonData, err := conn.ReadMessage()
+	if err != nil {
+		log.Printf("Error occured by testing: %s \n", err)
+	}
+
+	result := string(jsonData)
+	conn.Close()
+
+	return result, err
+}
+
+func getClientConn() *websocket.Conn {
 	godotenv.Load(filepath.Join("../../../", ".env"))
 
 	apiTestTarget := os.Getenv("API_TEST_TARGET")

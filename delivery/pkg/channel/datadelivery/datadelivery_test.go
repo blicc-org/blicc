@@ -1,34 +1,24 @@
 package datadelivery
 
 import (
-	"log"
-	"os"
-	"path/filepath"
 	"testing"
 
 	helper "github.com/blicc-org/blicc/delivery/pkg/common/tests"
-	"github.com/gorilla/websocket"
-	"github.com/joho/godotenv"
 )
 
 func TestEndpoint(t *testing.T) {
-	godotenv.Load(filepath.Join("../../../", ".env"))
+	mockApi := helper.GetMockApi()
 
-	mockTestTarget := os.Getenv("MOCK_TEST_TARGET")
+	input := `{"channel":"/data-delivery/123456","data":{"url":"` + mockApi + `","query":"{labels: ['time'], datasets: [{label: 'time', data: [datetime]}]}","interval":5000}}`
+	expected := `{"channel":"/data-delivery/123456","data":{"datasets":[{"data":["2020-02-14T20:51:00.840199+01:00"],"label":"time"}],"labels":["time"]}}`
+	result, err := helper.TestDelivery(input, expected)
 
-	conn := helper.GetClientConn()
-
-	err := conn.WriteMessage(websocket.TextMessage, []byte(`{"channel":"/data-delivery/123456","data":{"url":"`+mockTestTarget+`","query":"{labels: ['time'], datasets: [{label: 'time', data: [datetime]}]}","interval":5000}}`))
 	if err != nil {
-		log.Printf("Error occured by testing: %s \n", err)
+		t.Fatal(err)
 	}
 
-	_, jsonData, err := conn.ReadMessage()
-	if err != nil {
-		log.Printf("Error occured by testing: %s \n", err)
+	if result != expected {
+		t.Fatal("expected:\n" + expected + "\ndoes not equal:\n" + result)
 	}
 
-	log.Println(string(jsonData))
-
-	conn.Close()
 }
