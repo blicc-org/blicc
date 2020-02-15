@@ -9,6 +9,19 @@
 
 <p>The api provides you a fast access to your data api. The api aspects queries in the <a href="http://jmespath.org/specification.html">JMESPath Specification</a>.</p>
 
+<h2>Error Handling</h2>
+
+<p>If an error occures, the api will return a json object with the channel and an error object containing a status code and a message. You can find a documentation of the websocket close codes <a href="https://github.com/Luka967/websocket-close-codes">here</a>.</p>
+
+<pre><code class="language-jsx">{
+    &quot;channel&quot;: &quot;/data-delivery/3rE8d3ef&quot;,
+    &quot;error&quot;: {
+        &quot;status&quot;: 1011,
+        &quot;message&quot;: &quot;Error message&quot;
+    }
+}
+</code></pre>
+
 <h2>Data Delivery</h2>
 
 <p>Fetches data from api and queries JSON response with jmespath query (Uses cache first, then send update message).</p>
