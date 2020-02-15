@@ -17,4 +17,7 @@ REPO=example
 SSH_PRIVATE_KEY=ssh_private_key_string
 TEST_IP=0.0.0.0
 APP_ORIGIN=https://example.com
+MOCK_TEST_TARGET=http://mock.testing-stage.org
+DELIVERY_TEST_TARGET_WEBSOCKET=wss://delivery.testing-stage.org
+DELIVERY_TEST_TARGET=https://delivery.testing-stage.org
 ```
