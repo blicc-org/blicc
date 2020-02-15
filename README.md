@@ -28,6 +28,7 @@ blicc/
 ├── db          # PostgreSQL database for Resource Management API
 ├── delivery    # Data Delivery API
 ├── docs        # Documentation
+├── mock-api    # A mock api to replace external api for integration tests
 ├── mongo       # MongoDB database for Data Delivery API
 ├── plugins     # Data visualization plugins for displaying diagrams
 ├── redis       # Redis cache for both APIs
