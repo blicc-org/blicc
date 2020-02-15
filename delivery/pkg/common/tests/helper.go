@@ -19,7 +19,7 @@ func GetMockApi() string {
 	return mockTestTarget
 }
 
-func TestDelivery(input string, expected string) (string, error) {
+func TestDelivery(input string) (string, error) {
 
 	conn := getClientConn()
 	err := conn.WriteMessage(websocket.TextMessage, []byte(input))

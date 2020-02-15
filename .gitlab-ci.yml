@@ -95,7 +95,7 @@ test-delivery:
   stage: test
   image: golang:1.13
   script:
-    - cd delivery && go test ./pkg/channel/datadelivery/datadelivery_test.go -v
+    - cd delivery && go test ./pkg/channel/...
 
 deploy:
   stage: deploy

@@ -11,7 +11,7 @@ func TestEndpoint(t *testing.T) {
 
 	input := `{"channel":"/data-delivery/123456","data":{"url":"` + mockApi + `","query":"{labels: ['time'], datasets: [{label: 'time', data: [datetime]}]}","interval":5000}}`
 	expected := `{"channel":"/data-delivery/123456","data":{"datasets":[{"data":["2020-02-14T20:51:00.840199+01:00"],"label":"time"}],"labels":["time"]}}`
-	result, err := helper.TestDelivery(input, expected)
+	result, err := helper.TestDelivery(input)
 
 	if err != nil {
 		t.Fatal(err)
