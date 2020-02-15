@@ -43,8 +43,10 @@ func Generate() {
 		f.Close()
 		return
 	}
+
 	fmt.Println(l, "bytes written successfully")
 	err = f.Close()
+
 	if err != nil {
 		fmt.Println(err)
 		return
