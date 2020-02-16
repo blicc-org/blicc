@@ -1,27 +1,27 @@
 import statusCode from 'http-status-codes'
 import { API } from '../../config'
 import { useLogout } from './useLogout'
+import { useRefresh } from './useRefresh'
 
 export function useApiEndpoint(path = '') {
   var fullPath = `${API.ORIGIN}${path}`
   const logout = useLogout()
+  const refresh = useRefresh()
 
   const defaultConfig = {
     credentials: 'include',
   }
 
   async function postRequest(resource, config = {}) {
-    return await handleRes(
-      await fetch(fullPath, {
-        ...defaultConfig,
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(resource),
-        ...config,
-      })
-    )
+    return await handleRequest(fullPath, {
+      ...defaultConfig,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(resource),
+      ...config,
+    })
   }
 
   async function getRequest(config = {}) {
@@ -30,47 +30,42 @@ export function useApiEndpoint(path = '') {
     if (config.params) {
       url.search = new URLSearchParams(config.params).toString()
     }
-    return await handleRes(
-      await fetch(url, {
-        ...defaultConfig,
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-        },
-        ...config,
-      })
-    )
+    return await handleRequest(url, {
+      ...defaultConfig,
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+      ...config,
+    })
   }
 
   async function putRequest(resource, config = {}) {
-    return handleRes(
-      await fetch(fullPath, {
-        ...defaultConfig,
-        method: 'PUT',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(resource),
-        ...config,
-      })
-    )
+    return handleRequest(fullPath, {
+      ...defaultConfig,
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(resource),
+      ...config,
+    })
   }
 
   async function deleteRequest(config = {}) {
-    return handleRes(
-      await fetch(fullPath, {
-        ...defaultConfig,
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        ...config,
-      })
-    )
+    return handleRequest(fullPath, {
+      ...defaultConfig,
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      ...config,
+    })
   }
 
-  async function handleRes(res) {
+  async function handleRequest(url, config) {
+    const res = await fetch(url, config)
     const { status } = res
     let result = [status, {}]
 
@@ -81,7 +76,11 @@ export function useApiEndpoint(path = '') {
       status === statusCode.FORBIDDEN ||
       isHealthCheckInvalid(status)
     ) {
-      await logout()
+      if (await refresh()) {
+        return await handleRequest(url, config)
+      } else {
+        await logout()
+      }
       return result
     }
 
