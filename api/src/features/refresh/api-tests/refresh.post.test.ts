@@ -1,12 +1,9 @@
-import speakeasy from 'speakeasy'
 import { user } from '../../user/mocks/user.mock'
 import {
   instance,
   initializeUser,
   clearUser,
 } from '../../../common/tests/user.helper'
-import { JWT } from '../../../util/jwt'
-import { TokenPayload } from '../../token'
 
 describe('POST: /refresh', () => {
   let params = { email: '', userId: '', cookie: '' }
@@ -41,6 +38,7 @@ describe('POST: /refresh', () => {
       },
     })
     expect(response.status).toBe(204)
+    clearUser(params.userId, cookie, user.password)
   })
 
   it('401: Unauthorized', async () => {
@@ -56,5 +54,6 @@ describe('POST: /refresh', () => {
       refreshToken: 'wrong-refresh-token',
     })
     expect(response.status).toBe(401)
+    clearUser(params.userId, params.cookie, user.password)
   })
 })
