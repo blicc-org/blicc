@@ -1,7 +1,7 @@
 stages:
   - build
-  - test-preparation
-  - test
+  # - test-preparation
+  # - test
   - deploy
   - seed
 
@@ -132,7 +132,7 @@ deploy:
       MAIL_HOST=$MAIL_HOST &&
       docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
       docker-compose pull &&
-      docker service update --image registry.thiloilg.com/repo/blicc/app:latest blicc_app &&
+      docker service update --image registry.thiloilg.com/repo/blicc/app:latest blicc_app --with-registry-auth &&
       docker stack deploy -c docker-compose.yml $REPO"
 
 plugins:
