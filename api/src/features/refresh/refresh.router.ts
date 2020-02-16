@@ -25,7 +25,7 @@ export class RefreshRouter {
      *   post:
      *     tags:
      *       - Refresh Token
-     *     summary: Request new JWT with Refresh Token
+     *     summary: Request new Token
      *     description: Request JWT to authenticate a user
      *     produces:
      *       - application/json
