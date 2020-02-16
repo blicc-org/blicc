@@ -13,7 +13,10 @@ export function NativeNavigation() {
   const [show, setShow] = useState(isProperHeight())
   const [sidebarState, setSidebarState] = useContext(SidebarContext)
   const { open } = sidebarState
-  const toggle = () => setSidebarState(prev => ({ ...prev, open: !open }))
+  const toggle = evt => {
+    evt.preventDefault()
+    setSidebarState(prev => ({ ...prev, open: !open }))
+  }
 
   useEffect(() => {
     function handleResize() {
@@ -29,7 +32,7 @@ export function NativeNavigation() {
         <div className="mobile-navigation">
           <ul className="nav flex-row justify-content-around">
             <li className="nav-item">
-              <a className="nav-link" onClick={toggle}>
+              <a className="nav-link" onClick={toggle} href="#">
                 <ChevronsRight className="feather" />
                 <p>
                   <small>Sidebar</small>

@@ -94,7 +94,7 @@ export function Sidebar({ open }) {
         <Footer close={close} />
         {isInstalled && open && (
           <div className="sidebar-close-native" style={{ width: sidebarWidth }}>
-            <a onClick={close}>
+            <a onClick={close} href="#">
               <p className="text-muted float-right">
                 Close Sidebar
                 <ChevronsLeft size={24} className="feather" />
