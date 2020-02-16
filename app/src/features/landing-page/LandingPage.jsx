@@ -7,7 +7,7 @@ import { ReactComponent as Logo } from '../../assets/img/Logo.svg'
 export function LandingPage() {
   const content = useLanguage()
   const title = 'Blicc'
-  const description = 'Visualize your data with customizable dashboards.'
+  const description = 'Visualize your data with customizable dashboards. xD'
   const path = '/'
 
   // close websocket connection on logged out
