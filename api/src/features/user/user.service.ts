@@ -42,6 +42,7 @@ export class UserService {
 
     delete user.twoFactorAuthSecret
     delete user.passwordHash
+    delete user.refreshToken
 
     await new MailService().send(user, MailType.WELCOME)
     return user
