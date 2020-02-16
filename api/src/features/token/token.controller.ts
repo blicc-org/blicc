@@ -75,7 +75,11 @@ export class TokenController {
     await next()
     ctx.status = statusCode.OK
     ctx.cookies.set('access_token', '', {
-      maxAge: new Date().getTime(),
+      maxAge: 1,
+      domain: APP.HOSTNAME,
+      secure: IS_PROD,
+      httpOnly: IS_PROD,
+      sameSite: IS_PROD ? 'Strict' : undefined,
     })
   }
 }

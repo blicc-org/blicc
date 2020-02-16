@@ -7,6 +7,7 @@ export function useLogout() {
 
   async function logout() {
     await fetch(`${API.ORIGIN}/tokens`, {
+      credentials: 'include',
       method: 'DELETE',
     })
     setAppState({
