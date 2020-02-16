@@ -132,14 +132,7 @@ deploy:
       MAIL_HOST=$MAIL_HOST &&
       docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
       docker-compose pull &&
-      docker stack deploy -c docker-compose.yml blicc &&
-      docker service update --force --with-registry-auth blicc_api &&
-      docker service update --force --with-registry-auth blicc_app &&
-      docker service update --force --with-registry-auth blicc_db &&
-      docker service update --force --with-registry-auth blicc_delivery &&
-      docker service update --force --with-registry-auth blicc_mongo &&
-      docker service update --force --with-registry-auth blicc_redis &&
-      docker service update --force --with-registry-auth blicc_traefik"
+      docker-compose up -d --remove-orphans"
 
 plugins:
   stage: seed
