@@ -14,7 +14,7 @@ describe('POST: /refresh', () => {
   })
 
   it('202: Accepted', async () => {
-    let response = await instance.post('/tokens', {
+    const response = await instance.post('/tokens', {
       email: params.email,
       password: user.password,
     })
