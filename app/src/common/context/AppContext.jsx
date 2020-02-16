@@ -13,6 +13,7 @@ export const INITIAL_APP_STATE = {
   lastName: '',
   loggedIn: false,
   language: useBrowserLanguage(),
+  refreshToken: '',
 }
 
 export const AppContext = createContext()

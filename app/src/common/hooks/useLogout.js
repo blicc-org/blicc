@@ -15,6 +15,7 @@ export function useLogout() {
       firstName: '',
       lastName: '',
       loggedIn: false,
+      refreshToken: '',
     })
   }
 

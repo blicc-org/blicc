@@ -22,6 +22,7 @@ export function useLogin(onSuccess = () => {}, onFailure = () => {}) {
       setAppState({
         ...appState,
         id: data.id,
+        refreshToken: data.refreshToken,
         firstName: data.firstName,
         lastName: data.lastName,
         loggedIn: true,
