@@ -13,7 +13,7 @@ export class JWT {
     const privateKey = fs.readFileSync(JWT.PRIVATE)
 
     const iat = Math.trunc(new Date().getTime() / 1000)
-    const exp = iat + 1 * 10 // m * s => timeout of 10 minutes
+    const exp = iat + 15 * 60 // m * s => timeout of 15 minutes
     if (!user.id) throw Error('User id is undefined!')
     const payload: TokenPayload = {
       iat,
