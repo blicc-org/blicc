@@ -19,7 +19,7 @@ export function LandingPage() {
       <div className="col-md-5 mx-auto py-5 my-5 text-center">
         <Logo height={'100px'} alt="logo" />
         <h1 className="display-4 font-weight-normal">{content.title}</h1>
-        <p className="lead font-weight-normal">{content.description} xD</p>
+        <p className="lead font-weight-normal">{content.description} =D</p>
         <Link className="btn btn-outline-primary" to="/dashboards">
           {content.getStarted}
         </Link>
