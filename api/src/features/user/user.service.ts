@@ -67,6 +67,16 @@ export class UserService {
     return await this.repo.findOne(id)
   }
 
+  public async selectByIdWithRefreshToken(
+    id: string
+  ): Promise<User | undefined> {
+    return await this.repo
+      .createQueryBuilder('user')
+      .addSelect('user.refreshToken')
+      .where('user.id = :id', { id })
+      .getOne()
+  }
+
   public async list(): Promise<User[]> {
     return await this.repo
       .createQueryBuilder('user')
