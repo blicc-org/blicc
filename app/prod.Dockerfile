@@ -21,7 +21,8 @@ RUN chmod 644 /etc/nginx/modules/*.so
 
 COPY --from=builder /app/build /var/www/blicc.org/html
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/healthcheck.sh /bin/healthcheck.sh
 
 EXPOSE 80
 
-HEALTHCHECK CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
+HEALTHCHECK CMD /bin/healthcheck.sh
