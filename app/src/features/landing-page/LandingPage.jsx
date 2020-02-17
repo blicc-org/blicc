@@ -31,7 +31,7 @@ export function LandingPage() {
           className="btn btn-outline-success android-button mt-3"
           href={ANDROID_APP_STORE_LINK}
         >
-          Download now <Android className="android" alt="Android App" />
+          Install Android App <Android className="android" alt="Android App" />
         </a>
       </div>
     </>
