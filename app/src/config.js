@@ -29,3 +29,6 @@ export const languages = {
   en: 'English',
   de: 'Deutsch',
 }
+
+export const ANDROID_APP_STORE_LINK =
+  'https://play.google.com/store/apps/details?id=com.blicc.app'

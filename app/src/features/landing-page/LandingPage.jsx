@@ -4,6 +4,7 @@ import { useLanguage, useDeliveryEndpoint } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { ReactComponent as Logo } from '../../assets/img/Logo.svg'
 import { ReactComponent as Android } from '../../assets/img/Android.svg'
+import { ANDROID_APP_STORE_LINK } from '../../config'
 import './LandingPage.scss'
 
 export function LandingPage() {
@@ -28,7 +29,7 @@ export function LandingPage() {
         <br />
         <a
           className="btn btn-outline-success android-button mt-3"
-          href="https://play.google.com/store/apps/details?id=com.blicc.app"
+          href={ANDROID_APP_STORE_LINK}
         >
           Download now <Android className="android" alt="Android App" />
         </a>
