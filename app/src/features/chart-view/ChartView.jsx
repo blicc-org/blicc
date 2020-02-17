@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react'
 import statusCode from 'http-status-codes'
-import { useApiEndpoint } from '../../common/hooks'
+import { useApiEndpoint, useMobile } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { API, EXAMPLE_DATA } from '../../config'
-import './ChartView.scss'
 import { ChartDetails } from './ChartDetails'
+import './ChartView.scss'
 
 export function ChartView({ match }) {
   const path = `/charts/${match.params.id}`
   const ref = useRef()
+  const isMobile = useMobile()
   const [, access] = useApiEndpoint(path)
   const [chart, setChart] = useState({})
   const { title, description, bundle, creationDate, slug, key } = chart
   const style = {
     width: '100%',
-    height: '500px',
+    height: isMobile ? '200px' : '500px',
   }
 
   const data = EXAMPLE_DATA
