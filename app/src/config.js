@@ -32,3 +32,25 @@ export const languages = {
 
 export const ANDROID_APP_STORE_LINK =
   'https://play.google.com/store/apps/details?id=com.blicc.app'
+
+export const EXAMPLE_DATA = {
+  labels: ['Label 1', 'Label 2', 'Label 3'],
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: [72.2, 68.8, 59.1],
+    },
+    {
+      label: 'Dataset 2',
+      data: [29.4, 29.2, 29.5],
+    },
+    {
+      label: 'Dataset 3',
+      data: [100, 100, 100],
+    },
+    {
+      label: 'Dataset 4',
+      data: [21.2, 20.1, 17.4],
+    },
+  ],
+}
