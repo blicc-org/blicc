@@ -32,7 +32,6 @@ export function ChartView({ match }) {
   }, [match])
 
   useEffect(() => {
-    console.log(slug)
     async function fetchPlugin() {
       await import(
         /*webpackIgnore: true*/ `${API.ORIGIN}/bundles/${slug}`
