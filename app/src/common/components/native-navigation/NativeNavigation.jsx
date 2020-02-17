@@ -32,7 +32,7 @@ export function NativeNavigation() {
         <div className="mobile-navigation">
           <ul className="nav flex-row justify-content-around">
             <li className="nav-item">
-              <a className="nav-link" onClick={toggle} href="#">
+              <a className="nav-link" onClick={toggle} href="/">
                 <ChevronsRight className="feather" />
                 <p>
                   <small>Sidebar</small>
