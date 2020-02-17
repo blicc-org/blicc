@@ -15,7 +15,7 @@ export function ChartView({ match }) {
   const { title, description, bundle, creationDate, slug, key } = chart
   const style = {
     width: '100%',
-    height: isMobile ? '200px' : '500px',
+    height: isMobile ? '300px' : '500px',
   }
 
   const data = EXAMPLE_DATA
