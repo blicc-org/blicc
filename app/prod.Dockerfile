@@ -25,4 +25,4 @@ COPY ./nginx/healthcheck.sh /bin/healthcheck.sh
 
 EXPOSE 80
 
-HEALTHCHECK CMD /bin/healthcheck.sh
+HEALTHCHECK CMD ["sh", "/bin/healthcheck.sh"]
