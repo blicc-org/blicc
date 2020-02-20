@@ -54,7 +54,11 @@ export function NavbarUser({ firstName, lastName, loggedIn }) {
             <div className="dropdown-divider"></div>
             {isAdmin && (
               <>
-                <Link className="dropdown-item" to="/admin-area">
+                <Link
+                  className="dropdown-item"
+                  to="/admin-area"
+                  onClick={close}
+                >
                   Admin Area
                 </Link>
                 <div className="dropdown-divider"></div>
