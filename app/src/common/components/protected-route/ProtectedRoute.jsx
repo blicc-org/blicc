@@ -2,9 +2,16 @@ import React, { useContext } from 'react'
 import { AppContext } from '../../context'
 import { Route, Redirect } from 'react-router-dom'
 
-export function ProtectedRoute({ component: Component, ...rest }) {
+export function ProtectedRoute({
+  component: Component,
+  role = 'user',
+  ...rest
+}) {
   const [appState] = useContext(AppContext)
-  const { loggedIn } = appState
+  const { loggedIn, role: expectedRole } = appState
+
+  if (role === 'admin' && role !== expectedRole)
+    return <Route {...rest} render={() => <Redirect to="/not-found" />} />
 
   return (
     <Route

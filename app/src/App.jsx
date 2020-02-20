@@ -47,7 +47,11 @@ export function App() {
             />
             <ProtectedRoute path="/data-sources" component={DataSources} />
             <ProtectedRoute path="/profile" component={Profile} />
-            <ProtectedRoute path="/admin-area" component={AdminArea} />
+            <ProtectedRoute
+              path="/admin-area"
+              role="admin"
+              component={AdminArea}
+            />
             <Route component={NotFound} />
           </Switch>
         </Main>

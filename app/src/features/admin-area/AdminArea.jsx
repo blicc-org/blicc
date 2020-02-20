@@ -33,25 +33,35 @@ export function AdminArea() {
         <hr />
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
           <h3 className="my-0">
-            Users <span class="badge badge-secondary">{result.total}</span>
+            Users <span className="badge badge-secondary">{result.total}</span>
           </h3>
         </div>
         {result.total === 0 ? (
           <Empty>No charts fount.</Empty>
         ) : (
           <table className="table">
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Role</th>
-            </tr>
-            {result.users.map(({ firstName, lastName, role }) => (
+            <thead>
               <tr>
-                <td>{firstName}</td>
-                <td>{lastName}</td>
-                <td>{role}</td>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Role</th>
+                <th>Email</th>
+                <th>Register Date</th>
               </tr>
-            ))}
+            </thead>
+            <tbody>
+              {result.users.map(
+                ({ id, firstName, lastName, role, email, creationDate }) => (
+                  <tr key={id}>
+                    <td>{firstName}</td>
+                    <td>{lastName}</td>
+                    <td>{role}</td>
+                    <td>{email}</td>
+                    <td>{creationDate.split('T')[0]}</td>
+                  </tr>
+                )
+              )}
+            </tbody>
           </table>
         )}
       </div>
