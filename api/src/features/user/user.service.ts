@@ -89,9 +89,13 @@ export class UserService {
     return await this.repo
       .createQueryBuilder('user')
       .select(fields)
-      .andWhere('LOWER(user.email) like LOWER(:email)', {
-        email: '%' + searchTerm + '%',
-      })
+      .andWhere(
+        'LOWER(user.firstName) like LOWER(:firstName) OR LOWER(user.lastName) like LOWER(:lastName)',
+        {
+          firstName: '%' + searchTerm + '%',
+          lastName: '%' + searchTerm + '%',
+        }
+      )
       .orderBy('user.creationDate', 'DESC')
       .skip(skip)
       .take(take)
