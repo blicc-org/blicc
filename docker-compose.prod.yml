@@ -7,6 +7,8 @@ services:
       - 80:80
       - 443:443
     command:
+      - --providers.docker.endpoint=tcp://127.0.0.1:2375
+      - --providers.docker.swarmMode=true
       - --api=true
       - --providers.docker=true
       - --entrypoints.web.address=:80
@@ -15,12 +17,12 @@ services:
       - --certificatesresolvers.secure.acme.httpchallenge.entrypoint=web
       - --certificatesresolvers.secure.acme.email=${MAIL_ADDRESS}
       - --certificatesresolvers.secure.acme.storage=/root/acme.json
-      - --providers.docker.endpoint=tcp://127.0.0.1:2375
-      - --providers.docker.swarmMode=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
     deploy:
+      placement:
+        constraints: [node.role == manager]
       labels:
         - traefik.http.routers.traefik.service=api@internal
         - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
@@ -37,6 +39,8 @@ services:
       - /root/db-data/postgres-data:/var/lib/postgresql/data
     restart: always
     deploy:
+      placement:
+        constraints: [node.role == manager]
       labels:
         - traefik.enable=false
   redis:
@@ -45,6 +49,8 @@ services:
       - /root/db-data/redis-data:/data
     restart: always
     deploy:
+      placement:
+        constraints: [node.role == manager]
       labels:
         - traefik.enable=false
   mongo:
@@ -53,6 +59,8 @@ services:
       - /root/db-data/mongo-data:/data/db
     restart: always
     deploy:
+      placement:
+        constraints: [node.role == manager]
       labels:
         - traefik.enable=false
   api:
