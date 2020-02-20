@@ -9,6 +9,7 @@ import { MetaData } from '../../common/components/meta-data/MetaData'
 import { ReactComponent as Logo } from '../../assets/img/Logo.svg'
 import { ReactComponent as Android } from '../../assets/img/Android.svg'
 import { ANDROID_APP_STORE_LINK } from '../../config'
+import { StepByStepGuide } from './StepByStepGuide'
 import './LandingPage.scss'
 
 export function LandingPage() {
@@ -31,7 +32,7 @@ export function LandingPage() {
         <Link className="btn btn-outline-primary" to="/dashboards">
           {content.getStarted}
         </Link>
-        {installed && (
+        {!installed && (
           <>
             <br />
             <a
@@ -44,6 +45,7 @@ export function LandingPage() {
           </>
         )}
       </div>
+      <StepByStepGuide />
     </>
   )
 }
