@@ -4,7 +4,8 @@ import './StepByStepGuide.scss'
 
 export function StepByStepGuide() {
   return (
-    <div className="col-md-10 col-lg-8 col-xl-6 p-4 my-5 mx-auto guide">
+    <div className="col-md-10 col-lg-8 col-xl-6 p-4 mx-auto guide">
+      <h2 className="text-center">How it Works</h2>
       <ol class="gradient-list">
         <li>
           <h4>Fetch your data from external API</h4>
