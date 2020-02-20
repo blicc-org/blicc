@@ -30,6 +30,7 @@ services:
         - traefik.http.routers.detour.middlewares=redirect-to-https
         - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
         - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
+        - traefik.http.services.traefik.loadbalancer.server.port=80
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
     volumes:
@@ -74,6 +75,7 @@ services:
       labels:
         - traefik.http.routers.api.rule=Host(`api.blicc.org`)
         - traefik.http.routers.api.tls.certresolver=secure
+        - traefik.http.services.api.loadbalancer.server.port=80
   delivery:
     image: registry.thiloilg.com/repo/blicc/delivery:latest
     volumes:
@@ -89,6 +91,7 @@ services:
         - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
         - traefik.http.routers.delivery.tls.certresolver=secure
         - traefik.http.routers.delivery.middlewares=sslheader
+        - traefik.http.services.delivery.loadbalancer.server.port=80
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     restart: always
@@ -99,3 +102,4 @@ services:
       labels:
         - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
         - traefik.http.routers.app.tls.certresolver=secure
+        - traefik.http.services.app.loadbalancer.server.port=80
