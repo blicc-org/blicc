@@ -69,8 +69,22 @@ export class UserController {
 
   public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
+
+    const fields = Validation.escapeFields(ctx.query.fields, [
+      'id',
+      'firstName',
+      'lastName',
+      'email',
+      'creationDate',
+      'role',
+      'hasTwoFactorAuth',
+    ])
+    const searchTerm = Validation.escapeSearchQuery(ctx.query.search)
+    const skip = Validation.escapeQueryNumber(ctx.query.skip)
+    const take = Validation.escapeQueryNumber(ctx.query.take)
+
     ctx.status = statusCode.OK
-    const users = await this.userService.list()
+    const users = await this.userService.list(fields, searchTerm, skip, take)
     const total = await this.userService.getTotalEntries()
     ctx.body = {
       total,

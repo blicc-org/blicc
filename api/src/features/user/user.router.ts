@@ -198,6 +198,7 @@ export class UserRouter {
      *                   "lastName": "Doe",
      *                   "email": "john.doe@email.com",
      *                   "role": "user",
+     *                   "hasTwoFactorAuth": true,
      *                   "creationDate": "2019-11-02T15:45:58.284Z"
      *                 }
      *       401:
@@ -248,6 +249,29 @@ export class UserRouter {
      *         scheme: bearer
      *         bearerFormat: JWT
      *     description: List all users with their given details. You have to be an administrator to be able to access this route.
+     *     parameters:
+     *       - in: query
+     *         name: fields
+     *         schema:
+     *           type: array
+     *         style: form
+     *         explode: false
+     *         description: Concatenate field names you want to receive like this ?fields=id,firstName,lastName,creationDate . If you do not provide the field query you get all fields.
+     *       - in: query
+     *         name: search
+     *         schema:
+     *           type: string
+     *         description: Select users where the email matches the given search term like ?search=contact@user.com
+     *       - in: query
+     *         name: skip
+     *         schema:
+     *           type: number
+     *         description: Defines the offset of the requested users.
+     *       - in: query
+     *         name: take
+     *         schema:
+     *           type: number
+     *         description: Defines the amount of the requested users.
      *     produces:
      *       - application/json
      *     responses:
@@ -300,6 +324,7 @@ export class UserRouter {
      *                       "lastName": "Doe",
      *                       "email": "john.doe@email.com",
      *                       "role": "user",
+     *                       "hasTwoFactorAuth": true,
      *                       "creationDate": "2019-11-02T15:45:58.284Z"
      *                     },
      *                     {
@@ -308,6 +333,7 @@ export class UserRouter {
      *                       "lastName": "Donalds",
      *                       "email": "george.donalds@email.com",
      *                       "role": "developer",
+     *                       "hasTwoFactorAuth": true,
      *                       "creationDate": "2019-12-04T15:45:58.284Z"
      *                     },
      *                   ]

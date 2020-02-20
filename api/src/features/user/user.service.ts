@@ -78,11 +78,23 @@ export class UserService {
       .getOne()
   }
 
-  public async list(): Promise<User[]> {
+  public async list(
+    fields: string[],
+    searchTerm = '',
+    skip = 0,
+    take = 0 // default select all
+  ): Promise<User[]> {
+    fields = fields.map(field => 'user.' + field)
+
     return await this.repo
       .createQueryBuilder('user')
-      .select('user')
+      .select(fields)
+      .andWhere('LOWER(user.email) like LOWER(:email)', {
+        email: '%' + searchTerm + '%',
+      })
       .orderBy('user.creationDate', 'DESC')
+      .skip(skip)
+      .take(take)
       .getMany()
   }
 
