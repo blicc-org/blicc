@@ -1,13 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { ReactComponent as TourGuide } from '../../assets/img/TourGuide.svg'
+import { useSizes } from '../../common/hooks'
 import './StepByStepGuide.scss'
 
 export function StepByStepGuide() {
+  const [, , , lg] = useSizes()
+
   return (
     <div className="guide pt-5">
       <div className="col-md-10 col-lg-8 col-xl-6 p-4 mx-auto">
+        {lg && <TourGuide className="tour-guide" />}
         <h1 className="text-center">How it Works</h1>
-        <ol class="gradient-list">
+        <ol className="gradient-list">
           <li>
             <h4>Fetch your data from external API</h4>
             <p>

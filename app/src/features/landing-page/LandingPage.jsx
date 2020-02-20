@@ -4,8 +4,8 @@ import { useLanguage, useDeliveryEndpoint } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { ReactComponent as Logo } from '../../assets/img/Logo.svg'
 import { StepByStepGuide } from './StepByStepGuide'
-import './LandingPage.scss'
 import { AndroidApp } from './AndroidApp'
+import './LandingPage.scss'
 
 export function LandingPage() {
   const content = useLanguage()
