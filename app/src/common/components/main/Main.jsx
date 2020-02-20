@@ -16,7 +16,7 @@ export function Main({ children }) {
     setStyle({
       marginLeft: open && !isMobile ? sidebarWidth : 0,
       minHeight: '100vh',
-      paddingBottom: isMobile && isInstalled ? '55px' : '0px',
+      paddingBottom: isMobile && isInstalled ? '48px' : '0px',
     })
   }, [open, isMobile, isInstalled])
 
