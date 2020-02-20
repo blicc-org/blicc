@@ -56,6 +56,7 @@ export function ChartView({ match }) {
     if (slug && key) {
       fetchPlugin()
     }
+    // eslint-disable-next-line
   }, [slug])
 
   return (
