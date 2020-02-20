@@ -6,11 +6,14 @@ services:
     ports:
       - 80:80
       - 443:443
+    networks:
+      - traefik-public
     command:
-      - --providers.docker.endpoint=tcp://127.0.0.1:2375
-      - --providers.docker.swarmMode=true
       - --api=true
       - --providers.docker=true
+      - --providers.docker.swarmMode=true
+      - --providers.docker.network=traefik-public
+      - --providers.docker.endpoint=unix:///var/run/docker.sock
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
       - --certificatesresolvers.secure.acme.httpchallenge=true
@@ -22,7 +25,8 @@ services:
       - /root/acme.json:/root/acme.json
     deploy:
       placement:
-        constraints: [node.role == manager]
+        constraints:
+          - node.role == manager
       labels:
         - traefik.http.routers.traefik.service=api@internal
         - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
@@ -40,7 +44,8 @@ services:
     restart: always
     deploy:
       placement:
-        constraints: [node.role == manager]
+        constraints:
+          - node.role == manager
       labels:
         - traefik.enable=false
   redis:
@@ -50,7 +55,8 @@ services:
     restart: always
     deploy:
       placement:
-        constraints: [node.role == manager]
+        constraints:
+          - node.role == manager
       labels:
         - traefik.enable=false
   mongo:
@@ -60,11 +66,14 @@ services:
     restart: always
     deploy:
       placement:
-        constraints: [node.role == manager]
+        constraints:
+          - node.role == manager
       labels:
         - traefik.enable=false
   api:
     image: registry.thiloilg.com/repo/blicc/api:latest
+    networks:
+     - traefik-public
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
@@ -86,6 +95,8 @@ services:
         - traefik.http.services.api.loadbalancer.server.port=80
   delivery:
     image: registry.thiloilg.com/repo/blicc/delivery:latest
+    networks:
+     - traefik-public
     volumes:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
     restart: always
@@ -102,6 +113,8 @@ services:
         - traefik.http.services.delivery.loadbalancer.server.port=80
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
+    networks:
+     - traefik-public
     restart: always
     depends_on:
       - api
@@ -111,3 +124,6 @@ services:
         - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
         - traefik.http.routers.app.tls.certresolver=secure
         - traefik.http.services.app.loadbalancer.server.port=80
+networks:
+  traefik-public:
+    external: true
