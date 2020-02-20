@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import statusCode from 'http-status-codes'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useApiEndpoint } from '../../common/hooks'
-import { Empty } from '../../common/components/ui'
+import { Empty, Item } from '../../common/components/ui'
 
 export function AdminArea() {
   const [result, setResult] = useState({ total: 0, users: [] })
@@ -40,24 +40,26 @@ export function AdminArea() {
           <Empty>No charts fount.</Empty>
         ) : (
           <table className="table">
-            <thead>
-              <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Role</th>
-                <th>Email</th>
-                <th>Register Date</th>
-              </tr>
-            </thead>
             <tbody>
               {result.users.map(
                 ({ id, firstName, lastName, role, email, creationDate }) => (
                   <tr key={id}>
-                    <td>{firstName}</td>
-                    <td>{lastName}</td>
-                    <td>{role}</td>
-                    <td>{email}</td>
-                    <td>{creationDate.split('T')[0]}</td>
+                    <td>
+                      <h5 className="card-title">
+                        {`${firstName} ${lastName} `}
+                        <span
+                          class={`badge badge-${
+                            role === 'admin' ? 'danger' : 'info'
+                          }`}
+                        >
+                          {role}
+                        </span>
+                      </h5>
+                      <h6 className="card-subtitle mb-2 text-muted">
+                        {creationDate.split('T')[0]}
+                      </h6>
+                      <p className="card-text">{email}</p>
+                    </td>
                   </tr>
                 )
               )}
