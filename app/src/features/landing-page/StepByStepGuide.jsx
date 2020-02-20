@@ -9,28 +9,27 @@ export function StepByStepGuide() {
         <li>
           <h4>Fetch your data from external API</h4>
           <p>
-            The data has to be transformed to be used inside the diagrams. This
-            can be done with the help of <code>jmespath</code>, a json query
-            language. Read more about how to query the data{' '}
-            <Link to="/data-sources">here</Link>.
+            To fetch data from an API you need to create a new{' '}
+            <Link to="/data-sources">data source</Link>.
           </p>
         </li>
         <li>
           <h4>Process your data</h4>
           <p>
-            The data has to be transformed to be used inside the diagrams. This
-            can be done with the help of <code>jmespath</code>, a json query
-            language. Read more about how to query the data{' '}
-            <Link to="/">here</Link>.
+            To process the data the application uses a json query language
+            called <code>jmespath</code>. A tutorial of how to use the query
+            language can be found{' '}
+            <a href="http://jmespath.org/tutorial.html">data source</a>. The
+            output of the data has to have a valid <code>chart.js</code> data
+            format.
           </p>
         </li>
         <li>
           <h4>Create a dashboard</h4>
           <p>
-            The data has to be transformed to be used inside the diagrams. This
-            can be done with the help of <code>jmespath</code>, a json query
-            language. Read more about how to query the data{' '}
-            <Link to="/">here</Link>.
+            A dashboard can be created <Link to="/dashboards">here</Link>. Click
+            the edit button and then the plus button on the lower right corner.
+            Then simply drag a chart type and a data source into the dashboard.
           </p>
         </li>
       </ol>
