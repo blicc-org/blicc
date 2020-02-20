@@ -18,8 +18,8 @@ export function StepByStepGuide() {
           <p>
             To process the data the application uses a json query language
             called <code>jmespath</code>. A tutorial of how to use the query
-            language can be found{' '}
-            <a href="http://jmespath.org/tutorial.html">data source</a>. The
+            language can be found on{' '}
+            <a href="http://jmespath.org/tutorial.html">jmespath.org</a>. The
             output of the data has to have a valid <code>chart.js</code> data
             format.
           </p>
