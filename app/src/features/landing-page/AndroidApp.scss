@@ -1,0 +1,21 @@
+@import '../../Theme';
+
+.android-app {
+  color: white;
+  background-color: $success;
+}
+
+.android-app .btn {
+  color: white;
+  border-color: white;
+}
+
+.android-app .btn {
+  fill: white;
+}
+
+.android-app .btn:hover {
+  color: $success;
+  background-color: white;
+  fill: $success;
+}
