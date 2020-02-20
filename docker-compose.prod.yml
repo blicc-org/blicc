@@ -73,7 +73,7 @@ services:
   api:
     image: registry.thiloilg.com/repo/blicc/api:latest
     networks:
-     - traefik-public
+      - traefik-public
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
@@ -96,7 +96,7 @@ services:
   delivery:
     image: registry.thiloilg.com/repo/blicc/delivery:latest
     networks:
-     - traefik-public
+      - traefik-public
     volumes:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
     restart: always
@@ -114,7 +114,7 @@ services:
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
     networks:
-     - traefik-public
+      - traefik-public
     restart: always
     depends_on:
       - api
