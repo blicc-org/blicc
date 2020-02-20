@@ -2,13 +2,14 @@ import React, { useState, useRef } from 'react'
 import { useLanguage, useClickAway } from '../../hooks'
 import { Link } from 'react-router-dom'
 import { User } from 'react-feather'
-import { useLogout } from '../../hooks/useLogout'
+import { useLogout, useAdmin } from '../../hooks'
 
 export function NavbarUser({ firstName, lastName, loggedIn }) {
   const content = useLanguage()
   const [open, setOpen] = useState(false)
   const ref = useRef()
   const logout = useLogout()
+  const isAdmin = useAdmin()
   useClickAway(ref, () => close())
 
   function toggle() {
@@ -51,6 +52,14 @@ export function NavbarUser({ firstName, lastName, loggedIn }) {
               {content.navbar.profile}
             </Link>
             <div className="dropdown-divider"></div>
+            {isAdmin && (
+              <>
+                <Link className="dropdown-item" to="/admin-area">
+                  Admin Area
+                </Link>
+                <div className="dropdown-divider"></div>
+              </>
+            )}
             <Link
               className="dropdown-item"
               to="/"

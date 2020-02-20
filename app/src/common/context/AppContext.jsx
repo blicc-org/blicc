@@ -14,6 +14,7 @@ export const INITIAL_APP_STATE = {
   loggedIn: false,
   language: useBrowserLanguage(),
   refreshToken: '',
+  role: '',
 }
 
 export const AppContext = createContext()

@@ -26,6 +26,7 @@ export function useLogin(onSuccess = () => {}, onFailure = () => {}) {
         firstName: data.firstName,
         lastName: data.lastName,
         loggedIn: true,
+        role: data.role,
       })
       onSuccess()
     } else if (status === statusCode.FORBIDDEN) {

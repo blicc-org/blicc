@@ -14,6 +14,7 @@ import { Profile } from './features/profile/Profile'
 import { Charts } from './features/charts/Charts'
 import { ChartView } from './features/chart-view/ChartView'
 import { TwoFactorAuth } from './features/two-factor-auth/TwoFactorAuth'
+import { AdminArea } from './features/admin-area/AdminArea'
 import { ProtectedRoute } from './common/components/protected-route/ProtectedRoute'
 import { NativeNavigation } from './common/components/native-navigation/NativeNavigation'
 import { Provider } from './common/context'
@@ -46,6 +47,7 @@ export function App() {
             />
             <ProtectedRoute path="/data-sources" component={DataSources} />
             <ProtectedRoute path="/profile" component={Profile} />
+            <ProtectedRoute path="/admin-area" component={AdminArea} />
             <Route component={NotFound} />
           </Switch>
         </Main>
