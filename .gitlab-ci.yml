@@ -35,7 +35,7 @@ build:
     - docker build --build-arg MONGODB_PASSWORD=$MONGODB_PASSWORD -t mongo ./mongo
     - docker build --build-arg MONGODB_PASSWORD=$MONGODB_PASSWORD -t delivery -f ./delivery/prod.Dockerfile ./delivery
     - docker build -t redis ./redis
-    - docker build -t mock-api ./mock-api
+    - docker build -t mock-api -f ./mock-api/prod.Dockerfile ./mock-api
 
     ## tag for testing stage
     - docker tag api $REGISTRY_DOMAIN/repo/$REPO/api-testing-stage
