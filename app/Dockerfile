@@ -9,4 +9,6 @@ RUN yarn build
 
 EXPOSE 3000
 
+HEALTHCHECK CMD ["chmod", "+x", "healthcheck.sh"]
+
 CMD ["yarn", "start"]
