@@ -99,7 +99,7 @@ services:
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
       - APP_ORIGIN=${APP_ORIGIN}
     deploy:
-      replicas: 2
+      replicas: 4
       labels:
         - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
         - traefik.http.routers.delivery.tls.certresolver=secure
