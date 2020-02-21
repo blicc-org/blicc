@@ -23,6 +23,8 @@ services:
       - /root/acme.json:/root/acme.json
     deploy:
       replicas: 1
+      update_config:
+        order: start-first
       placement:
         constraints:
           - node.role == manager
@@ -43,6 +45,8 @@ services:
     restart: always
     deploy:
       replicas: 1
+      update_config:
+        order: start-first
       placement:
         constraints:
           - node.role == manager
@@ -53,6 +57,8 @@ services:
     restart: always
     deploy:
       replicas: 1
+      update_config:
+        order: start-first
       placement:
         constraints:
           - node.role == manager
@@ -63,6 +69,8 @@ services:
     restart: always
     deploy:
       replicas: 1
+      update_config:
+        order: start-first
       placement:
         constraints:
           - node.role == manager
@@ -84,6 +92,10 @@ services:
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     deploy:
       replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 1s
+        order: start-first
       labels:
         - traefik.http.routers.api.rule=Host(`api.blicc.org`)
         - traefik.http.routers.api.tls.certresolver=secure
@@ -100,6 +112,10 @@ services:
       - APP_ORIGIN=${APP_ORIGIN}
     deploy:
       replicas: 4
+      update_config:
+        parallelism: 1
+        delay: 1s
+        order: start-first
       labels:
         - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
         - traefik.http.routers.delivery.tls.certresolver=secure
@@ -113,6 +129,10 @@ services:
       - delivery
     deploy:
       replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 1s
+        order: start-first
       labels:
         - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
         - traefik.http.routers.app.tls.certresolver=secure
