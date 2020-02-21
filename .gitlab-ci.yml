@@ -20,8 +20,7 @@ variables:
   docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 .install_openssl: &install_openssl |
-  apk upgrade
-  apk add pkg-config -y
+  apk upgrade && apk add pkg-config
   cd WORKDIR
   git clone https://github.com/openssl/openssl.git
   cd openssl
