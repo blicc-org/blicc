@@ -84,6 +84,8 @@ export function useApiEndpoint(path = '') {
       return result
     }
 
+    if (status >= 400) return result
+
     return [status, await res.json()]
   }
 
