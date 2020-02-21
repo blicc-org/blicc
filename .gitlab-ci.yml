@@ -19,6 +19,16 @@ variables:
 .login_docker: &login_docker |
   docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
+.install_openssl: &install_openssl |
+  apt-get install pkg-config
+  cd WORKDIR
+  git clone https://github.com/openssl/openssl.git
+  cd openssl
+  ./config
+  make
+  make install
+  ldconfig
+
 build:
   stage: build
   image: docker:git
@@ -105,6 +115,7 @@ deploy:
   before_script:
     - *login_docker
     - *enable_ssh
+    - *install_openssl
   script:
     - ssh -tt root@$PROD_IP "docker image prune -a -f"
     - docker push $REGISTRY_DOMAIN/repo/$REPO/app
