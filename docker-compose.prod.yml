@@ -39,6 +39,8 @@ services:
         - traefik.http.services.traefik.loadbalancer.server.port=80
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
+    networks:
+      - traefik-public
     volumes:
       - /root/db-data/postgres-data:/var/lib/postgresql/data
     restart: always
@@ -50,6 +52,8 @@ services:
         - traefik.enable=false
   redis:
     image: registry.thiloilg.com/repo/blicc/redis:latest
+    networks:
+      - traefik-public
     volumes:
       - /root/db-data/redis-data:/data
     restart: always
@@ -61,6 +65,8 @@ services:
         - traefik.enable=false
   mongo:
     image: registry.thiloilg.com/repo/blicc/mongo:latest
+    networks:
+      - traefik-public
     volumes:
       - /root/db-data/mongo-data:/data/db
     restart: always
