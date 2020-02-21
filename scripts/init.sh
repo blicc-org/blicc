@@ -18,6 +18,15 @@ docker-compose --version
 touch acme.json
 chmod 600 acme.json
 
-# rsa keys for app authorization
-openssl genrsa -out rsa.pem 2048
-openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem
+# basic firewall setup
+ufw allow OpenSSH
+sudo ufw allow http
+sudo ufw allow https
+ufw allow 2377/tcp
+ufw allow 7946/tcp
+ufw allow 7946/udp
+ufw allow 4789/udp
+
+ufw enable
+ufw status
+
