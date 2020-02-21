@@ -21,7 +21,6 @@ Blicc is a lightweight, user-friendly and secure data visualiation plattform.
 
 ```bash
 blicc/
-├── api         # TWA
 ├── api         # Resource Management API
 ├── app         # PWA
 ├── db          # PostgreSQL database for Resource Management API
