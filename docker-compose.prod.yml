@@ -48,8 +48,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-      labels:
-        - traefik.enable=false
+
   redis:
     image: registry.thiloilg.com/repo/blicc/redis:latest
     networks:
@@ -61,8 +60,6 @@ services:
       placement:
         constraints:
           - node.role == manager
-      labels:
-        - traefik.enable=false
   mongo:
     image: registry.thiloilg.com/repo/blicc/mongo:latest
     networks:
@@ -74,8 +71,6 @@ services:
       placement:
         constraints:
           - node.role == manager
-      labels:
-        - traefik.enable=false
   api:
     image: registry.thiloilg.com/repo/blicc/api:latest
     networks:
