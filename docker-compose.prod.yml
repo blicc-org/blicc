@@ -6,8 +6,6 @@ services:
     ports:
       - 80:80
       - 443:443
-    networks:
-      - traefik-public
     command:
       - --api=true
       - --providers.docker=true
@@ -24,6 +22,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
     deploy:
+      replicas: 1
       placement:
         constraints:
           - node.role == manager
@@ -39,42 +38,36 @@ services:
         - traefik.http.services.traefik.loadbalancer.server.port=80
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
-    networks:
-      - traefik-public
     volumes:
       - /root/db-data/postgres-data:/var/lib/postgresql/data
     restart: always
     deploy:
+      replicas: 1
       placement:
         constraints:
           - node.role == manager
-
   redis:
     image: registry.thiloilg.com/repo/blicc/redis:latest
-    networks:
-      - traefik-public
     volumes:
       - /root/db-data/redis-data:/data
     restart: always
     deploy:
+      replicas: 1
       placement:
         constraints:
           - node.role == manager
   mongo:
     image: registry.thiloilg.com/repo/blicc/mongo:latest
-    networks:
-      - traefik-public
     volumes:
       - /root/db-data/mongo-data:/data/db
     restart: always
     deploy:
+      replicas: 1
       placement:
         constraints:
           - node.role == manager
   api:
     image: registry.thiloilg.com/repo/blicc/api:latest
-    networks:
-      - traefik-public
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
@@ -90,14 +83,13 @@ services:
       - ADMIN_MAIL=${ADMIN_MAIL}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     deploy:
+      replicas: 2
       labels:
         - traefik.http.routers.api.rule=Host(`api.blicc.org`)
         - traefik.http.routers.api.tls.certresolver=secure
         - traefik.http.services.api.loadbalancer.server.port=80
   delivery:
     image: registry.thiloilg.com/repo/blicc/delivery:latest
-    networks:
-      - traefik-public
     volumes:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
     restart: always
@@ -107,6 +99,7 @@ services:
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
       - APP_ORIGIN=${APP_ORIGIN}
     deploy:
+      replicas: 2
       labels:
         - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
         - traefik.http.routers.delivery.tls.certresolver=secure
@@ -114,17 +107,13 @@ services:
         - traefik.http.services.delivery.loadbalancer.server.port=80
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
-    networks:
-      - traefik-public
     restart: always
     depends_on:
       - api
       - delivery
     deploy:
+      replicas: 2
       labels:
         - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
         - traefik.http.routers.app.tls.certresolver=secure
         - traefik.http.services.app.loadbalancer.server.port=80
-networks:
-  traefik-public:
-    external: true
