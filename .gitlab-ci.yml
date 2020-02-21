@@ -23,7 +23,6 @@ variables:
   apk add --update openssl
   rm -rf /var/cache/apk/*
 
-
 build:
   stage: build
   image: docker:git
