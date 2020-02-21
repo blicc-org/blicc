@@ -80,7 +80,7 @@ services:
     image: registry.thiloilg.com/repo/blicc/mock-api-testing-stage:latest
     restart: always
     ports:
-      - 9090:9090
+      - 80:80
     labels:
       - traefik.http.routers.mock-api.rule=Host(`mock.testing-stage.org`)
       - traefik.http.routers.mock-api.tls.certresolver=secure
