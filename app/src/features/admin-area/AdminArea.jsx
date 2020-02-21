@@ -7,12 +7,26 @@ import { Empty, Pagination } from '../../common/components/ui'
 export function AdminArea() {
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
+  const [config, setConfig] = useState({ ipAddress: '0:0:0:0' })
   const [result, setResult] = useState({ total: 0, users: [] })
-  const [, access, ,] = useApiEndpoint('/users')
+  const [, accessConfig, ,] = useApiEndpoint('/health-check/config')
+  const [, accessUsers, ,] = useApiEndpoint('/users')
+  const { ipAddress } = config
 
   useEffect(() => {
     async function fetchData() {
-      const [status, data] = await access({
+      const [status, data] = await accessConfig()
+      if (status === statusCode.OK) {
+        setConfig(data)
+      }
+    }
+    fetchData()
+    // eslint-disable-next-line
+  }, [])
+
+  useEffect(() => {
+    async function fetchData() {
+      const [status, data] = await accessUsers({
         params: {
           fields: 'id,firstName,lastName,creationDate,twoFactorAuth,email',
           skip: itemsPerPage * page,
@@ -38,6 +52,14 @@ export function AdminArea() {
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
           <h2 className="my-0">Admin Area</h2>
         </div>
+        <hr />
+        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
+          <h3 className="my-0">Network</h3>
+        </div>
+        <hr />
+        <p className="card-text">
+          IP-Address: <b>{ipAddress}</b>
+        </p>
         <hr />
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
           <h3 className="my-0">

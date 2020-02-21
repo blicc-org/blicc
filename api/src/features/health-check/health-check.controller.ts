@@ -25,8 +25,8 @@ export class HealthCheckController {
   ): Promise<void> {
     await next()
 
-    const idAddress = IpAddress.access()
+    const ipAddress = IpAddress.access()
     ctx.status = statusCode.OK
-    ctx.body = { idAddress }
+    ctx.body = { ipAddress }
   }
 }
