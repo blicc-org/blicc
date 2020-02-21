@@ -73,6 +73,51 @@ export class HealthCheckRouter {
       handler: this.controller.healthCheckAuth.bind(this.controller),
     })
 
+    /**
+     * @swagger
+     *
+     * /health-check/config:
+     *   get:
+     *     security:
+     *       - cookieAuth: []
+     *     tags:
+     *       - Health Check
+     *     summary: Health Check Config
+     *     securitySchemes:
+     *       bearerAuth:
+     *         type: http
+     *         scheme: bearer
+     *         bearerFormat: JWT
+     *     description: Get server specific information
+     *     responses:
+     *       200:
+     *         description: OK
+     *         content:
+     *           application/json:
+     *             schema:
+     *               properties:
+     *                 ipAddress:
+     *                   type: string
+     *             examples:
+     *               filter:
+     *                 value: {
+     *                   "ipAddress": "0.0.0.0"
+     *                 }
+     *       401:
+     *         description: Unauthorized
+     *       500:
+     *         description: Internal Server Error
+     */
+    this.router.route({
+      method: 'get',
+      path: '/config',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['admin']),
+      ],
+      handler: this.controller.healthCheckConfig.bind(this.controller),
+    })
+
     return this.router.middleware()
   }
 }
