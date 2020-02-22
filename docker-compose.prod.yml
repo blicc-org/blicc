@@ -42,7 +42,6 @@ services:
     image: registry.thiloilg.com/repo/blicc/db:latest
     volumes:
       - /root/db-data/postgres-data:/var/lib/postgresql/data
-    restart: always
     deploy:
       replicas: 1
       update_config:
@@ -54,7 +53,6 @@ services:
     image: registry.thiloilg.com/repo/blicc/redis:latest
     volumes:
       - /root/db-data/redis-data:/data
-    restart: always
     deploy:
       replicas: 1
       update_config:
@@ -66,7 +64,6 @@ services:
     image: registry.thiloilg.com/repo/blicc/mongo:latest
     volumes:
       - /root/db-data/mongo-data:/data/db
-    restart: always
     deploy:
       replicas: 1
       update_config:
@@ -79,7 +76,6 @@ services:
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
-    restart: always
     depends_on:
       - db
       - redis
@@ -104,7 +100,6 @@ services:
     image: registry.thiloilg.com/repo/blicc/delivery:latest
     volumes:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
-    restart: always
     depends_on:
       - mongo
     environment:
@@ -123,7 +118,6 @@ services:
         - traefik.http.services.delivery.loadbalancer.server.port=80
   app:
     image: registry.thiloilg.com/repo/blicc/app:latest
-    restart: always
     depends_on:
       - api
       - delivery
