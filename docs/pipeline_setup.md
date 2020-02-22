@@ -16,6 +16,7 @@ MOCK_TEST_TARGET=http://mock.testing-stage.org
 MONGODB_PASSWORD=password
 POSTGRES_PASSWORD=password
 PROD_IP=0.0.0.0
+PROD_IP_2=0.0.0.0
 REGISTRY_DOMAIN=registry.example.com
 REPO=example
 SSH_PRIVATE_KEY=ssh_private_key_string
