@@ -38,8 +38,6 @@ services:
         - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
         - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
         - traefik.http.services.traefik.loadbalancer.server.port=80
-    healthcheck:
-      test: traefik healthcheck --ping
   db:
     image: registry.thiloilg.com/repo/blicc/db:latest
     volumes:
