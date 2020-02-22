@@ -24,7 +24,18 @@ services:
     deploy:
       replicas: 1
       update_config:
+        parallelism: 1
         order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+        window: 120s
       placement:
         constraints:
           - node.role == manager
@@ -45,7 +56,18 @@ services:
     deploy:
       replicas: 1
       update_config:
+        parallelism: 1
         order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+        window: 120s
       placement:
         constraints:
           - node.role == manager
@@ -67,7 +89,18 @@ services:
     deploy:
       replicas: 1
       update_config:
+        parallelism: 1
         order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+        window: 120s
       placement:
         constraints:
           - node.role == manager
@@ -90,8 +123,17 @@ services:
       replicas: 2
       update_config:
         parallelism: 1
-        delay: 1s
         order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+        window: 120s
       labels:
         - traefik.http.routers.api.rule=Host(`api.blicc.org`)
         - traefik.http.routers.api.tls.certresolver=secure
@@ -108,9 +150,18 @@ services:
     deploy:
       replicas: 4
       update_config:
-        parallelism: 1
-        delay: 1s
+        parallelism: 2
         order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+        window: 120s
       labels:
         - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
         - traefik.http.routers.delivery.tls.certresolver=secure
@@ -125,8 +176,17 @@ services:
       replicas: 2
       update_config:
         parallelism: 1
-        delay: 1s
         order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+        window: 120s
       labels:
         - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
         - traefik.http.routers.app.tls.certresolver=secure
