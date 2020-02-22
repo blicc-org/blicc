@@ -6,6 +6,6 @@ RUN yarn
 
 EXPOSE 80
 
-HEALTHCHECK CMD wget --quiet --tries=1 --spider http://localhost || exit 1
+HEALTHCHECK CMD ["node", "healthcheck.js"]
 
 CMD [ "yarn", "start" ]
