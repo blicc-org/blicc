@@ -5,6 +5,7 @@ COPY . .
 RUN yarn
 RUN yarn build
 COPY ./src/common/services/mail-service/templates/ ./build/common/services/mail-service/templates/
+RUN chmod +x healthcheck.js
 
 EXPOSE 80
 
