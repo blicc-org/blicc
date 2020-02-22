@@ -29,4 +29,3 @@ ufw allow 4789/udp
 
 ufw enable
 ufw status
-
