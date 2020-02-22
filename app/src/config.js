@@ -13,7 +13,7 @@ export const DELIVERY = {
   ORIGIN: isDev ? 'ws://localhost:8080' : 'wss://delivery.blicc.org',
 }
 
-// same grid breakpoints as bootstrap
+// bootstrap breakpoints
 export const breakpoints = {
   xs: 0,
   sm: 576,
