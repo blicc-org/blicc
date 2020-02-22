@@ -1,20 +1,20 @@
 import Router, { IMiddleware as Middleware } from 'koa-router'
-import { HealthCheckController } from './health-check.controller'
+import { DataDeliveryMockController } from './external-api-mock'
 
-export class HealthCheckRouter {
+export class ExternalApiMock {
   private prefix: string
   private router: Router
-  private controller: HealthCheckController
+  private controller: DataDeliveryMockController
 
   public constructor(prefix: string) {
     this.prefix = prefix
     this.router = new Router()
-    this.controller = new HealthCheckController()
+    this.controller = new DataDeliveryMockController()
   }
 
   public routes(): Middleware {
     this.router.prefix(this.prefix)
-    this.router.get('/', this.controller.check.bind(this.controller))
+    this.router.get('/', this.controller.mock.bind(this.controller))
 
     return this.router.routes()
   }

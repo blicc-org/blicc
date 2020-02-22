@@ -25,7 +25,7 @@ export function Network() {
       </div>
       <hr />
       <p className="card-text">
-        Resource Management API IP-Address: <b>{ipAddress}</b>
+        IP-Address: <b>{ipAddress}</b>
       </p>
     </>
   )
