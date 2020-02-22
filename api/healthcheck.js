@@ -1,6 +1,6 @@
 const http = require('http')
 const options = {
-  host: '0.0.0.0',
+  host: '127.0.0.1',
   port: 80,
   timeout: 2000,
   path: '/health-check',
