@@ -29,7 +29,7 @@ services:
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
     healthcheck:
-      test: ['CMD', 'traefik', 'healthcheck']
+      test: traefik healthcheck --ping
   db:
     image: registry.thiloilg.com/repo/blicc/db-testing-stage:latest
     restart: always
