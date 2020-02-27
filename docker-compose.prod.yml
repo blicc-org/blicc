@@ -121,6 +121,7 @@ services:
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     deploy:
       replicas: 2
+      max-replicas-per-node: 1
       update_config:
         parallelism: 1
         order: start-first
@@ -134,9 +135,6 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
-      placement:
-        constraints:
-          - node.role == worker
       labels:
         - traefik.http.routers.api.rule=Host(`api.blicc.org`)
         - traefik.http.routers.api.tls.certresolver=secure
@@ -152,6 +150,7 @@ services:
       - APP_ORIGIN=${APP_ORIGIN}
     deploy:
       replicas: 4
+      max-replicas-per-node: 2
       update_config:
         parallelism: 2
         order: start-first
@@ -165,9 +164,6 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
-      placement:
-        constraints:
-          - node.role == worker
       labels:
         - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
         - traefik.http.routers.delivery.tls.certresolver=secure
@@ -180,6 +176,7 @@ services:
       - delivery
     deploy:
       replicas: 2
+      max-replicas-per-node: 1
       update_config:
         parallelism: 1
         order: start-first
