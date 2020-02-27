@@ -121,7 +121,6 @@ services:
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     deploy:
       replicas: 2
-      max-replicas-per-node: 1
       update_config:
         parallelism: 1
         order: start-first
@@ -150,7 +149,6 @@ services:
       - APP_ORIGIN=${APP_ORIGIN}
     deploy:
       replicas: 4
-      max-replicas-per-node: 2
       update_config:
         parallelism: 2
         order: start-first
@@ -176,7 +174,6 @@ services:
       - delivery
     deploy:
       replicas: 2
-      max-replicas-per-node: 1
       update_config:
         parallelism: 1
         order: start-first
