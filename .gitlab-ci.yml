@@ -125,6 +125,12 @@ deploy:
     - scp -r rsa_pub.pem root@$PROD_IP:/root/rsa_pub.pem
     - scp -r rsa.pem root@$PROD_IP_2:/root/rsa.pem
     - scp -r rsa_pub.pem root@$PROD_IP_2:/root/rsa_pub.pem
+    - scp -r rsa.pem root@$PROD_IP_3:/root/rsa.pem
+    - scp -r rsa_pub.pem root@$PROD_IP_3:/root/rsa_pub.pem
+    - scp -r rsa.pem root@$PROD_IP_4:/root/rsa.pem
+    - scp -r rsa_pub.pem root@$PROD_IP_4:/root/rsa_pub.pem
+    - scp -r rsa.pem root@$PROD_IP_5:/root/rsa.pem
+    - scp -r rsa_pub.pem root@$PROD_IP_5:/root/rsa_pub.pem
     - ssh -tt root@$PROD_IP "export
       DOCKER_CLIENT_TIMEOUT=120
       COMPOSE_HTTP_TIMEOUT=120
