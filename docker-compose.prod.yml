@@ -120,7 +120,7 @@ services:
       - ADMIN_MAIL=${ADMIN_MAIL}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     deploy:
-      replicas: 2
+      replicas: 5
       update_config:
         parallelism: 1
         order: start-first
@@ -148,7 +148,7 @@ services:
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
       - APP_ORIGIN=${APP_ORIGIN}
     deploy:
-      replicas: 4
+      replicas: 5
       update_config:
         parallelism: 2
         order: start-first
@@ -173,7 +173,7 @@ services:
       - api
       - delivery
     deploy:
-      replicas: 2
+      replicas: 5
       update_config:
         parallelism: 1
         order: start-first
