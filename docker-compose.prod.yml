@@ -120,9 +120,9 @@ services:
       - ADMIN_MAIL=${ADMIN_MAIL}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     deploy:
-      replicas: 10
+      replicas: 2
       update_config:
-        parallelism: 5
+        parallelism: 1
         order: start-first
         failure_action: rollback
         delay: 10s
@@ -148,9 +148,9 @@ services:
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
       - APP_ORIGIN=${APP_ORIGIN}
     deploy:
-      replicas: 10
+      replicas: 2
       update_config:
-        parallelism: 5
+        parallelism: 1
         order: start-first
         failure_action: rollback
         delay: 10s
@@ -173,9 +173,9 @@ services:
       - api
       - delivery
     deploy:
-      replicas: 10
+      replicas: 2
       update_config:
-        parallelism: 5
+        parallelism: 1
         order: start-first
         failure_action: rollback
         delay: 10s
