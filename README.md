@@ -17,6 +17,7 @@ You need to have [Git](https://git-scm.com/downloads), [Docker](https://docs.doc
 #### Versions
 * Git (Windows 2.25.1, Mac 2.21.1)
 * Yarn 1.19.2
+* Docker 19.03.5
 
 > To run Docker Desktop on Windows 10 either Pro or Enterprise version is required.
 
