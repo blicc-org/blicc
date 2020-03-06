@@ -1,38 +1,35 @@
-## What is Blicc?
+# Blicc
 
 Blicc is a lightweight, user-friendly and secure data visualiation plattform.
 
 ## Docs
 
+- [Codebase](docs/codebase.md)
 - [Pipeline environment variables](docs/pipeline_setup.md)
 
-### Codebase
+## Quick start guide
 
-#### Technologies
+### Prerequisites
+You need to have [Git](https://git-scm.com/downloads), [Docker](https://docs.docker.com/install/), [Docker Compose](https://docs.docker.com/compose/install/) and [Yarn](https://classic.yarnpkg.com/en/docs/install) installed to be able to run the project.
 
-- **Node.js**: Node.js rest api using Koa and Typescript
-- **React**: Progressive web app written in React
-- **Go**: Golang websocket api
-- **PostgreSQL** Relational database management system
-- **MongoDB** Document-oriented database management system
-- **Redis** Redis in-memory-database for caching
+### Clone
 
-#### Folder structure
+To clone the repository you need to use the `--recurse-submodules` tag to also clone the submodules.
 
-```bash
-blicc/
-├── api         # Resource Management API
-├── app         # PWA
-├── db          # PostgreSQL database for Resource Management API
-├── delivery    # Data Delivery API
-├── docs        # Documentation
-├── mock-api    # A mock api to replace external api for integration tests
-├── mongo       # MongoDB database for Data Delivery API
-├── plugins     # Data visualization plugins for displaying diagrams
-├── redis       # Redis cache for both APIs
-├── scripts     # scripts for the infrastructure setup
-```
+### Setup project
+If all the prerequisites have been installed, run the following command in the root folder to create rsa keys and `.env` files:
+
+    yarn init
+
+### Build and Run
+
+To build and run the project for local development simply run:
+
+    yarn start
+
 
 ## License
+
+Copyright (c) Thilo Ilg. All rights reserved.
 
 MIT license, see the [LICENSE](./LICENSE) file.
