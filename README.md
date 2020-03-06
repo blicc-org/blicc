@@ -14,6 +14,14 @@ You need to have [Git](https://git-scm.com/downloads), [Docker](https://docs.doc
 
 > By using VS Code you can make use of the provided project settings.
 
+
+
+#### Versions
+* Git (Windows 2.25.1, Mac 2.21.1)
+* Yarn 1.19.2
+
+> To run Docker Desktop on Windows 10 either Pro or Enterprise version is required.
+
 ### Clone
 
 To clone the repository you need to use the `--recurse-submodules` tag to also clone the submodules.
