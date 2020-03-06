@@ -14,8 +14,6 @@ You need to have [Git](https://git-scm.com/downloads), [Docker](https://docs.doc
 
 > By using VS Code you can make use of the provided project settings.
 
-
-
 #### Versions
 * Git (Windows 2.25.1, Mac 2.21.1)
 * Yarn 1.19.2
