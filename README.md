@@ -19,6 +19,7 @@ You need to have [Git](https://git-scm.com/downloads), [Docker](https://docs.doc
 A greater or equal version of the listed softwares is required to run and build the project.
 * Git (Windows 2.25.1, Mac 2.21.1)
 * Docker 19.03.5
+* Docker-Compose 1.25.4
 * Node.js 12.13.1
 * Yarn 1.19.2
 
