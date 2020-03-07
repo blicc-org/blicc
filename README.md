@@ -29,7 +29,9 @@ A greater or equal version of the listed softwares is required.
 
 To clone the repository you need to use the `--recurse-submodules` tag to also clone the submodules.
 
-    git clone --recurse-submodules https://github.com/blicc-org/blicc.git
+    git clone --recurse-submodules git@github.com:blicc-org/blicc.git
+
+> The submodules are linked over ssh urls.
 
 ### Setup project
 If all the prerequisites have been installed, run the following command in the root folder to create rsa keys and `.env` files:
