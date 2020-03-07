@@ -11,12 +11,12 @@ Blicc is a lightweight, user-friendly and secure data visualiation plattform.
 
 ### Prerequisites
 You need to have [Git](https://git-scm.com/downloads), [Docker](https://docs.docker.com/install/), [Docker Compose](https://docs.docker.com/compose/install/),
-[Node.js](https://nodejs.org/en/download/) and [Yarn](https://classic.yarnpkg.com/en/docs/install) installed to be able to run the project.
+[Node.js](https://nodejs.org/en/download/) and [Yarn](https://classic.yarnpkg.com/en/docs/install) installed to be able to run and build the project.
 
 > By using VS Code you can make use of the provided project settings.
 
 #### Versions
-A greater or equal version of the listed softwares is required to run and build the project.
+A greater or equal version of the listed softwares is required.
 * Git (Windows 2.25.1, Mac 2.21.1)
 * Docker 19.03.5
 * Docker-Compose 1.25.4
