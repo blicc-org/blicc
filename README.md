@@ -16,9 +16,10 @@ You need to have [Git](https://git-scm.com/downloads), [Docker](https://docs.doc
 > By using VS Code you can make use of the provided project settings.
 
 #### Versions
+A greater or equal version of the listed softwares is required to run and build the project.
 * Git (Windows 2.25.1, Mac 2.21.1)
 * Docker 19.03.5
-* Node.js
+* Node.js 12.13.1
 * Yarn 1.19.2
 
 > To run Docker Desktop on Windows 10 either Pro or Enterprise version is required.
