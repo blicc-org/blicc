@@ -1,7 +1,7 @@
 #!/bin/sh
 # initialize ubuntu server
 
-## scp -r ./scripts/init.sh root@$IP:/root/init.sh
+## scp -r ./scripts/server.sh root@$IP:/root/init.sh
 ## ssh -t root@$IP "sh init.sh"
 
 sudo apt -y update
