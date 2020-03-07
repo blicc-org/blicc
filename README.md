@@ -42,7 +42,6 @@ To build and run the project for local development simply run:
 
     yarn start
 
-
 ## License
 
 Copyright (c) Thilo Ilg. All rights reserved.
