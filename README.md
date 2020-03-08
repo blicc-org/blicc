@@ -40,7 +40,7 @@ The rsa key is used for authorizing users between the services. You need to gene
 
     mkdir -p certs
     openssl genrsa -out ./certs/rsa.pem 2048
-    openssl rsa -in rsa.pem -outform PEM -pubout -out ./certs/rsa_pub.pem
+    openssl rsa -in ./certs/rsa.pem -outform PEM -pubout -out ./certs/rsa_pub.pem
 
 > The rsa keys are used for generating and validating JWT.
 
