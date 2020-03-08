@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from '../../common/components/ui'
+import { useLanguage } from '../../common/hooks'
 
 export function DashboardDetails({
   edit,
@@ -11,6 +12,7 @@ export function DashboardDetails({
   setDescription,
   remove,
 }) {
+  const content = useLanguage()
   return (
     <div className="col px-0">
       <Card title="Details">
@@ -18,7 +20,7 @@ export function DashboardDetails({
           <tbody>
             <tr>
               <td>
-                <b>Title</b>
+                <b>{content.title}</b>
               </td>
               <td>
                 {edit ? (
@@ -34,7 +36,7 @@ export function DashboardDetails({
             </tr>
             <tr>
               <td>
-                <b>Description:</b>
+                <b>{content.description}:</b>
               </td>
               <td>
                 {edit ? (
@@ -51,18 +53,15 @@ export function DashboardDetails({
             </tr>
             <tr>
               <td>
-                <b>Creation date:</b>
+                <b>{content.creationDate}:</b>
               </td>
               <td>{creationDate.split('T')[0]}</td>
             </tr>
           </tbody>
         </table>
       </Card>
-      <Card title="Delete">
-        <p className="card-text">
-          Keep in mind that you cannot restore the deleted dashboard as well as
-          its settings.
-        </p>
+      <Card title={content.delete}>
+        <p className="card-text">{content.deleteWarning}</p>
         <Link
           className="btn btn-danger"
           to="/"
@@ -71,7 +70,7 @@ export function DashboardDetails({
             remove()
           }}
         >
-          Delete
+          {content.delete}
         </Link>
       </Card>
     </div>

@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
 import statusCode from 'http-status-codes'
-import { useApiEndpoint, useMobile } from '../../common/hooks'
+import { useApiEndpoint, useMobile, useLanguage } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { API, EXAMPLE_DATA } from '../../config'
 import { ChartDetails } from './ChartDetails'
 import './ChartView.scss'
 
 export function ChartView({ match }) {
+  const content = useLanguage()
   const path = `/charts/${match.params.id}`
   const ref = useRef()
   const isMobile = useMobile()
@@ -68,7 +69,7 @@ export function ChartView({ match }) {
         </div>
         <div className="col px-0 pb-2">
           <div className="card">
-            <h5 className="card-header">Preview</h5>
+            <h5 className="card-header">{content.preview}</h5>
             <div className="card-body">
               <div style={style} ref={ref} />
             </div>

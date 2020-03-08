@@ -1,6 +1,9 @@
 import React from 'react'
+import { useLanguage } from '../../common/hooks'
 
 export function ChartDetails({ bundle, description, creationDate }) {
+  const content = useLanguage()
+
   return (
     <div className="col px-0">
       <div className="card">
@@ -10,19 +13,19 @@ export function ChartDetails({ bundle, description, creationDate }) {
             <tbody>
               <tr>
                 <td>
-                  <b>Bundle:</b>
+                  <b>{content.bundle}:</b>
                 </td>
                 <td>{bundle}</td>
               </tr>
               <tr>
                 <td>
-                  <b>Description:</b>
+                  <b>{content.description}:</b>
                 </td>
-                <td>{description}</td>
+                <td>{description}:</td>
               </tr>
               <tr>
                 <td>
-                  <b>Creation date:</b>
+                  <b>{content.creationDate}:</b>
                 </td>
                 <td>{creationDate ? creationDate.split('T')[0] : ''}</td>
               </tr>
