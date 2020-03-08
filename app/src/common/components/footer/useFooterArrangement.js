@@ -41,10 +41,6 @@ export function useFooterArrangement() {
       category: content.sidebar.about,
       items: [
         {
-          title: content.sidebar.manual,
-          link: '/pages/manual',
-        },
-        {
           title: content.sidebar.imprint,
           link: '/pages/imprint',
         },
