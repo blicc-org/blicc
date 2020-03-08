@@ -21,6 +21,7 @@ const de = {
     registerNowFollowUp:
       'und fang an deine Daten darzustellen und zu analysieren.',
   },
+  copyright: 'Urheberrecht'
 }
 
 export default de

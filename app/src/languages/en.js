@@ -19,6 +19,7 @@ const en = {
     registerNow: 'Register now',
     registerNowFollowUp: 'to start designing and analysing your data.',
   },
+  copyright: 'Copyright'
 }
 
 export default en
