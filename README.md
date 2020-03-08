@@ -66,9 +66,16 @@ files and name them  `.env`. Modifying the values is not required.
 
 ### Build and Run
 
-To build and run the project for local development simply run:
+To install all dependencies in the services run the following command:
+
+    yarn install
+
+To run the project for local development simply run:
 
     yarn start
+
+> The container of the local docker compose cluster are mapped to the source code. They
+> restart on any code modification detected by [nodemon](https://nodemon.io/) and [reflex](https://github.com/cespare/reflex).
 
 ### Access
 Once all the services are running healthy they are available under the following links:
