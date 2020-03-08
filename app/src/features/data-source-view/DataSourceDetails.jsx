@@ -2,8 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from '../../common/components/ui'
 import { FREQUENCY } from '../data-sources/DataSources'
+import { useLanguage } from '../../common/hooks'
 
 export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
+  const content = useLanguage()
   const {
     title,
     description,
@@ -18,7 +20,7 @@ export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
           <tbody>
             <tr>
               <td>
-                <b>Title:</b>
+                <b>{content.title}:</b>
               </td>
               <td>
                 {edit ? (
@@ -36,7 +38,7 @@ export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
             </tr>
             <tr>
               <td>
-                <b>Description:</b>
+                <b>{content.description}:</b>
               </td>
               <td>
                 {edit ? (
@@ -58,7 +60,7 @@ export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
             </tr>
             <tr>
               <td>
-                <b>Persist data:</b>
+                <b>{content.persistData}:</b>
               </td>
               <td>
                 {edit ? (
@@ -82,7 +84,7 @@ export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
             </tr>
             <tr>
               <td>
-                <b>Persist interval:</b>
+                <b>{content.interval}:</b>
               </td>
               <td>
                 {edit ? (
@@ -107,17 +109,15 @@ export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
             </tr>
             <tr>
               <td>
-                <b>Creation date:</b>
+                <b>{content.creationDate}:</b>
               </td>
               <td>{creationDate ? creationDate.split('T')[0] : ''}</td>
             </tr>
           </tbody>
         </table>
       </Card>
-      <Card title="Delete">
-        <p className="card-text">
-          Keep in mind that you cannot restore the deleted data source.
-        </p>
+      <Card title={content.delete}>
+        <p className="card-text">{content.deleteWarning}</p>
         <Link
           className="btn btn-danger"
           to="/"
@@ -126,7 +126,7 @@ export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
             remove()
           }}
         >
-          Delete
+          {content.delete}
         </Link>
       </Card>
     </div>

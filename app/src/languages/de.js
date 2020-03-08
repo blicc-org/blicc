@@ -12,6 +12,8 @@ const de = {
   creationDate: 'Erstellungsdatum',
   delete: 'Löschen',
   deleteWarning: 'Gelöschte Ressources können nicht wieder hergestellt werden.',
+  persistData: 'Datenspeicherung',
+  interval: 'Interval',
   dashboards: {
     title: 'Dashboards',
     description: 'Durchsuche alle erstellten Dashboards.',
