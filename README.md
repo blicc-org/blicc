@@ -54,13 +54,25 @@ Examples for the environment variables are stored inside `.env.example` files in
     ├── plugins     # plugins for visualizing data
 ```
 
-You need to rename the `.env.example` to `.env` and fill them with proper values.
+To set the environment variables you simply need to make copies of the `.env.example`
+files and name them  `.env`. Modifying the values is not required.
+
+> The resource management service won't send mails on registration unless you set proper mail server credentials.
 
 ### Build and Run
 
 To build and run the project for local development simply run:
 
     yarn start
+
+### Access
+Once all the services are running healthy they are available under the following links:
+
+* [Frontend (PWA)](http://localhost:3000) 
+* [Resource management service docs](http://localhost) 
+* [Data delivery service docs](http://localhost:8080)
+
+> To check if the services are healthy simply run `docker ps`.
 
 ## License
 
