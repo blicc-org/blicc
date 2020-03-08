@@ -81,7 +81,7 @@ export function Dashboards() {
           <h2 className="my-0">{content.dashboards.title}</h2>
           <div className="btn-toolbar">
             <button
-              title="Create new dashboard"
+              title={content.dashboards.create}
               type="button"
               className="btn btn-sm btn-primary"
               onClick={showModal}

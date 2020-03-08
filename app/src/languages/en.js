@@ -6,7 +6,8 @@ const en = {
   dashboards: {
     title: 'Dashboards',
     description: 'Browse through all the dashboards.',
-    empty: 'No dashboards found.',
+    empty:
+      'No dashboards found. Click on the button in the upper right corner to create a new dashboard.',
     view: 'View dashboard',
     create: 'Create dashboard',
   },
@@ -19,7 +20,8 @@ const en = {
   dataSources: {
     title: 'Data Sources',
     description: 'Browse through all the data sources.',
-    empty: 'No data sources found.',
+    empty:
+      'No data sources found. Click on the button in the right corner to create a new data source.',
     view: 'View data source',
     create: 'Create data source',
   },

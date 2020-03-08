@@ -7,7 +7,8 @@ const de = {
   dashboards: {
     title: 'Dashboards',
     description: 'Durchsuche alle erstellten Dashboards.',
-    empty: 'Es wurden keine Dashboards gefunden.',
+    empty:
+      'Es wurden keine Dashboards gefunden. Klick die Schaltfläche rechts oben um ein neues Dashboard zu erstellen.',
     view: 'Dashboard ansehen',
     create: 'Dashboard erstellen',
   },
@@ -20,7 +21,8 @@ const de = {
   dataSources: {
     title: 'Datenquellen',
     description: 'Durchsuche alle erstellten Datenquellen.',
-    empty: 'Es wurden keine Datenquellen gefunden.',
+    empty:
+      'Es wurden keine Datenquellen gefunden. Klick die Schaltfläche rechts oben um eine neue Datenquelle zu erstellen.',
     view: 'Datenquelle ansehen',
     create: 'Datenquelle erstellen',
   },
