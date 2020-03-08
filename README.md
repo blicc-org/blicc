@@ -4,8 +4,8 @@ Blicc is a lightweight, user-friendly and secure data visualiation plattform.
 
 ## Docs
 
-- [Plugin Development](https://github.com/blicc-org/plugins)
 - [Codebase](docs/codebase.md)
+- [Plugin Development](https://github.com/blicc-org/plugins)
 - [Pipeline environment variables](docs/pipeline_setup.md)
 
 ## Quick start guide
