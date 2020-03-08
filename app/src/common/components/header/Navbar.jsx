@@ -58,7 +58,7 @@ export function NavBar({ toggleMenu }) {
           <div className="nav-item">
             <Link className="navbar-brand p-1" style={style} to="/">
               <Logo className="logo" />
-              <div className="title">{content.title} </div>
+              <div className="title">{content.brand} </div>
             </Link>
           </div>
         </div>

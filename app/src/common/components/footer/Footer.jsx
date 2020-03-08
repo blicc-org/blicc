@@ -13,7 +13,7 @@ export function Footer({ close }) {
         <LanguageSelect />
       </div>
       <div className="m-3">
-        <h3>{content.title}</h3>
+        <h3>{content.brand}</h3>
         <small className="d-block mb-3 text-muted">
           <p>
             {' '}
