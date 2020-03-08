@@ -25,7 +25,7 @@ export function useFooterArrangement() {
         },
         {
           title: 'Plugin Development',
-          link: '/pages/plugins',
+          link: 'https://github.com/blicc-org/plugins',
         },
         {
           title: 'Resource Management API',
