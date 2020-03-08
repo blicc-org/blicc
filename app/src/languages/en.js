@@ -9,6 +9,7 @@ const en = {
     welcome: 'Welcome',
   },
   sidebar: {
+    manual: 'Manual',
     navigation: 'Navigation',
     register: 'Register',
     landingPage: 'Langing Page',

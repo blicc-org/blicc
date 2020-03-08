@@ -10,6 +10,7 @@ const de = {
     welcome: 'Willkommen',
   },
   sidebar: {
+    manual: 'Anleitung',
     navigation: 'Navigation',
     register: 'Konto erstellen',
     landingPage: 'Startseite',

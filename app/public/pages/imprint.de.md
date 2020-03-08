@@ -10,4 +10,3 @@ Straße 1
 Land  
   
 E-Mail: max.mustermann@blicc.org  
-

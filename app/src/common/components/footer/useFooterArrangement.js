@@ -41,7 +41,7 @@ export function useFooterArrangement() {
       category: content.sidebar.about,
       items: [
         {
-          title: 'Manual',
+          title: content.sidebar.manual,
           link: '/pages/manual',
         },
         {
