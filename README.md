@@ -32,9 +32,29 @@ To clone the repository you need to use the `--recurse-submodules` tag to also c
     git clone --recurse-submodules git@github.com:blicc-org/blicc.git
 
 ### Setup project
-If all the prerequisites have been installed, run the following command in the root folder to create rsa keys and `.env` files:
+If all the prerequisites have been installed, a rsa key needs to be generated as well as `.env` files created.
 
-    yarn init
+#### Generate RSA Key
+
+The rsa key is used for authorizing users between the services. You need to generate a public and private key inside an `/certs` folder in the root directory if the monorepo. To do so you can use the following commands:
+
+    mkdir -p certs
+    openssl genrsa -out ./certs/rsa.pem 2048
+    openssl rsa -in rsa.pem -outform PEM -pubout -out ./certs/rsa_pub.pem
+
+> The rsa keys are used for generating and validating JWT.
+
+#### Environment variables
+Examples for the environment variables are stored inside `.env.example` files in the following locations: 
+
+```sh
+    project/        # root folder
+    ├── api         # resource management service
+    ├── delivery    # data delivery service
+    ├── plugins     # plugins for visualizing data
+```
+
+You need to rename the `.env.example` to `.env` and fill them with proper values.
 
 ### Build and Run
 
