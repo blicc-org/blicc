@@ -1,6 +1,8 @@
-### Codebase
+# Codebase
 
-#### Technologies
+This section gives an overview over the used technologies as well as the folder structure.
+
+## Technologies
 
 - **Node.js**: Cross-platform runtime environment for JavaScript
 - **React**: JavaScript library for building user interfaces
@@ -9,7 +11,7 @@
 - **MongoDB** Document-oriented database management system
 - **Redis** In-memory-database
 
-#### Folder structure
+## Folder structure
 
 ```bash
 blicc/
