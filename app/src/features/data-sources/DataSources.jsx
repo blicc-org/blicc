@@ -111,7 +111,7 @@ export function DataSources() {
                     subtitle={d.creationDate.split('T')[0]}
                     description={d.description}
                     link={`/data-sources/${d.id}`}
-                    linkLabel={'View Data Source'}
+                    linkLabel={content.dataSources.view}
                   />
                 ))}
               </tbody>

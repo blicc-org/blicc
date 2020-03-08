@@ -14,6 +14,9 @@ const de = {
   deleteWarning: 'Gelöschte Ressources können nicht wieder hergestellt werden.',
   persistData: 'Datenspeicherung',
   interval: 'Interval',
+  dashboard: 'Dashboard',
+  chart: 'Diagramm',
+  dataSource: 'Datenquelle',
   dashboards: {
     title: 'Dashboards',
     description: 'Durchsuche alle erstellten Dashboards.',

@@ -8,6 +8,7 @@ import {
   usePublisher,
   useMobile,
   useInstalled,
+  useLanguage,
 } from '../../common/hooks'
 import { ArrangementContext, SettingsContext } from '../../common/context'
 import { MetaData } from '../../common/components/meta-data/MetaData'
@@ -17,6 +18,7 @@ import { ConfirmationModal, Tabs, PageHeader } from '../../common/components/ui'
 import './DashboardView.scss'
 
 export function DashboardView({ match, location }) {
+  const content = useLanguage()
   const [arrangement, setArrangement] = useContext(ArrangementContext)
   const [settings, setSettings] = useContext(SettingsContext)
   const [title, setTitle] = useState('')
@@ -29,7 +31,7 @@ export function DashboardView({ match, location }) {
     location.search && location.search === '?edit'
   )
   const [redirect, setRedirect] = useState('')
-  const tabs = ['Dashboard', 'Details']
+  const tabs = [content.dashboard, content.details]
   const [currentTab, setCurrentTab] = useState(tabs[0])
   const [publishAll] = usePublisher()
   const isMobile = useMobile()

@@ -5,6 +5,7 @@ import {
   useApiEndpoint,
   useDeliveryEndpoint,
   useModal,
+  useLanguage,
 } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DataSourceDetails } from './DataSourceDetails'
@@ -21,6 +22,7 @@ const INITIAL = {
 }
 
 export function DataSourceView({ match, location }) {
+  const content = useLanguage()
   const path = `/data-sources/${match.params.id}`
   const [, access, update, remove] = useApiEndpoint(path)
   const [dataSource, setDataSource] = useState(INITIAL)
@@ -36,7 +38,7 @@ export function DataSourceView({ match, location }) {
     location.search && location.search === '?edit'
   )
 
-  const tabs = ['Data Source', 'Details']
+  const tabs = [content.dataSource, content.details]
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   useEffect(() => {
