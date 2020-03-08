@@ -10,7 +10,7 @@ COPY . .
 RUN go get -v github.com/cespare/reflex
 RUN go install github.com/cespare/reflex
 
-HEALTHCHECK CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
+HEALTHCHECK CMD wget --quiet --tries=1 --spider 127.0.0.1:8080 || exit 1
 
 EXPOSE 8080
 
