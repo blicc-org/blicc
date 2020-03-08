@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import statusCode from 'http-status-codes'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import { useApiEndpoint } from '../../common/hooks'
+import { useApiEndpoint, useLanguage } from '../../common/hooks'
 import { Item, Pagination, Empty } from '../../common/components/ui'
 
 export function Charts() {
+  const content = useLanguage()
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
   const [result, setResult] = useState({ total: 0, charts: [] })
@@ -29,17 +30,17 @@ export function Charts() {
   return (
     <>
       <MetaData
-        title={'Charts'}
-        description={'Browse through all the charts.'}
+        title={content.charts.title}
+        description={content.charts.description}
         path={'/charts'}
       />
       <div className="container">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-          <h2 className="my-0">Charts</h2>
+          <h2 className="my-0">{content.charts.title}</h2>
         </div>
         <div className="chart-list">
           {result.total === 0 ? (
-            <Empty>No charts fount.</Empty>
+            <Empty>{content.charts.empty}</Empty>
           ) : (
             <table className="table">
               <tbody>
@@ -50,7 +51,7 @@ export function Charts() {
                     subtitle={`@${d.slug}`}
                     description={d.description}
                     link={`/charts/${d.id}`}
-                    linkLabel={'View Chart'}
+                    linkLabel={content.charts.view}
                   />
                 ))}
               </tbody>

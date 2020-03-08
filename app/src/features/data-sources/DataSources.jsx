@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
-import { useApiEndpoint, useModal } from '../../common/hooks'
+import { useApiEndpoint, useModal, useLanguage } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { Item, Pagination, Empty } from '../../common/components/ui'
 import { CreateDataSourceModal } from './CreateDataSourceModal'
@@ -21,6 +21,7 @@ export const INITIAL_DATA_SOURCE = {
 }
 
 export function DataSources() {
+  const content = useLanguage()
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
   const [result, setResult] = useState({ total: 0, dataSources: [] })
@@ -79,8 +80,8 @@ export function DataSources() {
     <>
       {redirect && <Redirect to={redirect} />}
       <MetaData
-        title={'Data Sources'}
-        description={'List all data sources.'}
+        title={content.dataSources.title}
+        description={content.dataSources.description}
         path={'/data-sources'}
       />
       <div className="container">
@@ -93,16 +94,13 @@ export function DataSources() {
               className="btn btn-sm btn-primary"
               onClick={showModal}
             >
-              New DataSource
+              {content.dataSources.create}
             </button>
           </div>
         </div>
         <div>
           {result.dataSources.length === 0 ? (
-            <Empty>
-              No data sources found. Click in the top right corner on New Data
-              Source to create one.
-            </Empty>
+            <Empty>{content.dataSources.empty}</Empty>
           ) : (
             <table className="table">
               <tbody>

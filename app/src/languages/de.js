@@ -4,10 +4,25 @@ const de = {
     'Veranschauliche deine Daten mit individualisierbaren Dashboards',
   getStarted: 'Jetzt loslegen',
   categories: 'Kategorien',
-  category: {
-    dashboards: 'Dashboards',
-    charts: 'Diagramme',
-    dataSources: 'Datenquellen'
+  dashboards: {
+    title: 'Dashboards',
+    description: 'Durchsuche alle erstellten Dashboards.',
+    empty: 'Es wurden keine Dashboards gefunden.',
+    view: 'Dashboard ansehen',
+    create: 'Dashboard erstellen',
+  },
+  charts: {
+    title: 'Diagramme',
+    description: 'Durchsuche alle erstellten Diagramme.',
+    empty: 'Es wurden keine Diagramme gefunden.',
+    view: 'Diagramm ansehen',
+  },
+  dataSources: {
+    title: 'Datenquellen',
+    description: 'Durchsuche alle erstellten Datenquellen.',
+    empty: 'Es wurden keine Datenquellen gefunden.',
+    view: 'Datenquelle ansehen',
+    create: 'Datenquelle erstellen',
   },
   navbar: {
     signin: 'Anmelden',
@@ -27,7 +42,7 @@ const de = {
     registerNowFollowUp:
       'und fang an deine Daten darzustellen und zu analysieren.',
   },
-  copyright: 'Urheberrecht'
+  copyright: 'Urheberrecht',
 }
 
 export default de

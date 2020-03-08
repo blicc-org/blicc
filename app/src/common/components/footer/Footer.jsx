@@ -15,7 +15,12 @@ export function Footer({ close }) {
       <div className="m-3">
         <h3>{content.title}</h3>
         <small className="d-block mb-3 text-muted">
-          <p> {`${content.copyright} © MIT ${new Date().getFullYear()}, Thilo Ilg`}</p>
+          <p>
+            {' '}
+            {`${
+              content.copyright
+            } © MIT ${new Date().getFullYear()}, Thilo Ilg`}
+          </p>
         </small>
       </div>
     </footer>

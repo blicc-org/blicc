@@ -55,12 +55,12 @@ export function Sidebar({ open }) {
                 <ul className="nav flex-column px-2">
                   <li className="nav-item">
                     <Link className="nav-link" to="/dashboards" onClick={close}>
-                      <Layout className="feather" /> {content.category.dashboards}
+                      <Layout className="feather" /> {content.dashboards.title}
                     </Link>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/charts" onClick={close}>
-                      <PieChart className="feather" /> {content.category.charts}
+                      <PieChart className="feather" /> {content.charts.title}
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -69,7 +69,8 @@ export function Sidebar({ open }) {
                       to="/data-sources"
                       onClick={close}
                     >
-                      <Database className="feather" /> {content.category.dataSources}
+                      <Database className="feather" />{' '}
+                      {content.dataSources.title}
                     </Link>
                   </li>
                 </ul>

@@ -3,7 +3,7 @@ import statusCode from 'http-status-codes'
 import { Redirect } from 'react-router-dom'
 import { useApiEndpoint } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import { useModal } from '../../common/hooks/useModal'
+import { useModal, useLanguage } from '../../common/hooks'
 import { CreateDashboardModal } from './CreateDashboardModal'
 import { Item, Pagination, Empty } from '../../common/components/ui'
 import './Dashboards.scss'
@@ -18,6 +18,7 @@ export const INITIAL_DASHBOARD = {
 }
 
 export function Dashboards() {
+  const content = useLanguage()
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
   const [result, setResult] = useState({ total: 0, dashboards: [] })
@@ -71,13 +72,13 @@ export function Dashboards() {
     <>
       {redirect && <Redirect to={redirect} />}
       <MetaData
-        title={'Dashboards'}
-        description={'Browse through all the dashboards and analyse your data.'}
+        title={content.dashboards.title}
+        description={content.dashboards.description}
         path={'/dashboards'}
       />
       <div className="container">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-          <h2 className="my-0">Dashboards</h2>
+          <h2 className="my-0">{content.dashboards.title}</h2>
           <div className="btn-toolbar">
             <button
               title="Create new dashboard"
@@ -85,16 +86,13 @@ export function Dashboards() {
               className="btn btn-sm btn-primary"
               onClick={showModal}
             >
-              New Dashboard
+              {content.dashboards.create}
             </button>
           </div>
         </div>
         <div className="dashboard-list">
           {result.dashboards.length === 0 ? (
-            <Empty>
-              No dashboards found. Click in the top right corner on New
-              Dashboard to create one.
-            </Empty>
+            <Empty>{content.dashboards.empty}</Empty>
           ) : (
             <table className="table">
               <tbody>
@@ -105,7 +103,7 @@ export function Dashboards() {
                     subtitle={d.creationDate.split('T')[0]}
                     description={d.description}
                     link={`/dashboards/${d.id}`}
-                    linkLabel={'View Dashboard'}
+                    linkLabel={content.dashboards.view}
                   />
                 ))}
               </tbody>
