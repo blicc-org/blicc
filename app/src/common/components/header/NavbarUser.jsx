@@ -59,7 +59,7 @@ export function NavbarUser({ firstName, lastName, loggedIn }) {
                   to="/admin-area"
                   onClick={close}
                 >
-                  Admin Area
+                  {content.navbar.adminArea}
                 </Link>
                 <div className="dropdown-divider"></div>
               </>

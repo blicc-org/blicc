@@ -29,6 +29,7 @@ const en = {
     signin: 'Sign in',
     logout: 'Logout',
     profile: 'Profile',
+    adminArea: 'Admin area',
     welcome: 'Welcome',
   },
   sidebar: {

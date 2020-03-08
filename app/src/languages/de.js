@@ -30,6 +30,7 @@ const de = {
     signin: 'Anmelden',
     logout: 'Abmelden',
     profile: 'Profil',
+    adminArea: 'Admin Bereich',
     welcome: 'Willkommen',
   },
   sidebar: {
