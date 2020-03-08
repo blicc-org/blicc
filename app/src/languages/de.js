@@ -34,6 +34,7 @@ const de = {
     welcome: 'Willkommen',
   },
   sidebar: {
+    title: 'Seitenleiste',
     manual: 'Anleitung',
     navigation: 'Navigation',
     register: 'Konto erstellen',

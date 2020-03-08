@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Layout, PieChart, Database, ChevronsRight } from 'react-feather'
-import { useMobile, useInstalled } from '../../hooks'
+import { useMobile, useInstalled, useLanguage } from '../../hooks'
 import { SidebarContext } from '../../context'
 import './NativeNavigation.scss'
 
 export function NativeNavigation() {
+  const content = useLanguage()
   const minHeightForMobileNav = 450
   const isMobile = useMobile()
   const isInstalled = useInstalled()
@@ -35,7 +36,7 @@ export function NativeNavigation() {
               <a className="nav-link" onClick={toggle} href="/">
                 <ChevronsRight className="feather" />
                 <p>
-                  <small>Sidebar</small>
+                  <small>{content.sidebar.title}</small>
                 </p>
               </a>
             </li>
@@ -43,7 +44,7 @@ export function NativeNavigation() {
               <Link className="nav-link" to="/dashboards">
                 <Layout className="feather" />
                 <p>
-                  <small>Dashboards</small>
+                  <small>{content.dashboards.title}</small>
                 </p>
               </Link>
             </li>
@@ -51,7 +52,7 @@ export function NativeNavigation() {
               <Link className="nav-link" to="/charts">
                 <PieChart className="feather" />
                 <p>
-                  <small>Charts</small>
+                  <small>{content.charts.title}</small>
                 </p>
               </Link>
             </li>
@@ -59,7 +60,7 @@ export function NativeNavigation() {
               <Link className="nav-link" to="/data-sources">
                 <Database className="feather" />
                 <p>
-                  <small>Data Sources</small>
+                  <small>{content.dataSources.title}</small>
                 </p>
               </Link>
             </li>

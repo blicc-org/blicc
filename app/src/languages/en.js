@@ -33,6 +33,7 @@ const en = {
     welcome: 'Welcome',
   },
   sidebar: {
+    title: 'Sidebar',
     manual: 'Manual',
     navigation: 'Navigation',
     register: 'Register',
