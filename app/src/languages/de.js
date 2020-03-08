@@ -3,6 +3,12 @@ const de = {
   description:
     'Veranschauliche deine Daten mit individualisierbaren Dashboards',
   getStarted: 'Jetzt loslegen',
+  categories: 'Kategorien',
+  category: {
+    dashboards: 'Dashboards',
+    charts: 'Diagramme',
+    dataSources: 'Datenquellen'
+  },
   navbar: {
     signin: 'Anmelden',
     logout: 'Abmelden',

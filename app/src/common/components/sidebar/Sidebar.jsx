@@ -51,16 +51,16 @@ export function Sidebar({ open }) {
           <>
             {loggedIn ? (
               <>
-                <SidebarHeader name="Categories" />
+                <SidebarHeader name={content.categories} />
                 <ul className="nav flex-column px-2">
                   <li className="nav-item">
                     <Link className="nav-link" to="/dashboards" onClick={close}>
-                      <Layout className="feather" /> Dashboards
+                      <Layout className="feather" /> {content.category.dashboards}
                     </Link>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/charts" onClick={close}>
-                      <PieChart className="feather" /> Charts
+                      <PieChart className="feather" /> {content.category.charts}
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -69,7 +69,7 @@ export function Sidebar({ open }) {
                       to="/data-sources"
                       onClick={close}
                     >
-                      <Database className="feather" /> Data Sources
+                      <Database className="feather" /> {content.category.dataSources}
                     </Link>
                   </li>
                 </ul>

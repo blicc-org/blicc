@@ -2,6 +2,12 @@ const en = {
   title: 'Blicc',
   description: 'Visualize your data with customizable dashboards.',
   getStarted: 'Get started',
+  categories: 'Categories',
+  category: {
+    dashboards: 'Dashboards',
+    charts: 'Charts',
+    dataSources: 'Data Sources'
+  },
   navbar: {
     signin: 'Sign in',
     logout: 'Logout',
