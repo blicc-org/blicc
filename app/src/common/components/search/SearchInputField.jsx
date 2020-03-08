@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import statusCode from 'http-status-codes'
 import { Search as SearchIcon, ArrowLeft } from 'react-feather'
-import { useClickAway, useApiEndpoint } from '../../hooks'
+import { useClickAway, useApiEndpoint, useLanguage } from '../../hooks'
 import { Result } from './Result'
 import theme from '../../../Theme.scss'
 import './SearchInputField.scss'
@@ -12,6 +12,7 @@ const INIT_DATA = {
 }
 
 export function SearchInputField({ isFullscreen = false, close = () => {} }) {
+  const content = useLanguage()
   const [, access, ,] = useApiEndpoint('/dashboards')
   const [backgroundColor, setGgColor] = useState(getDefault())
   const [searchTerm, setSearchTerm] = useState('')
@@ -66,7 +67,7 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
         {isFullscreen && (
           <div className="input-group-prepend">
             <button
-              title="Close searchbar"
+              title={content.search.close}
               className="btn"
               onClick={event => {
                 event.preventDefault()
@@ -78,10 +79,10 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
           </div>
         )}
         <input
-          label="Search input field"
+          label={content.search.placeholder}
           className="form-control search-input"
           type="search"
-          placeholder="Search"
+          placeholder={content.search.placeholder}
           style={{ backgroundColor }}
           onChange={event => setSearchTerm(event.target.value)}
           value={searchTerm}

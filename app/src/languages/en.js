@@ -44,6 +44,11 @@ const en = {
     registerNowFollowUp: 'to start designing and analysing your data.',
   },
   copyright: 'Copyright',
+  search: {
+    placeholder: 'Search',
+    results: 'Results found:',
+    close: 'Close Search',
+  },
 }
 
 export default en

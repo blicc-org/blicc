@@ -46,6 +46,11 @@ const de = {
       'und fang an deine Daten darzustellen und zu analysieren.',
   },
   copyright: 'Urheberrecht',
+  search: {
+    placeholder: 'Suche',
+    results: 'Ergebnisse gefunden:',
+    close: 'Suche schließen',
+  },
 }
 
 export default de

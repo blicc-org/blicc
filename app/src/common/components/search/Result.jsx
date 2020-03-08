@@ -1,14 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../../hooks'
 import './Result.scss'
 
 export function Result({ show, results, total, close }) {
+  const content = useLanguage()
   return (
     <>
       {show && (
         <div className="result">
           <h6>
-            Results <small>{`${total} found.`}</small>
+            {content.search.results} <small>{total}</small>
           </h6>
           <hr />
           <ul className="list-unstyled">
