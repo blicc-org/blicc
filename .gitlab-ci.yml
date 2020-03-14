@@ -7,6 +7,7 @@ stages:
 
 variables:
   REPO: blicc
+  DOCKER_HOST: tcp://localhost:2375
 
 .enable_ssh: &enable_ssh |
   which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
@@ -27,7 +28,7 @@ variables:
 
 build:
   stage: build
-  image: docker:18
+  image: docker:18.09.7-dind
   before_script:
     - *login_docker
   script:
