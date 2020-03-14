@@ -27,7 +27,7 @@ variables:
 
 build:
   stage: build
-  image: docker:dind
+  image: docker:18
   before_script:
     - *login_docker
   script:
