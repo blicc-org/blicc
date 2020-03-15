@@ -16,7 +16,5 @@ Set the following environment variables in the gitlab CI/CD settings. Depending 
     POSTGRES_PASSWORD=password
     PROD_IP=0.0.0.0
     PROD_IP_2=0.0.0.0
-    REGISTRY_DOMAIN=registry.example.com
-    REPO=example
     SSH_PRIVATE_KEY=ssh_private_key_string
     TEST_IP=0.0.0.0
