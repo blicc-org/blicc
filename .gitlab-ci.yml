@@ -37,7 +37,6 @@ build:
     - docker build -t redis ./redis
     - docker build -t mock-api -f ./mock-api/prod.Dockerfile ./mock-api
 
-    ## tag test
     - docker tag api $REGISTRY/api:test
     - docker tag db $REGISTRY/db:test
     - docker tag redis $REGISTRY/redis:test
@@ -45,7 +44,6 @@ build:
     - docker tag mock-api $REGISTRY/mock-api:test
     - docker tag delivery $REGISTRY/delivery:test
 
-    ## tag latest
     - docker tag api $REGISTRY/api:latest
     - docker tag db $REGISTRY/db:latest
     - docker tag mongo $REGISTRY/mongo:latest
@@ -53,7 +51,6 @@ build:
     - docker tag app $REGISTRY/app:latest
     - docker tag delivery $REGISTRY/delivery:latest
 
-    ## push for testing stage
     - docker push $REGISTRY/api:test
     - docker push $REGISTRY/db:test
     - docker push $REGISTRY/redis:test

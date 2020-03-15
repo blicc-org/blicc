@@ -50,7 +50,7 @@ services:
         - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
         - traefik.http.services.traefik.loadbalancer.server.port=80
   db:
-    image: registry.thiloilg.com/repo/blicc/db:latest
+    image: registry.thiloilg.com/root/blicc/db:latest
     volumes:
       - /root/db-data/postgres-data:/var/lib/postgresql/data
     deploy:
@@ -72,7 +72,7 @@ services:
         constraints:
           - node.role == manager
   redis:
-    image: registry.thiloilg.com/repo/blicc/redis:latest
+    image: registry.thiloilg.com/root/blicc/redis:latest
     volumes:
       - /root/db-data/redis-data:/data
     deploy:
@@ -83,7 +83,7 @@ services:
         constraints:
           - node.role == manager
   mongo:
-    image: registry.thiloilg.com/repo/blicc/mongo:latest
+    image: registry.thiloilg.com/root/blicc/mongo:latest
     volumes:
       - /root/db-data/mongo-data:/data/db
     deploy:
@@ -105,7 +105,7 @@ services:
         constraints:
           - node.role == manager
   api:
-    image: registry.thiloilg.com/repo/blicc/api:latest
+    image: registry.thiloilg.com/root/blicc/api:latest
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
@@ -139,7 +139,7 @@ services:
         - traefik.http.routers.api.tls.certresolver=secure
         - traefik.http.services.api.loadbalancer.server.port=80
   delivery:
-    image: registry.thiloilg.com/repo/blicc/delivery:latest
+    image: registry.thiloilg.com/root/blicc/delivery:latest
     volumes:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
     depends_on:
@@ -168,7 +168,7 @@ services:
         - traefik.http.routers.delivery.middlewares=sslheader
         - traefik.http.services.delivery.loadbalancer.server.port=80
   app:
-    image: registry.thiloilg.com/repo/blicc/app:latest
+    image: registry.thiloilg.com/root/blicc/app:latest
     depends_on:
       - api
       - delivery
