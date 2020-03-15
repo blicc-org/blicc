@@ -6,9 +6,7 @@ stages:
   - seed
 
 variables:
-  REPO: $CI_PROJECT_PATH_SLUG
-  USER: root
-  REGISTRY: $CI_REGISTRY/$USER/$REPO
+  REGISTRY: $CI_REGISTRY/$CI_PROJECT_DIR
 
 .enable_ssh: &enable_ssh |
   which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
