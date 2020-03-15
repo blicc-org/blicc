@@ -18,8 +18,6 @@ variables:
   [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
 .login_docker: &login_docker |
-  echo "$CI_REGISTRY"
-  echo "$CI_REGISTRY_USER"
   docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 .install_openssl: &install_openssl |
@@ -41,28 +39,28 @@ build:
     - docker build -t mock-api -f ./mock-api/prod.Dockerfile ./mock-api
 
     ## tag for testing stage
-    - docker tag api $REGISTRY_DOMAIN/$USER/$REPO/api-testing-stage
-    - docker tag db $REGISTRY_DOMAIN/$USER/$REPO/db-testing-stage
-    - docker tag redis $REGISTRY_DOMAIN/$USER/$REPO/redis-testing-stage
-    - docker tag mongo $REGISTRY_DOMAIN/$USER/$REPO/mongo-testing-stage
-    - docker tag mock-api $REGISTRY_DOMAIN/$USER/$REPO/mock-api-testing-stage
-    - docker tag delivery $REGISTRY_DOMAIN/$USER/$REPO/delivery-testing-stage
+    - docker tag api $CI_REGISTRY/$USER/$REPO/api-testing-stage
+    - docker tag db $CI_REGISTRY/$USER/$REPO/db-testing-stage
+    - docker tag redis $CI_REGISTRY/$USER/$REPO/redis-testing-stage
+    - docker tag mongo $CI_REGISTRY/$USER/$REPO/mongo-testing-stage
+    - docker tag mock-api $CI_REGISTRY/$USER/$REPO/mock-api-testing-stage
+    - docker tag delivery $CI_REGISTRY/$USER/$REPO/delivery-testing-stage
 
     ## tag for production
-    - docker tag api $REGISTRY_DOMAIN/$USER/$REPO/api
-    - docker tag db $REGISTRY_DOMAIN/$USER/$REPO/db
-    - docker tag mongo $REGISTRY_DOMAIN/$USER/$REPO/mongo
-    - docker tag redis $REGISTRY_DOMAIN/$USER/$REPO/redis
-    - docker tag app $REGISTRY_DOMAIN/$USER/$REPO/app
-    - docker tag delivery $REGISTRY_DOMAIN/$USER/$REPO/delivery
+    - docker tag api $CI_REGISTRY/$USER/$REPO/api
+    - docker tag db $CI_REGISTRY/$USER/$REPO/db
+    - docker tag mongo $CI_REGISTRY/$USER/$REPO/mongo
+    - docker tag redis $CI_REGISTRY/$USER/$REPO/redis
+    - docker tag app $CI_REGISTRY/$USER/$REPO/app
+    - docker tag delivery $CI_REGISTRY/$USER/$REPO/delivery
 
     ## push for testing stage
-    - docker push $REGISTRY_DOMAIN/$USER/$REPO/api-testing-stage
-    - docker push $REGISTRY_DOMAIN/$USER/$REPO/db-testing-stage
-    - docker push $REGISTRY_DOMAIN/$USER/$REPO/redis-testing-stage
-    - docker push $REGISTRY_DOMAIN/$USER/$REPO/mongo-testing-stage
-    - docker push $REGISTRY_DOMAIN/$USER/$REPO/mock-api-testing-stage
-    - docker push $REGISTRY_DOMAIN/$USER/$REPO/delivery-testing-stage
+    - docker push $CI_REGISTRY/$USER/$REPO/api-testing-stage
+    - docker push $CI_REGISTRY/$USER/$REPO/db-testing-stage
+    - docker push $CI_REGISTRY/$USER/$REPO/redis-testing-stage
+    - docker push $CI_REGISTRY/$USER/$REPO/mongo-testing-stage
+    - docker push $CI_REGISTRY/$USER/$REPO/mock-api-testing-stage
+    - docker push $CI_REGISTRY/$USER/$REPO/delivery-testing-stage
 
 test-preparation:
   stage: test-preparation
@@ -115,12 +113,12 @@ deploy:
     - *install_openssl
   script:
     - ssh -tt root@$PROD_IP "docker image prune -a -f"
-    - docker push $REGISTRY_DOMAIN/$USER/$REPO/app
-    - docker push $REGISTRY_DOMAIN/$USER/$REPO/api
-    - docker push $REGISTRY_DOMAIN/$USER/$REPO/db
-    - docker push $REGISTRY_DOMAIN/$USER/$REPO/mongo
-    - docker push $REGISTRY_DOMAIN/$USER/$REPO/redis
-    - docker push $REGISTRY_DOMAIN/$USER/$REPO/delivery
+    - docker push $CI_REGISTRY/$USER/$REPO/app
+    - docker push $CI_REGISTRY/$USER/$REPO/api
+    - docker push $CI_REGISTRY/$USER/$REPO/db
+    - docker push $CI_REGISTRY/$USER/$REPO/mongo
+    - docker push $CI_REGISTRY/$USER/$REPO/redis
+    - docker push $CI_REGISTRY/$USER/$REPO/delivery
     - scp -r ./docker-compose.prod.yml root@$PROD_IP:/root/docker-compose.yml
     - openssl genrsa -out rsa.pem 2048
     - openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem
