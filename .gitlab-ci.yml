@@ -6,7 +6,7 @@ stages:
   - seed
 
 variables:
-  REPO: blicc
+  REPO: $CI_PROJECT_PATH_SLUG
   USER: root
 
 .enable_ssh: &enable_ssh |
