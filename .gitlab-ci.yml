@@ -6,7 +6,7 @@ stages:
   - seed
 
 variables:
-  REGISTRY: $CI_REGISTRY/$CI_PROJECT_DIR
+  REGISTRY: $CI_REGISTRY/$CI_PROJECT_PATH
 
 .enable_ssh: &enable_ssh |
   which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
