@@ -29,22 +29,22 @@ services:
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
   db:
-    image: registry.thiloilg.com/root/blicc/db-testing-stage:latest
+    image: registry.thiloilg.com/root/blicc/db:test
     restart: always
     labels:
       - traefik.enable=false
   redis:
-    image: registry.thiloilg.com/root/blicc/redis-testing-stage:latest
+    image: registry.thiloilg.com/root/blicc/redis:test
     restart: always
     labels:
       - traefik.enable=false
   mongo:
-    image: registry.thiloilg.com/root/blicc/mongo-testing-stage:latest
+    image: registry.thiloilg.com/root/blicc/mongo:test
     restart: always
     labels:
       - traefik.enable=false
   api:
-    image: registry.thiloilg.com/root/blicc/api-testing-stage:latest
+    image: registry.thiloilg.com/root/blicc/api:test
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
@@ -62,7 +62,7 @@ services:
       - traefik.http.routers.api.rule=Host(`api.testing-stage.org`)
       - traefik.http.routers.api.tls.certresolver=secure
   delivery:
-    image: registry.thiloilg.com/root/blicc/delivery-testing-stage:latest
+    image: registry.thiloilg.com/root/blicc/delivery:test
     volumes:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
     restart: always
@@ -77,7 +77,7 @@ services:
       - traefik.http.routers.delivery.tls.certresolver=secure
       - traefik.http.routers.delivery.middlewares=sslheader
   mock-api:
-    image: registry.thiloilg.com/root/blicc/mock-api-testing-stage:latest
+    image: registry.thiloilg.com/root/blicc/mock-api:test
     restart: always
     labels:
       - traefik.http.routers.mock-api.rule=Host(`mock.testing-stage.org`)
