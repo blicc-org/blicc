@@ -4,7 +4,7 @@
   height="100"
   viewBox="0 0 100 100"
 >
-  <rect fill="#0000a2" width="20" height="20" x="10" y="70"></rect>
-  <rect fill="#ff00aa" width="20" height="50" x="40" y="40"></rect>
-  <rect fill="#05edbd" width="20" height="80" x="70" y="10"></rect>
+  <rect fill="#14148d" width="20" height="20" x="10" y="70"></rect>
+  <rect fill="#df209f" width="20" height="50" x="40" y="40"></rect>
+  <rect fill="#22d0ab" width="20" height="80" x="70" y="10"></rect>
 </svg>
