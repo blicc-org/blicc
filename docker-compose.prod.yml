@@ -18,6 +18,7 @@ services:
       - --certificatesresolvers.secure.acme.httpchallenge.entrypoint=web
       - --certificatesresolvers.secure.acme.email=${MAIL_ADDRESS}
       - --certificatesresolvers.secure.acme.storage=/root/acme.json
+      - --certificatesresolvers.secure.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
