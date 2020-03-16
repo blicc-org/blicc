@@ -12,7 +12,8 @@ variables:
   which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
   eval $(ssh-agent -s)
   echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-  mkdir -p ~/.ssh && chmod 700 ~/.ssh
+  mkdir -p ~/.ssh
+  chmod 700 ~/.ssh
   [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
 .login_docker: &login_docker |
@@ -65,6 +66,10 @@ test-preparation:
   script:
     - ssh -tt root@$TEST_IP "docker image prune -a -f"
     - scp -r ./docker-compose.testing-stage.yml root@$TEST_IP:/root/docker-compose.yml
+    - openssl genrsa -out rsa.pem 2048
+    - openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem
+    - scp -r rsa.pem root@$TEST_IP:/root/rsa.pem
+    - scp -r rsa_pub.pem root@$TEST_IP:/root/rsa_pub.pem
     - ssh -tt root@$TEST_IP "export
       DOCKER_CLIENT_TIMEOUT=120
       COMPOSE_HTTP_TIMEOUT=120
