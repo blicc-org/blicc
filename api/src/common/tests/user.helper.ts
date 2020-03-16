@@ -1,5 +1,5 @@
 import axios from 'axios'
-import uuid from 'uuid/v4'
+import {v4 as uuid} from 'uuid'
 import { user } from '../../features/user/mocks/user.mock'
 import { API_TEST_TARGET, ADMIN_MAIL, ADMIN_PASSWORD } from '../../config'
 

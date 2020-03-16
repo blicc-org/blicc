@@ -4,7 +4,7 @@ import { User } from './user.interface'
 import { Hash } from '../../util/hash'
 import { MailService } from '../../common/services/mail-service/mail-service'
 import { MailType } from '../../common/services/mail-service/mail-service'
-import uuid from 'uuid'
+import {v4 as uuid} from 'uuid'
 import shortid from 'shortid'
 
 export class UserService {
