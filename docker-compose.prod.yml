@@ -52,7 +52,7 @@ services:
   db:
     image: registry.thiloilg.com/root/blicc/db:latest
     volumes:
-      - /root/db-data/postgres-data:/var/lib/postgresql/data
+      - /srv/postgres-data:/var/lib/postgresql/data
     deploy:
       replicas: 1
       update_config:
@@ -74,7 +74,7 @@ services:
   redis:
     image: registry.thiloilg.com/root/blicc/redis:latest
     volumes:
-      - /root/db-data/redis-data:/data
+      - /srv/redis-data:/data
     deploy:
       replicas: 1
       update_config:
@@ -85,7 +85,7 @@ services:
   mongo:
     image: registry.thiloilg.com/root/blicc/mongo:latest
     volumes:
-      - /root/db-data/mongo-data:/data/db
+      - /srv/mongo-data:/data/db
     deploy:
       replicas: 1
       update_config:

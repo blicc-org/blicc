@@ -5,9 +5,7 @@
 fdisk -l
 
 ## mount volume
-mount /dev/sdb /root/db-data/
+mount /dev/sdb /srv
 
 ## create directories to work with docker mount
-mkdir redis-data
-mkdir postgres-data
-mkdir mongo-data
+mkdir redis-data postgres-data mongo-data
