@@ -106,7 +106,6 @@ services:
       placement:
         constraints:
           - node.role == manager
-
   prometheus:
     image: prom/prometheus:v2.16.0
     volumes:
@@ -125,7 +124,6 @@ services:
       placement:
         constraints:
           - node.role==manager
-
   api:
     image: registry.thiloilg.com/root/blicc/api:latest
     volumes:
