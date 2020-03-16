@@ -20,8 +20,6 @@ services:
       - --certificatesresolvers.secure.acme.storage=/root/acme.json
       - --metrics=true
       - --metrics.prometheus=true
-      - --entryPoints.metrics.address=:8082
-      - --metrics.prometheus.entryPoint=metrics
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
@@ -108,23 +106,6 @@ services:
       placement:
         constraints:
           - node.role == manager
-  prometheus:
-    image: prom/prometheus:v2.16.0
-    volumes:
-      - /root/prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
-      - '--web.console.templates=/usr/share/prometheus/consoles'
-    deploy:
-      labels:
-        - 'traefik.http.routers.prometheus.rule=Host(`prometheus.blicc.org`)'
-        - 'traefik.http.routers.prometheus.service=prometheus'
-        - 'traefik.http.services.prometheus.loadbalancer.server.port=9090'
-      placement:
-        constraints:
-          - node.role==manager
   api:
     image: registry.thiloilg.com/root/blicc/api:latest
     volumes:
