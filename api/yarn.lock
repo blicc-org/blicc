@@ -277,23 +277,29 @@
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
   integrity sha512-QD1PhQk+s31P1ixsX0H0Suoupp3VMXzIVMSwobR3F3MSUO2YCV0B7xqLcUw/Bh8yuvd3LhpyqLQWTNcRmp6IdQ==
 
-"@hapi/hoek@6.x.x":
-  version "6.2.4"
-  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-6.2.4.tgz#4b95fbaccbfba90185690890bdf1a2fbbda10595"
-  integrity sha512-HOJ20Kc93DkDVvjwHyHawPwPkX44sIrbXazAUDiUXaY2R9JwQGo2PhFfnQtdrsIe4igjG2fPgMra7NYw7qhy0A==
+"@hapi/bourne@1.x.x":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@hapi/bourne/-/bourne-1.3.2.tgz#0a7095adea067243ce3283e1b56b8a8f453b242a"
+  integrity sha512-1dVNHT76Uu5N3eJNTYcvxee+jzX4Z9lfciqRRHCU27ihbUcYi+iSc2iml5Ke1LXe1SyJCLA0+14Jh4tXJgOppA==
+
+"@hapi/hoek@8.x.x":
+  version "8.5.1"
+  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-8.5.1.tgz#fde96064ca446dec8c55a8c2f130957b070c6e06"
+  integrity sha512-yN7kbciD87WzLGc5539Tn0sApjyiGHAJgKvG9W8C7O+6c7qmoQMfVs0W4bX17eqz6C78QJqqFrtgdK5EWf6Qow==
 
 "@hapi/hoek@^8.3.0":
   version "8.5.0"
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-8.5.0.tgz#2f9ce301c8898e1c3248b0a8564696b24d1a9a5a"
   integrity sha512-7XYT10CZfPsH7j9F1Jmg1+d0ezOux2oM2GfArAzLwWe4mE2Dr3hVjsAL6+TFY49RRJlCdJDMw3nJsLFroTc8Kw==
 
-"@hapi/joi@15.0.0":
-  version "15.0.0"
-  resolved "https://registry.yarnpkg.com/@hapi/joi/-/joi-15.0.0.tgz#675d227b4c10d902fc5a96a2235665f0bc292e1b"
-  integrity sha512-pLCfcSeT26g59jEKZntmzlqe19dRMDNxCFKGD4CriF8+9FAD3Mq1aWNuKIFpKpX+u3x8lxLKXolDwk0gYl3b2w==
+"@hapi/joi@15.1.1":
+  version "15.1.1"
+  resolved "https://registry.yarnpkg.com/@hapi/joi/-/joi-15.1.1.tgz#c675b8a71296f02833f8d6d243b34c57b8ce19d7"
+  integrity sha512-entf8ZMOK8sc+8YfeOlM8pCfg3b5+WZIKBfUaaJT8UsjAAPjartzxIYm3TIbjvA4u+u++KbcXD38k682nVHDAQ==
   dependencies:
     "@hapi/address" "2.x.x"
-    "@hapi/hoek" "6.x.x"
+    "@hapi/bourne" "1.x.x"
+    "@hapi/hoek" "8.x.x"
     "@hapi/topo" "3.x.x"
 
 "@hapi/topo@3.x.x":
@@ -3811,12 +3817,12 @@ koa-convert@^1.2.0:
     co "^4.6.0"
     koa-compose "^3.0.0"
 
-koa-joi-router@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/koa-joi-router/-/koa-joi-router-6.0.1.tgz#0aca505bae6dac79065f44b2f9df17e29b3955d4"
-  integrity sha512-klQtAn5gaW+q1qbZXl9GfmGxqQlS36V6nzGUInvcfp6lo+o56+xleZLLmtj+B9x1Qn5r8QLPKrO7pD18P+PM8A==
+koa-joi-router@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/koa-joi-router/-/koa-joi-router-6.0.2.tgz#f1bea740afd0d7f78da6c921b1f1faea111b5aa9"
+  integrity sha512-XgHC7veI10SZP24ZO1fnAEfC2l1BVTyykGUfAR2b2Bn+mFfAmNxmyZWe07O9pt8uKzw+MW1O0tgCoKlEz79Flw==
   dependencies:
-    "@hapi/joi" "15.0.0"
+    "@hapi/joi" "15.1.1"
     "@koa/router" "8.0.2"
     await-busboy "1.0.3"
     clone "2.1.2"

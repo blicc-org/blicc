@@ -16,7 +16,7 @@
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
-    "koa-joi-router": "^6.0.1",
+    "koa-joi-router": "^6.0.2",
     "koa-logger": "^3.2.1",
     "koa-static": "^5.0.0",
     "nodemailer": "^6.4.5",
