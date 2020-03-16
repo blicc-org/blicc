@@ -20,6 +20,8 @@ services:
       - --certificatesresolvers.secure.acme.storage=/root/acme.json
       - --metrics=true
       - --metrics.prometheus=true
+      - --entryPoints.metrics.address=:8082
+      - --metrics.prometheus.entryPoint=metrics
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
@@ -110,7 +112,6 @@ services:
     image: prom/prometheus:v2.16.0
     volumes:
       - /root/prometheus.yml:/etc/prometheus/prometheus.yml
-      - /srv/prometheus-data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
