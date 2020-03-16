@@ -41,7 +41,7 @@ services:
           - node.role == manager
       labels:
         - traefik.http.routers.traefik.service=api@internal
-        - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
+        - traefik.http.routers.traefik.rule=Host(`monitor.blicc.io`)
         - traefik.http.routers.traefik.tls.certresolver=secure
         - traefik.http.routers.detour.rule=hostregexp(`{host:[a-z-.]+}`)
         - traefik.http.routers.detour.entrypoints=web
@@ -135,7 +135,7 @@ services:
         max_attempts: 3
         window: 120s
       labels:
-        - traefik.http.routers.api.rule=Host(`api.blicc.org`)
+        - traefik.http.routers.api.rule=Host(`api.blicc.io`)
         - traefik.http.routers.api.tls.certresolver=secure
         - traefik.http.services.api.loadbalancer.server.port=80
   delivery:
@@ -163,7 +163,7 @@ services:
         max_attempts: 3
         window: 120s
       labels:
-        - traefik.http.routers.delivery.rule=Host(`delivery.blicc.org`)
+        - traefik.http.routers.delivery.rule=Host(`delivery.blicc.io`)
         - traefik.http.routers.delivery.tls.certresolver=secure
         - traefik.http.routers.delivery.middlewares=sslheader
         - traefik.http.services.delivery.loadbalancer.server.port=80
@@ -188,6 +188,6 @@ services:
         max_attempts: 3
         window: 120s
       labels:
-        - traefik.http.routers.app.rule=Host(`blicc.org`,`www.blicc.org`)
+        - traefik.http.routers.app.rule=Host(`blicc.io`,`www.blicc.io`)
         - traefik.http.routers.app.tls.certresolver=secure
         - traefik.http.services.app.loadbalancer.server.port=80
