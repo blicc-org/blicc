@@ -28,7 +28,7 @@ export function DataSource({ input, data, setData }) {
             <tbody>
               <tr>
                 <td style={{ width: '150px' }}>
-                  <b>Fetch data from api:</b>
+                  <b>URL:</b>
                 </td>
                 <td>
                   <input
