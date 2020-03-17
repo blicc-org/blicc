@@ -1,12 +1,12 @@
 ## Imprint
 
-This website is provided by **Blicc**. It is legally represented by the CEO John Doe.
+This website is provided by **Blicc**. It is legally represented by the CEO Thilo Ilg.
 
 ### Address  
   
 **Blicc**  
-Street 1  
-12345 City  
-Country  
+Giselastr. 37
+10317 Berlin
+Germany
 
-Email: john.doe@blicc.org  
+Email: thilo.ilg@blicc.org

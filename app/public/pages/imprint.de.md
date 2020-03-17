@@ -1,12 +1,12 @@
 ## Impressum
 
-Diese Website wird von **Blicc** betrieben. Das Unternehmen wird gesetzlich durch den Geschäftsführer Max Mustermann vertreten.
+Diese Website wird von **Blicc** betrieben. Das Unternehmen wird gesetzlich durch den Geschäftsführer Thilo Ilg vertreten.
 
 ### Postadresse
 
 **Blicc**  
-Straße 1  
-12345 Stadt  
-Land  
+Giselastr. 37
+10317 Berlin
+Germany
   
-E-Mail: max.mustermann@blicc.org  
+E-Mail: thilo.ilg@blicc.org
