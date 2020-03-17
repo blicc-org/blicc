@@ -196,7 +196,22 @@ services:
         - traefik.http.services.app.loadbalancer.server.port=80
 mock-api:
   image: registry.thiloilg.com/root/blicc/mock-api:latest
-  restart: always
+  deploy:
+    replicas: 1
+    update_config:
+      parallelism: 1
+      order: start-first
+      failure_action: rollback
+      delay: 10s
+    rollback_config:
+      parallelism: 0
+      order: stop-first
+    restart_policy:
+      condition: any
+      delay: 5s
+      max_attempts: 3
+      window: 120s
   labels:
     - traefik.http.routers.mock-api.rule=Host(`mock.blicc.org`)
     - traefik.http.routers.mock-api.tls.certresolver=secure
+    - traefik.http.services.mock-api.loadbalancer.server.port=80
