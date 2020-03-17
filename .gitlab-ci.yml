@@ -36,6 +36,7 @@ build:
     - docker build -t redis ./redis
     - docker build -t mock-api -f ./mock-api/prod.Dockerfile ./mock-api
 
+    - docker tag app $REGISTRY/app:test
     - docker tag api $REGISTRY/api:test
     - docker tag db $REGISTRY/db:test
     - docker tag redis $REGISTRY/redis:test
@@ -43,13 +44,15 @@ build:
     - docker tag mock-api $REGISTRY/mock-api:test
     - docker tag delivery $REGISTRY/delivery:test
 
+    - docker tag app $REGISTRY/app:latest
     - docker tag api $REGISTRY/api:latest
     - docker tag db $REGISTRY/db:latest
-    - docker tag mongo $REGISTRY/mongo:latest
     - docker tag redis $REGISTRY/redis:latest
-    - docker tag app $REGISTRY/app:latest
+    - docker tag mongo $REGISTRY/mongo:latest
+    - docker tag mock-api $REGISTRY/mock-api:latest
     - docker tag delivery $REGISTRY/delivery:latest
 
+    - docker push $REGISTRY/app:test
     - docker push $REGISTRY/api:test
     - docker push $REGISTRY/db:test
     - docker push $REGISTRY/redis:test
@@ -117,6 +120,7 @@ deploy:
     - docker push $REGISTRY/db:latest
     - docker push $REGISTRY/mongo:latest
     - docker push $REGISTRY/redis:latest
+    - docker push $REGISTRY/mock-api:latest
     - docker push $REGISTRY/delivery:latest
     - scp -r ./docker-compose.prod.yml root@$PROD_IP:/root/docker-compose.yml
     - openssl genrsa -out rsa.pem 2048
