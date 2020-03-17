@@ -211,7 +211,7 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
-    labels:
-      - traefik.http.routers.mock-api.rule=Host(`mock.blicc.org`)
-      - traefik.http.routers.mock-api.tls.certresolver=secure
-      - traefik.http.services.mock-api.loadbalancer.server.port=80
+      labels:
+        - traefik.http.routers.mock-api.rule=Host(`mock.blicc.org`)
+        - traefik.http.routers.mock-api.tls.certresolver=secure
+        - traefik.http.services.mock-api.loadbalancer.server.port=80
