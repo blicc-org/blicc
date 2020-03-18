@@ -1,11 +1,11 @@
 import Koa from 'koa'
 import logger from 'koa-logger'
 import serve from 'koa-static'
-import { TimeRouter } from './time/time.router'
-import { WeatherRouter } from './weather/weather.router'
-import { ManufacturingDataRouter } from './manufacturing-data/manufacturing-data.router'
-import { HealthCheckRouter } from './health-check/health-check.rounter'
-import { ApiDocsRouter } from './api-docs/api-docs.router'
+import { TimeRouter } from './time'
+import { WeatherRouter } from './weather'
+import { ManufacturingDataRouter } from './manufacturing-data'
+import { HealthCheckRouter } from './health-check'
+import { ApiDocsRouter } from './api-docs'
 
 export class Api extends Koa {
   public constructor() {
