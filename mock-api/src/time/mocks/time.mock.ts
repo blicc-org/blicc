@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 export const mock = {
   week_number: 7,
   utc_offset: '+01:00',
@@ -16,4 +15,3 @@ export const mock = {
   client_ip: '193.175.2.18',
   abbreviation: 'CET',
 }
-/* eslint-enable no-use-before-define */

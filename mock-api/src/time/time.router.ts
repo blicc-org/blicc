@@ -1,15 +1,15 @@
 import Router, { IMiddleware as Middleware } from 'koa-router'
-import { DataDeliveryMockController } from './external-api-mock'
+import { TimeController } from './time.controller'
 
-export class ExternalApiMock {
+export class TimeRouter {
   private prefix: string
   private router: Router
-  private controller: DataDeliveryMockController
+  private controller: TimeController
 
   public constructor(prefix: string) {
     this.prefix = prefix
     this.router = new Router()
-    this.controller = new DataDeliveryMockController()
+    this.controller = new TimeController()
   }
 
   public routes(): Middleware {

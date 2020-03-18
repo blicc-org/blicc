@@ -1,7 +1,7 @@
 import Koa from 'koa'
-import { mock } from './mocks/external-api-mock.mock'
+import { mock } from './mocks/time.mock'
 
-export class DataDeliveryMockController {
+export class TimeController {
   public async mock(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     ctx.body = mock

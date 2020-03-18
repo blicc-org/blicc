@@ -24,5 +24,4 @@ func TestEndpoint(t *testing.T) {
 	if !helper.Equals(result, expected) {
 		t.Fatal("expected:\n" + expected + "\ndoes not equal:\n" + result)
 	}
-
 }
