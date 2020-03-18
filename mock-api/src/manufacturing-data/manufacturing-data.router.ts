@@ -14,6 +14,22 @@ export class ManufacturingDataRouter {
 
   public routes(): Middleware {
     this.router.prefix(this.prefix)
+
+    /**
+     * @swagger
+     *
+     * /manufacturing-data:
+     *   get:
+     *     tags:
+     *       - Manufacturing data
+     *     summary: Manufacturing data mock
+     *     description: Request a manufacturing data mock object which simulates live time updates
+     *     responses:
+     *       200:
+     *         description: OK
+     *       500:
+     *         description: Internal Server Error
+     */
     this.router.get('/', this.controller.mock.bind(this.controller))
 
     return this.router.routes()

@@ -14,6 +14,22 @@ export class TimeRouter {
 
   public routes(): Middleware {
     this.router.prefix(this.prefix)
+
+    /**
+     * @swagger
+     *
+     * /time:
+     *   get:
+     *     tags:
+     *       - Time
+     *     summary: Time mock
+     *     description: Request a data object which gives you information about the current time
+     *     responses:
+     *       200:
+     *         description: OK
+     *       500:
+     *         description: Internal Server Error
+     */
     this.router.get('/', this.controller.mock.bind(this.controller))
 
     return this.router.routes()
