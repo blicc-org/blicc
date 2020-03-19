@@ -1,3 +1,4 @@
+/*eslint-disable */
 export const user = {
   firstName: 'John',
   lastName: 'Doe',
@@ -90,3 +91,4 @@ export const dashboardExample = {
     },
   },
 }
+/*eslint-enable */

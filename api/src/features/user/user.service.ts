@@ -133,7 +133,7 @@ export class UserService {
     return deleteResult.affected === 1
   }
 
-  public async createExamples(userId: string) {
+  public async createExamples(userId: string): Promise<void> {
     const { id: dataSourceId = '' } = await this.dataSourceService.create(
       dataSourceExample.title,
       dataSourceExample.description,
@@ -151,6 +151,7 @@ export class UserService {
       dataSourceExampleTwo.fetchFrequency
     )
 
+    /*eslint-disable */
     dashboardExample.data.settings[
       '54e7932b-e246-415d-ab1a-eda5411a9033'
     ].data_source = dataSourceId
@@ -160,6 +161,7 @@ export class UserService {
     dashboardExample.data.settings[
       '733ee4d4-8815-415a-bc8b-df348f99ed77'
     ].data_source = dataSourceIdTwo
+    /*eslint-enable */
 
     await this.dashboardService.create(
       dashboardExample.title,

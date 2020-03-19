@@ -42,7 +42,7 @@ export class UserController {
         ctx.status = statusCode.CONFLICT
         return
       } else {
-        if (user.id) this.userService.createExamples(user.id)
+        if (user.id) await this.userService.createExamples(user.id)
         ctx.status = statusCode.CREATED
         ctx.body = user
         return
