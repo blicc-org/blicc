@@ -6,12 +6,23 @@ import { MailService } from '../../common/services/mail-service/mail-service'
 import { MailType } from '../../common/services/mail-service/mail-service'
 import { v4 as uuid } from 'uuid'
 import shortid from 'shortid'
+import { DataSourceService } from '../data-source/data-source.service'
+import {
+  dataSourceExample,
+  dataSourceExampleTwo,
+  dashboardExample,
+} from './mocks/user.mock'
+import { DashboardService } from '../dashboard/dashboard.service'
 
 export class UserService {
   private repo: Repository<UserEntity>
+  private dataSourceService: DataSourceService
+  private dashboardService: DashboardService
 
   public constructor() {
     this.repo = getRepository(UserEntity)
+    this.dataSourceService = new DataSourceService()
+    this.dashboardService = new DashboardService()
   }
 
   public async register(
@@ -120,5 +131,41 @@ export class UserService {
   public async deleteById(id: string): Promise<boolean> {
     const deleteResult = await this.repo.delete({ id })
     return deleteResult.affected === 1
+  }
+
+  public async createExamples(userId: string) {
+    const { id: dataSourceId = '' } = await this.dataSourceService.create(
+      dataSourceExample.title,
+      dataSourceExample.description,
+      userId,
+      dataSourceExample.data,
+      dataSourceExample.persistData,
+      dataSourceExample.fetchFrequency
+    )
+    const { id: dataSourceIdTwo = '' } = await this.dataSourceService.create(
+      dataSourceExampleTwo.title,
+      dataSourceExampleTwo.description,
+      userId,
+      dataSourceExampleTwo.data,
+      dataSourceExampleTwo.persistData,
+      dataSourceExampleTwo.fetchFrequency
+    )
+
+    dashboardExample.data.settings[
+      '54e7932b-e246-415d-ab1a-eda5411a9033'
+    ].data_source = dataSourceId
+    dashboardExample.data.settings[
+      'ee76dfb4-8328-41b7-a628-9a9a01f2169a'
+    ].data_source = dataSourceId
+    dashboardExample.data.settings[
+      '733ee4d4-8815-415a-bc8b-df348f99ed77'
+    ].data_source = dataSourceIdTwo
+
+    await this.dashboardService.create(
+      dashboardExample.title,
+      dashboardExample.description,
+      userId,
+      dashboardExample.data
+    )
   }
 }
