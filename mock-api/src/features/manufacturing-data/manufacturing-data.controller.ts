@@ -1,5 +1,5 @@
 import Koa from 'koa'
-import { randomDate, randomNumber, calcOEE } from '../../utils/utils'
+import { randomNumber, calcOEE } from '../../utils/utils'
 
 export class ManufacturingDataController {
   public async mock(ctx: Koa.DefaultContext, next: Function): Promise<void> {
@@ -7,10 +7,10 @@ export class ManufacturingDataController {
     let shift, date, availability, performance, quality, oee
 
     var arr = []
-    var len = 12
+    var len = 24
     for (var i = 0; i < len; i++) {
       shift = (i % 3) + 1
-      date = randomDate(new Date(2018, 0, 1), new Date())
+      if (i % 3 === 0) date = new Date(2020, 0, i / 3 + 1)
       availability = randomNumber(0, 100)
       performance = randomNumber(0, 100)
       quality = randomNumber(0, 100)
