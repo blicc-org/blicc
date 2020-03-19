@@ -7,7 +7,7 @@ export class ManufacturingDataController {
     let shift, date, availability, performance, quality, oee
 
     var arr = []
-    var len = 24
+    var len = 120
     for (var i = 0; i < len; i++) {
       shift = (i % 3) + 1
       if (i % 3 === 0) date = new Date(2020, 0, i / 3 + 1)
