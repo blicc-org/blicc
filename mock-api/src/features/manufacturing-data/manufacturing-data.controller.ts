@@ -4,11 +4,12 @@ import { randomDate, randomNumber, calcOEE } from '../../utils/utils'
 export class ManufacturingDataController {
   public async mock(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    let date, availability, performance, quality, oee
+    let shift, date, availability, performance, quality, oee
 
     var arr = []
-    var len = 10
+    var len = 12
     for (var i = 0; i < len; i++) {
+      shift = (i % 3) + 1
       date = randomDate(new Date(2018, 0, 1), new Date())
       availability = randomNumber(0, 100)
       performance = randomNumber(0, 100)
@@ -18,6 +19,7 @@ export class ManufacturingDataController {
       arr.push({
         id: i + 1,
         date,
+        shift,
         availability,
         performance,
         quality,
