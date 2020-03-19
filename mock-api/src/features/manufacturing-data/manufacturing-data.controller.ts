@@ -11,9 +11,9 @@ export class ManufacturingDataController {
     for (var i = 0; i < len; i++) {
       shift = (i % 3) + 1
       if (i % 3 === 0) date = new Date(2020, 0, i / 3 + 1)
-      availability = randomNumber(0, 100)
-      performance = randomNumber(0, 100)
-      quality = randomNumber(0, 100)
+      availability = randomNumber(50, 60)
+      performance = randomNumber(30, 40)
+      quality = randomNumber(20, 100)
       oee = calcOEE(availability, performance, quality)
 
       arr.push({
