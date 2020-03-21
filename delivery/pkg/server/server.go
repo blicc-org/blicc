@@ -1,8 +1,13 @@
 package server
 
 import (
+	"context"
 	"fmt"
+	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"time"
 
 	"github.com/blicc-org/blicc/delivery/pkg/common/apidocs"
 	"github.com/blicc-org/blicc/delivery/pkg/common/mongoclient"
@@ -13,27 +18,57 @@ import (
 	"github.com/blicc-org/blicc/delivery/pkg/middleware/logging"
 )
 
-func serveChannels() {
+func serveChannels(mux *http.ServeMux) {
 	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		channel.ListenAndServe(w, r)
 	})
-	http.Handle("/connection", auth.Middleware(handler))
+	mux.Handle("/connection", auth.Middleware(handler))
 }
 
-func servePublicFolder() {
+func servePublicFolder(mux *http.ServeMux) {
 	handler := http.FileServer(http.Dir("public"))
-	http.Handle("/", logging.Middleware(handler))
+	mux.Handle("/", logging.Middleware(handler))
 }
 
 func Start() {
 	apidocs.Generate()
 	mongoclient.Connect()
 
-	serveChannels()
-	servePublicFolder()
+	mux := http.NewServeMux()
+
+	serveChannels(mux)
+	servePublicFolder(mux)
 
 	port := flags.Instance().Port
 
-	fmt.Printf("Server is listening on port %d ...\n", port)
-	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	s := &http.Server{
+		Addr:         fmt.Sprintf(":%d", port),
+		Handler:      mux,
+		IdleTimeout:  120 * time.Second,
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 5 * time.Second,
+	}
+
+	go func() {
+		err := s.ListenAndServe()
+		if err != nil {
+			log.Fatal(err)
+		} else {
+			fmt.Printf("Server is listening on port %d ...\n", port)
+		}
+	}()
+
+	sigChan := make(chan os.Signal)
+	signal.Notify(sigChan, os.Interrupt)
+	signal.Notify(sigChan, os.Kill)
+
+	sig := <-sigChan
+	log.Println("Received termination, shutdown server after finishing all current requests...", sig)
+
+	tc, err := context.WithTimeout(context.Background(), 30*time.Second)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	s.Shutdown(tc)
 }
