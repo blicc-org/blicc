@@ -18,18 +18,14 @@
   margin: 0;
 }
 
-.toolbar-live {
+.toolbar {
+  margin-right: 0px;
+}
+
+.toolbar svg {
   margin: 0px 6px 1px 6px;
 }
 
-.toolbar-maximize {
-  margin: 0px 6px 1px 6px;
-}
-
-.toolbar-tool {
-  margin: 0px 6px 1px 6px;
-}
-
-.toolbar-close {
-  margin: 0px 0px 1px 8px;
+.toolbar span {
+  margin-right: 6px;
 }

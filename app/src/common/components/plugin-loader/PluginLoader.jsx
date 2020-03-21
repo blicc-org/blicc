@@ -3,7 +3,7 @@ import { Loading } from '../loading/Loading'
 import { API } from '../../../config'
 import { useSettings, useDeliveryEndpoint } from '../../hooks'
 
-export function PluginLoader({ id, type }) {
+export function PluginLoader({ id, type, keepAlive }) {
   const [accessSet, insertSet] = useSettings()
   const [bundle, plugin] = type.split('/')
   const [loading, setLoading] = useState(true)
@@ -20,8 +20,13 @@ export function PluginLoader({ id, type }) {
   }
 
   function onDataUpdate(callback = res => res) {
-    const preloaded = subscribe(channel, callback)
-    if (preloaded) callback(preloaded)
+    const cb = res => {
+      keepAlive()
+      return callback(res)
+    }
+
+    const preloaded = subscribe(channel, cb)
+    if (preloaded) cb(preloaded)
   }
 
   const key = 'plugin_settings'

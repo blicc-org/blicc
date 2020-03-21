@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { X, Radio, Maximize2 } from 'react-feather'
+import { X, Radio, Maximize2, AlertCircle } from 'react-feather'
 import { ReactComponent as Tool } from '../../../assets/img/Tool.svg'
 import { PluginLoader } from './../plugin-loader/PluginLoader'
 import { Positioning } from '../positioning/Positioning'
 import { useSettings } from '../../hooks/settings/useSettings'
 import { DragContext, DRAG } from '../../context'
-import { useArrangement, useModal, MASK } from '../../hooks'
+import { useArrangement, useModal, useAlive, MASK } from '../../hooks'
 import { PluginSettingsModal } from './PluginSettingsModal'
-import { success } from '../../../Theme.scss'
+import { success, danger } from '../../../Theme.scss'
 import './Plugin.scss'
 
 export const UNIT = {
@@ -23,6 +23,7 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
   const [dragging] = useContext(DragContext)
   const [init, setInit] = useState(true)
   const [unit, setUnit] = useState({ xAxis: UNIT.CATEGORY, yAxis: UNIT.NUMBER })
+  const [isAlive, keepAlive] = useAlive()
 
   const style = isMobile
     ? {
@@ -61,26 +62,28 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
 
   return (
     <div className="plugin" style={style}>
-      <div className="row text-muted px-2">
+      <div className="row text-muted pl-2">
         <div className="col">
           <p>{type}</p>
         </div>
-        <div className="col text-right">
-          <span style={{ color: success }}>
-            Live
-            <Radio className="toolbar-live" size={18} />
-          </span>
+        <div className="col text-right toolbar">
+          {isAlive ? (
+            <span style={{ color: success }}>
+              <Radio size={18} />
+              Live
+            </span>
+          ) : (
+            <span style={{ color: danger }}>
+              <AlertCircle size={16} />
+              interrupted
+            </span>
+          )}
           {'|'}
-          <Tool
-            className="toolbar-tool"
-            style={{ cursor: 'pointer' }}
-            onClick={() => showModal()}
-          />
+          <Tool style={{ cursor: 'pointer' }} onClick={() => showModal()} />
           {'|'}
-          <Maximize2 className="toolbar-maximize" size={16} />
+          <Maximize2 size={16} />
           {'|'}
           <X
-            className="toolbar-close"
             size={18}
             style={{ cursor: 'pointer' }}
             onClick={() => {
@@ -91,7 +94,7 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
         </div>
       </div>
       <hr />
-      <PluginLoader id={id} type={type} />
+      <PluginLoader id={id} type={type} keepAlive={keepAlive} />
       {dragging !== DRAG.NONE && (
         <Positioning
           onDrop={(type, payload) => onDrop(type, { ...payload, id })}
