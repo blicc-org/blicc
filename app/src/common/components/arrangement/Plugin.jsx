@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { X } from 'react-feather'
+import { X, Radio, Maximize2 } from 'react-feather'
 import { ReactComponent as Tool } from '../../../assets/img/Tool.svg'
 import { PluginLoader } from './../plugin-loader/PluginLoader'
 import { Positioning } from '../positioning/Positioning'
@@ -7,6 +7,7 @@ import { useSettings } from '../../hooks/settings/useSettings'
 import { DragContext, DRAG } from '../../context'
 import { useArrangement, useModal, MASK } from '../../hooks'
 import { PluginSettingsModal } from './PluginSettingsModal'
+import { success } from '../../../Theme.scss'
 import './Plugin.scss'
 
 export const UNIT = {
@@ -61,15 +62,22 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
   return (
     <div className="plugin" style={style}>
       <div className="row text-muted px-2">
-        <div className="col col-8">
+        <div className="col">
           <p>{type}</p>
         </div>
-        <div className="col col-4 text-right">
+        <div className="col text-right">
+          <span style={{ color: success }}>
+            Live
+            <Radio className="toolbar-live" size={18} />
+          </span>
+          {'|'}
           <Tool
             className="toolbar-tool"
             style={{ cursor: 'pointer' }}
             onClick={() => showModal()}
           />
+          {'|'}
+          <Maximize2 className="toolbar-maximize" size={16} />
           {'|'}
           <X
             className="toolbar-close"
