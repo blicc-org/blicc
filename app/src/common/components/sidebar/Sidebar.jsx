@@ -47,57 +47,51 @@ export function Sidebar({ open }) {
   return (
     <>
       <nav className="sidebar" style={sidebarStyle} ref={ref}>
-        {!isInstalled ||
-          (!isMobile && (
-            <>
-              {loggedIn ? (
-                <>
-                  <SidebarHeader name={content.categories} />
-                  <ul className="nav flex-column px-2">
-                    <li className="nav-item">
-                      <Link
-                        className="nav-link"
-                        to="/dashboards"
-                        onClick={close}
-                      >
-                        <Layout className="feather" />{' '}
-                        {content.dashboards.title}
+        {!(isInstalled && isMobile) && (
+          <>
+            {loggedIn ? (
+              <>
+                <SidebarHeader name={content.categories} />
+                <ul className="nav flex-column px-2">
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/dashboards" onClick={close}>
+                      <Layout className="feather" /> {content.dashboards.title}
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/charts" onClick={close}>
+                      <PieChart className="feather" /> {content.charts.title}
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link"
+                      to="/data-sources"
+                      onClick={close}
+                    >
+                      <Database className="feather" />{' '}
+                      {content.dataSources.title}
+                    </Link>
+                  </li>
+                </ul>
+              </>
+            ) : (
+              <>
+                <ul className="nav flex-column px-3 pt-4">
+                  <li className="nav-item">
+                    <p className="text-muted">
+                      <Link to="/register" onClick={close}>
+                        {content.sidebar.registerNow}
                       </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/charts" onClick={close}>
-                        <PieChart className="feather" /> {content.charts.title}
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link
-                        className="nav-link"
-                        to="/data-sources"
-                        onClick={close}
-                      >
-                        <Database className="feather" />{' '}
-                        {content.dataSources.title}
-                      </Link>
-                    </li>
-                  </ul>
-                </>
-              ) : (
-                <>
-                  <ul className="nav flex-column px-3 pt-4">
-                    <li className="nav-item">
-                      <p className="text-muted">
-                        <Link to="/register" onClick={close}>
-                          {content.sidebar.registerNow}
-                        </Link>
-                        {` ${content.sidebar.registerNowFollowUp}`}
-                      </p>
-                    </li>
-                  </ul>
-                </>
-              )}
-              <hr className="mx-3" />
-            </>
-          ))}
+                      {` ${content.sidebar.registerNowFollowUp}`}
+                    </p>
+                  </li>
+                </ul>
+              </>
+            )}
+            <hr className="mx-3" />
+          </>
+        )}
         <Footer close={close} />
         {isInstalled && isMobile && open && (
           <div className="sidebar-close-native" style={{ width: sidebarWidth }}>
