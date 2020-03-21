@@ -41,8 +41,15 @@ export function useDeliveryEndpoint() {
         setState(WebSocket.CLOSED)
       }
 
-      socket.onerror = e => {
-        console.log(`An websocket error occured: ${JSON.stringify(e)}`)
+      socket.onerror = err => {
+        console.log(
+          `An websocket error occured: ${JSON.stringify(err, [
+            'message',
+            'arguments',
+            'type',
+            'name',
+          ])}`
+        )
       }
     }
 
