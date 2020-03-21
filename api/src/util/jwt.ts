@@ -6,8 +6,8 @@ import { User } from '../features/user'
 
 export class JWT {
   private static ALGORITHM: Algorithm = 'RS256'
-  private static PRIVATE: string = `${CERTS}/rsa.pem`
-  private static PUBLIC: string = `${CERTS}/rsa_pub.pem`
+  private static PRIVATE = `${CERTS}/rsa.pem`
+  private static PUBLIC = `${CERTS}/rsa_pub.pem`
 
   public static generate(user: User): { token: string; payload: TokenPayload } {
     const privateKey = fs.readFileSync(JWT.PRIVATE)
