@@ -78,11 +78,8 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
               interrupted
             </span>
           )}
-          {'|'}
           <Tool style={{ cursor: 'pointer' }} onClick={() => showModal()} />
-          {'|'}
           <Maximize2 size={16} />
-          {'|'}
           <X
             size={18}
             style={{ cursor: 'pointer' }}
