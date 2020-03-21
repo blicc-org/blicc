@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { X, Radio, Maximize2, AlertCircle } from 'react-feather'
+import { X, Radio, AlertCircle } from 'react-feather'
 import { ReactComponent as Tool } from '../../../assets/img/Tool.svg'
 import { PluginLoader } from './../plugin-loader/PluginLoader'
 import { Positioning } from '../positioning/Positioning'
@@ -79,7 +79,6 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
             </span>
           )}
           <Tool style={{ cursor: 'pointer' }} onClick={() => showModal()} />
-          <Maximize2 size={16} />
           <X
             size={18}
             style={{ cursor: 'pointer' }}
