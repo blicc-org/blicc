@@ -8,22 +8,25 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/fsnotify/fsnotify v1.4.7 // indirect
 	github.com/garyburd/redigo v1.6.0
-	github.com/go-stack/stack v1.8.0 // indirect
-	github.com/golang/snappy v0.0.1 // indirect
-	github.com/gomarkdown/markdown v0.0.0-20200112043221-ec51d717629d
+	github.com/gomarkdown/markdown v0.0.0-20200316172748-fd1f3374857d
 	github.com/gomodule/redigo v2.0.0+incompatible
-	github.com/gorilla/websocket v1.4.1
-	github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af
+	github.com/google/go-cmp v0.4.0 // indirect
+	github.com/gorilla/websocket v1.4.2
+	github.com/jmespath/go-jmespath v0.3.0
 	github.com/joho/godotenv v1.3.0
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
+	github.com/klauspost/compress v1.10.3 // indirect
 	github.com/kr/pty v1.1.8 // indirect
+	github.com/kr/text v0.2.0 // indirect
 	github.com/mongodb/mongo-go-driver v1.2.0 // indirect
+	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/ogier/pflag v0.0.1 // indirect
-	github.com/pkg/errors v0.8.1 // indirect
-	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	github.com/tidwall/pretty v1.0.1 // indirect
 	github.com/xdg/stringprep v1.0.0 // indirect
-	go.mongodb.org/mongo-driver v1.2.0
-	golang.org/x/crypto v0.0.0-20191227163750-53104e6ec876 // indirect
-	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
-	golang.org/x/text v0.3.2 // indirect
+	go.mongodb.org/mongo-driver v1.3.1
+	golang.org/x/crypto v0.0.0-20200320181102-891825fb96df // indirect
+	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a // indirect
+	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
+	gopkg.in/yaml.v2 v2.2.8 // indirect
 )
