@@ -29,6 +29,9 @@ export class DashboardEntity extends BaseEntity {
   @Column()
   public creationDate?: string
 
+  @Column({ default: false })
+  public published?: boolean
+
   @BeforeInsert()
   private async beforeInsert(): Promise<void> {
     const dashboardService = new DashboardService()

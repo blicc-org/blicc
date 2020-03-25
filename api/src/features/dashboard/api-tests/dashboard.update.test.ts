@@ -9,6 +9,7 @@ describe('PUT: /dashboards/:id', () => {
   let params = { email: '', userId: '', cookie: '' }
   let id = ''
   let creationDate = ''
+  let published = false
 
   beforeEach(async () => {
     params = await initializeUser()
@@ -19,6 +20,7 @@ describe('PUT: /dashboards/:id', () => {
     })
     id = data.id
     creationDate = data.creationDate
+    published = data.published
   })
 
   afterEach(async () => {
@@ -33,6 +35,7 @@ describe('PUT: /dashboards/:id', () => {
       userId: params.userId,
       data: {},
       creationDate,
+      published,
     }
     const { status, data } = await instance.put(`/dashboards/${id}`, newData, {
       headers: {
@@ -51,6 +54,7 @@ describe('PUT: /dashboards/:id', () => {
       userId: params.userId,
       data: {},
       creationDate,
+      published,
     }
     let response = await instance.put(`/dashboards/${id}`, newData, {
       headers: {
@@ -66,6 +70,7 @@ describe('PUT: /dashboards/:id', () => {
       userId: 'change user id',
       data: {},
       creationDate,
+      published,
     }
     response = await instance.put(`/dashboards/${id}`, newData, {
       headers: {
@@ -81,6 +86,7 @@ describe('PUT: /dashboards/:id', () => {
       userId: params.userId,
       data: {},
       creationDate: '2019-11-03T16:34:09.408Z',
+      published,
     }
     response = await instance.put(`/dashboards/${id}`, newData, {
       headers: {
@@ -98,6 +104,7 @@ describe('PUT: /dashboards/:id', () => {
       userId: params.userId,
       data: {},
       creationDate,
+      published,
     }
     const { status } = await instance.put(`/dashboards/${id}`, newData)
     expect(status).toBe(401)
@@ -111,6 +118,7 @@ describe('PUT: /dashboards/:id', () => {
       userId: params.userId,
       data: {},
       creationDate,
+      published,
     }
     const wrongUser = await initializeUser()
     const { status } = await instance.put(`/dashboards/${id}`, newData, {

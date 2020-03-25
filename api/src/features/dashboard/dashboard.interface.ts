@@ -5,4 +5,5 @@ export interface Dashboard {
   userId?: string
   creationDate?: string
   data?: object
+  published?: boolean
 }
