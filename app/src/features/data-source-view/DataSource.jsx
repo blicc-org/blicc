@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { X } from 'react-feather'
 import { search } from 'jmespath'
 import { DataQuery } from './DataQuery'
 import './DataSource.scss'
@@ -46,7 +47,7 @@ export function DataSource({ input, data, setData }) {
           <table style={{ width: '100%' }}>
             <tbody>
               <tr>
-                <td style={{ width: '150px' }}>
+                <td style={{ width: '70px' }}>
                   <b>URL:</b>
                 </td>
                 <td>
@@ -65,7 +66,7 @@ export function DataSource({ input, data, setData }) {
                 const { key, value } = header
                 return (
                   <tr>
-                    <td style={{ width: '150px' }}>
+                    <td style={{ width: '70px' }}>
                       <b>Header:</b>
                     </td>
                     <td>
@@ -86,19 +87,23 @@ export function DataSource({ input, data, setData }) {
                         }
                       />
                     </td>
-                    <td>
+                    <td style={{ width: '15px' }}>
                       <button
                         title="Remove"
                         type="button"
                         className="btn btn-outline-secondary"
                         onClick={() => removeHeader(index)}
                       >
-                        Remove
+                        <X size={16} />
                       </button>
                     </td>
                   </tr>
                 )
               })}
+            </tbody>
+          </table>
+          <table>
+            <tbody>
               <tr>
                 <td>
                   <button
