@@ -34,7 +34,10 @@ export const dataSourceExample = {
   title: 'Manufacturing Data Example',
   description: 'Example to showcase how to query data from an api call.',
   data: {
-    url: 'https://mock.blicc.org/manufacturing-data',
+    request: {
+      url: 'https://mock.blicc.org/manufacturing-data',
+      headers: [],
+    },
     query:
       "{labels: ['Shift 1', 'Shift 2', 'Shift 3'], datasets: [{label: 'OEE', data: [?date == '2020-01-01T00:00:00.000Z'].oee}, {label: 'Availability', data: [?date == '2020-01-01T00:00:00.000Z'].availability}, {label: 'Performance', data: [?date == '2020-01-01T00:00:00.000Z'].performance}, {label: 'Quality', data: [?date == '2020-01-01T00:00:00.000Z'].quality}]}",
   },
@@ -46,7 +49,10 @@ export const dataSourceExampleTwo = {
   title: 'Manufacturing Data Overtime Example',
   description: 'Example to showcase how to query data from an api call.',
   data: {
-    url: 'https://mock.blicc.org/manufacturing-data',
+    request: {
+      url: 'https://mock.blicc.org/manufacturing-data',
+      headers: [],
+    },
     query:
       "{datasets: [{label: 'Shift 1', data: [?shift == `1`].{x: date, y: oee}}, {label: 'Shift 2', data: [?shift == `2`].{x: date, y: oee}}, {label: 'Shift 3', data: [?shift == `3`].{x: date, y: oee}}]}",
   },
