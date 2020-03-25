@@ -13,12 +13,22 @@ import (
 )
 
 type Data struct {
-	Url      string
+	Request  Request
 	Interval int32
 	Query    string
 }
 
-var httpWithResponse = &http.Client{Timeout: 10 * time.Second}
+type Request struct {
+	Url     string
+	Headers []Header
+}
+
+type Header struct {
+	Key   string
+	Value string
+}
+
+var client = &http.Client{Timeout: 10 * time.Second}
 
 func Handle(conn *websocket.Conn, channel *string, updating map[string]bool, data map[string]json.RawMessage) {
 	payload := data[*channel]

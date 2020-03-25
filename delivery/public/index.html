@@ -33,7 +33,10 @@
 <pre><code class="language-jsx">{
     &quot;channel&quot;: &quot;/data-delivery/a1aMczof&quot;,
     &quot;data&quot;: {
-        &quot;url&quot;: &quot;https://api.example.com/data&quot;,
+        &quot;request&quot;: {
+            &quot;url&quot;: &quot;https://api.example.com/data&quot;,
+            &quot;headers&quot;: [{ &quot;key&quot;: &quot;&quot;, &quot;value&quot;: &quot;&quot; }],
+        },
         &quot;interval&quot;: 86400000,
         &quot;query&quot;: &quot;{ labels: ['Category 1', 'Category 2'], datasets: [{label: 'Value', data: [].someValue}]}&quot;
     }
@@ -75,7 +78,10 @@
 <pre><code class="language-jsx">{
     &quot;channel&quot;: &quot;/forwarding/a1aMczof&quot;,
     &quot;data&quot;: {
-        &quot;url&quot;: &quot;https://api.example.com/data&quot;
+        &quot;request&quot;: {
+            &quot;url&quot;: &quot;https://api.example.com/data&quot;,
+            &quot;headers&quot;: [{ &quot;key&quot;: &quot;&quot;, &quot;value&quot;: &quot;&quot; }],
+        },
     }
 }
 </code></pre>

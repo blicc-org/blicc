@@ -15,9 +15,15 @@ export const FREQUENCY = {
 export const INITIAL_DATA_SOURCE = {
   title: '',
   description: '',
-  data: { url: '', query: '' },
   persistData: false,
   fetchFrequency: FREQUENCY.DAILY,
+  data: {
+    request: {
+      url: '',
+      headers: [],
+    },
+    query: '',
+  },
 }
 
 export function DataSources() {

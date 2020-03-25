@@ -3,6 +3,8 @@ package forwarding
 import (
 	"encoding/json"
 	"log"
+	"net/http"
+	"time"
 
 	"github.com/blicc-org/blicc/delivery/pkg/common/cachekey"
 	"github.com/blicc-org/blicc/delivery/pkg/common/socketutil"
@@ -10,8 +12,20 @@ import (
 )
 
 type Data struct {
-	Url string
+	Request Request
 }
+
+type Request struct {
+	Url     string
+	Headers []Header
+}
+
+type Header struct {
+	Key   string
+	Value string
+}
+
+var client = &http.Client{Timeout: 10 * time.Second}
 
 func Handle(conn *websocket.Conn, channel *string, payload *json.RawMessage) {
 	key := cachekey.Generate(channel, payload)

@@ -26,7 +26,10 @@ Message payload:
 {
     "channel": "/data-delivery/a1aMczof",
     "data": {
-        "url": "https://api.example.com/data",
+        "request": {
+            "url": "https://api.example.com/data",
+            "headers": [{ "key": "", "value": "" }],
+        },
         "interval": 86400000,
         "query": "{ labels: ['Category 1', 'Category 2'], datasets: [{label: 'Value', data: [].someValue}]}"
     }
@@ -66,7 +69,10 @@ Message payload:
 {
     "channel": "/forwarding/a1aMczof",
     "data": {
-        "url": "https://api.example.com/data"
+        "request": {
+            "url": "https://api.example.com/data",
+            "headers": [{ "key": "", "value": "" }],
+        },
     }
 }
 ```

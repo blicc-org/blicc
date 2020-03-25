@@ -1,11 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import { search } from 'jmespath'
 import { DataQuery } from './DataQuery'
+import './DataSource.scss'
 
 export function DataSource({ input, data, setData }) {
-  const { url, query } = data
+  const { request, query } = data
+  const { url, headers } = request
   const setQuery = q => setData({ ...data, query: q })
-  const setUrl = u => setData({ ...data, url: u })
+  const setUrl = u => {
+    data.request.url = u
+    setData(data)
+  }
+  const addNewHeader = () => {
+    data.request.headers.push({ key: '', value: '' })
+    setData(data)
+  }
+  const removeHeader = index => {
+    if (index > -1) {
+      data.request.headers.splice(index, 1)
+      setData(data)
+    }
+  }
+  const setHeader = (index, header) => {
+    data.request.headers[index] = header
+    setData(data)
+  }
   const [output, setOutput] = useState('')
   const stringify = s => JSON.stringify(s, null, 4)
   const parse = s => JSON.parse(s)
@@ -22,7 +41,7 @@ export function DataSource({ input, data, setData }) {
 
   return (
     <>
-      <div className="row my-3">
+      <div className="row my-3 data-source">
         <div className="col">
           <table style={{ width: '100%' }}>
             <tbody>
@@ -36,6 +55,60 @@ export function DataSource({ input, data, setData }) {
                     value={url}
                     onChange={evt => setUrl(evt.target.value)}
                   />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table style={{ width: '100%' }}>
+            <tbody>
+              {headers.map((header, index) => {
+                const { key, value } = header
+                return (
+                  <tr>
+                    <td style={{ width: '150px' }}>
+                      <b>Header:</b>
+                    </td>
+                    <td>
+                      <input
+                        className="form-control"
+                        value={key}
+                        onChange={evt =>
+                          setHeader(index, { key: evt.target.value, value })
+                        }
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="form-control"
+                        value={value}
+                        onChange={evt =>
+                          setHeader(index, { key, value: evt.target.value })
+                        }
+                      />
+                    </td>
+                    <td>
+                      <button
+                        title="Remove"
+                        type="button"
+                        className="btn btn-outline-secondary"
+                        onClick={() => removeHeader(index)}
+                      >
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                )
+              })}
+              <tr>
+                <td>
+                  <button
+                    title="Add Header"
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={addNewHeader}
+                  >
+                    Add Header
+                  </button>
                 </td>
               </tr>
             </tbody>

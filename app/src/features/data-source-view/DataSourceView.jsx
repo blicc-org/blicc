@@ -18,7 +18,13 @@ const INITIAL = {
   persistData: false,
   fetchFrequency: 0,
   creationDate: '',
-  data: { url: '', query: '' },
+  data: {
+    request: {
+      url: '',
+      headers: [],
+    },
+    query: '',
+  },
 }
 
 export function DataSourceView({ match, location }) {
@@ -30,7 +36,7 @@ export function DataSourceView({ match, location }) {
   const [input, setInput] = useState('')
   const stringify = s => JSON.stringify(s, null, 4)
   const { id, title, description, data } = dataSource
-  const { url } = data
+  const { url, headers } = data.request
   const channel = `/forwarding/${id}`
 
   const [redirect, setRedirect] = useState('')
@@ -46,7 +52,13 @@ export function DataSourceView({ match, location }) {
       subscribe(channel, str => {
         setInput(stringify(str))
       })
-      publish(channel, { url })
+      const publishBody = {
+        request: {
+          url,
+          headers,
+        },
+      }
+      publish(channel, publishBody)
     }
     // eslint-disable-next-line
   }, [url, state])

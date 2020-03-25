@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"strings"
 
 	"github.com/jmespath/go-jmespath"
@@ -12,9 +13,22 @@ import (
 func Process(data Data) interface{} {
 	var d interface{}
 
-	data.Url = strings.TrimSpace(data.Url)
+	data.Request.Url = strings.TrimSpace(data.Request.Url)
 
-	response, err := httpWithResponse.Get(data.Url)
+	req, err := http.NewRequest("GET", data.Request.Url, nil)
+	if err != nil {
+		log.Println(err)
+	}
+
+	for _, header := range data.Request.Headers {
+		req.Header.Set(header.Key, header.Value)
+	}
+
+	response, err := client.Do(req)
+	if err != nil {
+		log.Println(err)
+	}
+
 	if err != nil {
 		log.Printf("Error occurred by fetching the data from external api: %s \n", err)
 	}
