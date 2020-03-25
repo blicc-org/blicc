@@ -34,7 +34,12 @@ func Start() {
 	apidocs.Generate()
 	mongoclient.Connect()
 
+	logger := log.New(os.Stdout, "delivery: ", log.LstdFlags)
+
 	mux := http.NewServeMux()
+
+	// mux.Handle("/", handlers.NewApiDocs(logger))
+	// mux.Handle("connection", handlers.NewConnection(logger))
 
 	serveChannels(mux)
 	servePublicFolder(mux)
@@ -44,6 +49,7 @@ func Start() {
 	s := &http.Server{
 		Addr:         fmt.Sprintf(":%d", port),
 		Handler:      mux,
+		ErrorLog:     logger,
 		IdleTimeout:  120 * time.Second,
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 5 * time.Second,
