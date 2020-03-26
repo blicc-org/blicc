@@ -16,11 +16,13 @@
     "react-markdown": "^4.3.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
+    "react-share": "^4.1.0",
     "react-syntax-highlighter": "^12.2.1"
   },
   "devDependencies": {
     "@testing-library/react": "^10.0.1",
     "@testing-library/react-hooks": "^3.2.1",
+    "@types/react-share": "^3.0.3",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.0",
@@ -33,7 +35,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "react-scripts build",
+    "build:prod": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "CI=true react-scripts test",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer './build/static/js/*.js'",

@@ -14,7 +14,12 @@ import { ArrangementContext, SettingsContext } from '../../common/context'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DashboardDetails } from './DashboardDetails'
 import { Toolbox } from '../../common/components/toolbox/Toolbox'
-import { ConfirmationModal, Tabs, PageHeader } from '../../common/components/ui'
+import {
+  ConfirmationModal,
+  Tabs,
+  UpdateButton,
+} from '../../common/components/ui'
+import { ModalShare } from '../../common/components/modal/ModalShare'
 import './DashboardView.scss'
 
 export function DashboardView({ match, location }) {
@@ -94,12 +99,28 @@ export function DashboardView({ match, location }) {
     />
   ))
 
+  const [showShareModal, hideShareModal] = useModal(() => (
+    <ModalShare cancel={hideShareModal} id={match.params.id} title={title} />
+  ))
+
   return (
     <>
       {redirect && <Redirect to={redirect} />}
       <MetaData title={title} description={description} path={path} />
       <div className="container-fluid dashboard" style={style}>
-        <PageHeader edit={edit} title={title} onClick={onClick} />
+        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
+          <h2 className="my-0">{title}</h2>
+          <div className="btn-toolbar">
+            <UpdateButton edit={edit} onClick={onClick} />
+            <button
+              className="btn btn-info ml-2"
+              type="button"
+              onClick={showShareModal}
+            >
+              Share
+            </button>
+          </div>
+        </div>
         <Tabs
           tabs={tabs}
           currentTab={currentTab}

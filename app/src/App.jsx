@@ -21,6 +21,7 @@ import { Provider } from './common/context'
 import { Header } from './common/components/header/Header'
 import { Main } from './common/components/main/Main'
 import { Installed } from './features/installed/Installed'
+import { DashboardShared } from './features/dashboard-shared/DashboardShared'
 import './App.scss'
 
 export function App() {
@@ -36,6 +37,7 @@ export function App() {
             <Route path="/register" component={Register} />
             <Route path="/pages" component={PageGenerator} />
             <Route path="/offline" component={Offline} />
+            <Route path="/d/:id" component={DashboardShared} />
             <ProtectedRoute path="/charts/:id" component={ChartView} />
             <ProtectedRoute path="/charts" component={Charts} />
             <ProtectedRoute path="/dashboards/:id" component={DashboardView} />
