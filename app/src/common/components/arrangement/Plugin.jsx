@@ -75,7 +75,7 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
           ) : (
             <span style={{ color: danger }}>
               <AlertCircle size={16} />
-              interrupted
+              Error
             </span>
           )}
           <Tool style={{ cursor: 'pointer' }} onClick={() => showModal()} />
