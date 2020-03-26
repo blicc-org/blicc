@@ -70,12 +70,10 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
           {isAlive ? (
             <span style={{ color: success }}>
               <Radio size={18} />
-              Live
             </span>
           ) : (
             <span style={{ color: danger }}>
               <AlertCircle size={16} />
-              Error
             </span>
           )}
           <Tool style={{ cursor: 'pointer' }} onClick={() => showModal()} />

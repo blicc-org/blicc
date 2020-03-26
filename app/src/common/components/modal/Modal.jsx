@@ -1,4 +1,5 @@
 import React from 'react'
+import './Modal.scss'
 
 export function Modal({ show, content }) {
   const modal = content()
