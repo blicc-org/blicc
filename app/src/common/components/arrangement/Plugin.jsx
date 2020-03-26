@@ -64,18 +64,20 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
     <div className="plugin" style={style}>
       <div className="row text-muted pl-2">
         <div className="col">
-          <p>{type}</p>
+          <p>
+            {isAlive ? (
+              <span style={{ color: success }}>
+                <Radio size={18} />
+              </span>
+            ) : (
+              <span style={{ color: danger }}>
+                <AlertCircle size={16} />
+              </span>
+            )}
+            {` ${type.split('/')[1]}`}
+          </p>
         </div>
         <div className="col text-right toolbar">
-          {isAlive ? (
-            <span style={{ color: success }}>
-              <Radio size={18} />
-            </span>
-          ) : (
-            <span style={{ color: danger }}>
-              <AlertCircle size={16} />
-            </span>
-          )}
           <Tool style={{ cursor: 'pointer' }} onClick={() => showModal()} />
           <X
             size={18}
