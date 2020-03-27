@@ -14,6 +14,12 @@
       "extensions": ["docker-compose.testing-stage.yml"],
       "filename": true,
       "format": "svg"
+    },
+    {
+      "icon": "config",
+      "extensions": ["plist", "properties", "dotenv", "rabbitmq.conf"],
+      "filename": true,
+      "format": "svg"
     }
   ],
   "vsicons.associations.folders": [
