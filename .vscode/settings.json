@@ -96,6 +96,12 @@
       "disabled": false
     },
     {
+      "icon": "www",
+      "extensions": ["rabbitmq", "www", "wwwroot"],
+      "format": "FileFormat.svg",
+      "disabled": false
+    },
+    {
       "icon": "settings",
       "extensions": ["settings"],
       "format": "FileFormat.svg",
