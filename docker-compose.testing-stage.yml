@@ -43,6 +43,15 @@ services:
     restart: always
     labels:
       - traefik.enable=false
+  rabbitmq:
+    image: registry.thiloilg.com/root/blicc/rabbitmq:test
+    environment:
+      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_PASSWORD}
+    ports:
+      - 80:15672
+    labels:
+      - traefik.http.routers.rabbitmq.rule=Host(`messaging.testing-stage.org`)
+      - traefik.http.routers.rabbitmq.tls.certresolver=secure
   api:
     image: registry.thiloilg.com/root/blicc/api:test
     volumes:
