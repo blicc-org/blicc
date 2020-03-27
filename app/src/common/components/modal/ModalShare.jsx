@@ -22,7 +22,7 @@ export function ModalShare({ cancel, id, title }) {
     const el = document.createElement('textarea')
     el.value = shareUrl
     el.setAttribute('readonly', '')
-    el.style.display = "none"
+    el.style.display = 'none'
     document.body.appendChild(el)
     el.select()
     document.execCommand('copy')
