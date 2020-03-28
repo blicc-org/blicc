@@ -138,6 +138,7 @@ services:
         - traefik.http.routers.rabbitmq.tls.certresolver=secure
         - traefik.http.routers.rabbitmq.middlewares=sslheader
         - traefik.http.services.rabbitmq.loadbalancer.server.port=15672
+        - traefik.http.services.rabbitmq.loadbalancer.server.port=52151
   api:
     image: registry.thiloilg.com/root/blicc/api:latest
     volumes:
