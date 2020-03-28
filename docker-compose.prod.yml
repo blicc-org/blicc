@@ -49,7 +49,7 @@ services:
         - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
         - traefik.http.routers.traefik.tls.certresolver=secure
         - traefik.http.routers.traefik.middlewares=traefik-auth
-        - traefik.http.middlewares.traefik-auth.basicauth.users=root:${ADMIN_PASSWORD}
+        - traefik.http.middlewares.traefik-auth.basicauth.users=root:test
         # https redirect
         - traefik.http.routers.detour.rule=hostregexp(`{host:[a-z-.]+}`)
         - traefik.http.routers.detour.entrypoints=web
