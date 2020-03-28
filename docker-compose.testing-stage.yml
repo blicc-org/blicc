@@ -43,10 +43,14 @@ services:
     image: registry.thiloilg.com/root/blicc/mongo:test
   rabbitmq:
     image: registry.thiloilg.com/root/blicc/rabbitmq:test
-    environment:
-      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_PASSWORD}
     ports:
       - 15672:15672
+      - 5672:5672
+    environment:
+      - RABBITMQ_DEFAULT_PASS=pass
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_VHOST='vhost'
+      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_PASSWORD}
     labels:
       - traefik.enable=true
       - traefik.http.routers.rabbitmq.rule=Host(`messaging.testing-stage.org`)
