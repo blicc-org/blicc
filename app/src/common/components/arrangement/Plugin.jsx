@@ -62,7 +62,7 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
 
   return (
     <div className="plugin" style={style}>
-      <div className="row text-muted pl-2">
+      <div className="row toolbar">
         <div className="col">
           <p>
             {isAlive ? (
@@ -77,7 +77,7 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
             {` ${type.split('/')[1]}`}
           </p>
         </div>
-        <div className="col text-right toolbar">
+        <div className="col text-muted text-right">
           <Tool style={{ cursor: 'pointer' }} onClick={() => showModal()} />
           <X
             size={18}
@@ -89,7 +89,6 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
           />
         </div>
       </div>
-      <hr />
       <PluginLoader id={id} type={type} keepAlive={keepAlive} />
       {dragging !== DRAG.NONE && (
         <Positioning
