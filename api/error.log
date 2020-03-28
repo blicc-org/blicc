@@ -1,7 +1,0 @@
-[2020-03-28 13:05:24][error]: Redis connection to redis:6379 failed - getaddrinfo ENOTFOUND redis
-[2020-03-28 13:05:24][error]: Redis connection to redis:6379 failed - getaddrinfo ENOTFOUND redis
-[2020-03-28 13:05:25][error]: Redis connection to redis:6379 failed - getaddrinfo ENOTFOUND redis
-[2020-03-28 13:05:25][error]: Redis connection to redis:6379 failed - getaddrinfo ENOTFOUND redis
-[2020-03-28 13:05:26][error]: Redis connection to redis:6379 failed - getaddrinfo ENOTFOUND redis
-[2020-03-28 13:05:28][error]: Redis connection to redis:6379 failed - getaddrinfo ENOTFOUND redis
-[2020-03-28 13:05:31][error]: Redis connection to redis:6379 failed - getaddrinfo ENOTFOUND redis
