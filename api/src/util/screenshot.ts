@@ -6,10 +6,10 @@ export class Screenshot {
       .goto('https://google.com')
       .screenshot('./screenshots/test.png')
       .end()
-      .then(function(result) {
+      .then(() => {
         return 'Screenshot Done'
       })
-      .catch(function(error) {
+      .catch(error => {
         console.error(error)
       })
   }
