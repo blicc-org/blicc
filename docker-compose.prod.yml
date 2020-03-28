@@ -116,8 +116,11 @@ services:
   rabbitmq:
     image: registry.thiloilg.com/root/blicc/rabbitmq:latest
     environment:
-      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_PASSWORD}
+      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_PASSWORD}
+      - RABBITMQ_DEFAULT_PASS=pass
+      - RABBITMQ_DEFAULT_USER=user
     ports:
+      - 5672:5672 
       - 15672:15672
     deploy:
       replicas: 1
