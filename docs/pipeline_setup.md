@@ -14,6 +14,8 @@ Set the following environment variables in the gitlab CI/CD settings. Depending 
     MOCK_TEST_TARGET=http://mock.testing-stage.org
     MONGODB_PASSWORD=password
     POSTGRES_PASSWORD=password
+    # echo $(htpasswd -nb user password) | sed -e s/\\$/\\$\\$/g
+    TRAEFIK_PASSWORD=admin:pwhash
     PROD_IP=0.0.0.0
     PROD_IP_2=0.0.0.0
     SSH_PRIVATE_KEY=ssh_private_key_string
