@@ -113,9 +113,7 @@ services:
     environment:
       RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_PASSWORD}
     ports:
-      - 5672:5672
       - 15672:15672
-      - 52151:52151
     deploy:
       replicas: 1
       update_config:
@@ -138,9 +136,7 @@ services:
         - traefik.enable=true
         - traefik.http.routers.rabbitmq.rule=Host(`messaging.blicc.org`)
         - traefik.http.routers.rabbitmq.tls.certresolver=secure
-        - traefik.http.routers.rabbitmq.middlewares=sslheader
         - traefik.http.services.rabbitmq.loadbalancer.server.port=15672
-        - traefik.http.services.rabbitmq.loadbalancer.server.port=52151
   api:
     image: registry.thiloilg.com/root/blicc/api:latest
     volumes:

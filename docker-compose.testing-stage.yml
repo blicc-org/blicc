@@ -15,11 +15,13 @@ services:
       - --providers.docker=true
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
+      - --providers.docker.exposedByDefault=false
       - --certificatesresolvers.secure.acme.httpchallenge=true
       - --certificatesresolvers.secure.acme.httpchallenge.entrypoint=web
       - --certificatesresolvers.secure.acme.email=${MAIL_ADDRESS}
       - --certificatesresolvers.secure.acme.storage=/root/acme.json
     labels:
+      - traefik.enable=true
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.rule=Host(`monitor.testing-stage.org`)
       - traefik.http.routers.traefik.tls.certresolver=secure
@@ -30,19 +32,10 @@ services:
       - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
   db:
     image: registry.thiloilg.com/root/blicc/db:test
-    restart: always
-    labels:
-      - traefik.enable=false
   redis:
     image: registry.thiloilg.com/root/blicc/redis:test
-    restart: always
-    labels:
-      - traefik.enable=false
   mongo:
     image: registry.thiloilg.com/root/blicc/mongo:test
-    restart: always
-    labels:
-      - traefik.enable=false
   rabbitmq:
     image: registry.thiloilg.com/root/blicc/rabbitmq:test
     environment:
@@ -50,6 +43,7 @@ services:
     ports:
       - 15672:15672
     labels:
+      - traefik.enable=true
       - traefik.http.routers.rabbitmq.rule=Host(`messaging.testing-stage.org`)
       - traefik.http.routers.rabbitmq.tls.certresolver=secure
       - traefik.http.services.rabbitmq.loadbalancer.server.port=15672
@@ -69,6 +63,7 @@ services:
       - ADMIN_MAIL=${ADMIN_MAIL}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     labels:
+      - traefik.enable=true
       - traefik.http.routers.api.rule=Host(`api.testing-stage.org`)
       - traefik.http.routers.api.tls.certresolver=secure
   delivery:
@@ -83,6 +78,7 @@ services:
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
       - APP_ORIGIN=${APP_ORIGIN}
     labels:
+      - traefik.enable=true
       - traefik.http.routers.delivery.rule=Host(`delivery.testing-stage.org`)
       - traefik.http.routers.delivery.tls.certresolver=secure
       - traefik.http.routers.delivery.middlewares=sslheader
@@ -90,5 +86,6 @@ services:
     image: registry.thiloilg.com/root/blicc/mock-api:test
     restart: always
     labels:
+      - traefik.enable=true
       - traefik.http.routers.mock-api.rule=Host(`mock.testing-stage.org`)
       - traefik.http.routers.mock-api.tls.certresolver=secure
