@@ -134,7 +134,7 @@ services:
           - node.role == manager
       labels:
         - traefik.enable=true
-        - traefik.http.routers.rabbitmq.rule=Host(`messaging.testing-stage.org`)
+        - traefik.http.routers.rabbitmq.rule=Host(`messaging.blicc.org`)
         - traefik.http.routers.rabbitmq.tls.certresolver=secure
         - traefik.http.routers.rabbitmq.middlewares=sslheader
         - traefik.http.services.rabbitmq.loadbalancer.server.port=15672
