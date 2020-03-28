@@ -23,7 +23,7 @@ variables:
   rm -rf /var/cache/apk/*
 
 .export_traefik_hash: &export_traefik_hash |
-  export TRAEFIK_PASSWORD=$(echo $(htpasswd -nb user $ADMIN_PASSWORD) | sed -e s/\\$/\\$\\$/g)
+  export TRAEFIK_PASSWORD=$(htpasswd -nb admin $ADMIN_PASSWORD)
 
 build:
   stage: build
