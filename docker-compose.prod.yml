@@ -115,7 +115,7 @@ services:
     ports:
       - 15672:15672
     deploy:
-      replicas: 1
+      replicas: 2
       update_config:
         parallelism: 1
         order: start-first
@@ -133,7 +133,8 @@ services:
         constraints:
           - node.role == manager
       labels:
-        - traefik.http.routers.rabbitmq.rule=Host(`messaging.blicc.org`)
+        - traefik.enable=true
+        - traefik.http.routers.rabbitmq.rule=Host(`messaging.testing-stage.org`)
         - traefik.http.routers.rabbitmq.tls.certresolver=secure
         - traefik.http.services.rabbitmq.loadbalancer.server.port=15672
   api:
