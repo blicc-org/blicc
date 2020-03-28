@@ -113,7 +113,9 @@ services:
     environment:
       RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_PASSWORD}
     ports:
+      - 5672:5672
       - 15672:15672
+      - 52151:52151
     deploy:
       replicas: 1
       update_config:
