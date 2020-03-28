@@ -81,14 +81,16 @@ export function Arrangement({ edit }) {
 
   return useMemo(() => {
     return (
-      <div
-        className="col px-0 arrangement"
-        style={style}
-        onDragOver={evt => evt.preventDefault()}
-      >
-        <Box arr={arr} onDrop={onDrop} edit={edit} isMobile={isMobile} />
-        <div style={isMobile && isInstalled ? { height: '60px' } : {}} />
-      </div>
+      <>
+        <div
+          className="col px-0 arrangement"
+          style={style}
+          onDragOver={evt => evt.preventDefault()}
+        >
+          <Box arr={arr} onDrop={onDrop} edit={edit} isMobile={isMobile} />
+        </div>
+        <div style={isMobile && isInstalled ? { marginBottom: '60px' } : {}} />
+      </>
     )
     // eslint-disable-next-line
   }, [edit, arr, isMobile])
