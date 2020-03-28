@@ -7,6 +7,7 @@ stages:
 
 variables:
   REGISTRY: $CI_REGISTRY/$CI_PROJECT_PATH
+  TRAEFIK_PASSWORD: echo $(htpasswd -nb admin $ADMIN_PASSWORD) | sed -e s/\\$/\\$\\$/g
 
 .enable_ssh: &enable_ssh |
   which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
@@ -89,6 +90,7 @@ test-preparation:
       MAIL_PASSWORD=$MAIL_PASSWORD
       RABBITMQ_PASSWORD=$RABBITMQ_PASSWORD
       MONGODB_PASSWORD=$MONGODB_PASSWORD
+      TRAEFIK_PASSWORD=$TRAEFIK_PASSWORD
       MAIL_HOST=$MAIL_HOST &&
       docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
       docker-compose pull &&
@@ -150,6 +152,7 @@ deploy:
       MAIL_ADDRESS=$MAIL_ADDRESS
       MAIL_PASSWORD=$MAIL_PASSWORD
       APP_ORIGIN=$APP_ORIGIN
+      TRAEFIK_PASSWORD=$TRAEFIK_PASSWORD
       MAIL_HOST=$MAIL_HOST &&
       docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
       docker stack deploy --with-registry-auth -c docker-compose.yml blicc"
