@@ -115,14 +115,10 @@ services:
           - node.role == manager
   rabbitmq:
     image: registry.thiloilg.com/root/blicc/rabbitmq:latest
+    environment:
+      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_PASSWORD}
     ports:
       - 15672:15672
-      - 5672:5672
-    environment:
-      - RABBITMQ_DEFAULT_PASS=pass
-      - RABBITMQ_DEFAULT_USER=user
-      - RABBITMQ_DEFAULT_VHOST='vhost'
-      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_PASSWORD}
     deploy:
       replicas: 1
       update_config:
