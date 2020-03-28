@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   traefik:
-    image: traefik:v2.0
+    image: traefik:v2.1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
