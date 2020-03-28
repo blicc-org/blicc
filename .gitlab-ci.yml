@@ -7,7 +7,6 @@ stages:
 
 variables:
   REGISTRY: $CI_REGISTRY/$CI_PROJECT_PATH
-  TRAEFIK_PASSWORD: echo $(htpasswd -nb admin $ADMIN_PASSWORD) | sed -e s/\\$/\\$\\$/g
 
 .enable_ssh: &enable_ssh |
   which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
@@ -22,6 +21,9 @@ variables:
 .install_openssl: &install_openssl |
   apk add --update openssl
   rm -rf /var/cache/apk/*
+
+.export_traefik_hash: &export_traefik_hash |
+  export TRAEFIK_PASSWORD=$(htpasswd -nb admin $ADMIN_PASSWORD)
 
 build:
   stage: build
@@ -70,6 +72,7 @@ test-preparation:
   image: node:12
   before_script:
     - *enable_ssh
+    - *export_traefik_hash
   script:
     - ssh -tt root@$TEST_IP "docker image prune -a -f"
     - scp -r ./docker-compose.testing-stage.yml root@$TEST_IP:/root/docker-compose.yml
@@ -121,6 +124,7 @@ deploy:
     - *login_docker
     - *enable_ssh
     - *install_openssl
+    - *export_traefik_hash
   script:
     - ssh -tt root@$PROD_IP "docker image prune -a -f"
     - docker push $REGISTRY/app:latest
