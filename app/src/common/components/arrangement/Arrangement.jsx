@@ -12,6 +12,7 @@ import { SelectChartModal } from './SelectChartModal'
 import { SelectDataSourceModal } from './SelectDataSourceModal'
 import { Box } from './Box'
 import { DRAG } from '../../context'
+import './Arrangement.scss'
 
 export function Arrangement({ edit }) {
   const isMobile = useMobile()
@@ -81,7 +82,7 @@ export function Arrangement({ edit }) {
   return useMemo(() => {
     return (
       <div
-        className="col px-0"
+        className="col px-0 arrangement"
         style={style}
         onDragOver={evt => evt.preventDefault()}
       >
