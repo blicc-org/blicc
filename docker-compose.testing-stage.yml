@@ -28,7 +28,7 @@ services:
       - traefik.http.routers.traefik.rule=Host(`monitor.testing-stage.org`)
       - traefik.http.routers.traefik.tls.certresolver=secure
       - traefik.http.routers.api.middlewares=api-auth
-      - traefik.http.middlewares.api-auth.basicauth.users=test:$$apr1$$H6uskkkW$$IgXLP6ewTrSuBkTrqE8wj/ # test:test
+      - traefik.http.middlewares.api-auth.basicauth.users=test:$$apr1$$2E.uc7Wn$$AKY7oBeGQI16er6tR4jK21
       # https redirect
       - traefik.http.routers.detour.rule=hostregexp(`{host:[a-z-.]+}`)
       - traefik.http.routers.detour.entrypoints=web
