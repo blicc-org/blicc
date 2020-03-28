@@ -44,17 +44,19 @@ services:
           - node.role == manager
       labels:
         - traefik.enable=true
+        # dashboard
         - traefik.http.routers.traefik.service=api@internal
         - traefik.http.routers.traefik.rule=Host(`monitor.blicc.org`)
         - traefik.http.routers.traefik.tls.certresolver=secure
+        - traefik.http.routers.traefik.middlewares=traefik-auth
+        - traefik.http.middlewares.traefik-auth.basicauth.users=root:${ADMIN_PASSWORD}
+        # https redirect
         - traefik.http.routers.detour.rule=hostregexp(`{host:[a-z-.]+}`)
         - traefik.http.routers.detour.entrypoints=web
         - traefik.http.routers.detour.middlewares=redirect-to-https
         - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
         - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
         - traefik.http.services.traefik.loadbalancer.server.port=80
-        - traefik.http.routers.traefik.middlewares=traefik-auth
-        - traefik.http.middlewares.traefik-auth.basicauth.users=root:${ADMIN_PASSWORD}
   db:
     image: registry.thiloilg.com/root/blicc/db:latest
     volumes:
