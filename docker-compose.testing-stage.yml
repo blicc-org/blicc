@@ -30,6 +30,7 @@ services:
       - traefik.http.routers.detour.middlewares=redirect-to-https
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
+      - traefik.http.middlewares.test-auth.basicauth.users=test:test
   db:
     image: registry.thiloilg.com/root/blicc/db:test
   redis:
