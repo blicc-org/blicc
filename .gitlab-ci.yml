@@ -71,6 +71,7 @@ test-preparation:
     - *enable_ssh
   script:
     - ssh -tt root@$TEST_IP "docker image prune -a -f"
+    - ssh -tt root@$TEST_IP "echo $TRAEFIK_PASSWORD > /root/credentials.txt"
     - scp -r ./docker-compose.testing-stage.yml root@$TEST_IP:/root/docker-compose.yml
     - openssl genrsa -out rsa.pem 2048
     - openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem
@@ -89,7 +90,6 @@ test-preparation:
       MAIL_PASSWORD=$MAIL_PASSWORD
       RABBITMQ_PASSWORD=$RABBITMQ_PASSWORD
       MONGODB_PASSWORD=$MONGODB_PASSWORD
-      TRAEFIK_PASSWORD=$TRAEFIK_PASSWORD
       MAIL_HOST=$MAIL_HOST &&
       docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
       docker-compose pull &&
@@ -122,6 +122,7 @@ deploy:
     - *install_openssl
   script:
     - ssh -tt root@$PROD_IP "docker image prune -a -f"
+    - ssh -tt root@$PROD_IP "echo $TRAEFIK_PASSWORD > /root/credentials.txt"
     - docker push $REGISTRY/app:latest
     - docker push $REGISTRY/api:latest
     - docker push $REGISTRY/db:latest
@@ -151,7 +152,6 @@ deploy:
       MAIL_ADDRESS=$MAIL_ADDRESS
       MAIL_PASSWORD=$MAIL_PASSWORD
       APP_ORIGIN=$APP_ORIGIN
-      TRAEFIK_PASSWORD=$TRAEFIK_PASSWORD
       MAIL_HOST=$MAIL_HOST &&
       docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
       docker stack deploy --with-registry-auth -c docker-compose.yml blicc"

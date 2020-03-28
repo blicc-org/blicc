@@ -6,6 +6,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
+      - /root/credentials.txt:/root/credentials.txt
     ports:
       - 80:80
       - 443:443
@@ -27,7 +28,7 @@ services:
       - traefik.http.routers.traefik.rule=Host(`monitor.testing-stage.org`)
       - traefik.http.routers.traefik.tls.certresolver=secure
       - traefik.http.routers.traefik.middlewares=auth
-      - traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD}
+      - traefik.http.middlewares.auth.basicauth.usersfile=/root/credentials.txt
       # https redirect
       - traefik.http.routers.detour.rule=hostregexp(`{host:[a-z-.]+}`)
       - traefik.http.routers.detour.entrypoints=web
