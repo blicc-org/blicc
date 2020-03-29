@@ -59,6 +59,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.rabbitmq.rule=Host(`messaging.testing-stage.org`)
       - traefik.http.routers.rabbitmq.tls.certresolver=secure
+      - traefik.http.services.rabbitmq.loadbalancer.server.port=15672
   api:
     image: registry.thiloilg.com/root/blicc/api:test
     hostname: api
