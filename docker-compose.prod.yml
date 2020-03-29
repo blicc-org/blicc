@@ -3,6 +3,7 @@ version: '3.7'
 services:
   traefik:
     image: traefik:v2.1
+    hostname: traefik
     ports:
       - 80:80
       - 443:443
@@ -60,6 +61,7 @@ services:
         - traefik.http.services.traefik.loadbalancer.server.port=80
   db:
     image: registry.thiloilg.com/root/blicc/db:latest
+    hostname: db
     volumes:
       - /srv/postgres-data:/var/lib/postgresql/data
     deploy:
@@ -82,6 +84,7 @@ services:
           - node.role == manager
   redis:
     image: registry.thiloilg.com/root/blicc/redis:latest
+    hostname: redis
     volumes:
       - /srv/redis-data:/data
     deploy:
@@ -93,6 +96,7 @@ services:
           - node.role == manager
   mongo:
     image: registry.thiloilg.com/root/blicc/mongo:latest
+    hostname: mongo
     volumes:
       - /srv/mongo-data:/data/db
     deploy:
@@ -115,6 +119,7 @@ services:
           - node.role == manager
   rabbitmq:
     image: registry.thiloilg.com/root/blicc/rabbitmq:latest
+    hostname: rabbitmq
     environment:
       - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_PASS=pass
@@ -147,6 +152,7 @@ services:
         - traefik.http.services.rabbitmq.loadbalancer.server.port=15672
   api:
     image: registry.thiloilg.com/root/blicc/api:latest
+    hostname: api
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
@@ -182,6 +188,7 @@ services:
         - traefik.http.services.api.loadbalancer.server.port=80
   delivery:
     image: registry.thiloilg.com/root/blicc/delivery:latest
+    hostname: delivery
     volumes:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
     depends_on:
@@ -213,6 +220,7 @@ services:
         - traefik.http.services.delivery.loadbalancer.server.port=80
   app:
     image: registry.thiloilg.com/root/blicc/app:latest
+    hostname: app
     depends_on:
       - api
       - delivery
@@ -238,6 +246,7 @@ services:
         - traefik.http.services.app.loadbalancer.server.port=80
   mock-api:
     image: registry.thiloilg.com/root/blicc/mock-api:latest
+    hostname: mock_api
     deploy:
       replicas: 1
       update_config:

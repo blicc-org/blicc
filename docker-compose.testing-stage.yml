@@ -3,6 +3,7 @@ version: '3.7'
 services:
   traefik:
     image: traefik:v2.1
+    hostname: traefik
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
@@ -37,12 +38,16 @@ services:
       - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
   db:
     image: registry.thiloilg.com/root/blicc/db:test
+    hostname: db
   redis:
     image: registry.thiloilg.com/root/blicc/redis:test
+    hostname: redis
   mongo:
     image: registry.thiloilg.com/root/blicc/mongo:test
+    hostname: mongo
   rabbitmq:
     image: registry.thiloilg.com/root/blicc/rabbitmq:test
+    hostname: rabbitmq
     environment:
       - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_PASS=pass
@@ -57,6 +62,7 @@ services:
       - traefik.http.services.rabbitmq.loadbalancer.server.port=15672
   api:
     image: registry.thiloilg.com/root/blicc/api:test
+    hostname: api
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
@@ -76,6 +82,7 @@ services:
       - traefik.http.routers.api.tls.certresolver=secure
   delivery:
     image: registry.thiloilg.com/root/blicc/delivery:test
+    hostname: delivery
     volumes:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
     restart: always
@@ -92,6 +99,7 @@ services:
       - traefik.http.routers.delivery.middlewares=sslheader
   mock-api:
     image: registry.thiloilg.com/root/blicc/mock-api:test
+    hostname: mock_api
     restart: always
     labels:
       - traefik.enable=true
