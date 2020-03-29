@@ -22,12 +22,14 @@ services:
     restart: always
   rabbitmq:
     build: ./rabbitmq
+    restart: always
     environment:
-      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_PASSWORD}
-    # volumes:
-    #   - ./rabbitmq/data:/var/lib/rabbitmq
+      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_PASSWORD}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_CONFIG_FILE=/root/rabbitmq.conf
     ports:
-      - 15672:15672
+      - 5672:5672
   api:
     build: ./api
     restart: always
