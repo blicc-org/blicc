@@ -150,7 +150,6 @@ services:
         - traefik.http.routers.rabbitmq.rule=Host(`messaging.blicc.org`)
         - traefik.http.routers.rabbitmq.tls.certresolver=secure
         - traefik.http.services.rabbitmq.loadbalancer.server.port=15672
-        - traefik.http.services.rabbitmq.loadbalancer.server.port=5672
   api:
     image: registry.thiloilg.com/root/blicc/api:latest
     hostname: api
