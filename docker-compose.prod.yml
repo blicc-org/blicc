@@ -122,8 +122,8 @@ services:
     hostname: rabbitmq
     environment:
       - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_PASSWORD}
-      - RABBITMQ_DEFAULT_PASS=pass
-      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+      - RABBITMQ_DEFAULT_USER=admin
     ports:
       - 5672:5672
       - 15672:15672
