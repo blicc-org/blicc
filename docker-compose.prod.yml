@@ -131,8 +131,11 @@ services:
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_USER=admin
     ports:
-      - 15672:15672
+      - 4369:4369
+      - 5671:5671
       - 5672:5672
+      - 15672:15672
+      - 25672:25672
     deploy:
       replicas: 1
       update_config:
