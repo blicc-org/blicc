@@ -125,7 +125,7 @@ services:
     image: registry.thiloilg.com/root/blicc/rabbitmq:latest
     hostname: rabbitmq
     volumes:
-      - /srv/rabbitmq-data:/var/lib/rabbitmq
+      # - /srv/rabbitmq-data:/var/lib/rabbitmq
     environment:
       - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
