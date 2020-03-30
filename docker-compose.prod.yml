@@ -8,20 +8,24 @@ services:
       - 80:80
       - 443:443
     command:
+      # entry points
       - --api=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      # tls certificates
+      - --certificatesresolvers.secure.acme.httpchallenge=true
+      - --certificatesresolvers.secure.acme.httpchallenge.entrypoint=web
+      - --certificatesresolvers.secure.acme.email=${MAIL_ADDRESS}
+      - --certificatesresolvers.secure.acme.storage=/root/acme.json
+      # metrics
+      - --metrics=true
+      - --metrics.prometheus=true
+      # docker
       - --providers.docker=true
       - --providers.docker.exposedByDefault=false
       - --providers.docker.swarmMode=true
       - --providers.docker.network=traefik-public
       - --providers.docker.endpoint=unix:///var/run/docker.sock
-      - --entrypoints.web.address=:80
-      - --entrypoints.websecure.address=:443
-      - --certificatesresolvers.secure.acme.httpchallenge=true
-      - --certificatesresolvers.secure.acme.httpchallenge.entrypoint=web
-      - --certificatesresolvers.secure.acme.email=${MAIL_ADDRESS}
-      - --certificatesresolvers.secure.acme.storage=/root/acme.json
-      - --metrics=true
-      - --metrics.prometheus=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
@@ -126,11 +130,24 @@ services:
       - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_CONFIG_FILE=/root/rabbitmq.conf
     ports:
+      - 15672:15672
       - 5672:5672
     deploy:
       replicas: 1
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+        window: 120s
       placement:
         constraints:
           - node.role == manager
@@ -138,7 +155,7 @@ services:
         - traefik.enable=true
         - traefik.http.routers.rabbitmq.rule=Host(`messaging.blicc.org`)
         - traefik.http.routers.rabbitmq.tls.certresolver=secure
-        - traefik.http.services.rabbitmq.loadbalancer.server.port=80
+        - traefik.http.services.rabbitmq.loadbalancer.server.port=15672
   api:
     image: registry.thiloilg.com/root/blicc/api:latest
     hostname: api

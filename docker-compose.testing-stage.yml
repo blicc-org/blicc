@@ -52,13 +52,14 @@ services:
       - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_CONFIG_FILE=/root/rabbitmq.conf
     ports:
+      - 15672:15672
       - 5672:5672
     labels:
       - traefik.enable=true
       - traefik.http.routers.rabbitmq.rule=Host(`messaging.testing-stage.org`)
       - traefik.http.routers.rabbitmq.tls.certresolver=secure
+      - traefik.http.services.rabbitmq.loadbalancer.server.port=15672
   api:
     image: registry.thiloilg.com/root/blicc/api:test
     hostname: api
