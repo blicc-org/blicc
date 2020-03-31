@@ -1,5 +1,5 @@
 import flags from 'commander'
-import amqplib from 'amqplib'
+// import amqplib from 'amqplib'
 import { App } from './app'
 import { createConnection } from 'typeorm'
 import { PORT } from './config'
@@ -21,23 +21,23 @@ async function start(): Promise<void> {
 
 start()
 
-async function connectionToRabbitMQ() {
-  const protocol = 'amqp'
-  const user = 'admin'
-  const password = process.env.RABBITMQ_PASSWORD
-  const host = 'rabbitmq'
-  const port = 5672
-  const url = `${protocol}://${user}:${password}@${host}:${port}`
-  console.log(url)
+// async function connectionToRabbitMQ() {
+//   const protocol = 'amqp'
+//   const user = 'admin'
+//   const password = process.env.RABBITMQ_PASSWORD
+//   const host = 'rabbitmq'
+//   const port = 5672
+//   const url = `${protocol}://${user}:${password}@${host}:${port}`
+//   console.log(url)
 
-  try {
-    const connection = await amqplib.connect(url)
-    console.log(connection)
-    const channel = await connection.createChannel()
-    console.log(channel)
-  } catch (error) {
-    console.error(error)
-  }
-}
+//   try {
+//     const connection = await amqplib.connect(url)
+//     console.log(connection)
+//     const channel = await connection.createChannel()
+//     console.log(channel)
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
 
-connectionToRabbitMQ()
+// connectionToRabbitMQ()
