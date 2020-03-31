@@ -15,7 +15,7 @@ export function LoginTwoFactorAuth({ setToken, login }) {
         <input
           className="form-control"
           type="text"
-          onChange={event => setToken(event.target.value)}
+          onChange={(event) => setToken(event.target.value)}
           autoComplete="off"
           required
         />

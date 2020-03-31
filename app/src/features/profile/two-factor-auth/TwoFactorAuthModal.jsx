@@ -23,7 +23,7 @@ export function TwoFactorAuthModal({ cancel, submit, setToken }) {
                 id="disable_2fa_title"
                 className="form-control"
                 type="text"
-                onChange={event => setToken(event.target.value)}
+                onChange={(event) => setToken(event.target.value)}
                 autoComplete="off"
                 required
               />

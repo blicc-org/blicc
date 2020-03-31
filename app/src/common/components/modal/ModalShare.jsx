@@ -96,7 +96,7 @@ export function ModalShare({ cancel, id, title }) {
                 class="form-control copy-clipboard"
                 type="text"
                 value={shareUrl}
-                onFocus={evt => evt.target.select()}
+                onFocus={(evt) => evt.target.select()}
                 readonly
               />
               <div class="input-group-append">

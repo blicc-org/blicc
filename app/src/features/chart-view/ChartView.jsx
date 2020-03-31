@@ -36,7 +36,7 @@ export function ChartView({ match }) {
     async function fetchPlugin() {
       await import(
         /*webpackIgnore: true*/ `${API.ORIGIN}/bundles/${slug}`
-      ).then(module => {
+      ).then((module) => {
         const node = module[key](
           data,
           () => {},

@@ -5,7 +5,7 @@ export function useSettings() {
   const [settings, setSettings] = useContext(SettingsContext)
 
   function insert(id, key, value) {
-    setSettings(prev => {
+    setSettings((prev) => {
       if (!prev[id]) prev[id] = {}
       prev[id][key] = value
       return prev
@@ -13,7 +13,7 @@ export function useSettings() {
   }
 
   function remove(id) {
-    setSettings(prev => {
+    setSettings((prev) => {
       if (prev[id]) delete prev[id]
       return prev
     })

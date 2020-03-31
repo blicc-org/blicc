@@ -10,7 +10,7 @@ const options = {
   path: '/health-check',
 }
 
-const healthCheck = http.request(options, res => {
+const healthCheck = http.request(options, (res) => {
   if (res.statusCode == 204) {
     process.exit(0)
   } else {

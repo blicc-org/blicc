@@ -22,7 +22,7 @@ export function Search() {
             to="/"
             className="nav-link ml-auto"
             style={{ cursor: 'pointer' }}
-            onClick={event => {
+            onClick={(event) => {
               event.preventDefault()
               setOpen(true)
             }}

@@ -14,9 +14,9 @@ export function NativeNavigation() {
   const [show, setShow] = useState(isProperHeight())
   const [sidebarState, setSidebarState] = useContext(SidebarContext)
   const { open } = sidebarState
-  const toggle = evt => {
+  const toggle = (evt) => {
     evt.preventDefault()
-    setSidebarState(prev => ({ ...prev, open: !open }))
+    setSidebarState((prev) => ({ ...prev, open: !open }))
   }
 
   useEffect(() => {

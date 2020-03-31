@@ -27,7 +27,7 @@ export function Details({ user, setUser, update }) {
                 <input
                   className="form-control col-md-6 my-2"
                   value={firstName}
-                  onChange={evt =>
+                  onChange={(evt) =>
                     setUser({ ...user, firstName: evt.target.value })
                   }
                 />
@@ -45,7 +45,7 @@ export function Details({ user, setUser, update }) {
                 <input
                   className="form-control col-md-6 my-2"
                   value={lastName}
-                  onChange={evt =>
+                  onChange={(evt) =>
                     setUser({ ...user, lastName: evt.target.value })
                   }
                 />
@@ -63,7 +63,7 @@ export function Details({ user, setUser, update }) {
                 <input
                   className="form-control col-md-6 my-2"
                   value={email}
-                  onChange={evt =>
+                  onChange={(evt) =>
                     setUser({ ...user, email: evt.target.value })
                   }
                 />

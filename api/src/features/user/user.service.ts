@@ -95,7 +95,7 @@ export class UserService {
     skip = 0,
     take = 0 // default select all
   ): Promise<User[]> {
-    fields = fields.map(field => 'user.' + field)
+    fields = fields.map((field) => 'user.' + field)
 
     return await this.repo
       .createQueryBuilder('user')

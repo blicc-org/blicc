@@ -21,7 +21,7 @@ export function Arrangement({ edit }) {
   const [accessSet, insertSet, removeSet] = useSettings()
   const [targetId, setTargetId] = useState('')
   const [update, setUpdate] = useState(0)
-  const trigger = () => setUpdate(prev => ++prev)
+  const trigger = () => setUpdate((prev) => ++prev)
   const [action, setAction] = useState(0)
   const [, publishById] = usePublisher()
 
@@ -37,7 +37,7 @@ export function Arrangement({ edit }) {
     return (
       <SelectDataSourceModal
         cancel={hideDataSourceModal}
-        submit={dataSourceId => {
+        submit={(dataSourceId) => {
           insertSet(targetId, 'data_source', dataSourceId)
           publishById(dataSourceId)
           hideChartModal()
@@ -50,7 +50,7 @@ export function Arrangement({ edit }) {
     () => (
       <SelectChartModal
         cancel={hideChartModal}
-        submit={slug => {
+        submit={(slug) => {
           const id = insertArr(targetId, action)
           if (action === ACTION.REPLACE) {
             const dataSourceId = accessSet(targetId, 'data_source')
@@ -85,7 +85,7 @@ export function Arrangement({ edit }) {
         <div
           className="col px-0 arrangement"
           style={style}
-          onDragOver={evt => evt.preventDefault()}
+          onDragOver={(evt) => evt.preventDefault()}
         >
           <Box arr={arr} onDrop={onDrop} edit={edit} isMobile={isMobile} />
         </div>

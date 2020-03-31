@@ -29,7 +29,7 @@ export function Sidebar({ open }) {
 
   function close() {
     if (open && isMobile) {
-      setSidebarState(prev => {
+      setSidebarState((prev) => {
         return { ...prev, open: false }
       })
     }
@@ -96,7 +96,7 @@ export function Sidebar({ open }) {
         {isInstalled && isMobile && open && (
           <div className="sidebar-close-native" style={{ width: sidebarWidth }}>
             <a
-              onClick={evt => {
+              onClick={(evt) => {
                 evt.preventDefault()
                 close()
               }}

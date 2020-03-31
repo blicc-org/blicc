@@ -16,13 +16,13 @@ export function usePublisher() {
       const value = settings[key]['data_source']
       if (value) set[value] = value
     }
-    return Object.keys(set).map(key => key)
+    return Object.keys(set).map((key) => key)
   }
 
   async function publishAll() {
     const ids = retrieveIds()
     if (ids.length > 0) {
-      ids.map(async id => {
+      ids.map(async (id) => {
         const [status, data] = await access({
           url: `${API.ORIGIN}/data-sources/${id}`,
         })

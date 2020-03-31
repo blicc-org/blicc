@@ -28,7 +28,7 @@ export function useDeliveryEndpoint() {
       socket = new WebSocket(`${DELIVERY.ORIGIN}/connection`)
 
       socket.onopen = () => {
-        Object.keys(queryStack).forEach(channel => {
+        Object.keys(queryStack).forEach((channel) => {
           const payload = JSON.stringify({ channel, data: queryStack[channel] })
           socket.send(payload)
         })
@@ -41,7 +41,7 @@ export function useDeliveryEndpoint() {
         setState(WebSocket.CLOSED)
       }
 
-      socket.onerror = err => {
+      socket.onerror = (err) => {
         console.log(
           `An websocket error occured: ${JSON.stringify(err, [
             'message',
@@ -54,7 +54,7 @@ export function useDeliveryEndpoint() {
     }
 
     if (loggedIn && socket !== null) {
-      socket.onmessage = evt => {
+      socket.onmessage = (evt) => {
         const { channel, data } = JSON.parse(evt.data)
         cache[channel] = data
         if (channel && data && subscriberStack) {
@@ -79,7 +79,7 @@ export function useDeliveryEndpoint() {
     if (socket.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify({ channel, data }))
     } else {
-      setQueryStack(prev => {
+      setQueryStack((prev) => {
         prev[channel] = data
         return prev
       })
@@ -92,7 +92,7 @@ export function useDeliveryEndpoint() {
         return
       }
       const id = channel + uuid()
-      setSubscriberStack(stack => ({
+      setSubscriberStack((stack) => ({
         ...stack,
         [id]: callback,
       }))

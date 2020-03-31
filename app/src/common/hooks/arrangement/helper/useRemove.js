@@ -1,15 +1,17 @@
 export function useRemove() {
   function removeRecursive(prev, targetId) {
     if (prev.items) {
-      if (prev.items.some(item => item.id && item.id === targetId)) {
+      if (prev.items.some((item) => item.id && item.id === targetId)) {
         return {
           ...prev,
-          items: prev.items.filter(item => !(item.id && item.id === targetId)),
+          items: prev.items.filter(
+            (item) => !(item.id && item.id === targetId)
+          ),
         }
       } else {
         return {
           ...prev,
-          items: prev.items.map(item => {
+          items: prev.items.map((item) => {
             if (item.items) {
               return removeRecursive(item, targetId)
             } else {
@@ -25,7 +27,7 @@ export function useRemove() {
 
   function clearRecursive(prev) {
     if (prev.items) {
-      if (prev.items.some(item => item.items)) {
+      if (prev.items.some((item) => item.items)) {
         if (prev.items.length === 1) {
           return {
             ...prev.items[0],
@@ -33,7 +35,7 @@ export function useRemove() {
         } else {
           return {
             ...prev,
-            items: prev.items.map(item => clearRecursive(item)),
+            items: prev.items.map((item) => clearRecursive(item)),
           }
         }
       } else {

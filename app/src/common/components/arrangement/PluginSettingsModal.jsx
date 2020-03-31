@@ -3,8 +3,8 @@ import { UNIT } from './Plugin'
 
 export function PluginSettingsModal({ cancel, submit, unit, setUnit }) {
   const { xAxis, yAxis } = unit
-  const setXAxis = val => setUnit({ ...unit, xAxis: val })
-  const setYAxis = val => setUnit({ ...unit, yAxis: val })
+  const setXAxis = (val) => setUnit({ ...unit, xAxis: val })
+  const setYAxis = (val) => setUnit({ ...unit, yAxis: val })
   return (
     <>
       <div className="modal-dialog modal-dialog-centered" role="document">
@@ -27,7 +27,7 @@ export function PluginSettingsModal({ cancel, submit, unit, setUnit }) {
                 id="inputState"
                 className="form-control"
                 value={xAxis}
-                onChange={evt => setXAxis(evt.target.value)}
+                onChange={(evt) => setXAxis(evt.target.value)}
               >
                 <option value={UNIT.NUMBER}>Number</option>
                 <option value={UNIT.CATEGORY}>Category</option>
@@ -43,7 +43,7 @@ export function PluginSettingsModal({ cancel, submit, unit, setUnit }) {
                 id="inputState"
                 className="form-control"
                 value={yAxis}
-                onChange={evt => setYAxis(evt.target.value)}
+                onChange={(evt) => setYAxis(evt.target.value)}
               >
                 <option value={UNIT.NUMBER}>Number</option>
                 <option value={UNIT.CATEGORY}>Category</option>

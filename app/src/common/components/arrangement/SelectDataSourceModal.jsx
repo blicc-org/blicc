@@ -49,14 +49,14 @@ export function SelectDataSourceModal({ cancel, submit }) {
               className="form-control"
               type="text"
               placeholder="Like Pie Chart..."
-              onChange={event => setSearchTerm(event.target.value)}
+              onChange={(event) => setSearchTerm(event.target.value)}
             ></input>
             <div className="pt-3">
               <ul>
                 {result.dataSources.map(({ id, title }) => (
                   <li key={id}>
                     <h5>
-                      <a href="/" onClick={event => onSelect(event, id)}>
+                      <a href="/" onClick={(event) => onSelect(event, id)}>
                         {title}
                       </a>
                     </h5>

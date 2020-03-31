@@ -55,7 +55,7 @@ export function DataQuery({ input, output, query, setQuery }) {
             spellCheck="false"
             rows="3"
             value={query}
-            onChange={evt => setQuery(evt.target.value)}
+            onChange={(evt) => setQuery(evt.target.value)}
           />
         </div>
       </div>

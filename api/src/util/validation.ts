@@ -32,7 +32,7 @@ export class Validation {
     existingFields: string[]
   ): string[] {
     const fields = requestedFields ? requestedFields.split(',') : undefined
-    if (fields && fields.every(field => existingFields.includes(field))) {
+    if (fields && fields.every((field) => existingFields.includes(field))) {
       return fields
     } else {
       return existingFields

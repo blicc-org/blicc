@@ -16,7 +16,7 @@ export function LoginPassword({
       </label>
       <input
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
         type="email"
         id="inputEmail"
         className="form-control"
@@ -29,7 +29,7 @@ export function LoginPassword({
       </label>
       <input
         value={password}
-        onChange={e => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
         type="password"
         id="inputPassword"
         className="form-control"
@@ -44,7 +44,7 @@ export function LoginPassword({
         title="Sign in"
         className="btn btn-lg btn-primary btn-block"
         type="submit"
-        onClick={async e => {
+        onClick={async (e) => {
           e.preventDefault()
           await login(email, password)
         }}

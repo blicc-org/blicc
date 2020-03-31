@@ -7,7 +7,7 @@ export class PermissionMiddleware {
     ctx: Koa.DefaultContext,
     next: Function
   ): Promise<void> {
-    if (ctx.state.jwt && roles.some(role => ctx.state.jwt.role === role))
+    if (ctx.state.jwt && roles.some((role) => ctx.state.jwt.role === role))
       await next()
     else {
       ctx.status = status.FORBIDDEN

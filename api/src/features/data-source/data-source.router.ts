@@ -137,9 +137,7 @@ export class DataSourceRouter {
         type: 'json',
         body: {
           title: Joi.string(),
-          description: Joi.string()
-            .allow('')
-            .optional(),
+          description: Joi.string().allow('').optional(),
           data: Joi.object(),
           persistData: Joi.boolean(),
           fetchFrequency: Joi.number(),
@@ -149,9 +147,7 @@ export class DataSourceRouter {
             body: {
               id: Joi.string(),
               title: Joi.string(),
-              description: Joi.string()
-                .allow('')
-                .optional(),
+              description: Joi.string().allow('').optional(),
               userId: Joi.string(),
               data: Joi.object(),
               creationDate: Joi.string(),
@@ -257,9 +253,7 @@ export class DataSourceRouter {
             body: {
               id: Joi.string(),
               title: Joi.string(),
-              description: Joi.string()
-                .allow('')
-                .optional(),
+              description: Joi.string().allow('').optional(),
               userId: Joi.string(),
               data: Joi.object(),
 
@@ -391,9 +385,7 @@ export class DataSourceRouter {
               dataSources: Joi.array().items({
                 id: Joi.string(),
                 title: Joi.string(),
-                description: Joi.string()
-                  .allow('')
-                  .optional(),
+                description: Joi.string().allow('').optional(),
                 userId: Joi.string(),
                 data: Joi.object(),
                 creationDate: Joi.string(),
@@ -548,9 +540,7 @@ export class DataSourceRouter {
         body: {
           id: Joi.string(),
           title: Joi.string(),
-          description: Joi.string()
-            .allow('')
-            .optional(),
+          description: Joi.string().allow('').optional(),
           userId: Joi.string(),
           data: Joi.object(),
           creationDate: Joi.string(),
@@ -562,9 +552,7 @@ export class DataSourceRouter {
             body: {
               id: Joi.string(),
               title: Joi.string(),
-              description: Joi.string()
-                .allow('')
-                .optional(),
+              description: Joi.string().allow('').optional(),
               userId: Joi.string(),
               data: Joi.object(),
               creationDate: Joi.string(),
@@ -665,9 +653,7 @@ export class DataSourceRouter {
           200: {
             body: {
               title: Joi.string(),
-              description: Joi.string()
-                .allow('')
-                .optional(),
+              description: Joi.string().allow('').optional(),
               userId: Joi.string(),
               data: Joi.object(),
               creationDate: Joi.string(),

@@ -8,7 +8,7 @@ export class RedisClient {
 
   private constructor() {
     this.client = redis.createClient(REDIS_PORT, REDIS_HOST)
-    this.client.on('error', e => Logger.error(e))
+    this.client.on('error', (e) => Logger.error(e))
   }
 
   public static getInstance(): RedisClient {

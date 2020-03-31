@@ -7,8 +7,8 @@ import './DataSource.scss'
 export function DataSource({ input, data, setData }) {
   const { request, query } = data
   const { url, headers } = request
-  const setQuery = q => setData({ ...data, query: q })
-  const setUrl = u => {
+  const setQuery = (q) => setData({ ...data, query: q })
+  const setUrl = (u) => {
     data.request.url = u
     setData(data)
   }
@@ -16,7 +16,7 @@ export function DataSource({ input, data, setData }) {
     data.request.headers.push({ key: '', value: '' })
     setData(data)
   }
-  const removeHeader = index => {
+  const removeHeader = (index) => {
     if (index > -1) {
       data.request.headers.splice(index, 1)
       setData(data)
@@ -27,8 +27,8 @@ export function DataSource({ input, data, setData }) {
     setData(data)
   }
   const [output, setOutput] = useState('')
-  const stringify = s => JSON.stringify(s, null, 4)
-  const parse = s => JSON.parse(s)
+  const stringify = (s) => JSON.stringify(s, null, 4)
+  const parse = (s) => JSON.parse(s)
 
   useEffect(() => {
     if (input) {
@@ -54,7 +54,7 @@ export function DataSource({ input, data, setData }) {
                   <input
                     className="form-control"
                     value={url}
-                    onChange={evt => setUrl(evt.target.value)}
+                    onChange={(evt) => setUrl(evt.target.value)}
                   />
                 </td>
               </tr>
@@ -73,7 +73,7 @@ export function DataSource({ input, data, setData }) {
                       <input
                         className="form-control"
                         value={key}
-                        onChange={evt =>
+                        onChange={(evt) =>
                           setHeader(index, { key: evt.target.value, value })
                         }
                       />
@@ -82,7 +82,7 @@ export function DataSource({ input, data, setData }) {
                       <input
                         className="form-control"
                         value={value}
-                        onChange={evt =>
+                        onChange={(evt) =>
                           setHeader(index, { key, value: evt.target.value })
                         }
                       />

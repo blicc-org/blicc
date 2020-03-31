@@ -28,7 +28,7 @@ export function useInsert() {
   }
 
   function insertAround(items, newId, targetId, action) {
-    const index = items.findIndex(item => item.id === targetId)
+    const index = items.findIndex((item) => item.id === targetId)
     switch (action) {
       case ACTION.BEFORE:
         items.splice(index, 0, { id: newId })
@@ -55,7 +55,7 @@ export function useInsert() {
     } else if (prev.items) {
       if (
         (action === ACTION.BEFORE || action === ACTION.AFTER) &&
-        prev.items.some(item => item.id && item.id === targetId)
+        prev.items.some((item) => item.id && item.id === targetId)
       ) {
         return {
           ...prev,
@@ -64,7 +64,9 @@ export function useInsert() {
       } else {
         return {
           ...prev,
-          items: prev.items.map(item => insert(item, newId, targetId, action)),
+          items: prev.items.map((item) =>
+            insert(item, newId, targetId, action)
+          ),
         }
       }
     } else {

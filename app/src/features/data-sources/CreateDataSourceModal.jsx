@@ -30,7 +30,7 @@ export function CreateDataSourceModal({
               <input
                 id="data_source_title"
                 className="form-control"
-                onChange={event => setTitle(event.target.value)}
+                onChange={(event) => setTitle(event.target.value)}
               />
               <small id="emailHelp" className="form-text text-muted">
                 Name your data source with a significant title.
@@ -42,7 +42,7 @@ export function CreateDataSourceModal({
                 id="inputState"
                 className="form-control"
                 value={fetchFrequency}
-                onChange={event =>
+                onChange={(event) =>
                   setFetchFrequency(parseInt(event.target.value))
                 }
               >
@@ -59,7 +59,7 @@ export function CreateDataSourceModal({
                 type="checkbox"
                 className="form-check-input"
                 id="data_source_persist"
-                onChange={event => setPersistData(event.target.checked)}
+                onChange={(event) => setPersistData(event.target.checked)}
               />
               <label className="form-check-label" htmlFor="data_source_persist">
                 Persist data

@@ -140,9 +140,7 @@ export class ChartRouter {
         body: {
           title: Joi.string().required(),
           bundle: Joi.string().required(),
-          description: Joi.string()
-            .allow('')
-            .optional(),
+          description: Joi.string().allow('').optional(),
           key: Joi.string().required(),
           slug: Joi.string().required(),
         },
@@ -152,9 +150,7 @@ export class ChartRouter {
               id: Joi.string().required(),
               title: Joi.string().required(),
               bundle: Joi.string().required(),
-              description: Joi.string()
-                .allow('')
-                .optional(),
+              description: Joi.string().allow('').optional(),
               userId: Joi.string().required(),
               key: Joi.string().required(),
               slug: Joi.string().required(),
@@ -258,9 +254,7 @@ export class ChartRouter {
               id: Joi.string().required(),
               title: Joi.string().required(),
               bundle: Joi.string().required(),
-              description: Joi.string()
-                .allow('')
-                .optional(),
+              description: Joi.string().allow('').optional(),
               userId: Joi.string().required(),
               key: Joi.string().required(),
               slug: Joi.string().required(),
@@ -392,9 +386,7 @@ export class ChartRouter {
                 id: Joi.string(),
                 title: Joi.string(),
                 bundle: Joi.string(),
-                description: Joi.string()
-                  .allow('')
-                  .optional(),
+                description: Joi.string().allow('').optional(),
                 userId: Joi.string(),
                 key: Joi.string(),
                 slug: Joi.string(),
@@ -547,9 +539,7 @@ export class ChartRouter {
           id: Joi.string().required(),
           title: Joi.string().required(),
           bundle: Joi.string().required(),
-          description: Joi.string()
-            .allow('')
-            .optional(),
+          description: Joi.string().allow('').optional(),
           userId: Joi.string().required(),
           key: Joi.string().required(),
           slug: Joi.string().required(),
@@ -561,9 +551,7 @@ export class ChartRouter {
               id: Joi.string().required(),
               title: Joi.string().required(),
               bundle: Joi.string().required(),
-              description: Joi.string()
-                .allow('')
-                .optional(),
+              description: Joi.string().allow('').optional(),
               userId: Joi.string().required(),
               key: Joi.string().required(),
               slug: Joi.string().required(),
@@ -664,9 +652,7 @@ export class ChartRouter {
             body: {
               title: Joi.string().required(),
               bundle: Joi.string().required(),
-              description: Joi.string()
-                .allow('')
-                .optional(),
+              description: Joi.string().allow('').optional(),
               userId: Joi.string().required(),
               key: Joi.string().required(),
               slug: Joi.string().required(),

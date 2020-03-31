@@ -30,7 +30,7 @@ export function Box({ edit, arr, onDrop, isMobile, mask = MASK.SINGLE }) {
         } else if (arr.items) {
           return (
             <div style={style}>
-              {arr.items.map(item => (
+              {arr.items.map((item) => (
                 <Box
                   key={uuid()}
                   edit={edit}

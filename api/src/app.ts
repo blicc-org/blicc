@@ -19,7 +19,7 @@ export class App extends Koa {
     super()
 
     this.proxy = true // forward for TSL encryption on proxy level
-    this.use(logger(s => Logger.info(s.trim())))
+    this.use(logger((s) => Logger.info(s.trim())))
     this.use(cors({ credentials: true }))
     this.use(serve(`${__dirname}/../public`))
     this.use(new ApiDocsRouter('/').routes())

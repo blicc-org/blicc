@@ -9,7 +9,7 @@ export class Screenshot {
       .then(() => {
         return 'Screenshot Done'
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error)
       })
   }

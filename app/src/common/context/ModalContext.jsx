@@ -17,7 +17,7 @@ export function ModalProvider({ children }) {
   }
 
   function hideModal() {
-    setModal(prev => {
+    setModal((prev) => {
       return { ...prev, show: false }
     })
   }

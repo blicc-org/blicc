@@ -41,7 +41,7 @@ export class DataSourceService {
     skip = 0,
     take = 0 // default select all
   ): Promise<DataSource[]> {
-    fields = fields.map(field => 'dataSource.' + field)
+    fields = fields.map((field) => 'dataSource.' + field)
 
     return await this.repo
       .createQueryBuilder('dataSource')

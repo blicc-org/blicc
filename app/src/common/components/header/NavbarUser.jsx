@@ -13,7 +13,7 @@ export function NavbarUser({ firstName, lastName, loggedIn }) {
   useClickAway(ref, () => close())
 
   function toggle() {
-    setOpen(prevState => !prevState)
+    setOpen((prevState) => !prevState)
   }
 
   function close() {
@@ -33,7 +33,7 @@ export function NavbarUser({ firstName, lastName, loggedIn }) {
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-            onClick={event => {
+            onClick={(event) => {
               event.preventDefault()
               toggle()
             }}

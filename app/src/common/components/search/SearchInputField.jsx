@@ -69,7 +69,7 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
             <button
               title={content.search.close}
               className="btn"
-              onClick={event => {
+              onClick={(event) => {
                 event.preventDefault()
                 close()
               }}
@@ -84,7 +84,7 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
           type="search"
           placeholder={content.search.placeholder}
           style={{ backgroundColor }}
-          onChange={event => setSearchTerm(event.target.value)}
+          onChange={(event) => setSearchTerm(event.target.value)}
           value={searchTerm}
         />
         <div className="input-group-append">
@@ -92,7 +92,7 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
             title="Search"
             className="btn search-button"
             type="submit"
-            onClick={event => event.preventDefault()}
+            onClick={(event) => event.preventDefault()}
             style={{ backgroundColor }}
           >
             <SearchIcon />

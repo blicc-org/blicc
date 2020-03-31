@@ -31,7 +31,7 @@ export function DeleteAccountModal({
                   id="token"
                   className="form-control"
                   autoComplete="off"
-                  onChange={event => setToken(event.target.value)}
+                  onChange={(event) => setToken(event.target.value)}
                 />
                 <div className="input-group-append">
                   <span className="input-group-text">
@@ -51,7 +51,7 @@ export function DeleteAccountModal({
               type="password"
               className="form-control"
               autoComplete="off"
-              onChange={event => setPassword(event.target.value)}
+              onChange={(event) => setPassword(event.target.value)}
             />
             <small id="emailHelp" className="form-text text-muted">
               Enter your password to verify yourself.

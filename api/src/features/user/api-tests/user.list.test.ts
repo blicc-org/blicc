@@ -32,7 +32,7 @@ describe('GET: /users', () => {
     expect(response.status).toBe(200)
     expect(
       response.data.users.every((user: User): boolean => {
-        return Object.keys(user).every(field => {
+        return Object.keys(user).every((field) => {
           return fields.includes(field)
         })
       })

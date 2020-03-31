@@ -6,7 +6,7 @@ export function useAlive() {
 
   useEffect(() => {
     const worker = setInterval(() => {
-      setCount(prev => (prev > 0 ? --prev : 0))
+      setCount((prev) => (prev > 0 ? --prev : 0))
     }, 1000)
     return () => clearInterval(worker)
   }, [])

@@ -24,7 +24,7 @@ export function TwoFactorAuth({ user, setUser }) {
   async function submit() {
     const [status] = await disable({ token })
     if (status === statusCode.NO_CONTENT) {
-      setUser(prev => {
+      setUser((prev) => {
         return { ...prev, hasTwoFactorAuth: false }
       })
       showToast('Success', 'Two-factor auth is now disabled.', 'success')

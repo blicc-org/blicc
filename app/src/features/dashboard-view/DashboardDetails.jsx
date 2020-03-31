@@ -27,7 +27,7 @@ export function DashboardDetails({
                   <input
                     className="form-control col-md-6 my-2"
                     value={title}
-                    onChange={evt => setTitle(evt.target.value)}
+                    onChange={(evt) => setTitle(evt.target.value)}
                   />
                 ) : (
                   title
@@ -44,7 +44,7 @@ export function DashboardDetails({
                     className="form-control my-2"
                     value={description}
                     rows="3"
-                    onChange={evt => setDescription(evt.target.value)}
+                    onChange={(evt) => setDescription(evt.target.value)}
                   ></textarea>
                 ) : (
                   description
@@ -65,7 +65,7 @@ export function DashboardDetails({
         <Link
           className="btn btn-danger"
           to="/"
-          onClick={evt => {
+          onClick={(evt) => {
             evt.preventDefault()
             remove()
           }}

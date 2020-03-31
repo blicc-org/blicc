@@ -32,7 +32,7 @@ export class DashboardService {
     skip = 0,
     take = 0 // default select all
   ): Promise<Dashboard[]> {
-    fields = fields.map(field => 'dashboard.' + field)
+    fields = fields.map((field) => 'dashboard.' + field)
 
     return await this.repo
       .createQueryBuilder('dashboard')

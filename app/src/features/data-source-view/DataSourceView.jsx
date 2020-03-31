@@ -34,7 +34,7 @@ export function DataSourceView({ match, location }) {
   const [dataSource, setDataSource] = useState(INITIAL)
   const [publish, subscribe, state] = useDeliveryEndpoint()
   const [input, setInput] = useState('')
-  const stringify = s => JSON.stringify(s, null, 4)
+  const stringify = (s) => JSON.stringify(s, null, 4)
   const { id, title, description, data } = dataSource
   const { url, headers } = data.request
   const channel = `/forwarding/${id}`
@@ -49,7 +49,7 @@ export function DataSourceView({ match, location }) {
 
   useEffect(() => {
     if (state === WebSocket.OPEN && url) {
-      subscribe(channel, str => {
+      subscribe(channel, (str) => {
         setInput(stringify(str))
       })
       const publishBody = {
@@ -116,7 +116,7 @@ export function DataSourceView({ match, location }) {
           <DataSource
             input={input}
             data={data}
-            setData={d => setDataSource({ ...dataSource, data: d })}
+            setData={(d) => setDataSource({ ...dataSource, data: d })}
           />
         ) : (
           <DataSourceDetails

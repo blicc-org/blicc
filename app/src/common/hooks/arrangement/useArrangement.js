@@ -21,12 +21,12 @@ export function useArrangement() {
 
   function insert(targetId, action) {
     const newId = uuid()
-    setArrangement(prev => insertHelper(prev, newId, targetId, action))
+    setArrangement((prev) => insertHelper(prev, newId, targetId, action))
     return newId
   }
 
   function remove(id) {
-    setArrangement(prev => removeHelper(prev, id))
+    setArrangement((prev) => removeHelper(prev, id))
   }
 
   return [arrangement, insert, remove]

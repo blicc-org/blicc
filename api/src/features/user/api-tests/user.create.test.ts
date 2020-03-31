@@ -55,7 +55,7 @@ describe('POST: /users', () => {
     }
 
     for (const injection of injectionAttacks) {
-      Object.keys(validUser).forEach(async key => {
+      Object.keys(validUser).forEach(async (key) => {
         const { status } = await instance.post('/users', {
           ...validUser,
           [key]: injection,

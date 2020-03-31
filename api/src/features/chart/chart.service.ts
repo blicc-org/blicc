@@ -33,7 +33,7 @@ export class ChartService {
     skip = 0,
     take = 0 // default select all
   ): Promise<Chart[]> {
-    fields = fields.map(field => 'chart.' + field)
+    fields = fields.map((field) => 'chart.' + field)
 
     return await this.repo
       .createQueryBuilder('chart')

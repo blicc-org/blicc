@@ -110,7 +110,7 @@ export function DataSources() {
           ) : (
             <table className="table">
               <tbody>
-                {result.dataSources.map(d => (
+                {result.dataSources.map((d) => (
                   <Item
                     key={d.id}
                     title={d.title}

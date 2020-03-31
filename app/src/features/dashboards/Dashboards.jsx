@@ -96,7 +96,7 @@ export function Dashboards() {
           ) : (
             <table className="table">
               <tbody>
-                {result.dashboards.map(d => (
+                {result.dashboards.map((d) => (
                   <Item
                     key={d.id}
                     title={d.title}

@@ -6,7 +6,7 @@ export function FooterNav({ close }) {
   const arrangement = useFooterArrangement()
   return (
     <>
-      {arrangement.map(list => (
+      {arrangement.map((list) => (
         <FooterNavList key={list.category} list={list} close={close} />
       ))}
     </>

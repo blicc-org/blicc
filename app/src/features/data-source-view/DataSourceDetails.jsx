@@ -27,7 +27,7 @@ export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
                   <input
                     className="form-control col-md-6 my-2"
                     value={title}
-                    onChange={evt =>
+                    onChange={(evt) =>
                       setDataSource({ ...dataSource, title: evt.target.value })
                     }
                   />
@@ -46,7 +46,7 @@ export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
                     className="form-control my-2"
                     value={description}
                     rows="3"
-                    onChange={evt =>
+                    onChange={(evt) =>
                       setDataSource({
                         ...dataSource,
                         description: evt.target.value,
@@ -68,7 +68,7 @@ export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
                     type="checkbox"
                     className="my-2"
                     checked={persistData}
-                    onChange={evt =>
+                    onChange={(evt) =>
                       setDataSource({
                         ...dataSource,
                         persistData: evt.target.checked,
@@ -91,7 +91,7 @@ export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
                   <select
                     className="form-control col-md-4 my-2"
                     value={fetchFrequency}
-                    onChange={evt =>
+                    onChange={(evt) =>
                       setDataSource({
                         ...dataSource,
                         fetchFrequency: parseInt(evt.target.value),
@@ -121,7 +121,7 @@ export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
         <Link
           className="btn btn-danger"
           to="/"
-          onClick={evt => {
+          onClick={(evt) => {
             evt.preventDefault()
             remove()
           }}

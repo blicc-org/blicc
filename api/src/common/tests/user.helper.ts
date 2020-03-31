@@ -6,7 +6,7 @@ import { API_TEST_TARGET, ADMIN_MAIL, ADMIN_PASSWORD } from '../../config'
 export const instance = axios.create({
   baseURL: API_TEST_TARGET,
   withCredentials: true,
-  validateStatus: status => status >= 200 && status < 500,
+  validateStatus: (status) => status >= 200 && status < 500,
 })
 
 export async function getAdmin(): Promise<{

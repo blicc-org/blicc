@@ -125,9 +125,7 @@ export class DashboardRouter {
         type: 'json',
         body: {
           title: Joi.string().required(),
-          description: Joi.string()
-            .allow('')
-            .optional(),
+          description: Joi.string().allow('').optional(),
           data: Joi.object().required(),
         },
         output: {
@@ -135,9 +133,7 @@ export class DashboardRouter {
             body: {
               id: Joi.string().required(),
               title: Joi.string().required(),
-              description: Joi.string()
-                .allow('')
-                .optional(),
+              description: Joi.string().allow('').optional(),
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),
@@ -238,9 +234,7 @@ export class DashboardRouter {
             body: {
               id: Joi.string().required(),
               title: Joi.string().required(),
-              description: Joi.string()
-                .allow('')
-                .optional(),
+              description: Joi.string().allow('').optional(),
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),
@@ -371,9 +365,7 @@ export class DashboardRouter {
               dashboards: Joi.array().items({
                 id: Joi.string(),
                 title: Joi.string(),
-                description: Joi.string()
-                  .allow('')
-                  .optional(),
+                description: Joi.string().allow('').optional(),
                 userId: Joi.string(),
                 data: Joi.object(),
                 creationDate: Joi.string(),
@@ -511,9 +503,7 @@ export class DashboardRouter {
         body: {
           id: Joi.string().required(),
           title: Joi.string().required(),
-          description: Joi.string()
-            .allow('')
-            .optional(),
+          description: Joi.string().allow('').optional(),
           userId: Joi.string().required(),
           data: Joi.object().required(),
           creationDate: Joi.string().required(),
@@ -524,9 +514,7 @@ export class DashboardRouter {
             body: {
               id: Joi.string().required(),
               title: Joi.string().required(),
-              description: Joi.string()
-                .allow('')
-                .optional(),
+              description: Joi.string().allow('').optional(),
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),
@@ -616,9 +604,7 @@ export class DashboardRouter {
           200: {
             body: {
               title: Joi.string().required(),
-              description: Joi.string()
-                .allow('')
-                .optional(),
+              description: Joi.string().allow('').optional(),
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),

@@ -59,7 +59,7 @@ describe('GET: /dashboards', () => {
     expect(response.status).toBe(200)
     expect(
       response.data.dashboards.every((dashboard: Dashboard): boolean => {
-        return Object.keys(dashboard).every(field => {
+        return Object.keys(dashboard).every((field) => {
           return fields.includes(field)
         })
       })

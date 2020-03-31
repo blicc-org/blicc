@@ -5,7 +5,7 @@ import { RegisterService } from './RegisterService'
 export function RegisterForm({ user, setUser, register }) {
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     const { name, value } = event.target
     setUser({ ...user, [name]: value })
   }
@@ -85,7 +85,7 @@ export function RegisterForm({ user, setUser, register }) {
           title="Submit registration"
           className="btn btn-primary btn-lg btn-block"
           type="submit"
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault()
             setIsSubmitted(true)
             register()

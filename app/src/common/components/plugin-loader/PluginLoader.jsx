@@ -19,8 +19,8 @@ export function PluginLoader({ id, type, keepAlive }) {
     height: '100%',
   }
 
-  function onDataUpdate(callback = res => res) {
-    const cb = res => {
+  function onDataUpdate(callback = (res) => res) {
+    const cb = (res) => {
       keepAlive()
       return callback(res)
     }
@@ -40,7 +40,7 @@ export function PluginLoader({ id, type, keepAlive }) {
     async function fetchPlugin() {
       await import(
         /*webpackIgnore: true*/ `${API.ORIGIN}/bundles/${bundle}`
-      ).then(module => {
+      ).then((module) => {
         setLoading(false)
         const node = module[plugin](data, onDataUpdate, settings, setSettings)
 
