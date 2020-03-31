@@ -124,18 +124,12 @@ services:
   rabbitmq:
     image: registry.thiloilg.com/root/blicc/rabbitmq:latest
     hostname: rabbitmq
-    # volumes:
-    #   - /srv/rabbitmq-data:/var/lib/rabbitmq
     environment:
       - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_USER=admin
     ports:
-      - 4369:4369
-      - 5671:5671
-      - 5672:5672
       - 15672:15672
-      - 25672:25672
     deploy:
       replicas: 1
       update_config:

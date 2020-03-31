@@ -1,8 +1,8 @@
-FROM rabbitmq:3-management
+FROM rabbitmq:3.8.3-management
 
 WORKDIR /root
 
-COPY . .
+COPY healthcheck.sh ./healthcheck.sh
 
 HEALTHCHECK CMD ["chmod", "+x", "healthcheck.sh"]
 

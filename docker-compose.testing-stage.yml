@@ -53,11 +53,7 @@ services:
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_USER=admin
     ports:
-      - 4369:4369
-      - 5671:5671
-      - 5672:5672
       - 15672:15672
-      - 25672:25672
     labels:
       - traefik.enable=true
       - traefik.http.routers.rabbitmq.rule=Host(`messaging.testing-stage.org`)

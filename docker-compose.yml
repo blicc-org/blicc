@@ -22,17 +22,14 @@ services:
     restart: always
   rabbitmq:
     build: ./rabbitmq
+    hostname: rabbitmq
     restart: always
     environment:
       - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_USER=admin
     ports:
-      - 4369:4369
-      - 5671:5671
-      - 5672:5672
-      - 15672:15672
-      - 25672:25672
+      - 15671:15671
   api:
     build: ./api
     restart: always
@@ -42,8 +39,10 @@ services:
     depends_on:
       - db
       - redis
+      - rabbitmq
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
       - MAIL_ADDRESS=${MAIL_ADDRESS}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - MAIL_HOST=${MAIL_HOST}
