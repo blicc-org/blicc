@@ -25,7 +25,7 @@ services:
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_USER=admin
     ports:
-      - 15671:15671
+      - 15672:15672
   api:
     build: ./api
     restart: always
