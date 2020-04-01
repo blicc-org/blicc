@@ -7,13 +7,9 @@ services:
       args:
         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     restart: always
-    ports:
-      - 5432:5432
   redis:
     build: ./redis
     restart: always
-    ports:
-      - 6379:6379
   mongo:
     build:
       context: ./mongo
