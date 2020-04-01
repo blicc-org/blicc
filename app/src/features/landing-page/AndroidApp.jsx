@@ -12,17 +12,14 @@ export function AndroidApp() {
   return (
     <>
       {!installed && (
-        <div className="py-5 android-app">
-          <div className="py-5">
-            <div className="col-md-10 col-lg-8 col-xl-6 p-4 mx-auto text-center">
-              {lg && <AppUser className="app-user" />}
-              <h1>Get the App</h1>
-              <br />
-              <a className="btn btn-outline mt-3" href={ANDROID_APP_STORE_LINK}>
-                Go to Play Store{' '}
-                <Android className="android" alt="Android App" />
-              </a>
-            </div>
+        <div className="android-app box-padding">
+          <div className="col-md-10 col-lg-8 col-xl-6 p-4 mx-auto text-center">
+            {lg && <AppUser className="app-user" />}
+            <h1>Get the App</h1>
+            <br />
+            <a className="btn btn-outline mt-3" href={ANDROID_APP_STORE_LINK}>
+              Go to Play Store <Android className="android" alt="Android App" />
+            </a>
           </div>
         </div>
       )}

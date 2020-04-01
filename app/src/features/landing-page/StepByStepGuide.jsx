@@ -8,7 +8,7 @@ export function StepByStepGuide() {
   const [, , , lg] = useSizes()
 
   return (
-    <div className="guide pt-5">
+    <div className="guide box-padding">
       <div className="col-md-10 col-lg-8 col-xl-6 p-4 mx-auto">
         {lg && <TourGuide className="tour-guide" />}
         <h1 className="text-center">How it Works</h1>
