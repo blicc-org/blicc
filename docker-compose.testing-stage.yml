@@ -13,7 +13,7 @@ services:
       - 443:443
     command:
       - --api=true
-      - --log.level=DEBUG
+      - --log.level=WARN
       - --providers.docker=true
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
