@@ -2,9 +2,9 @@ import amqplib from 'amqplib'
 
 export class RabbitMQClient {
   public constructor() {
-    var q = 'tasks'
+    const q = 'tasks'
 
-    var open = amqplib.connect('amqp://admin:test@rabbitmq:5672')
+    const open = amqplib.connect('amqp://admin:test@rabbitmq:5672')
 
     // Publisher
     open
@@ -12,7 +12,7 @@ export class RabbitMQClient {
         return conn.createChannel()
       })
       .then((ch) => {
-        return ch.assertQueue(q).then((ok) => {
+        return ch.assertQueue(q).then(() => {
           return ch.sendToQueue(q, Buffer.from('something to do'))
         })
       })
@@ -24,7 +24,7 @@ export class RabbitMQClient {
         return conn.createChannel()
       })
       .then((ch) => {
-        return ch.assertQueue(q).then((ok) => {
+        return ch.assertQueue(q).then(() => {
           return ch.consume(q, (msg) => {
             if (msg !== null) {
               console.log(msg.content.toString())
