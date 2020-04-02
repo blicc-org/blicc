@@ -1,11 +1,11 @@
 import React from 'react'
-import { lightgray } from '../../../Theme.scss'
+import { light } from '../../../Theme.scss'
 
 export function Loading() {
   const style = {
     alignSelf: 'center',
     margin: 'auto',
-    color: lightgray,
+    color: light,
   }
   return (
     <div className="spinner-border" style={style} role="status">
