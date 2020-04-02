@@ -21,9 +21,9 @@ services:
       - --metrics=true
       - --metrics.prometheus=true
       # docker
-      - --providers.docker=true
       - --providers.docker.swarmMode=true
       - --providers.docker.exposedByDefault=false
+      - --providers.docker.endpoint=unix:///var/run/docker.sock
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
@@ -61,7 +61,6 @@ services:
         - traefik.http.routers.detour.middlewares=redirect-to-https
         - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
         - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
-        - traefik.http.services.dummy-svc.loadbalancer.server.port=9999
   db:
     image: registry.thiloilg.com/root/blicc/db:latest
     hostname: db
