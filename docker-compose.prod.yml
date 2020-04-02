@@ -56,13 +56,14 @@ services:
         - traefik.http.routers.traefik.tls.certresolver=secure
         - traefik.http.routers.traefik.middlewares=auth
         - traefik.http.middlewares.auth.basicauth.usersfile=/root/credentials.txt
+        - traefik.http.services.traefik.loadbalancer.server.port=8080
         # https redirect
         - traefik.http.routers.detour.rule=hostregexp(`{host:[a-z-.]+}`)
         - traefik.http.routers.detour.entrypoints=web
         - traefik.http.routers.detour.middlewares=redirect-to-https
         - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
         - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
-        - traefik.http.services.traefik.loadbalancer.server.port=80
+        - traefik.http.services.dummy-svc.loadbalancer.server.port=9999
   db:
     image: registry.thiloilg.com/root/blicc/db:latest
     hostname: db

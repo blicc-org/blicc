@@ -29,6 +29,7 @@ services:
       - traefik.http.routers.traefik.rule=Host(`monitor.testing-stage.org`)
       - traefik.http.routers.traefik.tls.certresolver=secure
       - traefik.http.routers.traefik.middlewares=auth
+      - traefik.http.services.traefik.loadbalancer.server.port=8080
       - traefik.http.middlewares.auth.basicauth.usersfile=/root/credentials.txt
       # https redirect
       - traefik.http.routers.detour.rule=hostregexp(`{host:[a-z-.]+}`)
@@ -36,6 +37,7 @@ services:
       - traefik.http.routers.detour.middlewares=redirect-to-https
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
+      - traefik.http.services.dummy-svc.loadbalancer.server.port=9999
   db:
     image: registry.thiloilg.com/root/blicc/db:test
     hostname: db
