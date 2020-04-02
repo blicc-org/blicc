@@ -18,7 +18,7 @@ export function Arrangement({ edit }) {
   const isMobile = useMobile()
   const isInstalled = useInstalled()
   const [arr, insertArr] = useArrangement()
-  const isNotEmpty = (arr.item || arr.id) 
+  const isNotEmpty = arr.item || arr.id
   const [accessSet, insertSet, removeSet] = useSettings()
   const [targetId, setTargetId] = useState('')
   const [update, setUpdate] = useState(0)
