@@ -3,8 +3,9 @@ import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint, useModal, useLanguage } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import { Item, Pagination, Empty } from '../../common/components/ui'
+import { Item, Pagination, Empty, Loading } from '../../common/components/ui'
 import { CreateDataSourceModal } from './CreateDataSourceModal'
+import './DataSources.scss'
 
 export const FREQUENCY = {
   DAILY: 86400000,
@@ -32,6 +33,7 @@ export function DataSources() {
   const [page, setPage] = useState(0)
   const [result, setResult] = useState({ total: 0, dataSources: [] })
   const [create, access, ,] = useApiEndpoint('/data-sources')
+  const [isLoading, setIsLoading] = useState(true)
   const [redirect, setRedirect] = useState('')
 
   const [title, setTitle] = useState('')
@@ -76,6 +78,7 @@ export function DataSources() {
       })
       if (status === statusCode.OK) {
         setResult(data)
+        setIsLoading(false)
       }
     }
     fetchData()
@@ -104,24 +107,30 @@ export function DataSources() {
             </button>
           </div>
         </div>
-        <div>
-          {result.dataSources.length === 0 ? (
-            <Empty>{content.dataSources.empty}</Empty>
+        <div className="data-source-list">
+          {isLoading ? (
+            <Loading />
           ) : (
-            <table className="table">
-              <tbody>
-                {result.dataSources.map((d) => (
-                  <Item
-                    key={d.id}
-                    title={d.title}
-                    subtitle={d.creationDate.split('T')[0]}
-                    description={d.description}
-                    link={`/data-sources/${d.id}`}
-                    linkLabel={content.dataSources.view}
-                  />
-                ))}
-              </tbody>
-            </table>
+            <>
+              {result.dataSources.length === 0 ? (
+                <Empty>{content.dataSources.empty}</Empty>
+              ) : (
+                <table className="table">
+                  <tbody>
+                    {result.dataSources.map((d) => (
+                      <Item
+                        key={d.id}
+                        title={d.title}
+                        subtitle={d.creationDate.split('T')[0]}
+                        description={d.description}
+                        link={`/data-sources/${d.id}`}
+                        linkLabel={content.dataSources.view}
+                      />
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </>
           )}
         </div>
         <Pagination

@@ -12,12 +12,14 @@ services:
       - 80:80
       - 443:443
     command:
+      # entry points
       - --api=true
-      - --log.level=WARN
-      - --providers.docker=true
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
+      # docker
+      - --providers.docker=true
       - --providers.docker.exposedByDefault=false
+      # tls certificates
       - --certificatesresolvers.secure.acme.httpchallenge=true
       - --certificatesresolvers.secure.acme.httpchallenge.entrypoint=web
       - --certificatesresolvers.secure.acme.email=${MAIL_ADDRESS}

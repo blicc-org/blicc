@@ -62,8 +62,8 @@ export function Dashboards() {
         },
       })
       if (status === statusCode.OK) {
-        setIsLoading(false)
         setResult(data)
+        setIsLoading(false)
       }
     }
     fetchData()
