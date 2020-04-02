@@ -8,6 +8,7 @@ import {
   useInstalled,
   ACTION,
 } from '../../hooks'
+import { DragHere } from './DragHere'
 import { SelectChartModal } from './SelectChartModal'
 import { SelectDataSourceModal } from './SelectDataSourceModal'
 import { Box } from './Box'
@@ -18,7 +19,6 @@ export function Arrangement({ edit }) {
   const isMobile = useMobile()
   const isInstalled = useInstalled()
   const [arr, insertArr] = useArrangement()
-  const isEmpty = Object.keys(arr).length === 0 && arr.constructor === Object
   const [accessSet, insertSet, removeSet] = useSettings()
   const [targetId, setTargetId] = useState('')
   const [update, setUpdate] = useState(0)
@@ -83,12 +83,14 @@ export function Arrangement({ edit }) {
   return useMemo(() => {
     return (
       <>
-        <div
-          className={`col px-0 ${!isEmpty && 'arrangement-border'}`}
-          style={style}
-          onDragOver={(evt) => evt.preventDefault()}
-        >
-          <Box arr={arr} onDrop={onDrop} edit={edit} isMobile={isMobile} />
+        <div className="col px-0" onDragOver={(evt) => evt.preventDefault()}>
+          {arr.items || arr.id ? (
+            <div className="arrangement-border" style={style}>
+              <Box arr={arr} onDrop={onDrop} edit={edit} isMobile={isMobile} />
+            </div>
+          ) : (
+            <DragHere edit={edit} onDrop={onDrop} />
+          )}
         </div>
         <div style={isMobile && isInstalled ? { marginBottom: '60px' } : {}} />
       </>
