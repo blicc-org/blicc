@@ -5,7 +5,7 @@ import { useApiEndpoint } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useModal, useLanguage } from '../../common/hooks'
 import { CreateDashboardModal } from './CreateDashboardModal'
-import { Item, Pagination, Empty } from '../../common/components/ui'
+import { Item, Pagination, Empty, Loading } from '../../common/components/ui'
 import './Dashboards.scss'
 
 export const INITIAL_DASHBOARD = {
@@ -20,6 +20,7 @@ export const INITIAL_DASHBOARD = {
 export function Dashboards() {
   const content = useLanguage()
   const itemsPerPage = 10
+  const [isLoading, setIsLoading] = useState(true)
   const [page, setPage] = useState(0)
   const [result, setResult] = useState({ total: 0, dashboards: [] })
   const [create, access, ,] = useApiEndpoint('/dashboards')
@@ -61,6 +62,7 @@ export function Dashboards() {
         },
       })
       if (status === statusCode.OK) {
+        setIsLoading(false)
         setResult(data)
       }
     }
@@ -91,23 +93,29 @@ export function Dashboards() {
           </div>
         </div>
         <div className="dashboard-list">
-          {result.dashboards.length === 0 ? (
-            <Empty>{content.dashboards.empty}</Empty>
+          {isLoading ? (
+            <Loading />
           ) : (
-            <table className="table">
-              <tbody>
-                {result.dashboards.map((d) => (
-                  <Item
-                    key={d.id}
-                    title={d.title}
-                    subtitle={d.creationDate.split('T')[0]}
-                    description={d.description}
-                    link={`/dashboards/${d.id}`}
-                    linkLabel={content.dashboards.view}
-                  />
-                ))}
-              </tbody>
-            </table>
+            <>
+              {result.dashboards.length === 0 ? (
+                <Empty>{content.dashboards.empty}</Empty>
+              ) : (
+                <table className="table">
+                  <tbody>
+                    {result.dashboards.map((d) => (
+                      <Item
+                        key={d.id}
+                        title={d.title}
+                        subtitle={d.creationDate.split('T')[0]}
+                        description={d.description}
+                        link={`/dashboards/${d.id}`}
+                        linkLabel={content.dashboards.view}
+                      />
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </>
           )}
         </div>
         <Pagination

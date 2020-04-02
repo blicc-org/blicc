@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Loading } from '../loading/Loading'
+import { Loading } from '../ui'
 import { API } from '../../../config'
 import { useSettings, useDeliveryEndpoint } from '../../hooks'
 
