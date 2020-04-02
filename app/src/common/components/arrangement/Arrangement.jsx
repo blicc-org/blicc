@@ -18,7 +18,7 @@ export function Arrangement({ edit }) {
   const isMobile = useMobile()
   const isInstalled = useInstalled()
   const [arr, insertArr] = useArrangement()
-  const isNotEmpty = arr.item || arr.id
+  const isEmpty = Object.keys(arr).length === 0 && arr.constructor === Object
   const [accessSet, insertSet, removeSet] = useSettings()
   const [targetId, setTargetId] = useState('')
   const [update, setUpdate] = useState(0)
@@ -84,7 +84,7 @@ export function Arrangement({ edit }) {
     return (
       <>
         <div
-          className={`col px-0 ${isNotEmpty && 'arrangement-border'}`}
+          className={`col px-0 ${!isEmpty && 'arrangement-border'}`}
           style={style}
           onDragOver={(evt) => evt.preventDefault()}
         >
