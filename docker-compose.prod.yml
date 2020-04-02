@@ -123,9 +123,9 @@ services:
     image: registry.thiloilg.com/root/blicc/rabbitmq:latest
     hostname: rabbitmq
     environment:
-      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_PASSWORD}
+      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_COOKIE}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
-      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USERNAME}
     deploy:
       replicas: 1
       update_config:
@@ -159,7 +159,10 @@ services:
       - db
       - redis
     environment:
+      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
       - MAIL_ADDRESS=${MAIL_ADDRESS}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - MAIL_HOST=${MAIL_HOST}
@@ -194,6 +197,7 @@ services:
       - mongo
       - mock-api
     environment:
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
       - APP_ORIGIN=${APP_ORIGIN}
     deploy:

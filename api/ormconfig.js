@@ -6,7 +6,7 @@ module.exports = {
   host: 'db',
   port: 5432,
   database: 'db',
-  username: 'api',
+  username: process.env.POSTGRES_USERNAME,
   password: process.env.POSTGRES_PASSWORD,
   synchronize: true,
   entities: [entities],

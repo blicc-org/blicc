@@ -21,7 +21,7 @@ services:
     hostname: rabbitmq
     restart: always
     environment:
-      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_PASSWORD}
+      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_COOKIE}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
       - RABBITMQ_DEFAULT_USER=admin
     ports:
@@ -60,6 +60,7 @@ services:
       - mongo
       - mock-api
     environment:
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
       - APP_ORIGIN=${APP_ORIGIN}
       - ADMIN_MAIL=${ADMIN_MAIL}

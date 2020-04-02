@@ -14,9 +14,9 @@ import (
 
 func Connect() {
 	GO_ENV := os.Getenv("GO_ENV")
+	MONGODB_USERNAME := os.Getenv("MONGODB_USERNAME")
 	MONGODB_PASSWORD := os.Getenv("MONGODB_PASSWORD")
 
-	user := "api"
 	host := "mongo"
 	port := "27017"
 
@@ -24,7 +24,7 @@ func Connect() {
 		host = "localhost"
 	}
 
-	uri := "mongodb://" + user + ":" + MONGODB_PASSWORD + "@" + host + ":" + port
+	uri := "mongodb://" + MONGODB_USERNAME + ":" + MONGODB_PASSWORD + "@" + host + ":" + port
 
 	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
 
