@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import statusCode from 'http-status-codes'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useApiEndpoint, useLanguage } from '../../common/hooks'
-import { Item, Pagination, Empty } from '../../common/components/ui'
+import { Item, Pagination, Empty, Loading } from '../../common/components/ui'
+import './Charts.scss'
 
 export function Charts() {
   const content = useLanguage()
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
   const [result, setResult] = useState({ total: 0, charts: [] })
   const [, access, ,] = useApiEndpoint('/charts')
 
@@ -21,6 +23,7 @@ export function Charts() {
       })
       if (status === statusCode.OK) {
         setResult(data)
+        setIsLoading(false)
       }
     }
     fetchData()
@@ -39,23 +42,29 @@ export function Charts() {
           <h2 className="my-0">{content.charts.title}</h2>
         </div>
         <div className="chart-list">
-          {result.total === 0 ? (
-            <Empty>{content.charts.empty}</Empty>
+          {isLoading ? (
+            <Loading />
           ) : (
-            <table className="table">
-              <tbody>
-                {result.charts.map((d) => (
-                  <Item
-                    key={d.id}
-                    title={d.title}
-                    subtitle={`@${d.slug}`}
-                    description={d.description}
-                    link={`/charts/${d.id}`}
-                    linkLabel={content.charts.view}
-                  />
-                ))}
-              </tbody>
-            </table>
+            <>
+              {result.total === 0 ? (
+                <Empty>{content.charts.empty}</Empty>
+              ) : (
+                <table className="table">
+                  <tbody>
+                    {result.charts.map((d) => (
+                      <Item
+                        key={d.id}
+                        title={d.title}
+                        subtitle={`@${d.slug}`}
+                        description={d.description}
+                        link={`/charts/${d.id}`}
+                        linkLabel={content.charts.view}
+                      />
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </>
           )}
         </div>
         <Pagination
