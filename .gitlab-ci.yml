@@ -29,10 +29,10 @@ build:
     - *login_docker
   script:
     - docker build -t app -f ./app/prod.Dockerfile ./app
-    - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t api -f ./api/prod.Dockerfile ./api
-    - docker build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t db ./db
-    - docker build --build-arg MONGODB_PASSWORD=$MONGODB_PASSWORD -t mongo ./mongo
-    - docker build --build-arg MONGODB_PASSWORD=$MONGODB_PASSWORD -t delivery -f ./delivery/prod.Dockerfile ./delivery
+    - docker build --build-arg POSTGRES_USERNAME=$POSTGRES_USERNAME --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t api -f ./api/prod.Dockerfile ./api
+    - docker build --build-arg POSTGRES_USERNAME=$POSTGRES_USERNAME --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t db ./db
+    - docker build --build-arg MONGODB_USERNAME=$MONGODB_USERNAME --build-arg MONGODB_PASSWORD=$MONGODB_PASSWORD -t mongo ./mongo
+    - docker build --build-arg MONGODB_USERNAME=$MONGODB_USERNAME --build-arg MONGODB_PASSWORD=$MONGODB_PASSWORD -t delivery -f ./delivery/prod.Dockerfile ./delivery
     - docker build -t redis ./redis
     - docker build -t mock-api -f ./mock-api/prod.Dockerfile ./mock-api
     - docker build -t rabbitmq ./rabbitmq

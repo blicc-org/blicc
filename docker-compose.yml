@@ -23,9 +23,9 @@ services:
     hostname: rabbitmq
     restart: always
     environment:
-      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_COOKIE}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USERNAME}
+      - RABBITMQ_COOKIE=${RABBITMQ_COOKIE}
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
     ports:
       - 15672:15672
   api:
