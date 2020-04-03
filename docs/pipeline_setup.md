@@ -1,43 +1,43 @@
-## Pipeline environment variables
+# Pipeline environment variables
 
 Set the following environment variables in the gitlab CI/CD settings. Depending on the number if services you have, you need to alter the `.gitlab-ci.yml` as well as the pipeline environment variables with a fitting number of `PROD_IPs`.
 
-### IPs
+## IPs
     TEST_IP=0.0.0.0
     PROD_IP=0.0.0.0
     PROD_IP_2=0.0.0.0
 
-### PostgreSQL
+## PostgreSQL
     POSTGRES_USERNAME=api
     POSTGRES_PASSWORD=test
 
-### MongoDB
+## MongoDB
     MONGODB_USERNAME=api
     MONGODB_PASSWORD=test
 
-### RabbitMQ
+## RabbitMQ
     RABBITMQ_COOKIE=cookie
     RABBITMQ_USERNAME=admin
     RABBITMQ_PASSWORD=test
 
-### Traefik
+## Traefik
     TRAEFIK_PASSWORD=admin:pwhash
 
 > Create the credentials hash with: `echo $(htpasswd -nb user password) | sed -e s/\\$/\\$\\$/g`.
 
-### Mail Server
+## Mail Server
     MAIL_ADDRESS=noreply@example.org
     MAIL_HOST=smtp.ionos.de
     MAIL_PASSWORD=password
 
-### Credentials
+## Credentials
     ADMIN_MAIL=user.name@example.com
     ADMIN_PASSWORD=test
 
-###  SSH key
+##  SSH key
     SSH_PRIVATE_KEY=ssh_private_key_string
 
-### 
+## 
     API_TEST_TARGET=https://api.testing-example.org
     APP_ORIGIN=https://example.com
     DELIVERY_TEST_TARGET_WEBSOCKET=wss://delivery.testing-stage.org
