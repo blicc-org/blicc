@@ -51,10 +51,6 @@ services:
   rabbitmq:
     image: registry.thiloilg.com/root/blicc/rabbitmq:test
     hostname: rabbitmq
-    environment:
-      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_COOKIE}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USERNAME}
     labels:
       - traefik.enable=true
       - traefik.http.routers.rabbitmq.rule=Host(`messaging.testing-stage.org`)
@@ -72,11 +68,13 @@ services:
     environment:
       - POSTGRES_USERNAME=${POSTGRES_USERNAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+      - ADMIN_MAIL=${ADMIN_MAIL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
       - MAIL_ADDRESS=${MAIL_ADDRESS}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - MAIL_HOST=${MAIL_HOST}
-      - ADMIN_MAIL=${ADMIN_MAIL}
-      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     labels:
       - traefik.enable=true
       - traefik.http.routers.api.rule=Host(`api.testing-stage.org`)
@@ -93,6 +91,8 @@ services:
     environment:
       - MONGODB_USERNAME=${MONGODB_USERNAME}
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
       - APP_ORIGIN=${APP_ORIGIN}
     labels:
       - traefik.enable=true
