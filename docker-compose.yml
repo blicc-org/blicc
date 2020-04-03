@@ -19,13 +19,14 @@ services:
         MONGODB_PASSWORD: ${MONGODB_PASSWORD}
     restart: always
   rabbitmq:
-    build: ./rabbitmq
+    build:
+      context: ./rabbitmq
+      args:
+        RABBITMQ_COOKIE: ${RABBITMQ_COOKIE}
+        RABBITMQ_USERNAME: ${RABBITMQ_USERNAME}
+        RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
     hostname: rabbitmq
     restart: always
-    environment:
-      - RABBITMQ_COOKIE=${RABBITMQ_COOKIE}
-      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
-      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
     ports:
       - 15672:15672
   api:
