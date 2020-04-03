@@ -38,6 +38,8 @@ Set the following environment variables in the gitlab CI/CD settings. Depending 
     ADMIN_MAIL=user.name@example.com
     ADMIN_PASSWORD=test
 
+> Credentials for an administrator account which gets initialized in the setup process of the application itself. 
+
 ###  SSH key
     SSH_PRIVATE_KEY=ssh_private_key_string
 
