@@ -112,3 +112,4 @@ services:
       - traefik.enable=true
       - traefik.http.routers.mock-api.rule=Host(`mock.testing-stage.org`)
       - traefik.http.routers.mock-api.tls.certresolver=secure
+
