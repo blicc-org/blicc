@@ -4,6 +4,7 @@ services:
   traefik:
     image: traefik:v2.2
     hostname: traefik
+    restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json
@@ -42,15 +43,19 @@ services:
   db:
     image: registry.thiloilg.com/root/blicc/db:test
     hostname: db
+    restart: always
   redis:
     image: registry.thiloilg.com/root/blicc/redis:test
     hostname: redis
+    restart: always
   mongo:
     image: registry.thiloilg.com/root/blicc/mongo:test
     hostname: mongo
+    restart: always
   rabbitmq:
     image: registry.thiloilg.com/root/blicc/rabbitmq:test
     hostname: rabbitmq
+    restart: always
     labels:
       - traefik.enable=true
       - traefik.http.routers.rabbitmq.rule=Host(`messaging.testing-stage.org`)
@@ -59,10 +64,10 @@ services:
   api:
     image: registry.thiloilg.com/root/blicc/api:test
     hostname: api
+    restart: always
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
-    restart: always
     depends_on:
       - db
     environment:
@@ -82,9 +87,9 @@ services:
   delivery:
     image: registry.thiloilg.com/root/blicc/delivery:test
     hostname: delivery
+    restart: always
     volumes:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
-    restart: always
     depends_on:
       - mongo
       - mock-api
