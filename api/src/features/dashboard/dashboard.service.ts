@@ -79,25 +79,28 @@ export class DashboardService {
     return dashboard
   }
 
-  public async capture(id: string): Promise<void> {
-    const browser = await puppeteer.launch({ headless: true })
-    const page = await browser.newPage()
-    await page.setViewport({
-      width: 1280,
-      height: 720,
-      deviceScaleFactor: 1,
-    })
+  public capture(id: string): void {
+    // wrapped to force no blocking when called in controller
+    ;(async () => {
+      const browser = await puppeteer.launch({ headless: true })
+      const page = await browser.newPage()
+      await page.setViewport({
+        width: 1280,
+        height: 720,
+        deviceScaleFactor: 1,
+      })
 
-    await page.goto(`${APP.ORIGIN}/login`)
-    await page.type('#inputEmail', ADMIN_MAIL)
-    await page.type('#inputPassword', ADMIN_PASSWORD)
-    await page.click('#submitLogin')
-    await page.waitForNavigation()
-    await page.goto(`${APP.ORIGIN}/dashboards/${id}?fullscreen`)
-    await page.waitFor(500)
-    await page.screenshot({
-      path: `${__dirname}/screenshot.png`,
-    })
-    await browser.close()
+      await page.goto(`${APP.ORIGIN}/login`)
+      await page.type('#inputEmail', ADMIN_MAIL)
+      await page.type('#inputPassword', ADMIN_PASSWORD)
+      await page.click('#submitLogin')
+      await page.waitForNavigation()
+      await page.goto(`${APP.ORIGIN}/dashboards/${id}?fullscreen`)
+      await page.waitFor(500)
+      await page.screenshot({
+        path: `${__dirname}/screenshot.png`,
+      })
+      await browser.close()
+    })()
   }
 }

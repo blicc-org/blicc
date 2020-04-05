@@ -14,13 +14,17 @@ export class DashboardController {
     await next()
     const { title, description = '', data } = ctx.request.body
     const { userId } = ctx.state.jwt
-    ctx.body = await this.dashboardService.create(
+    const dashboard = await this.dashboardService.create(
       title,
       description,
       userId,
       data
     )
+    ctx.body = dashboard
     ctx.status = 201
+
+    const { id = '' } = dashboard
+    this.dashboardService.capture(id)
   }
 
   public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
@@ -92,6 +96,8 @@ export class DashboardController {
       return
     }
     ctx.status = statusCode.FORBIDDEN
+
+    this.dashboardService.capture(id)
   }
 
   public async delete(ctx: Koa.DefaultContext, next: Function): Promise<void> {
