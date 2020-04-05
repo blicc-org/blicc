@@ -4,8 +4,8 @@ import { useLogin, useModal } from '../../common/hooks'
 import { Redirect } from 'react-router-dom'
 import { LoginTwoFactorAuth } from './LoginTwoFactorAuth'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import './Login.scss'
 import { WrongPasswordModal } from './WrongPasswordModal'
+import './Login.scss'
 
 const Steps = {
   PASSWORD: 'password',
