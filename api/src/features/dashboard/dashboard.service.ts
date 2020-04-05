@@ -1,7 +1,9 @@
+import puppeteer from 'puppeteer'
 import { Repository, getRepository } from 'typeorm'
 import { DashboardEntity } from './dashboard.entity'
 import { Dashboard } from './dashboard.interface'
 import shortid from 'shortid'
+import { APP, ADMIN_MAIL, ADMIN_PASSWORD } from '../../config'
 
 export class DashboardService {
   private repo: Repository<DashboardEntity>
@@ -75,5 +77,27 @@ export class DashboardService {
     dashboard = await dashboard.remove()
     delete dashboard.id
     return dashboard
+  }
+
+  public async capture(id: string): Promise<void> {
+    const browser = await puppeteer.launch({ headless: true })
+    const page = await browser.newPage()
+    await page.setViewport({
+      width: 1280,
+      height: 720,
+      deviceScaleFactor: 1,
+    })
+
+    await page.goto(`${APP.ORIGIN}/login`)
+    await page.type('#inputEmail', ADMIN_MAIL)
+    await page.type('#inputPassword', ADMIN_PASSWORD)
+    await page.click('#submitLogin')
+    await page.waitForNavigation()
+    await page.goto(`${APP.ORIGIN}/dashboards/${id}?fullscreen`)
+    await page.waitFor(500)
+    await page.screenshot({
+      path: `${__dirname}/screenshot.png`,
+    })
+    await browser.close()
   }
 }
