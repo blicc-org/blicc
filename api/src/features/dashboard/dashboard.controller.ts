@@ -78,7 +78,6 @@ export class DashboardController {
 
   public async update(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-
     const { id } = ctx.params
     const dashboard = await this.dashboardService.select(id)
 
@@ -90,14 +89,13 @@ export class DashboardController {
       ) {
         ctx.body = await this.dashboardService.update(ctx.request.body)
         ctx.status = statusCode.OK
+        this.dashboardService.capture(id)
         return
       }
       ctx.status = statusCode.BAD_REQUEST
       return
     }
     ctx.status = statusCode.FORBIDDEN
-
-    this.dashboardService.capture(id)
   }
 
   public async delete(ctx: Koa.DefaultContext, next: Function): Promise<void> {
