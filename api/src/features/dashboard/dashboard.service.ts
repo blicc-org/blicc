@@ -83,7 +83,7 @@ export class DashboardService {
   public capture(id: string): void {
     const imgPath = `${__dirname}/thumbnails/${id}.png`
     // wrapped to force no blocking when called in controller
-    ;(async () => {
+    ;(async ():Promise<void> => {
       Logger.info(`Capturing dashboard ${id} and storing it to ${imgPath}`)
       const browser = await puppeteer.launch({ headless: true })
       const page = await browser.newPage()
