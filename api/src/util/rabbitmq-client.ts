@@ -1,6 +1,6 @@
 import amqplib from 'amqplib'
 
-export class RabbitMQClient {
+class RabbitMQ {
   public constructor() {
     const q = 'tasks'
 
@@ -36,3 +36,5 @@ export class RabbitMQClient {
       .catch(console.warn)
   }
 }
+
+export const RabbitMQClient = new RabbitMQ()

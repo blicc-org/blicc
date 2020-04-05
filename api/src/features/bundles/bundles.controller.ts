@@ -6,7 +6,7 @@ export class BundleController {
   public async set(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     const { slug } = ctx.params
-    RedisClient.getInstance().set(slug, ctx.request.body)
+    RedisClient.set(slug, ctx.request.body)
     ctx.status = statusCode.OK
   }
 
@@ -15,6 +15,6 @@ export class BundleController {
     const { slug } = ctx.params
     ctx.set('Content-Type', 'application/javascript')
     ctx.status = statusCode.OK
-    ctx.body = await RedisClient.getInstance().get(slug)
+    ctx.body = await RedisClient.get(slug)
   }
 }
