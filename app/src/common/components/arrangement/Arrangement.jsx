@@ -15,7 +15,7 @@ import { Box } from './Box'
 import { DRAG } from '../../context'
 import './Arrangement.scss'
 
-export function Arrangement({ edit }) {
+export function Arrangement({ edit, fullscreen }) {
   const isMobile = useMobile()
   const isInstalled = useInstalled()
   const [arr, insertArr] = useArrangement()
@@ -26,13 +26,25 @@ export function Arrangement({ edit }) {
   const [action, setAction] = useState(0)
   const [, publishById] = usePublisher()
 
-  const style = isMobile
+  let arrangementStyle = isMobile
     ? {}
     : {
         overflow: 'auto',
         width: '100%',
         height: '100%',
       }
+
+  let captureStyle = fullscreen
+    ? {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 2000,
+        backgroundColor: 'white',
+      }
+    : {}
 
   const [showDataSourceModal, hideDataSourceModal] = useModal(() => {
     return (
@@ -83,13 +95,14 @@ export function Arrangement({ edit }) {
   return useMemo(() => {
     return (
       <>
-        <div className="col px-0" onDragOver={(evt) => evt.preventDefault()}>
+        <div
+          id="capture-dashboard"
+          className="col px-0"
+          onDragOver={(evt) => evt.preventDefault()}
+          style={captureStyle}
+        >
           {arr.items || arr.id ? (
-            <div
-              id="capture-dashboard"
-              className="arrangement-border"
-              style={style}
-            >
+            <div className="arrangement-border" style={arrangementStyle}>
               <Box arr={arr} onDrop={onDrop} edit={edit} isMobile={isMobile} />
             </div>
           ) : (

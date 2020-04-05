@@ -24,6 +24,7 @@ import './DashboardView.scss'
 
 export function DashboardView({ match, location }) {
   const content = useLanguage()
+  const fullscreen = location.search === '?fullscreen'
   const [arrangement, setArrangement] = useContext(ArrangementContext)
   const [settings, setSettings] = useContext(SettingsContext)
   const [title, setTitle] = useState('')
@@ -129,7 +130,9 @@ export function DashboardView({ match, location }) {
         {currentTab === tabs[0] ? (
           <>
             {edit && <Toolbox />}
-            {dashboard.data && <Arrangement edit={edit} />}
+            {dashboard.data && (
+              <Arrangement edit={edit} fullscreen={fullscreen} />
+            )}
           </>
         ) : (
           <DashboardDetails
