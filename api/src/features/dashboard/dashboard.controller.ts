@@ -27,7 +27,7 @@ export class DashboardController {
     await next()
     const { id } = ctx.params
     const dashboard = await this.dashboardService.select(id)
-    if (dashboard && ctx.state.jwt.userId === dashboard.userId) {
+    if (dashboard && (ctx.state.jwt.userId === dashboard.userId) || ctx.state.jwt.role === 'admin') {
       ctx.body = dashboard
       ctx.status = statusCode.OK
       return
