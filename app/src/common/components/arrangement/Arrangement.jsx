@@ -85,7 +85,11 @@ export function Arrangement({ edit }) {
       <>
         <div className="col px-0" onDragOver={(evt) => evt.preventDefault()}>
           {arr.items || arr.id ? (
-            <div id="capture-dashboard" className="arrangement-border" style={style}>
+            <div
+              id="capture-dashboard"
+              className="arrangement-border"
+              style={style}
+            >
               <Box arr={arr} onDrop={onDrop} edit={edit} isMobile={isMobile} />
             </div>
           ) : (
