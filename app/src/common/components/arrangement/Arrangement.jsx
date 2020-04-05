@@ -96,7 +96,6 @@ export function Arrangement({ edit, fullscreen }) {
     return (
       <>
         <div
-          id="capture-dashboard"
           className="col px-0"
           onDragOver={(evt) => evt.preventDefault()}
           style={captureStyle}
