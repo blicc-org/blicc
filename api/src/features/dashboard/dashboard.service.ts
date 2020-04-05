@@ -4,6 +4,7 @@ import { DashboardEntity } from './dashboard.entity'
 import { Dashboard } from './dashboard.interface'
 import shortid from 'shortid'
 import { APP, ADMIN_MAIL, ADMIN_PASSWORD } from '../../config'
+import { Logger } from '../../util/logger'
 
 export class DashboardService {
   private repo: Repository<DashboardEntity>
@@ -80,8 +81,10 @@ export class DashboardService {
   }
 
   public capture(id: string): void {
+    const imgPath = `${__dirname}/thumbnails/${id}.png`
     // wrapped to force no blocking when called in controller
     ;(async () => {
+      Logger.info(`Capturing dashboard ${id} and storing it to ${imgPath}`)
       const browser = await puppeteer.launch({ headless: true })
       const page = await browser.newPage()
       await page.setViewport({
@@ -98,7 +101,7 @@ export class DashboardService {
       await page.goto(`${APP.ORIGIN}/dashboards/${id}?fullscreen`)
       await page.waitFor(500)
       await page.screenshot({
-        path: `${__dirname}/screenshot.png`,
+        path: imgPath,
       })
       await browser.close()
     })()
