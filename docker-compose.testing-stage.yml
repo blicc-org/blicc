@@ -70,6 +70,9 @@ services:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
     depends_on:
       - db
+      - rabbitmq
+      - storage
+      - redis
     environment:
       - POSTGRES_USERNAME=${POSTGRES_USERNAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -91,6 +94,7 @@ services:
     volumes:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
     depends_on:
+      - redis
       - mongo
       - mock-api
     environment:

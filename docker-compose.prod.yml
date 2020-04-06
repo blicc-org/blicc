@@ -154,6 +154,8 @@ services:
     depends_on:
       - db
       - redis
+      - rabbitmq
+      - storage
     environment:
       - POSTGRES_USERNAME=${POSTGRES_USERNAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -190,6 +192,7 @@ services:
     volumes:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
     depends_on:
+      - redis
       - mongo
       - mock-api
     environment:
@@ -268,3 +271,31 @@ services:
         - traefik.http.routers.mock-api.rule=Host(`mock.blicc.org`)
         - traefik.http.routers.mock-api.tls.certresolver=secure
         - traefik.http.services.mock-api.loadbalancer.server.port=80
+  storage:
+    image: registry.thiloilg.com/root/blicc/storage:latest
+    hostname: storage
+    volumes:
+      - /srv/storage-data:/data
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.storage.rule=Host(`storage.blicc.org`)
+        - traefik.http.routers.storage.tls.certresolver=secure
+        - traefik.http.services.storage.loadbalancer.server.port=9000
