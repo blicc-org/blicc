@@ -24,16 +24,22 @@ class Minio {
   ): void {
     this.client.bucketExists(bucket, (err, exists) => {
       if (err) return console.log(err)
-      if (!exists) {
+      if (exists) {
+        this.client.putObject(bucket, name, imgBuffer, (err) => {
+          if (err) return console.log(err)
+          console.log(`File ${name} uploaded successfully.`)
+        })
+      } else {
         this.client.makeBucket(bucket, region, (err) => {
           if (err) return console.log(err)
           console.log(`Bucket created successfully in ${region}.`)
+
+          this.client.putObject(bucket, name, imgBuffer, (err) => {
+            if (err) return console.log(err)
+            console.log(`File ${name} uploaded successfully.`)
+          })
         })
       }
-    })
-    this.client.putObject(bucket, name, imgBuffer, (err) => {
-      if (err) return console.log(err)
-      console.log(`File ${name} uploaded successfully.`)
     })
   }
 
