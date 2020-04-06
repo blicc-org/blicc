@@ -31,7 +31,7 @@
     },
     {
       "icon": "package",
-      "extensions": ["package", "packages", "pkg"],
+      "extensions": ["package", "packages", "pkg", "storage"],
       "format": "FileFormat.svg",
       "disabled": false
     },

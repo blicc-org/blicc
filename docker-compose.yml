@@ -94,3 +94,12 @@ services:
       - ./mock-api/src:/root/src
     ports:
       - 9090:9090
+  storage:
+    build:
+      context: ./storage
+      args:
+        MINIO_USERNAME: ${MINIO_USERNAME}
+        MINIO_PASSWORD: ${MINIO_PASSWORD}
+    restart: always
+    ports:
+      - '9000:9000'
