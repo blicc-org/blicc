@@ -112,3 +112,12 @@ services:
       - traefik.enable=true
       - traefik.http.routers.mock-api.rule=Host(`mock.testing-stage.org`)
       - traefik.http.routers.mock-api.tls.certresolver=secure
+  storage:
+    image: registry.thiloilg.com/root/blicc/storage:test
+    hostname: storage
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.storage.rule=Host(`storage.testing-stage.org`)
+      - traefik.http.routers.storage.tls.certresolver=secure
+      - traefik.http.services.storage.loadbalancer.server.port=9000

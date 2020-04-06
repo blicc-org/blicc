@@ -39,6 +39,7 @@ services:
       - db
       - redis
       - rabbitmq
+      - storage
     environment:
       - POSTGRES_USERNAME=${POSTGRES_USERNAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -102,4 +103,4 @@ services:
         MINIO_PASSWORD: ${MINIO_PASSWORD}
     restart: always
     ports:
-      - '9000:9000'
+      - 9000:9000

@@ -53,6 +53,10 @@ build:
       --build-arg RABBITMQ_USERNAME=$RABBITMQ_USERNAME
       --build-arg RABBITMQ_PASSWORD=$RABBITMQ_PASSWORD
       -t rabbitmq ./rabbitmq
+    - docker build
+      --build-arg MINIO_USERNAME=$MINIO_USERNAME
+      --build-arg MINIO_PASSWORD=$MINIO_PASSWORD
+      -t storage ./storage
 
     - docker tag app $REGISTRY/app:test
     - docker tag api $REGISTRY/api:test
@@ -62,6 +66,7 @@ build:
     - docker tag mock-api $REGISTRY/mock-api:test
     - docker tag delivery $REGISTRY/delivery:test
     - docker tag rabbitmq $REGISTRY/rabbitmq:test
+    - docker tag storage $REGISTRY/storage:test
 
     - docker tag app $REGISTRY/app:latest
     - docker tag api $REGISTRY/api:latest
@@ -71,6 +76,7 @@ build:
     - docker tag mock-api $REGISTRY/mock-api:latest
     - docker tag delivery $REGISTRY/delivery:latest
     - docker tag rabbitmq $REGISTRY/rabbitmq:latest
+    - docker tag storage $REGISTRY/storage:latest
 
     - docker push $REGISTRY/app:test
     - docker push $REGISTRY/api:test
@@ -80,6 +86,7 @@ build:
     - docker push $REGISTRY/mock-api:test
     - docker push $REGISTRY/delivery:test
     - docker push $REGISTRY/rabbitmq:test
+    - docker push $REGISTRY/storage:test
 
 test-preparation:
   stage: test-preparation
@@ -105,6 +112,8 @@ test-preparation:
       RABBITMQ_COOKIE=$RABBITMQ_COOKIE
       RABBITMQ_USERNAME=$RABBITMQ_USERNAME
       RABBITMQ_PASSWORD=$RABBITMQ_PASSWORD
+      MINIO_USERNAME=$MINIO_USERNAME
+      MINIO_PASSWORD=$MINIO_PASSWORD
       CI_REGISTRY=$CI_REGISTRY
       CI_REGISTRY_USER=$CI_REGISTRY_USER
       CI_REGISTRY_PASSWORD=$CI_REGISTRY_PASSWORD
