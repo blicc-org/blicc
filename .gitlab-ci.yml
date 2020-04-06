@@ -164,6 +164,7 @@ deploy:
     - docker push $REGISTRY/mock-api:latest
     - docker push $REGISTRY/delivery:latest
     - docker push $REGISTRY/rabbitmq:latest
+    - docker push $REGISTRY/storage:latest
     - scp -r ./docker-compose.prod.yml root@$PROD_IP:/root/docker-compose.yml
     - openssl genrsa -out rsa.pem 2048
     - openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem
