@@ -5,6 +5,7 @@ import { Dashboard } from './dashboard.interface'
 import shortid from 'shortid'
 import { APP, ADMIN_MAIL, ADMIN_PASSWORD } from '../../config'
 import { Logger } from '../../util/logger'
+import { MinioClient } from '../../util/minio-client'
 
 export class DashboardService {
   private repo: Repository<DashboardEntity>
@@ -81,11 +82,15 @@ export class DashboardService {
   }
 
   public capture(id: string): void {
-    const imgPath = `${__dirname}/thumbnails/${id}.png`
+    const imgName = `${id}.png`
     // wrapped to force no blocking when called in controller
     ;(async (): Promise<void> => {
-      Logger.info(`Capturing dashboard ${id} and storing it to ${imgPath}`)
-      const browser = await puppeteer.launch({ headless: true })
+      Logger.info(`Capturing thumbnail (${imgName})`)
+      const browser = await puppeteer.launch({
+        headless: true,
+        executablePath: '/usr/bin/google-chrome-unstable',
+        args: ['--no-sandbox'],
+      })
       const page = await browser.newPage()
       await page.setViewport({
         width: 1280,
@@ -93,16 +98,17 @@ export class DashboardService {
         deviceScaleFactor: 1,
       })
 
-      await page.goto(`${APP.ORIGIN}/login`)
+      await page.goto(`https:blicc.org/login`)
       await page.type('#inputEmail', ADMIN_MAIL)
       await page.type('#inputPassword', ADMIN_PASSWORD)
       await page.click('#submitLogin')
       await page.waitForNavigation()
       await page.goto(`${APP.ORIGIN}/dashboards/${id}?fullscreen`)
       await page.waitFor(500)
-      await page.screenshot({
-        path: imgPath,
+      const buf: Buffer = await page.screenshot({
+        encoding: 'binary',
       })
+      MinioClient.store('dashboard-thumbnails', 'de-east-1', imgName, buf)
       await browser.close()
     })()
   }
