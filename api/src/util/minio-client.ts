@@ -38,7 +38,7 @@ class Minio {
   }
 
   public async load(bucket: string, name: string): Promise<Buffer> {
-    let chunks: any = []
+    const chunks: any = []
     const stream = await this.client.getObject(bucket, name)
 
     stream.on('data', (chunk) => {
