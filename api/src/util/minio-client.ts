@@ -1,4 +1,4 @@
-import minio, { Client } from 'minio'
+import { Client } from 'minio'
 
 class Minio {
   private client: Client
