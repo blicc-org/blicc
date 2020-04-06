@@ -4,6 +4,7 @@ services:
   traefik:
     image: traefik:v2.2
     hostname: traefik
+    restart: always
     ports:
       - 80:80
       - 443:443
@@ -67,6 +68,7 @@ services:
   db:
     image: registry.thiloilg.com/root/blicc/db:latest
     hostname: db
+    restart: always
     volumes:
       - /srv/postgres-data:/var/lib/postgresql/data
     deploy:
@@ -90,6 +92,7 @@ services:
   redis:
     image: registry.thiloilg.com/root/blicc/redis:latest
     hostname: redis
+    restart: always
     volumes:
       - /srv/redis-data:/data
     deploy:
@@ -102,6 +105,7 @@ services:
   mongo:
     image: registry.thiloilg.com/root/blicc/mongo:latest
     hostname: mongo
+    restart: always
     volumes:
       - /srv/mongo-data:/data/db
     deploy:
@@ -125,6 +129,7 @@ services:
   rabbitmq:
     image: registry.thiloilg.com/root/blicc/rabbitmq:latest
     hostname: rabbitmq
+    restart: always
     deploy:
       replicas: 1
       update_config:
@@ -151,6 +156,7 @@ services:
   api:
     image: registry.thiloilg.com/root/blicc/api:latest
     hostname: api
+    restart: always
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
@@ -192,6 +198,7 @@ services:
   delivery:
     image: registry.thiloilg.com/root/blicc/delivery:latest
     hostname: delivery
+    restart: always
     volumes:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
     depends_on:
@@ -228,6 +235,7 @@ services:
   app:
     image: registry.thiloilg.com/root/blicc/app:latest
     hostname: app
+    restart: always
     depends_on:
       - api
       - delivery
@@ -254,6 +262,7 @@ services:
   mock-api:
     image: registry.thiloilg.com/root/blicc/mock-api:latest
     hostname: mock_api
+    restart: always
     deploy:
       replicas: 1
       update_config:
@@ -277,6 +286,7 @@ services:
   storage:
     image: registry.thiloilg.com/root/blicc/storage:latest
     hostname: storage
+    restart: always
     volumes:
       - /srv/storage-data:/data
     deploy:
