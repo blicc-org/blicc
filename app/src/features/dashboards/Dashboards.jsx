@@ -5,7 +5,13 @@ import { useApiEndpoint } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useModal, useLanguage } from '../../common/hooks'
 import { CreateDashboardModal } from './CreateDashboardModal'
-import { Item, Pagination, Empty, Loading } from '../../common/components/ui'
+import {
+  ItemThumbnail,
+  Pagination,
+  Empty,
+  Loading,
+} from '../../common/components/ui'
+import { API } from '../../config'
 import './Dashboards.scss'
 
 export const INITIAL_DASHBOARD = {
@@ -103,8 +109,9 @@ export function Dashboards() {
                 <table className="table">
                   <tbody>
                     {result.dashboards.map((d) => (
-                      <Item
+                      <ItemThumbnail
                         key={d.id}
+                        thumbnail={`${API.ORIGIN}/thumbnails/${d.id}.png`}
                         title={d.title}
                         subtitle={d.creationDate.split('T')[0]}
                         description={d.description}
