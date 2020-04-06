@@ -8,7 +8,7 @@
     "cross-env": "^7.0.2",
     "eslint-plugin-security": "^1.4.0",
     "husky": "^4.2.3",
-    "prettier": "^2.0.2"
+    "prettier": "^2.0.4"
   },
   "scripts": {
     "start": "docker-compose up -d --build && for ((;;)); do curl -s http://localhost > /dev/null && break; sleep 1; done && yarn --cwd 'plugins' deploy",
