@@ -4,12 +4,15 @@ class Minio {
   private client: Client
 
   public constructor() {
+    const accessKey = process.env.MINIO_USERNAME || ''
+    const secretKey = process.env.MINIO_PASSWORD || ''
+
     this.client = new Client({
       endPoint: 'storage',
       port: 9000,
       useSSL: false,
-      accessKey: 'api',
-      secretKey: 'password',
+      accessKey,
+      secretKey,
     })
   }
 
