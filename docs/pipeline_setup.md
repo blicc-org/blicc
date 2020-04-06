@@ -24,6 +24,10 @@ Set the following environment variables in the gitlab CI/CD settings. Depending 
     RABBITMQ_USERNAME=admin
     RABBITMQ_PASSWORD=test
 
+### MinIO
+    MINIO_USERNAME=api
+    MINIO_PASSWORD=password
+
 ### Traefik
     TRAEFIK_PASSWORD=admin:pwhash
 
