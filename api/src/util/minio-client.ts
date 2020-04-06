@@ -36,6 +36,20 @@ class Minio {
       console.log(`File ${name} uploaded successfully.`)
     })
   }
+
+  public async load(bucket: string, name: string): Promise<Buffer> {
+    let chunks: any = []
+    const stream = await this.client.getObject(bucket, name)
+
+    stream.on('data', (chunk) => {
+      chunks.push(chunk)
+    })
+
+    return new Promise((resolve, reject) => {
+      stream.on('end', () => resolve(Buffer.concat(chunks)))
+      stream.on('error', () => reject())
+    })
+  }
 }
 
 export const MinioClient = new Minio()

@@ -22,6 +22,12 @@ export class ApiDocsRouter {
       handler: this.controller.swagger.bind(this.controller),
     })
 
+    this.router.route({
+      method: 'get',
+      path: '/thumbnails/:imageName',
+      handler: this.controller.thumbnails.bind(this.controller),
+    })
+
     return this.router.middleware()
   }
 }
