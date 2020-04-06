@@ -25,8 +25,6 @@ services:
       - --providers.docker.swarmMode=true
       - --providers.docker.exposedByDefault=false
       - --providers.docker.endpoint=unix:///var/run/docker.sock
-    healthcheck:
-      test: CMD traefik healthcheck
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/acme.json:/root/acme.json

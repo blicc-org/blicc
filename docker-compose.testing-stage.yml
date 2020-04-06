@@ -26,8 +26,6 @@ services:
       - --certificatesresolvers.secure.acme.httpchallenge.entrypoint=web
       - --certificatesresolvers.secure.acme.email=${MAIL_ADDRESS}
       - --certificatesresolvers.secure.acme.storage=/root/acme.json
-    healthcheck:
-      test: CMD traefik healthcheck
     labels:
       - traefik.enable=true
       # dashboard
