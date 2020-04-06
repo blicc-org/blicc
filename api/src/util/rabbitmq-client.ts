@@ -4,7 +4,7 @@ class RabbitMQ {
   public constructor() {
     const q = 'tasks'
 
-    const open = amqplib.connect('amqp://admin:test@rabbitmq:5672')
+    const open = amqplib.connect('amqp://admin:password@rabbitmq:5672')
 
     // Publisher
     open
