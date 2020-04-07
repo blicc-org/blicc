@@ -1,6 +1,5 @@
 import Koa from 'koa'
 import { ApiDocsService } from './api-docs.service'
-import { MinioClient } from '../../util/minio-client'
 
 export class ApiDocsController {
   private apiDocsService: ApiDocsService
