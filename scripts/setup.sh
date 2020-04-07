@@ -12,4 +12,3 @@ mkdir redis-data postgres-data mongo-data prometheus-data rabbitmq-data storage-
 
 # login to docker registry
 docker login registry.example.com
-
