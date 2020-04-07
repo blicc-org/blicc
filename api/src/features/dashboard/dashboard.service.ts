@@ -112,7 +112,7 @@ export class DashboardService {
       let buf: Buffer = await page.screenshot({
         encoding: 'binary',
         type: 'jpeg',
-        quality: 100,
+        quality: 25,
       })
 
       Logger.info(`Store thumbnail 1280x720/${imgName}`)
@@ -120,7 +120,7 @@ export class DashboardService {
 
       buf = await sharp(buf)
         .resize(640, 360)
-        .jpeg({ quality: 100, force: false })
+        .jpeg({ quality: 25, force: false })
         .toBuffer()
 
       Logger.info(`Store thumbnail 640x360/${imgName}`)
