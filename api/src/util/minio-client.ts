@@ -17,33 +17,33 @@ class Minio {
   public store(
     bucket: string,
     region: string,
-    name: string,
+    imgPath: string,
     imgBuffer: Buffer
   ): void {
     this.client.bucketExists(bucket, (err, exists) => {
       if (err) return console.log(err)
       if (exists) {
-        this.client.putObject(bucket, name, imgBuffer, (err) => {
+        this.client.putObject(bucket, imgPath, imgBuffer, (err) => {
           if (err) return console.log(err)
-          console.log(`File ${name} uploaded successfully.`)
+          console.log(`File ${imgPath} uploaded successfully.`)
         })
       } else {
         this.client.makeBucket(bucket, region, (err) => {
           if (err) return console.log(err)
           console.log(`Bucket created successfully in ${region}.`)
 
-          this.client.putObject(bucket, name, imgBuffer, (err) => {
+          this.client.putObject(bucket, imgPath, imgBuffer, (err) => {
             if (err) return console.log(err)
-            console.log(`File ${name} uploaded successfully.`)
+            console.log(`File ${imgPath} uploaded successfully.`)
           })
         })
       }
     })
   }
 
-  public async load(bucket: string, name: string): Promise<Buffer> {
+  public async load(bucket: string, imgPath: string): Promise<Buffer> {
     const chunks: Uint8Array[] = []
-    const stream = await this.client.getObject(bucket, name)
+    const stream = await this.client.getObject(bucket, imgPath)
 
     stream.on('data', (chunk) => {
       chunks.push(chunk)

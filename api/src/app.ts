@@ -11,6 +11,7 @@ import { HealthCheckRouter } from './features/health-check'
 import { ChartRouter } from './features/chart'
 import { BundleRouter } from './features/bundles'
 import { DataSourceRouter } from './features/data-source'
+import { ThumbnailRouter } from './features/thumbnail'
 import { RefreshRouter } from './features/refresh'
 import { Logger } from './util/logger'
 
@@ -23,6 +24,7 @@ export class App extends Koa {
     this.use(cors({ credentials: true }))
     this.use(serve(`${__dirname}/../public`))
     this.use(new ApiDocsRouter('/').routes())
+    this.use(new ThumbnailRouter('/').routes())
     this.use(new UserRouter('/users').routes())
     this.use(new ChartRouter('/charts').routes())
     this.use(new TokenRouter('/tokens').routes())

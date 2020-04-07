@@ -83,10 +83,12 @@ export class DashboardService {
   }
 
   public capture(id: string): void {
-    const imgName = `${id}-640x360.jpg`
+    const bucket = 'dashboard-thumbnails'
+    const region = 'de-east-1'
+    const imgName = `${id}.jpg`
+
     // wrapped to force no blocking when called in controller
     ;(async (): Promise<void> => {
-      Logger.info(`Capturing thumbnail (${imgName})`)
       const browser = await puppeteer.launch({
         headless: true,
         executablePath: '/usr/bin/google-chrome-unstable',
@@ -106,15 +108,24 @@ export class DashboardService {
       await page.waitForNavigation()
       await page.goto(`${APP.ORIGIN}/dashboards/${id}?fullscreen`)
       await page.waitFor(500)
+
       let buf: Buffer = await page.screenshot({
         encoding: 'binary',
-        type: 'png',
+        type: 'jpeg',
+        quality: 100,
       })
+
+      Logger.info(`Store thumbnail 1280x720/${imgName}`)
+      MinioClient.store(bucket, region, `1280x720/${imgName}`, buf)
+
       buf = await sharp(buf)
         .resize(640, 360)
-        .jpeg({ quality: 25, force: false })
+        .jpeg({ quality: 100, force: false })
         .toBuffer()
-      MinioClient.store('dashboard-thumbnails', 'de-east-1', imgName, buf)
+
+      Logger.info(`Store thumbnail 640x360/${imgName}`)
+      MinioClient.store(bucket, region, `640x360/${imgName}`, buf)
+
       await browser.close()
     })()
   }
