@@ -106,7 +106,7 @@ export function Dashboards() {
                     {result.dashboards.map((d) => (
                       <Item
                         key={d.id}
-                        thumbnail={`${API.ORIGIN}/thumbnails/${d.id}.png`}
+                        thumbnail={`${API.ORIGIN}/thumbnails/${d.id}-640x360.jpg`}
                         title={d.title}
                         subtitle={d.creationDate.split('T')[0]}
                         description={d.description}

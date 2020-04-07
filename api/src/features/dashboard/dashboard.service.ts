@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer'
+import sharp from 'sharp'
 import { Repository, getRepository } from 'typeorm'
 import { DashboardEntity } from './dashboard.entity'
 import { Dashboard } from './dashboard.interface'
@@ -82,7 +83,7 @@ export class DashboardService {
   }
 
   public capture(id: string): void {
-    const imgName = `${id}.png`
+    const imgName = `${id}-640x360.jpg`
     // wrapped to force no blocking when called in controller
     ;(async (): Promise<void> => {
       Logger.info(`Capturing thumbnail (${imgName})`)
@@ -105,9 +106,14 @@ export class DashboardService {
       await page.waitForNavigation()
       await page.goto(`${APP.ORIGIN}/dashboards/${id}?fullscreen`)
       await page.waitFor(500)
-      const buf: Buffer = await page.screenshot({
+      let buf: Buffer = await page.screenshot({
         encoding: 'binary',
+        type: 'png',
       })
+      buf = await sharp(buf)
+        .resize(640, 360)
+        .jpeg({ quality: 25, force: false })
+        .toBuffer()
       MinioClient.store('dashboard-thumbnails', 'de-east-1', imgName, buf)
       await browser.close()
     })()
