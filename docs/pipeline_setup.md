@@ -52,4 +52,4 @@ Set the following environment variables in the gitlab CI/CD settings. Depending 
     APP_ORIGIN=https://example.com
     DELIVERY_TEST_TARGET_WEBSOCKET=wss://delivery.testing-stage.org
     DELIVERY_TEST_TARGET=https://delivery.testing-stage.org
-    MOCK_TEST_TARGET=http://mock.testing-stage.org
+    MOCK_TEST_TARGET=https://mock.testing-stage.org
