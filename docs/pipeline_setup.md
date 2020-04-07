@@ -48,7 +48,7 @@ Set the following environment variables in the gitlab CI/CD settings. Depending 
     SSH_PRIVATE_KEY=ssh_private_key_string
 
 ### URLs
-    API_TEST_TARGET=https://api.testing-stage.org/
+    API_TEST_TARGET=https://api.testing-stage.org
     APP_ORIGIN=https://example.com
     DELIVERY_TEST_TARGET_WEBSOCKET=wss://delivery.testing-stage.org
     DELIVERY_TEST_TARGET=https://delivery.testing-stage.org
