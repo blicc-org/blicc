@@ -39,7 +39,7 @@ export class ThumbnailRouter {
      *         name: resolution
      *         schema:
      *           type: string
-     *         description: Set one of the two provided resolutions 640x360 and 1280x720 like 2Dc41Hqd.jpg?resolution=1280x720.
+     *         description: Set one of the two provided resolutions 640x360 and 1280x720 like 2Dc41Hqd.jpg?resolution=1280x720. The 640x360 resolution is default.
      *     summary: Get dashboard thumbnails
      *     description: Get a thumbnail of a given dashboard id as a jpeg name.
      *     responses:
