@@ -44,7 +44,7 @@ class Minio {
   }
 
   public async load(bucket: string, name: string): Promise<Buffer> {
-    const chunks: any = []
+    const chunks: Uint8Array[] = []
     const stream = await this.client.getObject(bucket, name)
 
     stream.on('data', (chunk) => {
