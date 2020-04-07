@@ -12,11 +12,11 @@ Set the following environment variables in the gitlab CI/CD settings. Depending 
     PROD_IP_2=0.0.0.0
 
 ### PostgreSQL
-    POSTGRES_USERNAME=api
+    POSTGRES_USERNAME=admin
     POSTGRES_PASSWORD=test
 
 ### MongoDB
-    MONGODB_USERNAME=api
+    MONGODB_USERNAME=admin
     MONGODB_PASSWORD=test
 
 ### RabbitMQ
@@ -25,7 +25,7 @@ Set the following environment variables in the gitlab CI/CD settings. Depending 
     RABBITMQ_PASSWORD=test
 
 ### MinIO
-    MINIO_USERNAME=api
+    MINIO_USERNAME=admin
     MINIO_PASSWORD=password
 
 ### Traefik
