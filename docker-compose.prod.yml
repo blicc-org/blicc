@@ -302,3 +302,4 @@ services:
         - traefik.http.routers.storage.rule=Host(`storage.blicc.org`)
         - traefik.http.routers.storage.tls.certresolver=secure
         - traefik.http.services.storage.loadbalancer.server.port=9000
+
