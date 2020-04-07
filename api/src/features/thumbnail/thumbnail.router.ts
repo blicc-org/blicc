@@ -65,7 +65,6 @@ export class ThumbnailRouter {
         PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
       ],
       validate: {
-        type: 'json',
         output: {
           200: {
             body: Joi.binary(),
