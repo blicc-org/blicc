@@ -18,6 +18,12 @@ export const MAIL_HOST = process.env.MAIL_HOST
 
 export const CERTS = `${__dirname}/../certs`
 
-export const API_TEST_TARGET = process.env.API_TEST_TARGET
+export const API_TEST_TARGET = process.env.API_TEST_TARGET || ''
 export const ADMIN_MAIL = process.env.ADMIN_MAIL || ''
 export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || ''
+
+export const MINIO_USERNAME = process.env.MINIO_USERNAME || ''
+export const MINIO_PASSWORD = process.env.MINIO_PASSWORD || ''
+
+export const RABBITMQ_USERNAME = process.env.RABBITMQ_USERNAME || ''
+export const RABBITMQ_PASSWORD = process.env.RABBITMQ_PASSWORD || ''

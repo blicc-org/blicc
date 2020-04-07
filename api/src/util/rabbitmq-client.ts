@@ -1,13 +1,12 @@
 import amqplib from 'amqplib'
+import { RABBITMQ_USERNAME, RABBITMQ_PASSWORD } from '../config'
 
 class RabbitMQ {
   public constructor() {
     const q = 'tasks'
-
-    const username = process.env.RABBITMQ_USERNAME
-    const password = process.env.RABBITMQ_PASSWORD
-
-    const open = amqplib.connect(`amqp://${username}:${password}@rabbitmq:5672`)
+    const open = amqplib.connect(
+      `amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672`
+    )
 
     // Publisher
     open

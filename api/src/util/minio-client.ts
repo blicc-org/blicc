@@ -1,18 +1,16 @@
 import { Client } from 'minio'
+import { MINIO_USERNAME, MINIO_PASSWORD } from '../config'
 
 class Minio {
   private client: Client
 
   public constructor() {
-    const accessKey = process.env.MINIO_USERNAME || ''
-    const secretKey = process.env.MINIO_PASSWORD || ''
-
     this.client = new Client({
       endPoint: 'storage',
       port: 9000,
       useSSL: false,
-      accessKey,
-      secretKey,
+      accessKey: MINIO_USERNAME,
+      secretKey: MINIO_PASSWORD,
     })
   }
 
