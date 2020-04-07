@@ -86,6 +86,7 @@ export class DashboardService {
     const bucket = 'dashboard-thumbnails'
     const region = 'de-east-1'
     const imgName = `${id}.jpg`
+    const quality = 50
 
     // wrapped to force no blocking when called in controller
     ;(async (): Promise<void> => {
@@ -112,7 +113,7 @@ export class DashboardService {
       let buf: Buffer = await page.screenshot({
         encoding: 'binary',
         type: 'jpeg',
-        quality: 25,
+        quality,
       })
 
       Logger.info(`Store thumbnail 1280x720/${imgName}`)
@@ -120,7 +121,7 @@ export class DashboardService {
 
       buf = await sharp(buf)
         .resize(640, 360)
-        .jpeg({ quality: 25, force: false })
+        .jpeg({ quality, force: false })
         .toBuffer()
 
       Logger.info(`Store thumbnail 640x360/${imgName}`)
