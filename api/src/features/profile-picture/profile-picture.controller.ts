@@ -18,6 +18,7 @@ export class ProfilePictureController {
     const imgPath = `${resolution}/${imgName}`
     ctx.set('Content-Type', 'image/jpeg')
     ctx.body = await MinioClient.load('profile-pictures', imgPath)
+    ctx.status = statusCode.OK
   }
 
   public async set(ctx: Koa.DefaultContext, next: Function): Promise<void> {
@@ -44,6 +45,11 @@ export class ProfilePictureController {
       Logger.info(`File deleted ${path}`)
     })
 
+    ctx.status = statusCode.OK
+  }
+
+  public async remove(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+    await next()
     ctx.status = statusCode.OK
   }
 }

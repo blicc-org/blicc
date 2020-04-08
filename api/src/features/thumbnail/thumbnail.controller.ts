@@ -16,5 +16,6 @@ export class ThumbnailController {
     const imgPath = `${resolution}/${imgName}`
     ctx.set('Content-Type', 'image/jpeg')
     ctx.body = await MinioClient.load('dashboard-thumbnails', imgPath)
+    ctx.status = statusCode.OK
   }
 }

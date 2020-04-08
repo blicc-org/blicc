@@ -42,6 +42,16 @@ export class ProfilePictureRouter {
       handler: this.controller.set.bind(this.controller),
     })
 
+    this.router.route({
+      method: 'delete',
+      path: '/:userId',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
+      ],
+      handler: this.controller.remove.bind(this.controller),
+    })
+
     return this.router.middleware()
   }
 }
