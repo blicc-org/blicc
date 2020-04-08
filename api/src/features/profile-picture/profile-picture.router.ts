@@ -22,14 +22,24 @@ export class ProfilePictureRouter {
     this.router.prefix(this.prefix)
 
     this.router.route({
-      method: 'put',
-      path: '/:userId',
+      method: 'get',
+      path: '/:imgName',
       pre: [
         AuthMiddleware.handle,
         PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
-        FormParserMiddleware.handle,
       ],
       handler: this.controller.serve.bind(this.controller),
+    })
+
+    this.router.route({
+      method: 'put',
+      path: '/:userId',
+      pre: [
+        FormParserMiddleware.handle,
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
+      ],
+      handler: this.controller.set.bind(this.controller),
     })
 
     return this.router.middleware()

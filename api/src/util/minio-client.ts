@@ -1,4 +1,5 @@
 import { Client } from 'minio'
+import { Logger } from './logger'
 import { MINIO_USERNAME, MINIO_PASSWORD } from '../config'
 
 class Minio {
@@ -21,20 +22,20 @@ class Minio {
     imgBuffer: Buffer
   ): void {
     this.client.bucketExists(bucket, (err, exists) => {
-      if (err) return console.log(err)
+      if (err) return Logger.error(err.toString())
       if (exists) {
         this.client.putObject(bucket, imgPath, imgBuffer, (err) => {
-          if (err) return console.log(err)
-          console.log(`File ${imgPath} uploaded successfully.`)
+          if (err) return Logger.error(err.toString())
+          Logger.info(`File ${imgPath} uploaded successfully.`)
         })
       } else {
         this.client.makeBucket(bucket, region, (err) => {
-          if (err) return console.log(err)
-          console.log(`Bucket created successfully in ${region}.`)
+          if (err) return Logger.error(err.toString())
+          Logger.info(`Bucket created successfully in ${region}.`)
 
           this.client.putObject(bucket, imgPath, imgBuffer, (err) => {
-            if (err) return console.log(err)
-            console.log(`File ${imgPath} uploaded successfully.`)
+            if (err) return Logger.error(err.toString())
+            Logger.info(`File ${imgPath} uploaded successfully.`)
           })
         })
       }
