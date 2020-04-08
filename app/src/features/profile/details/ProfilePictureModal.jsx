@@ -38,8 +38,7 @@ export function ProfilePictureModal({ userId, cancel, submit }) {
         <div className="modal-body">
           <p>
             Select an image with at least 640x640 pixels. If the image is not a
-            square it will be cropped automatically. The file upload size limit
-            is 200mb.
+            square it will be cropped automatically.
           </p>
           <div className="custom-file mr-2 mb-2" style={{ cursor: 'pointer' }}>
             <input
