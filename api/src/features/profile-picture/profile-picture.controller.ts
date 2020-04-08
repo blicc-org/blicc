@@ -8,7 +8,6 @@ import { Logger } from '../../util/logger'
 export class ProfilePictureController {
   public async serve(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    console.log('jojojojo')
     const { resolution = '640x640' } = ctx.query
 
     if (!['640x640', '160x160'].includes(resolution)) {
