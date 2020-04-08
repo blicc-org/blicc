@@ -2,11 +2,12 @@ import React from 'react'
 import { Upload } from 'react-feather'
 import { API } from '../../../config'
 import { Image } from '../../../common/components/ui'
-import { useMobile, useModal } from '../../../common/hooks'
+import { useMobile, useModal, useApiEndpoint } from '../../../common/hooks'
 import { ProfilePictureModal } from './ProfilePictureModal'
 
 export function ProfilePicture({ user }) {
   const isMobile = useMobile()
+  const [, , , remove] = useApiEndpoint(`/profile-pictures/${user.id}`)
   const length = isMobile ? 120 : 160
   const [showModal, hideModal] = useModal(() => (
     <ProfilePictureModal
@@ -40,7 +41,7 @@ export function ProfilePicture({ user }) {
         >
           <Upload size={16} /> {' Upload'}
         </button>
-        <button className="btn btn-danger mb-2" type="button">
+        <button className="btn btn-danger mb-2" type="button" onClick={remove}>
           Remove
         </button>
         <p>
