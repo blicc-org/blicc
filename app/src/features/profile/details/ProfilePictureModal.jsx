@@ -16,21 +16,21 @@ export function ProfilePictureModal({ cancel, submit }) {
           </button>
         </div>
         <div className="modal-body">
-          <div class="custom-file mr-2 mb-2">
+          <p>
+            The profile picture should be a jpeg or png image with at least
+            640x640 pixels.
+          </p>
+          <div class="custom-file mr-2 mb-2" style={{ cursor: 'pointer' }}>
             <input
               type="file"
               class="custom-file-input"
               id="inputGroupFile02"
+              style={{ cursor: 'pointer' }}
             />
             <label class="custom-file-label" for="inputGroupFile02">
               Choose picture
             </label>
           </div>
-          <p>
-            <small className="text-muted">
-              The profile picture should have at least 640x640 pixels.
-            </small>
-          </p>
         </div>
         <div className="modal-footer">
           <button
