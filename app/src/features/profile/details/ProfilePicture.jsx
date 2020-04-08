@@ -38,6 +38,11 @@ export function ProfilePicture({ user }) {
         <button className="btn btn-danger mb-2" type="button">
           Remove
         </button>
+        <p>
+          <small className="text-muted">
+            Upload a profile picture as either jpeg or png.
+          </small>
+        </p>
       </td>
     </tr>
   )

@@ -36,8 +36,8 @@ export function ProfilePictureModal({ userId, cancel, submit }) {
         </div>
         <div className="modal-body">
           <p>
-            The profile picture should be a jpeg or png image with at least
-            640x640 pixels.
+            Select an image with at least 640x640 pixels. If the image is not a
+            square it will be cropped automatically.
           </p>
           <div className="custom-file mr-2 mb-2" style={{ cursor: 'pointer' }}>
             <input
@@ -48,7 +48,7 @@ export function ProfilePictureModal({ userId, cancel, submit }) {
               onChange={onChange}
             />
             <label className="custom-file-label" htmlFor="inputProfilePicture">
-              Choose picture
+              Choose image
             </label>
           </div>
         </div>
