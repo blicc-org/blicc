@@ -55,6 +55,10 @@ class Minio {
       stream.on('error', () => reject())
     })
   }
+
+  public async remove(bucket: string, imgPath: string): Promise<void> {
+    await this.client.removeObject(bucket, imgPath)
+  }
 }
 
 export const MinioClient = new Minio()

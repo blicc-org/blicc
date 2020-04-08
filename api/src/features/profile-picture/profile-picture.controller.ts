@@ -6,6 +6,8 @@ import { MinioClient } from '../../util/minio-client'
 import { Logger } from '../../util/logger'
 
 export class ProfilePictureController {
+  private BUCKET = 'profile-pictures'
+
   public async serve(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     const { imgName } = ctx.params
@@ -16,7 +18,7 @@ export class ProfilePictureController {
         const imgPath = `${resolution}/${imgName}`
 
         ctx.set('Content-Type', 'image/jpeg')
-        ctx.body = await MinioClient.load('profile-pictures', imgPath)
+        ctx.body = await MinioClient.load(this.BUCKET, imgPath)
         ctx.status = statusCode.OK
         return
       }
@@ -28,7 +30,6 @@ export class ProfilePictureController {
 
   public async set(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    const bucket = 'profile-pictures'
     const region = 'de-east-1'
     const quality = 50
     const { userId } = ctx.params
@@ -36,30 +37,37 @@ export class ProfilePictureController {
     if (ctx.state.jwt.userId === userId) {
       const { path } = ctx.state.files.image
       const imgName = `${userId}.jpg`
-  
+
       let buf: Buffer = await sharp(path)
         .resize(640, 640)
         .jpeg({ quality })
         .toBuffer()
-      MinioClient.store(bucket, region, `640x640/${imgName}`, buf)
-  
+      MinioClient.store(this.BUCKET, region, `640x640/${imgName}`, buf)
+
       buf = await sharp(path).resize(160, 160).jpeg({ quality }).toBuffer()
-      MinioClient.store(bucket, region, `160x160/${imgName}`, buf)
-  
+      MinioClient.store(this.BUCKET, region, `160x160/${imgName}`, buf)
+
       fs.unlink(path, (err) => {
         if (err) throw err
         Logger.info(`File deleted ${path}`)
       })
-  
+
       ctx.status = statusCode.OK
       return
     }
     ctx.status = statusCode.FORBIDDEN
-
   }
 
   public async remove(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    ctx.status = statusCode.OK
+    const { userId } = ctx.params
+
+    if (ctx.state.jwt.userId === userId) {
+      await MinioClient.remove(this.BUCKET, `640x640/${userId}.jpg`)
+      await MinioClient.remove(this.BUCKET, `160x160/${userId}.jpg`)
+      ctx.status = statusCode.OK
+      return
+    }
+    ctx.status = statusCode.FORBIDDEN
   }
 }
