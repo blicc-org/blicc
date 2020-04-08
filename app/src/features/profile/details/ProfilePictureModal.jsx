@@ -50,7 +50,7 @@ export function ProfilePictureModal({ userId, cancel, submit }) {
               onChange={onChange}
             />
             <label className="custom-file-label" htmlFor="inputProfilePicture">
-              Choose image
+              Select image...
             </label>
           </div>
         </div>
