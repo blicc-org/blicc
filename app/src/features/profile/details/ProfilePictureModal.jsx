@@ -66,7 +66,7 @@ export function ProfilePictureModal({ userId, cancel, submit }) {
             title="Submit modal"
             onClick={upload}
             type="button"
-            className="btn btn-danger"
+            className="btn btn-primary"
           >
             Upload
           </button>

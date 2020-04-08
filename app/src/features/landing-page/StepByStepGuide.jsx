@@ -5,12 +5,12 @@ import { useSizes } from '../../common/hooks'
 import './StepByStepGuide.scss'
 
 export function StepByStepGuide() {
-  const [, , , lg] = useSizes()
+  const [, , , , xl] = useSizes()
 
   return (
     <div className="guide box-padding">
       <div className="col-md-10 col-lg-8 col-xl-6 p-4 mx-auto">
-        {lg && <TourGuide className="tour-guide" />}
+        {xl && <TourGuide className="tour-guide" />}
         <h1 className="text-center">How it Works</h1>
         <ol className="gradient-list">
           <li>
