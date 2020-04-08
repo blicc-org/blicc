@@ -19,7 +19,7 @@ export function Image({ width, height, src }) {
     width,
     height,
     display: 'flex',
-    outlineStyle: 'solid',
+    outlineStyle: state === State.LOADING ? 'none' : 'solid',
     outlineWidth: '1px',
     outlineColor: lightgray,
   }
