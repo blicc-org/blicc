@@ -12,7 +12,7 @@ export function ProfilePictureModal({ userId, cancel, submit }) {
       let r = await fetch(`${API.ORIGIN}/profile-pictures/${userId}`, {
         method: 'PUT',
         body: formData,
-        credentials: 'include'
+        credentials: 'include',
       })
       console.log('HTTP response code:', r.status)
       submit()
