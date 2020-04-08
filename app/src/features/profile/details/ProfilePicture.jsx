@@ -8,7 +8,11 @@ import { ProfilePictureModal } from './ProfilePictureModal'
 export function ProfilePicture({ user }) {
   const isMobile = useMobile()
   const [showModal, hideModal] = useModal(() => (
-    <ProfilePictureModal cancel={() => hideModal()} submit={hideModal} />
+    <ProfilePictureModal
+      userId={user.id}
+      cancel={() => hideModal()}
+      submit={hideModal}
+    />
   ))
 
   return (

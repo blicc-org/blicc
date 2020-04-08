@@ -1,6 +1,25 @@
 import React from 'react'
+import { API } from '../../../config'
 
-export function ProfilePictureModal({ cancel, submit }) {
+export function ProfilePictureModal({ userId, cancel, submit }) {
+  let formData = new FormData()
+  const onChange = (evt) => {
+    formData.append('photo', evt.target.files[0])
+  }
+
+  async function upload() {
+    try {
+      let r = await fetch(`${API.ORIGIN}/profile-picture/${userId}`, {
+        method: 'PUT',
+        body: formData,
+      })
+      console.log('HTTP response code:', r.status)
+      submit()
+    } catch (e) {
+      console.log('Huston we have problem...:', e)
+    }
+  }
+
   return (
     <div className="modal-dialog modal-dialog-centered" role="document">
       <div className="modal-content">
@@ -20,14 +39,15 @@ export function ProfilePictureModal({ cancel, submit }) {
             The profile picture should be a jpeg or png image with at least
             640x640 pixels.
           </p>
-          <div class="custom-file mr-2 mb-2" style={{ cursor: 'pointer' }}>
+          <div className="custom-file mr-2 mb-2" style={{ cursor: 'pointer' }}>
             <input
               type="file"
-              class="custom-file-input"
-              id="inputGroupFile02"
+              className="custom-file-input"
+              id="inputProfilePicture"
               style={{ cursor: 'pointer' }}
+              onChange={onChange}
             />
-            <label class="custom-file-label" for="inputGroupFile02">
+            <label className="custom-file-label" htmlFor="inputProfilePicture">
               Choose picture
             </label>
           </div>
@@ -43,7 +63,7 @@ export function ProfilePictureModal({ cancel, submit }) {
           </button>
           <button
             title="Submit modal"
-            onClick={submit}
+            onClick={upload}
             type="button"
             className="btn btn-danger"
           >
