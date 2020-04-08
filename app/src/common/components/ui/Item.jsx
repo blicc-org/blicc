@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { lightgray } from '../../../Theme.scss'
 import { useMobile } from '../../hooks'
+import { Image } from './Image'
 
 export function Item({
   title,
@@ -12,21 +12,16 @@ export function Item({
   thumbnail = '',
 }) {
   const isMobile = useMobile()
-  const style = {
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    borderColor: lightgray,
-  }
 
   return (
     <tr>
       {thumbnail && (
         <td style={{ width: '100px' }} className="px-0">
           <Link className="card-link" to={link}>
-            <img
-              style={style}
+            <Image
               src={thumbnail}
-              width={isMobile ? '150px' : '200px'}
+              width={isMobile ? 144 : 208}
+              height={isMobile ? 81 : 117}
             />
           </Link>
         </td>
