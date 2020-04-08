@@ -30,12 +30,14 @@ export class ProfilePictureController {
     const { path } = ctx.state.files.image
     const imgName = `${userId}.jpg`
 
-    const buf: Buffer = await sharp(path)
+    let buf: Buffer = await sharp(path)
       .resize(640, 640)
       .jpeg({ quality })
       .toBuffer()
-
     MinioClient.store(bucket, region, `640x640/${imgName}`, buf)
+
+    buf = await sharp(path).resize(160, 160).jpeg({ quality }).toBuffer()
+    MinioClient.store(bucket, region, `160x160/${imgName}`, buf)
 
     fs.unlink(path, (err) => {
       if (err) throw err
