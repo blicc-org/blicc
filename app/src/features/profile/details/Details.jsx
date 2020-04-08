@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Card, UpdateButton } from '../../../common/components/ui'
+import { ProfilePicture } from './ProfilePicture'
 
 export function Details({ user, setUser, update }) {
   const { firstName, lastName, email, role, creationDate } = user
@@ -18,6 +19,7 @@ export function Details({ user, setUser, update }) {
     <Card title="Details">
       <table style={{ width: '100%' }}>
         <tbody>
+          <ProfilePicture user={user} />
           <tr>
             <td>
               <b>First name:</b>
