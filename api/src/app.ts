@@ -7,6 +7,7 @@ import { UserRouter } from './features/user'
 import { TokenRouter } from './features/token'
 import { DashboardRouter } from './features/dashboard'
 import { TwoFactorAuthRouter } from './features/two-factor-auth'
+import { ProfilePictureRouter } from './features/profile-picture'
 import { HealthCheckRouter } from './features/health-check'
 import { ChartRouter } from './features/chart'
 import { BundleRouter } from './features/bundles'
@@ -34,5 +35,6 @@ export class App extends Koa {
     this.use(new DataSourceRouter('/data-sources').routes())
     this.use(new HealthCheckRouter('/health-check').routes())
     this.use(new TwoFactorAuthRouter('/two-factor-auth').routes())
+    this.use(new ProfilePictureRouter('/profile-pictures').routes())
   }
 }

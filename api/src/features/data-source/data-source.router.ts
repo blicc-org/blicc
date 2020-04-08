@@ -2,8 +2,7 @@ import { Middleware } from 'koa'
 import bodyParser from 'koa-bodyparser'
 import createRouter, { Router, Joi } from 'koa-joi-router'
 import { DataSourceController } from './data-source.controller'
-import { AuthMiddleware } from '../../common/middleware/auth-middleware'
-import { PermissionMiddleware } from '../../common/middleware/permission-middleware'
+import { AuthMiddleware, PermissionMiddleware } from '../../common/middleware'
 
 export class DataSourceRouter {
   private prefix: string

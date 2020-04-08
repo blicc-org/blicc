@@ -1,8 +1,7 @@
 import { Middleware } from 'koa'
 import createRouter, { Router, Joi } from 'koa-joi-router'
 import { ThumbnailController } from './thumbnail.controller'
-import { AuthMiddleware } from '../../common/middleware/auth-middleware'
-import { PermissionMiddleware } from '../../common/middleware/permission-middleware'
+import { AuthMiddleware, PermissionMiddleware } from '../../common/middleware'
 
 export class ThumbnailRouter {
   private prefix: string

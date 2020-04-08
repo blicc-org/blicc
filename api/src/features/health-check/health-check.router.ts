@@ -1,8 +1,7 @@
 import { Middleware } from 'koa'
 import createRouter, { Router } from 'koa-joi-router'
 import { HealthCheckController } from './health-check.controller'
-import { AuthMiddleware } from '../../common/middleware/auth-middleware'
-import { PermissionMiddleware } from '../../common/middleware/permission-middleware'
+import { AuthMiddleware, PermissionMiddleware } from '../../common/middleware'
 
 export class HealthCheckRouter {
   private prefix: string
