@@ -21,7 +21,7 @@ export function ProfilePicture({ user }) {
         <Image
           width={isMobile ? 120 : 160}
           height={isMobile ? 120 : 160}
-          src={`${APP.ORIGIN}/profile-picture/${user.id}.jpg?dimension=640x640`}
+          src={`${APP.ORIGIN}/profile-pictures/${user.id}.jpg?dimension=640x640`}
         />
       </td>
       <td>

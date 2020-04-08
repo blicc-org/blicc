@@ -9,7 +9,7 @@ export function ProfilePictureModal({ userId, cancel, submit }) {
 
   async function upload() {
     try {
-      let r = await fetch(`${API.ORIGIN}/profile-picture/${userId}`, {
+      let r = await fetch(`${API.ORIGIN}/profile-pictures/${userId}`, {
         method: 'PUT',
         body: formData,
       })
