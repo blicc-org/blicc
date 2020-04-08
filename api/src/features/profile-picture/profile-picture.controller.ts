@@ -8,17 +8,22 @@ import { Logger } from '../../util/logger'
 export class ProfilePictureController {
   public async serve(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
+    const { imgName } = ctx.params
     const { resolution = '640x640' } = ctx.query
 
-    if (!['640x640', '160x160'].includes(resolution)) {
+    if (`${ctx.state.jwt.userId}.jpg` === imgName) {
+      if (['640x640', '160x160'].includes(resolution)) {
+        const imgPath = `${resolution}/${imgName}`
+
+        ctx.set('Content-Type', 'image/jpeg')
+        ctx.body = await MinioClient.load('profile-pictures', imgPath)
+        ctx.status = statusCode.OK
+        return
+      }
       ctx.status = statusCode.BAD_REQUEST
       return
     }
-    const { imgName } = ctx.params
-    const imgPath = `${resolution}/${imgName}`
-    ctx.set('Content-Type', 'image/jpeg')
-    ctx.body = await MinioClient.load('profile-pictures', imgPath)
-    ctx.status = statusCode.OK
+    ctx.status = statusCode.FORBIDDEN
   }
 
   public async set(ctx: Koa.DefaultContext, next: Function): Promise<void> {
