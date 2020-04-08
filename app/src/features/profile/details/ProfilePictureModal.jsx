@@ -4,7 +4,7 @@ import { API } from '../../../config'
 export function ProfilePictureModal({ userId, cancel, submit }) {
   let formData = new FormData()
   const onChange = (evt) => {
-    formData.append('photo', evt.target.files[0])
+    formData.append('image', evt.target.files[0])
   }
 
   async function upload() {
@@ -38,7 +38,7 @@ export function ProfilePictureModal({ userId, cancel, submit }) {
         <div className="modal-body">
           <p>
             Select an image with at least 640x640 pixels. If the image is not a
-            square it will be cropped automatically.
+            square it will be cropped automatically. The file upload size limit is 200mb.
           </p>
           <div className="custom-file mr-2 mb-2" style={{ cursor: 'pointer' }}>
             <input
