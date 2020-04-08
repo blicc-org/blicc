@@ -3,8 +3,11 @@ import { useLanguage, useClickAway } from '../../hooks'
 import { Link } from 'react-router-dom'
 import { User } from 'react-feather'
 import { useLogout, useAdmin } from '../../hooks'
+import { API } from '../../../config'
+import { Image } from '../ui'
 
-export function NavbarUser({ firstName, lastName, loggedIn }) {
+export function NavbarUser({ id, firstName, lastName, loggedIn }) {
+  const [defaultIcon, setDefaultIcon] = useState(false)
   const content = useLanguage()
   const [open, setOpen] = useState(false)
   const ref = useRef()
@@ -38,7 +41,17 @@ export function NavbarUser({ firstName, lastName, loggedIn }) {
               toggle()
             }}
           >
-            <User className="user" size={24}></User>
+            {defaultIcon ? (
+              <User className="user" size={24}></User>
+            ) : (
+              <img
+                className="user"
+                width={24}
+                height={24}
+                src={`${API.ORIGIN}/profile-pictures/${id}.jpg?resolution=160x160`}
+                onError={() => setDefaultIcon(true)}
+              />
+            )}
           </a>
           <div
             className={`dropdown-menu dropdown-menu-right ${

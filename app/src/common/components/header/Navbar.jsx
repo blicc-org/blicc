@@ -14,7 +14,7 @@ export function NavBar({ toggleMenu }) {
   const isInstalled = useInstalled()
   const isMobile = useMobile()
   const [appState] = useContext(AppContext)
-  const { firstName, lastName, loggedIn } = appState
+  const { id, firstName, lastName, loggedIn } = appState
   const [width, setWidth] = useState(window.innerWidth)
 
   useLayoutEffect(() => {
@@ -68,6 +68,7 @@ export function NavBar({ toggleMenu }) {
         </div>
         <div className="navbar-nav ml-auto pr-3">
           <NavbarUser
+            id={id}
             firstName={firstName}
             lastName={lastName}
             loggedIn={loggedIn}
