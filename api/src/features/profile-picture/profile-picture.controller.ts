@@ -6,9 +6,8 @@ export class ProfilePictureController {
   public async serve(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     Logger.info('received image put!!!')
-    console.log('ctx.request.file', ctx.request.file)
-    console.log('ctx.file', ctx.file)
-    console.log('ctx.request.body', ctx.request.body)
+    console.log('ctx.state.fields', ctx.state.fields)
+    console.log('ctx.state.files.image', ctx.state.files.image)
     ctx.status = statusCode.OK
   }
 }
