@@ -1,5 +1,5 @@
 import { Middleware } from 'koa'
-import createRouter, { Router, Joi } from 'koa-joi-router'
+import createRouter, { Router } from 'koa-joi-router'
 import { ProfilePictureController } from './profile-picture.controller'
 import {
   AuthMiddleware,
