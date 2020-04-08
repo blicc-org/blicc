@@ -1,6 +1,6 @@
 import React from 'react'
 import { Upload } from 'react-feather'
-import { APP } from '../../../config'
+import { API } from '../../../config'
 import { Image } from '../../../common/components/ui'
 import { useMobile, useModal } from '../../../common/hooks'
 import { ProfilePictureModal } from './ProfilePictureModal'
@@ -18,11 +18,13 @@ export function ProfilePicture({ user }) {
   return (
     <tr>
       <td className="py-3 pr-3">
-        <Image
-          width={isMobile ? 120 : 160}
-          height={isMobile ? 120 : 160}
-          src={`${APP.ORIGIN}/profile-pictures/${user.id}.jpg?dimension=640x640`}
-        />
+        {user.id && (
+          <Image
+            width={isMobile ? 120 : 160}
+            height={isMobile ? 120 : 160}
+            src={`${API.ORIGIN}/profile-pictures/${user.id}.jpg`}
+          />
+        )}
       </td>
       <td>
         <p>
