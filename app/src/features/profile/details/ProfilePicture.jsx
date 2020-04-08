@@ -7,6 +7,7 @@ import { ProfilePictureModal } from './ProfilePictureModal'
 
 export function ProfilePicture({ user }) {
   const isMobile = useMobile()
+  const length = isMobile ? 120 : 160
   const [showModal, hideModal] = useModal(() => (
     <ProfilePictureModal
       userId={user.id}
@@ -18,12 +19,14 @@ export function ProfilePicture({ user }) {
   return (
     <tr>
       <td className="py-3 pr-3">
-        {user.id && (
+        {user.id ? (
           <Image
-            width={isMobile ? 120 : 160}
-            height={isMobile ? 120 : 160}
+            width={length}
+            height={length}
             src={`${API.ORIGIN}/profile-pictures/${user.id}.jpg`}
           />
+        ) : (
+          <div style={{ width: length, height: length }} />
         )}
       </td>
       <td>
