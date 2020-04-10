@@ -5,8 +5,6 @@ import { Logger } from './logger'
 class RabbitMQ {
   private URL = `amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672`
 
-  public constructor() {}
-
   public async publish(queue: string, message: string): Promise<void> {
     Logger.info('create connection to rabbitMQ client')
     const connection = await connect(this.URL)
