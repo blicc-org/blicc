@@ -1,41 +1,20 @@
-import amqplib from 'amqplib'
+import { connect } from 'amqplib'
 import { RABBITMQ_USERNAME, RABBITMQ_PASSWORD } from '../config'
+import { Logger } from './logger'
 
 class RabbitMQ {
-  public constructor() {
-    const q = 'tasks'
-    const open = amqplib.connect(
-      `amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672`
-    )
+  private URL = `amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672`
 
-    // Publisher
-    open
-      .then((conn) => {
-        return conn.createChannel()
-      })
-      .then((ch) => {
-        return ch.assertQueue(q).then(() => {
-          return ch.sendToQueue(q, Buffer.from('something to do'))
-        })
-      })
-      .catch(console.warn)
+  public constructor() {}
 
-    // Consumer
-    open
-      .then((conn) => {
-        return conn.createChannel()
-      })
-      .then((ch) => {
-        return ch.assertQueue(q).then(() => {
-          return ch.consume(q, (msg) => {
-            if (msg !== null) {
-              console.log(msg.content.toString())
-              ch.ack(msg)
-            }
-          })
-        })
-      })
-      .catch(console.warn)
+  public async publish(queue: string, message: string): Promise<void> {
+    Logger.info('create connection to rabbitMQ client')
+    const connection = await connect(this.URL)
+    Logger.info('create channel')
+    const channel = await connection.createChannel()
+    Logger.info('assert queue')
+    await channel.assertQueue(queue)
+    channel.sendToQueue(queue, Buffer.from(message))
   }
 }
 
