@@ -1,4 +1,4 @@
-FROM minio/minio:9259-2b7486b
+FROM minio/minio:latest
 
 ARG MINIO_USERNAME
 ARG MINIO_PASSWORD
