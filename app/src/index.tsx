@@ -8,7 +8,3 @@ import { registerServiceWorker } from './register'
 ReactDOM.render(<App />, document.getElementById('root'))
 
 registerServiceWorker()
-
-console.log(
-  'This device has at least ' + navigator.deviceMemory + ' GiB of RAM.'
-)

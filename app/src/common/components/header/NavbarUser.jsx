@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { User } from 'react-feather'
 import { useLogout, useAdmin } from '../../hooks'
 import { API } from '../../../config'
-import { Image } from '../ui'
 
 export function NavbarUser({ id, firstName, lastName, loggedIn }) {
   const [defaultIcon, setDefaultIcon] = useState(false)
@@ -45,6 +44,7 @@ export function NavbarUser({ id, firstName, lastName, loggedIn }) {
               <User className="user" size={24}></User>
             ) : (
               <img
+                alt=""
                 className="user"
                 width={24}
                 height={24}

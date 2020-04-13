@@ -22,7 +22,7 @@ export function DashboardShared({ match }) {
     }
 
     getData()
-  }, [])
+  }, [access])
 
   return (
     <>

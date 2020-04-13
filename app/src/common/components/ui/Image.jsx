@@ -39,6 +39,7 @@ export function Image({ width, height, src }) {
       )}
       {(state === State.LOADING || state === State.SUCCESS) && (
         <img
+          alt=""
           width={width}
           height={height}
           src={src}
