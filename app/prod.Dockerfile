@@ -21,7 +21,7 @@ RUN chmod 644 /etc/nginx/modules/*.so
 
 COPY --from=builder /app/build /var/www/blicc.org/html
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./nginx/healthcheck.sh /bin/healthcheck.sh
+COPY ./healthcheck.sh /bin/healthcheck.sh
 
 EXPOSE 80
 
