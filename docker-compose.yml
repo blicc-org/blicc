@@ -30,7 +30,9 @@ services:
     ports:
       - 15672:15672
   api:
-    build: ./api
+    build:
+      context: ./api
+      shm_size: '2gb'
     restart: always
     volumes:
       - ./certs:/root/certs

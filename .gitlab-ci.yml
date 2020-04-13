@@ -32,6 +32,7 @@ build:
     - docker build
       --build-arg POSTGRES_USERNAME=$POSTGRES_USERNAME
       --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      --shm-size=2gb
       -t api -f ./api/prod.Dockerfile ./api
     - docker build
       --build-arg POSTGRES_USERNAME=$POSTGRES_USERNAME
