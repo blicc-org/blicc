@@ -1,4 +1,4 @@
-const isDev = process.env.NODE_ENV === 'development'
+const isDev: boolean = process.env.NODE_ENV === 'development'
 
 export const API = {
   ORIGIN: isDev ? 'http://localhost' : 'https://api.blicc.org',
