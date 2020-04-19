@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext, useCallback } from 'react'
-import uuid from 'uuid'
+import { v4 as uuid } from 'uuid'
 import { SubscriberContext, AppContext } from '../context'
 import { DELIVERY } from '../../config'
 import { QueryStackContext } from '../context/QueryStackContext'
 
-export let socket = null
-export let cache = []
+export let socket: any = null
+export let cache: any = []
 
 export const WebSocketState = {
   [WebSocket.CONNECTING]: 'connecting',
@@ -41,7 +41,7 @@ export function useDeliveryEndpoint() {
         setState(WebSocket.CLOSED)
       }
 
-      socket.onerror = (err) => {
+      socket.onerror = (err: any) => {
         console.log(
           `An websocket error occured: ${JSON.stringify(err, [
             'message',
@@ -54,7 +54,7 @@ export function useDeliveryEndpoint() {
     }
 
     if (loggedIn && socket !== null) {
-      socket.onmessage = (evt) => {
+      socket.onmessage = (evt: any) => {
         const { channel, data } = JSON.parse(evt.data)
         cache[channel] = data
         if (channel && data && subscriberStack) {
@@ -75,11 +75,11 @@ export function useDeliveryEndpoint() {
     }
   }, [loggedIn, subscriberStack, state, queryStack, setQueryStack])
 
-  function publish(channel, data) {
+  function publish(channel: string, data: any) {
     if (socket.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify({ channel, data }))
     } else {
-      setQueryStack((prev) => {
+      setQueryStack((prev: any) => {
         prev[channel] = data
         return prev
       })
@@ -92,7 +92,7 @@ export function useDeliveryEndpoint() {
         return
       }
       const id = channel + uuid()
-      setSubscriberStack((stack) => ({
+      setSubscriberStack((stack: any) => ({
         ...stack,
         [id]: callback,
       }))

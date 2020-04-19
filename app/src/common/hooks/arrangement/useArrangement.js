@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import uuid from 'uuid'
+import { v4 as uuid } from 'uuid'
 import { useInsert, useRemove } from './helper'
 import { ArrangementContext } from '../../context/ArrangementContext'
 
