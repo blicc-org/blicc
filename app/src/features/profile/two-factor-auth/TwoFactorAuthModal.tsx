@@ -1,7 +1,7 @@
 import React from 'react'
 import { Lock } from 'react-feather'
 
-export function TwoFactorAuthModal({ cancel, submit, setToken }) {
+export function TwoFactorAuthModal({ cancel, submit, setToken }: any) {
   return (
     <div className="modal-dialog modal-dialog-centered" role="document">
       <div className="modal-content">

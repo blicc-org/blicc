@@ -22,7 +22,7 @@ import {
 import { ModalShare } from '../../common/components/modal/ModalShare'
 import './DashboardView.scss'
 
-export function DashboardView({ match, location }) {
+export function DashboardView({ match, location }: any) {
   const content = useLanguage()
   const fullscreen = location.search === '?fullscreen'
   const [arrangement, setArrangement] = useContext(ArrangementContext)
@@ -31,8 +31,11 @@ export function DashboardView({ match, location }) {
   const [description, setDescription] = useState('')
   const path = `/dashboards/${match.params.id}`
   const [, access, update, remove] = useApiEndpoint(path)
-  const [dashboard, setDashboard] = useState({})
-  const { userId, creationDate } = dashboard
+  const [dashboard, setDashboard] = useState({
+    creationDate: undefined,
+    data: undefined,
+  })
+  const { creationDate } = dashboard
   const [edit, setEdit] = useState(
     location.search && location.search === '?edit'
   )
@@ -68,7 +71,7 @@ export function DashboardView({ match, location }) {
     // eslint-disable-next-line
   }, [match])
 
-  async function onClick(evt) {
+  async function onClick(evt: any) {
     evt.target.blur()
     if (edit) {
       await update({
@@ -140,7 +143,6 @@ export function DashboardView({ match, location }) {
             remove={showModal}
             title={title}
             setTitle={setTitle}
-            userId={userId}
             creationDate={creationDate}
             description={description}
             setDescription={setDescription}

@@ -47,7 +47,7 @@ export function Users() {
                 email,
                 creationDate,
                 hasTwoFactorAuth,
-              }) => (
+              }: any) => (
                 <tr key={id}>
                   <td>
                     <h5 className="card-title">

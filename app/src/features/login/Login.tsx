@@ -43,7 +43,7 @@ export function Login() {
     }
   }
 
-  async function loginHandler2FA(e) {
+  async function loginHandler2FA(e: any) {
     e.preventDefault()
     await login(email, password, token)
   }

@@ -4,11 +4,11 @@ import { search } from 'jmespath'
 import { DataQuery } from './DataQuery'
 import './DataSource.scss'
 
-export function DataSource({ input, data, setData }) {
+export function DataSource({ input, data, setData }: any) {
   const { request, query } = data
   const { url, headers } = request
-  const setQuery = (q) => setData({ ...data, query: q })
-  const setUrl = (u) => {
+  const setQuery = (q: any) => setData({ ...data, query: q })
+  const setUrl = (u: any) => {
     data.request.url = u
     setData(data)
   }
@@ -16,19 +16,19 @@ export function DataSource({ input, data, setData }) {
     data.request.headers.push({ key: '', value: '' })
     setData(data)
   }
-  const removeHeader = (index) => {
+  const removeHeader = (index: any) => {
     if (index > -1) {
       data.request.headers.splice(index, 1)
       setData(data)
     }
   }
-  const setHeader = (index, header) => {
+  const setHeader = (index: any, header: any) => {
     data.request.headers[index] = header
     setData(data)
   }
   const [output, setOutput] = useState('')
-  const stringify = (s) => JSON.stringify(s, null, 4)
-  const parse = (s) => JSON.parse(s)
+  const stringify = (s: any) => JSON.stringify(s, null, 4)
+  const parse = (s: any) => JSON.parse(s)
 
   useEffect(() => {
     if (input) {
@@ -62,7 +62,7 @@ export function DataSource({ input, data, setData }) {
           </table>
           <table style={{ width: '100%' }}>
             <tbody>
-              {headers.map((header, index) => {
+              {headers.map((header: any, index: any) => {
                 const { key, value } = header
                 return (
                   <tr>

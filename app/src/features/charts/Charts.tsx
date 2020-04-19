@@ -51,7 +51,7 @@ export function Charts() {
               ) : (
                 <table className="table">
                   <tbody>
-                    {result.charts.map((d) => (
+                    {result.charts.map((d: any) => (
                       <Item
                         key={d.id}
                         title={d.title}

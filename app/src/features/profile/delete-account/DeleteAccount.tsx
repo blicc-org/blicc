@@ -10,7 +10,7 @@ import {
   useToast,
 } from '../../../common/hooks'
 
-export function DeleteAccount({ user }) {
+export function DeleteAccount({ user }: any) {
   const { id, hasTwoFactorAuth } = user
   const logout = useLogout()
   const showToast = useToast()
@@ -46,7 +46,7 @@ export function DeleteAccount({ user }) {
     }
   }
 
-  function onClick(event) {
+  function onClick(event: any) {
     event.preventDefault()
     showModal()
   }

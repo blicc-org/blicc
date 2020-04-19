@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { Input } from '../../common/components/form/Input'
 import { RegisterService } from './RegisterService'
 
-export function RegisterForm({ user, setUser, register }) {
+export function RegisterForm({ user, setUser, register }: any) {
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     const { name, value } = event.target
     setUser({ ...user, [name]: value })
   }

@@ -1,68 +1,54 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
-import { useApiEndpoint, useModal, useLanguage } from '../../common/hooks'
+import { Redirect } from 'react-router-dom'
+import { useApiEndpoint } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import { Item, Pagination, Empty, Loading } from '../../common/components/ui'
-import { CreateDataSourceModal } from './CreateDataSourceModal'
-import './DataSources.scss'
+import { useModal, useLanguage } from '../../common/hooks'
+import { CreateDashboardModal } from './CreateDashboardModal'
+import { Pagination, Empty, Loading, Item } from '../../common/components/ui'
+import { API } from '../../config'
+import './Dashboards.scss'
 
-export const FREQUENCY = {
-  DAILY: 86400000,
-  MONTHLY: 2592000000,
-  YEARLY: 31536000000,
-}
-
-export const INITIAL_DATA_SOURCE = {
+export const INITIAL_DASHBOARD = {
   title: '',
   description: '',
-  persistData: false,
-  fetchFrequency: FREQUENCY.DAILY,
   data: {
-    request: {
-      url: '',
-      headers: [],
-    },
-    query: '',
+    arrangement: {},
+    settings: {},
   },
 }
 
-export function DataSources() {
+export function Dashboards() {
   const content = useLanguage()
   const itemsPerPage = 10
-  const [page, setPage] = useState(0)
-  const [result, setResult] = useState({ total: 0, dataSources: [] })
-  const [create, access, ,] = useApiEndpoint('/data-sources')
   const [isLoading, setIsLoading] = useState(true)
-  const [redirect, setRedirect] = useState('')
-
+  const [page, setPage] = useState(0)
+  const [result, setResult] = useState({ total: 0, dashboards: [] })
+  const [create, access, ,] = useApiEndpoint('/dashboards')
   const [title, setTitle] = useState('')
-  const [fetchFrequency, setFetchFrequency] = useState(0)
-  const [persistData, setPersistData] = useState(true)
+  const [description, setDescription] = useState('')
+  const [redirect, setRedirect] = useState('')
 
   const [showModal, hideModal] = useModal(
     () => (
-      <CreateDataSourceModal
+      <CreateDashboardModal
+        setTitle={setTitle}
+        setDescription={setDescription}
         cancel={hideModal}
         submit={submit}
-        setTitle={setTitle}
-        setPersistData={setPersistData}
-        fetchFrequency={fetchFrequency}
-        setFetchFrequency={setFetchFrequency}
       />
     ),
-    [title, fetchFrequency, persistData]
+    [title, description]
   )
 
   async function submit() {
     const [status, data] = await create({
-      ...INITIAL_DATA_SOURCE,
+      ...INITIAL_DASHBOARD,
       title,
-      persistData,
-      fetchFrequency,
+      description,
     })
     if (status === statusCode.CREATED) {
-      setRedirect(`/data-sources/${data.id}?edit`)
+      setRedirect(`/dashboards/${data.id}?edit`)
     }
     hideModal()
   }
@@ -89,42 +75,43 @@ export function DataSources() {
     <>
       {redirect && <Redirect to={redirect} />}
       <MetaData
-        title={content.dataSources.title}
-        description={content.dataSources.description}
-        path={'/data-sources'}
+        title={content.dashboards.title}
+        description={content.dashboards.description}
+        path={'/dashboards'}
       />
       <div className="container">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-          <h2 className="my-0">{content.dataSources.title}</h2>
+          <h2 className="my-0">{content.dashboards.title}</h2>
           <div className="btn-toolbar">
             <button
-              title={content.dataSources.create}
+              title={content.dashboards.create}
               type="button"
               className="btn btn-sm btn-primary"
               onClick={showModal}
             >
-              {content.dataSources.create}
+              {content.dashboards.create}
             </button>
           </div>
         </div>
-        <div className="data-source-list">
+        <div className="dashboard-list">
           {isLoading ? (
             <Loading />
           ) : (
             <>
-              {result.dataSources.length === 0 ? (
-                <Empty>{content.dataSources.empty}</Empty>
+              {result.dashboards.length === 0 ? (
+                <Empty>{content.dashboards.empty}</Empty>
               ) : (
                 <table className="table">
                   <tbody>
-                    {result.dataSources.map((d) => (
+                    {result.dashboards.map((d: any) => (
                       <Item
                         key={d.id}
+                        thumbnail={`${API.ORIGIN}/dashboard-thumbnails/${d.id}.jpg`}
                         title={d.title}
                         subtitle={d.creationDate.split('T')[0]}
                         description={d.description}
-                        link={`/data-sources/${d.id}`}
-                        linkLabel={content.dataSources.view}
+                        link={`/dashboards/${d.id}`}
+                        linkLabel={content.dashboards.view}
                       />
                     ))}
                   </tbody>

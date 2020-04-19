@@ -3,11 +3,14 @@ import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useApiEndpoint } from '../../common/hooks'
 import { Redirect } from 'react-router-dom'
 
-export function DashboardShared({ match }) {
+export function DashboardShared({ match }: any) {
   const { id } = match.params
   const path = `/dashboards/${id}`
   const [, access, ,] = useApiEndpoint(path)
-  const [dashboard, setDashboard] = useState({})
+  const [dashboard, setDashboard] = useState({
+    title: undefined,
+    description: undefined,
+  })
   const { title = '', description = '' } = dashboard
   const [redirect, setRedirect] = useState('')
 

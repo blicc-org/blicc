@@ -5,10 +5,10 @@ import { useMobile } from '../../common/hooks'
 import { useJsonHighlighter } from '../../common/hooks'
 import './DataQuery.scss'
 
-export function DataQuery({ input, output, query, setQuery }) {
+export function DataQuery({ input, output, query, setQuery }: any) {
   const isMobile = useMobile()
   const highlighter = useJsonHighlighter()
-  const ref = useRef()
+  const ref = useRef<HTMLDivElement>(null)
   const [width, setWidth] = useState(0)
 
   const tabs = ['Result from API fetch', 'Queried Data']
@@ -26,7 +26,7 @@ export function DataQuery({ input, output, query, setQuery }) {
     return () => window.removeEventListener('resize', updateSize)
   }, [])
 
-  function HighlightedJson({ children }) {
+  function HighlightedJson({ children }: any) {
     const highlighted = highlighter(children)
     return (
       <p className="code" dangerouslySetInnerHTML={{ __html: highlighted }} />
@@ -53,7 +53,7 @@ export function DataQuery({ input, output, query, setQuery }) {
             autoCorrect="off"
             autoCapitalize="off"
             spellCheck="false"
-            rows="3"
+            rows={3}
             value={query}
             onChange={(evt) => setQuery(evt.target.value)}
           />

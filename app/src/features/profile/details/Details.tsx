@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Card, UpdateButton } from '../../../common/components/ui'
 import { ProfilePicture } from './ProfilePicture'
 
-export function Details({ user, setUser, update }) {
+export function Details({ user, setUser, update }: any) {
   const { firstName, lastName, email, role, creationDate } = user
   const [edit, setEdit] = useState(false)
 

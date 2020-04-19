@@ -7,7 +7,7 @@ export function LoginPassword({
   password,
   setPassword,
   login,
-}) {
+}: any) {
   return (
     <form className="form-signin">
       <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>

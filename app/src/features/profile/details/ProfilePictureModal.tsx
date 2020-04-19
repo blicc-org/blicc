@@ -1,9 +1,9 @@
 import React from 'react'
 import { API } from '../../../config'
 
-export function ProfilePictureModal({ userId, cancel, submit }) {
+export function ProfilePictureModal({ userId, cancel, submit }: any) {
   let formData = new FormData()
-  const onChange = (evt) => {
+  const onChange = (evt: any) => {
     formData.append('image', evt.target.files[0])
   }
 

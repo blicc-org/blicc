@@ -13,7 +13,7 @@ export function TwoFactorAuth() {
   const [redirect, setRedirect] = useState('')
   const showToast = useToast()
 
-  async function onClick(e) {
+  async function onClick(e: any) {
     e.preventDefault()
     const [status] = await enable({ token })
     if (status === statusCode.NO_CONTENT) {

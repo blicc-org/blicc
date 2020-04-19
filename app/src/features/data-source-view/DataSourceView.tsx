@@ -13,6 +13,7 @@ import { ConfirmationModal, Tabs, PageHeader } from '../../common/components/ui'
 import { DataSource } from './DataSource'
 
 const INITIAL = {
+  id: undefined,
   title: '',
   description: '',
   persistData: false,
@@ -27,14 +28,14 @@ const INITIAL = {
   },
 }
 
-export function DataSourceView({ match, location }) {
+export function DataSourceView({ match, location }: any) {
   const content = useLanguage()
   const path = `/data-sources/${match.params.id}`
   const [, access, update, remove] = useApiEndpoint(path)
   const [dataSource, setDataSource] = useState(INITIAL)
   const [publish, subscribe, state] = useDeliveryEndpoint()
   const [input, setInput] = useState('')
-  const stringify = (s) => JSON.stringify(s, null, 4)
+  const stringify = (s: any) => JSON.stringify(s, null, 4)
   const { id, title, description, data } = dataSource
   const { url, headers } = data.request
   const channel = `/forwarding/${id}`
@@ -49,7 +50,7 @@ export function DataSourceView({ match, location }) {
 
   useEffect(() => {
     if (state === WebSocket.OPEN && url) {
-      subscribe(channel, (str) => {
+      subscribe(channel, (str: any) => {
         setInput(stringify(str))
       })
       const publishBody = {
@@ -74,7 +75,7 @@ export function DataSourceView({ match, location }) {
     // eslint-disable-next-line
   }, [match])
 
-  async function onClick(evt) {
+  async function onClick(evt: any) {
     evt.target.blur()
     if (edit) {
       await update(dataSource)
@@ -116,7 +117,7 @@ export function DataSourceView({ match, location }) {
           <DataSource
             input={input}
             data={data}
-            setData={(d) => setDataSource({ ...dataSource, data: d })}
+            setData={(d: any) => setDataSource({ ...dataSource, data: d })}
           />
         ) : (
           <DataSourceDetails

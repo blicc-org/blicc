@@ -4,7 +4,12 @@ import { Card } from '../../common/components/ui'
 import { FREQUENCY } from '../data-sources/DataSources'
 import { useLanguage } from '../../common/hooks'
 
-export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
+export function DataSourceDetails({
+  edit,
+  dataSource,
+  setDataSource,
+  remove,
+}: any) {
   const content = useLanguage()
   const {
     title,
@@ -45,7 +50,7 @@ export function DataSourceDetails({ edit, dataSource, setDataSource, remove }) {
                   <textarea
                     className="form-control my-2"
                     value={description}
-                    rows="3"
+                    rows={3}
                     onChange={(evt) =>
                       setDataSource({
                         ...dataSource,

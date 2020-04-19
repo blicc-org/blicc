@@ -6,7 +6,7 @@ import { APP } from '../../config'
 import { AppContext } from '../../common/context'
 import './PageGenerator.scss'
 
-export function PageGenerator({ location }) {
+export function PageGenerator({ location }: any) {
   const [appState] = useContext(AppContext)
   const [text, setText] = useState('')
   const [notFound, setNotFound] = useState(false)

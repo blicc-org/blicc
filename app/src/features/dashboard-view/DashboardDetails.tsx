@@ -11,7 +11,7 @@ export function DashboardDetails({
   description,
   setDescription,
   remove,
-}) {
+}: any) {
   const content = useLanguage()
   return (
     <div className="col px-0">
@@ -43,7 +43,7 @@ export function DashboardDetails({
                   <textarea
                     className="form-control my-2"
                     value={description}
-                    rows="3"
+                    rows={3}
                     onChange={(evt) => setDescription(evt.target.value)}
                   ></textarea>
                 ) : (

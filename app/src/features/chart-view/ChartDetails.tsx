@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLanguage } from '../../common/hooks'
 
-export function ChartDetails({ bundle, description, creationDate }) {
+export function ChartDetails({ bundle, description, creationDate }: any) {
   const content = useLanguage()
 
   return (

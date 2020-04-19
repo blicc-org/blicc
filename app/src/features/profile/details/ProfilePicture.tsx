@@ -5,7 +5,7 @@ import { Image } from '../../../common/components/ui'
 import { useMobile, useModal, useApiEndpoint } from '../../../common/hooks'
 import { ProfilePictureModal } from './ProfilePictureModal'
 
-export function ProfilePicture({ user }) {
+export function ProfilePicture({ user }: any) {
   const isMobile = useMobile()
   const [, , , remove] = useApiEndpoint(`/profile-pictures/${user.id}`)
   const length = isMobile ? 120 : 160

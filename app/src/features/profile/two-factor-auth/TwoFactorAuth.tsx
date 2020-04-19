@@ -5,7 +5,7 @@ import { Card } from '../../../common/components/ui'
 import { useApiEndpoint, useToast, useModal } from '../../../common/hooks'
 import { TwoFactorAuthModal } from './TwoFactorAuthModal'
 
-export function TwoFactorAuth({ user, setUser }) {
+export function TwoFactorAuth({ user, setUser }: any) {
   const { hasTwoFactorAuth } = user
   const [disable, , ,] = useApiEndpoint('/two-factor-auth/delete')
   const [token, setToken] = useState('')
@@ -24,7 +24,7 @@ export function TwoFactorAuth({ user, setUser }) {
   async function submit() {
     const [status] = await disable({ token })
     if (status === statusCode.NO_CONTENT) {
-      setUser((prev) => {
+      setUser((prev: any) => {
         return { ...prev, hasTwoFactorAuth: false }
       })
       showToast('Success', 'Two-factor auth is now disabled.', 'success')
@@ -38,7 +38,7 @@ export function TwoFactorAuth({ user, setUser }) {
     hideModal()
   }
 
-  function onClick(event) {
+  function onClick(event: any) {
     event.preventDefault()
     showModal()
   }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function WrongPasswordModal({ cancel, submit }) {
+export function WrongPasswordModal({ cancel, submit }: any) {
   return (
     <>
       <div className="modal-dialog modal-dialog-centered" role="document">

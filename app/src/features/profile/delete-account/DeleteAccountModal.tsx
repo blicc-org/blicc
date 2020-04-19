@@ -7,7 +7,7 @@ export function DeleteAccountModal({
   hasTwoFactorAuth,
   setToken,
   setPassword,
-}) {
+}: any) {
   return (
     <div className="modal-dialog modal-dialog-centered" role="document">
       <div className="modal-content">

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Lock } from 'react-feather'
 
-export function LoginTwoFactorAuth({ setToken, login }) {
+export function LoginTwoFactorAuth({ setToken, login }: any) {
   return (
     <form className="form-signin">
       <h1 className="h3 mb-3 font-weight-normal">Two-Factor Auth</h1>

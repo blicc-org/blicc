@@ -18,7 +18,7 @@ export function AndroidApp() {
             <h1>Get the App</h1>
             <br />
             <a className="btn btn-outline mt-3" href={ANDROID_APP_STORE_LINK}>
-              Go to Play Store <Android className="android" alt="Android App" />
+              Go to Play Store <Android className="android" />
             </a>
           </div>
         </div>

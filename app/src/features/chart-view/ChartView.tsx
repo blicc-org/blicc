@@ -6,13 +6,20 @@ import { API, EXAMPLE_DATA } from '../../config'
 import { ChartDetails } from './ChartDetails'
 import './ChartView.scss'
 
-export function ChartView({ match }) {
+export function ChartView({ match }: any) {
   const content = useLanguage()
   const path = `/charts/${match.params.id}`
-  const ref = useRef()
+  const ref = useRef<HTMLDivElement>(null)
   const isMobile = useMobile()
   const [, access] = useApiEndpoint(path)
-  const [chart, setChart] = useState({})
+  const [chart, setChart] = useState({
+    title: undefined,
+    description: undefined,
+    bundle: undefined,
+    creationDate: undefined,
+    slug: undefined,
+    key: '',
+  })
   const { title, description, bundle, creationDate, slug, key } = chart
   const style = {
     width: '100%',
