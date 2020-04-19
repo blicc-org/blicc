@@ -1,8 +1,12 @@
 import { useEffect } from 'react'
 
-export function useClickAway(ref, callback, classNamesToIgnore = '') {
+export function useClickAway(
+  ref: any,
+  callback: any,
+  classNamesToIgnore: string = ''
+) {
   useEffect(() => {
-    function handleClick(event) {
+    function handleClick(event: any) {
       if (ref.current && !ref.current.contains(event.target)) {
         if (classNamesToIgnore) {
           if (!hasParentWithClass(event.target, classNamesToIgnore)) callback()
@@ -10,7 +14,7 @@ export function useClickAway(ref, callback, classNamesToIgnore = '') {
       }
     }
 
-    function hasParentWithClass(node, className) {
+    function hasParentWithClass(node: any, className: string): any {
       if (!node || node.nodeName === 'BODY') return false
       if (node.classList && node.classList.contains(className)) return true
       return hasParentWithClass(node.parentNode, className)

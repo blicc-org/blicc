@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export function useAlive() {
+export function useAlive(): Array<any> {
   const offsetInSec = 10
   const [count, setCount] = useState(offsetInSec)
 

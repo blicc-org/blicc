@@ -3,7 +3,7 @@ import { API } from '../../config'
 import { useLogout } from './useLogout'
 import { useRefresh } from './useRefresh'
 
-export function useApiEndpoint(path = '') {
+export function useApiEndpoint(path = ''): Array<any> {
   var fullPath = `${API.ORIGIN}${path}`
   const logout = useLogout()
   const refresh = useRefresh()
@@ -12,7 +12,7 @@ export function useApiEndpoint(path = '') {
     credentials: 'include',
   }
 
-  async function postRequest(resource, config = {}) {
+  async function postRequest(resource: any, config: any = {}): Promise<any> {
     return await handleRequest(fullPath, {
       ...defaultConfig,
       method: 'POST',
@@ -24,9 +24,9 @@ export function useApiEndpoint(path = '') {
     })
   }
 
-  async function getRequest(config = {}) {
+  async function getRequest(config: any = {}): Promise<any> {
     if (config.url) fullPath = config.url
-    var url = new URL(fullPath)
+    const url: any = new URL(fullPath)
     if (config.params) {
       url.search = new URLSearchParams(config.params).toString()
     }
@@ -40,7 +40,7 @@ export function useApiEndpoint(path = '') {
     })
   }
 
-  async function putRequest(resource, config = {}) {
+  async function putRequest(resource: any, config: any = {}): Promise<any> {
     return handleRequest(fullPath, {
       ...defaultConfig,
       method: 'PUT',
@@ -53,7 +53,7 @@ export function useApiEndpoint(path = '') {
     })
   }
 
-  async function deleteRequest(config = {}) {
+  async function deleteRequest(config: any = {}): Promise<any> {
     return handleRequest(fullPath, {
       ...defaultConfig,
       method: 'DELETE',
@@ -64,7 +64,7 @@ export function useApiEndpoint(path = '') {
     })
   }
 
-  async function handleRequest(url, config) {
+  async function handleRequest(url: string, config: any): Promise<Array<any>> {
     const res = await fetch(url, config)
     const { status } = res
     let result = [status, {}]
@@ -89,7 +89,7 @@ export function useApiEndpoint(path = '') {
     return [status, await res.json()]
   }
 
-  function isHealthCheckInvalid(status) {
+  function isHealthCheckInvalid(status: any): boolean {
     return (
       (status === statusCode.BAD_REQUEST || status === statusCode.NOT_FOUND) &&
       path.startsWith('/health-check')

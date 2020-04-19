@@ -3,7 +3,7 @@ import { useApiEndpoint } from './useApiEndpoint'
 import { AppContext } from '../context'
 import { useLogout } from './useLogout'
 
-export function useAutoLogout() {
+export function useAutoLogout(): void {
   const logoutInMs = 10000
   const [appState] = useContext(AppContext)
   const [, healthCheck, ,] = useApiEndpoint('/health-check/auth')
