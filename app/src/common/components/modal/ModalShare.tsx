@@ -97,6 +97,7 @@ export function ModalShare({ cancel, id, title }: any) {
                 type="text"
                 value={shareUrl}
                 onFocus={(evt) => evt.target.select()}
+                readOnly
               />
               <div className="input-group-append">
                 <button
