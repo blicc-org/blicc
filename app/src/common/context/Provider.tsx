@@ -11,7 +11,7 @@ import { ArrangementProvider } from './ArrangementContext'
 import { QueryStackProvider } from './QueryStackContext'
 import { FeatureProvider } from './FeatureContext'
 
-export function Provider({ children }) {
+export function Provider({ children }: any) {
   return (
     <HelmetProvider>
       <AppProvider>

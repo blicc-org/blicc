@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { ToastContainer } from '../components/toast/ToastContainer'
 
-export const ToastContext = React.createContext()
+export const ToastContext = React.createContext<Array<any>>([])
 
-export function ToastProvider({ children }) {
+export function ToastProvider({ children }: any) {
   const [toasts, setToasts] = useState([])
 
-  function showToast(label, message, type) {
-    setToasts((prev) => {
-      if (prev.filter((e) => e.label === label).length > 0) return prev
+  function showToast(label: string, message: string, type: string) {
+    setToasts((prev: any) => {
+      if (prev.filter((e: any) => e.label === label).length > 0) return prev
       return [{ label, message, type }, ...prev]
     })
     setTimeout(() => {

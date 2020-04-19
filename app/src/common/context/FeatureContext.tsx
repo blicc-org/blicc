@@ -5,10 +5,10 @@ export const INITIAL_FEATURES = {
   installed: false,
 }
 
-export const FeatureContext = createContext()
+export const FeatureContext = createContext<Array<any>>([])
 export const { Consumer: FeatureConsumer } = FeatureContext
 
-export function FeatureProvider({ children }) {
+export function FeatureProvider({ children }: any) {
   const [features, setFeatures] = useSessionStorage(
     'app_session_state',
     INITIAL_FEATURES

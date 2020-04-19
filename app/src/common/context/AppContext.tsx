@@ -17,10 +17,10 @@ export const INITIAL_APP_STATE = {
   role: '',
 }
 
-export const AppContext = createContext()
+export const AppContext = createContext<Array<any>>([])
 export const { Consumer: AppConsumer } = AppContext
 
-export function AppProvider({ children }) {
+export function AppProvider({ children }: any) {
   const [appState, setAppState] = useLocalStorage(
     'app_state',
     INITIAL_APP_STATE

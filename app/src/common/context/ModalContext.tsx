@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Modal } from '../components/modal/Modal'
 
-export const ModalContext = React.createContext()
+export const ModalContext = React.createContext<Array<any>>([])
 
-export function ModalProvider({ children }) {
+export function ModalProvider({ children }: any) {
   const [modal, setModal] = useState({
     show: false,
     content: () => {
@@ -12,7 +12,7 @@ export function ModalProvider({ children }) {
   })
   const { show, content } = modal
 
-  function showModal(content) {
+  function showModal(content: any) {
     setModal({ show: true, content })
   }
 

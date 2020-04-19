@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react'
 
-export const DragContext = createContext()
+export const DragContext = createContext<Array<any>>([])
 export const { Consumer: DragConsumer } = DragContext
 
 export const DRAG = {
@@ -9,7 +9,7 @@ export const DRAG = {
   DATA: 2,
 }
 
-export function DragProvider({ children }) {
+export function DragProvider({ children }: any) {
   const [dragState, setDragState] = useState(DRAG.NONE)
 
   return (
