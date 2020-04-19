@@ -1,5 +1,5 @@
-export function useJsonHighlighter() {
-  function highlight(str) {
+export function useJsonHighlighter(): any {
+  function highlight(str: string) {
     let result = '<pre>'
     let open = true
     for (var i = 0; i < str.length; i++) {

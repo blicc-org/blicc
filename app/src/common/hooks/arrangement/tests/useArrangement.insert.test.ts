@@ -3,8 +3,8 @@ import { useArrangement, ACTION } from '../useArrangement'
 
 describe('useArrangement for inserting elements', () => {
   it('Insert single element into drag here', () => {
-    const { result } = renderHook(() => useArrangement())
-    const ids = []
+    const { result }: any = renderHook(() => useArrangement(), null)
+    const ids: Array<any> = []
 
     act(() => {
       const [arrangement, insert] = result.current
@@ -15,8 +15,8 @@ describe('useArrangement for inserting elements', () => {
   })
 
   it('Insert element to the left', () => {
-    const { result } = renderHook(() => useArrangement())
-    const ids = []
+    const { result }: any = renderHook(() => useArrangement(), null)
+    const ids: Array<any> = []
 
     act(() => {
       const [arrangement, insert] = result.current
@@ -38,8 +38,8 @@ describe('useArrangement for inserting elements', () => {
   })
 
   it('Insert element to the right', () => {
-    const { result } = renderHook(() => useArrangement())
-    const ids = []
+    const { result }: any = renderHook(() => useArrangement(), null)
+    const ids: Array<any> = []
 
     act(() => {
       const [arrangement, insert] = result.current
@@ -61,8 +61,8 @@ describe('useArrangement for inserting elements', () => {
   })
 
   it('Insert element at the top', () => {
-    const { result } = renderHook(() => useArrangement())
-    const ids = []
+    const { result }: any = renderHook(() => useArrangement(), null)
+    const ids: Array<any> = []
 
     act(() => {
       const [arrangement, insert] = result.current
@@ -84,8 +84,8 @@ describe('useArrangement for inserting elements', () => {
   })
 
   it('Insert element at the bottom', () => {
-    const { result } = renderHook(() => useArrangement())
-    const ids = []
+    const { result }: any = renderHook(() => useArrangement(), null)
+    const ids: Array<any> = []
 
     act(() => {
       const [arrangement, insert] = result.current
@@ -107,8 +107,8 @@ describe('useArrangement for inserting elements', () => {
   })
 
   it('Insert element before element', () => {
-    const { result } = renderHook(() => useArrangement())
-    const ids = []
+    const { result }: any = renderHook(() => useArrangement(), null)
+    const ids: Array<any> = []
 
     act(() => {
       const [arrangement, insert] = result.current
@@ -134,8 +134,8 @@ describe('useArrangement for inserting elements', () => {
   })
 
   it('Insert element after element', () => {
-    const { result } = renderHook(() => useArrangement())
-    const ids = []
+    const { result }: any = renderHook(() => useArrangement(), null)
+    const ids: Array<any> = []
 
     act(() => {
       const [arrangement, insert] = result.current
@@ -161,8 +161,8 @@ describe('useArrangement for inserting elements', () => {
   })
 
   it('Add four elements both row and column', () => {
-    const { result } = renderHook(() => useArrangement())
-    const ids = []
+    const { result }: any = renderHook(() => useArrangement(), null)
+    const ids: Array<any> = []
 
     act(() => {
       const [arrangement, insert] = result.current

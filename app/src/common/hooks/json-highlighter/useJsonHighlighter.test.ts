@@ -3,11 +3,11 @@ import { useJsonHighlighter } from './useJsonHighlighter'
 
 describe('useJsonHighlighter', () => {
   it('highlight json string', () => {
-    const { result } = renderHook(() => useJsonHighlighter())
+    const { result } = renderHook(() => useJsonHighlighter(), null)
     const str = '{"hallo": "world"}'
     let output = ''
     act(() => {
-      const highlighter = result.current
+      const highlighter: any = result.current
       output = highlighter(str)
     })
 

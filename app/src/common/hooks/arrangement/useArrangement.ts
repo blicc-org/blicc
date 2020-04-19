@@ -14,19 +14,19 @@ export const ACTION = {
   AFTER: 7,
 }
 
-export function useArrangement() {
+export function useArrangement(): Array<any> {
   const [arrangement, setArrangement] = useContext(ArrangementContext)
   const insertHelper = useInsert()
   const removeHelper = useRemove()
 
-  function insert(targetId, action) {
+  function insert(targetId: string, action: any) {
     const newId = uuid()
-    setArrangement((prev) => insertHelper(prev, newId, targetId, action))
+    setArrangement((prev: any) => insertHelper(prev, newId, targetId, action))
     return newId
   }
 
-  function remove(id) {
-    setArrangement((prev) => removeHelper(prev, id))
+  function remove(id: string) {
+    setArrangement((prev: string) => removeHelper(prev, id))
   }
 
   return [arrangement, insert, remove]

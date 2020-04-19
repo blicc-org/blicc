@@ -8,8 +8,12 @@ export const MASK = {
   DATA: 4,
 }
 
-export function useSelectAction() {
-  function getNormalizedCoordinates(canvasRef, clientX, clientY) {
+export function useSelectAction(): any {
+  function getNormalizedCoordinates(
+    canvasRef: any,
+    clientX: number,
+    clientY: number
+  ) {
     const rect = canvasRef.current.getBoundingClientRect()
     return [
       (clientX - rect.left) / canvasRef.current.offsetWidth,
@@ -17,15 +21,15 @@ export function useSelectAction() {
     ]
   }
 
-  function calcIsCenter(x, y) {
+  function calcIsCenter(x: number, y: number): boolean {
     return x > 0.25 && x < 0.75 && y > 0.25 && y < 0.75
   }
 
-  function calcIsRim(x, y) {
+  function calcIsRim(x: number, y: number): boolean {
     return !(x > 0.125 && x < 0.875 && y > 0.125 && y < 0.875)
   }
 
-  function getDirection(x, y) {
+  function getDirection(x: number, y: number): any {
     if (x > y) {
       return x + y < 1 ? ACTION.TOP : ACTION.RIGHT
     } else {
@@ -33,7 +37,7 @@ export function useSelectAction() {
     }
   }
 
-  function whichAction(canvasRef, event, mask) {
+  function whichAction(canvasRef: any, event: any, mask: any): any {
     const [x, y] = getNormalizedCoordinates(
       canvasRef,
       event.clientX,

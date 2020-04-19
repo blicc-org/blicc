@@ -6,7 +6,14 @@ import theme from '../../../Theme.scss'
 export function useDrawQuad() {
   const [hexToRgb] = useColor()
 
-  function draw(ctxRef, p1, p2, p3, p4, color = theme.success) {
+  function draw(
+    ctxRef: any,
+    p1: any,
+    p2: any,
+    p3: any,
+    p4: any,
+    color: string = theme.success
+  ) {
     const clr = hexToRgb(color)
     ctxRef.current.fillStyle = `rgba(${clr.r}, ${clr.g}, ${clr.b}, 0.5)`
     ctxRef.current.beginPath()
@@ -18,7 +25,7 @@ export function useDrawQuad() {
     ctxRef.current.fill()
   }
 
-  function drawQuad(canvasRef, ctxRef, action, mask) {
+  function drawQuad(canvasRef: any, ctxRef: any, action: any, mask: any) {
     if (action === ACTION.NONE) return
     const width = canvasRef.current.width
     const height = canvasRef.current.height

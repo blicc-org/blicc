@@ -3,8 +3,8 @@ import { useArrangement, ACTION } from '../useArrangement'
 
 describe('useArrangement for removing elements', () => {
   it('Remove single one', () => {
-    const { result } = renderHook(() => useArrangement())
-    const ids = []
+    const { result }: any = renderHook(() => useArrangement(), null)
+    const ids: any = []
 
     act(() => {
       const [arrangement, insert, remove] = result.current
@@ -16,8 +16,8 @@ describe('useArrangement for removing elements', () => {
   })
 
   it('Remove one of two', () => {
-    const { result } = renderHook(() => useArrangement())
-    const ids = []
+    const { result }: any = renderHook(() => useArrangement(), null)
+    const ids: any = []
 
     act(() => {
       const [arrangement, insert, remove] = result.current
@@ -32,8 +32,8 @@ describe('useArrangement for removing elements', () => {
   })
 
   it('Remove one out of three or more', () => {
-    const { result } = renderHook(() => useArrangement())
-    const ids = []
+    const { result }: any = renderHook(() => useArrangement(), null)
+    const ids: Array<any> = []
 
     act(() => {
       const [arrangement, insert, remove] = result.current
@@ -57,8 +57,8 @@ describe('useArrangement for removing elements', () => {
   })
 
   it('Remove one in between levels', () => {
-    const { result } = renderHook(() => useArrangement())
-    const ids = []
+    const { result }: any = renderHook(() => useArrangement(), null)
+    const ids: Array<any> = []
 
     act(() => {
       const [arrangement, insert, remove] = result.current
@@ -91,7 +91,7 @@ describe('useArrangement for removing elements', () => {
   })
 
   it('Remove one that does not exist', () => {
-    const { result } = renderHook(() => useArrangement())
+    const { result }: any = renderHook(() => useArrangement(), null)
 
     act(() => {
       const [, , remove] = result.current
