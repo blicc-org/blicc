@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint } from '../../hooks'
 
-export function SelectDataSourceModal({ cancel, submit }) {
+export function SelectDataSourceModal({ cancel, submit }: any) {
   const maxNumberOfResults = 10
   const [result, setResult] = useState({ total: 0, dataSources: [] })
   const [, access, ,] = useApiEndpoint('/data-sources')
@@ -24,7 +24,7 @@ export function SelectDataSourceModal({ cancel, submit }) {
     // eslint-disable-next-line
   }, [searchTerm])
 
-  function onSelect(event, id) {
+  function onSelect(event: any, id: string) {
     event.preventDefault()
     submit(id)
   }

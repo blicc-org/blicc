@@ -5,7 +5,7 @@ import { DragContext, DRAG } from '../../context'
 import { Empty } from '../ui'
 import './DragHere.scss'
 
-export function DragHere({ edit, onDrop }) {
+export function DragHere({ edit, onDrop }: any) {
   const [dragging] = useContext(DragContext)
   return (
     <>
@@ -14,7 +14,7 @@ export function DragHere({ edit, onDrop }) {
           <p className="text-muted">Drag a chart in here!</p>
           {dragging !== DRAG.NONE && (
             <Positioning
-              onDrop={(type, payload) => onDrop(type, payload)}
+              onDrop={(type: any, payload: any) => onDrop(type, payload)}
               mask={dragging === DRAG.CHART ? MASK.NONE : MASK.DATA}
             />
           )}

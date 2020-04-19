@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { X, Radio, AlertCircle } from 'react-feather'
 import { ReactComponent as Tool } from '../../../assets/img/Tool.svg'
-import { PluginLoader } from './../plugin-loader/PluginLoader'
+import { PluginLoader } from '../plugin-loader/PluginLoader'
 import { Positioning } from '../positioning/Positioning'
 import { useSettings } from '../../hooks/settings/useSettings'
 import { DragContext, DRAG } from '../../context'
@@ -16,7 +16,7 @@ export const UNIT = {
   TIME: 'time',
 }
 
-export function Plugin({ id, onDrop, mask, isMobile }) {
+export function Plugin({ id, onDrop, mask, isMobile }: any) {
   const [accessSet, insertSet, removeSet] = useSettings()
   const type = accessSet(id, 'chart_type')
   const [, , removeArr] = useArrangement()
@@ -92,7 +92,7 @@ export function Plugin({ id, onDrop, mask, isMobile }) {
       <PluginLoader id={id} type={type} keepAlive={keepAlive} />
       {dragging !== DRAG.NONE && (
         <Positioning
-          onDrop={(type, payload) => onDrop(type, { ...payload, id })}
+          onDrop={(type: any, payload: any) => onDrop(type, { ...payload, id })}
           mask={dragging === DRAG.CHART ? mask : MASK.DATA}
         />
       )}

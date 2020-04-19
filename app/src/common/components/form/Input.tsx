@@ -7,7 +7,7 @@ export function Input({
   isValid = false,
   feedback = 'Please provide a corresponding value.',
   ...props
-}) {
+}: any) {
   return (
     <div className={size}>
       <label>{children}</label>

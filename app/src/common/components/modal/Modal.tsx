@@ -1,7 +1,7 @@
 import React from 'react'
 import './Modal.scss'
 
-export function Modal({ show, content }) {
+export function Modal({ show, content }: any) {
   const modal = content()
   return (
     <>

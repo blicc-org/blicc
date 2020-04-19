@@ -4,7 +4,7 @@ import { useMobile, useInstalled, useAutoLogout } from '../../hooks'
 import { sidebarWidth } from '../../../config'
 import './Main.scss'
 
-export function Main({ children }) {
+export function Main({ children }: any) {
   const [sidebarState] = useContext(SidebarContext)
   const { open } = sidebarState
   const [style, setStyle] = useState({})

@@ -2,7 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { APP } from '../../../config'
 
-export function MetaData({ title, description, path = '' }) {
+export function MetaData({ title, description, path = '' }: any) {
   return (
     <Helmet>
       <meta charSet="utf-8" />

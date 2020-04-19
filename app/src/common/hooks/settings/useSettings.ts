@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { SettingsContext } from '../../context'
 
-export function useSettings() {
+export function useSettings(): Array<any> {
   const [settings, setSettings] = useContext(SettingsContext)
 
   function insert(id: string, key: string, value: any) {

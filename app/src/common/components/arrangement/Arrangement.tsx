@@ -15,7 +15,7 @@ import { Box } from './Box'
 import { DRAG } from '../../context'
 import './Arrangement.scss'
 
-export function Arrangement({ edit, fullscreen }) {
+export function Arrangement({ edit, fullscreen }: any) {
   const isMobile = useMobile()
   const isInstalled = useInstalled()
   const [arr, insertArr] = useArrangement()
@@ -26,7 +26,7 @@ export function Arrangement({ edit, fullscreen }) {
   const [action, setAction] = useState(0)
   const [, publishById] = usePublisher()
 
-  let arrangementStyle = isMobile
+  let arrangementStyle: any = isMobile
     ? {}
     : {
         overflow: 'auto',
@@ -34,7 +34,7 @@ export function Arrangement({ edit, fullscreen }) {
         height: '100%',
       }
 
-  let captureStyle = fullscreen
+  let captureStyle: any = fullscreen
     ? {
         position: 'absolute',
         top: 0,
@@ -50,7 +50,7 @@ export function Arrangement({ edit, fullscreen }) {
     return (
       <SelectDataSourceModal
         cancel={hideDataSourceModal}
-        submit={(dataSourceId) => {
+        submit={(dataSourceId: string) => {
           insertSet(targetId, 'data_source', dataSourceId)
           publishById(dataSourceId)
           hideChartModal()
@@ -63,7 +63,7 @@ export function Arrangement({ edit, fullscreen }) {
     () => (
       <SelectChartModal
         cancel={hideChartModal}
-        submit={(slug) => {
+        submit={(slug: string) => {
           const id = insertArr(targetId, action)
           if (action === ACTION.REPLACE) {
             const dataSourceId = accessSet(targetId, 'data_source')
@@ -78,7 +78,7 @@ export function Arrangement({ edit, fullscreen }) {
     [update, targetId, action]
   )
 
-  function onDrop(type, payload) {
+  function onDrop(type: any, payload: any) {
     if (type === DRAG.CHART) {
       const { action, id = '' } = payload
       setTargetId(id)

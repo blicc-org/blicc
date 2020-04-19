@@ -1,6 +1,6 @@
 import { useLanguage } from '../../hooks'
 
-export function useFooterArrangement() {
+export function useFooterArrangement(): any {
   const content = useLanguage()
   return [
     {

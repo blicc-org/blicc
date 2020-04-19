@@ -9,7 +9,7 @@ import { Search } from '../search/Search'
 import { sidebarWidth } from '../../../config'
 import './Navbar.scss'
 
-export function NavBar({ toggleMenu }) {
+export function NavBar({ toggleMenu }: any) {
   const content = useLanguage()
   const isInstalled = useInstalled()
   const isMobile = useMobile()

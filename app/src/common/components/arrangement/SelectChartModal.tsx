@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint } from '../../hooks'
 
-export function SelectChartModal({ cancel, submit }) {
+export function SelectChartModal({ cancel, submit }: any) {
   const maxNumberOfResults = 10
   const [result, setResult] = useState({ total: 0, charts: [] })
   const [, access, ,] = useApiEndpoint('/charts')
@@ -24,7 +24,7 @@ export function SelectChartModal({ cancel, submit }) {
     // eslint-disable-next-line
   }, [searchTerm])
 
-  function onSelect(event, slug, key) {
+  function onSelect(event: any, slug: string, key: string) {
     event.preventDefault()
     submit(slug + '/' + key)
   }

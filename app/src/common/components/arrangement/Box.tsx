@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid'
 import { MASK } from '../../hooks'
 import { Plugin } from './Plugin'
 
-export function Box({ edit, arr, onDrop, isMobile, mask = MASK.SINGLE }) {
+export function Box({ edit, arr, onDrop, isMobile, mask = MASK.SINGLE }: any) {
   const style = isMobile
     ? {}
     : {
@@ -18,7 +18,7 @@ export function Box({ edit, arr, onDrop, isMobile, mask = MASK.SINGLE }) {
     <>
       {arr.items ? (
         <div style={style}>
-          {arr.items.map((item) => (
+          {arr.items.map((item: any) => (
             <Box
               key={uuid()}
               edit={edit}

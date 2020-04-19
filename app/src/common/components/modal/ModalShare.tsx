@@ -16,7 +16,7 @@ import {
 } from 'react-share'
 import './ModalShare.scss'
 
-export function ModalShare({ cancel, id, title }) {
+export function ModalShare({ cancel, id, title }: any) {
   const shareUrl = `${APP.ORIGIN}/d/${id}`
   function copy() {
     const el = document.createElement('textarea')
@@ -52,7 +52,7 @@ export function ModalShare({ cancel, id, title }) {
                 <small className="text-muted">Facebook</small>
               </div>
               <div className="col col-sm-2 col-4">
-                <TwitterShareButton url={shareUrl} quote={title}>
+                <TwitterShareButton url={shareUrl}>
                   <TwitterIcon size={60} round />
                 </TwitterShareButton>
                 <br />
@@ -60,28 +60,28 @@ export function ModalShare({ cancel, id, title }) {
               </div>
 
               <div className="col col-sm-2 col-4">
-                <TumblrShareButton url={shareUrl} quote={title}>
+                <TumblrShareButton url={shareUrl}>
                   <TumblrIcon size={60} round />
                 </TumblrShareButton>
                 <br />
                 <small className="text-muted">Tumblr</small>
               </div>
               <div className="col col-sm-2 col-4">
-                <RedditShareButton url={shareUrl} quote={title}>
+                <RedditShareButton url={shareUrl}>
                   <RedditIcon className="reddit-color" size={60} round />
                 </RedditShareButton>
                 <br />
                 <small className="text-muted">Reddit</small>
               </div>
               <div className="col col-sm-2 col-4">
-                <WhatsappShareButton url={shareUrl} quote={title}>
+                <WhatsappShareButton url={shareUrl}>
                   <WhatsappIcon size={60} round />
                 </WhatsappShareButton>
                 <br />
                 <small className="text-muted">Whatsapp</small>
               </div>
               <div className="col col-sm-2 col-4">
-                <EmailShareButton url={shareUrl} quote={title}>
+                <EmailShareButton url={shareUrl}>
                   <div className="email-button">
                     <Mail />
                   </div>
@@ -91,17 +91,16 @@ export function ModalShare({ cancel, id, title }) {
               </div>
             </div>
             <br />
-            <div class="input-group mb-3">
+            <div className="input-group mb-3">
               <input
-                class="form-control copy-clipboard"
+                className="form-control copy-clipboard"
                 type="text"
                 value={shareUrl}
                 onFocus={(evt) => evt.target.select()}
-                readonly
               />
-              <div class="input-group-append">
+              <div className="input-group-append">
                 <button
-                  class="btn btn-outline-secondary"
+                  className="btn btn-outline-secondary"
                   type="button"
                   onClick={copy}
                 >

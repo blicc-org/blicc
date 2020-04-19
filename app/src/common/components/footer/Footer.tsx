@@ -3,7 +3,7 @@ import { FooterNav } from './FooterNav'
 import { LanguageSelect } from '../language-select/LanguageSelect'
 import { useLanguage } from '../../hooks'
 
-export function Footer({ close }) {
+export function Footer({ close }: any) {
   const content = useLanguage()
 
   return (

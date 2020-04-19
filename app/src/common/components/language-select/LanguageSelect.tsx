@@ -6,13 +6,12 @@ import './LanguageSelect.scss'
 export function LanguageSelect() {
   const [appState, setAppState] = useContext(AppContext)
 
-  function onChange(event) {
+  function onChange(event: any) {
     setAppState({ ...appState, language: event.target.value })
   }
 
   return (
     <select
-      label="Select a language"
       className="form-control form-control-sm language-select"
       onChange={onChange}
       value={appState.language}

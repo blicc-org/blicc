@@ -5,11 +5,11 @@ import { User } from 'react-feather'
 import { useLogout, useAdmin } from '../../hooks'
 import { API } from '../../../config'
 
-export function NavbarUser({ id, firstName, lastName, loggedIn }) {
+export function NavbarUser({ id, firstName, lastName, loggedIn }: any) {
   const [defaultIcon, setDefaultIcon] = useState(false)
   const content = useLanguage()
   const [open, setOpen] = useState(false)
-  const ref = useRef()
+  const ref = useRef<HTMLDivElement>(null)
   const logout = useLogout()
   const isAdmin = useAdmin()
   useClickAway(ref, () => close())

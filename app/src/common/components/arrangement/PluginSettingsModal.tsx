@@ -1,10 +1,10 @@
 import React from 'react'
 import { UNIT } from './Plugin'
 
-export function PluginSettingsModal({ cancel, submit, unit, setUnit }) {
+export function PluginSettingsModal({ cancel, submit, unit, setUnit }: any) {
   const { xAxis, yAxis } = unit
-  const setXAxis = (val) => setUnit({ ...unit, xAxis: val })
-  const setYAxis = (val) => setUnit({ ...unit, yAxis: val })
+  const setXAxis = (val: any) => setUnit({ ...unit, xAxis: val })
+  const setYAxis = (val: any) => setUnit({ ...unit, yAxis: val })
   return (
     <>
       <div className="modal-dialog modal-dialog-centered" role="document">
