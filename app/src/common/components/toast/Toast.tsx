@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export function Toast({ label, message, type = '' }) {
+export function Toast({ label, message, type = '' }: any) {
   const [hidden, setHidden] = useState(false)
   const types = ['primary', 'success', 'danger', 'info', 'warning']
 

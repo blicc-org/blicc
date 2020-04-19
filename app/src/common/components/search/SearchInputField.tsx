@@ -18,7 +18,7 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [focused, setFocused] = useState(false)
   const [data, setData] = useState(INIT_DATA)
-  const ref = useRef()
+  const ref = useRef<HTMLFormElement>(null)
   useClickAway(ref, () => handleClose())
 
   function handleClose() {
@@ -79,7 +79,6 @@ export function SearchInputField({ isFullscreen = false, close = () => {} }) {
           </div>
         )}
         <input
-          label={content.search.placeholder}
           className="form-control search-input"
           type="search"
           placeholder={content.search.placeholder}

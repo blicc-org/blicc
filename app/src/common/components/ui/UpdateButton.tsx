@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function UpdateButton({ edit, onClick }) {
+export function UpdateButton({ edit, onClick }: any) {
   return (
     <>
       <button

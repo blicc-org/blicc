@@ -4,7 +4,11 @@ import syntaxColors from './syntaxColors.js'
 import './Highlighter.scss'
 import theme from '../../../Theme.scss'
 
-export function Highlighter({ language, value, displayCopyButton = true }) {
+export function Highlighter({
+  language,
+  value,
+  displayCopyButton = true,
+}: any) {
   function copy() {
     const el = document.createElement('textarea')
     el.value = value

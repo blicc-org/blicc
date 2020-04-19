@@ -9,7 +9,7 @@ export function Toolbox() {
   const isMobile = useMobile()
   const isInstalled = useInstalled()
   const [show, setShow] = useState(false)
-  const ref = useRef()
+  const ref = useRef<HTMLDivElement>(null)
   useClickAway(ref, () => setShow(false), 'prevent-toolnox-click-away')
   let rotation = show ? -135 : 0
 

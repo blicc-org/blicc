@@ -9,7 +9,7 @@ const State = {
   ERROR: 2,
 }
 
-export function Image({ width, height, src }) {
+export function Image({ width, height, src }: any) {
   const iconSize = 48
   const [state, setState] = useState(State.LOADING)
   const onLoad = () => setState(State.SUCCESS)

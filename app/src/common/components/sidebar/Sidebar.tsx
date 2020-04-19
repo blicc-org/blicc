@@ -7,7 +7,7 @@ import { useMobile, useInstalled, useLanguage, useClickAway } from '../../hooks'
 import { Footer } from '../footer/Footer'
 import './Sidebar.scss'
 
-function SidebarHeader({ name }) {
+function SidebarHeader({ name }: any) {
   return (
     <h6 className="sidebar-heading d-flex align-items-center p-3 my-0 text-muted">
       <span>{name}</span>
@@ -15,7 +15,7 @@ function SidebarHeader({ name }) {
   )
 }
 
-export function Sidebar({ open }) {
+export function Sidebar({ open }: any) {
   const content = useLanguage()
   const [appState] = useContext(AppContext)
   const { loggedIn } = appState
@@ -24,12 +24,12 @@ export function Sidebar({ open }) {
   const [blackoutStyle, setBlackoutStyle] = useState({})
   const isMobile = useMobile()
   const isInstalled = useInstalled()
-  const ref = useRef()
+  const ref = useRef<HTMLDivElement>(null)
   useClickAway(ref, () => close(), 'prevent-sidebar-click-away')
 
   function close() {
     if (open && isMobile) {
-      setSidebarState((prev) => {
+      setSidebarState((prev: any) => {
         return { ...prev, open: false }
       })
     }

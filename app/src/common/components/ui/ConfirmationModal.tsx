@@ -6,7 +6,7 @@ export function ConfirmationModal({
   submitPhrase,
   cancel,
   submit,
-}) {
+}: any) {
   return (
     <>
       <div className="modal-dialog modal-dialog-centered" role="document">

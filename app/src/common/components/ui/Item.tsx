@@ -10,7 +10,7 @@ export function Item({
   link,
   linkLabel,
   thumbnail = '',
-}) {
+}: any) {
   const isMobile = useMobile()
 
   return (

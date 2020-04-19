@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useLanguage } from '../../hooks'
 import './Result.scss'
 
-export function Result({ show, results, total, close }) {
+export function Result({ show, results, total, close }: any) {
   const content = useLanguage()
   return (
     <>
@@ -14,7 +14,7 @@ export function Result({ show, results, total, close }) {
           </h6>
           <hr />
           <ul className="list-unstyled">
-            {results.map((result) => {
+            {results.map((result: any) => {
               return (
                 <li className="media" key={result.id}>
                   <Link
