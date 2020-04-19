@@ -1,15 +1,15 @@
 import { useContext } from 'react'
 import statusCode from 'http-status-codes'
-import { useToast } from '../hooks'
+import { useToast } from '.'
 import { useApiEndpoint } from './useApiEndpoint'
 import { AppContext } from '../context'
 
-export function useLogin(onSuccess = () => {}, onFailure = () => {}) {
+export function useLogin(onSuccess = () => {}, onFailure = () => {}): Function {
   const [open, , ,] = useApiEndpoint('/tokens')
   const [appState, setAppState] = useContext(AppContext)
   const showToast = useToast()
 
-  async function login(email, password, token = '') {
+  async function login(email: string, password: string, token = '') {
     const requestBody =
       token === '' ? { email, password } : { email, password, token }
     let hasTwoFactorAuth = false

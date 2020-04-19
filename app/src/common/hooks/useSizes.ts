@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { breakpoints } from '../../config'
 
-export function useSizes() {
+export function useSizes(): Array<any> {
   const [xs, setXs] = useState(false)
   const [sm, setSm] = useState(false)
   const [md, setMd] = useState(false)

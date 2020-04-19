@@ -25,8 +25,8 @@ export function Dashboards() {
   const [page, setPage] = useState(0)
   const [result, setResult] = useState({ total: 0, dashboards: [] })
   const [create, access, ,] = useApiEndpoint('/dashboards')
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
+  const [title, setTitle] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
   const [redirect, setRedirect] = useState('')
 
   const [showModal, hideModal] = useModal(

@@ -1,24 +1,24 @@
 import { useState, useEffect } from 'react'
 
-export function useLocalStorage(key, init = {}) {
+export function useLocalStorage(key: string, init = {}): Array<any> {
   const updateInMs = 3000
 
   if (localStorage.getItem(key) !== null) {
-    init = JSON.parse(localStorage.getItem(key))
+    init = JSON.parse(localStorage.getItem(key) || '')
   } else {
     localStorage.setItem(key, JSON.stringify(init))
   }
 
   const [state, setState] = useState(init)
 
-  async function setLocalStorage(value) {
+  async function setLocalStorage(value: any) {
     localStorage.setItem(key, JSON.stringify(value))
     setState(value)
   }
 
   useEffect(() => {
     async function fetchLocalStorage() {
-      const val = localStorage.getItem(key)
+      const val = localStorage.getItem(key) || ''
       if (JSON.stringify(state) !== val) {
         setState(JSON.parse(val))
       }

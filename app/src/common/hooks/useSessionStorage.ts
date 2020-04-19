@@ -1,24 +1,24 @@
 import { useState, useEffect } from 'react'
 
-export function useSessionStorage(key, init = {}) {
+export function useSessionStorage(key: string, init = {}): Array<any> {
   const updateInMs = 3000
 
   if (sessionStorage.getItem(key) !== null) {
-    init = JSON.parse(sessionStorage.getItem(key))
+    init = JSON.parse(sessionStorage.getItem(key) || '')
   } else {
     sessionStorage.setItem(key, JSON.stringify(init))
   }
 
   const [state, setState] = useState(init)
 
-  async function setSessionStorage(value) {
+  async function setSessionStorage(value: any) {
     sessionStorage.setItem(key, JSON.stringify(value))
     setState(value)
   }
 
   useEffect(() => {
     async function fetchSessionStorage() {
-      const val = sessionStorage.getItem(key)
+      const val = sessionStorage.getItem(key) || ''
       if (JSON.stringify(state) !== val) {
         setState(JSON.parse(val))
       }

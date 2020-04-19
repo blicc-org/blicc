@@ -4,14 +4,14 @@ import { useDeliveryEndpoint } from './useDeliveryEndpoint'
 import { useContext } from 'react'
 import { SettingsContext } from '../context'
 
-export function usePublisher() {
+export function usePublisher(): Array<Function> {
   const [settings] = useContext(SettingsContext)
   const [publish] = useDeliveryEndpoint()
   const [, access] = useApiEndpoint()
   const interval = 5000 // live time update interval
 
   function retrieveIds() {
-    const set = {}
+    const set = []
     for (var key of Object.keys(settings)) {
       const value = settings[key]['data_source']
       if (value) set[value] = value
@@ -36,7 +36,7 @@ export function usePublisher() {
     }
   }
 
-  async function publishById(id) {
+  async function publishById(id: string) {
     const [status, data] = await access({
       url: `${API.ORIGIN}/data-sources/${id}`,
     })
