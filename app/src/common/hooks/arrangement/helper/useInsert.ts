@@ -1,7 +1,7 @@
 import { ACTION } from '../useArrangement'
 
-export function useInsert() {
-  function insertInside(newId, targetId, action) {
+export function useInsert(): any {
+  function insertInside(newId: string, targetId: string, action: any) {
     switch (action) {
       case ACTION.TOP:
         return {
@@ -27,8 +27,13 @@ export function useInsert() {
     }
   }
 
-  function insertAround(items, newId, targetId, action) {
-    const index = items.findIndex((item) => item.id === targetId)
+  function insertAround(
+    items: any,
+    newId: string,
+    targetId: string,
+    action: any
+  ) {
+    const index = items.findIndex((item: any) => item.id === targetId)
     switch (action) {
       case ACTION.BEFORE:
         items.splice(index, 0, { id: newId })
@@ -41,7 +46,7 @@ export function useInsert() {
     return items
   }
 
-  function insert(prev, newId, targetId, action) {
+  function insert(prev: any, newId: string, targetId: string, action: any) {
     if (prev.id) {
       if (prev.id === targetId) {
         if (action === ACTION.REPLACE) {
@@ -55,7 +60,7 @@ export function useInsert() {
     } else if (prev.items) {
       if (
         (action === ACTION.BEFORE || action === ACTION.AFTER) &&
-        prev.items.some((item) => item.id && item.id === targetId)
+        prev.items.some((item: any) => item.id && item.id === targetId)
       ) {
         return {
           ...prev,
@@ -64,7 +69,7 @@ export function useInsert() {
       } else {
         return {
           ...prev,
-          items: prev.items.map((item) =>
+          items: prev.items.map((item: any) =>
             insert(item, newId, targetId, action)
           ),
         }
