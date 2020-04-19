@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import qrcode from 'qrcode'
 
-export function QRCode({ url }) {
-  const [dataUrl, setDataUrl] = useState()
+export function QRCode({ url }: any) {
+  const [dataUrl, setDataUrl] = useState('')
 
   useEffect(() => {
     async function retrieveData() {

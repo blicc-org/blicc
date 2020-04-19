@@ -3,12 +3,12 @@ import { Loading } from '../ui'
 import { API } from '../../../config'
 import { useSettings, useDeliveryEndpoint } from '../../hooks'
 
-export function PluginLoader({ id, type, keepAlive }) {
+export function PluginLoader({ id, type, keepAlive }: any) {
   const [accessSet, insertSet] = useSettings()
   const [bundle, plugin] = type.split('/')
   const [loading, setLoading] = useState(true)
   const [, subscribe] = useDeliveryEndpoint()
-  const ref = useRef()
+  const ref = useRef<HTMLDivElement>(null)
   const dataSourceId = accessSet(id, 'data_source')
   const channel = `/data-delivery/${dataSourceId}`
   const data = { labels: [], datasets: [] }
@@ -19,8 +19,8 @@ export function PluginLoader({ id, type, keepAlive }) {
     height: '100%',
   }
 
-  function onDataUpdate(callback = (res) => res) {
-    const cb = (res) => {
+  function onDataUpdate(callback = (res: any) => res) {
+    const cb = (res: any) => {
       keepAlive()
       return callback(res)
     }
@@ -32,7 +32,7 @@ export function PluginLoader({ id, type, keepAlive }) {
   const key = 'plugin_settings'
   const settings = accessSet(id, key)
 
-  function setSettings(value) {
+  function setSettings(value: any) {
     insertSet(id, key, value)
   }
 

@@ -6,7 +6,7 @@ export function ProtectedRoute({
   component: Component,
   role = 'user',
   ...rest
-}) {
+}: any) {
   const [appState] = useContext(AppContext)
   const { loggedIn, role: expectedRole } = appState
 

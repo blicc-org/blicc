@@ -3,8 +3,8 @@ import { useSelectAction, useDrawQuad, ACTION, MASK } from '../../hooks'
 import { DRAG } from '../../context'
 import './Positioning.scss'
 
-export function Positioning({ onDrop, mask }) {
-  const canvasRef = useRef(null)
+export function Positioning({ onDrop, mask }: any) {
+  const canvasRef: any = useRef<HTMLCanvasElement>(null)
   const ctxRef = useRef(null)
   const [action, setAction] = useState(ACTION.NONE)
   const selectAction = useSelectAction()
@@ -33,7 +33,7 @@ export function Positioning({ onDrop, mask }) {
     }
   }
 
-  function onDragOver(evt) {
+  function onDragOver(evt: any) {
     setAction(selectAction(canvasRef, evt, mask))
   }
 
