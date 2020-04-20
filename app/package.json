@@ -32,7 +32,7 @@
     "react-helmet-async": "^1.0.5",
     "react-markdown": "^4.3.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^3.4.0",
     "react-share": "^4.1.0",
     "react-syntax-highlighter": "^12.2.1",
     "react-test-renderer": "^16.13.1",
