@@ -1,6 +1,6 @@
 {
   "name": "mock-api",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "api mock for integration tests",
   "license": "MIT",
   "scripts": {
