@@ -6,6 +6,7 @@ import { MetaData } from '../../common/components/meta-data/MetaData'
 import { Item, Pagination, Empty, Loading } from '../../common/components/ui'
 import { CreateDataSourceModal } from './CreateDataSourceModal'
 import './DataSources.scss'
+import { DataSourceList, DataSource } from '../../common/interfaces'
 
 export const FREQUENCY = {
   DAILY: 86400000,
@@ -28,14 +29,14 @@ export const INITIAL_DATA_SOURCE = {
 }
 
 export function DataSources(): ReactElement {
+  const initDataSourceList: DataSourceList = { total: 0, dataSources: [] }
+  const [dataSourceList, setDataSourceList] = useState(initDataSourceList)
   const content = useLanguage()
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
-  const [result, setResult] = useState({ total: 0, dataSources: [] })
   const [create, access, ,] = useApiEndpoint('/data-sources')
   const [isLoading, setIsLoading] = useState(true)
   const [redirect, setRedirect] = useState('')
-
   const [title, setTitle] = useState('')
   const [fetchFrequency, setFetchFrequency] = useState(0)
   const [persistData, setPersistData] = useState(true)
@@ -77,7 +78,7 @@ export function DataSources(): ReactElement {
         },
       })
       if (status === statusCode.OK) {
-        setResult(data)
+        setDataSourceList(data)
         setIsLoading(false)
       }
     }
@@ -112,21 +113,23 @@ export function DataSources(): ReactElement {
             <Loading />
           ) : (
             <>
-              {result.dataSources.length === 0 ? (
+              {dataSourceList.dataSources.length === 0 ? (
                 <Empty>{content.dataSources.empty}</Empty>
               ) : (
                 <table className="table">
                   <tbody>
-                    {result.dataSources.map((d: any) => (
-                      <Item
-                        key={d.id}
-                        title={d.title}
-                        subtitle={d.creationDate.split('T')[0]}
-                        description={d.description}
-                        link={`/data-sources/${d.id}`}
-                        linkLabel={content.dataSources.view}
-                      />
-                    ))}
+                    {dataSourceList.dataSources.map(
+                      (dataSource: DataSource): ReactElement => (
+                        <Item
+                          key={dataSource.id}
+                          title={dataSource.title}
+                          subtitle={dataSource.creationDate.split('T')[0]}
+                          description={dataSource.description}
+                          link={`/data-sources/${dataSource.id}`}
+                          linkLabel={content.dataSources.view}
+                        />
+                      )
+                    )}
                   </tbody>
                 </table>
               )}
@@ -137,7 +140,7 @@ export function DataSources(): ReactElement {
           page={page}
           setPage={setPage}
           itemsPerPage={itemsPerPage}
-          total={result.total}
+          total={dataSourceList.total}
         />
       </div>
     </>

@@ -7,14 +7,15 @@ import { Chart, ChartList } from '../../common/interfaces'
 import './Charts.scss'
 
 export function Charts(): ReactElement {
+  const initChartList: ChartList = {
+    total: 0,
+    charts: [],
+  }
+  const [chartList, setChartList] = useState<ChartList>(initChartList)
   const content = useLanguage()
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
-  const [chartList, setChartList] = useState<ChartList>({
-    total: 0,
-    charts: [],
-  })
   const [, access, ,] = useApiEndpoint('/charts')
 
   useEffect(() => {

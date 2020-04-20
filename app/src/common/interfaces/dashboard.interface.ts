@@ -3,7 +3,7 @@ export interface Dashboard {
   title: string
   description: string
   userId: string
-  creationDate: Date
+  creationDate: string
   data: object
   published: boolean
 }

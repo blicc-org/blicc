@@ -4,7 +4,7 @@ export interface Chart {
   bundle: string
   description: string
   userId: string
-  creationDate: Date
+  creationDate: string
   key: string
   slug: string
 }

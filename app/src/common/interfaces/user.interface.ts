@@ -5,7 +5,7 @@ export interface User {
   email: string
   role: Role
   hasTwoFactorAuth: boolean
-  creationDate: Date
+  creationDate: string
 }
 
 export interface UserList {

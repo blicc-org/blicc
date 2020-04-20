@@ -3,7 +3,7 @@ export interface DataSource {
   title: string
   description: string
   userId: string
-  creationDate: Date
+  creationDate: string
   data: object
   persistData: boolean
   fetchFrequency: number
