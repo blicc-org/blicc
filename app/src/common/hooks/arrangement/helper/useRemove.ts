@@ -1,5 +1,5 @@
 export function useRemove(): any {
-  function removeRecursive(prev: any, targetId: string) {
+  function removeRecursive(prev: any, targetId: string): any {
     if (prev.items) {
       if (prev.items.some((item: any) => item.id && item.id === targetId)) {
         return {
@@ -25,7 +25,7 @@ export function useRemove(): any {
     }
   }
 
-  function clearRecursive(prev: any) {
+  function clearRecursive(prev: any): any {
     if (prev.items) {
       if (prev.items.some((item: any) => item.items)) {
         if (prev.items.length === 1) {
@@ -52,7 +52,7 @@ export function useRemove(): any {
     }
   }
 
-  function remove(prev: any, id: string) {
+  function remove(prev: any, id: string): any {
     return clearRecursive(removeRecursive(prev, id))
   }
 

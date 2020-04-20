@@ -3,7 +3,7 @@ import { ACTION } from '../arrangement/useArrangement'
 import { useColor } from '..'
 import theme from '../../../Theme.scss'
 
-export function useDrawQuad() {
+export function useDrawQuad(): Function {
   const [hexToRgb] = useColor()
 
   function draw(
@@ -13,7 +13,7 @@ export function useDrawQuad() {
     p3: any,
     p4: any,
     color: string = theme.success
-  ) {
+  ): void {
     const clr = hexToRgb(color)
     ctxRef.current.fillStyle = `rgba(${clr.r}, ${clr.g}, ${clr.b}, 0.5)`
     ctxRef.current.beginPath()
@@ -25,7 +25,7 @@ export function useDrawQuad() {
     ctxRef.current.fill()
   }
 
-  function drawQuad(canvasRef: any, ctxRef: any, action: any, mask: any) {
+  function drawQuad(canvasRef: any, ctxRef: any, action: any, mask: any): void {
     if (action === ACTION.NONE) return
     const width = canvasRef.current.width
     const height = canvasRef.current.height

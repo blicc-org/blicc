@@ -1,7 +1,7 @@
 import { ACTION } from '../useArrangement'
 
 export function useInsert(): any {
-  function insertInside(newId: string, targetId: string, action: any) {
+  function insertInside(newId: string, targetId: string, action: any): any {
     switch (action) {
       case ACTION.TOP:
         return {
@@ -32,7 +32,7 @@ export function useInsert(): any {
     newId: string,
     targetId: string,
     action: any
-  ) {
+  ): any {
     const index = items.findIndex((item: any) => item.id === targetId)
     switch (action) {
       case ACTION.BEFORE:
@@ -46,7 +46,12 @@ export function useInsert(): any {
     return items
   }
 
-  function insert(prev: any, newId: string, targetId: string, action: any) {
+  function insert(
+    prev: any,
+    newId: string,
+    targetId: string,
+    action: any
+  ): any {
     if (prev.id) {
       if (prev.id === targetId) {
         if (action === ACTION.REPLACE) {

@@ -19,13 +19,13 @@ export function useArrangement(): Array<any> {
   const insertHelper = useInsert()
   const removeHelper = useRemove()
 
-  function insert(targetId: string, action: any) {
+  function insert(targetId: string, action: any): string {
     const newId = uuid()
     setArrangement((prev: any) => insertHelper(prev, newId, targetId, action))
     return newId
   }
 
-  function remove(id: string) {
+  function remove(id: string): void {
     setArrangement((prev: string) => removeHelper(prev, id))
   }
 

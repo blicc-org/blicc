@@ -13,7 +13,7 @@ export function useSelectAction(): any {
     canvasRef: any,
     clientX: number,
     clientY: number
-  ) {
+  ): Array<number> {
     const rect = canvasRef.current.getBoundingClientRect()
     return [
       (clientX - rect.left) / canvasRef.current.offsetWidth,
