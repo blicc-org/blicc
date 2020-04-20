@@ -5,12 +5,22 @@ import { Details } from './details/Details'
 import { DeleteAccount } from './delete-account/DeleteAccount'
 import { TwoFactorAuth } from './two-factor-auth/TwoFactorAuth'
 
+interface User {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  role: string
+  creationDate: string
+  hasTwoFactorAuth: boolean
+}
+
 export function Profile() {
   const [appState] = useContext(AppContext)
   const { id } = appState
   const [, access, update] = useApiEndpoint(`/users/${id}`)
 
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<User>({
     id: '',
     firstName: '',
     lastName: '',

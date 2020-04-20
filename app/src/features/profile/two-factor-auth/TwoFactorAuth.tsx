@@ -13,7 +13,7 @@ import { TwoFactorAuthModal } from './TwoFactorAuthModal'
 
 interface Props {
   user: User
-  setUser: (input: User | Dispatch<SetStateAction<User>>) => void
+  setUser: Dispatch<SetStateAction<User>>
 }
 
 interface User {
