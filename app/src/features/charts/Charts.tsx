@@ -3,6 +3,7 @@ import statusCode from 'http-status-codes'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useApiEndpoint, useLanguage } from '../../common/hooks'
 import { Item, Pagination, Empty, Loading } from '../../common/components/ui'
+import { Chart, ChartList } from '../../common/interfaces'
 import './Charts.scss'
 
 export function Charts(): ReactElement {
@@ -10,7 +11,10 @@ export function Charts(): ReactElement {
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
-  const [result, setResult] = useState({ total: 0, charts: [] })
+  const [chartList, setChartList] = useState<ChartList>({
+    total: 0,
+    charts: [],
+  })
   const [, access, ,] = useApiEndpoint('/charts')
 
   useEffect(() => {
@@ -22,7 +26,7 @@ export function Charts(): ReactElement {
         },
       })
       if (status === statusCode.OK) {
-        setResult(data)
+        setChartList(data)
         setIsLoading(false)
       }
     }
@@ -46,21 +50,23 @@ export function Charts(): ReactElement {
             <Loading />
           ) : (
             <>
-              {result.total === 0 ? (
+              {chartList.total === 0 ? (
                 <Empty>{content.charts.empty}</Empty>
               ) : (
                 <table className="table">
                   <tbody>
-                    {result.charts.map((d: any) => (
-                      <Item
-                        key={d.id}
-                        title={d.title}
-                        subtitle={`@${d.slug}`}
-                        description={d.description}
-                        link={`/charts/${d.id}`}
-                        linkLabel={content.charts.view}
-                      />
-                    ))}
+                    {chartList.charts.map(
+                      (chart: Chart): ReactElement => (
+                        <Item
+                          key={chart.id}
+                          title={chart.title}
+                          subtitle={`@${chart.slug}`}
+                          description={chart.description}
+                          link={`/charts/${chart.id}`}
+                          linkLabel={content.charts.view}
+                        />
+                      )
+                    )}
                   </tbody>
                 </table>
               )}
@@ -71,7 +77,7 @@ export function Charts(): ReactElement {
           page={page}
           setPage={setPage}
           itemsPerPage={itemsPerPage}
-          total={result.total}
+          total={chartList.total}
         />
       </div>
     </>

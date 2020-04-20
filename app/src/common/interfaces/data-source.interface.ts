@@ -8,3 +8,8 @@ export interface DataSource {
   persistData: boolean
   fetchFrequency: number
 }
+
+export interface DataSourceList {
+  dataSources: Array<DataSource>
+  total: number
+}

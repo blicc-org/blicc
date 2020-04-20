@@ -7,3 +7,8 @@ export interface Dashboard {
   data: object
   published: boolean
 }
+
+export interface DashboardList {
+  dashboards: Array<Dashboard>
+  total: number
+}
