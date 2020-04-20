@@ -1,15 +1,17 @@
-import React, { useContext } from 'react'
+import React, { useContext, ReactElement } from 'react'
 import { SidebarContext } from '../../context'
 import { NavBar } from './Navbar'
 import { Sidebar } from '../sidebar/Sidebar'
 
-export function Header() {
+export function Header(): ReactElement {
   const [sidebarState, setSidebarState] = useContext(SidebarContext)
   const { open } = sidebarState
   return (
     <header>
       <NavBar
-        toggleMenu={() => setSidebarState({ ...sidebarState, open: !open })}
+        toggleMenu={(): void =>
+          setSidebarState({ ...sidebarState, open: !open })
+        }
       />
       <Sidebar open={open} />
     </header>

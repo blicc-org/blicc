@@ -1,11 +1,11 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, ReactElement } from 'react'
 import { Plus, PieChart, Database } from 'react-feather'
 import { useClickAway, useMobile, useInstalled } from '../../hooks'
 import { Selector } from './Selector'
 import { DRAG } from '../../context'
 import './Toolbox.scss'
 
-export function Toolbox() {
+export function Toolbox(): ReactElement {
   const isMobile = useMobile()
   const isInstalled = useInstalled()
   const [show, setShow] = useState(false)
@@ -47,7 +47,7 @@ export function Toolbox() {
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
-          onClick={() => setShow(!show)}
+          onClick={(): void => setShow(!show)}
           style={{ transform: `rotate(${rotation}deg)` }}
         >
           <Plus />

@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { v4 as uuid } from 'uuid'
 import { MASK } from '../../hooks'
 import { Plugin } from './Plugin'
 
-export function Box({ edit, arr, onDrop, isMobile, mask = MASK.SINGLE }: any) {
+export function Box({
+  edit,
+  arr,
+  onDrop,
+  isMobile,
+  mask = MASK.SINGLE,
+}: any): ReactElement {
   const style = isMobile
     ? {}
     : {

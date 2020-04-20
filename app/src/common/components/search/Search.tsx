@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { Search as SearchIcon } from 'react-feather'
 import { useMobile } from '../../hooks'
 import { SearchInputField } from './SearchInputField'
 import theme from '../../../Theme.scss'
 
-export function Search() {
+export function Search(): ReactElement {
   const [open, setOpen] = useState(false)
   const isMobile = useMobile()
 
-  function close() {
+  function close(): void {
     setOpen(false)
   }
 
@@ -22,7 +22,7 @@ export function Search() {
             to="/"
             className="nav-link ml-auto"
             style={{ cursor: 'pointer' }}
-            onClick={(event) => {
+            onClick={(event): void => {
               event.preventDefault()
               setOpen(true)
             }}

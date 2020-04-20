@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { lightgray } from '../../../Theme.scss'
 
-export function Loading() {
+export function Loading(): ReactElement {
   const style = {
     alignSelf: 'center',
     margin: 'auto',

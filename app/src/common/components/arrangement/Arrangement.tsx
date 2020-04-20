@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, ReactElement } from 'react'
 import {
   useArrangement,
   useModal,
@@ -15,14 +15,14 @@ import { Box } from './Box'
 import { DRAG } from '../../context'
 import './Arrangement.scss'
 
-export function Arrangement({ edit, fullscreen }: any) {
+export function Arrangement({ edit, fullscreen }: any): ReactElement {
   const isMobile = useMobile()
   const isInstalled = useInstalled()
   const [arr, insertArr] = useArrangement()
   const [accessSet, insertSet, removeSet] = useSettings()
   const [targetId, setTargetId] = useState('')
   const [update, setUpdate] = useState(0)
-  const trigger = () => setUpdate((prev) => ++prev)
+  const trigger = (): void => setUpdate((prev) => ++prev)
   const [action, setAction] = useState(0)
   const [, publishById] = usePublisher()
 
@@ -50,7 +50,7 @@ export function Arrangement({ edit, fullscreen }: any) {
     return (
       <SelectDataSourceModal
         cancel={hideDataSourceModal}
-        submit={(dataSourceId: string) => {
+        submit={(dataSourceId: string): void => {
           insertSet(targetId, 'data_source', dataSourceId)
           publishById(dataSourceId)
           hideChartModal()
@@ -63,7 +63,7 @@ export function Arrangement({ edit, fullscreen }: any) {
     () => (
       <SelectChartModal
         cancel={hideChartModal}
-        submit={(slug: string) => {
+        submit={(slug: string): void => {
           const id = insertArr(targetId, action)
           if (action === ACTION.REPLACE) {
             const dataSourceId = accessSet(targetId, 'data_source')
@@ -78,7 +78,7 @@ export function Arrangement({ edit, fullscreen }: any) {
     [update, targetId, action]
   )
 
-  function onDrop(type: any, payload: any) {
+  function onDrop(type: any, payload: any): void {
     if (type === DRAG.CHART) {
       const { action, id = '' } = payload
       setTargetId(id)
@@ -97,7 +97,7 @@ export function Arrangement({ edit, fullscreen }: any) {
       <>
         <div
           className="col px-0"
-          onDragOver={(evt) => evt.preventDefault()}
+          onDragOver={(evt): void => evt.preventDefault()}
           style={captureStyle}
         >
           {arr.items || arr.id ? (

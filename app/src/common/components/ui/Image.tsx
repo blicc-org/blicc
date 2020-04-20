@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ReactElement } from 'react'
 import { Image as Placeholder } from 'react-feather'
 import { Loading } from './Loading'
 import { lightgray } from '../../../Theme.scss'
@@ -9,11 +9,11 @@ const State = {
   ERROR: 2,
 }
 
-export function Image({ width, height, src }: any) {
+export function Image({ width, height, src }: any): ReactElement {
   const iconSize = 48
   const [state, setState] = useState(State.LOADING)
-  const onLoad = () => setState(State.SUCCESS)
-  const onError = () => setState(State.ERROR)
+  const onLoad = (): void => setState(State.SUCCESS)
+  const onError = (): void => setState(State.ERROR)
 
   const style = {
     width,

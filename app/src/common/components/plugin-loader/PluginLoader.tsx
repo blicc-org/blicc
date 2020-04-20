@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, ReactElement } from 'react'
 import { Loading } from '../ui'
 import { API } from '../../../config'
 import { useSettings, useDeliveryEndpoint } from '../../hooks'
 
-export function PluginLoader({ id, type, keepAlive }: any) {
+export function PluginLoader({ id, type, keepAlive }: any): ReactElement {
   const [accessSet, insertSet] = useSettings()
   const [bundle, plugin] = type.split('/')
   const [loading, setLoading] = useState(true)
@@ -19,8 +19,8 @@ export function PluginLoader({ id, type, keepAlive }: any) {
     height: '100%',
   }
 
-  function onDataUpdate(callback = (res: any) => res) {
-    const cb = (res: any) => {
+  function onDataUpdate(callback = (res: any): any => res): void {
+    const cb = (res: any): any => {
       keepAlive()
       return callback(res)
     }
@@ -32,12 +32,12 @@ export function PluginLoader({ id, type, keepAlive }: any) {
   const key = 'plugin_settings'
   const settings = accessSet(id, key)
 
-  function setSettings(value: any) {
+  function setSettings(value: any): void {
     insertSet(id, key, value)
   }
 
   useEffect(() => {
-    async function fetchPlugin() {
+    async function fetchPlugin(): Promise<void> {
       await import(
         /*webpackIgnore: true*/ `${API.ORIGIN}/bundles/${bundle}`
       ).then((module) => {

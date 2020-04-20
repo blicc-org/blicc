@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, ReactElement } from 'react'
 
-export function Toast({ label, message, type = '' }: any) {
+export function Toast({ label, message, type = '' }: any): ReactElement {
   const [hidden, setHidden] = useState(false)
   const types = ['primary', 'success', 'danger', 'info', 'warning']
 
@@ -29,7 +29,7 @@ export function Toast({ label, message, type = '' }: any) {
               type="button"
               className="ml-2 mb-1 close"
               data-dismiss="toast"
-              onClick={() => setHidden(true)}
+              onClick={(): void => setHidden(true)}
             >
               <span aria-hidden="true">&times;</span>
             </button>

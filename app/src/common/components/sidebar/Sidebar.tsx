@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, useRef } from 'react'
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useRef,
+  ReactElement,
+} from 'react'
 import { Link } from 'react-router-dom'
 import { Layout, PieChart, Database, ChevronsLeft } from 'react-feather'
 import { AppContext, SidebarContext } from '../../context'
@@ -7,7 +13,7 @@ import { useMobile, useInstalled, useLanguage, useClickAway } from '../../hooks'
 import { Footer } from '../footer/Footer'
 import './Sidebar.scss'
 
-function SidebarHeader({ name }: any) {
+function SidebarHeader({ name }: any): ReactElement {
   return (
     <h6 className="sidebar-heading d-flex align-items-center p-3 my-0 text-muted">
       <span>{name}</span>
@@ -15,7 +21,7 @@ function SidebarHeader({ name }: any) {
   )
 }
 
-export function Sidebar({ open }: any) {
+export function Sidebar({ open }: any): ReactElement {
   const content = useLanguage()
   const [appState] = useContext(AppContext)
   const { loggedIn } = appState
@@ -27,9 +33,9 @@ export function Sidebar({ open }: any) {
   const ref = useRef<HTMLDivElement>(null)
   useClickAway(ref, () => close(), 'prevent-sidebar-click-away')
 
-  function close() {
+  function close(): void {
     if (open && isMobile) {
-      setSidebarState((prev: any) => {
+      setSidebarState((prev: any): any => {
         return { ...prev, open: false }
       })
     }
@@ -96,7 +102,7 @@ export function Sidebar({ open }: any) {
         {isInstalled && isMobile && open && (
           <div className="sidebar-close-native" style={{ width: sidebarWidth }}>
             <a
-              onClick={(evt) => {
+              onClick={(evt): void => {
                 evt.preventDefault()
                 close()
               }}

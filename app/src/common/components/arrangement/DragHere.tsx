@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, ReactElement } from 'react'
 import { Positioning } from '../positioning/Positioning'
 import { MASK } from '../../hooks'
 import { DragContext, DRAG } from '../../context'
 import { Empty } from '../ui'
 import './DragHere.scss'
 
-export function DragHere({ edit, onDrop }: any) {
+export function DragHere({ edit, onDrop }: any): ReactElement {
   const [dragging] = useContext(DragContext)
   return (
     <>
@@ -14,7 +14,7 @@ export function DragHere({ edit, onDrop }: any) {
           <p className="text-muted">Drag a chart in here!</p>
           {dragging !== DRAG.NONE && (
             <Positioning
-              onDrop={(type: any, payload: any) => onDrop(type, payload)}
+              onDrop={(type: any, payload: any): void => onDrop(type, payload)}
               mask={dragging === DRAG.CHART ? MASK.NONE : MASK.DATA}
             />
           )}

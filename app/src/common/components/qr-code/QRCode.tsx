@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ReactElement } from 'react'
 import qrcode from 'qrcode'
 
-export function QRCode({ url }: any) {
+export function QRCode({ url }: any): ReactElement {
   const [dataUrl, setDataUrl] = useState('')
 
   useEffect(() => {
-    async function retrieveData() {
+    async function retrieveData(): Promise<void> {
       setDataUrl(await qrcode.toDataURL(url))
     }
     url !== '' && retrieveData()

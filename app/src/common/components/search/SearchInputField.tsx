@@ -18,7 +18,7 @@ const INIT_DATA = {
 
 export function SearchInputField({
   isFullscreen = false,
-  close = () => {},
+  close = (): void => {},
 }: Props): ReactElement {
   const content = useLanguage()
   const [, access, ,] = useApiEndpoint('/dashboards')
@@ -29,7 +29,7 @@ export function SearchInputField({
   const ref = useRef<HTMLFormElement>(null)
   useClickAway(ref, () => handleClose())
 
-  function handleClose() {
+  function handleClose(): void {
     setFocused(false)
     setGgColor(getDefault())
     setSearchTerm('')
@@ -37,7 +37,7 @@ export function SearchInputField({
   }
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(): Promise<void> {
       const [status, data] = await access({
         params: { fields: 'id,title', search: searchTerm, take: 10 },
       })
@@ -54,11 +54,11 @@ export function SearchInputField({
     // eslint-disable-next-line
   }, [searchTerm])
 
-  function getDefault() {
+  function getDefault(): string {
     return isFullscreen ? theme.light : theme.gray
   }
 
-  function onFocus() {
+  function onFocus(): void {
     setFocused(true)
     setGgColor(theme.light)
   }
@@ -77,7 +77,7 @@ export function SearchInputField({
             <button
               title={content.search.close}
               className="btn"
-              onClick={(event) => {
+              onClick={(event): void => {
                 event.preventDefault()
                 close()
               }}
@@ -91,7 +91,7 @@ export function SearchInputField({
           type="search"
           placeholder={content.search.placeholder}
           style={{ backgroundColor }}
-          onChange={(event) => setSearchTerm(event.target.value)}
+          onChange={(event): void => setSearchTerm(event.target.value)}
           value={searchTerm}
         />
         <div className="input-group-append">
@@ -99,7 +99,7 @@ export function SearchInputField({
             title="Search"
             className="btn search-button"
             type="submit"
-            onClick={(event) => event.preventDefault()}
+            onClick={(event): void => event.preventDefault()}
             style={{ backgroundColor }}
           >
             <SearchIcon />

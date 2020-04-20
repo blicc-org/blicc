@@ -20,7 +20,7 @@ export function Pagination({
         <button
           title="Go to specific page"
           className="page-link"
-          onClick={() => {
+          onClick={(): void => {
             setPage(i)
           }}
         >
@@ -38,7 +38,7 @@ export function Pagination({
             <button
               title="Go to first page"
               className="page-link"
-              onClick={() => setPage(0)}
+              onClick={(): void => setPage(0)}
             >
               « First
             </button>
@@ -48,7 +48,7 @@ export function Pagination({
               <button
                 title="Go to previous page"
                 className="page-link"
-                onClick={() => setPage(page - 1)}
+                onClick={(): void => setPage(page - 1)}
               >
                 Prev
               </button>
@@ -60,7 +60,7 @@ export function Pagination({
               <button
                 title="Go to next page"
                 className="page-link"
-                onClick={() => setPage(page + 1)}
+                onClick={(): void => setPage(page + 1)}
               >
                 Next
               </button>
@@ -70,7 +70,7 @@ export function Pagination({
             <button
               title="Go to last page"
               className="page-link"
-              onClick={() => setPage(numOfPages)}
+              onClick={(): void => setPage(numOfPages)}
             >
               Last »
             </button>

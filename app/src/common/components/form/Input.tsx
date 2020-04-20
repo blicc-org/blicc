@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 export function Input({
   children,
@@ -7,7 +7,7 @@ export function Input({
   isValid = false,
   feedback = 'Please provide a corresponding value.',
   ...props
-}: any) {
+}: any): ReactElement {
   return (
     <div className={size}>
       <label>{children}</label>

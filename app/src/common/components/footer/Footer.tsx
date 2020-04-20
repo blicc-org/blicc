@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { FooterNav } from './FooterNav'
 import { LanguageSelect } from '../language-select/LanguageSelect'
 import { useLanguage } from '../../hooks'
 
-export function Footer({ close }: any) {
+export function Footer({ close }: any): ReactElement {
   const content = useLanguage()
 
   return (

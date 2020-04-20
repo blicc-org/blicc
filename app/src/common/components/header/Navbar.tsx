@@ -1,4 +1,9 @@
-import React, { useContext, useState, useLayoutEffect } from 'react'
+import React, {
+  useContext,
+  useState,
+  useLayoutEffect,
+  ReactElement,
+} from 'react'
 import { Link } from 'react-router-dom'
 import { AppContext } from '../../context'
 import { useLanguage, useInstalled, useMobile } from '../../hooks'
@@ -9,7 +14,7 @@ import { Search } from '../search/Search'
 import { sidebarWidth } from '../../../config'
 import './Navbar.scss'
 
-export function NavBar({ toggleMenu }: any) {
+export function NavBar({ toggleMenu }: any): ReactElement {
   const content = useLanguage()
   const isInstalled = useInstalled()
   const isMobile = useMobile()
@@ -18,12 +23,13 @@ export function NavBar({ toggleMenu }: any) {
   const [width, setWidth] = useState(window.innerWidth)
 
   useLayoutEffect(() => {
-    function updateSize() {
+    function updateSize(): void {
       setWidth(window.innerWidth)
     }
+
     window.addEventListener('resize', updateSize)
     updateSize()
-    return () => window.removeEventListener('resize', updateSize)
+    return (): void => window.removeEventListener('resize', updateSize)
   }, [])
 
   const style = {

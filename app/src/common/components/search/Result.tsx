@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../../hooks'
 import './Result.scss'
 
-export function Result({ show, results, total, close }: any) {
+export function Result({ show, results, total, close }: any): ReactElement {
   const content = useLanguage()
   return (
     <>
@@ -14,19 +14,21 @@ export function Result({ show, results, total, close }: any) {
           </h6>
           <hr />
           <ul className="list-unstyled">
-            {results.map((result: any) => {
-              return (
-                <li className="media" key={result.id}>
-                  <Link
-                    className="media-body"
-                    to={`/dashboards/${result.id}`}
-                    onClick={close}
-                  >
-                    <h5 className="mt-0 mb-1">{result.title}</h5>
-                  </Link>
-                </li>
-              )
-            })}
+            {results.map(
+              (result: any): ReactElement => {
+                return (
+                  <li className="media" key={result.id}>
+                    <Link
+                      className="media-body"
+                      to={`/dashboards/${result.id}`}
+                      onClick={close}
+                    >
+                      <h5 className="mt-0 mb-1">{result.title}</h5>
+                    </Link>
+                  </li>
+                )
+              }
+            )}
           </ul>
         </div>
       )}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Mail } from 'react-feather'
 import { APP } from '../../../config'
 import {
@@ -16,9 +16,9 @@ import {
 } from 'react-share'
 import './ModalShare.scss'
 
-export function ModalShare({ cancel, id, title }: any) {
+export function ModalShare({ cancel, id, title }: any): ReactElement {
   const shareUrl = `${APP.ORIGIN}/d/${id}`
-  function copy() {
+  function copy(): void {
     const el = document.createElement('textarea')
     el.value = shareUrl
     el.setAttribute('readonly', '')
@@ -96,7 +96,7 @@ export function ModalShare({ cancel, id, title }: any) {
                 className="form-control copy-clipboard"
                 type="text"
                 value={shareUrl}
-                onFocus={(evt) => evt.target.select()}
+                onFocus={(evt): void => evt.target.select()}
                 readOnly
               />
               <div className="input-group-append">

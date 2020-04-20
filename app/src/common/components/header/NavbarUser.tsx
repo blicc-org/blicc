@@ -1,24 +1,29 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, ReactElement } from 'react'
 import { useLanguage, useClickAway } from '../../hooks'
 import { Link } from 'react-router-dom'
 import { User } from 'react-feather'
 import { useLogout, useAdmin } from '../../hooks'
 import { API } from '../../../config'
 
-export function NavbarUser({ id, firstName, lastName, loggedIn }: any) {
+export function NavbarUser({
+  id,
+  firstName,
+  lastName,
+  loggedIn,
+}: any): ReactElement {
   const [defaultIcon, setDefaultIcon] = useState(false)
   const content = useLanguage()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const logout = useLogout()
   const isAdmin = useAdmin()
-  useClickAway(ref, () => close())
+  useClickAway(ref, (): void => close())
 
-  function toggle() {
+  function toggle(): void {
     setOpen((prevState) => !prevState)
   }
 
-  function close() {
+  function close(): void {
     setOpen(false)
   }
 
@@ -35,8 +40,8 @@ export function NavbarUser({ id, firstName, lastName, loggedIn }: any) {
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-            onClick={(event) => {
-              event.preventDefault()
+            onClick={(evt): void => {
+              evt.preventDefault()
               toggle()
             }}
           >
@@ -49,7 +54,7 @@ export function NavbarUser({ id, firstName, lastName, loggedIn }: any) {
                 width={24}
                 height={24}
                 src={`${API.ORIGIN}/profile-pictures/${id}.jpg?resolution=160x160`}
-                onError={() => setDefaultIcon(true)}
+                onError={(): void => setDefaultIcon(true)}
               />
             )}
           </a>
@@ -80,7 +85,7 @@ export function NavbarUser({ id, firstName, lastName, loggedIn }: any) {
             <Link
               className="dropdown-item"
               to="/"
-              onClick={async () => {
+              onClick={async (): Promise<void> => {
                 await logout()
                 close()
               }}

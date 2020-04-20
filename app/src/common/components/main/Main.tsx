@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, ReactElement } from 'react'
 import { SidebarContext } from '../../context'
 import { useMobile, useInstalled, useAutoLogout } from '../../hooks'
 import { sidebarWidth } from '../../../config'
 import './Main.scss'
 
-export function Main({ children }: any) {
+export function Main({ children }: any): ReactElement {
   const [sidebarState] = useContext(SidebarContext)
   const { open } = sidebarState
   const [style, setStyle] = useState({})

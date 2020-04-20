@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { NotFound } from './features/not-found/NotFound'
 import { Offline } from './features/offline/Offline'
@@ -24,7 +24,7 @@ import { Installed } from './features/installed/Installed'
 import { DashboardShared } from './features/dashboard-shared/DashboardShared'
 import './App.scss'
 
-export function App() {
+export function App(): ReactElement {
   return (
     <Provider>
       <Router>

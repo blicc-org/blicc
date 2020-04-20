@@ -7,7 +7,7 @@ export function UpdateButton({ edit, onClick }: any): ReactElement {
         title="Update Resource"
         type="button"
         className={`btn ${edit ? 'btn-primary' : 'btn-outline-secondary'}`}
-        onClick={(evt) => {
+        onClick={(evt): void => {
           onClick(evt)
         }}
       >

@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint } from '../../hooks'
 
-export function SelectChartModal({ cancel, submit }: any) {
+export function SelectChartModal({ cancel, submit }: any): ReactElement {
   const maxNumberOfResults = 10
   const [result, setResult] = useState({ total: 0, charts: [] })
   const [, access, ,] = useApiEndpoint('/charts')
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(): Promise<void> {
       const [status, data] = await access({
         params: {
           search: searchTerm,
@@ -24,7 +24,7 @@ export function SelectChartModal({ cancel, submit }: any) {
     // eslint-disable-next-line
   }, [searchTerm])
 
-  function onSelect(event: any, slug: string, key: string) {
+  function onSelect(event: any, slug: string, key: string): void {
     event.preventDefault()
     submit(slug + '/' + key)
   }
@@ -49,7 +49,7 @@ export function SelectChartModal({ cancel, submit }: any) {
               className="form-control"
               type="text"
               placeholder="Like Pie Chart..."
-              onChange={(event) => setSearchTerm(event.target.value)}
+              onChange={(evt): void => setSearchTerm(evt.target.value)}
             ></input>
             <div className="pt-3">
               <ul>
@@ -58,7 +58,7 @@ export function SelectChartModal({ cancel, submit }: any) {
                     <h5>
                       <a
                         href="/"
-                        onClick={(event) => onSelect(event, slug, key)}
+                        onClick={(evt): void => onSelect(evt, slug, key)}
                       >
                         {title}
                       </a>

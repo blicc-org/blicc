@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { FooterNavListItem } from './FooterNavListItem'
 
-export function FooterNavList({ list, close }: any) {
+export function FooterNavList({ list, close }: any): ReactElement {
   return (
     <div className="m-3">
       <h5>{list.category}</h5>

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, ReactElement } from 'react'
 import { X, Radio, AlertCircle } from 'react-feather'
 import { ReactComponent as Tool } from '../../../assets/img/Tool.svg'
 import { PluginLoader } from '../plugin-loader/PluginLoader'
@@ -16,7 +16,7 @@ export const UNIT = {
   TIME: 'time',
 }
 
-export function Plugin({ id, onDrop, mask, isMobile }: any) {
+export function Plugin({ id, onDrop, mask, isMobile }: any): ReactElement {
   const [accessSet, insertSet, removeSet] = useSettings()
   const type = accessSet(id, 'chart_type')
   const [, , removeArr] = useArrangement()
@@ -51,7 +51,7 @@ export function Plugin({ id, onDrop, mask, isMobile }: any) {
         cancel={hideModal}
         unit={unit}
         setUnit={setUnit}
-        submit={() => {
+        submit={(): void => {
           insertSet(id, 'plugin_settings', { unit })
           hideModal()
         }}
@@ -78,11 +78,14 @@ export function Plugin({ id, onDrop, mask, isMobile }: any) {
           </p>
         </div>
         <div className="col text-muted text-right">
-          <Tool style={{ cursor: 'pointer' }} onClick={() => showModal()} />
+          <Tool
+            style={{ cursor: 'pointer' }}
+            onClick={(): void => showModal()}
+          />
           <X
             size={18}
             style={{ cursor: 'pointer' }}
-            onClick={() => {
+            onClick={(): void => {
               removeArr(id)
               removeSet(id)
             }}
@@ -92,7 +95,9 @@ export function Plugin({ id, onDrop, mask, isMobile }: any) {
       <PluginLoader id={id} type={type} keepAlive={keepAlive} />
       {dragging !== DRAG.NONE && (
         <Positioning
-          onDrop={(type: any, payload: any) => onDrop(type, { ...payload, id })}
+          onDrop={(type: any, payload: any): void =>
+            onDrop(type, { ...payload, id })
+          }
           mask={dragging === DRAG.CHART ? mask : MASK.DATA}
         />
       )}

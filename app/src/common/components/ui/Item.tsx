@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { useMobile } from '../../hooks'
 import { Image } from './Image'
@@ -10,7 +10,7 @@ export function Item({
   link,
   linkLabel,
   thumbnail = '',
-}: any) {
+}: any): ReactElement {
   const isMobile = useMobile()
 
   return (

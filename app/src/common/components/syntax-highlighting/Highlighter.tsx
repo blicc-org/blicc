@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import syntaxColors from './syntaxColors.js'
 import './Highlighter.scss'
@@ -8,8 +8,8 @@ export function Highlighter({
   language,
   value,
   displayCopyButton = true,
-}: any) {
-  function copy() {
+}: any): ReactElement {
+  function copy(): void {
     const el = document.createElement('textarea')
     el.value = value
     el.setAttribute('readonly', '')
@@ -35,7 +35,7 @@ export function Highlighter({
           <button
             title="Copy source code"
             className="btn btn-sm btn-link btn-copy"
-            onClick={() => copy()}
+            onClick={(): void => copy()}
           >
             Copy
           </button>

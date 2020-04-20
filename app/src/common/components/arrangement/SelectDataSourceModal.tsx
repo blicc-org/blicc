@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint } from '../../hooks'
 
-export function SelectDataSourceModal({ cancel, submit }: any) {
+export function SelectDataSourceModal({ cancel, submit }: any): ReactElement {
   const maxNumberOfResults = 10
   const [result, setResult] = useState({ total: 0, dataSources: [] })
   const [, access, ,] = useApiEndpoint('/data-sources')
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(): Promise<void> {
       const [status, data] = await access({
         params: {
           search: searchTerm,
@@ -24,8 +24,8 @@ export function SelectDataSourceModal({ cancel, submit }: any) {
     // eslint-disable-next-line
   }, [searchTerm])
 
-  function onSelect(event: any, id: string) {
-    event.preventDefault()
+  function onSelect(evt: any, id: string): void {
+    evt.preventDefault()
     submit(id)
   }
 
@@ -49,19 +49,21 @@ export function SelectDataSourceModal({ cancel, submit }: any) {
               className="form-control"
               type="text"
               placeholder="Like Pie Chart..."
-              onChange={(event) => setSearchTerm(event.target.value)}
+              onChange={(evt): void => setSearchTerm(evt.target.value)}
             ></input>
             <div className="pt-3">
               <ul>
-                {result.dataSources.map(({ id, title }) => (
-                  <li key={id}>
-                    <h5>
-                      <a href="/" onClick={(event) => onSelect(event, id)}>
-                        {title}
-                      </a>
-                    </h5>
-                  </li>
-                ))}
+                {result.dataSources.map(
+                  ({ id, title }): ReactElement => (
+                    <li key={id}>
+                      <h5>
+                        <a href="/" onClick={(evt): void => onSelect(evt, id)}>
+                          {title}
+                        </a>
+                      </h5>
+                    </li>
+                  )
+                )}
               </ul>
             </div>
             <hr />
