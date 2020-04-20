@@ -2,7 +2,23 @@ import React, { useState, ReactElement } from 'react'
 import { Card, UpdateButton } from '../../../common/components/ui'
 import { ProfilePicture } from './ProfilePicture'
 
-export function Details({ user, setUser, update }: any): ReactElement {
+interface Props {
+  user: User
+  setUser: (user: User) => void
+  update: () => Promise<void>
+}
+
+interface User {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  role: string
+  creationDate: string
+  hasTwoFactorAuth: boolean
+}
+
+export function Details({ user, setUser, update }: Props): ReactElement {
   const { firstName, lastName, email, role, creationDate } = user
   const [edit, setEdit] = useState(false)
 
