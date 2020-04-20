@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, ReactElement } from 'react'
 
 export const DragContext = createContext<Array<any>>([])
 export const { Consumer: DragConsumer } = DragContext
@@ -9,7 +9,7 @@ export const DRAG = {
   DATA: 2,
 }
 
-export function DragProvider({ children }: any) {
+export function DragProvider({ children }: any): ReactElement {
   const [dragState, setDragState] = useState(DRAG.NONE)
 
   return (

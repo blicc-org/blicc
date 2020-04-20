@@ -1,7 +1,7 @@
-import React, { createContext } from 'react'
+import React, { createContext, ReactElement } from 'react'
 import { useLocalStorage } from '../hooks'
 
-function useBrowserLanguage() {
+function useBrowserLanguage(): string {
   let language = 'en'
   if (navigator.language.toLowerCase().startsWith('de')) language = 'de'
   return language
@@ -20,7 +20,7 @@ export const INITIAL_APP_STATE = {
 export const AppContext = createContext<Array<any>>([])
 export const { Consumer: AppConsumer } = AppContext
 
-export function AppProvider({ children }: any) {
+export function AppProvider({ children }: any): ReactElement {
   const [appState, setAppState] = useLocalStorage(
     'app_state',
     INITIAL_APP_STATE

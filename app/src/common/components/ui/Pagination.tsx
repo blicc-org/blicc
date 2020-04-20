@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { useMobile } from '../../hooks'
 
-export function Pagination({ page, setPage, itemsPerPage, total }: any) {
+export function Pagination({
+  page,
+  setPage,
+  itemsPerPage,
+  total,
+}: any): ReactElement {
   const isMobile = useMobile()
   const numOfPages = total === 0 ? 0 : Math.floor((total - 1) / itemsPerPage)
   const range = isMobile ? 0 : 4

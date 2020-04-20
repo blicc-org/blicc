@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 import { AppProvider } from './AppContext'
 import { SubscriberProvider } from './SubscriberContext'
@@ -11,7 +11,7 @@ import { ArrangementProvider } from './ArrangementContext'
 import { QueryStackProvider } from './QueryStackContext'
 import { FeatureProvider } from './FeatureContext'
 
-export function Provider({ children }: any) {
+export function Provider({ children }: any): ReactElement {
   return (
     <HelmetProvider>
       <AppProvider>
