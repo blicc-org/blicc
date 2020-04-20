@@ -1,18 +1,32 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Upload } from 'react-feather'
 import { API } from '../../../config'
 import { Image } from '../../../common/components/ui'
 import { useMobile, useModal, useApiEndpoint } from '../../../common/hooks'
 import { ProfilePictureModal } from './ProfilePictureModal'
 
-export function ProfilePicture({ user }: any) {
+interface Props {
+  user: User
+}
+
+interface User {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  role: string
+  creationDate: string
+  hasTwoFactorAuth: boolean
+}
+
+export function ProfilePicture({ user }: Props): ReactElement {
   const isMobile = useMobile()
   const [, , , remove] = useApiEndpoint(`/profile-pictures/${user.id}`)
   const length = isMobile ? 120 : 160
   const [showModal, hideModal] = useModal(() => (
     <ProfilePictureModal
       userId={user.id}
-      cancel={() => hideModal()}
+      cancel={(): void => hideModal()}
       submit={hideModal}
     />
   ))

@@ -8,7 +8,7 @@ export function Pagination({ page, setPage, itemsPerPage, total }: any) {
   const buttom = page - range > 0 ? page - range : 0
   const top = page + range < numOfPages ? page + range : numOfPages
 
-  let pageLinks = []
+  const pageLinks = []
   for (let i = buttom; i <= top; i++) {
     pageLinks.push(
       <li key={i} className={`page-item ${page === i ? 'active' : ''}`}>

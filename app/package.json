@@ -51,7 +51,7 @@
     "test": "CI=true react-scripts test",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer './build/static/js/*.js'",
-    "fix": "eslint --fix \"src/**/*.+(js|jsx)\"",
+    "fix": "eslint --fix \"src/**/*.+(js|jsx|ts|tsx)\"",
     "svg": "svgo -f ./src/assets/img/"
   },
   "eslintConfig": {

@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { ReactElement, ChangeEvent } from 'react'
 import { API } from '../../../config'
 
-export function ProfilePictureModal({ userId, cancel, submit }: any) {
-  let formData = new FormData()
-  const onChange = (evt: any) => {
+interface Props {
+  userId: string
+  cancel: () => void
+  submit: () => void
+}
+
+type FileEventTarget = HTMLInputElement & { files: FileList }
+
+export function ProfilePictureModal({
+  userId,
+  cancel,
+  submit,
+}: Props): ReactElement {
+  const formData = new FormData()
+  const onChange = (evt: ChangeEvent<FileEventTarget>): void => {
     formData.append('image', evt.target.files[0])
   }
 
-  async function upload() {
+  async function upload(): Promise<void> {
     try {
-      let r = await fetch(`${API.ORIGIN}/profile-pictures/${userId}`, {
+      const r = await fetch(`${API.ORIGIN}/profile-pictures/${userId}`, {
         method: 'PUT',
         body: formData,
         credentials: 'include',

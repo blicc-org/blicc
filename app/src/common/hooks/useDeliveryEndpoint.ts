@@ -5,7 +5,7 @@ import { DELIVERY } from '../../config'
 import { QueryStackContext } from '../context/QueryStackContext'
 
 export let socket: any = null
-export let cache: any = []
+export const cache: any = []
 
 export const WebSocketState = {
   [WebSocket.CONNECTING]: 'connecting',
@@ -58,7 +58,7 @@ export function useDeliveryEndpoint() {
         const { channel, data } = JSON.parse(evt.data)
         cache[channel] = data
         if (channel && data && subscriberStack) {
-          for (var key of Object.keys(subscriberStack)) {
+          for (const key of Object.keys(subscriberStack)) {
             if (key.includes(channel)) subscriberStack[key](data)
           }
         }

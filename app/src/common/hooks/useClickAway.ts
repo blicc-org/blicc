@@ -1,10 +1,6 @@
 import { useEffect } from 'react'
 
-export function useClickAway(
-  ref: any,
-  callback: any,
-  classNamesToIgnore: string = ''
-) {
+export function useClickAway(ref: any, callback: any, classNamesToIgnore = '') {
   useEffect(() => {
     function handleClick(event: any) {
       if (ref.current && !ref.current.contains(event.target)) {

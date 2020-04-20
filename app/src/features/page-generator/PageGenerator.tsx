@@ -1,10 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, ReactElement } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import Markdown from 'react-markdown'
 import { Highlighter } from '../../common/components/syntax-highlighting/Highlighter'
 import { APP } from '../../config'
 import { AppContext } from '../../common/context'
 import './PageGenerator.scss'
+
+export function CustomLink({ href, children, onClick }: any) {
+  return (
+    <Link onClick={onClick} to={`/pages/${href}`}>
+      {children}
+    </Link>
+  )
+}
 
 export function PageGenerator({ location }: any) {
   const [appState] = useContext(AppContext)
@@ -37,7 +45,7 @@ export function PageGenerator({ location }: any) {
           source={text}
           renderers={{
             code: Highlighter,
-            link: ({ href, children }) => (
+            link: ({ href, children }: any): ReactElement => (
               <Link onClick={() => setText('')} to={`/pages/${href}`}>
                 {children}
               </Link>

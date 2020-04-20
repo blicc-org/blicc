@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, ReactElement, MouseEvent } from 'react'
 import statusCode from 'http-status-codes'
 import { Lock } from 'react-feather'
 import { useApiEndpoint, useToast } from '../../common/hooks'
@@ -6,15 +6,15 @@ import { Redirect } from 'react-router-dom'
 import { QRCode } from '../../common/components/qr-code/QRCode'
 import './TwoFactorAuth.scss'
 
-export function TwoFactorAuth() {
+export function TwoFactorAuth(): ReactElement {
   const [enable, requestSecret, ,] = useApiEndpoint('/two-factor-auth')
   const [url, setUrl] = useState('')
   const [token, setToken] = useState('')
   const [redirect, setRedirect] = useState('')
   const showToast = useToast()
 
-  async function onClick(e: any) {
-    e.preventDefault()
+  async function onClick(evt: MouseEvent<HTMLElement>): Promise<void> {
+    evt.preventDefault()
     const [status] = await enable({ token })
     if (status === statusCode.NO_CONTENT) {
       showToast('Success', 'Two-factor Authentication is enabled!', 'success')
@@ -26,7 +26,7 @@ export function TwoFactorAuth() {
   }
 
   useEffect(() => {
-    async function fetchChallengeUrl() {
+    async function fetchChallengeUrl(): Promise<void> {
       const [, { otpAuthUrl }] = await requestSecret()
       setUrl(otpAuthUrl)
     }
@@ -52,7 +52,7 @@ export function TwoFactorAuth() {
             <input
               className="form-control"
               type="text"
-              onChange={({ target: t }) => setToken(t.value)}
+              onChange={({ target: t }): void => setToken(t.value)}
               autoComplete="off"
               required
             />
@@ -66,7 +66,7 @@ export function TwoFactorAuth() {
             title="Submit two-factor authentication"
             className="btn btn-lg btn-primary btn-block"
             type="submit"
-            onClick={onClick}
+            onClick={async (evt): Promise<void> => await onClick(evt)}
           >
             Activate
           </button>

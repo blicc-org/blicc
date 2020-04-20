@@ -1,12 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, ReactElement, ChangeEvent } from 'react'
 import { Input } from '../../common/components/form/Input'
 import { RegisterService } from './RegisterService'
 
-export function RegisterForm({ user, setUser, register }: any) {
+interface Props {
+  user: User
+  setUser: (user: User) => void
+  register: () => void
+}
+
+interface User {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  confirm: string
+}
+
+export function RegisterForm({ user, setUser, register }: Props): ReactElement {
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleChange = (event: any) => {
-    const { name, value } = event.target
+  function onChange(evt: ChangeEvent<HTMLInputElement>): void {
+    const { name, value } = evt.target
     setUser({ ...user, [name]: value })
   }
 
@@ -22,7 +36,7 @@ export function RegisterForm({ user, setUser, register }: any) {
             size="col-md-6 mb-3"
             type="text"
             name="firstName"
-            onChange={handleChange}
+            onChange={onChange}
             isValid={RegisterService.isName(user.firstName)}
             isSubmitted={isSubmitted}
             feedback="Please enter a valid name."
@@ -33,7 +47,7 @@ export function RegisterForm({ user, setUser, register }: any) {
             size="col-md-6 mb-3"
             type="text"
             name="lastName"
-            onChange={handleChange}
+            onChange={onChange}
             isValid={RegisterService.isName(user.lastName)}
             isSubmitted={isSubmitted}
             feedback="Please enter a valid name."
@@ -46,7 +60,7 @@ export function RegisterForm({ user, setUser, register }: any) {
           placeholder="you@example.com"
           type="email"
           name="email"
-          onChange={handleChange}
+          onChange={onChange}
           isValid={RegisterService.isEmail(user.email)}
           isSubmitted={isSubmitted}
           feedback="Please enter a valid email address."
@@ -58,7 +72,7 @@ export function RegisterForm({ user, setUser, register }: any) {
           placeholder="Password"
           type="password"
           name="password"
-          onChange={handleChange}
+          onChange={onChange}
           isValid={RegisterService.isPassword(user.password)}
           isSubmitted={isSubmitted}
           feedback="Please enter a valid password. It should have at least one uppercase letter, one lowercase letter, one digit and be more than 8 character."
@@ -70,7 +84,7 @@ export function RegisterForm({ user, setUser, register }: any) {
           placeholder="Password Confirmation"
           type="password"
           name="confirm"
-          onChange={handleChange}
+          onChange={onChange}
           isValid={
             RegisterService.isPassword(user.password) &&
             user.password === user.confirm
@@ -85,12 +99,12 @@ export function RegisterForm({ user, setUser, register }: any) {
           title="Submit registration"
           className="btn btn-primary btn-lg btn-block"
           type="submit"
-          onClick={(e) => {
+          onClick={(e): void => {
             e.preventDefault()
             setIsSubmitted(true)
             register()
           }}
-          onSubmit={() => false}
+          onSubmit={(): boolean => false}
         >
           Register
         </button>

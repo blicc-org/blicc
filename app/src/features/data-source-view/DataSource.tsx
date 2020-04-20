@@ -65,7 +65,7 @@ export function DataSource({ input, data, setData }: any) {
               {headers.map((header: any, index: any) => {
                 const { key, value } = header
                 return (
-                  <tr>
+                  <tr key={index}>
                     <td style={{ width: '70px' }}>
                       <b>Header:</b>
                     </td>

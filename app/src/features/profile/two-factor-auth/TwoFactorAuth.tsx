@@ -1,15 +1,37 @@
-import React, { useState } from 'react'
+import React, {
+  useState,
+  ReactElement,
+  Dispatch,
+  SetStateAction,
+  MouseEvent,
+} from 'react'
 import statusCode from 'http-status-codes'
 import { Link } from 'react-router-dom'
 import { Card } from '../../../common/components/ui'
 import { useApiEndpoint, useToast, useModal } from '../../../common/hooks'
 import { TwoFactorAuthModal } from './TwoFactorAuthModal'
 
-export function TwoFactorAuth({ user, setUser }: any) {
+interface Props {
+  user: User
+  setUser: (input: User | Dispatch<SetStateAction<User>>) => void
+}
+
+interface User {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  role: string
+  creationDate: string
+  hasTwoFactorAuth: boolean
+}
+
+export function TwoFactorAuth({ user, setUser }: Props): ReactElement {
   const { hasTwoFactorAuth } = user
   const [disable, , ,] = useApiEndpoint('/two-factor-auth/delete')
   const [token, setToken] = useState('')
   const showToast = useToast()
+
   const [showModal, hideModal] = useModal(
     () => (
       <TwoFactorAuthModal
@@ -21,10 +43,10 @@ export function TwoFactorAuth({ user, setUser }: any) {
     [token]
   )
 
-  async function submit() {
+  async function submit(): Promise<void> {
     const [status] = await disable({ token })
     if (status === statusCode.NO_CONTENT) {
-      setUser((prev: any) => {
+      setUser((prev) => {
         return { ...prev, hasTwoFactorAuth: false }
       })
       showToast('Success', 'Two-factor auth is now disabled.', 'success')
@@ -38,7 +60,7 @@ export function TwoFactorAuth({ user, setUser }: any) {
     hideModal()
   }
 
-  function onClick(event: any) {
+  function onClick(event: MouseEvent<HTMLAnchorElement>): void {
     event.preventDefault()
     showModal()
   }

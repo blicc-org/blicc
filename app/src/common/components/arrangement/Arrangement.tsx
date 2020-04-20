@@ -26,7 +26,7 @@ export function Arrangement({ edit, fullscreen }: any) {
   const [action, setAction] = useState(0)
   const [, publishById] = usePublisher()
 
-  let arrangementStyle: any = isMobile
+  const arrangementStyle: any = isMobile
     ? {}
     : {
         overflow: 'auto',
@@ -34,7 +34,7 @@ export function Arrangement({ edit, fullscreen }: any) {
         height: '100%',
       }
 
-  let captureStyle: any = fullscreen
+  const captureStyle: any = fullscreen
     ? {
         position: 'absolute',
         top: 0,

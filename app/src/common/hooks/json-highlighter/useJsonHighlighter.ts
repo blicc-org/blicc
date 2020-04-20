@@ -2,7 +2,7 @@ export function useJsonHighlighter(): any {
   function highlight(str: string) {
     let result = '<pre>'
     let open = true
-    for (var i = 0; i < str.length; i++) {
+    for (let i = 0; i < str.length; i++) {
       if (str[i] === '"') {
         if (open) {
           result = result.concat(`<span>${str[i]}`)

@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, ReactElement } from 'react'
 import { Redirect } from 'react-router-dom'
 import { RegisterForm } from './RegisterForm'
 import { useApiEndpoint, useLogin, useToast } from '../../common/hooks'
 import { RegisterService } from './RegisterService'
 import statusCode from 'http-status-codes'
 
-export function Register() {
+export function Register(): ReactElement {
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -19,7 +19,7 @@ export function Register() {
   const showToast = useToast()
   const login = useLogin()
 
-  async function register() {
+  async function register(): Promise<void> {
     if (
       RegisterService.isName(user.firstName) &&
       RegisterService.isName(user.lastName) &&

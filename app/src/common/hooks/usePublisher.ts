@@ -12,7 +12,7 @@ export function usePublisher(): Array<Function> {
 
   function retrieveIds() {
     const set = []
-    for (var key of Object.keys(settings)) {
+    for (const key of Object.keys(settings)) {
       const value = settings[key]['data_source']
       if (value) set[value] = value
     }

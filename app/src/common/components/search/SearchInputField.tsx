@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { Search as SearchIcon, ArrowLeft } from 'react-feather'
 import { useClickAway, useApiEndpoint, useLanguage } from '../../hooks'
@@ -6,12 +6,20 @@ import { Result } from './Result'
 import theme from '../../../Theme.scss'
 import './SearchInputField.scss'
 
+interface Props {
+  isFullscreen: boolean
+  close: () => void
+}
+
 const INIT_DATA = {
   total: 0,
   dashboards: [],
 }
 
-export function SearchInputField({ isFullscreen = false, close = () => {} }) {
+export function SearchInputField({
+  isFullscreen = false,
+  close = () => {},
+}: Props): ReactElement {
   const content = useLanguage()
   const [, access, ,] = useApiEndpoint('/dashboards')
   const [backgroundColor, setGgColor] = useState(getDefault())

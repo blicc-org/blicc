@@ -4,7 +4,7 @@ import { useLogout } from './useLogout'
 import { useRefresh } from './useRefresh'
 
 export function useApiEndpoint(path = ''): Array<any> {
-  var fullPath = `${API.ORIGIN}${path}`
+  let fullPath = `${API.ORIGIN}${path}`
   const logout = useLogout()
   const refresh = useRefresh()
 
@@ -67,7 +67,7 @@ export function useApiEndpoint(path = ''): Array<any> {
   async function handleRequest(url: string, config: any): Promise<Array<any>> {
     const res = await fetch(url, config)
     const { status } = res
-    let result = [status, {}]
+    const result = [status, {}]
 
     if (status === statusCode.NO_CONTENT) return result
 

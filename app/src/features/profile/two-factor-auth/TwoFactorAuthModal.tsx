@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Lock } from 'react-feather'
 
-export function TwoFactorAuthModal({ cancel, submit, setToken }: any) {
+interface Props {
+  cancel: () => void
+  submit: () => void
+  setToken: (token: string) => void
+}
+
+export function TwoFactorAuthModal({
+  cancel,
+  submit,
+  setToken,
+}: Props): ReactElement {
   return (
     <div className="modal-dialog modal-dialog-centered" role="document">
       <div className="modal-content">
@@ -23,7 +33,7 @@ export function TwoFactorAuthModal({ cancel, submit, setToken }: any) {
                 id="disable_2fa_title"
                 className="form-control"
                 type="text"
-                onChange={(event) => setToken(event.target.value)}
+                onChange={(evt): void => setToken(evt.target.value)}
                 autoComplete="off"
                 required
               />
