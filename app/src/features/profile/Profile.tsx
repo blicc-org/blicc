@@ -6,13 +6,13 @@ import { DeleteAccount } from './delete-account/DeleteAccount'
 import { TwoFactorAuth } from './two-factor-auth/TwoFactorAuth'
 
 interface User {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  role: string
-  creationDate: string
-  hasTwoFactorAuth: boolean
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  creationDate: string;
+  hasTwoFactorAuth: boolean;
 }
 
 export function Profile() {

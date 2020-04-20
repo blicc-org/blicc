@@ -2,9 +2,9 @@ import React, { ReactElement } from 'react'
 import { Lock } from 'react-feather'
 
 interface Props {
-  cancel: () => void
-  submit: () => void
-  setToken: (token: string) => void
+  cancel: () => void;
+  submit: () => void;
+  setToken: (token: string) => void;
 }
 
 export function TwoFactorAuthModal({

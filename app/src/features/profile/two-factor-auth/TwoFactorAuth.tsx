@@ -12,18 +12,18 @@ import { useApiEndpoint, useToast, useModal } from '../../../common/hooks'
 import { TwoFactorAuthModal } from './TwoFactorAuthModal'
 
 interface Props {
-  user: User
-  setUser: Dispatch<SetStateAction<User>>
+  user: User;
+  setUser: Dispatch<SetStateAction<User>>;
 }
 
 interface User {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  role: string
-  creationDate: string
-  hasTwoFactorAuth: boolean
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  creationDate: string;
+  hasTwoFactorAuth: boolean;
 }
 
 export function TwoFactorAuth({ user, setUser }: Props): ReactElement {

@@ -6,17 +6,17 @@ import { useMobile, useModal, useApiEndpoint } from '../../../common/hooks'
 import { ProfilePictureModal } from './ProfilePictureModal'
 
 interface Props {
-  user: User
+  user: User;
 }
 
 interface User {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  role: string
-  creationDate: string
-  hasTwoFactorAuth: boolean
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  creationDate: string;
+  hasTwoFactorAuth: boolean;
 }
 
 export function ProfilePicture({ user }: Props): ReactElement {
