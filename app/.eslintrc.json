@@ -16,10 +16,22 @@
     }
   },
   "rules": {
-    "semi": 0,
-    "@typescript-eslint/no-use-before-define": "off",
     "react/display-name": "off",
+    "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "none",
+          "requireLast": false
+        },
+        "singleline": {
+          "delimiter": "comma",
+          "requireLast": false
+        }
+      }
+    ]
   }
 }
