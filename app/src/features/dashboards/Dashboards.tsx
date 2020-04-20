@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { Redirect } from 'react-router-dom'
 import { useApiEndpoint } from '../../common/hooks'
@@ -18,7 +18,7 @@ export const INITIAL_DASHBOARD = {
   },
 }
 
-export function Dashboards() {
+export function Dashboards(): ReactElement {
   const content = useLanguage()
   const itemsPerPage = 10
   const [isLoading, setIsLoading] = useState(true)
@@ -41,7 +41,7 @@ export function Dashboards() {
     [title, description]
   )
 
-  async function submit() {
+  async function submit(): Promise<void> {
     const [status, data] = await create({
       ...INITIAL_DASHBOARD,
       title,
@@ -53,8 +53,8 @@ export function Dashboards() {
     hideModal()
   }
 
-  useEffect(() => {
-    async function fetchData() {
+  useEffect((): void => {
+    async function fetchData(): Promise<void> {
       const [status, data] = await access({
         params: {
           fields: 'id,title,description,creationDate',
@@ -103,17 +103,19 @@ export function Dashboards() {
               ) : (
                 <table className="table">
                   <tbody>
-                    {result.dashboards.map((d: any) => (
-                      <Item
-                        key={d.id}
-                        thumbnail={`${API.ORIGIN}/dashboard-thumbnails/${d.id}.jpg`}
-                        title={d.title}
-                        subtitle={d.creationDate.split('T')[0]}
-                        description={d.description}
-                        link={`/dashboards/${d.id}`}
-                        linkLabel={content.dashboards.view}
-                      />
-                    ))}
+                    {result.dashboards.map(
+                      (d: any): ReactElement => (
+                        <Item
+                          key={d.id}
+                          thumbnail={`${API.ORIGIN}/dashboard-thumbnails/${d.id}.jpg`}
+                          title={d.title}
+                          subtitle={d.creationDate.split('T')[0]}
+                          description={d.description}
+                          link={`/dashboards/${d.id}`}
+                          linkLabel={content.dashboards.view}
+                        />
+                      )
+                    )}
                   </tbody>
                 </table>
               )}

@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, ReactElement } from 'react'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { Tabs } from '../../common/components/ui'
 import { Users } from './Users'
 import { Network } from './Network'
 
-export function AdminArea() {
+export function AdminArea(): ReactElement {
   const tabs = ['Network', 'Users']
   const [currentTab, setCurrentTab] = useState(tabs[0])
 

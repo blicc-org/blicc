@@ -5,12 +5,12 @@ export function useMobile(): boolean {
   const [isMobile, setIsMobile] = useState(breakpoints.md > window.innerWidth)
 
   useEffect(() => {
-    function handleResize() {
+    function handleResize(): void {
       setIsMobile(breakpoints.md > window.innerWidth)
     }
 
     window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    return (): void => window.removeEventListener('resize', handleResize)
   }, [])
 
   return isMobile

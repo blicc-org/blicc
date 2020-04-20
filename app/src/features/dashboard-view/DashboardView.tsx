@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { Redirect } from 'react-router-dom'
 import { Arrangement } from '../../common/components/arrangement/Arrangement'
@@ -22,7 +22,7 @@ import {
 import { ModalShare } from '../../common/components/modal/ModalShare'
 import './DashboardView.scss'
 
-export function DashboardView({ match, location }: any) {
+export function DashboardView({ match, location }: any): ReactElement {
   const content = useLanguage()
   const fullscreen = location.search === '?fullscreen'
   const [arrangement, setArrangement] = useContext(ArrangementContext)
@@ -57,7 +57,7 @@ export function DashboardView({ match, location }: any) {
   }, [settings])
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(): Promise<void> {
       const [status, data] = await access()
       if (status === statusCode.OK) {
         setDashboard(data)
@@ -71,7 +71,7 @@ export function DashboardView({ match, location }: any) {
     // eslint-disable-next-line
   }, [match])
 
-  async function onClick(evt: any) {
+  async function onClick(evt: any): Promise<void> {
     evt.target.blur()
     if (edit) {
       await update({
@@ -92,7 +92,7 @@ export function DashboardView({ match, location }: any) {
       title="Delete Dashboard"
       description="Do you really want to delete the dashboard?"
       submitPhrase="Delete"
-      submit={async () => {
+      submit={async (): Promise<void> => {
         hideModal()
         const [status] = await remove()
         if (status === statusCode.OK) {

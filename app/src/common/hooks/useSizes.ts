@@ -9,7 +9,7 @@ export function useSizes(): Array<any> {
   const [xl, setXl] = useState(false)
 
   useEffect(() => {
-    function handleResize() {
+    function handleResize(): void {
       const width = window.innerWidth
       setXs(breakpoints.sx < width)
       setSm(breakpoints.sm < width)
@@ -21,7 +21,7 @@ export function useSizes(): Array<any> {
     handleResize()
 
     window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    return (): void => window.removeEventListener('resize', handleResize)
   }, [])
 
   return [xs, sm, md, lg, xl]

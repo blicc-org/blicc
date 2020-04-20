@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useApiEndpoint, useLanguage } from '../../common/hooks'
 import { Item, Pagination, Empty, Loading } from '../../common/components/ui'
 import './Charts.scss'
 
-export function Charts() {
+export function Charts(): ReactElement {
   const content = useLanguage()
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
@@ -14,7 +14,7 @@ export function Charts() {
   const [, access, ,] = useApiEndpoint('/charts')
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(): Promise<void> {
       const [status, data] = await access({
         params: {
           skip: itemsPerPage * page,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, ReactElement } from 'react'
 import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
 import {
@@ -28,14 +28,14 @@ const INITIAL = {
   },
 }
 
-export function DataSourceView({ match, location }: any) {
+export function DataSourceView({ match, location }: any): ReactElement {
   const content = useLanguage()
   const path = `/data-sources/${match.params.id}`
   const [, access, update, remove] = useApiEndpoint(path)
   const [dataSource, setDataSource] = useState(INITIAL)
   const [publish, subscribe, state] = useDeliveryEndpoint()
   const [input, setInput] = useState('')
-  const stringify = (s: any) => JSON.stringify(s, null, 4)
+  const stringify = (s: any): string => JSON.stringify(s, null, 4)
   const { id, title, description, data } = dataSource
   const { url, headers } = data.request
   const channel = `/forwarding/${id}`
@@ -65,7 +65,7 @@ export function DataSourceView({ match, location }: any) {
   }, [url, state])
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(): Promise<void> {
       const [status, data] = await access()
       if (status === statusCode.OK) {
         setDataSource(data)
@@ -75,7 +75,7 @@ export function DataSourceView({ match, location }: any) {
     // eslint-disable-next-line
   }, [match])
 
-  async function onClick(evt: any) {
+  async function onClick(evt: any): Promise<void> {
     evt.target.blur()
     if (edit) {
       await update(dataSource)
@@ -91,7 +91,7 @@ export function DataSourceView({ match, location }: any) {
       title="Delete data source"
       description="Do you really want to delete the data source?"
       submitPhrase="Delete"
-      submit={async () => {
+      submit={async (): Promise<void> => {
         hideModal()
         const [status] = await remove()
         if (status === statusCode.OK) {
@@ -117,7 +117,9 @@ export function DataSourceView({ match, location }: any) {
           <DataSource
             input={input}
             data={data}
-            setData={(d: any) => setDataSource({ ...dataSource, data: d })}
+            setData={(d: any): void =>
+              setDataSource({ ...dataSource, data: d })
+            }
           />
         ) : (
           <DataSourceDetails

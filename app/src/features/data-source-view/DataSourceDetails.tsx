@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from '../../common/components/ui'
 import { FREQUENCY } from '../data-sources/DataSources'
@@ -9,7 +9,7 @@ export function DataSourceDetails({
   dataSource,
   setDataSource,
   remove,
-}: any) {
+}: any): ReactElement {
   const content = useLanguage()
   const {
     title,
@@ -32,7 +32,7 @@ export function DataSourceDetails({
                   <input
                     className="form-control col-md-6 my-2"
                     value={title}
-                    onChange={(evt) =>
+                    onChange={(evt): void =>
                       setDataSource({ ...dataSource, title: evt.target.value })
                     }
                   />
@@ -51,7 +51,7 @@ export function DataSourceDetails({
                     className="form-control my-2"
                     value={description}
                     rows={3}
-                    onChange={(evt) =>
+                    onChange={(evt): void =>
                       setDataSource({
                         ...dataSource,
                         description: evt.target.value,
@@ -73,7 +73,7 @@ export function DataSourceDetails({
                     type="checkbox"
                     className="my-2"
                     checked={persistData}
-                    onChange={(evt) =>
+                    onChange={(evt): void =>
                       setDataSource({
                         ...dataSource,
                         persistData: evt.target.checked,
@@ -96,7 +96,7 @@ export function DataSourceDetails({
                   <select
                     className="form-control col-md-4 my-2"
                     value={fetchFrequency}
-                    onChange={(evt) =>
+                    onChange={(evt): void =>
                       setDataSource({
                         ...dataSource,
                         fetchFrequency: parseInt(evt.target.value),
@@ -126,7 +126,7 @@ export function DataSourceDetails({
         <Link
           className="btn btn-danger"
           to="/"
-          onClick={(evt) => {
+          onClick={(evt): void => {
             evt.preventDefault()
             remove()
           }}

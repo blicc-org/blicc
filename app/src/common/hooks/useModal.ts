@@ -8,12 +8,12 @@ export function useModal(
   const [showModalHandler, hideModalHandler] = useContext(ModalContext)
   const [show, setShow] = useState(false)
 
-  function showModal() {
+  function showModal(): void {
     showModalHandler(content)
     setShow(true)
   }
 
-  function hideModal() {
+  function hideModal(): void {
     hideModalHandler()
     setShow(false)
   }

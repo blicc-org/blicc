@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 export function CreateDashboardModal({
   cancel,
   submit,
   setTitle,
   setDescription,
-}: any) {
+}: any): ReactElement {
   return (
     <>
       <div className="modal-dialog modal-dialog-centered" role="document">
@@ -27,7 +27,7 @@ export function CreateDashboardModal({
               <input
                 id="dashboard_title"
                 className="form-control"
-                onChange={(event) => setTitle(event.target.value)}
+                onChange={(event): void => setTitle(event.target.value)}
               />
               <small id="emailHelp" className="form-text text-muted">
                 Name your dashboard with a significant title.
@@ -39,7 +39,7 @@ export function CreateDashboardModal({
                 className="form-control"
                 id="dashboard_description"
                 rows={3}
-                onChange={(event) => setDescription(event.target.value)}
+                onChange={(event): void => setDescription(event.target.value)}
               ></textarea>
               <small id="emailHelp" className="form-text text-muted">
                 Add a helpful description (optional).

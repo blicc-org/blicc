@@ -10,13 +10,13 @@ export function useAutoLogout(): void {
   const logout = useLogout()
 
   useEffect(() => {
-    async function checkStatus() {
+    async function checkStatus(): Promise<void> {
       if (appState.loggedIn) {
         await healthCheck()
       }
     }
 
     const refreshIntervalId = setInterval(checkStatus, logoutInMs)
-    return () => clearInterval(refreshIntervalId)
+    return (): void => clearInterval(refreshIntervalId)
   }, [healthCheck, logout, appState])
 }

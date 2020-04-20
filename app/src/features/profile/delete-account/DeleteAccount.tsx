@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { Link } from 'react-router-dom'
 import { Card } from '../../../common/components/ui'
@@ -10,7 +10,7 @@ import {
   useToast,
 } from '../../../common/hooks'
 
-export function DeleteAccount({ user }: any) {
+export function DeleteAccount({ user }: any): ReactElement {
   const { id, hasTwoFactorAuth } = user
   const logout = useLogout()
   const showToast = useToast()
@@ -31,7 +31,7 @@ export function DeleteAccount({ user }: any) {
     [token, password]
   )
 
-  async function submit() {
+  async function submit(): Promise<void> {
     const [status] = await deleteUser({ token, password })
     hideModal()
     if (status === statusCode.OK) {
@@ -46,7 +46,7 @@ export function DeleteAccount({ user }: any) {
     }
   }
 
-  function onClick(event: any) {
+  function onClick(event: any): void {
     event.preventDefault()
     showModal()
   }

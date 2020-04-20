@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 
-export function Offline() {
+export function Offline(): ReactElement {
   return (
     <div className="col-md-5 mx-auto py-5 my-5 text-center">
       <h1 className="display-4 font-weight-normal">Offline</h1>

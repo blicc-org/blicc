@@ -5,7 +5,7 @@ import { API } from '../../config'
 export function useLogout(): Function {
   const [appState, setAppState] = useContext(AppContext)
 
-  async function logout() {
+  async function logout(): Promise<void> {
     await fetch(`${API.ORIGIN}/tokens`, {
       credentials: 'include',
       method: 'DELETE',

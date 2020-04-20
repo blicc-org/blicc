@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { ReactComponent as TourGuide } from '../../assets/img/TourGuide.svg'
 import { useSizes } from '../../common/hooks'
 import './StepByStepGuide.scss'
 
-export function StepByStepGuide() {
+export function StepByStepGuide(): ReactElement {
   const [, , , , xl] = useSizes()
 
   return (

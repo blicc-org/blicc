@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ReactElement } from 'react'
 import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint, useModal, useLanguage } from '../../common/hooks'
@@ -27,7 +27,7 @@ export const INITIAL_DATA_SOURCE = {
   },
 }
 
-export function DataSources() {
+export function DataSources(): ReactElement {
   const content = useLanguage()
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
@@ -54,7 +54,7 @@ export function DataSources() {
     [title, fetchFrequency, persistData]
   )
 
-  async function submit() {
+  async function submit(): Promise<void> {
     const [status, data] = await create({
       ...INITIAL_DATA_SOURCE,
       title,
@@ -68,7 +68,7 @@ export function DataSources() {
   }
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(): Promise<void> {
       const [status, data] = await access({
         params: {
           fields: 'id,title,description,creationDate',

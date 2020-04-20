@@ -11,13 +11,13 @@ export function useLocalStorage(key: string, init = {}): Array<any> {
 
   const [state, setState] = useState(init)
 
-  async function setLocalStorage(value: any) {
+  async function setLocalStorage(value: any): Promise<void> {
     localStorage.setItem(key, JSON.stringify(value))
     setState(value)
   }
 
   useEffect(() => {
-    async function fetchLocalStorage() {
+    async function fetchLocalStorage(): Promise<void> {
       const val = localStorage.getItem(key) || ''
       if (JSON.stringify(state) !== val) {
         setState(JSON.parse(val))
@@ -25,7 +25,7 @@ export function useLocalStorage(key: string, init = {}): Array<any> {
     }
 
     const refreshIntervalId = setInterval(fetchLocalStorage, updateInMs)
-    return () => clearInterval(refreshIntervalId)
+    return (): void => clearInterval(refreshIntervalId)
   }, [state, key])
 
   return [state, setLocalStorage]

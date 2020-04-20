@@ -11,13 +11,13 @@ export function useSessionStorage(key: string, init = {}): Array<any> {
 
   const [state, setState] = useState(init)
 
-  async function setSessionStorage(value: any) {
+  async function setSessionStorage(value: any): Promise<void> {
     sessionStorage.setItem(key, JSON.stringify(value))
     setState(value)
   }
 
   useEffect(() => {
-    async function fetchSessionStorage() {
+    async function fetchSessionStorage(): Promise<void> {
       const val = sessionStorage.getItem(key) || ''
       if (JSON.stringify(state) !== val) {
         setState(JSON.parse(val))
@@ -25,7 +25,7 @@ export function useSessionStorage(key: string, init = {}): Array<any> {
     }
 
     const refreshIntervalId = setInterval(fetchSessionStorage, updateInMs)
-    return () => clearInterval(refreshIntervalId)
+    return (): void => clearInterval(refreshIntervalId)
   }, [state, key])
 
   return [state, setSessionStorage]

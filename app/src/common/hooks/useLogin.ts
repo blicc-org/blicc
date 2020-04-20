@@ -4,12 +4,19 @@ import { useToast } from '.'
 import { useApiEndpoint } from './useApiEndpoint'
 import { AppContext } from '../context'
 
-export function useLogin(onSuccess = () => {}, onFailure = () => {}): Function {
+export function useLogin(
+  onSuccess = (): void => {},
+  onFailure = (): void => {}
+): Function {
   const [open, , ,] = useApiEndpoint('/tokens')
   const [appState, setAppState] = useContext(AppContext)
   const showToast = useToast()
 
-  async function login(email: string, password: string, token = '') {
+  async function login(
+    email: string,
+    password: string,
+    token = ''
+  ): Promise<boolean> {
     const requestBody =
       token === '' ? { email, password } : { email, password, token }
     let hasTwoFactorAuth = false

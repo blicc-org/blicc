@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Lock } from 'react-feather'
 
 export function DeleteAccountModal({
@@ -7,7 +7,7 @@ export function DeleteAccountModal({
   hasTwoFactorAuth,
   setToken,
   setPassword,
-}: any) {
+}: any): ReactElement {
   return (
     <div className="modal-dialog modal-dialog-centered" role="document">
       <div className="modal-content">
@@ -31,7 +31,7 @@ export function DeleteAccountModal({
                   id="token"
                   className="form-control"
                   autoComplete="off"
-                  onChange={(event) => setToken(event.target.value)}
+                  onChange={(event): void => setToken(event.target.value)}
                 />
                 <div className="input-group-append">
                   <span className="input-group-text">
@@ -51,7 +51,7 @@ export function DeleteAccountModal({
               type="password"
               className="form-control"
               autoComplete="off"
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(event): void => setPassword(event.target.value)}
             />
             <small id="emailHelp" className="form-text text-muted">
               Enter your password to verify yourself.

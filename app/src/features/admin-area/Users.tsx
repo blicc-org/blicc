@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { Empty, Pagination } from '../../common/components/ui'
 import { useApiEndpoint } from '../../common/hooks'
 
-export function Users() {
+export function Users(): ReactElement {
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
   const [result, setResult] = useState({ total: 0, users: [] })
   const [, accessUsers, ,] = useApiEndpoint('/users')
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(): Promise<void> {
       const [status, data] = await accessUsers({
         params: {
           fields: 'id,firstName,lastName,creationDate,twoFactorAuth,email',
@@ -47,7 +47,7 @@ export function Users() {
                 email,
                 creationDate,
                 hasTwoFactorAuth,
-              }: any) => (
+              }: any): ReactElement => (
                 <tr key={id}>
                   <td>
                     <h5 className="card-title">

@@ -10,7 +10,7 @@ export function usePublisher(): Array<Function> {
   const [, access] = useApiEndpoint()
   const interval = 5000 // live time update interval
 
-  function retrieveIds() {
+  function retrieveIds(): any {
     const set = []
     for (const key of Object.keys(settings)) {
       const value = settings[key]['data_source']
@@ -19,24 +19,26 @@ export function usePublisher(): Array<Function> {
     return Object.keys(set).map((key) => key)
   }
 
-  async function publishAll() {
+  async function publishAll(): Promise<void> {
     const ids = retrieveIds()
     if (ids.length > 0) {
-      ids.map(async (id) => {
-        const [status, data] = await access({
-          url: `${API.ORIGIN}/data-sources/${id}`,
-        })
-        if (status === 200) {
-          await publish(`/data-delivery/${id}`, {
-            ...data.data,
-            interval,
+      ids.map(
+        async (id: string): Promise<void> => {
+          const [status, data] = await access({
+            url: `${API.ORIGIN}/data-sources/${id}`,
           })
+          if (status === 200) {
+            await publish(`/data-delivery/${id}`, {
+              ...data.data,
+              interval,
+            })
+          }
         }
-      })
+      )
     }
   }
 
-  async function publishById(id: string) {
+  async function publishById(id: string): Promise<void> {
     const [status, data] = await access({
       url: `${API.ORIGIN}/data-sources/${id}`,
     })

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ReactElement } from 'react'
 import { LoginPassword } from './LoginPassword'
 import { useLogin, useModal } from '../../common/hooks'
 import { Redirect } from 'react-router-dom'
@@ -12,7 +12,7 @@ const Steps = {
   TWO_FACTOR_AUTH: 'two_factor_auth',
 }
 
-export function Login() {
+export function Login(): ReactElement {
   const [step, setStep] = useState(Steps.PASSWORD)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -20,7 +20,7 @@ export function Login() {
   const [redirect, setRedirect] = useState('')
   const [showModal, hideModal] = useModal(() => (
     <WrongPasswordModal
-      cancel={() => {
+      cancel={(): void => {
         hideModal()
         setRedirect('/')
       }}
@@ -36,14 +36,14 @@ export function Login() {
     }
   )
 
-  async function loginHandler() {
+  async function loginHandler(): Promise<void> {
     const hasTwoFactorAuth = await login(email, password)
     if (hasTwoFactorAuth) {
       setStep(Steps.TWO_FACTOR_AUTH)
     }
   }
 
-  async function loginHandler2FA(e: any) {
+  async function loginHandler2FA(e: any): Promise<void> {
     e.preventDefault()
     await login(email, password, token)
   }

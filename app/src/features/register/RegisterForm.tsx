@@ -3,17 +3,17 @@ import { Input } from '../../common/components/form/Input'
 import { RegisterService } from './RegisterService'
 
 interface Props {
-  user: User;
-  setUser: (user: User) => void;
-  register: () => void;
+  user: User
+  setUser: (user: User) => void
+  register: () => void
 }
 
 interface User {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirm: string;
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  confirm: string
 }
 
 export function RegisterForm({ user, setUser, register }: Props): ReactElement {

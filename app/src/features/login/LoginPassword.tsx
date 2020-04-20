@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
 export function LoginPassword({
@@ -7,7 +7,7 @@ export function LoginPassword({
   password,
   setPassword,
   login,
-}: any) {
+}: any): ReactElement {
   return (
     <form className="form-signin">
       <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
@@ -16,7 +16,7 @@ export function LoginPassword({
       </label>
       <input
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(evt): void => setEmail(evt.target.value)}
         type="email"
         id="inputEmail"
         className="form-control"
@@ -29,7 +29,7 @@ export function LoginPassword({
       </label>
       <input
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(evt): void => setPassword(evt.target.value)}
         type="password"
         id="inputPassword"
         className="form-control"
@@ -45,8 +45,8 @@ export function LoginPassword({
         title="Sign in"
         className="btn btn-lg btn-primary btn-block"
         type="submit"
-        onClick={async (e) => {
-          e.preventDefault()
+        onClick={async (evt): Promise<void> => {
+          evt.preventDefault()
           await login(email, password)
         }}
       >

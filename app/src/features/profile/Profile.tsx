@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, ReactElement } from 'react'
 import { useApiEndpoint } from '../../common/hooks'
 import { AppContext } from '../../common/context'
 import { Details } from './details/Details'
@@ -6,16 +6,16 @@ import { DeleteAccount } from './delete-account/DeleteAccount'
 import { TwoFactorAuth } from './two-factor-auth/TwoFactorAuth'
 
 interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  role: string;
-  creationDate: string;
-  hasTwoFactorAuth: boolean;
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  role: string
+  creationDate: string
+  hasTwoFactorAuth: boolean
 }
 
-export function Profile() {
+export function Profile(): ReactElement {
   const [appState] = useContext(AppContext)
   const { id } = appState
   const [, access, update] = useApiEndpoint(`/users/${id}`)
@@ -31,7 +31,7 @@ export function Profile() {
   })
 
   useEffect(() => {
-    async function fetchUser() {
+    async function fetchUser(): Promise<void> {
       const [, user] = await access()
       setUser(user)
     }
@@ -48,7 +48,7 @@ export function Profile() {
         <Details
           user={user}
           setUser={setUser}
-          update={async () => await update(user)}
+          update={async (): Promise<void> => await update(user)}
         />
         <TwoFactorAuth user={user} setUser={setUser} />
         <DeleteAccount user={user} />

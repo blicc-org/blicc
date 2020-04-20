@@ -7,8 +7,8 @@ import theme from '../../../Theme.scss'
 import './SearchInputField.scss'
 
 interface Props {
-  isFullscreen?: boolean;
-  close?: () => void;
+  isFullscreen?: boolean
+  close?: () => void
 }
 
 const INIT_DATA = {

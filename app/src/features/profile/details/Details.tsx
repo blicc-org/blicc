@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, ReactElement } from 'react'
 import { Card, UpdateButton } from '../../../common/components/ui'
 import { ProfilePicture } from './ProfilePicture'
 
-export function Details({ user, setUser, update }: any) {
+export function Details({ user, setUser, update }: any): ReactElement {
   const { firstName, lastName, email, role, creationDate } = user
   const [edit, setEdit] = useState(false)
 
-  async function onClick() {
+  async function onClick(): Promise<void> {
     if (edit) {
       await update()
       setEdit(false)
@@ -29,7 +29,7 @@ export function Details({ user, setUser, update }: any) {
                 <input
                   className="form-control col-md-6 my-2"
                   value={firstName}
-                  onChange={(evt) =>
+                  onChange={(evt): void =>
                     setUser({ ...user, firstName: evt.target.value })
                   }
                 />
@@ -47,7 +47,7 @@ export function Details({ user, setUser, update }: any) {
                 <input
                   className="form-control col-md-6 my-2"
                   value={lastName}
-                  onChange={(evt) =>
+                  onChange={(evt): void =>
                     setUser({ ...user, lastName: evt.target.value })
                   }
                 />
@@ -65,7 +65,7 @@ export function Details({ user, setUser, update }: any) {
                 <input
                   className="form-control col-md-6 my-2"
                   value={email}
-                  onChange={(evt) =>
+                  onChange={(evt): void =>
                     setUser({ ...user, email: evt.target.value })
                   }
                 />

@@ -6,15 +6,7 @@ import { APP } from '../../config'
 import { AppContext } from '../../common/context'
 import './PageGenerator.scss'
 
-export function CustomLink({ href, children, onClick }: any) {
-  return (
-    <Link onClick={onClick} to={`/pages/${href}`}>
-      {children}
-    </Link>
-  )
-}
-
-export function PageGenerator({ location }: any) {
+export function PageGenerator({ location }: any): ReactElement {
   const [appState] = useContext(AppContext)
   const [text, setText] = useState('')
   const [notFound, setNotFound] = useState(false)
@@ -24,7 +16,7 @@ export function PageGenerator({ location }: any) {
   }
 
   useEffect(() => {
-    async function getText() {
+    async function getText(): Promise<void> {
       try {
         const response = await fetch(
           `${APP.ORIGIN}${pathname}.${appState.language}.md`
@@ -46,7 +38,7 @@ export function PageGenerator({ location }: any) {
           renderers={{
             code: Highlighter,
             link: ({ href, children }: any): ReactElement => (
-              <Link onClick={() => setText('')} to={`/pages/${href}`}>
+              <Link onClick={(): void => setText('')} to={`/pages/${href}`}>
                 {children}
               </Link>
             ),

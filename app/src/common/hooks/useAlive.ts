@@ -8,8 +8,8 @@ export function useAlive(): Array<any> {
     const worker = setInterval(() => {
       setCount((prev) => (prev > 0 ? --prev : 0))
     }, 1000)
-    return () => clearInterval(worker)
+    return (): void => clearInterval(worker)
   }, [])
 
-  return [count > 0, () => setCount(offsetInSec)]
+  return [count > 0, (): void => setCount(offsetInSec)]
 }

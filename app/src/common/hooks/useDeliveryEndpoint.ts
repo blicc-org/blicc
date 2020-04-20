@@ -14,7 +14,7 @@ export const WebSocketState = {
   [WebSocket.CLOSED]: 'closed',
 }
 
-export function useDeliveryEndpoint() {
+export function useDeliveryEndpoint(): Array<any> {
   const [queryStack, setQueryStack] = useContext(QueryStackContext)
   const [subscriberStack, setSubscriberStack] = useContext(SubscriberContext)
   const [appState] = useContext(AppContext)
@@ -27,7 +27,7 @@ export function useDeliveryEndpoint() {
       setState(WebSocket.CONNECTING)
       socket = new WebSocket(`${DELIVERY.ORIGIN}/connection`)
 
-      socket.onopen = () => {
+      socket.onopen = (): void => {
         Object.keys(queryStack).forEach((channel) => {
           const payload = JSON.stringify({ channel, data: queryStack[channel] })
           socket.send(payload)
@@ -36,12 +36,12 @@ export function useDeliveryEndpoint() {
         setQueryStack([])
       }
 
-      socket.onclose = () => {
+      socket.onclose = (): void => {
         socket = null
         setState(WebSocket.CLOSED)
       }
 
-      socket.onerror = (err: any) => {
+      socket.onerror = (err: any): void => {
         console.log(
           `An websocket error occured: ${JSON.stringify(err, [
             'message',
@@ -54,7 +54,7 @@ export function useDeliveryEndpoint() {
     }
 
     if (loggedIn && socket !== null) {
-      socket.onmessage = (evt: any) => {
+      socket.onmessage = (evt: any): void => {
         const { channel, data } = JSON.parse(evt.data)
         cache[channel] = data
         if (channel && data && subscriberStack) {
@@ -69,17 +69,17 @@ export function useDeliveryEndpoint() {
       socket.close()
       setState(WebSocket.CLOSING)
 
-      return () => {
+      return (): void => {
         socket = null
       }
     }
   }, [loggedIn, subscriberStack, state, queryStack, setQueryStack])
 
-  function publish(channel: string, data: any) {
+  function publish(channel: string, data: any): void {
     if (socket.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify({ channel, data }))
     } else {
-      setQueryStack((prev: any) => {
+      setQueryStack((prev: any): any => {
         prev[channel] = data
         return prev
       })

@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { ReactComponent as Android } from '../../assets/img/Android.svg'
 import { ReactComponent as AppUser } from '../../assets/img/AppUser.svg'
 import { ANDROID_APP_STORE_LINK } from '../../config'
 import { useInstalled, useSizes } from '../../common/hooks'
 import './AndroidApp.scss'
 
-export function AndroidApp() {
+export function AndroidApp(): ReactElement {
   const installed = useInstalled()
   const [, , , lg] = useSizes()
 

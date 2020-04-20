@@ -5,7 +5,7 @@ import { API } from '../../config'
 export function useRefresh(): Function {
   const [appState] = useContext(AppContext)
 
-  async function refresh() {
+  async function refresh(): Promise<boolean> {
     const { id, refreshToken } = appState
     const resp = await fetch(`${API.ORIGIN}/refresh`, {
       credentials: 'include',

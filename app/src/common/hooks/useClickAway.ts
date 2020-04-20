@@ -1,8 +1,12 @@
 import { useEffect } from 'react'
 
-export function useClickAway(ref: any, callback: any, classNamesToIgnore = '') {
+export function useClickAway(
+  ref: any,
+  callback: any,
+  classNamesToIgnore = ''
+): void {
   useEffect(() => {
-    function handleClick(event: any) {
+    function handleClick(event: any): void {
       if (ref.current && !ref.current.contains(event.target)) {
         if (classNamesToIgnore) {
           if (!hasParentWithClass(event.target, classNamesToIgnore)) callback()
@@ -18,7 +22,7 @@ export function useClickAway(ref: any, callback: any, classNamesToIgnore = '') {
 
     document.addEventListener('mousedown', handleClick, false)
     document.addEventListener('touchstart', handleClick, false)
-    return () => {
+    return (): void => {
       document.removeEventListener('mousedown', handleClick, false)
       document.removeEventListener('touchstart', handleClick, false)
     }

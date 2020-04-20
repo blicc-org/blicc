@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint, useMobile, useLanguage } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
@@ -6,7 +6,7 @@ import { API, EXAMPLE_DATA } from '../../config'
 import { ChartDetails } from './ChartDetails'
 import './ChartView.scss'
 
-export function ChartView({ match }: any) {
+export function ChartView({ match }: any): ReactElement {
   const content = useLanguage()
   const path = `/charts/${match.params.id}`
   const ref = useRef<HTMLDivElement>(null)
@@ -29,7 +29,7 @@ export function ChartView({ match }: any) {
   const data = EXAMPLE_DATA
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(): Promise<void> {
       const [status, chart] = await access()
       if (status === statusCode.OK) {
         setChart(chart)
@@ -40,7 +40,7 @@ export function ChartView({ match }: any) {
   }, [match])
 
   useEffect(() => {
-    async function fetchPlugin() {
+    async function fetchPlugin(): Promise<void> {
       await import(
         /*webpackIgnore: true*/ `${API.ORIGIN}/bundles/${slug}`
       ).then((module) => {

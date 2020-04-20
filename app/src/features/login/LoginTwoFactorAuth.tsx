@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Lock } from 'react-feather'
 
-export function LoginTwoFactorAuth({ setToken, login }: any) {
+export function LoginTwoFactorAuth({ setToken, login }: any): ReactElement {
   return (
     <form className="form-signin">
       <h1 className="h3 mb-3 font-weight-normal">Two-Factor Auth</h1>
@@ -15,7 +15,7 @@ export function LoginTwoFactorAuth({ setToken, login }: any) {
         <input
           className="form-control"
           type="text"
-          onChange={(event) => setToken(event.target.value)}
+          onChange={(event): void => setToken(event.target.value)}
           autoComplete="off"
           required
         />

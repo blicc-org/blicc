@@ -2,9 +2,9 @@ import React, { ReactElement, ChangeEvent } from 'react'
 import { API } from '../../../config'
 
 interface Props {
-  userId: string;
-  cancel: () => void;
-  submit: () => void;
+  userId: string
+  cancel: () => void
+  submit: () => void
 }
 
 type FileEventTarget = HTMLInputElement & { files: FileList }

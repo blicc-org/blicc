@@ -1,5 +1,5 @@
 export function useColor(): Array<any> {
-  function hexToRgb(hex: string) {
+  function hexToRgb(hex: string): any {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
     return result
       ? {
@@ -10,7 +10,7 @@ export function useColor(): Array<any> {
       : null
   }
 
-  function rgbToHex(r: number, g: number, b: number) {
+  function rgbToHex(r: number, g: number, b: number): string {
     return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
   }
 

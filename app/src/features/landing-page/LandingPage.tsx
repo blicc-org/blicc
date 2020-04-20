@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage, useDeliveryEndpoint } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
@@ -7,7 +7,7 @@ import { StepByStepGuide } from './StepByStepGuide'
 import { AndroidApp } from './AndroidApp'
 import './LandingPage.scss'
 
-export function LandingPage() {
+export function LandingPage(): ReactElement {
   const content = useLanguage()
   const title = 'Blicc'
   const description = 'Visualize your data with customizable dashboards.'

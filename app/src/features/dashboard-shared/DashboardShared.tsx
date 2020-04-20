@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ReactElement } from 'react'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useApiEndpoint } from '../../common/hooks'
 import { Redirect } from 'react-router-dom'
 
-export function DashboardShared({ match }: any) {
+export function DashboardShared({ match }: any): ReactElement {
   const { id } = match.params
   const path = `/dashboards/${id}`
   const [, access, ,] = useApiEndpoint(path)
@@ -15,7 +15,7 @@ export function DashboardShared({ match }: any) {
   const [redirect, setRedirect] = useState('')
 
   useEffect(() => {
-    async function getData() {
+    async function getData(): Promise<void> {
       const [status, data] = await access()
       if (status === 200) {
         setDashboard(data)

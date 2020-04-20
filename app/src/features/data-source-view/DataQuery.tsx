@@ -1,11 +1,16 @@
-import React, { useRef, useState, useLayoutEffect } from 'react'
+import React, { useRef, useState, useLayoutEffect, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { Tabs } from '../../common/components/ui'
 import { useMobile } from '../../common/hooks'
 import { useJsonHighlighter } from '../../common/hooks'
 import './DataQuery.scss'
 
-export function DataQuery({ input, output, query, setQuery }: any) {
+export function DataQuery({
+  input,
+  output,
+  query,
+  setQuery,
+}: any): ReactElement {
   const isMobile = useMobile()
   const highlighter = useJsonHighlighter()
   const ref = useRef<HTMLDivElement>(null)
@@ -14,7 +19,7 @@ export function DataQuery({ input, output, query, setQuery }: any) {
   const tabs = ['Result from API fetch', 'Queried Data']
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
-  function updateSize() {
+  function updateSize(): void {
     if (ref.current) {
       setWidth(ref.current.offsetWidth / 2)
     }
@@ -23,10 +28,10 @@ export function DataQuery({ input, output, query, setQuery }: any) {
   useLayoutEffect(() => {
     updateSize()
     window.addEventListener('resize', updateSize)
-    return () => window.removeEventListener('resize', updateSize)
+    return (): void => window.removeEventListener('resize', updateSize)
   }, [])
 
-  function HighlightedJson({ children }: any) {
+  function HighlightedJson({ children }: any): ReactElement {
     const highlighted = highlighter(children)
     return (
       <p className="code" dangerouslySetInnerHTML={{ __html: highlighted }} />
@@ -55,7 +60,7 @@ export function DataQuery({ input, output, query, setQuery }: any) {
             spellCheck="false"
             rows={3}
             value={query}
-            onChange={(evt) => setQuery(evt.target.value)}
+            onChange={(evt): void => setQuery(evt.target.value)}
           />
         </div>
       </div>
