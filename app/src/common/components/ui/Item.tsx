@@ -2,6 +2,12 @@ import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { useMobile } from '../../hooks'
 import { Image } from './Image'
+import styles from './Item.module.scss'
+
+interface ImageSize {
+  width: number
+  height: number
+}
 
 export function Item({
   title,
@@ -11,29 +17,27 @@ export function Item({
   linkLabel,
   thumbnail = '',
 }: any): ReactElement {
+  const mobile: ImageSize = { width: 144, height: 81 }
+  const desktop: ImageSize = { width: 208, height: 117 }
   const isMobile = useMobile()
 
   return (
-    <ul>
+    <div className={styles.item}>
       {thumbnail && (
-        <li style={{ width: '100px' }} className="px-0">
-          <Link className="card-link" to={link}>
-            <Image
-              src={thumbnail}
-              width={isMobile ? 144 : 208}
-              height={isMobile ? 81 : 117}
-            />
-          </Link>
-        </li>
-      )}
-      <li>
-        <h5 className="card-title">{title}</h5>
-        <h6 className="card-subtitle mb-2 text-muted">{subtitle}</h6>
-        <p className="card-text">{description}</p>
-        <Link className="card-link" to={link}>
-          {linkLabel}
+        <Link to={link} className={styles.image}>
+          <Image
+            src={thumbnail}
+            width={isMobile ? mobile.width : desktop.width}
+            height={isMobile ? mobile.height : desktop.height}
+          />
         </Link>
-      </li>
-    </ul>
+      )}
+      <div>
+        <h5>{title}</h5>
+        <h6 className="text-muted">{subtitle}</h6>
+        <p>{description}</p>
+        <Link to={link}>{linkLabel}</Link>
+      </div>
+    </div>
   )
 }
