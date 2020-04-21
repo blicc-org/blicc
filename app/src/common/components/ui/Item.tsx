@@ -37,7 +37,7 @@ export function Item({
         <h5>
           {title} <span className="badge badge-secondary">{badge}</span>
         </h5>
-        <h6 className="text-muted">{subtitle}</h6>
+        <p className={styles.subtitle}>{subtitle}</p>
         <p>{description}</p>
         <Link to={link}>{linkLabel}</Link>
       </div>
