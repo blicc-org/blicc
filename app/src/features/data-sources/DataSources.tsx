@@ -1,7 +1,12 @@
 import React, { useState, useEffect, ReactElement } from 'react'
 import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
-import { useApiEndpoint, useModal, useLanguage } from '../../common/hooks'
+import {
+  useApiEndpoint,
+  useModal,
+  useLanguage,
+  useDateFormatter,
+} from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { Item, Pagination, Listing } from '../../common/components/ui'
 import { CreateDataSourceModal } from './CreateDataSourceModal'
@@ -37,6 +42,7 @@ export function DataSources(): ReactElement {
   const [title, setTitle] = useState('')
   const [fetchFrequency, setFetchFrequency] = useState(0)
   const [persistData, setPersistData] = useState(true)
+  const format = useDateFormatter()
 
   const [showModal, hideModal] = useModal(
     () => (
@@ -109,7 +115,7 @@ export function DataSources(): ReactElement {
             <Item
               key={item.id}
               title={item.title}
-              subtitle={item.creationDate.split('T')[0]}
+              subtitle={format(item.creationDate)}
               description={item.description}
               link={`/data-sources/${item.id}`}
               linkLabel={text.view}

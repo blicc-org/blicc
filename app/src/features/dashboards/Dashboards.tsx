@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { Redirect } from 'react-router-dom'
-import { useApiEndpoint } from '../../common/hooks'
+import { useApiEndpoint, useDateFormatter } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useModal, useLanguage } from '../../common/hooks'
 import { CreateDashboardModal } from './CreateDashboardModal'
@@ -27,6 +27,7 @@ export function Dashboards(): ReactElement {
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [redirect, setRedirect] = useState('')
+  const format = useDateFormatter()
 
   const [showModal, hideModal] = useModal(
     () => (
@@ -97,7 +98,7 @@ export function Dashboards(): ReactElement {
               key={item.id}
               thumbnail={`${API.ORIGIN}/dashboard-thumbnails/${item.id}.jpg`}
               title={item.title}
-              subtitle={item.creationDate.split('T')[0]}
+              subtitle={format(item.creationDate)}
               description={item.description}
               link={`/dashboards/${item.id}`}
               linkLabel={text.view}

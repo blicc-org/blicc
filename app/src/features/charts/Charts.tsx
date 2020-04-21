@@ -1,7 +1,11 @@
 import React, { useEffect, useState, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import { useApiEndpoint, useLanguage } from '../../common/hooks'
+import {
+  useApiEndpoint,
+  useLanguage,
+  useDateFormatter,
+} from '../../common/hooks'
 import { Pagination, Title, Listing, Item } from '../../common/components/ui'
 import { List, Chart } from '../../common/interfaces'
 
@@ -11,6 +15,7 @@ export function Charts(): ReactElement {
   const { charts: text } = useLanguage()
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
+  const format = useDateFormatter()
 
   useEffect(() => {
     async function fetchData(): Promise<void> {
@@ -42,7 +47,7 @@ export function Charts(): ReactElement {
             <Item
               key={chart.id}
               title={chart.title}
-              subtitle={chart.creationDate.split('T')[0]}
+              subtitle={format(chart.creationDate)}
               description={chart.description}
               link={`/charts/${chart.id}`}
               linkLabel={text.view}
