@@ -197,7 +197,7 @@ deploy:
       docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
       docker system prune -f &&
       docker stack deploy --with-registry-auth -c docker-compose.yml blicc &&
-      docker stack services -q blicc | while read service; do docker service update --force $service; done;"
+      docker stack services -q blicc | while read service; do docker service update --force $service; done"
 
 plugins:
   stage: seed
