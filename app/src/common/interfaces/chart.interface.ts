@@ -8,8 +8,3 @@ export interface Chart {
   key: string
   slug: string
 }
-
-export interface ChartList {
-  charts: Array<Chart>
-  total: number
-}

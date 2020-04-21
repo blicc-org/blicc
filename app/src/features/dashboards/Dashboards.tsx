@@ -5,9 +5,9 @@ import { useApiEndpoint } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useModal, useLanguage } from '../../common/hooks'
 import { CreateDashboardModal } from './CreateDashboardModal'
-import { Pagination, Empty, Loading, Item } from '../../common/components/ui'
+import { Pagination, Listing, Item } from '../../common/components/ui'
+import { Dashboard, List } from '../../common/interfaces'
 import { API } from '../../config'
-import './Dashboards.scss'
 
 export const INITIAL_DASHBOARD = {
   title: '',
@@ -19,11 +19,10 @@ export const INITIAL_DASHBOARD = {
 }
 
 export function Dashboards(): ReactElement {
-  const content = useLanguage()
+  const [list, setList] = useState<List<Dashboard>>()
+  const { dashboards: text } = useLanguage()
   const itemsPerPage = 10
-  const [isLoading, setIsLoading] = useState(true)
   const [page, setPage] = useState(0)
-  const [result, setResult] = useState({ total: 0, dashboards: [] })
   const [create, access, ,] = useApiEndpoint('/dashboards')
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
@@ -63,8 +62,7 @@ export function Dashboards(): ReactElement {
         },
       })
       if (status === statusCode.OK) {
-        setResult(data)
-        setIsLoading(false)
+        setList({ total: data.total, list: data.dashboards })
       }
     }
     fetchData()
@@ -75,58 +73,42 @@ export function Dashboards(): ReactElement {
     <>
       {redirect && <Redirect to={redirect} />}
       <MetaData
-        title={content.dashboards.title}
-        description={content.dashboards.description}
+        title={text.title}
+        description={text.description}
         path={'/dashboards'}
       />
       <div className="container">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-          <h2 className="my-0">{content.dashboards.title}</h2>
+          <h2 className="my-0">{text.title}</h2>
           <div className="btn-toolbar">
             <button
-              title={content.dashboards.create}
+              title={text.create}
               type="button"
               className="btn btn-sm btn-primary"
               onClick={showModal}
             >
-              {content.dashboards.create}
+              {text.create}
             </button>
           </div>
         </div>
-        <div className="dashboard-list">
-          {isLoading ? (
-            <Loading />
-          ) : (
-            <>
-              {result.dashboards.length === 0 ? (
-                <Empty>{content.dashboards.empty}</Empty>
-              ) : (
-                <table className="table">
-                  <tbody>
-                    {result.dashboards.map(
-                      (d: any): ReactElement => (
-                        <Item
-                          key={d.id}
-                          thumbnail={`${API.ORIGIN}/dashboard-thumbnails/${d.id}.jpg`}
-                          title={d.title}
-                          subtitle={d.creationDate.split('T')[0]}
-                          description={d.description}
-                          link={`/dashboards/${d.id}`}
-                          linkLabel={content.dashboards.view}
-                        />
-                      )
-                    )}
-                  </tbody>
-                </table>
-              )}
-            </>
+        <Listing<Dashboard> list={list} emptyText={text.empty}>
+          {(item) => (
+            <Item
+              key={item.id}
+              thumbnail={`${API.ORIGIN}/dashboard-thumbnails/${item.id}.jpg`}
+              title={item.title}
+              subtitle={item.creationDate.split('T')[0]}
+              description={item.description}
+              link={`/dashboards/${item.id}`}
+              linkLabel={text.view}
+            />
           )}
-        </div>
+        </Listing>
         <Pagination
           page={page}
           setPage={setPage}
           itemsPerPage={itemsPerPage}
-          total={result.total}
+          total={list ? list.total : 0}
         />
       </div>
     </>

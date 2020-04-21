@@ -8,11 +8,6 @@ export interface User {
   creationDate: string
 }
 
-export interface UserList {
-  users: Array<User>
-  total: number
-}
-
 export enum Role {
   user,
   developer,

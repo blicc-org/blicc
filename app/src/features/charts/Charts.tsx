@@ -2,21 +2,15 @@ import React, { useEffect, useState, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useApiEndpoint, useLanguage } from '../../common/hooks'
-import { Item, Pagination, Empty, Loading } from '../../common/components/ui'
-import { Chart, ChartList } from '../../common/interfaces'
-import './Charts.scss'
+import { Pagination, Title, Listing, Item } from '../../common/components/ui'
+import { List, Chart } from '../../common/interfaces'
 
 export function Charts(): ReactElement {
-  const initChartList: ChartList = {
-    total: 0,
-    charts: [],
-  }
-  const [chartList, setChartList] = useState<ChartList>(initChartList)
-  const content = useLanguage()
+  const [, access, ,] = useApiEndpoint('/charts')
+  const [list, setList] = useState<List<Chart>>()
+  const { charts: text } = useLanguage()
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
-  const [, access, ,] = useApiEndpoint('/charts')
 
   useEffect(() => {
     async function fetchData(): Promise<void> {
@@ -27,8 +21,7 @@ export function Charts(): ReactElement {
         },
       })
       if (status === statusCode.OK) {
-        setChartList(data)
-        setIsLoading(false)
+        setList({ total: data.total, list: data.charts })
       }
     }
     fetchData()
@@ -38,47 +31,29 @@ export function Charts(): ReactElement {
   return (
     <>
       <MetaData
-        title={content.charts.title}
-        description={content.charts.description}
+        title={text.title}
+        description={text.description}
         path={'/charts'}
       />
       <div className="container">
-        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-          <h2 className="my-0">{content.charts.title}</h2>
-        </div>
-        <div className="chart-list">
-          {isLoading ? (
-            <Loading />
-          ) : (
-            <>
-              {chartList.total === 0 ? (
-                <Empty>{content.charts.empty}</Empty>
-              ) : (
-                <table className="table">
-                  <tbody>
-                    {chartList.charts.map(
-                      (chart: Chart): ReactElement => (
-                        <Item
-                          key={chart.id}
-                          title={chart.title}
-                          subtitle={`@${chart.slug}`}
-                          description={chart.description}
-                          link={`/charts/${chart.id}`}
-                          linkLabel={content.charts.view}
-                        />
-                      )
-                    )}
-                  </tbody>
-                </table>
-              )}
-            </>
+        <Title title={text.title} />
+        <Listing<Chart> list={list} emptyText={text.empty}>
+          {(chart) => (
+            <Item
+              key={chart.id}
+              title={chart.title}
+              subtitle={`@${chart.slug}`}
+              description={chart.description}
+              link={`/charts/${chart.id}`}
+              linkLabel={text.view}
+            />
           )}
-        </div>
+        </Listing>
         <Pagination
           page={page}
           setPage={setPage}
           itemsPerPage={itemsPerPage}
-          total={chartList.total}
+          total={list ? list.total : 0}
         />
       </div>
     </>

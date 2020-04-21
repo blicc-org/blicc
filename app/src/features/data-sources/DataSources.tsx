@@ -3,10 +3,9 @@ import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
 import { useApiEndpoint, useModal, useLanguage } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import { Item, Pagination, Empty, Loading } from '../../common/components/ui'
+import { Item, Pagination, Listing } from '../../common/components/ui'
 import { CreateDataSourceModal } from './CreateDataSourceModal'
-import './DataSources.scss'
-import { DataSourceList, DataSource } from '../../common/interfaces'
+import { List, DataSource } from '../../common/interfaces'
 
 export const FREQUENCY = {
   DAILY: 86400000,
@@ -29,13 +28,11 @@ export const INITIAL_DATA_SOURCE = {
 }
 
 export function DataSources(): ReactElement {
-  const initDataSourceList: DataSourceList = { total: 0, dataSources: [] }
-  const [dataSourceList, setDataSourceList] = useState(initDataSourceList)
-  const content = useLanguage()
+  const [list, setList] = useState<List<DataSource>>()
+  const { dataSources: text } = useLanguage()
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
   const [create, access, ,] = useApiEndpoint('/data-sources')
-  const [isLoading, setIsLoading] = useState(true)
   const [redirect, setRedirect] = useState('')
   const [title, setTitle] = useState('')
   const [fetchFrequency, setFetchFrequency] = useState(0)
@@ -78,8 +75,7 @@ export function DataSources(): ReactElement {
         },
       })
       if (status === statusCode.OK) {
-        setDataSourceList(data)
-        setIsLoading(false)
+        setList({ total: data.total, list: data.dataSources })
       }
     }
     fetchData()
@@ -90,57 +86,41 @@ export function DataSources(): ReactElement {
     <>
       {redirect && <Redirect to={redirect} />}
       <MetaData
-        title={content.dataSources.title}
-        description={content.dataSources.description}
+        title={text.title}
+        description={text.description}
         path={'/data-sources'}
       />
       <div className="container">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-          <h2 className="my-0">{content.dataSources.title}</h2>
+          <h2 className="my-0">{text.title}</h2>
           <div className="btn-toolbar">
             <button
-              title={content.dataSources.create}
+              title={text.create}
               type="button"
               className="btn btn-sm btn-primary"
               onClick={showModal}
             >
-              {content.dataSources.create}
+              {text.create}
             </button>
           </div>
         </div>
-        <div className="data-source-list">
-          {isLoading ? (
-            <Loading />
-          ) : (
-            <>
-              {dataSourceList.dataSources.length === 0 ? (
-                <Empty>{content.dataSources.empty}</Empty>
-              ) : (
-                <table className="table">
-                  <tbody>
-                    {dataSourceList.dataSources.map(
-                      (dataSource: DataSource): ReactElement => (
-                        <Item
-                          key={dataSource.id}
-                          title={dataSource.title}
-                          subtitle={dataSource.creationDate.split('T')[0]}
-                          description={dataSource.description}
-                          link={`/data-sources/${dataSource.id}`}
-                          linkLabel={content.dataSources.view}
-                        />
-                      )
-                    )}
-                  </tbody>
-                </table>
-              )}
-            </>
+        <Listing<DataSource> list={list} emptyText={text.empty}>
+          {(item) => (
+            <Item
+              key={item.id}
+              title={item.title}
+              subtitle={item.creationDate.split('T')[0]}
+              description={item.description}
+              link={`/data-sources/${item.id}`}
+              linkLabel={text.view}
+            />
           )}
-        </div>
+        </Listing>
         <Pagination
           page={page}
           setPage={setPage}
           itemsPerPage={itemsPerPage}
-          total={dataSourceList.total}
+          total={list ? list.total : 0}
         />
       </div>
     </>

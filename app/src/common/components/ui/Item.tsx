@@ -14,9 +14,9 @@ export function Item({
   const isMobile = useMobile()
 
   return (
-    <tr>
+    <ul>
       {thumbnail && (
-        <td style={{ width: '100px' }} className="px-0">
+        <li style={{ width: '100px' }} className="px-0">
           <Link className="card-link" to={link}>
             <Image
               src={thumbnail}
@@ -24,16 +24,16 @@ export function Item({
               height={isMobile ? 81 : 117}
             />
           </Link>
-        </td>
+        </li>
       )}
-      <td>
+      <li>
         <h5 className="card-title">{title}</h5>
         <h6 className="card-subtitle mb-2 text-muted">{subtitle}</h6>
         <p className="card-text">{description}</p>
         <Link className="card-link" to={link}>
           {linkLabel}
         </Link>
-      </td>
-    </tr>
+      </li>
+    </ul>
   )
 }
