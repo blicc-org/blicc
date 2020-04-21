@@ -42,10 +42,11 @@ export function Charts(): ReactElement {
             <Item
               key={chart.id}
               title={chart.title}
-              subtitle={`@${chart.slug}`}
+              subtitle={chart.creationDate.split('T')[0]}
               description={chart.description}
               link={`/charts/${chart.id}`}
               linkLabel={text.view}
+              badge={`@${chart.slug}`}
             />
           )}
         </Listing>

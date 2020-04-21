@@ -16,6 +16,7 @@ export function Item({
   link,
   linkLabel,
   thumbnail = '',
+  badge = '',
 }: any): ReactElement {
   const mobile: ImageSize = { width: 144, height: 81 }
   const desktop: ImageSize = { width: 208, height: 117 }
@@ -33,7 +34,9 @@ export function Item({
         </Link>
       )}
       <div>
-        <h5>{title}</h5>
+        <h5>
+          {title} <span className="badge badge-secondary">{badge}</span>
+        </h5>
         <h6 className="text-muted">{subtitle}</h6>
         <p>{description}</p>
         <Link to={link}>{linkLabel}</Link>
