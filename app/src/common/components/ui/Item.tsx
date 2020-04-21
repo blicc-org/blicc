@@ -35,7 +35,7 @@ export function Item({
       )}
       <div>
         <h5>
-          {title} <span className="badge badge-secondary">{badge}</span>
+          {title} <span className="badge badge-success">{badge}</span>
         </h5>
         <p className={styles.subtitle}>{subtitle}</p>
         <p>{description}</p>
