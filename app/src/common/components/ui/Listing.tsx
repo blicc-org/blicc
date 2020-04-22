@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { Loading } from './Loading'
 import { Empty } from './Empty'
 import { List } from '../../interfaces'
-import styles from './Listing.scss'
+import styles from './Listing.module.scss'
 
 interface Props<T> {
   list: List<T> | undefined
