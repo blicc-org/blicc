@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { Loading } from './Loading'
 import { Empty } from './Empty'
 import { List } from '../../interfaces'
-import './Listing.scss'
+import styles from './Listing.scss'
 
 interface Props<T> {
   list: List<T> | undefined
@@ -16,7 +16,7 @@ export function Listing<T>({
   children,
 }: Props<T>): ReactElement {
   return (
-    <div className="listing">
+    <div className={styles.listing}>
       {list === undefined ? (
         <Loading />
       ) : (
