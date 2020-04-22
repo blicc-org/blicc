@@ -92,7 +92,7 @@ export function Dashboards(): ReactElement {
           </Button>
         </Heading>
         <Listing<Dashboard> list={list} emptyText={text.empty}>
-          {(item) => (
+          {(item): ReactElement => (
             <Item
               key={item.id}
               thumbnail={`${API.ORIGIN}/dashboard-thumbnails/${item.id}.jpg`}

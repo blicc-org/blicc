@@ -37,7 +37,7 @@ export function Users(): ReactElement {
         </h4>
       </div>
       <Listing<User> list={list} emptyText="No users found.">
-        {(user) => (
+        {(user): ReactElement => (
           <Item
             key={user.id}
             title={`${user.firstName} ${user.lastName}`}

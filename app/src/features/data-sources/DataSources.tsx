@@ -110,7 +110,7 @@ export function DataSources(): ReactElement {
           </Button>
         </Heading>
         <Listing<DataSource> list={list} emptyText={text.empty}>
-          {(item) => (
+          {(item): ReactElement => (
             <Item
               key={item.id}
               title={item.title}

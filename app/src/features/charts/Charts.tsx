@@ -43,7 +43,7 @@ export function Charts(): ReactElement {
       <div className="container">
         <Heading title={text.title} />
         <Listing<Chart> list={list} emptyText={text.empty}>
-          {(chart) => (
+          {(chart): ReactElement => (
             <Item
               key={chart.id}
               title={chart.title}

@@ -1,4 +1,4 @@
-export function useDateFormatter() {
+export function useDateFormatter(): Function {
   function format(date: string): string {
     const d = new Date(date)
     const dtf = new Intl.DateTimeFormat('en', {
