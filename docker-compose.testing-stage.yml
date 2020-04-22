@@ -44,19 +44,19 @@ services:
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
   db:
-    image: registry.thiloilg.com/root/blicc/db:test
+    image: registry.thiloilg.com/root/blicc/db:${VERSION}
     hostname: db
     restart: always
   redis:
-    image: registry.thiloilg.com/root/blicc/redis:test
+    image: registry.thiloilg.com/root/blicc/redis:${VERSION}
     hostname: redis
     restart: always
   mongo:
-    image: registry.thiloilg.com/root/blicc/mongo:test
+    image: registry.thiloilg.com/root/blicc/mongo:${VERSION}
     hostname: mongo
     restart: always
   rabbitmq:
-    image: registry.thiloilg.com/root/blicc/rabbitmq:test
+    image: registry.thiloilg.com/root/blicc/rabbitmq:${VERSION}
     hostname: rabbitmq
     restart: always
     labels:
@@ -65,7 +65,7 @@ services:
       - traefik.http.routers.rabbitmq.tls.certresolver=secure
       - traefik.http.services.rabbitmq.loadbalancer.server.port=15672
   api:
-    image: registry.thiloilg.com/root/blicc/api:test
+    image: registry.thiloilg.com/root/blicc/api:${VERSION}
     hostname: api
     restart: always
     volumes:
@@ -93,7 +93,7 @@ services:
       - traefik.http.routers.api.rule=Host(`api.testing-stage.org`)
       - traefik.http.routers.api.tls.certresolver=secure
   delivery:
-    image: registry.thiloilg.com/root/blicc/delivery:test
+    image: registry.thiloilg.com/root/blicc/delivery:${VERSION}
     hostname: delivery
     restart: always
     volumes:
@@ -114,7 +114,7 @@ services:
       - traefik.http.routers.delivery.tls.certresolver=secure
       - traefik.http.routers.delivery.middlewares=sslheader
   mock-api:
-    image: registry.thiloilg.com/root/blicc/mock-api:test
+    image: registry.thiloilg.com/root/blicc/mock-api:${VERSION}
     hostname: mock_api
     restart: always
     labels:
@@ -122,7 +122,7 @@ services:
       - traefik.http.routers.mock-api.rule=Host(`mock.testing-stage.org`)
       - traefik.http.routers.mock-api.tls.certresolver=secure
   storage:
-    image: registry.thiloilg.com/root/blicc/storage:test
+    image: registry.thiloilg.com/root/blicc/storage:${VERSION}
     hostname: storage
     restart: always
     labels:

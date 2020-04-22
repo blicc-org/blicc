@@ -63,7 +63,7 @@ services:
         - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
         - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
   db:
-    image: registry.thiloilg.com/root/blicc/db:latest
+    image: registry.thiloilg.com/root/blicc/db:${VERSION}
     hostname: db
     volumes:
       - /srv/postgres-data:/var/lib/postgresql/data
@@ -86,7 +86,7 @@ services:
         constraints:
           - node.role == manager
   redis:
-    image: registry.thiloilg.com/root/blicc/redis:latest
+    image: registry.thiloilg.com/root/blicc/redis:${VERSION}
     hostname: redis
     volumes:
       - /srv/redis-data:/data
@@ -98,7 +98,7 @@ services:
         constraints:
           - node.role == manager
   mongo:
-    image: registry.thiloilg.com/root/blicc/mongo:latest
+    image: registry.thiloilg.com/root/blicc/mongo:${VERSION}
     hostname: mongo
     volumes:
       - /srv/mongo-data:/data/db
@@ -121,7 +121,7 @@ services:
         constraints:
           - node.role == manager
   rabbitmq:
-    image: registry.thiloilg.com/root/blicc/rabbitmq:latest
+    image: registry.thiloilg.com/root/blicc/rabbitmq:${VERSION}
     hostname: rabbitmq
     deploy:
       replicas: 1
@@ -147,7 +147,7 @@ services:
         - traefik.http.routers.rabbitmq.tls.certresolver=secure
         - traefik.http.services.rabbitmq.loadbalancer.server.port=15672
   api:
-    image: registry.thiloilg.com/root/blicc/api:latest
+    image: registry.thiloilg.com/root/blicc/api:${VERSION}
     hostname: api
     volumes:
       - /root/rsa.pem:/root/certs/rsa.pem
@@ -190,7 +190,7 @@ services:
         - traefik.http.routers.api.tls.certresolver=secure
         - traefik.http.services.api.loadbalancer.server.port=80
   delivery:
-    image: registry.thiloilg.com/root/blicc/delivery:latest
+    image: registry.thiloilg.com/root/blicc/delivery:${VERSION}
     hostname: delivery
     volumes:
       - /root/rsa_pub.pem:/root/certs/rsa_pub.pem
@@ -226,7 +226,7 @@ services:
         - traefik.http.routers.delivery.middlewares=sslheader
         - traefik.http.services.delivery.loadbalancer.server.port=80
   app:
-    image: registry.thiloilg.com/root/blicc/app:latest
+    image: registry.thiloilg.com/root/blicc/app:${VERSION}
     hostname: app
     depends_on:
       - api
@@ -252,7 +252,7 @@ services:
         - traefik.http.routers.app.tls.certresolver=secure
         - traefik.http.services.app.loadbalancer.server.port=80
   mock-api:
-    image: registry.thiloilg.com/root/blicc/mock-api:latest
+    image: registry.thiloilg.com/root/blicc/mock-api:${VERSION}
     hostname: mock_api
     deploy:
       replicas: 1
@@ -275,7 +275,7 @@ services:
         - traefik.http.routers.mock-api.tls.certresolver=secure
         - traefik.http.services.mock-api.loadbalancer.server.port=80
   storage:
-    image: registry.thiloilg.com/root/blicc/storage:latest
+    image: registry.thiloilg.com/root/blicc/storage:${VERSION}
     hostname: storage
     volumes:
       - /srv/storage-data:/data

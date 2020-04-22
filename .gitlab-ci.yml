@@ -7,6 +7,7 @@ stages:
 
 variables:
   REGISTRY: $CI_REGISTRY/$CI_PROJECT_PATH
+  VERSION: $CI_COMMIT_TAG-$CI_COMMIT_SHORT_SHA
 
 .enable_ssh: &enable_ssh |
   which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
@@ -15,9 +16,6 @@ variables:
   mkdir -p ~/.ssh && chmod 700 ~/.ssh
   [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
-.login_docker: &login_docker |
-  docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
 .install_openssl: &install_openssl |
   apk add --update openssl
   rm -rf /var/cache/apk/*
@@ -25,9 +23,8 @@ variables:
 build:
   stage: build
   image: docker:git
-  before_script:
-    - *login_docker
   script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t app -f ./app/prod.Dockerfile ./app
     - docker build
       --build-arg POSTGRES_USERNAME=$POSTGRES_USERNAME
@@ -59,35 +56,25 @@ build:
       --build-arg MINIO_PASSWORD=$MINIO_PASSWORD
       -t storage ./storage
 
-    - docker tag app $REGISTRY/app:test
-    - docker tag api $REGISTRY/api:test
-    - docker tag db $REGISTRY/db:test
-    - docker tag redis $REGISTRY/redis:test
-    - docker tag mongo $REGISTRY/mongo:test
-    - docker tag mock-api $REGISTRY/mock-api:test
-    - docker tag delivery $REGISTRY/delivery:test
-    - docker tag rabbitmq $REGISTRY/rabbitmq:test
-    - docker tag storage $REGISTRY/storage:test
+    - docker tag app $REGISTRY/app:$VERSION
+    - docker tag api $REGISTRY/api:$VERSION
+    - docker tag db $REGISTRY/db:$VERSION
+    - docker tag redis $REGISTRY/redis:$VERSION
+    - docker tag mongo $REGISTRY/mongo:$VERSION
+    - docker tag mock-api $REGISTRY/mock-api:$VERSION
+    - docker tag delivery $REGISTRY/delivery:$VERSION
+    - docker tag rabbitmq $REGISTRY/rabbitmq:$VERSION
+    - docker tag storage $REGISTRY/storage:$VERSION
 
-    - docker tag app $REGISTRY/app:latest
-    - docker tag api $REGISTRY/api:latest
-    - docker tag db $REGISTRY/db:latest
-    - docker tag redis $REGISTRY/redis:latest
-    - docker tag mongo $REGISTRY/mongo:latest
-    - docker tag mock-api $REGISTRY/mock-api:latest
-    - docker tag delivery $REGISTRY/delivery:latest
-    - docker tag rabbitmq $REGISTRY/rabbitmq:latest
-    - docker tag storage $REGISTRY/storage:latest
-
-    - docker push $REGISTRY/app:test
-    - docker push $REGISTRY/api:test
-    - docker push $REGISTRY/db:test
-    - docker push $REGISTRY/redis:test
-    - docker push $REGISTRY/mongo:test
-    - docker push $REGISTRY/mock-api:test
-    - docker push $REGISTRY/delivery:test
-    - docker push $REGISTRY/rabbitmq:test
-    - docker push $REGISTRY/storage:test
+    - docker push $REGISTRY/app:$VERSION
+    - docker push $REGISTRY/api:$VERSION
+    - docker push $REGISTRY/db:$VERSION
+    - docker push $REGISTRY/redis:$VERSION
+    - docker push $REGISTRY/mongo:$VERSION
+    - docker push $REGISTRY/mock-api:$VERSION
+    - docker push $REGISTRY/delivery:$VERSION
+    - docker push $REGISTRY/rabbitmq:$VERSION
+    - docker push $REGISTRY/storage:$VERSION
 
 test-preparation:
   stage: test-preparation
@@ -95,7 +82,6 @@ test-preparation:
   before_script:
     - *enable_ssh
   script:
-    - ssh -tt root@$TEST_IP "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
     - ssh -tt root@$TEST_IP "docker image prune -a -f"
     - ssh -tt root@$TEST_IP "echo '$TRAEFIK_PASSWORD' > /root/credentials.txt"
     - scp -r ./docker-compose.testing-stage.yml root@$TEST_IP:/root/docker-compose.yml
@@ -104,6 +90,7 @@ test-preparation:
     - scp -r rsa.pem root@$TEST_IP:/root/rsa.pem
     - scp -r rsa_pub.pem root@$TEST_IP:/root/rsa_pub.pem
     - ssh -tt root@$TEST_IP "export
+      VERSION=$VERSION
       DOCKER_CLIENT_TIMEOUT=120
       COMPOSE_HTTP_TIMEOUT=120
       POSTGRES_USERNAME=$POSTGRES_USERNAME
@@ -150,22 +137,10 @@ deploy:
   only:
     - master
   before_script:
-    - *login_docker
     - *enable_ssh
     - *install_openssl
   script:
-    - ssh -tt root@$PROD_IP "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
-    - ssh -tt root@$PROD_IP "docker image prune -a -f"
     - ssh -tt root@$PROD_IP "echo '$TRAEFIK_PASSWORD' > /root/credentials.txt"
-    - docker push $REGISTRY/app:latest
-    - docker push $REGISTRY/api:latest
-    - docker push $REGISTRY/db:latest
-    - docker push $REGISTRY/mongo:latest
-    - docker push $REGISTRY/redis:latest
-    - docker push $REGISTRY/mock-api:latest
-    - docker push $REGISTRY/delivery:latest
-    - docker push $REGISTRY/rabbitmq:latest
-    - docker push $REGISTRY/storage:latest
     - scp -r ./docker-compose.prod.yml root@$PROD_IP:/root/docker-compose.yml
     - openssl genrsa -out rsa.pem 2048
     - openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem
@@ -174,6 +149,7 @@ deploy:
     - scp -r rsa.pem root@$PROD_IP_2:/root/rsa.pem
     - scp -r rsa_pub.pem root@$PROD_IP_2:/root/rsa_pub.pem
     - ssh -tt root@$PROD_IP "export
+      VERSION=$VERSION
       DOCKER_CLIENT_TIMEOUT=120
       COMPOSE_HTTP_TIMEOUT=120
       POSTGRES_USERNAME=$POSTGRES_USERNAME
