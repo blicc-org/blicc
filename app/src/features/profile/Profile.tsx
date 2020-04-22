@@ -4,6 +4,7 @@ import { AppContext } from '../../common/context'
 import { Details } from './details/Details'
 import { DeleteAccount } from './delete-account/DeleteAccount'
 import { TwoFactorAuth } from './two-factor-auth/TwoFactorAuth'
+import { Heading, Button, ButtonType } from '../../common/components/ui'
 
 interface User {
   id: string
@@ -19,6 +20,16 @@ export function Profile(): ReactElement {
   const [appState] = useContext(AppContext)
   const { id } = appState
   const [, access, update] = useApiEndpoint(`/users/${id}`)
+  const [edit, setEdit] = useState(false)
+
+  async function onClick(): Promise<void> {
+    if (edit) {
+      await update()
+      setEdit(false)
+    } else {
+      setEdit(true)
+    }
+  }
 
   const [user, setUser] = useState<User>({
     id: '',
@@ -41,15 +52,16 @@ export function Profile(): ReactElement {
 
   return (
     <div className="container pb-5">
-      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-        <h2 className="my-0">Profile</h2>
-      </div>
+      <Heading title="Profile">
+        <Button
+          type={edit ? ButtonType.Primary : ButtonType.OutlineSecondary}
+          onClick={onClick}
+        >
+          {edit ? 'Save' : 'Edit'}
+        </Button>
+      </Heading>
       <div className="col px-0">
-        <Details
-          user={user}
-          setUser={setUser}
-          update={async (): Promise<void> => await update(user)}
-        />
+        <Details user={user} setUser={setUser} edit={edit} />
         <TwoFactorAuth user={user} setUser={setUser} />
         <DeleteAccount user={user} />
       </div>

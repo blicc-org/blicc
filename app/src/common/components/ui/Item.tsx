@@ -9,15 +9,25 @@ interface ImageSize {
   height: number
 }
 
+interface Props {
+  title: string
+  subtitle: string
+  description: string
+  linkLabel?: string
+  link?: string
+  thumbnail?: string
+  badge?: string
+}
+
 export function Item({
   title,
   subtitle,
   description,
-  link,
-  linkLabel,
+  linkLabel = '',
+  link = '',
   thumbnail = '',
   badge = '',
-}: any): ReactElement {
+}: Props): ReactElement {
   const mobile: ImageSize = { width: 144, height: 81 }
   const desktop: ImageSize = { width: 208, height: 117 }
   const isMobile = useMobile()
@@ -39,7 +49,7 @@ export function Item({
         </h5>
         <p className={styles.subtitle}>{subtitle}</p>
         <p>{description}</p>
-        <Link to={link}>{linkLabel}</Link>
+        {link && <Link to={link}>{linkLabel}</Link>}
       </div>
     </div>
   )

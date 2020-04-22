@@ -1,6 +1,6 @@
 import React, { useState, ReactElement } from 'react'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import { Tabs } from '../../common/components/ui'
+import { Tabs, Heading } from '../../common/components/ui'
 import { Users } from './Users'
 import { Network } from './Network'
 
@@ -16,9 +16,7 @@ export function AdminArea(): ReactElement {
         path={'/admin-area'}
       />
       <div className="container">
-        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-          <h2 className="my-0">Admin Area</h2>
-        </div>
+        <Heading title="Admin Area" />
         <Tabs
           tabs={tabs}
           currentTab={currentTab}

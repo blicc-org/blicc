@@ -1,11 +1,11 @@
-import React, { useState, ReactElement } from 'react'
-import { Card, Button, ButtonType } from '../../../common/components/ui'
+import React, { ReactElement } from 'react'
+import { Card } from '../../../common/components/ui'
 import { ProfilePicture } from './ProfilePicture'
 
 interface Props {
   user: User
   setUser: (user: User) => void
-  update: () => Promise<void>
+  edit: boolean
 }
 
 interface User {
@@ -18,18 +18,8 @@ interface User {
   hasTwoFactorAuth: boolean
 }
 
-export function Details({ user, setUser, update }: Props): ReactElement {
+export function Details({ user, setUser, edit }: Props): ReactElement {
   const { firstName, lastName, email, role, creationDate } = user
-  const [edit, setEdit] = useState(false)
-
-  async function onClick(): Promise<void> {
-    if (edit) {
-      await update()
-      setEdit(false)
-    } else {
-      setEdit(true)
-    }
-  }
 
   return (
     <Card title="Details">
@@ -105,12 +95,6 @@ export function Details({ user, setUser, update }: Props): ReactElement {
         </tbody>
       </table>
       <br />
-      <Button
-        type={edit ? ButtonType.Primary : ButtonType.OutlineSecondary}
-        onClick={onClick}
-      >
-        {edit ? 'Save' : 'Edit'}
-      </Button>
     </Card>
   )
 }
