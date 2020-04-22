@@ -5,7 +5,14 @@ import { useApiEndpoint, useDateFormatter } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useModal, useLanguage } from '../../common/hooks'
 import { CreateDashboardModal } from './CreateDashboardModal'
-import { Pagination, Listing, Item } from '../../common/components/ui'
+import {
+  Pagination,
+  Listing,
+  Item,
+  Heading,
+  Button,
+  ButtonType,
+} from '../../common/components/ui'
 import { Dashboard, List } from '../../common/interfaces'
 import { API } from '../../config'
 
@@ -79,19 +86,11 @@ export function Dashboards(): ReactElement {
         path={'/dashboards'}
       />
       <div className="container">
-        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-          <h2 className="my-0">{text.title}</h2>
-          <div className="btn-toolbar">
-            <button
-              title={text.create}
-              type="button"
-              className="btn btn-sm btn-primary"
-              onClick={showModal}
-            >
-              {text.create}
-            </button>
-          </div>
-        </div>
+        <Heading title={text.title}>
+          <Button type={ButtonType.Primary} onClick={showModal}>
+            {text.create}
+          </Button>
+        </Heading>
         <Listing<Dashboard> list={list} emptyText={text.empty}>
           {(item) => (
             <Item

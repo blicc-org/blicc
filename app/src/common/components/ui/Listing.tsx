@@ -10,12 +10,7 @@ interface Props<T> {
   children: (values: T) => ReactElement
 }
 
-interface Ressource {
-  title: string
-  description: string
-}
-
-export function Listing<T extends Ressource>({
+export function Listing<T>({
   list,
   emptyText,
   children,

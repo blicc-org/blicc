@@ -9,7 +9,13 @@ import {
 } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { DataSourceDetails } from './DataSourceDetails'
-import { ConfirmationModal, Tabs, PageHeader } from '../../common/components/ui'
+import {
+  ConfirmationModal,
+  Tabs,
+  Heading,
+  Button,
+  ButtonType,
+} from '../../common/components/ui'
 import { DataSource } from './DataSource'
 
 const INITIAL = {
@@ -107,7 +113,14 @@ export function DataSourceView({ match, location }: any): ReactElement {
       {redirect && <Redirect to={redirect} />}
       <MetaData title={title} description={description} path={path} />
       <div className="container-fluid">
-        <PageHeader edit={edit} title={title} onClick={onClick} />
+        <Heading title={title}>
+          <Button
+            type={edit ? ButtonType.Primary : ButtonType.OutlineSecondary}
+            onClick={onClick}
+          >
+            {edit ? 'Save' : 'Edit'}
+          </Button>
+        </Heading>
         <Tabs
           tabs={tabs}
           currentTab={currentTab}

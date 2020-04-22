@@ -17,7 +17,9 @@ import { Toolbox } from '../../common/components/toolbox/Toolbox'
 import {
   ConfirmationModal,
   Tabs,
-  UpdateButton,
+  Heading,
+  Button,
+  ButtonType,
 } from '../../common/components/ui'
 import { ModalShare } from '../../common/components/modal/ModalShare'
 import './DashboardView.scss'
@@ -112,19 +114,17 @@ export function DashboardView({ match, location }: any): ReactElement {
       {redirect && <Redirect to={redirect} />}
       <MetaData title={title} description={description} path={path} />
       <div className="container-fluid dashboard" style={style}>
-        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-          <h2 className="my-0">{title}</h2>
-          <div className="btn-toolbar">
-            <UpdateButton edit={edit} onClick={onClick} />
-            <button
-              className="btn btn-info ml-2"
-              type="button"
-              onClick={showShareModal}
-            >
-              Share
-            </button>
-          </div>
-        </div>
+        <Heading title={title}>
+          <Button
+            type={edit ? ButtonType.Primary : ButtonType.OutlineSecondary}
+            onClick={onClick}
+          >
+            {edit ? 'Save' : 'Edit'}
+          </Button>
+          <Button type={ButtonType.Info} onClick={showShareModal}>
+            Share
+          </Button>
+        </Heading>
         <Tabs
           tabs={tabs}
           currentTab={currentTab}

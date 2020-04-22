@@ -6,7 +6,7 @@ import {
   useLanguage,
   useDateFormatter,
 } from '../../common/hooks'
-import { Pagination, Title, Listing, Item } from '../../common/components/ui'
+import { Pagination, Listing, Item, Heading } from '../../common/components/ui'
 import { List, Chart } from '../../common/interfaces'
 
 export function Charts(): ReactElement {
@@ -41,7 +41,7 @@ export function Charts(): ReactElement {
         path={'/charts'}
       />
       <div className="container">
-        <Title title={text.title} />
+        <Heading title={text.title} />
         <Listing<Chart> list={list} emptyText={text.empty}>
           {(chart) => (
             <Item

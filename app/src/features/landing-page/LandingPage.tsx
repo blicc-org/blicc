@@ -22,7 +22,7 @@ export function LandingPage(): ReactElement {
       <div className="col-md-5 mx-auto text-center box-padding">
         <Logo height="100px" />
         <h1 className="display-4 font-weight-normal">{content.brand}</h1>
-        <p className="lead font-weight-normal">{content.brandDescription} xD</p>
+        <p className="lead font-weight-normal">{content.brandDescription}</p>
         <Link className="btn btn-outline-primary" to="/dashboards">
           {content.getStarted}
         </Link>

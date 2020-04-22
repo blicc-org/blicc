@@ -8,7 +8,14 @@ import {
   useDateFormatter,
 } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import { Item, Pagination, Listing } from '../../common/components/ui'
+import {
+  Item,
+  Pagination,
+  Listing,
+  Heading,
+  Button,
+  ButtonType,
+} from '../../common/components/ui'
 import { CreateDataSourceModal } from './CreateDataSourceModal'
 import { List, DataSource } from '../../common/interfaces'
 
@@ -97,19 +104,11 @@ export function DataSources(): ReactElement {
         path={'/data-sources'}
       />
       <div className="container">
-        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
-          <h2 className="my-0">{text.title}</h2>
-          <div className="btn-toolbar">
-            <button
-              title={text.create}
-              type="button"
-              className="btn btn-sm btn-primary"
-              onClick={showModal}
-            >
-              {text.create}
-            </button>
-          </div>
-        </div>
+        <Heading title={text.title}>
+          <Button type={ButtonType.Primary} onClick={showModal}>
+            {text.create}
+          </Button>
+        </Heading>
         <Listing<DataSource> list={list} emptyText={text.empty}>
           {(item) => (
             <Item

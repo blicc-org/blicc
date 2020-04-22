@@ -1,5 +1,5 @@
 import React, { useState, ReactElement } from 'react'
-import { Card, UpdateButton } from '../../../common/components/ui'
+import { Card, Button, ButtonType } from '../../../common/components/ui'
 import { ProfilePicture } from './ProfilePicture'
 
 interface Props {
@@ -105,7 +105,12 @@ export function Details({ user, setUser, update }: Props): ReactElement {
         </tbody>
       </table>
       <br />
-      <UpdateButton edit={edit} onClick={onClick} />
+      <Button
+        type={edit ? ButtonType.Primary : ButtonType.OutlineSecondary}
+        onClick={onClick}
+      >
+        {edit ? 'Save' : 'Edit'}
+      </Button>
     </Card>
   )
 }
