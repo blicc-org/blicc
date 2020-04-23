@@ -2,6 +2,7 @@ import Koa from 'koa'
 import statusCode from 'http-status-codes'
 import { DataSourceService } from './data-source.service'
 import { Validation } from '../../util/validation'
+import { RabbitMQClient } from '../../util/rabbitmq-client'
 
 export class DataSourceController {
   private dataSourceService: DataSourceService
@@ -20,7 +21,7 @@ export class DataSourceController {
       fetchFrequency,
     } = ctx.request.body
     const { userId } = ctx.state.jwt
-    ctx.body = await this.dataSourceService.create(
+    const dataSource = await this.dataSourceService.create(
       title,
       description,
       userId,
@@ -28,7 +29,9 @@ export class DataSourceController {
       persistData,
       fetchFrequency
     )
+    ctx.body = dataSource
     ctx.status = 201
+    RabbitMQClient.publish('data_source_create', JSON.stringify(dataSource))
   }
 
   public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
@@ -97,6 +100,7 @@ export class DataSourceController {
       ) {
         ctx.body = await this.dataSourceService.update(ctx.request.body)
         ctx.status = statusCode.OK
+        RabbitMQClient.publish('data_source_update', JSON.stringify(dataSource))
         return
       }
       ctx.status = statusCode.BAD_REQUEST
@@ -112,6 +116,7 @@ export class DataSourceController {
     if (dataSource && ctx.state.jwt.userId === dataSource.userId) {
       ctx.body = await this.dataSourceService.remove(dataSource)
       ctx.status = statusCode.OK
+      RabbitMQClient.publish('data_source_delete', JSON.stringify(dataSource))
       return
     }
     ctx.status = statusCode.FORBIDDEN

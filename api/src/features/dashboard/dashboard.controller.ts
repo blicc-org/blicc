@@ -2,7 +2,6 @@ import Koa from 'koa'
 import statusCode from 'http-status-codes'
 import { DashboardService } from './dashboard.service'
 import { Validation } from '../../util/validation'
-import { RabbitMQClient } from '../../util/rabbitmq-client'
 
 export class DashboardController {
   private dashboardService: DashboardService
@@ -26,7 +25,6 @@ export class DashboardController {
 
     const { id = '' } = dashboard
     this.dashboardService.capture(id)
-    RabbitMQClient.publish('dashboard_update', 'test message')
   }
 
   public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
