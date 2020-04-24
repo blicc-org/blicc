@@ -31,9 +31,7 @@ func servePublicFolder(mux *http.ServeMux) {
 
 func Start() {
 	apidocs.Generate()
-
 	logger := log.New(os.Stdout, "delivery: ", log.LstdFlags)
-
 	mux := http.NewServeMux()
 
 	serveChannels(mux)
