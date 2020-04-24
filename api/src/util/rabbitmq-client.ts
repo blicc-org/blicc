@@ -3,16 +3,23 @@ import { RABBITMQ_USERNAME, RABBITMQ_PASSWORD } from '../config'
 import { Logger } from './logger'
 
 class RabbitMQ {
-  private URL = `amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672`
+  private URL: string = `amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672`
+  private connection: any
+
+  constructor() {
+    this.connection = connect(this.URL)
+  }
 
   public async publish(queue: string, message: string): Promise<void> {
-    Logger.info('create connection to rabbitMQ client')
-    const connection = await connect(this.URL)
     Logger.info('create channel')
-    const channel = await connection.createChannel()
+    const channel = this.connection.createChannel()
     Logger.info('assert queue')
     await channel.assertQueue(queue)
     channel.sendToQueue(queue, Buffer.from(message))
+  }
+
+  public status(): boolean {
+    return true
   }
 }
 

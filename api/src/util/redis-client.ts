@@ -22,6 +22,10 @@ class Redis {
       })
     })
   }
+
+  public status(): boolean {
+    return this.client.ping()
+  }
 }
 
 export const RedisClient = new Redis()

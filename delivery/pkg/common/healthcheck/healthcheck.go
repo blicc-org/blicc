@@ -12,9 +12,13 @@ import (
 
 func ListenAndServe(w http.ResponseWriter, r *http.Request) {
 
-	status := bson.M{"mongodb": mongodbclient.Status(), "redis": redisclient.Status(), "rabbitmq": rabbitmqclient.Status()}
+	mongodb := mongodbclient.Status()
+	redis := redisclient.Status()
+	rabbitmq := rabbitmqclient.Status()
 
-	if mongodbclient.Status() && redisclient.Status() && rabbitmqclient.Status() {
+	status := bson.M{"mongodb": mongodb, "redis": redis, "rabbitmq": rabbitmq}
+
+	if mongodb && redis && rabbitmq {
 		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(status)
