@@ -2,29 +2,10 @@ package rabbitmqclient
 
 import (
 	"fmt"
-	"os"
-
-	"github.com/streadway/amqp"
 )
 
-func Connect() {
-	service := "rabbitmq"
-	port := "5672"
-
-	RABBITMQ_USERNAME := os.Getenv("RABBITMQ_USERNAME")
-	RABBITMQ_PASSWORD := os.Getenv("RABBITMQ_PASSWORD")
-
-	url := "amqp://" + RABBITMQ_USERNAME + ":" + RABBITMQ_PASSWORD + "@" + service + ":" + port
-
-	conn, err := amqp.Dial(url)
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println("RabbitMQ connected")
-	}
-	defer conn.Close()
-
-	ch, err := conn.Channel()
+func UpdateDatabase() {
+	ch, err := Conn.Channel()
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -49,6 +30,7 @@ func Connect() {
 			fmt.Printf("Received a message: %s\n", d.Body)
 		}
 	}()
+
 }
 
 func Status() bool {
