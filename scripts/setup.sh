@@ -11,4 +11,4 @@ mount /dev/sdb /srv
 mkdir redis-data postgres-data mongo-data prometheus-data rabbitmq-data storage-data
 
 # login to docker registry
-docker login registry.example.com
+docker login registry.thiloilg.com
