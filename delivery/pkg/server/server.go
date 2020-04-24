@@ -9,8 +9,11 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/blicc-org/blicc/delivery/pkg/common/mongodbclient"
+	"go.mongodb.org/mongo-driver/bson"
+
 	"github.com/blicc-org/blicc/delivery/pkg/common/apidocs"
-	"github.com/blicc-org/blicc/delivery/pkg/common/mongoclient"
+	"github.com/blicc-org/blicc/delivery/pkg/common/rabbitmqclient"
 
 	"github.com/blicc-org/blicc/delivery/pkg/channel"
 	"github.com/blicc-org/blicc/delivery/pkg/common/flags"
@@ -32,14 +35,12 @@ func servePublicFolder(mux *http.ServeMux) {
 
 func Start() {
 	apidocs.Generate()
-	mongoclient.Connect()
+	rabbitmqclient.Connect()
+	mongodbclient.Set("data_sources", bson.M{"name": "pi", "value": 3.14159})
 
 	logger := log.New(os.Stdout, "delivery: ", log.LstdFlags)
 
 	mux := http.NewServeMux()
-
-	// mux.Handle("/", handlers.NewApiDocs(logger))
-	// mux.Handle("connection", handlers.NewConnection(logger))
 
 	serveChannels(mux)
 	servePublicFolder(mux)

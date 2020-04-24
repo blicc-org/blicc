@@ -19,6 +19,8 @@ func Connect() {
 	conn, err := amqp.Dial(url)
 	if err != nil {
 		fmt.Println(err)
+	} else {
+		fmt.Println("Connection to RabbitMQ host has been established.")
 	}
 	defer conn.Close()
 
@@ -29,13 +31,13 @@ func Connect() {
 	defer ch.Close()
 
 	messages, err := ch.Consume(
-		"dashboard_update", // queue
-		"",                 // consumer
-		true,               // auto-ack
-		false,              // exclusive
-		false,              // no-local
-		false,              // no-wait
-		nil,                // args
+		"data_source_update", // queue
+		"",                   // consumer
+		true,                 // auto-ack
+		false,                // exclusive
+		false,                // no-local
+		false,                // no-wait
+		nil,                  // args
 	)
 
 	if err != nil {
@@ -44,7 +46,8 @@ func Connect() {
 
 	go func() {
 		for d := range messages {
-			fmt.Printf("Received a message: %s", d.Body)
+			fmt.Printf("Received a message: %s\n", d.Body)
+
 		}
 	}()
 }
