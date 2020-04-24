@@ -11,7 +11,7 @@ const options = {
 }
 
 const healthCheck = http.request(options, (res) => {
-  if (res.statusCode == 204) {
+  if (res.statusCode == 200) {
     process.exit(0)
   } else {
     process.exit(1)
