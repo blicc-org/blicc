@@ -4,7 +4,7 @@ import { Logger } from './logger'
 
 class RabbitMQ {
   private URL = `amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672`
-  private connection: any
+  private connection: any // eslint-disable-line @typescript-eslint/no-explicit-any
 
   constructor() {
     this.connection = connect(this.URL)
