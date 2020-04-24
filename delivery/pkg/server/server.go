@@ -36,9 +36,14 @@ func servePublicFolder(mux *http.ServeMux) {
 func Start() {
 	apidocs.Generate()
 	rabbitmqclient.Connect()
-	mongodbclient.Set("data_sources", bson.M{"id": "lalala", "value": 3.14159})
-	dataSource := mongodbclient.Get("data_sources", "lalala")
-	fmt.Println(dataSource)
+	mongodbclient.Set("data_sources", bson.M{"id": "1", "value": "some value"})
+	dataSource := mongodbclient.Get("data_sources", "1")
+	fmt.Println("nais")
+	str := fmt.Sprintf("%v", dataSource)
+	fmt.Println(str)
+	var x interface{} = []int{1, 2, 3}
+	str = fmt.Sprintf("%v", x)
+	fmt.Println(str)
 
 	logger := log.New(os.Stdout, "delivery: ", log.LstdFlags)
 

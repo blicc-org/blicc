@@ -20,7 +20,7 @@ func Connect() {
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		fmt.Println("Connection to RabbitMQ host has been established.")
+		fmt.Println("RabbitMQ connected")
 	}
 	defer conn.Close()
 

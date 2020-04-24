@@ -41,6 +41,8 @@ func newClient() *mongo.Client {
 	client, err := mongo.Connect(Ctx, options.Client().ApplyURI(uri))
 	if err != nil {
 		fmt.Println(err)
+	} else {
+		fmt.Println("MongoDB connected")
 	}
 
 	return client

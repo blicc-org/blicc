@@ -37,18 +37,19 @@ func Generate() {
 	str := string(b)
 	str = strings.Replace(str, "{{content}}", string(content), 1)
 
-	l, err := f.Write([]byte(str))
+	_, err = f.Write([]byte(str))
 	if err != nil {
 		fmt.Println(err)
 		f.Close()
 		return
 	}
 
-	fmt.Println(l, "bytes written successfully")
 	err = f.Close()
 
 	if err != nil {
 		fmt.Println(err)
 		return
+	} else {
+		fmt.Println("Api docs generated")
 	}
 }
