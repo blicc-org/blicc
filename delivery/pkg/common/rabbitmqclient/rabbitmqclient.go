@@ -31,13 +31,13 @@ func Connect() {
 	defer ch.Close()
 
 	messages, err := ch.Consume(
-		"data_source_update", // queue
-		"",                   // consumer
-		true,                 // auto-ack
-		false,                // exclusive
-		false,                // no-local
-		false,                // no-wait
-		nil,                  // args
+		"data_source", // queue
+		"",            // consumer
+		true,          // auto-ack
+		false,         // exclusive
+		false,         // no-local
+		false,         // no-wait
+		nil,           // args
 	)
 
 	if err != nil {

@@ -12,11 +12,13 @@ import (
 )
 
 var (
+	DB     string
 	Ctx    context.Context
 	Client *mongo.Client
 )
 
 func init() {
+	DB = "db"
 	Ctx = context.Background()
 	Client = newClient()
 	cleanupHook()

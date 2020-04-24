@@ -31,7 +31,7 @@ export class DataSourceController {
     )
     ctx.body = dataSource
     ctx.status = 201
-    RabbitMQClient.publish('data_source_create', JSON.stringify(dataSource))
+    RabbitMQClient.publish('data_source', JSON.stringify(dataSource))
   }
 
   public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
@@ -100,7 +100,7 @@ export class DataSourceController {
       ) {
         ctx.body = await this.dataSourceService.update(ctx.request.body)
         ctx.status = statusCode.OK
-        RabbitMQClient.publish('data_source_update', JSON.stringify(dataSource))
+        RabbitMQClient.publish('data_source', JSON.stringify(dataSource))
         return
       }
       ctx.status = statusCode.BAD_REQUEST
@@ -116,7 +116,10 @@ export class DataSourceController {
     if (dataSource && ctx.state.jwt.userId === dataSource.userId) {
       ctx.body = await this.dataSourceService.remove(dataSource)
       ctx.status = statusCode.OK
-      RabbitMQClient.publish('data_source_delete', JSON.stringify(dataSource))
+      RabbitMQClient.publish(
+        'data_source',
+        JSON.stringify({ id: dataSource.id })
+      )
       return
     }
     ctx.status = statusCode.FORBIDDEN
