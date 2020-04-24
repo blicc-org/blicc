@@ -7,7 +7,7 @@ import {
 describe('GET: /health-check', () => {
   it('204: No content', async () => {
     const { status } = await instance.get('/health-check')
-    expect(status).toBe(204)
+    expect(status).toBe(200)
   })
 })
 

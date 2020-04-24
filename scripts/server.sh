@@ -1,6 +1,6 @@
 #!/bin/sh
-# initialize server running ubuntu 20.04 
 
+# initialize server running ubuntu 20.04 
 apt -y update
 apt -y install docker.io=19.03.8-0ubuntu1
 apt -y install docker-compose/focal
