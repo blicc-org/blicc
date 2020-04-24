@@ -47,7 +47,10 @@ func Connect() {
 	go func() {
 		for d := range messages {
 			fmt.Printf("Received a message: %s\n", d.Body)
-
 		}
 	}()
+}
+
+func Status() bool {
+	return true
 }

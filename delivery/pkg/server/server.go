@@ -9,10 +9,10 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/blicc-org/blicc/delivery/pkg/common/apidocs"
-
 	"github.com/blicc-org/blicc/delivery/pkg/channel"
+	"github.com/blicc-org/blicc/delivery/pkg/common/apidocs"
 	"github.com/blicc-org/blicc/delivery/pkg/common/flags"
+	"github.com/blicc-org/blicc/delivery/pkg/common/healthcheck"
 	"github.com/blicc-org/blicc/delivery/pkg/middleware/auth"
 	"github.com/blicc-org/blicc/delivery/pkg/middleware/logging"
 )
@@ -22,6 +22,13 @@ func serveChannels(mux *http.ServeMux) {
 		channel.ListenAndServe(w, r)
 	})
 	mux.Handle("/connection", auth.Middleware(handler))
+}
+
+func serveHealthCheck(mux *http.ServeMux) {
+	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		healthcheck.ListenAndServe(w, r)
+	})
+	mux.Handle("/health-check", logging.Middleware(handler))
 }
 
 func servePublicFolder(mux *http.ServeMux) {
@@ -36,6 +43,7 @@ func Start() {
 
 	serveChannels(mux)
 	servePublicFolder(mux)
+	serveHealthCheck(mux)
 
 	port := flags.Instance().Port
 

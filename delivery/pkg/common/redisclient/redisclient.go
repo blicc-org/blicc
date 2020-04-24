@@ -6,16 +6,17 @@ import (
 	"github.com/garyburd/redigo/redis"
 )
 
-func Ping() error {
+func Status() bool {
 
 	conn := Pool.Get()
 	defer conn.Close()
 
 	_, err := redis.String(conn.Do("PING"))
 	if err != nil {
-		return fmt.Errorf("cannot 'PING' db: %v", err)
+		fmt.Printf("cannot 'PING' db: %v", err)
+		return false
 	}
-	return nil
+	return true
 }
 
 func Get(key string) ([]byte, error) {
