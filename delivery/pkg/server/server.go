@@ -13,7 +13,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 
 	"github.com/blicc-org/blicc/delivery/pkg/common/apidocs"
-	"github.com/blicc-org/blicc/delivery/pkg/common/rabbitmqclient"
 
 	"github.com/blicc-org/blicc/delivery/pkg/channel"
 	"github.com/blicc-org/blicc/delivery/pkg/common/flags"
@@ -35,7 +34,7 @@ func servePublicFolder(mux *http.ServeMux) {
 
 func Start() {
 	apidocs.Generate()
-	rabbitmqclient.Connect()
+	// rabbitmqclient.Connect()
 	mongodbclient.Set("data_sources", bson.M{"id": "1", "value": "some value"})
 	dataSource := mongodbclient.Get("data_sources", "1")
 	fmt.Println("nais")
