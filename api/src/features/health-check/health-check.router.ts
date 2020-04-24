@@ -28,7 +28,7 @@ export class HealthCheckRouter {
      *     description: Check if backend service is healthy
      *     responses:
      *       200:
-     *         description: No content
+     *         description: Ok
      *       500:
      *         description: Internal Server Error
      *       503:

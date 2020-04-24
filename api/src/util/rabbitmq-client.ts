@@ -3,7 +3,7 @@ import { RABBITMQ_USERNAME, RABBITMQ_PASSWORD } from '../config'
 import { Logger } from './logger'
 
 class RabbitMQ {
-  private URL: string = `amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672`
+  private URL = `amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672`
   private connection: any
 
   constructor() {
