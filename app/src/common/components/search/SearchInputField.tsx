@@ -94,17 +94,15 @@ export function SearchInputField({
           onChange={(event): void => setSearchTerm(event.target.value)}
           value={searchTerm}
         />
-        <div className="input-group-append">
-          <button
-            title="Search"
-            className="btn search-button"
-            type="submit"
-            onClick={(event): void => event.preventDefault()}
-            style={{ backgroundColor }}
-          >
-            <SearchIcon />
-          </button>
-        </div>
+        <button
+          title="Search"
+          className="btn search-button"
+          type="submit"
+          onClick={(event): void => event.preventDefault()}
+          style={{ backgroundColor }}
+        >
+          <SearchIcon />
+        </button>
         <Result
           show={focused}
           results={data.dashboards}
