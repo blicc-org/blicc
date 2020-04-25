@@ -9,6 +9,8 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/blicc-org/blicc/delivery/pkg/common/rabbitmqclient"
+
 	"github.com/blicc-org/blicc/delivery/pkg/channel"
 	"github.com/blicc-org/blicc/delivery/pkg/common/apidocs"
 	"github.com/blicc-org/blicc/delivery/pkg/common/flags"
@@ -38,6 +40,8 @@ func servePublicFolder(mux *http.ServeMux) {
 
 func Start() {
 	apidocs.Generate()
+	rabbitmqclient.UpdateDatabase()
+
 	logger := log.New(os.Stdout, "delivery: ", log.LstdFlags)
 	mux := http.NewServeMux()
 

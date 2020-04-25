@@ -3,20 +3,31 @@ package mongodbclient
 import (
 	"context"
 	"fmt"
+	"log"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func Set(name string, document interface{}) {
+func Set(collectionName string, id string, document interface{}) {
 
 	db := Client.Database(DB)
+	opts := options.FindOneAndUpdate().SetUpsert(true)
+	filter := bson.D{primitive.E{Key: "id", Value: id}}
 
-	item, err := db.Collection(name).InsertOne(Ctx, document)
+	var newDocument = bson.D{primitive.E{Key: "$set", Value: document}}
+	var updatedDocument bson.M
+
+	err := db.Collection(collectionName).FindOneAndUpdate(Ctx, filter, newDocument, opts).Decode(&updatedDocument)
 	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(item)
+		if err == mongo.ErrNoDocuments {
+			fmt.Println("ErrNoDocuments: the filter did not match any documents")
+			return
+		}
+		log.Fatal(err)
 	}
 }
 
