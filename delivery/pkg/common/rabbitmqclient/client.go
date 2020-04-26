@@ -44,6 +44,7 @@ func cleanupHook() {
 	signal.Notify(c, syscall.SIGKILL)
 	go func() {
 		<-c
+		fmt.Println("closing rabbitmq connection...")
 		Conn.Close()
 		os.Exit(0)
 	}()

@@ -23,7 +23,10 @@ func UpdateDatabase() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	defer ch.Close()
+	// defer func() {
+	// 	fmt.Println("closing rabbitmq channel...")
+	// 	ch.Close()
+	// }()
 
 	messages, err := ch.Consume(
 		"data_source", // queue
@@ -42,11 +45,12 @@ func UpdateDatabase() {
 	go func() {
 		fmt.Println("waiting for arriving messages...")
 
-		for d := range messages {
+		for msg := range messages {
+			fmt.Println("Arriving!!!")
 			var dataSource DataSource
-			json.Unmarshal(d.Body, &dataSource)
+			json.Unmarshal(msg.Body, &dataSource)
 			mongodbclient.Set("data_sources", dataSource.Id, dataSource)
-			fmt.Printf("Received a message: %s\n", d.Body)
+			fmt.Printf("Received a message: %s\n", msg.Body)
 		}
 	}()
 }
