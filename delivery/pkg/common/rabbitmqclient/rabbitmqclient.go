@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/blicc-org/blicc/delivery/pkg/common/mongodbclient"
+	"github.com/google/uuid"
 )
 
 type DataSource struct {
@@ -28,14 +29,16 @@ func UpdateDatabase() {
 	// 	ch.Close()
 	// }()
 
+	var uniqueConsuerId = uuid.New().String()
+
 	messages, err := ch.Consume(
-		"data_source", // queue
-		"",            // consumer
-		true,          // auto-ack
-		false,         // exclusive
-		false,         // no-local
-		false,         // no-wait
-		nil,           // args
+		"data_source",   // queue
+		uniqueConsuerId, // consumer
+		true,            // auto-ack
+		false,           // exclusive
+		false,           // no-local
+		false,           // no-wait
+		nil,             // args
 	)
 
 	if err != nil {
