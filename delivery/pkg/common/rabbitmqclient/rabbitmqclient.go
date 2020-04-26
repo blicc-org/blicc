@@ -47,10 +47,10 @@ func UpdateDatabase() {
 
 	go func() {
 		fmt.Println("waiting for arriving messages...")
+		var dataSource DataSource
 
 		for msg := range messages {
 			fmt.Println("Arriving!!!")
-			var dataSource DataSource
 			json.Unmarshal(msg.Body, &dataSource)
 			mongodbclient.Set("data_sources", dataSource.Id, dataSource)
 			fmt.Printf("Received a message: %s\n", msg.Body)
