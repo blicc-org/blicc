@@ -12,8 +12,12 @@ class RabbitMQ {
     Logger.info('create channel')
     const channel = await connection.createChannel()
 
-    Logger.info('assert queue')
-    await channel.assertQueue(queue)
+    try {
+      Logger.info('assert queue')
+      await channel.checkQueue(queue)
+    } catch (err) {
+      console.log(err)
+    }
 
     Logger.info('add message to queue')
     channel.sendToQueue(queue, Buffer.from(message))
