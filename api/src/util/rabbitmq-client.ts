@@ -1,4 +1,4 @@
-import { connect } from 'amqplib'
+import { connect, Options } from 'amqplib'
 import { RABBITMQ_USERNAME, RABBITMQ_PASSWORD } from '../config'
 import { Logger } from './logger'
 
@@ -12,9 +12,11 @@ class RabbitMQ {
     Logger.info('create channel')
     const channel = await connection.createChannel()
 
+    const opts: Options.AssertQueue = {}
+
     try {
       Logger.info('assert queue')
-      await channel.checkQueue(queue)
+      await channel.assertQueue(queue, opts)
     } catch (err) {
       console.log(err)
     }
