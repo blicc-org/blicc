@@ -8,13 +8,14 @@ import (
 	"strings"
 
 	"github.com/blicc-org/blicc/delivery/pkg/channel/datadelivery"
+	"github.com/blicc-org/blicc/delivery/pkg/channel/datasources"
 	"github.com/blicc-org/blicc/delivery/pkg/channel/forwarding"
 	"github.com/gorilla/websocket"
 )
 
 type Payload struct {
 	Channel string          `json:"channel"`
-	Data    json.RawMessage `json:"data"`
+	Data    json.RawMessage `json:"data,omitempty"`
 }
 
 var upgrader = websocket.Upgrader{
@@ -69,6 +70,8 @@ func reader(conn *websocket.Conn) {
 			data[p.Channel] = p.Data
 
 			switch c := strings.Split(p.Channel, "/")[1]; c {
+			case "data-sources":
+				datasources.Handle(conn, &p.Channel, updating)
 			case "data-delivery":
 				datadelivery.Handle(conn, &p.Channel, updating, data)
 			case "forwarding":

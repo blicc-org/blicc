@@ -2,6 +2,7 @@ package mongodbclient
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"time"
@@ -11,6 +12,17 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
+
+type DataSource struct {
+	Id             string          `json:"id"`
+	Title          string          `json:"title"`
+	Description    string          `json:"description"`
+	UserId         string          `json:"userId"`
+	PersistData    bool            `json:"persistData"`
+	FetchFrequency int32           `json:"fetchFrequency"`
+	CreationDate   string          `json:"creationDate"`
+	Data           json.RawMessage `json:"data"`
+}
 
 func Set(collectionName string, id string, document interface{}) {
 
@@ -31,10 +43,18 @@ func Set(collectionName string, id string, document interface{}) {
 	}
 }
 
-func Get(name string, id string) interface{} {
-	collection := Client.Database(DB).Collection(name)
+func Get(name string, id string) DataSource {
 
-	return collection.FindOne(Ctx, bson.M{"id": id})
+	var dataSource DataSource
+
+	filter := bson.M{"id": id}
+	err := Client.Database(DB).Collection(name).FindOne(Ctx, filter).Decode(&dataSource)
+	if err != nil {
+		fmt.Println("error occured while requesting against mongo db")
+		fmt.Println(err)
+	}
+
+	return dataSource
 }
 
 func Status() bool {

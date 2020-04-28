@@ -14,12 +14,12 @@ class RabbitMQ {
 
     const opts: Options.AssertQueue = {}
 
-    try {
-      Logger.info('assert queue')
-      await channel.assertQueue(queue, opts)
-    } catch (err) {
-      console.log(err)
-    }
+    // try {
+    //   Logger.info('assert queue')
+    //   await channel.assertQueue(queue, opts)
+    // } catch (err) {
+    //   console.log(err)
+    // }
 
     Logger.info('add message to queue')
     channel.sendToQueue(queue, Buffer.from(message))

@@ -22,6 +22,43 @@
 }
 </code></pre>
 
+<h2>Data Sources</h2>
+
+<p>Fetches data from api and queries JSON response with jmespath query (Uses cache first, then send update message).</p>
+
+<h4>publish: /data-sources/:id</h4>
+
+<p>Message payload:</p>
+
+<pre><code class="language-jsx">{
+    &quot;channel&quot;: &quot;/data-sources/a1aMczof&quot;
+}
+</code></pre>
+
+<h4>subscribe: /data-sources/:id</h4>
+
+<p>Message payload:</p>
+
+<pre><code class="language-jsx">{
+    &quot;channel&quot;: &quot;/data-delivery/a1aMczof&quot;,
+    &quot;data&quot;: {
+        &quot;labels&quot;: [
+            &quot;Category 1&quot;,
+            &quot;Category 2&quot;
+        ],
+        &quot;datasets&quot;: [
+            {
+                &quot;label&quot;: &quot;Value&quot;,
+                &quot;data&quot;: [
+                    72.2,
+                    68.8
+                ]
+            }
+        ]
+    }
+}
+</code></pre>
+
 <h2>Data Delivery</h2>
 
 <p>Fetches data from api and queries JSON response with jmespath query (Uses cache first, then send update message).</p>
