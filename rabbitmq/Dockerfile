@@ -7,7 +7,10 @@ ARG RABBITMQ_PASSWORD
 ENV RABBITMQ_ERLANG_COOKIE=${RABBITMQ_COOKIE}
 ENV RABBITMQ_DEFAULT_USER=${RABBITMQ_USERNAME}
 ENV RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+ENV RABBITMQ_CONFIG_FILE=/etc/rabbitmq/rabbitmq
 
+COPY rabbitmq.conf /etc/rabbitmq/rabbitmq.conf
+COPY definitions.json /etc/rabbitmq/definitions.json
 COPY healthcheck.sh /home/healthcheck.sh
 
 HEALTHCHECK CMD ["chmod", "+x", "/home/healthcheck.sh"]
