@@ -14,9 +14,9 @@ class RabbitMQ {
 
   public async status(): Promise<boolean> {
     const connection = await connect(this.URL)
-    try{
+    try {
       await connection.createChannel()
-    } catch(err){
+    } catch (err) {
       return false
     }
     return true

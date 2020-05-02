@@ -32,7 +32,7 @@ Message payload:
 Message payload:
 ```jsx
 {
-    "channel": "/data-delivery/a1aMczof",
+    "channel": "/data-sources/a1aMczof",
     "data": {
         "labels": [
             "Category 1",
