@@ -69,6 +69,7 @@ services:
     depends_on:
       - mongo
       - mock-api
+      - rabbitmq
     environment:
       - MONGODB_USERNAME=${MONGODB_USERNAME}
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
