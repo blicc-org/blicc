@@ -33,15 +33,6 @@ func UpdateDatabase() {
 
 	var uniqueConsuerId = uuid.New().String()
 
-	ch.QueueDeclare(
-		dataSourceQueue, // name
-		false,           // durable
-		false,           // delete when unused
-		false,           // exclusive
-		false,           // no-wait
-		nil,             // arguments
-	)
-
 	messages, err := ch.Consume(
 		dataSourceQueue, // queue
 		uniqueConsuerId, // consumer
