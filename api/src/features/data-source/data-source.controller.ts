@@ -100,7 +100,7 @@ export class DataSourceController {
       ) {
         ctx.body = await this.dataSourceService.update(ctx.request.body)
         ctx.status = statusCode.OK
-        RabbitMQClient.publish('data_source', JSON.stringify(dataSource))
+        RabbitMQClient.publish('data_source', JSON.stringify(ctx.request.body))
         return
       }
       ctx.status = statusCode.BAD_REQUEST
