@@ -61,5 +61,13 @@ func UpdateDatabase() {
 }
 
 func Status() bool {
-	return true
+	ch, err := Conn.Channel()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	defer ch.Close()
+
+	_, err = ch.QueueInspect(dataSourceQueue)
+	return err == nil
 }
