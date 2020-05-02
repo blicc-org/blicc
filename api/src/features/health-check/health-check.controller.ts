@@ -11,7 +11,7 @@ export class HealthCheckController {
   ): Promise<void> {
     await next()
 
-    const rabbitmq = RabbitMQClient.status()
+    const rabbitmq = await RabbitMQClient.status()
     const redis = RedisClient.status()
     const postgresql = getConnectionManager().connections.length > 0
 

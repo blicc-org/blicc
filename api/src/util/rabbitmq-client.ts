@@ -12,7 +12,13 @@ class RabbitMQ {
     Logger.info(`message send to ${queue}: ${message}`)
   }
 
-  public status(): boolean {
+  public async status(): Promise<boolean> {
+    const connection = await connect(this.URL)
+    try{
+      await connection.createChannel()
+    } catch(err){
+      return false
+    }
     return true
   }
 }
