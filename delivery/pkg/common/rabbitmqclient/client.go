@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/streadway/amqp"
 )
@@ -28,8 +29,12 @@ func newClient() *amqp.Connection {
 	url := "amqp://" + RABBITMQ_USERNAME + ":" + RABBITMQ_PASSWORD + "@" + service + ":" + port
 
 	conn, err := amqp.Dial(url)
+
 	if err != nil {
 		fmt.Println(err)
+		time.Sleep(3 * time.Second)
+		fmt.Println("trying to connect...")
+		conn = newClient()
 	} else {
 		fmt.Println("RabbitMQ connected")
 	}
