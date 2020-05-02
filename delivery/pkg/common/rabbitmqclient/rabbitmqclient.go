@@ -36,7 +36,7 @@ func UpdateDatabase() {
 	messages, err := ch.Consume(
 		dataSourceQueue, // queue
 		uniqueConsuerId, // consumer
-		true,            // auto-ack
+		false,           // auto-ack
 		false,           // exclusive
 		false,           // no-local
 		false,           // no-wait
@@ -48,14 +48,14 @@ func UpdateDatabase() {
 	}
 
 	go func() {
-		fmt.Println("waiting for arriving messages...")
+		fmt.Println("waiting for messages to arrive...")
 		var dataSource DataSource
 
 		for msg := range messages {
-			fmt.Println("Arriving!!!")
+			fmt.Printf("Received a message: %s\n", msg.Body)
 			json.Unmarshal(msg.Body, &dataSource)
 			mongodbclient.Set("data_sources", dataSource.Id, dataSource)
-			fmt.Printf("Received a message: %s\n", msg.Body)
+			msg.Ack(false)
 		}
 	}()
 }
