@@ -2,7 +2,6 @@ package datasources
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -36,9 +35,6 @@ var client = &http.Client{Timeout: 10 * time.Second}
 func Handle(conn *websocket.Conn, channel *string, updating map[string]bool) {
 	s := strings.Split(*channel, "/")
 	id := s[2]
-
-	fmt.Println(s)
-	fmt.Println(id)
 
 	dataSource := mongodbclient.Get("data_sources", id)
 
