@@ -2,6 +2,7 @@ import shortid from 'shortid'
 import { DataSourceEntity } from './data-source.entity'
 import { DataSource } from './data-source.interface'
 import { Repository, getRepository } from 'typeorm'
+import { RabbitMQClient } from '../../util/rabbitmq-client'
 
 export class DataSourceService {
   private repo: Repository<DataSourceEntity>
@@ -18,7 +19,7 @@ export class DataSourceService {
     persistData: boolean,
     fetchFrequency: number
   ): Promise<DataSource> {
-    return await this.repo.save(
+    const dataSource = await this.repo.save(
       new DataSourceEntity(
         title,
         description,
@@ -28,6 +29,8 @@ export class DataSourceService {
         fetchFrequency
       )
     )
+    RabbitMQClient.publish('data_source', dataSource)
+    return dataSource
   }
 
   public async select(id: string): Promise<DataSourceEntity | undefined> {
@@ -42,7 +45,6 @@ export class DataSourceService {
     take = 0 // default select all
   ): Promise<DataSource[]> {
     fields = fields.map((field) => 'dataSource.' + field)
-
     return await this.repo
       .createQueryBuilder('dataSource')
       .select(fields)
@@ -65,11 +67,14 @@ export class DataSourceService {
   }
 
   public async update(dataSource: DataSource): Promise<DataSourceEntity> {
-    return await this.repo.save(dataSource)
+    const updated = await this.repo.save(dataSource)
+    RabbitMQClient.publish('data_source', updated)
+    return updated
   }
 
   public async remove(dataSource: DataSourceEntity): Promise<DataSource> {
     dataSource = await dataSource.remove()
+    RabbitMQClient.publish('data_source', { id: dataSource.id })
     delete dataSource.id
     return dataSource
   }
