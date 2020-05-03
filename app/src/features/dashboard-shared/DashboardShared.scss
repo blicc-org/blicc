@@ -1,0 +1,8 @@
+@import '../../Theme.scss';
+
+.dashboard-shared {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  padding-bottom: $two;
+}

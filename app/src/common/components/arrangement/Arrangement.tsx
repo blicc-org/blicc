@@ -15,7 +15,15 @@ import { Box } from './Box'
 import { DRAG } from '../../context'
 import './Arrangement.scss'
 
-export function Arrangement({ edit, fullscreen }: any): ReactElement {
+interface Props {
+  edit?: boolean
+  fullscreen?: boolean
+}
+
+export function Arrangement({
+  edit = false,
+  fullscreen = false,
+}: Props): ReactElement {
   const isMobile = useMobile()
   const isInstalled = useInstalled()
   const [arr, insertArr] = useArrangement()
