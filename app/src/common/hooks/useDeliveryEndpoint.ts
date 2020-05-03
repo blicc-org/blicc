@@ -75,9 +75,9 @@ export function useDeliveryEndpoint(): Array<any> {
     }
   }, [loggedIn, subscriberStack, state, queryStack, setQueryStack])
 
-  function publish(channel: string, data: any): void {
+  function publish(channel: string, data: any = null): void {
     if (socket.readyState === WebSocket.OPEN) {
-      socket.send(JSON.stringify({ channel, data }))
+      socket.send(JSON.stringify(data ? { channel, data } : { channel }))
     } else {
       setQueryStack((prev: any): any => {
         prev[channel] = data

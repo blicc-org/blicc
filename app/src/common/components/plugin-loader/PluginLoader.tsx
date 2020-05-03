@@ -10,7 +10,7 @@ export function PluginLoader({ id, type, keepAlive }: any): ReactElement {
   const [, subscribe] = useDeliveryEndpoint()
   const ref = useRef<HTMLDivElement>(null)
   const dataSourceId = accessSet(id, 'data_source')
-  const channel = `/data-delivery/${dataSourceId}`
+  const channel = `/data-sources/${dataSourceId}`
   const data = { labels: [], datasets: [] }
 
   const style = {
