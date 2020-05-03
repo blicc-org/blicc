@@ -24,7 +24,7 @@ func Start() {
 	mux := http.NewServeMux()
 
 	mux.Handle("/", logging.Middleware(http.FileServer(http.Dir("public"))))
-	mux.Handle("/health-check", logging.Middleware(handlers.Healthcheck(logger)))
+	mux.Handle("/health-check", logging.Middleware(handlers.Healthcheck()))
 	mux.Handle("/connection", logging.Middleware(handlers.Connection(logger)))
 
 	port := flags.Instance().Port

@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 
 	"github.com/blicc-org/blicc/delivery/pkg/common/mongodbclient"
@@ -11,12 +10,10 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-type healthcheck struct {
-	logger *log.Logger
-}
+type healthcheck struct{}
 
-func Healthcheck(logger *log.Logger) *healthcheck {
-	return &healthcheck{logger}
+func Healthcheck() *healthcheck {
+	return &healthcheck{}
 }
 
 func (hc *healthcheck) ServeHTTP(w http.ResponseWriter, r *http.Request) {
