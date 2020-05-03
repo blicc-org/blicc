@@ -9,11 +9,10 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/blicc-org/blicc/delivery/pkg/common/rabbitmqclient"
-	"github.com/blicc-org/blicc/delivery/pkg/handlers"
-
 	"github.com/blicc-org/blicc/delivery/pkg/common/apidocs"
 	"github.com/blicc-org/blicc/delivery/pkg/common/flags"
+	"github.com/blicc-org/blicc/delivery/pkg/common/rabbitmqclient"
+	"github.com/blicc-org/blicc/delivery/pkg/handlers"
 	"github.com/blicc-org/blicc/delivery/pkg/middleware/logging"
 )
 
