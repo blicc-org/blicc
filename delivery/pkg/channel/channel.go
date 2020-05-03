@@ -7,7 +7,6 @@ import (
 	"os"
 	"strings"
 
-	"github.com/blicc-org/blicc/delivery/pkg/channel/datadelivery"
 	"github.com/blicc-org/blicc/delivery/pkg/channel/datasources"
 	"github.com/blicc-org/blicc/delivery/pkg/channel/forwarding"
 	"github.com/gorilla/websocket"
@@ -72,8 +71,6 @@ func reader(conn *websocket.Conn) {
 			switch c := strings.Split(p.Channel, "/")[1]; c {
 			case "data-sources":
 				datasources.Handle(conn, &p.Channel, updating)
-			case "data-delivery":
-				datadelivery.Handle(conn, &p.Channel, updating, data)
 			case "forwarding":
 				forwarding.Handle(conn, &p.Channel, &p.Data)
 			default:

@@ -24,7 +24,7 @@
 
 <h2>Data Sources</h2>
 
-<p>Fetches data from api and queries JSON response with jmespath query (Uses cache first, then send update message).</p>
+<p>Serves data by the given data source id. The data gets queried by the defined jmespath query in the data source entity (Uses cache first, then send update message).</p>
 
 <h4>publish: /data-sources/:id</h4>
 
@@ -41,51 +41,6 @@
 
 <pre><code class="language-jsx">{
     &quot;channel&quot;: &quot;/data-sources/a1aMczof&quot;,
-    &quot;data&quot;: {
-        &quot;labels&quot;: [
-            &quot;Category 1&quot;,
-            &quot;Category 2&quot;
-        ],
-        &quot;datasets&quot;: [
-            {
-                &quot;label&quot;: &quot;Value&quot;,
-                &quot;data&quot;: [
-                    72.2,
-                    68.8
-                ]
-            }
-        ]
-    }
-}
-</code></pre>
-
-<h2>Data Delivery</h2>
-
-<p>Fetches data from api and queries JSON response with jmespath query (Uses cache first, then send update message).</p>
-
-<h4>publish: /data-delivery/:id</h4>
-
-<p>Message payload:</p>
-
-<pre><code class="language-jsx">{
-    &quot;channel&quot;: &quot;/data-delivery/a1aMczof&quot;,
-    &quot;data&quot;: {
-        &quot;request&quot;: {
-            &quot;url&quot;: &quot;https://api.example.com/data&quot;,
-            &quot;headers&quot;: [{ &quot;key&quot;: &quot;&quot;, &quot;value&quot;: &quot;&quot; }],
-        },
-        &quot;interval&quot;: 86400000,
-        &quot;query&quot;: &quot;{ labels: ['Category 1', 'Category 2'], datasets: [{label: 'Value', data: [].someValue}]}&quot;
-    }
-}
-</code></pre>
-
-<h4>subscribe: /data-delivery/:id</h4>
-
-<p>Message payload:</p>
-
-<pre><code class="language-jsx">{
-    &quot;channel&quot;: &quot;/data-delivery/a1aMczof&quot;,
     &quot;data&quot;: {
         &quot;labels&quot;: [
             &quot;Category 1&quot;,

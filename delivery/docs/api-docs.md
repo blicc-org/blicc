@@ -18,7 +18,7 @@ If an error occures, the api will return a json object with the channel and an e
 
 ## Data Sources
 
-Fetches data from api and queries JSON response with jmespath query (Uses cache first, then send update message).
+Serves data by the given data source id. The data gets queried by the defined jmespath query in the data source entity (Uses cache first, then send update message).
 
 #### publish: /data-sources/:id
 Message payload:
@@ -33,49 +33,6 @@ Message payload:
 ```jsx
 {
     "channel": "/data-sources/a1aMczof",
-    "data": {
-        "labels": [
-            "Category 1",
-            "Category 2"
-        ],
-        "datasets": [
-            {
-                "label": "Value",
-                "data": [
-                    72.2,
-                    68.8
-                ]
-            }
-        ]
-    }
-}
-```
-
-## Data Delivery
-
-Fetches data from api and queries JSON response with jmespath query (Uses cache first, then send update message).
-
-#### publish: /data-delivery/:id
-Message payload:
-```jsx
-{
-    "channel": "/data-delivery/a1aMczof",
-    "data": {
-        "request": {
-            "url": "https://api.example.com/data",
-            "headers": [{ "key": "", "value": "" }],
-        },
-        "interval": 86400000,
-        "query": "{ labels: ['Category 1', 'Category 2'], datasets: [{label: 'Value', data: [].someValue}]}"
-    }
-}
-```
-
-#### subscribe: /data-delivery/:id
-Message payload:
-```jsx
-{
-    "channel": "/data-delivery/a1aMczof",
     "data": {
         "labels": [
             "Category 1",
