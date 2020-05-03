@@ -1,4 +1,4 @@
-package auth
+package middleware
 
 import (
 	"io/ioutil"
@@ -34,7 +34,7 @@ func verify(token string) bool {
 	return method.Verify(signingString, signature, key) == nil
 }
 
-func Middleware(next http.Handler) http.Handler {
+func Auth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("access_token")
 

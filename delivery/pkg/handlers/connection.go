@@ -1,11 +1,36 @@
 package handlers
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/blicc-org/blicc/delivery/pkg/channel"
+	"github.com/gorilla/websocket"
 )
+
+type Payload struct {
+	Channel string          `json:"channel"`
+	Data    json.RawMessage `json:"data,omitempty"`
+}
+
+var upgrader = websocket.Upgrader{
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
+	CheckOrigin: func(r *http.Request) bool {
+		incomingOrigin := r.Header.Get("Origin")
+		expectedOrigin := os.Getenv("APP_ORIGIN")
+
+		if incomingOrigin == expectedOrigin {
+			log.Printf("Upgrade to origin %s was successful! \n", incomingOrigin)
+			return true
+		} else {
+			log.Printf("Origin %s is not allowed. Expected %s as origin. \n", incomingOrigin, expectedOrigin)
+			return true
+		}
+	},
+}
 
 type connection struct {
 	logger *log.Logger

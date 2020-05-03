@@ -13,7 +13,7 @@ import (
 	"github.com/blicc-org/blicc/delivery/pkg/common/flags"
 	"github.com/blicc-org/blicc/delivery/pkg/common/rabbitmqclient"
 	"github.com/blicc-org/blicc/delivery/pkg/handlers"
-	"github.com/blicc-org/blicc/delivery/pkg/middleware/logging"
+	"github.com/blicc-org/blicc/delivery/pkg/middleware"
 )
 
 func Start() {
@@ -21,17 +21,19 @@ func Start() {
 	rabbitmqclient.UpdateDatabase()
 
 	logger := log.New(os.Stdout, "delivery: ", log.LstdFlags)
-	mux := http.NewServeMux()
 
-	mux.Handle("/", logging.Middleware(http.FileServer(http.Dir("public"))))
-	mux.Handle("/health-check", logging.Middleware(handlers.Healthcheck()))
-	mux.Handle("/connection", logging.Middleware(handlers.Connection(logger)))
+	mux := http.NewServeMux()
+	mux.Handle("/", http.FileServer(http.Dir("public")))
+	mux.Handle("/health-check", handlers.Healthcheck())
+	mux.Handle("/connection", handlers.Connection(logger))
+
+	wrappedMux := middleware.Permission(middleware.Logging(mux))
 
 	port := flags.Instance().Port
 
 	s := &http.Server{
 		Addr:         fmt.Sprintf(":%d", port),
-		Handler:      mux,
+		Handler:      wrappedMux,
 		ErrorLog:     logger,
 		IdleTimeout:  120 * time.Second,
 		ReadTimeout:  5 * time.Second,
