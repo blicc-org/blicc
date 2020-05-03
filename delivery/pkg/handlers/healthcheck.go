@@ -1,7 +1,8 @@
-package healthcheck
+package handlers
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 
 	"github.com/blicc-org/blicc/delivery/pkg/common/mongodbclient"
@@ -10,8 +11,15 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func ListenAndServe(w http.ResponseWriter, r *http.Request) {
+type healthcheck struct {
+	logger *log.Logger
+}
 
+func Healthcheck(logger *log.Logger) *healthcheck {
+	return &healthcheck{logger}
+}
+
+func (hc *healthcheck) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	mongodb := mongodbclient.Status()
 	redis := redisclient.Status()
 	rabbitmq := rabbitmqclient.Status()

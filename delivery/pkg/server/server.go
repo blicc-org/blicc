@@ -10,33 +10,12 @@ import (
 	"time"
 
 	"github.com/blicc-org/blicc/delivery/pkg/common/rabbitmqclient"
+	"github.com/blicc-org/blicc/delivery/pkg/handlers"
 
-	"github.com/blicc-org/blicc/delivery/pkg/channel"
 	"github.com/blicc-org/blicc/delivery/pkg/common/apidocs"
 	"github.com/blicc-org/blicc/delivery/pkg/common/flags"
-	"github.com/blicc-org/blicc/delivery/pkg/common/healthcheck"
-	"github.com/blicc-org/blicc/delivery/pkg/middleware/auth"
 	"github.com/blicc-org/blicc/delivery/pkg/middleware/logging"
 )
-
-func serveChannels(mux *http.ServeMux) {
-	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		channel.ListenAndServe(w, r)
-	})
-	mux.Handle("/connection", auth.Middleware(handler))
-}
-
-func serveHealthCheck(mux *http.ServeMux) {
-	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		healthcheck.ListenAndServe(w, r)
-	})
-	mux.Handle("/health-check", logging.Middleware(handler))
-}
-
-func servePublicFolder(mux *http.ServeMux) {
-	handler := http.FileServer(http.Dir("public"))
-	mux.Handle("/", logging.Middleware(handler))
-}
 
 func Start() {
 	apidocs.Generate()
@@ -45,9 +24,9 @@ func Start() {
 	logger := log.New(os.Stdout, "delivery: ", log.LstdFlags)
 	mux := http.NewServeMux()
 
-	serveChannels(mux)
-	servePublicFolder(mux)
-	serveHealthCheck(mux)
+	mux.Handle("/", logging.Middleware(http.FileServer(http.Dir("public"))))
+	mux.Handle("/health-check", logging.Middleware(handlers.Healthcheck(logger)))
+	mux.Handle("/connection", logging.Middleware(handlers.Connection(logger)))
 
 	port := flags.Instance().Port
 

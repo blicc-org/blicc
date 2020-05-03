@@ -3,16 +3,18 @@ package handlers
 import (
 	"log"
 	"net/http"
+
+	"github.com/blicc-org/blicc/delivery/pkg/channel"
 )
 
-type Connection struct {
+type connection struct {
 	logger *log.Logger
 }
 
-func NewConnection(logger *log.Logger) *Connection {
-	return &Connection{logger}
+func Connection(logger *log.Logger) *connection {
+	return &connection{logger}
 }
 
-func (conn *Connection) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-
+func (conn *connection) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	channel.ListenAndServe(w, r)
 }
