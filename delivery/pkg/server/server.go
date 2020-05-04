@@ -27,7 +27,7 @@ func Start() {
 	mux.Handle("/health-check", handlers.Healthcheck())
 	mux.Handle("/connection", handlers.Connection(logger))
 
-	wrappedMux := middleware.Permission(middleware.Logging(mux))
+	wrappedMux := middleware.Logging(middleware.Permission(mux))
 
 	port := flags.Instance().Port
 
