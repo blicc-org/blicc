@@ -73,7 +73,7 @@ interface Props {
 
 function Table({ title, object }: Props): ReactElement {
   return (
-    <table className="table">
+    <table className="table m-0">
       <thead className="thead-light">
         <tr>
           <th colSpan={2} scope="colgroup">
