@@ -18,7 +18,7 @@
     "install": "yarn --cwd 'api' install && yarn --cwd 'app' install && yarn --cwd 'db' install && yarn --cwd 'mock-api' install",
     "build": "yarn --cwd 'app' build && yarn --cwd 'api' build",
     "test": "cross-env CI=true yarn --cwd 'app' test && yarn --cwd 'api' test && yarn test:delivery",
-    "test:delivery": "cd delivery && go test ./pkg/channel/...",
+    "test:delivery": "export $(egrep -v '^#' .env | xargs) && cd delivery && go test ./pkg/channel/...",
     "lines": "git ls-files | grep '\\(.js\\|.jsx\\|.ts\\|.tsx\\|.scss\\|.json\\|.go\\)$' | xargs cat | wc -l"
   },
   "husky": {
