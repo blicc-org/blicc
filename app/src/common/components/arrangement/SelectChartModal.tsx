@@ -1,11 +1,11 @@
 import React, { useState, useEffect, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
-import { useApiEndpoint } from '../../hooks'
+import { useEndpoint } from '../../hooks'
 
 export function SelectChartModal({ cancel, submit }: any): ReactElement {
   const maxNumberOfResults = 10
   const [result, setResult] = useState({ total: 0, charts: [] })
-  const [, access, ,] = useApiEndpoint('/charts')
+  const [, access, ,] = useEndpoint('/charts')
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
-import { useApiEndpoint } from '../../hooks'
+import { useEndpoint } from '../../hooks'
 
 export function SelectDataSourceModal({ cancel, submit }: any): ReactElement {
   const maxNumberOfResults = 10
   const [result, setResult] = useState({ total: 0, dataSources: [] })
-  const [, access, ,] = useApiEndpoint('/data-sources')
+  const [, access, ,] = useEndpoint('/data-sources')
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {

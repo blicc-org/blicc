@@ -8,7 +8,7 @@ import React, {
 import statusCode from 'http-status-codes'
 import { Link } from 'react-router-dom'
 import { Card } from '../../../common/components/ui'
-import { useApiEndpoint, useToast, useModal } from '../../../common/hooks'
+import { useEndpoint, useToast, useModal } from '../../../common/hooks'
 import { TwoFactorAuthModal } from './TwoFactorAuthModal'
 
 interface Props {
@@ -28,7 +28,7 @@ interface User {
 
 export function TwoFactorAuth({ user, setUser }: Props): ReactElement {
   const { hasTwoFactorAuth } = user
-  const [disable, , ,] = useApiEndpoint('/two-factor-auth/delete')
+  const [disable, , ,] = useEndpoint('/two-factor-auth/delete')
   const [token, setToken] = useState('')
   const showToast = useToast()
 

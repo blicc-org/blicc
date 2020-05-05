@@ -1,13 +1,13 @@
 import React, { useEffect, useState, ReactElement, MouseEvent } from 'react'
 import statusCode from 'http-status-codes'
 import { Lock } from 'react-feather'
-import { useApiEndpoint, useToast } from '../../common/hooks'
+import { useEndpoint, useToast } from '../../common/hooks'
 import { Redirect } from 'react-router-dom'
 import { QRCode } from '../../common/components/qr-code/QRCode'
 import './TwoFactorAuth.scss'
 
 export function TwoFactorAuth(): ReactElement {
-  const [enable, requestSecret, ,] = useApiEndpoint('/two-factor-auth')
+  const [enable, requestSecret, ,] = useEndpoint('/two-factor-auth')
   const [url, setUrl] = useState('')
   const [token, setToken] = useState('')
   const [redirect, setRedirect] = useState('')

@@ -25,7 +25,7 @@ export function useEndpointWebSocket(): Array<any> {
   useEffect(() => {
     if (loggedIn && socket === null) {
       setState(WebSocket.CONNECTING)
-      socket = new WebSocket(`${DELIVERY.ORIGIN}/connection`)
+      socket = new WebSocket(`${DELIVERY.ORIGIN_WEBSOCKET}/connection`)
 
       socket.onopen = (): void => {
         Object.keys(queryStack).forEach((channel) => {

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, ReactElement } from 'react'
-import { useApiEndpoint } from '../../common/hooks'
+import { useEndpoint } from '../../common/hooks'
 import { AppContext } from '../../common/context'
 import { Details } from './details/Details'
 import { DeleteAccount } from './delete-account/DeleteAccount'
@@ -19,7 +19,7 @@ interface User {
 export function Profile(): ReactElement {
   const [appState] = useContext(AppContext)
   const { id } = appState
-  const [, access, update] = useApiEndpoint(`/users/${id}`)
+  const [, access, update] = useEndpoint(`/users/${id}`)
   const [edit, setEdit] = useState(false)
 
   async function onClick(): Promise<void> {

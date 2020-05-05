@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { Upload } from 'react-feather'
 import { API } from '../../../config'
 import { Image } from '../../../common/components/ui'
-import { useMobile, useModal, useApiEndpoint } from '../../../common/hooks'
+import { useMobile, useModal, useEndpoint } from '../../../common/hooks'
 import { ProfilePictureModal } from './ProfilePictureModal'
 
 interface Props {
@@ -21,7 +21,7 @@ interface User {
 
 export function ProfilePicture({ user }: Props): ReactElement {
   const isMobile = useMobile()
-  const [, , , remove] = useApiEndpoint(`/profile-pictures/${user.id}`)
+  const [, , , remove] = useEndpoint(`/profile-pictures/${user.id}`)
   const length = isMobile ? 120 : 160
   const [showModal, hideModal] = useModal(() => (
     <ProfilePictureModal

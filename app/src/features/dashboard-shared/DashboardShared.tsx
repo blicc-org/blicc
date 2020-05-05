@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ReactElement, useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import { useApiEndpoint, useMobile, useInstalled } from '../../common/hooks'
+import { useEndpoint, useMobile, useInstalled } from '../../common/hooks'
 import { Redirect } from 'react-router-dom'
 import { Arrangement } from '../../common/components/arrangement/Arrangement'
 import { ArrangementContext, SettingsContext } from '../../common/context'
@@ -15,7 +15,7 @@ export function DashboardShared({ match }: any): ReactElement {
   const [, setSettings] = useContext(SettingsContext)
   const { id } = match.params
   const path = `/dashboards/${id}`
-  const [, access, ,] = useApiEndpoint(path)
+  const [, access, ,] = useEndpoint(path)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [redirect, setRedirect] = useState('')

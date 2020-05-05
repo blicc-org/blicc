@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { Redirect } from 'react-router-dom'
-import { useApiEndpoint, useDateFormatter } from '../../common/hooks'
+import { useEndpoint, useDateFormatter } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useModal, useLanguage } from '../../common/hooks'
 import { CreateDashboardModal } from './CreateDashboardModal'
@@ -30,7 +30,7 @@ export function Dashboards(): ReactElement {
   const { dashboards: text } = useLanguage()
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
-  const [create, access, ,] = useApiEndpoint('/dashboards')
+  const [create, access, ,] = useEndpoint('/dashboards')
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [redirect, setRedirect] = useState('')

@@ -10,7 +10,8 @@ export const APP = {
 }
 
 export const DELIVERY = {
-  ORIGIN: isDev ? 'ws://localhost:8080' : 'wss://delivery.blicc.org',
+  ORIGIN: isDev ? 'http://localhost:8080' : 'https://delivery.blicc.org',
+  ORIGIN_WEBSOCKET: isDev ? 'ws://localhost:8080' : 'wss://delivery.blicc.org',
 }
 
 // bootstrap breakpoints

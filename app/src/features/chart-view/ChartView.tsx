@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
-import { useApiEndpoint, useMobile, useLanguage } from '../../common/hooks'
+import { useEndpoint, useMobile, useLanguage } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { API, EXAMPLE_DATA } from '../../config'
 import { ChartDetails } from './ChartDetails'
@@ -11,7 +11,7 @@ export function ChartView({ match }: any): ReactElement {
   const path = `/charts/${match.params.id}`
   const ref = useRef<HTMLDivElement>(null)
   const isMobile = useMobile()
-  const [, access] = useApiEndpoint(path)
+  const [, access] = useEndpoint(path)
   const [chart, setChart] = useState({
     title: undefined,
     description: undefined,

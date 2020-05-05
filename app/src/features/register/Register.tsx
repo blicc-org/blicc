@@ -1,7 +1,7 @@
 import React, { useState, ReactElement } from 'react'
 import { Redirect } from 'react-router-dom'
 import { RegisterForm } from './RegisterForm'
-import { useApiEndpoint, useLogin, useToast } from '../../common/hooks'
+import { useEndpoint, useLogin, useToast } from '../../common/hooks'
 import { RegisterService } from './RegisterService'
 import statusCode from 'http-status-codes'
 
@@ -14,7 +14,7 @@ export function Register(): ReactElement {
     confirm: '',
   })
 
-  const [createUser, , ,] = useApiEndpoint('/users')
+  const [createUser, , ,] = useEndpoint('/users')
   const [redirect, setRedirect] = useState('')
   const showToast = useToast()
   const login = useLogin()

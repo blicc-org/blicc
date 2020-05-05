@@ -1,14 +1,14 @@
 import React, { useEffect, useState, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { Pagination, Listing, Item } from '../../common/components/ui'
-import { useApiEndpoint, useDateFormatter } from '../../common/hooks'
+import { useEndpoint, useDateFormatter } from '../../common/hooks'
 import { User, List } from '../../common/interfaces'
 
 export function Users(): ReactElement {
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
   const [list, setList] = useState<List<User>>()
-  const [, accessUsers, ,] = useApiEndpoint('/users')
+  const [, accessUsers, ,] = useEndpoint('/users')
   const format = useDateFormatter()
 
   useEffect(() => {

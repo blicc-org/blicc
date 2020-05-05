@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { Search as SearchIcon, ArrowLeft } from 'react-feather'
-import { useClickAway, useApiEndpoint, useLanguage } from '../../hooks'
+import { useClickAway, useEndpoint, useLanguage } from '../../hooks'
 import { Result } from './Result'
 import theme from '../../../Theme.scss'
 import './SearchInputField.scss'
@@ -21,7 +21,7 @@ export function SearchInputField({
   close = (): void => {},
 }: Props): ReactElement {
   const content = useLanguage()
-  const [, access, ,] = useApiEndpoint('/dashboards')
+  const [, access, ,] = useEndpoint('/dashboards')
   const [backgroundColor, setGgColor] = useState(getDefault())
   const [searchTerm, setSearchTerm] = useState('')
   const [focused, setFocused] = useState(false)

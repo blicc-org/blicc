@@ -3,7 +3,7 @@ import {
   useArrangement,
   useModal,
   useSettings,
-  useDeliveryEndpoint,
+  useEndpointWebSocket,
   useMobile,
   useInstalled,
   ACTION,
@@ -32,7 +32,7 @@ export function Arrangement({
   const [update, setUpdate] = useState(0)
   const trigger = (): void => setUpdate((prev) => ++prev)
   const [action, setAction] = useState(0)
-  const [publish] = useDeliveryEndpoint()
+  const [publish] = useEndpointWebSocket()
 
   const arrangementStyle: any = isMobile
     ? {}

@@ -4,7 +4,7 @@ import { useLogout } from './useLogout'
 import { useRefresh } from './useRefresh'
 
 export function useEndpoint(
-  path: string = '',
+  path = '',
   origin: string = API.ORIGIN
 ): Array<any> {
   let fullPath = `${origin}${path}`

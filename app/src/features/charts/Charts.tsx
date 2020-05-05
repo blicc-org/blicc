@@ -1,16 +1,12 @@
 import React, { useEffect, useState, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import {
-  useApiEndpoint,
-  useLanguage,
-  useDateFormatter,
-} from '../../common/hooks'
+import { useEndpoint, useLanguage, useDateFormatter } from '../../common/hooks'
 import { Pagination, Listing, Item, Heading } from '../../common/components/ui'
 import { List, Chart } from '../../common/interfaces'
 
 export function Charts(): ReactElement {
-  const [, access, ,] = useApiEndpoint('/charts')
+  const [, access, ,] = useEndpoint('/charts')
   const [list, setList] = useState<List<Chart>>()
   const { charts: text } = useLanguage()
   const itemsPerPage = 10

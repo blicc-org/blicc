@@ -2,7 +2,7 @@ import React, { useState, useEffect, ReactElement } from 'react'
 import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
 import {
-  useApiEndpoint,
+  useEndpoint,
   useModal,
   useLanguage,
   useDateFormatter,
@@ -44,7 +44,7 @@ export function DataSources(): ReactElement {
   const { dataSources: text } = useLanguage()
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
-  const [create, access, ,] = useApiEndpoint('/data-sources')
+  const [create, access, ,] = useEndpoint('/data-sources')
   const [redirect, setRedirect] = useState('')
   const [title, setTitle] = useState('')
   const [fetchFrequency, setFetchFrequency] = useState(0)

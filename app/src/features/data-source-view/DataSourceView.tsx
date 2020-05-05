@@ -2,8 +2,8 @@ import React, { useEffect, useState, ReactElement } from 'react'
 import { Redirect } from 'react-router-dom'
 import statusCode from 'http-status-codes'
 import {
-  useApiEndpoint,
-  useDeliveryEndpoint,
+  useEndpoint,
+  useEndpointWebSocket,
   useModal,
   useLanguage,
 } from '../../common/hooks'
@@ -37,9 +37,9 @@ const INITIAL = {
 export function DataSourceView({ match, location }: any): ReactElement {
   const content = useLanguage()
   const path = `/data-sources/${match.params.id}`
-  const [, access, update, remove] = useApiEndpoint(path)
+  const [, access, update, remove] = useEndpoint(path)
   const [dataSource, setDataSource] = useState(INITIAL)
-  const [publish, subscribe, state] = useDeliveryEndpoint()
+  const [publish, subscribe, state] = useEndpointWebSocket()
   const [input, setInput] = useState('')
   const stringify = (s: any): string => JSON.stringify(s, null, 4)
   const { id, title, description, data } = dataSource

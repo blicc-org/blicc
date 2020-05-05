@@ -3,7 +3,7 @@ import statusCode from 'http-status-codes'
 import { Redirect } from 'react-router-dom'
 import { Arrangement } from '../../common/components/arrangement/Arrangement'
 import {
-  useApiEndpoint,
+  useEndpoint,
   useModal,
   useMobile,
   useInstalled,
@@ -31,7 +31,7 @@ export function DashboardView({ match, location }: any): ReactElement {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const path = `/dashboards/${match.params.id}`
-  const [, access, update, remove] = useApiEndpoint(path)
+  const [, access, update, remove] = useEndpoint(path)
   const [dashboard, setDashboard] = useState({
     creationDate: undefined,
     data: undefined,

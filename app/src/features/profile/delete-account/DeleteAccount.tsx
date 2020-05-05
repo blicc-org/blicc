@@ -6,7 +6,7 @@ import { DeleteAccountModal } from './DeleteAccountModal'
 import {
   useModal,
   useLogout,
-  useApiEndpoint,
+  useEndpoint,
   useToast,
 } from '../../../common/hooks'
 
@@ -14,7 +14,7 @@ export function DeleteAccount({ user }: any): ReactElement {
   const { id, hasTwoFactorAuth } = user
   const logout = useLogout()
   const showToast = useToast()
-  const [deleteUser, , ,] = useApiEndpoint(`/users/${id}/delete`)
+  const [deleteUser, , ,] = useEndpoint(`/users/${id}/delete`)
   const [token, setToken] = useState('')
   const [password, setPassword] = useState('')
 
