@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/blicc-org/blicc/delivery/pkg/common/information"
+
 	"github.com/blicc-org/blicc/delivery/pkg/common/mongodbclient"
 	"github.com/blicc-org/blicc/delivery/pkg/common/rabbitmqclient"
 	"github.com/blicc-org/blicc/delivery/pkg/common/redisclient"
@@ -20,8 +22,9 @@ func (hc *healthcheck) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	mongodb := mongodbclient.Status()
 	redis := redisclient.Status()
 	rabbitmq := rabbitmqclient.Status()
+	ipAddress, _ := information.GetIpAddress()
 
-	status := bson.M{"mongodb": mongodb, "redis": redis, "rabbitmq": rabbitmq}
+	status := bson.M{"mongodb": mongodb, "redis": redis, "rabbitmq": rabbitmq, "ipAddress": ipAddress}
 
 	if mongodb && redis && rabbitmq {
 		w.WriteHeader(http.StatusOK)
