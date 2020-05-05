@@ -5,7 +5,7 @@ import { Logger } from './logger'
 class RabbitMQ {
   private URL = `amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672`
 
-  public async publish(queue: string, obj: any): Promise<void> {
+  public async publish(queue: string, obj: unknown): Promise<void> {
     const message = JSON.stringify(obj)
     const connection = await connect(this.URL)
     const channel = await connection.createChannel()
