@@ -14,9 +14,12 @@ import (
 	"github.com/blicc-org/blicc/delivery/pkg/common/rabbitmqclient"
 	"github.com/blicc-org/blicc/delivery/pkg/handlers"
 	"github.com/blicc-org/blicc/delivery/pkg/middleware"
+	"github.com/rs/cors"
 )
 
 func Start() {
+	appOrigin := os.Getenv("APP_ORIGIN")
+
 	apidocs.Generate()
 	rabbitmqclient.UpdateDatabase()
 
@@ -27,7 +30,13 @@ func Start() {
 	mux.Handle("/health-check", handlers.Healthcheck())
 	mux.Handle("/connection", handlers.Connection(logger))
 
-	wrappedMux := middleware.Logging(middleware.Permission(mux))
+	corsConfig := cors.Options{
+		AllowedOrigins:   []string{appOrigin},
+		AllowCredentials: true,
+		Debug:            false,
+	}
+
+	wrappedMux := cors.New(corsConfig).Handler(middleware.Logging(middleware.Permission(mux)))
 
 	port := flags.Instance().Port
 
