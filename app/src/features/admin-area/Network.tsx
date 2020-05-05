@@ -43,7 +43,6 @@ export function Network(): ReactElement {
     }
     async function fetchDelivery(): Promise<void> {
       const [status, data] = await accessDelivery()
-      console.log(status, data)
       if (status === statusCode.OK) {
         setDelivery(data)
       }
@@ -59,8 +58,10 @@ export function Network(): ReactElement {
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
         <h4 className="my-0">Network</h4>
       </div>
-      <Table title="Resource Management API" object={api} />
-      <Table title="Data Delivery API" object={delivery} />
+      <div className="col-lg-6 p-0">
+        <Table title="Resource Management API" object={api} />
+        <Table title="Data Delivery API" object={delivery} />
+      </div>
     </>
   )
 }
