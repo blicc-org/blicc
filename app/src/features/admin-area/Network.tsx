@@ -58,7 +58,7 @@ export function Network(): ReactElement {
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-3">
         <h4 className="my-0">Network</h4>
       </div>
-      <div className="col-lg-6 p-0">
+      <div className="card col-lg-6 p-0">
         <Table title="Resource Management API" object={api} />
         <Table title="Data Delivery API" object={delivery} />
       </div>
