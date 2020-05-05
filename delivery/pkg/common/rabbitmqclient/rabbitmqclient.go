@@ -26,21 +26,17 @@ func UpdateDatabase() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	// defer func() {
-	// 	fmt.Println("closing rabbitmq channel...")
-	// 	ch.Close()
-	// }()
 
 	var uniqueConsuerId = uuid.New().String()
 
 	messages, err := ch.Consume(
-		dataSourceQueue, // queue
-		uniqueConsuerId, // consumer
-		false,           // auto-ack
-		false,           // exclusive
-		false,           // no-local
-		false,           // no-wait
-		nil,             // args
+		dataSourceQueue,
+		uniqueConsuerId,
+		false,
+		false,
+		false,
+		false,
+		nil,
 	)
 
 	if err != nil {
