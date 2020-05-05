@@ -3,15 +3,15 @@ import statusCode from 'http-status-codes'
 import { useApiEndpoint } from '../../common/hooks'
 
 export function Network(): ReactElement {
-  const [config, setConfig] = useState({ ipAddress: '0:0:0:0' })
-  const [, accessConfig, ,] = useApiEndpoint('/health-check/config')
-  const { ipAddress } = config
+  const [healthCheck, setHealthCheck] = useState({ ipAddress: '0:0:0:0' })
+  const [, access, ,] = useApiEndpoint('/health-check')
+  const { ipAddress } = healthCheck
 
   useEffect(() => {
     async function fetchData(): Promise<void> {
-      const [status, data] = await accessConfig()
+      const [status, data] = await access()
       if (status === statusCode.OK) {
-        setConfig(data)
+        setHealthCheck(data)
       }
     }
     fetchData()

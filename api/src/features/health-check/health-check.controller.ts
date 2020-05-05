@@ -3,6 +3,7 @@ import { getConnectionManager } from 'typeorm'
 import statusCode from 'http-status-codes'
 import { RabbitMQClient } from '../../util/rabbitmq-client'
 import { RedisClient } from '../../util/redis-client'
+import { IpAddress } from '../../util/ip-address'
 
 export class HealthCheckController {
   public async healthCheck(
@@ -14,6 +15,7 @@ export class HealthCheckController {
     const rabbitmq = await RabbitMQClient.status()
     const redis = RedisClient.status()
     const postgresql = getConnectionManager().connections.length > 0
+    const ipAddress = IpAddress.access()
 
     ctx.status =
       rabbitmq && redis && postgresql
@@ -23,6 +25,7 @@ export class HealthCheckController {
       rabbitmq,
       redis,
       postgresql,
+      ipAddress,
     }
   }
 
