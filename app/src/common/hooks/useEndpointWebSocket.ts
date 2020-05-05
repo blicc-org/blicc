@@ -14,7 +14,7 @@ export const WebSocketState = {
   [WebSocket.CLOSED]: 'closed',
 }
 
-export function useDeliveryEndpoint(): Array<any> {
+export function useEndpointWebSocket(): Array<any> {
   const [queryStack, setQueryStack] = useContext(QueryStackContext)
   const [subscriberStack, setSubscriberStack] = useContext(SubscriberContext)
   const [appState] = useContext(AppContext)

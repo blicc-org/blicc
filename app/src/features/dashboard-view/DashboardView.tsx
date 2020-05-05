@@ -5,7 +5,6 @@ import { Arrangement } from '../../common/components/arrangement/Arrangement'
 import {
   useApiEndpoint,
   useModal,
-  usePublisher,
   useMobile,
   useInstalled,
   useLanguage,
@@ -44,7 +43,6 @@ export function DashboardView({ match, location }: any): ReactElement {
   const [redirect, setRedirect] = useState('')
   const tabs = [content.dashboard, content.details]
   const [currentTab, setCurrentTab] = useState(tabs[0])
-  const [publishAll] = usePublisher()
   const isMobile = useMobile()
   const isInstalled = useInstalled()
 
@@ -52,11 +50,6 @@ export function DashboardView({ match, location }: any): ReactElement {
     isMobile && isInstalled
       ? { height: window.innerHeight - 90 }
       : { height: window.innerHeight - 40 }
-
-  useEffect(() => {
-    publishAll()
-    // eslint-disable-next-line
-  }, [settings])
 
   useEffect(() => {
     async function fetchData(): Promise<void> {

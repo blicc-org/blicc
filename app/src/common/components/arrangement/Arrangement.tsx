@@ -3,7 +3,7 @@ import {
   useArrangement,
   useModal,
   useSettings,
-  usePublisher,
+  useDeliveryEndpoint,
   useMobile,
   useInstalled,
   ACTION,
@@ -32,7 +32,7 @@ export function Arrangement({
   const [update, setUpdate] = useState(0)
   const trigger = (): void => setUpdate((prev) => ++prev)
   const [action, setAction] = useState(0)
-  const [, publishById] = usePublisher()
+  const [publish] = useDeliveryEndpoint()
 
   const arrangementStyle: any = isMobile
     ? {}
@@ -60,7 +60,7 @@ export function Arrangement({
         cancel={hideDataSourceModal}
         submit={(dataSourceId: string): void => {
           insertSet(targetId, 'data_source', dataSourceId)
-          publishById(dataSourceId)
+          publish(`/data-sources/${dataSourceId}`)
           hideChartModal()
         }}
       />

@@ -7,7 +7,7 @@ export function PluginLoader({ id, type, keepAlive }: any): ReactElement {
   const [accessSet, insertSet] = useSettings()
   const [bundle, plugin] = type.split('/')
   const [loading, setLoading] = useState(true)
-  const [, subscribe] = useDeliveryEndpoint()
+  const [publish, subscribe] = useDeliveryEndpoint()
   const ref = useRef<HTMLDivElement>(null)
   const dataSourceId = accessSet(id, 'data_source')
   const channel = `/data-sources/${dataSourceId}`
@@ -35,6 +35,15 @@ export function PluginLoader({ id, type, keepAlive }: any): ReactElement {
   function setSettings(value: any): void {
     insertSet(id, key, value)
   }
+
+  useEffect(() => {
+    async function requestData(): Promise<void> {
+      await publish(channel)
+    }
+
+    if (dataSourceId) requestData()
+    // eslint-disable-next-line
+  }, [dataSourceId, channel])
 
   useEffect(() => {
     async function fetchPlugin(): Promise<void> {

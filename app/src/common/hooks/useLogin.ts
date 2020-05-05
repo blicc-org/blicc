@@ -1,14 +1,14 @@
 import { useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { useToast } from '.'
-import { useApiEndpoint } from './useApiEndpoint'
+import { useEndpoint } from './useEndpoint'
 import { AppContext } from '../context'
 
 export function useLogin(
   onSuccess = (): void => {},
   onFailure = (): void => {}
 ): Function {
-  const [open, , ,] = useApiEndpoint('/tokens')
+  const [open, , ,] = useEndpoint('/tokens')
   const [appState, setAppState] = useContext(AppContext)
   const showToast = useToast()
 

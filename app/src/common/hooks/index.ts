@@ -1,7 +1,10 @@
-export { useApiEndpoint } from './useApiEndpoint'
+export { useEndpoint as useApiEndpoint } from './useEndpoint'
 export { useClickAway } from './useClickAway'
 export { useColor } from './useColor'
-export { useDeliveryEndpoint, WebSocketState } from './useDeliveryEndpoint'
+export {
+  useEndpointWebSocket as useDeliveryEndpoint,
+  WebSocketState,
+} from './useEndpointWebSocket'
 export { useLanguage } from './useLanguage'
 export { useLocalStorage } from './useLocalStorage'
 export { useMobile } from './useMobile'
@@ -14,7 +17,6 @@ export { useArrangement, ACTION } from './arrangement/useArrangement'
 export { useSettings } from './settings/useSettings'
 export { useSelectAction, MASK } from './positioning/useSelectAction'
 export { useDrawQuad } from './positioning/useDrawQuad'
-export { usePublisher } from './usePublisher'
 export { useJsonHighlighter } from './json-highlighter/useJsonHighlighter'
 export { useInstalled } from './useInstalled'
 export { useSessionStorage } from './useSessionStorage'

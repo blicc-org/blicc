@@ -1,12 +1,7 @@
 import React, { useState, useEffect, ReactElement, useContext } from 'react'
 import statusCode from 'http-status-codes'
 import { MetaData } from '../../common/components/meta-data/MetaData'
-import {
-  useApiEndpoint,
-  useMobile,
-  useInstalled,
-  usePublisher,
-} from '../../common/hooks'
+import { useApiEndpoint, useMobile, useInstalled } from '../../common/hooks'
 import { Redirect } from 'react-router-dom'
 import { Arrangement } from '../../common/components/arrangement/Arrangement'
 import { ArrangementContext, SettingsContext } from '../../common/context'
@@ -17,25 +12,18 @@ export function DashboardShared({ match }: any): ReactElement {
   const isMobile = useMobile()
   const isInstalled = useInstalled()
   const [, setArrangement] = useContext(ArrangementContext)
-  const [settings, setSettings] = useContext(SettingsContext)
+  const [, setSettings] = useContext(SettingsContext)
   const { id } = match.params
-  console.log(id)
   const path = `/dashboards/${id}`
   const [, access, ,] = useApiEndpoint(path)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [redirect, setRedirect] = useState('')
-  const [publishAll] = usePublisher()
 
   const style =
     isMobile && isInstalled
       ? { height: window.innerHeight - 90 }
       : { height: window.innerHeight - 40 }
-
-  useEffect(() => {
-    publishAll()
-    // eslint-disable-next-line
-  }, [settings])
 
   useEffect(() => {
     async function fetchData(): Promise<void> {

@@ -3,8 +3,8 @@ import { API } from '../../config'
 import { useLogout } from './useLogout'
 import { useRefresh } from './useRefresh'
 
-export function useApiEndpoint(path = ''): Array<any> {
-  let fullPath = `${API.ORIGIN}${path}`
+export function useEndpoint(path = '', origin = API.ORIGIN): Array<any> {
+  let fullPath = `${origin}${path}`
   const logout = useLogout()
   const refresh = useRefresh()
 

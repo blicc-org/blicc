@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import { useLanguage, useDeliveryEndpoint } from '../../common/hooks'
+import { useLanguage } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { ReactComponent as Logo } from '../../assets/img/Logo.svg'
 import { StepByStepGuide } from './StepByStepGuide'
@@ -12,9 +12,6 @@ export function LandingPage(): ReactElement {
   const title = 'Blicc'
   const description = 'Visualize your data with customizable dashboards.'
   const path = '/'
-
-  // close websocket connection on logged out
-  useDeliveryEndpoint()
 
   return (
     <>
