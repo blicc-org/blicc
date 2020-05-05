@@ -86,7 +86,13 @@ function Table({ title, object }: Props): ReactElement {
           return (
             <tr key={key}>
               <td>{key}</td>
-              <td>{object[key] + ''}</td>
+              <td>
+                {typeof object[key] === 'boolean'
+                  ? object[key]
+                    ? 'connected'
+                    : 'disconnected'
+                  : object[key] + ''}
+              </td>
             </tr>
           )
         })}
