@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -43,11 +42,13 @@ func Connection(logger *log.Logger) *connection {
 
 func (conn *connection) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	userId := r.Context().Value("userId")
-	fmt.Println(userId)
+
+	conn.logger.Println(userId)
+
 	if userId != nil {
-		fmt.Println("yayyy!!!!")
+		conn.logger.Println("yayyy!!!!")
 	} else {
-		fmt.Println("No wayyyy!!!!")
+		conn.logger.Println("No wayyyy!!!!")
 	}
 	channel.ListenAndServe(w, r)
 }

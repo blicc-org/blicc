@@ -27,7 +27,7 @@ func Start() {
 
 	mux := http.NewServeMux()
 	mux.Handle("/", http.FileServer(http.Dir("public")))
-	mux.Handle("/health-check", handlers.Healthcheck())
+	mux.Handle("/health-check", handlers.Healthcheck(logger))
 	mux.Handle("/connection", handlers.Connection(logger))
 
 	corsConfig := cors.Options{

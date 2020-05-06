@@ -59,10 +59,9 @@ func UpdateDatabase() {
 func Status() bool {
 	ch, err := Conn.Channel()
 	if err != nil {
+		fmt.Println("health check rabbitmq messed shit up")
 		fmt.Println(err)
 	}
-
-	defer ch.Close()
 
 	_, err = ch.QueueInspect(dataSourceQueue)
 	return err == nil
