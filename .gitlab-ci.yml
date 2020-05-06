@@ -126,7 +126,7 @@ test-delivery:
   stage: test
   image: golang:1.13
   script:
-    - cd delivery
+    - cd delivery && go test ./pkg/channel/...
 
 deploy:
   stage: deploy
