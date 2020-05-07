@@ -9,6 +9,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/fsnotify/fsnotify v1.4.7 // indirect
 	github.com/garyburd/redigo v1.6.0
+	github.com/go-chi/chi v4.1.1+incompatible
 	github.com/gomarkdown/markdown v0.0.0-20200316172748-fd1f3374857d
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/go-cmp v0.4.0 // indirect

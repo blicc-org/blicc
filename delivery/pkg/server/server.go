@@ -14,6 +14,7 @@ import (
 	"github.com/blicc-org/blicc/delivery/pkg/common/rabbitmqclient"
 	"github.com/blicc-org/blicc/delivery/pkg/handlers"
 	"github.com/blicc-org/blicc/delivery/pkg/middleware"
+	"github.com/go-chi/chi"
 	"github.com/rs/cors"
 )
 
@@ -25,10 +26,7 @@ func Start() {
 
 	logger := log.New(os.Stdout, "delivery: ", log.LstdFlags)
 
-	mux := http.NewServeMux()
-	mux.Handle("/", http.FileServer(http.Dir("public")))
-	mux.Handle("/health-check", handlers.Healthcheck(logger))
-	mux.Handle("/connection", handlers.Connection(logger))
+	router := chi.NewRouter()
 
 	corsConfig := cors.Options{
 		AllowedOrigins:   []string{appOrigin},
@@ -36,13 +34,22 @@ func Start() {
 		Debug:            false,
 	}
 
-	wrappedMux := cors.New(corsConfig).Handler(middleware.Logging(middleware.Permission(mux)))
+	router.Use(cors.New(corsConfig).Handler)
+	router.Use(middleware.Logging)
+
+	router.Get("/", http.FileServer(http.Dir("public")).ServeHTTP)
+	router.Get("/health-check", handlers.Healthcheck(logger).ServeHTTP)
+
+	router.Route("/connection", func(router chi.Router) {
+		router.Use(middleware.Permission)
+		router.Get("/", handlers.Connection(logger).ServeHTTP)
+	})
 
 	port := flags.Instance().Port
 
 	s := &http.Server{
 		Addr:         fmt.Sprintf(":%d", port),
-		Handler:      wrappedMux,
+		Handler:      router,
 		ErrorLog:     logger,
 		IdleTimeout:  120 * time.Second,
 		ReadTimeout:  5 * time.Second,
