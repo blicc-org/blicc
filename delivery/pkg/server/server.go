@@ -15,6 +15,7 @@ import (
 	"github.com/blicc-org/blicc/delivery/pkg/handlers"
 	"github.com/blicc-org/blicc/delivery/pkg/middleware"
 	"github.com/go-chi/chi"
+	mw "github.com/go-chi/chi/middleware"
 	"github.com/rs/cors"
 )
 
@@ -34,6 +35,7 @@ func Start() {
 		Debug:            false,
 	}
 
+	router.Use(mw.GetHead)
 	router.Use(cors.New(corsConfig).Handler)
 	router.Use(middleware.Logging)
 
