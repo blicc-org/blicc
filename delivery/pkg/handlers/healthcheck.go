@@ -22,14 +22,10 @@ func Healthcheck(logger *log.Logger) *healthcheck {
 }
 
 func (hc *healthcheck) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	hc.logger.Println("beginning healthcheck")
-
 	mongodb := mongodbclient.Status()
 	redis := redisclient.Status()
 	rabbitmq := rabbitmqclient.Status()
 	ipAddress, _ := information.GetIpAddress()
-
-	hc.logger.Println("healthcheck end")
 
 	status := bson.M{"mongodb": mongodb, "redis": redis, "rabbitmq": rabbitmq, "ipAddress": ipAddress}
 
