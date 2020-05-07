@@ -14,6 +14,7 @@ interface Delivery {
   rabbitmq: boolean
   redis: boolean
   mongodb: boolean
+  ipAddress: string
 }
 
 export function Network(): ReactElement {
@@ -27,6 +28,7 @@ export function Network(): ReactElement {
     rabbitmq: false,
     redis: false,
     mongodb: false,
+    ipAddress: '',
   }
 
   const [api, setApi] = useState<Api>(apiInit)
