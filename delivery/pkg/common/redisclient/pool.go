@@ -1,6 +1,7 @@
 package redisclient
 
 import (
+	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
@@ -16,6 +17,7 @@ var (
 func init() {
 	Pool = newPool("redis:6379")
 	cleanupHook()
+	fmt.Println("Redis connected")
 }
 
 func newPool(server string) *redis.Pool {

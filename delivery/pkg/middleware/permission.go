@@ -65,16 +65,23 @@ func validate(key *rsa.PublicKey, tokenString string) (permission userPermission
 func Permission(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("access_token")
+		if err != nil {
+			fmt.Println(err)
+			next.ServeHTTP(w, r)
+			return
+		}
+
 		key := getCertificate()
 
 		permission, err := validate(&key, cookie.Value)
 		if err != nil {
 			fmt.Println(err)
 			next.ServeHTTP(w, r)
-		} else {
-			ctx := context.WithValue(r.Context(), "userId", permission.UserId)
-			ctx = context.WithValue(ctx, "role", permission.Role)
-			next.ServeHTTP(w, r.WithContext(ctx))
+			return
 		}
+
+		ctx := context.WithValue(r.Context(), "userId", permission.UserId)
+		ctx = context.WithValue(ctx, "role", permission.Role)
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
