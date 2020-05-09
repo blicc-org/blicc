@@ -4,6 +4,10 @@ import { ADMIN_MAIL, ADMIN_PASSWORD, APP } from '../../config'
 import { Resolution, ImageService } from './image.service'
 
 export class CaptureService {
+  private static REGION = 'de-east-1'
+  private static QUALITY = 50
+  private static TIME_TO_WAIT_IN_MS = 500
+
   public static capture(
     id: string,
     bucket: string,
@@ -11,10 +15,7 @@ export class CaptureService {
     resLarge: Resolution,
     resSmall: Resolution
   ): void {
-    const region = 'de-east-1'
     const imgName = `${id}.jpg`
-    const quality = 50
-    const timeToWaitInMS = 500
 
     // wrapped to force no blocking when called in controller
     ;(async (): Promise<void> => {
@@ -36,22 +37,22 @@ export class CaptureService {
       await page.click('#submitLogin')
       await page.waitForNavigation()
       await page.goto(`${APP.ORIGIN}${screenshotPath}`)
-      await page.waitFor(timeToWaitInMS)
+      await page.waitFor(this.TIME_TO_WAIT_IN_MS)
 
       let buf: Buffer = await page.screenshot({
         encoding: 'binary',
         type: 'jpeg',
-        quality,
+        quality: this.QUALITY,
       })
 
-      ImageService.store(bucket, region, resLarge, imgName, buf)
+      ImageService.store(bucket, this.REGION, resLarge, imgName, buf)
 
       buf = await sharp(buf)
         .resize(resSmall.getWidth(), resSmall.getHeight())
-        .jpeg({ quality, force: false })
+        .jpeg({ quality: this.QUALITY, force: false })
         .toBuffer()
 
-      ImageService.store(bucket, region, resSmall, imgName, buf)
+      ImageService.store(bucket, this.REGION, resSmall, imgName, buf)
 
       await browser.close()
     })()
