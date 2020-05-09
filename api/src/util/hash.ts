@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs'
 
 export class Hash {
-  private static SALT: number = 10
+  private static SALT = 10
 
   public static generate(password: string): string {
     return bcrypt.hashSync(password, this.SALT)
