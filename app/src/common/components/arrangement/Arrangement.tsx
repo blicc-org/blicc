@@ -17,12 +17,12 @@ import './Arrangement.scss'
 
 interface Props {
   edit?: boolean
-  fullscreen?: boolean
+  isFullscreen?: boolean
 }
 
 export function Arrangement({
   edit = false,
-  fullscreen = false,
+  isFullscreen = false,
 }: Props): ReactElement {
   const isMobile = useMobile()
   const isInstalled = useInstalled()
@@ -42,7 +42,7 @@ export function Arrangement({
         height: '100%',
       }
 
-  const captureStyle: any = fullscreen
+  const captureStyle: any = isFullscreen
     ? {
         position: 'absolute',
         top: 0,

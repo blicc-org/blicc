@@ -25,7 +25,7 @@ import './DashboardView.scss'
 
 export function DashboardView({ match, location }: any): ReactElement {
   const content = useLanguage()
-  const fullscreen = location.search === '?fullscreen'
+  const isFullscreen = location.search === '?fullscreen'
   const [arrangement, setArrangement] = useContext(ArrangementContext)
   const [settings, setSettings] = useContext(SettingsContext)
   const [title, setTitle] = useState('')
@@ -127,7 +127,7 @@ export function DashboardView({ match, location }: any): ReactElement {
           <>
             {edit && <Toolbox />}
             {dashboard.data && (
-              <Arrangement edit={edit} fullscreen={fullscreen} />
+              <Arrangement edit={edit} isFullscreen={isFullscreen} />
             )}
           </>
         ) : (

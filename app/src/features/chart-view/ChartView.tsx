@@ -4,9 +4,9 @@ import { useEndpoint, useMobile, useLanguage } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { API, EXAMPLE_DATA } from '../../config'
 import { ChartDetails } from './ChartDetails'
-import './ChartView.scss'
 
-export function ChartView({ match }: any): ReactElement {
+export function ChartView({ match, location }: any): ReactElement {
+  const isFullscreen = location.search === '?fullscreen'
   const content = useLanguage()
   const path = `/charts/${match.params.id}`
   const ref = useRef<HTMLDivElement>(null)
@@ -21,10 +21,23 @@ export function ChartView({ match }: any): ReactElement {
     key: '',
   })
   const { title, description, bundle, creationDate, slug, key } = chart
-  const style = {
-    width: '100%',
-    height: isMobile ? '300px' : '500px',
-  }
+
+  const style: any = isFullscreen
+    ? {
+        position: 'fixed',
+        height: '100%',
+        backgroundColor: 'white',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 2000,
+        padding: 25,
+      }
+    : {
+        width: '100%',
+        height: isMobile ? '300px' : '500px',
+      }
 
   const data = EXAMPLE_DATA
 
