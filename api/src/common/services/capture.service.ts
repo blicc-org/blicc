@@ -68,7 +68,7 @@ export class CaptureService {
     res: Resolution,
     imgName: string,
     buf: Buffer
-  ) {
+  ): void {
     Logger.info(`Store image ${res.width}x${res.height}/${imgName}`)
     MinIOClient.store(
       bucket,
