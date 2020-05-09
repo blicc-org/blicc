@@ -2,7 +2,7 @@ import { SendMailOptions } from 'nodemailer'
 import Handlebars, { TemplateDelegate } from 'handlebars'
 import { readFile } from 'fs-extra'
 import { MAIL_ADDRESS } from '../../../config'
-import { MailType } from './mail-service'
+import { MailType } from './mail.service'
 import { MailOptions } from './mail-options.interface'
 
 export class MailGenerator {

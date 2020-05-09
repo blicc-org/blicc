@@ -2,7 +2,7 @@ import Koa from 'koa'
 import statusCode from 'http-status-codes'
 import { UserService } from '../user'
 import { APP, IS_PROD } from '../../config'
-import { JWT } from '../../util/jwt'
+import { JWT } from '../../util'
 
 export class RefreshController {
   private userService: UserService

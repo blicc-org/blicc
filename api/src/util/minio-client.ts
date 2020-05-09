@@ -2,7 +2,7 @@ import { Client } from 'minio'
 import { Logger } from './logger'
 import { MINIO_USERNAME, MINIO_PASSWORD } from '../config'
 
-class Minio {
+class MinIO {
   private client: Client
 
   public constructor() {
@@ -61,4 +61,4 @@ class Minio {
   }
 }
 
-export const MinioClient = new Minio()
+export const MinIOClient = new MinIO()

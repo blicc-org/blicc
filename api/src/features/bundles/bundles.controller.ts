@@ -1,6 +1,6 @@
 import Koa from 'koa'
 import statusCode from 'http-status-codes'
-import { RedisClient } from '../../util/redis-client'
+import { RedisClient } from '../../util'
 
 export class BundleController {
   public async set(ctx: Koa.DefaultContext, next: Function): Promise<void> {

@@ -2,8 +2,7 @@ import Koa from 'koa'
 import fs from 'fs'
 import sharp from 'sharp'
 import statusCode from 'http-status-codes'
-import { MinioClient } from '../../util/minio-client'
-import { Logger } from '../../util/logger'
+import { Logger, MinIOClient } from '../../util'
 
 export class ProfilePictureController {
   private BUCKET = 'profile-pictures'
@@ -18,7 +17,7 @@ export class ProfilePictureController {
         const imgPath = `${resolution}/${imgName}`
 
         ctx.set('Content-Type', 'image/jpeg')
-        ctx.body = await MinioClient.load(this.BUCKET, imgPath)
+        ctx.body = await MinIOClient.load(this.BUCKET, imgPath)
         ctx.status = statusCode.OK
         return
       }
@@ -42,10 +41,10 @@ export class ProfilePictureController {
         .resize(640, 640)
         .jpeg({ quality })
         .toBuffer()
-      MinioClient.store(this.BUCKET, region, `640x640/${imgName}`, buf)
+      MinIOClient.store(this.BUCKET, region, `640x640/${imgName}`, buf)
 
       buf = await sharp(path).resize(160, 160).jpeg({ quality }).toBuffer()
-      MinioClient.store(this.BUCKET, region, `160x160/${imgName}`, buf)
+      MinIOClient.store(this.BUCKET, region, `160x160/${imgName}`, buf)
 
       fs.unlink(path, (err) => {
         if (err) throw err
@@ -63,8 +62,8 @@ export class ProfilePictureController {
     const { userId } = ctx.params
 
     if (ctx.state.jwt.userId === userId) {
-      await MinioClient.remove(this.BUCKET, `640x640/${userId}.jpg`)
-      await MinioClient.remove(this.BUCKET, `160x160/${userId}.jpg`)
+      await MinIOClient.remove(this.BUCKET, `640x640/${userId}.jpg`)
+      await MinIOClient.remove(this.BUCKET, `160x160/${userId}.jpg`)
       ctx.status = statusCode.OK
       return
     }

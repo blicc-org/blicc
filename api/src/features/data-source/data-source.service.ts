@@ -2,7 +2,7 @@ import shortid from 'shortid'
 import { DataSourceEntity } from './data-source.entity'
 import { DataSource } from './data-source.interface'
 import { Repository, getRepository } from 'typeorm'
-import { RabbitMQClient } from '../../util/rabbitmq-client'
+import { RabbitMQClient } from '../../util'
 
 export class DataSourceService {
   private repo: Repository<DataSourceEntity>

@@ -2,8 +2,7 @@ import flags from 'commander'
 import { App } from './app'
 import { createConnection } from 'typeorm'
 import { PORT } from './config'
-import { DatabaseInitializer } from './util/database-initializer'
-import { Logger } from './util/logger'
+import { Logger, DatabaseInitializer } from './util'
 
 flags.option('-p, --port <number>', 'Port the server listens on')
 flags.parse(process.argv)

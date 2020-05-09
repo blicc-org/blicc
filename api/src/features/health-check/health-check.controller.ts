@@ -1,9 +1,7 @@
 import Koa from 'koa'
-import { getConnectionManager } from 'typeorm'
 import statusCode from 'http-status-codes'
-import { RabbitMQClient } from '../../util/rabbitmq-client'
-import { RedisClient } from '../../util/redis-client'
-import { IpAddress } from '../../util/ip-address'
+import { getConnectionManager } from 'typeorm'
+import { RabbitMQClient, RedisClient, IpAddress } from '../../util'
 
 export class HealthCheckController {
   public async healthCheck(

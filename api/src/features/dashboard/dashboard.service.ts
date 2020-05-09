@@ -5,8 +5,7 @@ import { DashboardEntity } from './dashboard.entity'
 import { Dashboard } from './dashboard.interface'
 import shortid from 'shortid'
 import { APP, ADMIN_MAIL, ADMIN_PASSWORD } from '../../config'
-import { Logger } from '../../util/logger'
-import { MinioClient } from '../../util/minio-client'
+import { Logger, MinIOClient } from '../../util'
 
 export class DashboardService {
   private repo: Repository<DashboardEntity>
@@ -117,7 +116,7 @@ export class DashboardService {
       })
 
       Logger.info(`Store thumbnail 1280x720/${imgName}`)
-      MinioClient.store(bucket, region, `1280x720/${imgName}`, buf)
+      MinIOClient.store(bucket, region, `1280x720/${imgName}`, buf)
 
       buf = await sharp(buf)
         .resize(640, 360)
@@ -125,7 +124,7 @@ export class DashboardService {
         .toBuffer()
 
       Logger.info(`Store thumbnail 640x360/${imgName}`)
-      MinioClient.store(bucket, region, `640x360/${imgName}`, buf)
+      MinIOClient.store(bucket, region, `640x360/${imgName}`, buf)
 
       await browser.close()
     })()

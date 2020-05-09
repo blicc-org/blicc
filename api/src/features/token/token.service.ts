@@ -1,7 +1,7 @@
 import { Repository, getRepository } from 'typeorm'
 import { TwoFactorAuthService } from '../two-factor-auth'
 import { UserEntity } from '../user'
-import { Hash } from '../../util/hash'
+import { Hash } from '../../util'
 
 export class TokenService {
   private userRepo: Repository<UserEntity>

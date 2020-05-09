@@ -14,7 +14,7 @@ import { BundleRouter } from './features/bundles'
 import { DataSourceRouter } from './features/data-source'
 import { ThumbnailRouter } from './features/thumbnail'
 import { RefreshRouter } from './features/refresh'
-import { Logger } from './util/logger'
+import { Logger } from './util'
 
 export class App extends Koa {
   public constructor() {

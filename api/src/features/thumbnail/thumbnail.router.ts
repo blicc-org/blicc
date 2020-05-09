@@ -70,7 +70,24 @@ export class ThumbnailRouter {
           },
         },
       },
-      handler: this.controller.serve.bind(this.controller),
+      handler: this.controller.serveDashboardThumbnails.bind(this.controller),
+    })
+
+    this.router.route({
+      method: 'get',
+      path: '/chart-thumbnails/:imgName',
+      pre: [
+        AuthMiddleware.handle,
+        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
+      ],
+      validate: {
+        output: {
+          200: {
+            body: Joi.binary(),
+          },
+        },
+      },
+      handler: this.controller.serveChartThumbnails.bind(this.controller),
     })
 
     return this.router.middleware()

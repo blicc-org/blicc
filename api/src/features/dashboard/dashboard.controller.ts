@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import statusCode from 'http-status-codes'
 import { DashboardService } from './dashboard.service'
-import { Validation } from '../../util/validation'
+import { Validation } from '../../util'
 
 export class DashboardController {
   private dashboardService: DashboardService

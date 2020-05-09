@@ -1,8 +1,7 @@
 import Koa from 'koa'
 import status from 'http-status-codes'
-import { JWT } from '../../util/jwt'
+import { Logger, JWT } from '../../util'
 import { TokenPayload } from '../../features/token'
-import { Logger } from '../../util/logger'
 
 export class AuthMiddleware {
   public static async handle(
