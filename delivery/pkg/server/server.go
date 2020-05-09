@@ -39,7 +39,7 @@ func Start() {
 	router.Use(cors.New(corsConfig).Handler)
 	router.Use(middleware.Logging)
 
-	router.Get("/", http.FileServer(http.Dir("public")).ServeHTTP)
+	router.Get("/*", http.FileServer(http.Dir("public")).ServeHTTP)
 	router.Get("/health-check", handlers.Healthcheck(logger).ServeHTTP)
 
 	router.Route("/connection", func(router chi.Router) {
