@@ -4,6 +4,7 @@ import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useEndpoint, useLanguage, useDateFormatter } from '../../common/hooks'
 import { Pagination, Listing, Item, Heading } from '../../common/components/ui'
 import { List, Chart } from '../../common/interfaces'
+import { API } from '../../config'
 
 export function Charts(): ReactElement {
   const [, access, ,] = useEndpoint('/charts')
@@ -39,15 +40,16 @@ export function Charts(): ReactElement {
       <div className="container">
         <Heading title={text.title} />
         <Listing<Chart> list={list} emptyText={text.empty}>
-          {(chart): ReactElement => (
+          {(item): ReactElement => (
             <Item
-              key={chart.id}
-              title={chart.title}
-              subtitle={format(chart.creationDate)}
-              description={chart.description}
-              link={`/charts/${chart.id}`}
+              key={item.id}
+              thumbnail={`${API.ORIGIN}/chart-thumbnails/${item.id}.jpg`}
+              title={item.title}
+              subtitle={format(item.creationDate)}
+              description={item.description}
+              link={`/charts/${item.id}`}
               linkLabel={text.view}
-              badge={`@${chart.slug}`}
+              badge={`@${item.slug}`}
             />
           )}
         </Listing>
