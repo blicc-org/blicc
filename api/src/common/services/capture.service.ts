@@ -31,12 +31,12 @@ export class CaptureService {
         deviceScaleFactor: 1,
       })
 
-      await page.goto(`${APP.ORIGIN}/login`)
+      await page.goto(`${APP.ORIGIN_INSIDE}/login`)
       await page.type('#inputEmail', ADMIN_MAIL)
       await page.type('#inputPassword', ADMIN_PASSWORD)
       await page.click('#submitLogin')
       await page.waitForNavigation()
-      await page.goto(`${APP.ORIGIN}${screenshotPath}`)
+      await page.goto(`${APP.ORIGIN_INSIDE}${screenshotPath}`)
       await page.waitFor(this.TIME_TO_WAIT_IN_MS)
 
       let buf: Buffer = await page.screenshot({
