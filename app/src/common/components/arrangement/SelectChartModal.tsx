@@ -55,12 +55,12 @@ export function SelectChartModal({ cancel, submit }: any): ReactElement {
               onChange={(evt): void => setSearchTerm(evt.target.value)}
             ></input>
             <div
-              className="row pt-3"
+              className="row mt-3"
               style={{ overflowY: 'scroll', height: '300px' }}
             >
               {list &&
                 list.list.map((item) => (
-                  <div key={item.id} className="col-sm-6 pb-4">
+                  <div key={item.id} className="col-sm-6 py-2">
                     <a
                       href="/"
                       onClick={(evt): void =>
