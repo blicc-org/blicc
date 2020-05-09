@@ -1,10 +1,13 @@
 import React, { useState, useEffect, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { useEndpoint } from '../../hooks'
+import { Image } from '../ui'
+import { API } from '../../../config'
+import { Chart, List } from '../../interfaces'
 
 export function SelectChartModal({ cancel, submit }: any): ReactElement {
   const maxNumberOfResults = 10
-  const [result, setResult] = useState({ total: 0, charts: [] })
+  const [list, setList] = useState<List<Chart>>()
   const [, access, ,] = useEndpoint('/charts')
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -17,7 +20,7 @@ export function SelectChartModal({ cancel, submit }: any): ReactElement {
         },
       })
       if (status === statusCode.OK) {
-        setResult(data)
+        setList({ total: data.total, list: data.charts })
       }
     }
     fetchData()
@@ -51,26 +54,42 @@ export function SelectChartModal({ cancel, submit }: any): ReactElement {
               placeholder="Like Pie Chart..."
               onChange={(evt): void => setSearchTerm(evt.target.value)}
             ></input>
-            <div className="pt-3">
-              <ul>
-                {result.charts.map(({ id, title, slug, key }) => (
-                  <li key={id}>
-                    <h5>
+            <div
+              className="row pt-3"
+              style={{ overflowY: 'scroll', height: '300px' }}
+            >
+              {list &&
+                list.list.map((item) => (
+                  <div key={item.id} className="col-sm-6 pb-4">
+                    <a
+                      href="/"
+                      onClick={(evt): void =>
+                        onSelect(evt, item.slug, item.key)
+                      }
+                    >
+                      <Image
+                        src={`${API.ORIGIN}/chart-thumbnails/${item.id}.jpg`}
+                        width={160}
+                        height={90}
+                      />
+                    </a>
+                    <h5 className="pt-2">
                       <a
                         href="/"
-                        onClick={(evt): void => onSelect(evt, slug, key)}
+                        onClick={(evt): void =>
+                          onSelect(evt, item.slug, item.key)
+                        }
                       >
-                        {title}
+                        {item.title}
                       </a>
-                      <small className="text-muted">{` @${slug}`}</small>
+                      <small className="text-muted">{` @${item.slug}`}</small>
                     </h5>
-                  </li>
+                  </div>
                 ))}
-              </ul>
             </div>
             <hr />
             <h6>
-              Results <small>{`${result.total} found.`}</small>
+              Results <small>{`${list ? list.total : 0} found.`}</small>
             </h6>
           </div>
         </div>
