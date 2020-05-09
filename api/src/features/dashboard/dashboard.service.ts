@@ -5,6 +5,9 @@ import shortid from 'shortid'
 import { CaptureService, Resolution } from '../../common/services'
 
 export class DashboardService {
+  private BUCKET = 'dashboard-thumbnails'
+  private lg = new Resolution(1280, 720)
+  private sm = new Resolution(640, 360)
   private repo: Repository<DashboardEntity>
 
   public constructor() {
@@ -79,11 +82,7 @@ export class DashboardService {
   }
 
   public capture(id: string): void {
-    const bucket = 'dashboard-thumbnails'
     const screenshotPath = `/dashboards/${id}?fullscreen`
-    const resLarge: Resolution = { width: 1280, height: 720 }
-    const resSmall: Resolution = { width: 640, height: 360 }
-
-    CaptureService.capture(id, bucket, screenshotPath, resLarge, resSmall)
+    CaptureService.capture(id, this.BUCKET, screenshotPath, this.lg, this.sm)
   }
 }

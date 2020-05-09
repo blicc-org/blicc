@@ -1,12 +1,7 @@
 import puppeteer from 'puppeteer'
 import sharp from 'sharp'
-import { Logger, MinIOClient } from '../../util'
 import { ADMIN_MAIL, ADMIN_PASSWORD, APP } from '../../config'
-
-export interface Resolution {
-  width: number
-  height: number
-}
+import { Resolution, ImageService } from './image.service'
 
 export class CaptureService {
   public static capture(
@@ -30,8 +25,8 @@ export class CaptureService {
       })
       const page = await browser.newPage()
       await page.setViewport({
-        width: resLarge.width,
-        height: resLarge.height,
+        width: resLarge.getWidth(),
+        height: resLarge.getHeight(),
         deviceScaleFactor: 1,
       })
 
@@ -49,32 +44,16 @@ export class CaptureService {
         quality,
       })
 
-      this.store(bucket, region, resLarge, imgName, buf)
+      ImageService.store(bucket, region, resLarge, imgName, buf)
 
       buf = await sharp(buf)
-        .resize(resSmall.width, resSmall.height)
+        .resize(resSmall.getWidth(), resSmall.getHeight())
         .jpeg({ quality, force: false })
         .toBuffer()
 
-      this.store(bucket, region, resSmall, imgName, buf)
+      ImageService.store(bucket, region, resSmall, imgName, buf)
 
       await browser.close()
     })()
-  }
-
-  private static store(
-    bucket: string,
-    region: string,
-    res: Resolution,
-    imgName: string,
-    buf: Buffer
-  ): void {
-    Logger.info(`Store image ${res.width}x${res.height}/${imgName}`)
-    MinIOClient.store(
-      bucket,
-      region,
-      `${res.width}x${res.height}/${imgName}`,
-      buf
-    )
   }
 }

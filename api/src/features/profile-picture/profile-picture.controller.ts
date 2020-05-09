@@ -3,17 +3,21 @@ import fs from 'fs'
 import sharp from 'sharp'
 import statusCode from 'http-status-codes'
 import { Logger, MinIOClient } from '../../util'
+import { Resolution, ImageService } from '../../common/services'
 
 export class ProfilePictureController {
   private BUCKET = 'profile-pictures'
+  private REGION = 'de-east-1'
+  private lg = new Resolution(640, 640)
+  private sm = new Resolution(160, 160)
 
   public async serve(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
     const { imgName } = ctx.params
-    const { resolution = '640x640' } = ctx.query
+    const { resolution = this.lg.getString() } = ctx.query
 
     if (`${ctx.state.jwt.userId}.jpg` === imgName) {
-      if (['640x640', '160x160'].includes(resolution)) {
+      if ([this.lg.getString(), this.sm.getString()].includes(resolution)) {
         const imgPath = `${resolution}/${imgName}`
 
         ctx.set('Content-Type', 'image/jpeg')
@@ -29,7 +33,6 @@ export class ProfilePictureController {
 
   public async set(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    const region = 'de-east-1'
     const quality = 50
     const { userId } = ctx.params
 
@@ -38,13 +41,16 @@ export class ProfilePictureController {
       const imgName = `${userId}.jpg`
 
       let buf: Buffer = await sharp(path)
-        .resize(640, 640)
+        .resize(this.lg.getWidth(), this.lg.getHeight())
         .jpeg({ quality })
         .toBuffer()
-      MinIOClient.store(this.BUCKET, region, `640x640/${imgName}`, buf)
+      ImageService.store(this.BUCKET, this.REGION, this.lg, imgName, buf)
 
-      buf = await sharp(path).resize(160, 160).jpeg({ quality }).toBuffer()
-      MinIOClient.store(this.BUCKET, region, `160x160/${imgName}`, buf)
+      buf = await sharp(path)
+        .resize(this.sm.getWidth(), this.sm.getHeight())
+        .jpeg({ quality })
+        .toBuffer()
+      ImageService.store(this.BUCKET, this.REGION, this.sm, imgName, buf)
 
       fs.unlink(path, (err) => {
         if (err) throw err
@@ -62,8 +68,14 @@ export class ProfilePictureController {
     const { userId } = ctx.params
 
     if (ctx.state.jwt.userId === userId) {
-      await MinIOClient.remove(this.BUCKET, `640x640/${userId}.jpg`)
-      await MinIOClient.remove(this.BUCKET, `160x160/${userId}.jpg`)
+      await MinIOClient.remove(
+        this.BUCKET,
+        `${this.lg.getString()}/${userId}.jpg`
+      )
+      await MinIOClient.remove(
+        this.BUCKET,
+        `${this.sm.getString()}/${userId}.jpg`
+      )
       ctx.status = statusCode.OK
       return
     }

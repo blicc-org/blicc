@@ -6,6 +6,9 @@ import { Resolution } from '../../common/services'
 import { CaptureService } from '../../common/services'
 
 export class ChartService {
+  private BUCKET = 'chart-thumbnails'
+  private lg = new Resolution(1280, 720)
+  private sm = new Resolution(640, 360)
   private repo: Repository<ChartEntity>
 
   public constructor() {
@@ -76,11 +79,7 @@ export class ChartService {
   }
 
   public capture(id: string): void {
-    const bucket = 'chart-thumbnails'
     const screenshotPath = `/charts/${id}?fullscreen`
-    const resLarge: Resolution = { width: 1280, height: 720 }
-    const resSmall: Resolution = { width: 640, height: 360 }
-
-    CaptureService.capture(id, bucket, screenshotPath, resLarge, resSmall)
+    CaptureService.capture(id, this.BUCKET, screenshotPath, this.lg, this.sm)
   }
 }
