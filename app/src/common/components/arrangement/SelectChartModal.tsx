@@ -69,8 +69,8 @@ export function SelectChartModal({ cancel, submit }: any): ReactElement {
                     >
                       <Image
                         src={`${API.ORIGIN}/chart-thumbnails/${item.id}.jpg`}
-                        width={160}
-                        height={90}
+                        width={200}
+                        height={112.5}
                       />
                     </a>
                     <h5 className="pt-2">
