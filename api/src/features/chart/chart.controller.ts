@@ -14,7 +14,7 @@ export class ChartController {
     await next()
     const { title, bundle, description = '', key, slug } = ctx.request.body
     const { userId } = ctx.state.jwt
-    ctx.body = await this.chartService.create(
+    const chart = await this.chartService.create(
       title,
       bundle,
       description,
@@ -22,7 +22,9 @@ export class ChartController {
       slug,
       userId
     )
+    ctx.body = chart
     ctx.status = statusCode.CREATED
+    if (chart.id) this.chartService.capture(chart.id)
   }
 
   public async get(ctx: Koa.DefaultContext, next: Function): Promise<void> {
@@ -75,6 +77,7 @@ export class ChartController {
       ) {
         ctx.body = await this.chartService.update(ctx.request.body)
         ctx.status = statusCode.OK
+        if (chart.id) this.chartService.capture(chart.id)
         return
       }
       ctx.status = statusCode.BAD_REQUEST

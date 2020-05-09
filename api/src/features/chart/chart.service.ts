@@ -2,6 +2,8 @@ import { Repository, getRepository } from 'typeorm'
 import { ChartEntity } from './chart.entity'
 import { Chart } from './chart.interface'
 import shortid from 'shortid'
+import { Resolution } from '../../common/services'
+import { CaptureService } from '../../common/services'
 
 export class ChartService {
   private repo: Repository<ChartEntity>
@@ -71,5 +73,14 @@ export class ChartService {
     const id = shortid.generate()
     const response = await this.repo.findOne(id)
     return response === undefined ? id : await this.generateId()
+  }
+
+  public capture(id: string): void {
+    const bucket = 'chart-thumbnails'
+    const screenshotPath = `/charts/${id}?fullscreen`
+    const resLarge: Resolution = { width: 1280, height: 720 }
+    const resSmall: Resolution = { width: 640, height: 360 }
+
+    CaptureService.capture(id, bucket, screenshotPath, resLarge, resSmall)
   }
 }

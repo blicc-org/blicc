@@ -23,8 +23,7 @@ export class DashboardController {
     ctx.body = dashboard
     ctx.status = 201
 
-    const { id = '' } = dashboard
-    this.dashboardService.capture(id)
+    if (dashboard.id) this.dashboardService.capture(dashboard.id)
   }
 
   public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
