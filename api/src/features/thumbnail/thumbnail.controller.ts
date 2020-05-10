@@ -6,7 +6,7 @@ import { Resolution } from '../../common/services'
 export class ThumbnailController {
   private lg: Resolution = new Resolution(1280, 720)
   private sm: Resolution = new Resolution(640, 360)
-  private options: Array<String> = [this.lg.getString(), this.sm.getString()]
+  private options: Array<string> = [this.lg.getString(), this.sm.getString()]
 
   public async serveDashboardThumbnails(
     ctx: Koa.DefaultContext,
