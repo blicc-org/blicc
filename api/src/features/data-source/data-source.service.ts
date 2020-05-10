@@ -3,8 +3,12 @@ import { DataSourceEntity } from './data-source.entity'
 import { DataSource } from './data-source.interface'
 import { Repository, getRepository } from 'typeorm'
 import { RabbitMQClient } from '../../util'
+import { Resolution, CaptureService } from '../../common/services'
 
 export class DataSourceService {
+  private BUCKET = 'data-source-thumbnails'
+  private lg = new Resolution(1280, 720)
+  private sm = new Resolution(640, 360)
   private repo: Repository<DataSourceEntity>
 
   public constructor() {
@@ -83,5 +87,10 @@ export class DataSourceService {
     const id = shortid.generate()
     const response = await this.repo.findOne(id)
     return response === undefined ? id : await this.generateId()
+  }
+
+  public capture(id: string): void {
+    const screenshotPath = `/data-sources/${id}?fullscreen`
+    CaptureService.capture(id, this.BUCKET, screenshotPath, this.lg, this.sm)
   }
 }
