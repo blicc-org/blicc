@@ -2,7 +2,7 @@ const isDev = process.env.NODE_ENV === 'development'
 
 export const APP = {
   HOSTNAME: isDev ? 'localhost' : 'blicc.org',
-  ORIGIN_INSIDE: isDev ? 'http://app:3000' : 'http://app',
+  ORIGIN_INSIDE: isDev ? 'https://blicc.org' : 'https://blicc.org', // enable ssl for local dev to use app:3000
 }
 
 export const REDIS_HOST = 'redis'
