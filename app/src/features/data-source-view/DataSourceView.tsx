@@ -36,6 +36,7 @@ const INITIAL = {
 
 export function DataSourceView({ match, location }: any): ReactElement {
   const content = useLanguage()
+  const isFullscreen = location.search === '?fullscreen'
   const path = `/data-sources/${match.params.id}`
   const [, access, update, remove] = useEndpoint(path)
   const [dataSource, setDataSource] = useState(INITIAL)
@@ -128,6 +129,7 @@ export function DataSourceView({ match, location }: any): ReactElement {
         />
         {currentTab === tabs[0] ? (
           <DataSource
+            isFullscreen={isFullscreen}
             input={input}
             data={data}
             setData={(d: any): void =>

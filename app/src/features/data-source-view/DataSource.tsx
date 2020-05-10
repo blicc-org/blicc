@@ -4,7 +4,24 @@ import { search } from 'jmespath'
 import { DataQuery } from './DataQuery'
 import './DataSource.scss'
 
-export function DataSource({ input, data, setData }: any): ReactElement {
+export function DataSource({
+  isFullscreen,
+  input,
+  data,
+  setData,
+}: any): ReactElement {
+  const style: any = isFullscreen
+    ? {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 2000,
+        padding: '25px',
+        backgroundColor: 'white',
+      }
+    : {}
   const { request, query } = data
   const { url, headers } = request
   const setQuery = (q: any): void => setData({ ...data, query: q })
@@ -41,7 +58,7 @@ export function DataSource({ input, data, setData }: any): ReactElement {
   }, [input, query])
 
   return (
-    <>
+    <div style={style}>
       <div className="row my-3 data-source">
         <div className="col">
           <table style={{ width: '100%' }}>
@@ -128,6 +145,6 @@ export function DataSource({ input, data, setData }: any): ReactElement {
         query={query}
         setQuery={setQuery}
       />
-    </>
+    </div>
   )
 }
