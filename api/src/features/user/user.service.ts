@@ -163,13 +163,11 @@ export class UserService {
     ].data_source = dataSourceIdTwo
     /*eslint-enable */
 
-    const { id: dashboardId = '' } = await this.dashboardService.create(
+    await this.dashboardService.create(
       dashboardExample.title,
       dashboardExample.description,
       userId,
       dashboardExample.data
     )
-
-    this.dashboardService.capture(dashboardId)
   }
 }
