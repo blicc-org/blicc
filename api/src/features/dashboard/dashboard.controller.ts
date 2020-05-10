@@ -22,8 +22,6 @@ export class DashboardController {
     )
     ctx.body = dashboard
     ctx.status = 201
-
-    if (dashboard.id) this.dashboardService.capture(dashboard.id)
   }
 
   public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
@@ -88,7 +86,6 @@ export class DashboardController {
       ) {
         ctx.body = await this.dashboardService.update(ctx.request.body)
         ctx.status = statusCode.OK
-        this.dashboardService.capture(id)
         return
       }
       ctx.status = statusCode.BAD_REQUEST

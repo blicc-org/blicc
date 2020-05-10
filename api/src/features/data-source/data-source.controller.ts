@@ -30,8 +30,6 @@ export class DataSourceController {
     )
     ctx.body = dataSource
     ctx.status = 201
-
-    if (dataSource.id) this.dataSourceService.capture(dataSource.id)
   }
 
   public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
@@ -100,7 +98,6 @@ export class DataSourceController {
       ) {
         ctx.body = await this.dataSourceService.update(ctx.request.body)
         ctx.status = statusCode.OK
-        this.dataSourceService.capture(id)
         return
       }
       ctx.status = statusCode.BAD_REQUEST

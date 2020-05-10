@@ -34,6 +34,7 @@ export class DataSourceService {
       )
     )
     RabbitMQClient.publish('data_source', dataSource)
+    if (dataSource.id) this.capture(dataSource.id)
     return dataSource
   }
 
@@ -73,6 +74,7 @@ export class DataSourceService {
   public async update(dataSource: DataSource): Promise<DataSourceEntity> {
     const updated = await this.repo.save(dataSource)
     RabbitMQClient.publish('data_source', updated)
+    if (updated.id) this.capture(updated.id)
     return updated
   }
 
@@ -89,7 +91,7 @@ export class DataSourceService {
     return response === undefined ? id : await this.generateId()
   }
 
-  public capture(id: string): void {
+  private capture(id: string): void {
     const screenshotPath = `/data-sources/${id}?fullscreen`
     CaptureService.capture(id, this.BUCKET, screenshotPath, this.lg, this.sm)
   }

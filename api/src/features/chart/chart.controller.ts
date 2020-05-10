@@ -24,7 +24,6 @@ export class ChartController {
     )
     ctx.body = chart
     ctx.status = statusCode.CREATED
-    if (chart.id) this.chartService.capture(chart.id)
   }
 
   public async get(ctx: Koa.DefaultContext, next: Function): Promise<void> {
@@ -77,7 +76,6 @@ export class ChartController {
       ) {
         ctx.body = await this.chartService.update(ctx.request.body)
         ctx.status = statusCode.OK
-        if (chart.id) this.chartService.capture(chart.id)
         return
       }
       ctx.status = statusCode.BAD_REQUEST

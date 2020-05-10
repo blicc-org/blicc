@@ -23,9 +23,11 @@ export class ChartService {
     slug: string,
     userId: string
   ): Promise<Chart> {
-    return await this.repo.save(
+    const chart = await this.repo.save(
       new ChartEntity(title, bundle, description, userId, key, slug)
     )
+    if (chart.id) this.capture(chart.id)
+    return chart
   }
 
   public async selectById(id: string): Promise<ChartEntity | undefined> {
@@ -63,7 +65,9 @@ export class ChartService {
   }
 
   public async update(chart: Chart): Promise<ChartEntity> {
-    return await this.repo.save(chart)
+    const updated = await this.repo.save(chart)
+    if (updated.id) this.capture(updated.id)
+    return updated
   }
 
   public async remove(chart: ChartEntity): Promise<Chart> {
@@ -78,7 +82,7 @@ export class ChartService {
     return response === undefined ? id : await this.generateId()
   }
 
-  public capture(id: string): void {
+  private capture(id: string): void {
     const screenshotPath = `/charts/${id}?fullscreen`
     CaptureService.capture(id, this.BUCKET, screenshotPath, this.lg, this.sm)
   }

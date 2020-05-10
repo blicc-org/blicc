@@ -20,9 +20,11 @@ export class DashboardService {
     userId: string,
     data: object
   ): Promise<Dashboard> {
-    return await this.repo.save(
+    const dashboard = await this.repo.save(
       new DashboardEntity(title, description, userId, data)
     )
+    if (dashboard.id) this.capture(dashboard.id)
+    return dashboard
   }
 
   public async select(id: string): Promise<DashboardEntity | undefined> {
@@ -66,7 +68,9 @@ export class DashboardService {
   }
 
   public async update(dashboard: Dashboard): Promise<DashboardEntity> {
-    return await this.repo.save(dashboard)
+    const updated = await this.repo.save(dashboard)
+    if (updated.id) this.capture(updated.id)
+    return updated
   }
 
   public async generateId(): Promise<string> {
@@ -81,7 +85,7 @@ export class DashboardService {
     return dashboard
   }
 
-  public capture(id: string): void {
+  private capture(id: string): void {
     const screenshotPath = `/dashboards/${id}?fullscreen`
     CaptureService.capture(id, this.BUCKET, screenshotPath, this.lg, this.sm)
   }
