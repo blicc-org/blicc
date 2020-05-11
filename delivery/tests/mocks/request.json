@@ -1,0 +1,9 @@
+{
+  "channel": "/forwarding/123456",
+  "data": {
+    "request": {
+      "url": "{{url}}",
+      "headers": []
+    }
+  }
+}
