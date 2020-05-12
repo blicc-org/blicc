@@ -1,7 +1,25 @@
-import puppeteer from 'puppeteer'
+import puppeteer, { Browser as PuppeteerBrowser } from 'puppeteer'
 import sharp from 'sharp'
 import { ADMIN_MAIL, ADMIN_PASSWORD, APP } from '../../config'
 import { Resolution, ImageService } from './image.service'
+
+export class Browser {
+  private static instance: PuppeteerBrowser
+
+  public static async getInstance(): Promise<PuppeteerBrowser> {
+    if (this.instance) return this.instance
+    this.instance = await puppeteer.launch({
+      headless: true,
+      executablePath: '/usr/bin/google-chrome-unstable',
+      args: ['--no-sandbox', '--disable-dev-shm-usage'],
+    })
+    return this.instance
+  }
+
+  public static async close(): Promise<void> {
+    if (this.instance) await this.instance.close()
+  }
+}
 
 export class CaptureService {
   private static REGION = 'de-east-1'
@@ -19,11 +37,8 @@ export class CaptureService {
 
     // wrapped to force no blocking when called in controller
     ;(async (): Promise<void> => {
-      const browser = await puppeteer.launch({
-        headless: true,
-        executablePath: '/usr/bin/google-chrome-unstable',
-        args: ['--no-sandbox', '--disable-dev-shm-usage'],
-      })
+      const browser = await Browser.getInstance()
+
       const page = await browser.newPage()
       await page.setViewport({
         width: resLarge.getWidth(),
@@ -54,7 +69,7 @@ export class CaptureService {
 
       ImageService.store(bucket, this.REGION, resSmall, imgName, buf)
 
-      await browser.close()
+      await page.close()
     })()
   }
 }

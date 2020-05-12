@@ -55,7 +55,8 @@ export class UserService {
     delete user.passwordHash
     delete user.refreshToken
 
-    await new MailService().send(user, MailType.WELCOME)
+    new MailService().send(user, MailType.WELCOME)
+    if (user.id) await this.createExamples(user.id)
     return user
   }
 
