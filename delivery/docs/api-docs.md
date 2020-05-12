@@ -1,4 +1,4 @@
-# Publish–Subscribe Data Delivery API v0.1.5a
+# Publish–Subscribe Data Delivery API v0.1.5b
 
 The api provides you a fast access to your data api. The api aspects queries in the [JMESPath Specification](http://jmespath.org/specification.html).
 

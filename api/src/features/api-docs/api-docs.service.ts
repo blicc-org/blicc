@@ -7,7 +7,7 @@ export class ApiDocsService {
       openapi: '3.0.0',
       info: {
         title: 'api.blicc.org',
-        version: '0.1.5a',
+        version: '0.1.5b',
         description: 'Backend api documentation',
       },
       components: {

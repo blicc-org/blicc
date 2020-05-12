@@ -19,7 +19,7 @@ export function Footer({ close }: any): ReactElement {
             {' '}
             {`${
               content.copyright
-            } © MIT ${new Date().getFullYear()}, Thilo Ilga`}
+            } © MIT ${new Date().getFullYear()}, Thilo Ilg v0.1.5b`}
           </p>
         </small>
       </div>
