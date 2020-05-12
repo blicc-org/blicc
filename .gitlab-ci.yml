@@ -169,7 +169,8 @@ deploy:
       APP_ORIGIN=$APP_ORIGIN
       MAIL_HOST=$MAIL_HOST &&
       echo $CI_REGISTRY_PASSWORD | docker login --username $CI_REGISTRY_USER --password-stdin $CI_REGISTRY &&
-      docker stack deploy --prune --resolve-image always --with-registry-auth -c docker-compose.yml blicc"
+      docker stack deploy --prune --resolve-image always --with-registry-auth -c docker-compose.yml blicc &&
+      docker service update --image registry.thiloilg.com/root/blicc/api:$VERSION --with-registry-auth blicc_api"
 
 plugins:
   stage: seed
