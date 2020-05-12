@@ -12,3 +12,6 @@ mkdir redis-data postgres-data mongo-data prometheus-data rabbitmq-data storage-
 
 # login to docker registry
 docker login registry.thiloilg.com
+
+# use stack deploy to initially deploy service setup and update system setup
+docker stack deploy --prune --resolve-image always --with-registry-auth -c docker-compose.yml blicc

@@ -7,7 +7,7 @@ export class ApiDocsService {
       openapi: '3.0.0',
       info: {
         title: 'mock.blicc.org',
-        version: '0.1.5b',
+        version: '0.1.5',
         description: 'Mock api documentation',
       },
       host: 'mock.blicc.org',
