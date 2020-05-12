@@ -29,9 +29,8 @@ Set the following environment variables in the gitlab CI/CD settings. Depending 
     MINIO_PASSWORD=password
 
 ### Traefik
-    TRAEFIK_PASSWORD=admin:pwhash
-
-> Create the credentials hash with: `echo $(htpasswd -nb user password) | sed -e s/\\$/\\$\\$/g`.
+    TRAEFIK_USERNAME=admin
+    TRAEFIK_PASSWORD=password
 
 ### Mail Server
     MAIL_ADDRESS=noreply@example.org

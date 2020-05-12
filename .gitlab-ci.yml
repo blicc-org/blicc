@@ -83,7 +83,7 @@ test-preparation:
     - *enable_ssh
   script:
     - ssh -tt root@$TEST_IP "docker image prune -a -f"
-    - ssh -tt root@$TEST_IP "echo '$TRAEFIK_PASSWORD' > /root/credentials.txt"
+    - ssh -tt root@TEST_IP "echo $(htpasswd -nb $TRAEFIK_USERNAME $TRAEFIK_PASSWORD) | sed -e s/\\$/\\$\\$/g > /root/credentials.txt"
     - scp -r ./docker-compose.testing-stage.yml root@$TEST_IP:/root/docker-compose.yml
     - openssl genrsa -out rsa.pem 2048
     - openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem
@@ -137,7 +137,7 @@ deploy:
     - *enable_ssh
     - *install_openssl
   script:
-    - ssh -tt root@$PROD_IP "echo '$TRAEFIK_PASSWORD' > /root/credentials.txt"
+    - ssh -tt root@PROD_IP "echo $(htpasswd -nb $TRAEFIK_USERNAME $TRAEFIK_PASSWORD) | sed -e s/\\$/\\$\\$/g > /root/credentials.txt"
     - scp -r ./docker-compose.prod.yml root@$PROD_IP:/root/docker-compose.yml
     - openssl genrsa -out rsa.pem 2048
     - openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem
