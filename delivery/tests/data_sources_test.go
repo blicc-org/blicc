@@ -1,17 +1,16 @@
 package tests
 
 import (
-	"os"
 	"testing"
+
+	"github.com/blicc-org/blicc/delivery/tests/mocks"
 )
 
 func TestDataSources(t *testing.T) {
-	pwd, _ := os.Getwd()
+	input := mocks.Requests[0].ToString()
+	expected := mocks.Expected[0].ToString()
 
-	input := GetMock(pwd + "/mocks/data_sources_request.json")
-	expected := GetMock(pwd + "/mocks/data_sources_expected.json")
 	result, err := TestDelivery(input, true)
-
 	if err != nil {
 		t.Fatal(err)
 	}
