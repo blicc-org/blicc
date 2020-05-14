@@ -44,11 +44,11 @@ func UpdateDatabase() {
 	}
 
 	go func() {
-		fmt.Println("Rabbitmq: waiting for messages to arrive...")
+		fmt.Println("RabbitMQ: waiting for messages to arrive...")
 		var dataSource DataSource
 
 		for msg := range messages {
-			fmt.Printf("Received a message: %s\n", msg.Body)
+			fmt.Printf("RabbitMQ: Received a message: %s\n", msg.Body)
 			json.Unmarshal(msg.Body, &dataSource)
 			mongodbclient.Set("data_sources", dataSource.Id, dataSource)
 			msg.Ack(false)
@@ -59,8 +59,7 @@ func UpdateDatabase() {
 func Status() bool {
 	ch, err := Conn.Channel()
 	if err != nil {
-		fmt.Println("health check rabbitmq messed shit up")
-		fmt.Println(err)
+		fmt.Println("RabbitMQ: Healtcheck error: ", err)
 	}
 
 	_, err = ch.QueueInspect(dataSourceQueue)

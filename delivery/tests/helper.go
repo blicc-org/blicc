@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -44,17 +43,21 @@ func GetMockApi() string {
 	return mockTestTarget
 }
 
-func TestDelivery(input string) (string, error) {
+func TestDelivery(input string, includeToken bool) (string, error) {
 
-	conn := getClientConn()
-	err := conn.WriteMessage(websocket.TextMessage, []byte(input))
+	conn, err := getClientConn(includeToken)
 	if err != nil {
-		log.Printf("Error occured by testing: %s \n", err)
+		return "", err
+	}
+
+	err = conn.WriteMessage(websocket.TextMessage, []byte(input))
+	if err != nil {
+		return "", err
 	}
 
 	_, jsonData, err := conn.ReadMessage()
 	if err != nil {
-		log.Printf("Error occured by testing: %s \n", err)
+		return "", err
 	}
 
 	result := string(jsonData)
@@ -63,7 +66,7 @@ func TestDelivery(input string) (string, error) {
 	return result, err
 }
 
-func getClientConn() *websocket.Conn {
+func getClientConn(includeToken bool) (*websocket.Conn, error) {
 	err := godotenv.Load(filepath.Join("../", ".env"))
 	if err != nil {
 		fmt.Println("Error fetching variables from .env file", err)
@@ -79,14 +82,16 @@ func getClientConn() *websocket.Conn {
 	token := getAcessToken(adminMail, adminPassword, apiTestTarget)
 
 	reqHeader := make(map[string][]string)
-	reqHeader["cookie"] = []string{token}
+	if includeToken {
+		reqHeader["cookie"] = []string{token}
+	}
 
 	conn, _, err := websocket.DefaultDialer.Dial(deliveryTestTarget+"/connection", reqHeader)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	return conn
+	return conn, err
 }
 
 func getAcessToken(adminMail string, adminPassword string, apiTestTarget string) string {

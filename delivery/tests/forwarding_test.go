@@ -13,7 +13,7 @@ func TestForwarding(t *testing.T) {
 	input := GetMock(pwd + "/mocks/forwarding_request.json")
 	input = strings.Replace(input, "{{url}}", mockApi, 1)
 	expected := GetMock(pwd + "/mocks/forwarding_expected.json")
-	result, err := TestDelivery(input)
+	result, err := TestDelivery(input, true)
 
 	if err != nil {
 		t.Fatal(err)

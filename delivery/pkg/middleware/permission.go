@@ -62,26 +62,58 @@ func validate(key *rsa.PublicKey, tokenString string) (permission userPermission
 	}
 }
 
-func Permission(next http.Handler) http.Handler {
+func contains(array []string, elem string) bool {
+	for _, item := range array {
+		if item == elem {
+			return true
+		}
+	}
+	return false
+}
+
+type permission struct {
+	users []string
+}
+
+func NewPermission(users []string) *permission {
+	return &permission{users}
+}
+
+/**
+* if users string is empty, all connections are allowed
+ */
+func (p *permission) Handler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("access_token")
 		if err != nil {
 			fmt.Println(err)
-			next.ServeHTTP(w, r)
-			return
+
+			if len(p.users) > 0 {
+				return
+			} else {
+				next.ServeHTTP(w, r)
+				return
+			}
 		}
 
 		key := getCertificate()
 
 		permission, err := validate(&key, cookie.Value)
 		if err != nil {
-			fmt.Println(err)
-			next.ServeHTTP(w, r)
-			return
+			if len(p.users) > 0 {
+				return
+			} else {
+				next.ServeHTTP(w, r)
+				return
+			}
 		}
 
-		ctx := context.WithValue(r.Context(), "userId", permission.UserId)
-		ctx = context.WithValue(ctx, "role", permission.Role)
-		next.ServeHTTP(w, r.WithContext(ctx))
+		if contains(p.users, permission.Role) {
+			ctx := context.WithValue(r.Context(), "userId", permission.UserId)
+			ctx = context.WithValue(ctx, "role", permission.Role)
+			next.ServeHTTP(w, r.WithContext(ctx))
+		} else {
+			return
+		}
 	})
 }

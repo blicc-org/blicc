@@ -71,7 +71,12 @@ func reader(conn *websocket.Conn) {
 
 			switch c := strings.Split(p.Channel, "/")[1]; c {
 			case "data-sources":
-				datasources.Handle(conn, &p.Channel, updating)
+				err := datasources.Handle(conn, &p.Channel, updating)
+				if err != nil {
+					log.Println("Closing connection due to error: ", err)
+					conn.Close()
+					return
+				}
 			case "forwarding":
 				forwarding.Handle(conn, &p.Channel, &p.Data)
 			default:

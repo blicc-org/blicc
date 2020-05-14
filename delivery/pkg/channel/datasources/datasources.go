@@ -31,16 +31,21 @@ type Header struct {
 
 var client = &http.Client{Timeout: 10 * time.Second}
 
-func Handle(conn *websocket.Conn, channel *string, updating map[string]bool) {
+func Handle(conn *websocket.Conn, channel *string, updating map[string]bool) (err error) {
 	s := strings.Split(*channel, "/")
 	id := s[2]
 
-	dataSource := mongodbclient.Get("data_sources", id)
+	dataSource, err := mongodbclient.Get("data_sources", id)
+	if err != nil {
+		return err
+	}
 
 	key := cachekey.Generate(channel, &dataSource.Data)
 
 	socketutil.WriteCacheToConn(conn, &key)
 	go run(conn, *channel, key, updating, dataSource.Data)
+
+	return err
 }
 
 func run(conn *websocket.Conn, channel string, key string, updating map[string]bool, payload json.RawMessage) {

@@ -45,7 +45,7 @@ func Start() {
 	router.Get("/health-check", handlers.Healthcheck(logger).ServeHTTP)
 
 	router.Route("/connection", func(router chi.Router) {
-		router.Use(middleware.Permission)
+		router.Use(middleware.NewPermission([]string{"user", "developer", "admin"}).Handler)
 		router.Get("/", handlers.Connection(logger).ServeHTTP)
 	})
 

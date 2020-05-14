@@ -43,18 +43,13 @@ func Set(collectionName string, id string, document interface{}) {
 	}
 }
 
-func Get(name string, id string) DataSource {
-
+func Get(name string, id string) (DataSource, error) {
 	var dataSource DataSource
 
 	filter := bson.M{"id": id}
 	err := Client.Database(DB).Collection(name).FindOne(Ctx, filter).Decode(&dataSource)
-	if err != nil {
-		fmt.Println("error occured while requesting against mongo db")
-		fmt.Println(err)
-	}
 
-	return dataSource
+	return dataSource, err
 }
 
 func Status() bool {
