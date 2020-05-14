@@ -1,4 +1,4 @@
-package helper
+package tests
 
 import (
 	"bytes"
@@ -39,7 +39,7 @@ func GetMock(path string) string {
 }
 
 func GetMockApi() string {
-	godotenv.Load(filepath.Join("../../../", ".env"))
+	godotenv.Load(filepath.Join("../", ".env"))
 	mockTestTarget := os.Getenv("MOCK_TEST_TARGET")
 	return mockTestTarget
 }
@@ -64,12 +64,17 @@ func TestDelivery(input string) (string, error) {
 }
 
 func getClientConn() *websocket.Conn {
-	godotenv.Load(filepath.Join("../../../", ".env"))
+	err := godotenv.Load(filepath.Join("../", ".env"))
+	if err != nil {
+		fmt.Println("Error fetching variables from .env file", err)
+	}
 
 	apiTestTarget := os.Getenv("API_TEST_TARGET")
 	deliveryTestTarget := os.Getenv("DELIVERY_TEST_TARGET_WEBSOCKET")
 	adminMail := os.Getenv("ADMIN_MAIL")
 	adminPassword := os.Getenv("ADMIN_PASSWORD")
+
+	fmt.Println(apiTestTarget)
 
 	token := getAcessToken(adminMail, adminPassword, apiTestTarget)
 
