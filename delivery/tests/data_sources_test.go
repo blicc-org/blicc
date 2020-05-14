@@ -2,17 +2,14 @@ package tests
 
 import (
 	"os"
-	"strings"
 	"testing"
 )
 
-func TestForwarding(t *testing.T) {
+func TestDataSources(t *testing.T) {
 	pwd, _ := os.Getwd()
-	mockApi := GetMockApi()
 
-	input := GetMock(pwd + "/mocks/forwarding_request.json")
-	input = strings.Replace(input, "{{url}}", mockApi, 1)
-	expected := GetMock(pwd + "/mocks/forwarding_expected.json")
+	input := GetMock(pwd + "/mocks/data_sources_request.json")
+	expected := GetMock(pwd + "/mocks/data_sources_expected.json")
 	result, err := TestDelivery(input)
 
 	if err != nil {

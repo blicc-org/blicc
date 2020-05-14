@@ -11,6 +11,7 @@ import (
 
 	"github.com/blicc-org/blicc/delivery/pkg/common/apidocs"
 	"github.com/blicc-org/blicc/delivery/pkg/common/flags"
+	"github.com/blicc-org/blicc/delivery/pkg/common/mongodbclient"
 	"github.com/blicc-org/blicc/delivery/pkg/common/rabbitmqclient"
 	"github.com/blicc-org/blicc/delivery/pkg/handlers"
 	"github.com/blicc-org/blicc/delivery/pkg/middleware"
@@ -24,6 +25,7 @@ func Start() {
 
 	apidocs.Generate()
 	rabbitmqclient.UpdateDatabase()
+	mongodbclient.Populate()
 
 	logger := log.New(os.Stdout, "delivery: ", log.LstdFlags)
 

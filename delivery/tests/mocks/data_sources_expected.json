@@ -1,0 +1,9 @@
+{
+  "channel": "/data-sources/123456",
+  "data": {
+    "datasets": [
+      { "data": "2020-02-14T20:51:00.840199+01:00", "label": "Date" }
+    ],
+    "labels": ["Date"]
+  }
+}

@@ -67,3 +67,22 @@ func Status() bool {
 	}
 	return true
 }
+
+func Populate() {
+
+	seed := DataSource{
+		Id:             "123456",
+		Title:          "Time",
+		Description:    "description...",
+		UserId:         "123456",
+		PersistData:    false,
+		FetchFrequency: 86400000,
+		CreationDate:   "2020-05-14T10:32:46.243Z",
+		Data: []byte(`{
+			"request": { "url": "https://mock.blicc.org/time", "headers": [] },
+			"query": "{labels: ['Date'], datasets: [{label: 'Date', data: datetime}]}"
+		  }`),
+	}
+
+	Set("data_sources", "123456", seed)
+}
