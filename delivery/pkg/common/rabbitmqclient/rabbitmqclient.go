@@ -44,7 +44,7 @@ func UpdateDatabase() {
 	}
 
 	go func() {
-		fmt.Println("waiting for messages to arrive...")
+		fmt.Println("Rabbitmq: waiting for messages to arrive...")
 		var dataSource DataSource
 
 		for msg := range messages {

@@ -52,8 +52,9 @@ func reader(conn *websocket.Conn) {
 	for {
 		messageType, jsonData, err := conn.ReadMessage()
 		if err != nil {
-			log.Println("Error occurred by reading incoming message!")
-			log.Println(err)
+			log.Println("Closing connection due to error: ", err)
+			conn.Close()
+			return
 		}
 
 		if messageType == websocket.TextMessage {
@@ -74,13 +75,14 @@ func reader(conn *websocket.Conn) {
 			case "forwarding":
 				forwarding.Handle(conn, &p.Channel, &p.Data)
 			default:
-				log.Println("No channel is matching")
+				log.Println("Closing connection due to no matching channel")
+				conn.Close()
+				return
 			}
 		} else {
+			log.Println("Closing connection due to wrong messageType: ", messageType)
 			conn.Close()
-			updating = make(map[string]bool)
-			log.Printf("wrong messageType: %d \n", messageType)
-			break
+			return
 		}
 	}
 }

@@ -20,3 +20,13 @@ func TestDataSources(t *testing.T) {
 		t.Fatal("received:\n" + result + "\ndoes not equal expected:\n" + expected)
 	}
 }
+
+func TestDataSourcesWrongChannel(t *testing.T) {
+	input := `{"channel": "/wrong-channel/123456"}`
+
+	_, err := TestDelivery(input)
+
+	if err.Error() != "websocket: close 1006 (abnormal closure): unexpected EOF" {
+		t.Fatal("connection did not close as expected")
+	}
+}
