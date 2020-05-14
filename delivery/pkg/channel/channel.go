@@ -12,6 +12,8 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+var CLOSE_UNSUPPORTED = 1003
+
 type Payload struct {
 	Channel string          `json:"channel"`
 	Data    json.RawMessage `json:"data,omitempty"`
@@ -53,7 +55,8 @@ func reader(conn *websocket.Conn) {
 		messageType, jsonData, err := conn.ReadMessage()
 		if err != nil {
 			log.Println("Closing connection due to error: ", err)
-			conn.Close()
+			close := conn.CloseHandler()
+			close(CLOSE_UNSUPPORTED, "Wrong input")
 			return
 		}
 
@@ -74,19 +77,22 @@ func reader(conn *websocket.Conn) {
 				err := datasources.Handle(conn, &p.Channel, updating)
 				if err != nil {
 					log.Println("Closing connection due to error: ", err)
-					conn.Close()
+					close := conn.CloseHandler()
+					close(CLOSE_UNSUPPORTED, "Wrong input")
 					return
 				}
 			case "forwarding":
 				forwarding.Handle(conn, &p.Channel, &p.Data)
 			default:
 				log.Println("Closing connection due to no matching channel")
-				conn.Close()
+				close := conn.CloseHandler()
+				close(CLOSE_UNSUPPORTED, "Wrong channel")
 				return
 			}
 		} else {
 			log.Println("Closing connection due to wrong messageType: ", messageType)
-			conn.Close()
+			close := conn.CloseHandler()
+			close(CLOSE_UNSUPPORTED, "Wrong message type")
 			return
 		}
 	}

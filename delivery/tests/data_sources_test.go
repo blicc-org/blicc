@@ -26,7 +26,7 @@ func TestDataSourcesWrongChannel(t *testing.T) {
 
 	_, err := TestDelivery(input, true)
 
-	if err.Error() != "websocket: close 1006 (abnormal closure): unexpected EOF" {
+	if err.Error() != "websocket: close 1003 (unsupported data)" {
 		t.Fatal("connection did not close as expected")
 	}
 }
@@ -36,7 +36,7 @@ func TestDataSourcesWrongId(t *testing.T) {
 
 	_, err := TestDelivery(input, true)
 
-	if err.Error() != "websocket: close 1006 (abnormal closure): unexpected EOF" {
+	if err.Error() != "websocket: close 1003 (unsupported data)" {
 		t.Fatal("connection did not close as expected")
 	}
 }

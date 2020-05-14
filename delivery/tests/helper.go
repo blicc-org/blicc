@@ -77,8 +77,6 @@ func getClientConn(includeToken bool) (*websocket.Conn, error) {
 	adminMail := os.Getenv("ADMIN_MAIL")
 	adminPassword := os.Getenv("ADMIN_PASSWORD")
 
-	fmt.Println(apiTestTarget)
-
 	token := getAcessToken(adminMail, adminPassword, apiTestTarget)
 
 	reqHeader := make(map[string][]string)
