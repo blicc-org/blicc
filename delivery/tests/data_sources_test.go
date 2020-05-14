@@ -7,8 +7,8 @@ import (
 )
 
 func TestDataSources(t *testing.T) {
-	input := mocks.Requests[0].ToString()
-	expected := mocks.Expected[0].ToString()
+	input := mocks.DataSourceRequests[0].ToString()
+	expected := mocks.DataSourceExpected[0].ToString()
 
 	result, err := TestDelivery(input, true)
 	if err != nil {

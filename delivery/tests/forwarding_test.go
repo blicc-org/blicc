@@ -1,18 +1,18 @@
 package tests
 
 import (
-	"os"
 	"strings"
 	"testing"
+
+	"github.com/blicc-org/blicc/delivery/tests/mocks"
 )
 
 func TestForwarding(t *testing.T) {
-	pwd, _ := os.Getwd()
 	mockApi := GetMockApi()
 
-	input := GetMock(pwd + "/mocks/forwarding_request.json")
+	input := mocks.ForwardingRequests[0].ToString()
 	input = strings.Replace(input, "{{url}}", mockApi, 1)
-	expected := GetMock(pwd + "/mocks/forwarding_expected.json")
+	expected := mocks.ForwardingExpected[0].ToString()
 	result, err := TestDelivery(input, true)
 
 	if err != nil {
