@@ -6,13 +6,6 @@ import { DELIVERY } from '../../config'
 export let socket: any = null
 export const cache: any = []
 
-export const WebSocketState = {
-  [WebSocket.CONNECTING]: 'connecting',
-  [WebSocket.OPEN]: 'open',
-  [WebSocket.CLOSING]: 'closing',
-  [WebSocket.CLOSED]: 'closed',
-}
-
 type Data = any
 type Callback = (data: Data) => void
 type Publish = (channel: string, data?: Data) => void
@@ -23,8 +16,8 @@ interface Stack<T> {
 }
 
 export function useEndpointWebSocket(): [Publish, Subscribe] {
-  const [queryStack, setQueryStack] = useState<Stack<any>>([])
-  const [subscriberStack, setSubscriberStack] = useState<Stack<any>>([])
+  const [cbStack, setCbStack] = useState<Stack<Callback>>({})
+  const [subStack, setSubStack] = useState<Stack<Data>>([])
   const [appState] = useContext(AppContext)
   const { loggedIn } = appState
   const initialState = socket !== null ? socket.readyState : WebSocket.CLOSED
@@ -36,12 +29,15 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
       socket = new WebSocket(`${DELIVERY.ORIGIN_WEBSOCKET}/connection`)
 
       socket.onopen = (): void => {
-        Object.keys(queryStack).forEach((channel) => {
-          const payload = JSON.stringify({ channel, data: queryStack[channel] })
+        Object.keys(cbStack).forEach((channel) => {
+          const payload = JSON.stringify({
+            channel,
+            data: cbStack[channel],
+          })
           socket.send(payload)
         })
         setState(WebSocket.OPEN)
-        setQueryStack([])
+        setCbStack({})
       }
 
       socket.onclose = (): void => {
@@ -65,9 +61,9 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
       socket.onmessage = (evt: any): void => {
         const { channel, data } = JSON.parse(evt.data)
         cache[channel] = data
-        if (channel && data && subscriberStack) {
-          for (const key of Object.keys(subscriberStack)) {
-            if (key.includes(channel)) subscriberStack[key](data)
+        if (channel && data && subStack) {
+          for (const key of Object.keys(subStack)) {
+            if (key.includes(channel)) subStack[key](data)
           }
         }
       }
@@ -81,7 +77,7 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
         socket = null
       }
     }
-  }, [loggedIn, subscriberStack, state, queryStack, setQueryStack])
+  }, [loggedIn, subStack, state, cbStack, setCbStack])
 
   useEffect(() => {
     return (): void => {
@@ -94,10 +90,10 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
   }, [])
 
   const publish: Publish = (channel: string, data: any = null): void => {
-    if (socket.readyState === WebSocket.OPEN) {
+    if (socket && socket.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify(data ? { channel, data } : { channel }))
     } else {
-      setQueryStack((prev: any): any => {
+      setCbStack((prev: any): any => {
         prev[channel] = data
         return prev
       })
@@ -110,13 +106,13 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
         return
       }
       const id = channel + uuid()
-      setSubscriberStack((stack: any) => ({
+      setSubStack((stack: Stack<Data>) => ({
         ...stack,
         [id]: callback,
       }))
       return cache[channel] ? cache[channel] : null
     },
-    [setSubscriberStack]
+    [setSubStack]
   )
 
   return [publish, subscribe]

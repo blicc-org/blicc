@@ -1,7 +1,7 @@
 export { useEndpoint } from './useEndpoint'
 export { useClickAway } from './useClickAway'
 export { useColor } from './useColor'
-export { useEndpointWebSocket, WebSocketState } from './useEndpointWebSocket'
+export { useEndpointWebSocket } from './useEndpointWebSocket'
 export { useLanguage } from './useLanguage'
 export { useLocalStorage } from './useLocalStorage'
 export { useMobile } from './useMobile'
