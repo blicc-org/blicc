@@ -9,6 +9,8 @@ export function Box({
   onDrop,
   isMobile,
   mask = MASK.SINGLE,
+  publish,
+  subscribe,
 }: any): ReactElement {
   const style = isMobile
     ? {}
@@ -32,11 +34,20 @@ export function Box({
               onDrop={onDrop}
               isMobile={isMobile}
               mask={arr.direction === 'row' ? MASK.ROW : MASK.COLUMN}
+              publish={publish}
+              subscribe={subscribe}
             />
           ))}
         </div>
       ) : (
-        <Plugin id={arr.id} onDrop={onDrop} mask={mask} isMobile={isMobile} />
+        <Plugin
+          id={arr.id}
+          onDrop={onDrop}
+          mask={mask}
+          isMobile={isMobile}
+          publish={publish}
+          subscribe={subscribe}
+        />
       )}
     </>
   )

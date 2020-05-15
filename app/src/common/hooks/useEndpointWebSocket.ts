@@ -75,6 +75,16 @@ export function useEndpointWebSocket(): Array<any> {
     }
   }, [loggedIn, subscriberStack, state, queryStack, setQueryStack])
 
+  useEffect(() => {
+    return () => {
+      if (socket) {
+        socket.close()
+        setState(WebSocket.CLOSED)
+        socket = null
+      }
+    }
+  }, [])
+
   function publish(channel: string, data: any = null): void {
     if (socket.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify(data ? { channel, data } : { channel }))

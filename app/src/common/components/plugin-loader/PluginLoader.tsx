@@ -1,13 +1,18 @@
 import React, { useEffect, useState, useRef, ReactElement } from 'react'
 import { Loading } from '../ui'
 import { API } from '../../../config'
-import { useSettings, useEndpointWebSocket } from '../../hooks'
+import { useSettings } from '../../hooks'
 
-export function PluginLoader({ id, type, keepAlive }: any): ReactElement {
+export function PluginLoader({
+  id,
+  type,
+  keepAlive,
+  publish,
+  subscribe,
+}: any): ReactElement {
   const [accessSet, insertSet] = useSettings()
   const [bundle, plugin] = type.split('/')
   const [loading, setLoading] = useState(true)
-  const [publish, subscribe] = useEndpointWebSocket()
   const ref = useRef<HTMLDivElement>(null)
   const dataSourceId = accessSet(id, 'data_source')
   const channel = `/data-sources/${dataSourceId}`

@@ -8,6 +8,7 @@ import {
   useMobile,
   useInstalled,
   useLanguage,
+  useEndpointWebSocket,
 } from '../../common/hooks'
 import { ArrangementContext, SettingsContext } from '../../common/context'
 import { MetaData } from '../../common/components/meta-data/MetaData'
@@ -25,6 +26,7 @@ import './DashboardView.scss'
 
 export function DashboardView({ match, location }: any): ReactElement {
   const content = useLanguage()
+  const [publish, subscribe] = useEndpointWebSocket()
   const isFullscreen = location.search === '?fullscreen'
   const [arrangement, setArrangement] = useContext(ArrangementContext)
   const [settings, setSettings] = useContext(SettingsContext)
@@ -127,7 +129,12 @@ export function DashboardView({ match, location }: any): ReactElement {
           <>
             {edit && <Toolbox />}
             {dashboard.data && (
-              <Arrangement edit={edit} isFullscreen={isFullscreen} />
+              <Arrangement
+                edit={edit}
+                isFullscreen={isFullscreen}
+                publish={publish}
+                subscribe={subscribe}
+              />
             )}
           </>
         ) : (

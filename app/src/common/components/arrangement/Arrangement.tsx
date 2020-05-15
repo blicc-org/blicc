@@ -3,7 +3,6 @@ import {
   useArrangement,
   useModal,
   useSettings,
-  useEndpointWebSocket,
   useMobile,
   useInstalled,
   ACTION,
@@ -18,11 +17,15 @@ import './Arrangement.scss'
 interface Props {
   edit?: boolean
   isFullscreen?: boolean
+  publish: Function
+  subscribe: Function
 }
 
 export function Arrangement({
   edit = false,
   isFullscreen = false,
+  publish,
+  subscribe,
 }: Props): ReactElement {
   const isMobile = useMobile()
   const isInstalled = useInstalled()
@@ -32,7 +35,6 @@ export function Arrangement({
   const [update, setUpdate] = useState(0)
   const trigger = (): void => setUpdate((prev) => ++prev)
   const [action, setAction] = useState(0)
-  const [publish] = useEndpointWebSocket()
 
   const arrangementStyle: any = isMobile
     ? {}
@@ -110,7 +112,14 @@ export function Arrangement({
         >
           {arr.items || arr.id ? (
             <div className="arrangement-border" style={arrangementStyle}>
-              <Box arr={arr} onDrop={onDrop} edit={edit} isMobile={isMobile} />
+              <Box
+                arr={arr}
+                onDrop={onDrop}
+                edit={edit}
+                isMobile={isMobile}
+                publish={publish}
+                subscribe={subscribe}
+              />
             </div>
           ) : (
             <DragHere edit={edit} onDrop={onDrop} />

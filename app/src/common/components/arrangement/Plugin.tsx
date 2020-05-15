@@ -16,7 +16,14 @@ export const UNIT = {
   TIME: 'time',
 }
 
-export function Plugin({ id, onDrop, mask, isMobile }: any): ReactElement {
+export function Plugin({
+  id,
+  onDrop,
+  mask,
+  isMobile,
+  publish,
+  subscribe,
+}: any): ReactElement {
   const [accessSet, insertSet, removeSet] = useSettings()
   const type = accessSet(id, 'chart_type')
   const [, , removeArr] = useArrangement()
@@ -92,7 +99,13 @@ export function Plugin({ id, onDrop, mask, isMobile }: any): ReactElement {
           />
         </div>
       </div>
-      <PluginLoader id={id} type={type} keepAlive={keepAlive} />
+      <PluginLoader
+        id={id}
+        type={type}
+        keepAlive={keepAlive}
+        publish={publish}
+        subscribe={subscribe}
+      />
       {dragging !== DRAG.NONE && (
         <Positioning
           onDrop={(type: any, payload: any): void =>
