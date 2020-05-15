@@ -64,18 +64,13 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
     if (wb.current && wb.current.readyState === WebSocket.OPEN) {
       wb.current.send(JSON.stringify(data ? { channel, data } : { channel }))
     } else {
-      setCb((prev) => {
-        prev[channel] = data
-        return prev
-      })
+      setCb((prev) => ({ ...prev, [channel]: data }))
     }
   }
 
   const subscribe: Subscribe = (channel, callback) => {
-    setSub((prev) => ({
-      ...prev,
-      [channel + uuid()]: callback,
-    }))
+    const key = channel + uuid()
+    setSub((prev) => ({ ...prev, [key]: callback }))
     return pub[channel]
   }
 
