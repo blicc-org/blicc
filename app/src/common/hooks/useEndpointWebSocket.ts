@@ -1,8 +1,7 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { v4 as uuid } from 'uuid'
 import { DELIVERY } from '../../config'
 
-export let socket: any = null
 export const cache: any = []
 
 type Data = any
@@ -15,33 +14,34 @@ interface Stack<T> {
 }
 
 export function useEndpointWebSocket(): [Publish, Subscribe] {
+  const wb = useRef<WebSocket | null>()
   const [cb, setCb] = useState<Stack<Callback>>({})
   const [sub, setSub] = useState<Stack<Data>>({})
 
   useEffect(() => {
-    if (!socket) {
-      socket = new WebSocket(`${DELIVERY.ORIGIN_WEBSOCKET}/connection`)
+    if (!wb.current) {
+      wb.current = new WebSocket(`${DELIVERY.ORIGIN_WEBSOCKET}/connection`)
 
-      socket.onopen = (): void => {
+      wb.current.onopen = (): void => {
         Object.keys(cb).forEach((channel) => {
           const payload = JSON.stringify({
             channel,
             data: cb[channel],
           })
-          socket.send(payload)
+          if (wb.current) wb.current.send(payload)
         })
         setCb({})
       }
 
-      socket.onclose = (): void => {
-        socket = null
+      wb.current.onclose = (): void => {
+        wb.current = null
       }
 
-      socket.onerror = (err: any): void => {
+      wb.current.onerror = (err: any): void => {
         console.log(`Websocket error: ${err}`)
       }
     } else {
-      socket.onmessage = (evt: any): void => {
+      wb.current.onmessage = (evt: any): void => {
         const { channel, data } = JSON.parse(evt.data)
         cache[channel] = data
         if (channel && data && sub) {
@@ -55,16 +55,16 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
 
   useEffect(() => {
     return (): void => {
-      if (socket) {
-        socket.close()
-        socket = null
+      if (wb.current) {
+        wb.current.close()
+        wb.current = null
       }
     }
   }, [])
 
   const publish: Publish = (channel: string, data: any = null): void => {
-    if (socket && socket.readyState === WebSocket.OPEN) {
-      socket.send(JSON.stringify(data ? { channel, data } : { channel }))
+    if (wb.current && wb.current.readyState === WebSocket.OPEN) {
+      wb.current.send(JSON.stringify(data ? { channel, data } : { channel }))
     } else {
       setCb((prev) => {
         prev[channel] = data
