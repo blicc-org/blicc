@@ -23,9 +23,9 @@ func trim(str string) string {
 	return str
 }
 
-func TestDelivery(input string, includeToken bool) (string, error) {
+func TestDelivery(input string, token string) (string, error) {
 
-	conn, err := getClientConn(includeToken)
+	conn, err := getClientConn(token)
 	if err != nil {
 		return "", err
 	}
@@ -46,13 +46,9 @@ func TestDelivery(input string, includeToken bool) (string, error) {
 	return result, err
 }
 
-func getClientConn(includeToken bool) (*websocket.Conn, error) {
-	token := getAcessToken(ADMIN_MAIL, ADMIN_PASSWORD)
-
+func getClientConn(token string) (*websocket.Conn, error) {
 	reqHeader := make(map[string][]string)
-	if includeToken {
-		reqHeader["cookie"] = []string{token}
-	}
+	reqHeader["cookie"] = []string{token}
 
 	conn, _, err := websocket.DefaultDialer.Dial(DELIVERY_TEST_TARGET_WEBSOCKET+"/connection", reqHeader)
 	if err != nil {
@@ -62,7 +58,7 @@ func getClientConn(includeToken bool) (*websocket.Conn, error) {
 	return conn, err
 }
 
-func getAcessToken(adminMail string, adminPassword string) string {
+func GetAcessToken(adminMail string, adminPassword string) string {
 	var jsonStr = []byte(`{"email":"` + adminMail + `", "password":"` + adminPassword + `"}`)
 
 	req, err := http.NewRequest("POST", API_TEST_TARGET+"/tokens", bytes.NewBuffer(jsonStr))

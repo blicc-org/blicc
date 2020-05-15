@@ -11,7 +11,10 @@ func TestForwarding(t *testing.T) {
 	input := mocks.ForwardingRequests[0].ToString()
 	input = strings.Replace(input, "{{url}}", MOCK_TEST_TARGET, 1)
 	expected := mocks.ForwardingExpected[0].ToString()
-	result, err := TestDelivery(input, true)
+
+	token := GetAcessToken(ADMIN_MAIL, ADMIN_PASSWORD)
+
+	result, err := TestDelivery(input, token)
 
 	if err != nil {
 		t.Fatal(err)
