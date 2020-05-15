@@ -3,14 +3,10 @@ package tests
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
 	"net/http"
-	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/gorilla/websocket"
-	"github.com/joho/godotenv"
 )
 
 func Equals(result string, expected string) bool {
@@ -25,22 +21,6 @@ func trim(str string) string {
 	str = strings.Replace(str, "\n", "", -1)
 	str = strings.Replace(str, " ", "", -1)
 	return str
-}
-
-func GetMock(path string) string {
-	b, err := ioutil.ReadFile(path)
-	if err != nil {
-		fmt.Print(err)
-	}
-
-	str := string(b)
-	return str
-}
-
-func GetMockApi() string {
-	godotenv.Load(filepath.Join("../", ".env"))
-	mockTestTarget := os.Getenv("MOCK_TEST_TARGET")
-	return mockTestTarget
 }
 
 func TestDelivery(input string, includeToken bool) (string, error) {
@@ -67,24 +47,14 @@ func TestDelivery(input string, includeToken bool) (string, error) {
 }
 
 func getClientConn(includeToken bool) (*websocket.Conn, error) {
-	err := godotenv.Load(filepath.Join("../", ".env"))
-	if err != nil {
-		fmt.Println("Error fetching variables from .env file", err)
-	}
-
-	apiTestTarget := os.Getenv("API_TEST_TARGET")
-	deliveryTestTarget := os.Getenv("DELIVERY_TEST_TARGET_WEBSOCKET")
-	adminMail := os.Getenv("ADMIN_MAIL")
-	adminPassword := os.Getenv("ADMIN_PASSWORD")
-
-	token := getAcessToken(adminMail, adminPassword, apiTestTarget)
+	token := getAcessToken(ADMIN_MAIL, ADMIN_PASSWORD)
 
 	reqHeader := make(map[string][]string)
 	if includeToken {
 		reqHeader["cookie"] = []string{token}
 	}
 
-	conn, _, err := websocket.DefaultDialer.Dial(deliveryTestTarget+"/connection", reqHeader)
+	conn, _, err := websocket.DefaultDialer.Dial(DELIVERY_TEST_TARGET_WEBSOCKET+"/connection", reqHeader)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -92,10 +62,10 @@ func getClientConn(includeToken bool) (*websocket.Conn, error) {
 	return conn, err
 }
 
-func getAcessToken(adminMail string, adminPassword string, apiTestTarget string) string {
+func getAcessToken(adminMail string, adminPassword string) string {
 	var jsonStr = []byte(`{"email":"` + adminMail + `", "password":"` + adminPassword + `"}`)
 
-	req, err := http.NewRequest("POST", apiTestTarget+"/tokens", bytes.NewBuffer(jsonStr))
+	req, err := http.NewRequest("POST", API_TEST_TARGET+"/tokens", bytes.NewBuffer(jsonStr))
 	if err != nil {
 		fmt.Println(err)
 	}

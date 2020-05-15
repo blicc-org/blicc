@@ -8,10 +8,8 @@ import (
 )
 
 func TestForwarding(t *testing.T) {
-	mockApi := GetMockApi()
-
 	input := mocks.ForwardingRequests[0].ToString()
-	input = strings.Replace(input, "{{url}}", mockApi, 1)
+	input = strings.Replace(input, "{{url}}", MOCK_TEST_TARGET, 1)
 	expected := mocks.ForwardingExpected[0].ToString()
 	result, err := TestDelivery(input, true)
 
