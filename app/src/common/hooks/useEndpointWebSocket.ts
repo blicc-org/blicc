@@ -23,7 +23,7 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
         const { channel, data } = JSON.parse(evt.data)
         setPub((prev) => ({ ...prev, [channel]: data }))
         if (channel && data) {
-          Object.keys(sub).map(key => {
+          Object.keys(sub).forEach((key) => {
             if (key.includes(channel)) sub[key](data)
           })
         }
@@ -32,10 +32,10 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
       wb.current = new WebSocket(`${DELIVERY.ORIGIN_WEBSOCKET}/connection`)
 
       wb.current.onopen = (): void => {
-        Object.keys(cb).map((channel) => {
+        Object.keys(cb).forEach((key) => {
           const payload = JSON.stringify({
-            channel,
-            data: cb[channel],
+            channel: key,
+            data: cb[key],
           })
           if (wb.current) wb.current.send(payload)
         })
