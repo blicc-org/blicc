@@ -2,8 +2,6 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 import { v4 as uuid } from 'uuid'
 import { DELIVERY } from '../../config'
 
-export const cache: any = []
-
 type Data = any
 type Callback = (data: Data) => void
 type Publish = (channel: string, data?: Data) => void
@@ -14,9 +12,10 @@ interface Stack<T> {
 }
 
 export function useEndpointWebSocket(): [Publish, Subscribe] {
-  const wb = useRef<WebSocket | null>()
   const [cb, setCb] = useState<Stack<Callback>>({})
   const [sub, setSub] = useState<Stack<Data>>({})
+  const [pub, setPub] = useState<Stack<Data>>({})
+  const wb = useRef<WebSocket | null>()
 
   useEffect(() => {
     if (!wb.current) {
@@ -42,7 +41,7 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
     } else {
       wb.current.onmessage = (evt: any): void => {
         const { channel, data } = JSON.parse(evt.data)
-        cache[channel] = data
+        setPub((prev) => ({ ...prev, [channel]: data }))
         if (channel && data && sub) {
           for (const key of Object.keys(sub)) {
             if (key.includes(channel)) sub[key](data)
@@ -77,7 +76,7 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
       ...prev,
       [channel + uuid()]: callback,
     }))
-    return cache[channel]
+    return pub[channel]
   }
 
   return [publish, subscribe]
