@@ -12,19 +12,19 @@ interface Stack<T> {
 }
 
 export function useEndpointWebSocket(): [Publish, Subscribe] {
-  const [cb, setCb] = useState<Stack<Callback>>({})
-  const [sub, setSub] = useState<Stack<Data>>({})
-  const [pub, setPub] = useState<Stack<Data>>({})
+  const [callbackStack, setCallbackStack] = useState<Stack<Callback>>({})
+  const [outgoing, setOutgoing] = useState<Stack<Data>>({})
+  const [incoming, setIncoming] = useState<Stack<Data>>({})
   const wb = useRef<WebSocket | null>()
 
   useEffect(() => {
     if (wb.current) {
       wb.current.onmessage = (evt: any): void => {
         const { channel, data } = JSON.parse(evt.data)
-        setPub((prev) => ({ ...prev, [channel]: data }))
+        setIncoming((prev) => ({ ...prev, [channel]: data }))
         if (channel && data) {
-          Object.keys(sub).forEach((key) => {
-            if (key.includes(channel)) sub[key](data)
+          Object.keys(callbackStack).forEach((key) => {
+            if (key.includes(channel)) callbackStack[key](data)
           })
         }
       }
@@ -32,10 +32,10 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
       wb.current = new WebSocket(`${DELIVERY.ORIGIN_WEBSOCKET}/connection`)
 
       wb.current.onopen = (): void => {
-        Object.keys(cb).forEach((key) => {
+        Object.keys(outgoing).forEach((key) => {
           const payload = JSON.stringify({
             channel: key,
-            data: cb[key],
+            data: outgoing[key],
           })
           if (wb.current) wb.current.send(payload)
         })
@@ -47,7 +47,7 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
 
       wb.current.onerror = (evt: Event): void => console.log(evt)
     }
-  }, [sub, cb, setCb])
+  }, [incoming, outgoing, callbackStack])
 
   useEffect(() => {
     return (): void => {
@@ -62,14 +62,14 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
     if (wb.current && wb.current.readyState === WebSocket.OPEN) {
       wb.current.send(JSON.stringify(data ? { channel, data } : { channel }))
     } else {
-      setCb((prev) => ({ ...prev, [channel]: data }))
+      setOutgoing((prev) => ({ ...prev, [channel]: data }))
     }
   }
 
   const subscribe: Subscribe = (channel, callback) => {
     const key = channel + uuid()
-    setSub((prev) => ({ ...prev, [key]: callback }))
-    return pub[channel]
+    setCallbackStack((prev) => ({ ...prev, [key]: callback }))
+    return incoming[channel]
   }
 
   return [publish, subscribe]
