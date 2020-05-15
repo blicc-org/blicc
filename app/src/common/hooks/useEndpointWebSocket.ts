@@ -1,6 +1,5 @@
-import { useEffect, useState, useContext, useCallback } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { v4 as uuid } from 'uuid'
-import { AppContext } from '../context'
 import { DELIVERY } from '../../config'
 
 export let socket: any = null
@@ -16,24 +15,22 @@ interface Stack<T> {
 }
 
 export function useEndpointWebSocket(): [Publish, Subscribe] {
-  const [cbStack, setCbStack] = useState<Stack<Callback>>({})
-  const [subStack, setSubStack] = useState<Stack<Data>>([])
-  const [appState] = useContext(AppContext)
-  const { loggedIn } = appState
+  const [cb, setCb] = useState<Stack<Callback>>({})
+  const [sub, setSub] = useState<Stack<Data>>({})
 
   useEffect(() => {
-    if (loggedIn && socket === null) {
+    if (!socket) {
       socket = new WebSocket(`${DELIVERY.ORIGIN_WEBSOCKET}/connection`)
 
       socket.onopen = (): void => {
-        Object.keys(cbStack).forEach((channel) => {
+        Object.keys(cb).forEach((channel) => {
           const payload = JSON.stringify({
             channel,
-            data: cbStack[channel],
+            data: cb[channel],
           })
           socket.send(payload)
         })
-        setCbStack({})
+        setCb({})
       }
 
       socket.onclose = (): void => {
@@ -41,37 +38,20 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
       }
 
       socket.onerror = (err: any): void => {
-        console.log(
-          `An websocket error occured: ${JSON.stringify(err, [
-            'message',
-            'arguments',
-            'type',
-            'name',
-          ])}`
-        )
+        console.log(`Websocket error: ${err}`)
       }
-    }
-
-    if (loggedIn && socket !== null) {
+    } else {
       socket.onmessage = (evt: any): void => {
         const { channel, data } = JSON.parse(evt.data)
         cache[channel] = data
-        if (channel && data && subStack) {
-          for (const key of Object.keys(subStack)) {
-            if (key.includes(channel)) subStack[key](data)
+        if (channel && data && sub) {
+          for (const key of Object.keys(sub)) {
+            if (key.includes(channel)) sub[key](data)
           }
         }
       }
     }
-
-    if (!loggedIn && socket !== null) {
-      socket.close()
-
-      return (): void => {
-        socket = null
-      }
-    }
-  }, [loggedIn, subStack, cbStack, setCbStack])
+  }, [sub, cb, setCb])
 
   useEffect(() => {
     return (): void => {
@@ -86,7 +66,7 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
     if (socket && socket.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify(data ? { channel, data } : { channel }))
     } else {
-      setCbStack((prev: any): any => {
+      setCb((prev: any): any => {
         prev[channel] = data
         return prev
       })
@@ -99,13 +79,13 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
         return
       }
       const key = channel + uuid()
-      setSubStack((stack: Stack<Data>) => ({
+      setSub((stack: Stack<Data>) => ({
         ...stack,
         [key]: callback,
       }))
       return cache[channel]
     },
-    [setSubStack]
+    [setSub]
   )
 
   return [publish, subscribe]
