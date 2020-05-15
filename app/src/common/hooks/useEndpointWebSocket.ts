@@ -18,7 +18,17 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
   const wb = useRef<WebSocket | null>()
 
   useEffect(() => {
-    if (!wb.current) {
+    if (wb.current) {
+      wb.current.onmessage = (evt: any): void => {
+        const { channel, data } = JSON.parse(evt.data)
+        setPub((prev) => ({ ...prev, [channel]: data }))
+        if (channel && data && sub) {
+          for (const key of Object.keys(sub)) {
+            if (key.includes(channel)) sub[key](data)
+          }
+        }
+      }
+    } else {
       wb.current = new WebSocket(`${DELIVERY.ORIGIN_WEBSOCKET}/connection`)
 
       wb.current.onopen = (): void => {
@@ -35,19 +45,7 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
         wb.current = null
       }
 
-      wb.current.onerror = (err: any): void => {
-        console.log(`Websocket error: ${err}`)
-      }
-    } else {
-      wb.current.onmessage = (evt: any): void => {
-        const { channel, data } = JSON.parse(evt.data)
-        setPub((prev) => ({ ...prev, [channel]: data }))
-        if (channel && data && sub) {
-          for (const key of Object.keys(sub)) {
-            if (key.includes(channel)) sub[key](data)
-          }
-        }
-      }
+      wb.current.onerror = (evt: Event): void => console.log(evt)
     }
   }, [sub, cb, setCb])
 
