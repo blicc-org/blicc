@@ -72,20 +72,13 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
     }
   }
 
-  const subscribe: Subscribe = useCallback(
-    (channel, callback) => {
-      if (typeof callback !== 'function') {
-        return
-      }
-      const key = channel + uuid()
-      setSub((prev) => ({
-        ...prev,
-        [key]: callback,
-      }))
-      return cache[channel]
-    },
-    [setSub]
-  )
+  const subscribe: Subscribe = (channel, callback) => {
+    setSub((prev) => ({
+      ...prev,
+      [channel + uuid()]: callback,
+    }))
+    return cache[channel]
+  }
 
   return [publish, subscribe]
 }
