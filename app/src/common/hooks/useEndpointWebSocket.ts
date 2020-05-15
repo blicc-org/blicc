@@ -66,7 +66,7 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
     if (socket && socket.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify(data ? { channel, data } : { channel }))
     } else {
-      setCb((prev: any): any => {
+      setCb((prev) => {
         prev[channel] = data
         return prev
       })
@@ -79,8 +79,8 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
         return
       }
       const key = channel + uuid()
-      setSub((stack: Stack<Data>) => ({
-        ...stack,
+      setSub((prev) => ({
+        ...prev,
         [key]: callback,
       }))
       return cache[channel]
