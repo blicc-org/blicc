@@ -76,7 +76,7 @@ export function useEndpointWebSocket(): Array<any> {
   }, [loggedIn, subscriberStack, state, queryStack, setQueryStack])
 
   useEffect(() => {
-    return () => {
+    return (): void => {
       if (socket) {
         socket.close()
         setState(WebSocket.CLOSED)
