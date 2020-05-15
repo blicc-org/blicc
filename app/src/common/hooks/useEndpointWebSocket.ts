@@ -30,7 +30,6 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
           })
           if (wb.current) wb.current.send(payload)
         })
-        setCb({})
       }
 
       wb.current.onclose = (): void => {
