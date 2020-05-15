@@ -1,8 +1,7 @@
 import { useEffect, useState, useContext, useCallback } from 'react'
 import { v4 as uuid } from 'uuid'
-import { SubscriberContext, AppContext } from '../context'
+import { AppContext } from '../context'
 import { DELIVERY } from '../../config'
-import { QueryStackContext } from '../context/QueryStackContext'
 
 export let socket: any = null
 export const cache: any = []
@@ -14,9 +13,18 @@ export const WebSocketState = {
   [WebSocket.CLOSED]: 'closed',
 }
 
-export function useEndpointWebSocket(): Array<any> {
-  const [queryStack, setQueryStack] = useContext(QueryStackContext)
-  const [subscriberStack, setSubscriberStack] = useContext(SubscriberContext)
+type Data = any
+type Callback = (data: Data) => void
+type Publish = (channel: string, data?: Data) => void
+type Subscribe = (channel: string, callback: Callback) => Data
+
+interface Stack<T> {
+  [key: string]: T
+}
+
+export function useEndpointWebSocket(): [Publish, Subscribe] {
+  const [queryStack, setQueryStack] = useState<Stack<any>>([])
+  const [subscriberStack, setSubscriberStack] = useState<Stack<any>>([])
   const [appState] = useContext(AppContext)
   const { loggedIn } = appState
   const initialState = socket !== null ? socket.readyState : WebSocket.CLOSED
@@ -85,7 +93,7 @@ export function useEndpointWebSocket(): Array<any> {
     }
   }, [])
 
-  function publish(channel: string, data: any = null): void {
+  const publish: Publish = (channel: string, data: any = null): void => {
     if (socket.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify(data ? { channel, data } : { channel }))
     } else {
@@ -96,7 +104,7 @@ export function useEndpointWebSocket(): Array<any> {
     }
   }
 
-  const subscribe = useCallback(
+  const subscribe: Subscribe = useCallback(
     (channel, callback) => {
       if (typeof callback !== 'function') {
         return
@@ -111,5 +119,5 @@ export function useEndpointWebSocket(): Array<any> {
     [setSubscriberStack]
   )
 
-  return [publish, subscribe, state]
+  return [publish, subscribe]
 }

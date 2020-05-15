@@ -40,7 +40,7 @@ export function DataSourceView({ match, location }: any): ReactElement {
   const path = `/data-sources/${match.params.id}`
   const [, access, update, remove] = useEndpoint(path)
   const [dataSource, setDataSource] = useState(INITIAL)
-  const [publish, subscribe, state] = useEndpointWebSocket()
+  const [publish, subscribe] = useEndpointWebSocket()
   const [input, setInput] = useState('')
   const stringify = (s: any): string => JSON.stringify(s, null, 4)
   const { id, title, description, data } = dataSource
@@ -56,7 +56,7 @@ export function DataSourceView({ match, location }: any): ReactElement {
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   useEffect(() => {
-    if (state === WebSocket.OPEN && url) {
+    if (url) {
       subscribe(channel, (str: any) => {
         setInput(stringify(str))
       })
@@ -69,7 +69,7 @@ export function DataSourceView({ match, location }: any): ReactElement {
       publish(channel, publishBody)
     }
     // eslint-disable-next-line
-  }, [url, state])
+  }, [url])
 
   useEffect(() => {
     async function fetchData(): Promise<void> {
