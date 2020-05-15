@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { v4 as uuid } from 'uuid'
 import { DELIVERY } from '../../config'
 
