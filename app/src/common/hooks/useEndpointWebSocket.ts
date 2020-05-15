@@ -20,12 +20,9 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
   const [subStack, setSubStack] = useState<Stack<Data>>([])
   const [appState] = useContext(AppContext)
   const { loggedIn } = appState
-  const initialState = socket !== null ? socket.readyState : WebSocket.CLOSED
-  const [state, setState] = useState(initialState)
 
   useEffect(() => {
     if (loggedIn && socket === null) {
-      setState(WebSocket.CONNECTING)
       socket = new WebSocket(`${DELIVERY.ORIGIN_WEBSOCKET}/connection`)
 
       socket.onopen = (): void => {
@@ -36,13 +33,11 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
           })
           socket.send(payload)
         })
-        setState(WebSocket.OPEN)
         setCbStack({})
       }
 
       socket.onclose = (): void => {
         socket = null
-        setState(WebSocket.CLOSED)
       }
 
       socket.onerror = (err: any): void => {
@@ -71,19 +66,17 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
 
     if (!loggedIn && socket !== null) {
       socket.close()
-      setState(WebSocket.CLOSING)
 
       return (): void => {
         socket = null
       }
     }
-  }, [loggedIn, subStack, state, cbStack, setCbStack])
+  }, [loggedIn, subStack, cbStack, setCbStack])
 
   useEffect(() => {
     return (): void => {
       if (socket) {
         socket.close()
-        setState(WebSocket.CLOSED)
         socket = null
       }
     }
@@ -105,12 +98,12 @@ export function useEndpointWebSocket(): [Publish, Subscribe] {
       if (typeof callback !== 'function') {
         return
       }
-      const id = channel + uuid()
+      const key = channel + uuid()
       setSubStack((stack: Stack<Data>) => ({
         ...stack,
-        [id]: callback,
+        [key]: callback,
       }))
-      return cache[channel] ? cache[channel] : null
+      return cache[channel]
     },
     [setSubStack]
   )
