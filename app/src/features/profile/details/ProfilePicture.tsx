@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { Upload } from 'react-feather'
-import { API } from '../../../config'
 import { Image } from '../../../common/components/ui'
 import { useMobile, useModal, useEndpoint } from '../../../common/hooks'
 import { ProfilePictureModal } from './ProfilePictureModal'

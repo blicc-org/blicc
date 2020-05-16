@@ -2,7 +2,6 @@ import React, { useState, useEffect, ReactElement } from 'react'
 import statusCode from 'http-status-codes'
 import { useEndpoint } from '../../hooks'
 import { Image } from '../ui'
-import { API } from '../../../config'
 import { Chart, List } from '../../interfaces'
 
 export function SelectChartModal({ cancel, submit }: any): ReactElement {

@@ -4,7 +4,6 @@ import statusCode from 'http-status-codes'
 import { Link } from 'react-router-dom'
 import { User } from 'react-feather'
 import { useLogout, useAdmin } from '../../hooks'
-import { API } from '../../../config'
 
 export function NavbarUser({
   id,
@@ -36,11 +35,11 @@ export function NavbarUser({
   )
 
   useEffect(() => {
-    async function getImgData() {
+    async function getImgData(): Promise<void> {
       const [status, data] = await access()
       if (status === statusCode.OK) {
         const reader = new FileReader()
-        reader.onload = () => {
+        reader.onload = (): void => {
           if (imgRef.current) {
             imgRef.current.src =
               typeof reader.result === 'string' ? reader.result : ''

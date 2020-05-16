@@ -4,7 +4,6 @@ import { Image as Placeholder } from 'react-feather'
 import { Loading } from './Loading'
 import { lightgray } from '../../../Theme.scss'
 import { useEndpoint, Accept } from '../../hooks'
-import { API } from '../../../config'
 
 const State = {
   LOADING: 0,
@@ -19,11 +18,11 @@ export function Image({ width, height, path }: any): ReactElement {
   const [, access] = useEndpoint(path, undefined, Accept.JPEG)
 
   useEffect(() => {
-    async function getImgData() {
+    async function getImgData(): Promise<void> {
       const [status, data] = await access()
       if (status === statusCode.OK) {
         const reader = new FileReader()
-        reader.onload = () => {
+        reader.onload = (): void => {
           if (ref.current) {
             ref.current.src =
               typeof reader.result === 'string' ? reader.result : ''
