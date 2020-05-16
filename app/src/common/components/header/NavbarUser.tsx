@@ -45,13 +45,15 @@ export function NavbarUser({
               typeof reader.result === 'string' ? reader.result : ''
           }
         }
+
+        setDefaultIcon(false)
         reader.readAsDataURL(data)
       } else {
         setDefaultIcon(true)
       }
     }
     getImgData()
-  }, [])
+  }, [id])
 
   return (
     <>
