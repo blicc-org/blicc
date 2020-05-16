@@ -37,7 +37,7 @@ export function Item({
       {thumbnail && (
         <Link to={link} className={styles.image}>
           <Image
-            src={thumbnail}
+            path={thumbnail}
             width={isMobile ? mobile.width : desktop.width}
             height={isMobile ? mobile.height : desktop.height}
           />

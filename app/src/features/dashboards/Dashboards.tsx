@@ -14,7 +14,6 @@ import {
   ButtonType,
 } from '../../common/components/ui'
 import { Dashboard, List } from '../../common/interfaces'
-import { API } from '../../config'
 
 export const INITIAL_DASHBOARD = {
   title: '',
@@ -95,7 +94,7 @@ export function Dashboards(): ReactElement {
           {(item): ReactElement => (
             <Item
               key={item.id}
-              thumbnail={`${API.ORIGIN}/dashboard-thumbnails/${item.id}.jpg`}
+              thumbnail={`/dashboard-thumbnails/${item.id}.jpg`}
               title={item.title}
               subtitle={format(item.creationDate)}
               description={item.description}

@@ -1,7 +1,10 @@
-import React, { useState, ReactElement } from 'react'
+import React, { useState, ReactElement, useEffect, useRef } from 'react'
+import statusCode from 'http-status-codes'
 import { Image as Placeholder } from 'react-feather'
 import { Loading } from './Loading'
 import { lightgray } from '../../../Theme.scss'
+import { useEndpoint, Accept } from '../../hooks'
+import { API } from '../../../config'
 
 const State = {
   LOADING: 0,
@@ -9,11 +12,31 @@ const State = {
   ERROR: 2,
 }
 
-export function Image({ width, height, src }: any): ReactElement {
+export function Image({ width, height, path }: any): ReactElement {
+  const ref = useRef<HTMLImageElement>(null)
   const iconSize = 48
   const [state, setState] = useState(State.LOADING)
-  const onLoad = (): void => setState(State.SUCCESS)
-  const onError = (): void => setState(State.ERROR)
+  const [, access] = useEndpoint(path, undefined, Accept.JPEG)
+
+  useEffect(() => {
+    async function getImgData() {
+      const [status, data] = await access()
+      if (status === statusCode.OK) {
+        const reader = new FileReader()
+        reader.onload = () => {
+          if (ref.current) {
+            ref.current.src =
+              typeof reader.result === 'string' ? reader.result : ''
+          }
+        }
+        reader.readAsDataURL(data)
+        setState(State.SUCCESS)
+      } else {
+        setState(State.ERROR)
+      }
+    }
+    getImgData()
+  }, [])
 
   const style = {
     width,
@@ -39,12 +62,10 @@ export function Image({ width, height, src }: any): ReactElement {
       )}
       {(state === State.LOADING || state === State.SUCCESS) && (
         <img
+          ref={ref}
           alt=""
           width={width}
           height={height}
-          src={src}
-          onLoad={onLoad}
-          onError={onError}
           style={{ display: state === State.LOADING ? 'none' : 'flex' }}
         />
       )}

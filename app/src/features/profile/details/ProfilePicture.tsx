@@ -38,7 +38,7 @@ export function ProfilePicture({ user }: Props): ReactElement {
           <Image
             width={length}
             height={length}
-            src={`${API.ORIGIN}/profile-pictures/${user.id}.jpg`}
+            path={`/profile-pictures/${user.id}.jpg`}
           />
         ) : (
           <div style={{ width: length, height: length }} />

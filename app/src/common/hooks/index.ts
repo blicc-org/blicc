@@ -1,4 +1,4 @@
-export { useEndpoint } from './useEndpoint'
+export { useEndpoint, Accept } from './useEndpoint'
 export { useClickAway } from './useClickAway'
 export { useColor } from './useColor'
 export { useEndpointWebSocket } from './useEndpointWebSocket'

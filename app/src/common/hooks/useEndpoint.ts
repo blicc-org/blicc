@@ -3,9 +3,15 @@ import { API } from '../../config'
 import { useLogout } from './useLogout'
 import { useRefresh } from './useRefresh'
 
+export enum Accept {
+  JSON = 'application/json',
+  JPEG = 'image/jpeg',
+}
+
 export function useEndpoint(
   path = '',
-  origin: string = API.ORIGIN
+  origin: string = API.ORIGIN,
+  accept: Accept = Accept.JSON
 ): Array<any> {
   let fullPath = `${origin}${path}`
   const logout = useLogout()
@@ -37,7 +43,7 @@ export function useEndpoint(
       ...defaultConfig,
       method: 'GET',
       headers: {
-        Accept: 'application/json',
+        Accept: accept,
       },
       ...config,
     })
@@ -69,8 +75,9 @@ export function useEndpoint(
 
   async function handleRequest(url: string, config: any): Promise<Array<any>> {
     const res = await fetch(url, config)
+    let data = null
     const { status } = res
-    const result = [status, {}]
+    const result = [status, data]
 
     if (status === statusCode.NO_CONTENT) return result
 
@@ -89,7 +96,10 @@ export function useEndpoint(
 
     if (status >= 400) return result
 
-    return [status, await res.json()]
+    if (accept === Accept.JSON) data = await res.json()
+    if (accept === Accept.JPEG) data = await res.blob()
+
+    return [status, data]
   }
 
   function isHealthCheckInvalid(status: any): boolean {

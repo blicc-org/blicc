@@ -1,5 +1,6 @@
-import React, { useState, useRef, ReactElement } from 'react'
-import { useLanguage, useClickAway } from '../../hooks'
+import React, { useState, useRef, ReactElement, useEffect } from 'react'
+import { useLanguage, useClickAway, useEndpoint, Accept } from '../../hooks'
+import statusCode from 'http-status-codes'
 import { Link } from 'react-router-dom'
 import { User } from 'react-feather'
 import { useLogout, useAdmin } from '../../hooks'
@@ -11,6 +12,7 @@ export function NavbarUser({
   lastName,
   loggedIn,
 }: any): ReactElement {
+  const imgRef = useRef<HTMLImageElement>(null)
   const [defaultIcon, setDefaultIcon] = useState(false)
   const content = useLanguage()
   const [open, setOpen] = useState(false)
@@ -26,6 +28,31 @@ export function NavbarUser({
   function close(): void {
     setOpen(false)
   }
+
+  const [, access] = useEndpoint(
+    `/profile-pictures/${id}.jpg?resolution=160x160`,
+    undefined,
+    Accept.JPEG
+  )
+
+  useEffect(() => {
+    async function getImgData() {
+      const [status, data] = await access()
+      if (status === statusCode.OK) {
+        const reader = new FileReader()
+        reader.onload = () => {
+          if (imgRef.current) {
+            imgRef.current.src =
+              typeof reader.result === 'string' ? reader.result : ''
+          }
+        }
+        reader.readAsDataURL(data)
+      } else {
+        setDefaultIcon(true)
+      }
+    }
+    getImgData()
+  }, [])
 
   return (
     <>
@@ -49,12 +76,11 @@ export function NavbarUser({
               <User className="user" size={24}></User>
             ) : (
               <img
+                ref={imgRef}
                 alt=""
                 className="user"
                 width={24}
                 height={24}
-                src={`${API.ORIGIN}/profile-pictures/${id}.jpg?resolution=160x160`}
-                onError={(): void => setDefaultIcon(true)}
               />
             )}
           </a>
