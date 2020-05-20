@@ -124,11 +124,11 @@ test-api:
     - yarn
     - yarn --cwd 'api' cross-env API_TEST_TARGET=$API_TEST_TARGET jest
 
-# test-delivery:
-#   stage: test
-#   image: golang:1.13
-#   script:
-#     - cd ./delivery/tests && go test .
+test-delivery:
+  stage: test
+  image: golang:1.13
+  script:
+    - cd ./delivery/tests && go test .
 
 deploy:
   stage: deploy
