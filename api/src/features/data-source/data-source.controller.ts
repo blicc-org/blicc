@@ -12,21 +12,13 @@ export class DataSourceController {
 
   public async create(ctx: Koa.DefaultContext, next: Function): Promise<void> {
     await next()
-    const {
-      title,
-      description = '',
-      data,
-      persistData,
-      fetchFrequency,
-    } = ctx.request.body
+    const { title, description = '', data } = ctx.request.body
     const { userId } = ctx.state.jwt
     const dataSource = await this.dataSourceService.create(
       title,
       description,
       userId,
-      data,
-      persistData,
-      fetchFrequency
+      data
     )
     ctx.body = dataSource
     ctx.status = 201
@@ -60,8 +52,6 @@ export class DataSourceController {
       'userId',
       'creationDate',
       'data',
-      'persistData',
-      'fetchFrequency',
     ])
     const searchTerm = Validation.escapeSearchQuery(ctx.query.search)
     const skip = Validation.escapeQueryNumber(ctx.query.skip)

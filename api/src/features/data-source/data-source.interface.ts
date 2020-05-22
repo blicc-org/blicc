@@ -5,6 +5,4 @@ export interface DataSource {
   userId?: string
   creationDate?: string
   data?: object
-  persistData?: boolean
-  fetchFrequency?: number
 }

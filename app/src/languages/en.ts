@@ -11,7 +11,6 @@ const en = {
   creationDate: 'Creation date',
   delete: 'Delete',
   deleteWarning: 'Keep in mind that you cannot restore the deleted resource.',
-  persistData: 'Persist data',
   interval: 'Interval',
   dashboard: 'Dashboard',
   chart: 'Chart',

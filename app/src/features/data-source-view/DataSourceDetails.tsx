@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from '../../common/components/ui'
-import { FREQUENCY } from '../data-sources/DataSources'
 import { useLanguage } from '../../common/hooks'
 
 export function DataSourceDetails({
@@ -11,13 +10,7 @@ export function DataSourceDetails({
   remove,
 }: any): ReactElement {
   const content = useLanguage()
-  const {
-    title,
-    description,
-    persistData,
-    fetchFrequency,
-    creationDate,
-  } = dataSource
+  const { title, description, creationDate } = dataSource
   return (
     <div className="col px-0">
       <Card title="Details">
@@ -60,55 +53,6 @@ export function DataSourceDetails({
                   ></textarea>
                 ) : (
                   description
-                )}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <b>{content.persistData}:</b>
-              </td>
-              <td>
-                {edit ? (
-                  <input
-                    type="checkbox"
-                    className="my-2"
-                    checked={persistData}
-                    onChange={(evt): void =>
-                      setDataSource({
-                        ...dataSource,
-                        persistData: evt.target.checked,
-                      })
-                    }
-                  />
-                ) : persistData ? (
-                  'enabled'
-                ) : (
-                  'disabled'
-                )}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <b>{content.interval}:</b>
-              </td>
-              <td>
-                {edit ? (
-                  <select
-                    className="form-control col-md-4 my-2"
-                    value={fetchFrequency}
-                    onChange={(evt): void =>
-                      setDataSource({
-                        ...dataSource,
-                        fetchFrequency: parseInt(evt.target.value),
-                      })
-                    }
-                  >
-                    <option value={FREQUENCY.DAILY}>daily</option>
-                    <option value={FREQUENCY.MONTHLY}>monthly</option>
-                    <option value={FREQUENCY.YEARLY}>yearly</option>
-                  </select>
-                ) : (
-                  <>Every {fetchFrequency / (60 * 60 * 1000)} hours</>
                 )}
               </td>
             </tr>

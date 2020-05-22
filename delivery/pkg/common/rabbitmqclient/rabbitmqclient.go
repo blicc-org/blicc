@@ -9,14 +9,12 @@ import (
 )
 
 type DataSource struct {
-	Id             string          `json:"id"`
-	Title          string          `json:"title"`
-	Description    string          `json:"description"`
-	UserId         string          `json:"userId"`
-	PersistData    bool            `json:"persistData"`
-	FetchFrequency int32           `json:"fetchFrequency"`
-	CreationDate   string          `json:"creationDate"`
-	Data           json.RawMessage `json:"data"`
+	Id           string          `json:"id"`
+	Title        string          `json:"title"`
+	Description  string          `json:"description"`
+	UserId       string          `json:"userId"`
+	CreationDate string          `json:"creationDate"`
+	Data         json.RawMessage `json:"data"`
 }
 
 var dataSourceQueue = "data_source"

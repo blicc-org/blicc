@@ -27,12 +27,6 @@ export class DataSourceEntity extends BaseEntity {
   public data: object
 
   @Column()
-  public persistData: boolean
-
-  @Column({ type: 'bigint' })
-  public fetchFrequency: number
-
-  @Column()
   public creationDate?: string
 
   @BeforeInsert()
@@ -46,16 +40,12 @@ export class DataSourceEntity extends BaseEntity {
     title: string,
     description: string,
     userId: string,
-    data: object,
-    persistData: boolean,
-    fetchFrequency: number
+    data: object
   ) {
     super()
     this.title = title
     this.description = description
     this.userId = userId
     this.data = data
-    this.persistData = persistData
-    this.fetchFrequency = fetchFrequency
   }
 }

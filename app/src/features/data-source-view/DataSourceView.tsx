@@ -22,8 +22,6 @@ const INITIAL = {
   id: undefined,
   title: '',
   description: '',
-  persistData: false,
-  fetchFrequency: 0,
   creationDate: '',
   data: {
     request: {

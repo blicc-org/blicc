@@ -48,14 +48,14 @@ describe('GET: /data-sources', () => {
     expect(response.status).toBe(200)
     expect(response.data.dataSources[0].title).toEqual('Title2')
 
-    response = await instance.get('/data-sources?fields=id,fetchFrequency', {
+    response = await instance.get('/data-sources?fields=id,title', {
       headers: {
         Cookie: params.cookie,
       },
     })
     expect(response.status).toBe(200)
-    expect(response.data.dataSources[0].persistData).toBeUndefined()
-    expect(response.data.dataSources[0].fetchFrequency).toBeDefined()
+    expect(response.data.dataSources[0].title).toBeDefined()
+    expect(response.data.dataSources[0].description).toBeUndefined()
   })
 
   it('401: Unauthorized', async () => {

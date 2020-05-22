@@ -19,19 +19,10 @@ export class DataSourceService {
     title: string,
     description: string,
     userId: string,
-    data: object,
-    persistData: boolean,
-    fetchFrequency: number
+    data: object
   ): Promise<DataSource> {
     const dataSource = await this.repo.save(
-      new DataSourceEntity(
-        title,
-        description,
-        userId,
-        data,
-        persistData,
-        fetchFrequency
-      )
+      new DataSourceEntity(title, description, userId, data)
     )
     RabbitMQClient.publish('data_source', dataSource)
     if (dataSource.id) this.capture(dataSource.id)

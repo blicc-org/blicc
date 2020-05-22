@@ -139,17 +139,13 @@ export class UserService {
       dataSourceExample.title,
       dataSourceExample.description,
       userId,
-      dataSourceExample.data,
-      dataSourceExample.persistData,
-      dataSourceExample.fetchFrequency
+      dataSourceExample.data
     )
     const { id: dataSourceIdTwo = '' } = await this.dataSourceService.create(
       dataSourceExampleTwo.title,
       dataSourceExampleTwo.description,
       userId,
-      dataSourceExampleTwo.data,
-      dataSourceExampleTwo.persistData,
-      dataSourceExampleTwo.fetchFrequency
+      dataSourceExampleTwo.data
     )
 
     /*eslint-disable */

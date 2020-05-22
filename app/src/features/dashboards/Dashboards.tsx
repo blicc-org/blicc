@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom'
 import { useEndpoint, useDateFormatter } from '../../common/hooks'
 import { MetaData } from '../../common/components/meta-data/MetaData'
 import { useModal, useLanguage } from '../../common/hooks'
-import { CreateDashboardModal } from './CreateDashboardModal'
 import {
   Pagination,
   Listing,
@@ -12,16 +11,19 @@ import {
   Heading,
   Button,
   ButtonType,
+  CreateModal,
 } from '../../common/components/ui'
 import { Dashboard, List } from '../../common/interfaces'
 
-export const INITIAL_DASHBOARD = {
-  title: '',
-  description: '',
-  data: {
-    arrangement: {},
-    settings: {},
-  },
+interface Data {
+  arrangement: any
+  settings: any
+}
+
+interface RequestBody {
+  title: string
+  description: string
+  data: Data
 }
 
 export function Dashboards(): ReactElement {
@@ -30,29 +32,31 @@ export function Dashboards(): ReactElement {
   const itemsPerPage = 10
   const [page, setPage] = useState(0)
   const [create, access, ,] = useEndpoint('/dashboards')
-  const [title, setTitle] = useState<string>('')
-  const [description, setDescription] = useState<string>('')
   const [redirect, setRedirect] = useState('')
   const format = useDateFormatter()
+  const [reqBody, setReqBody] = useState<RequestBody>({
+    title: '',
+    description: '',
+    data: {
+      arrangement: {},
+      settings: {},
+    },
+  })
 
   const [showModal, hideModal] = useModal(
     () => (
-      <CreateDashboardModal
-        setTitle={setTitle}
-        setDescription={setDescription}
+      <CreateModal
+        name="dashboard"
+        setResource={setReqBody}
         cancel={hideModal}
         submit={submit}
       />
     ),
-    [title, description]
+    [reqBody]
   )
 
   async function submit(): Promise<void> {
-    const [status, data] = await create({
-      ...INITIAL_DASHBOARD,
-      title,
-      description,
-    })
+    const [status, data] = await create(reqBody)
     if (status === statusCode.CREATED) {
       setRedirect(`/dashboards/${data.id}?edit`)
     }

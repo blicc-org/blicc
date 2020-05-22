@@ -1,17 +1,36 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, Dispatch, SetStateAction } from 'react'
 
-export function CreateDashboardModal({
+interface SimpleResource {
+  title: string
+  description: string
+}
+
+interface Pros<T extends SimpleResource> {
+  name: string
+  cancel: () => void
+  submit: () => void
+  setResource: Dispatch<SetStateAction<T>>
+}
+
+export function CreateModal<T extends SimpleResource>({
+  name,
   cancel,
   submit,
-  setTitle,
-  setDescription,
-}: any): ReactElement {
+  setResource,
+}: Pros<T>): ReactElement {
+  const setTitle = (title: string) => {
+    setResource((res) => ({ ...res, title }))
+  }
+  const setDescription = (description: string) => {
+    setResource((res) => ({ ...res, description }))
+  }
+
   return (
     <>
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Add new dashboard</h5>
+            <h5 className="modal-title">{`Create new ${name}`}</h5>
             <button
               title="Close modal"
               onClick={cancel}
@@ -30,7 +49,7 @@ export function CreateDashboardModal({
                 onChange={(event): void => setTitle(event.target.value)}
               />
               <small id="emailHelp" className="form-text text-muted">
-                Name your dashboard with a significant title.
+                Name your resource with a meaningful title.
               </small>
             </div>
             <div className="form-group">

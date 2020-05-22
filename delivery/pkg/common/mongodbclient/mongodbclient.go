@@ -14,14 +14,12 @@ import (
 )
 
 type DataSource struct {
-	Id             string          `json:"id"`
-	Title          string          `json:"title"`
-	Description    string          `json:"description"`
-	UserId         string          `json:"userId"`
-	PersistData    bool            `json:"persistData"`
-	FetchFrequency int32           `json:"fetchFrequency"`
-	CreationDate   string          `json:"creationDate"`
-	Data           json.RawMessage `json:"data"`
+	Id           string          `json:"id"`
+	Title        string          `json:"title"`
+	Description  string          `json:"description"`
+	UserId       string          `json:"userId"`
+	CreationDate string          `json:"creationDate"`
+	Data         json.RawMessage `json:"data"`
 }
 
 func Set(collectionName string, id string, document interface{}) {
@@ -66,13 +64,11 @@ func Status() bool {
 func Populate() {
 
 	seed := DataSource{
-		Id:             "123456",
-		Title:          "Time",
-		Description:    "description...",
-		UserId:         "123456",
-		PersistData:    false,
-		FetchFrequency: 86400000,
-		CreationDate:   "2020-05-14T10:32:46.243Z",
+		Id:           "123456",
+		Title:        "Time",
+		Description:  "description...",
+		UserId:       "123456",
+		CreationDate: "2020-05-14T10:32:46.243Z",
 		Data: []byte(`{
 			"request": { "url": "https://mock.blicc.org/time", "headers": [] },
 			"query": "{labels: ['Date'], datasets: [{label: 'Date', data: datetime}]}"

@@ -41,8 +41,6 @@ export const dataSourceExample = {
     query:
       "{labels: ['Shift 1', 'Shift 2', 'Shift 3'], datasets: [{label: 'OEE', data: [?date == '2020-01-01T00:00:00.000Z'].oee}, {label: 'Availability', data: [?date == '2020-01-01T00:00:00.000Z'].availability}, {label: 'Performance', data: [?date == '2020-01-01T00:00:00.000Z'].performance}, {label: 'Quality', data: [?date == '2020-01-01T00:00:00.000Z'].quality}]}",
   },
-  persistData: false,
-  fetchFrequency: 86400000,
 }
 
 export const dataSourceExampleTwo = {
@@ -56,8 +54,6 @@ export const dataSourceExampleTwo = {
     query:
       "{datasets: [{label: 'Shift 1', data: [?shift == `1`].{x: date, y: oee}}, {label: 'Shift 2', data: [?shift == `2`].{x: date, y: oee}}, {label: 'Shift 3', data: [?shift == `3`].{x: date, y: oee}}]}",
   },
-  persistData: false,
-  fetchFrequency: 86400000,
 }
 
 export const dashboardExample = {

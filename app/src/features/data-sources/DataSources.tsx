@@ -15,28 +15,24 @@ import {
   Heading,
   Button,
   ButtonType,
+  CreateModal,
 } from '../../common/components/ui'
-import { CreateDataSourceModal } from './CreateDataSourceModal'
 import { List, DataSource } from '../../common/interfaces'
 
-export const FREQUENCY = {
-  DAILY: 86400000,
-  MONTHLY: 2592000000,
-  YEARLY: 31536000000,
+interface Request {
+  url: string
+  headers: Array<any>
 }
 
-export const INITIAL_DATA_SOURCE = {
-  title: '',
-  description: '',
-  persistData: false,
-  fetchFrequency: FREQUENCY.DAILY,
-  data: {
-    request: {
-      url: '',
-      headers: [],
-    },
-    query: '',
-  },
+interface Data {
+  request: Request
+  query: string
+}
+
+interface RequestBody {
+  title: string
+  description: string
+  data: Data
 }
 
 export function DataSources(): ReactElement {
@@ -46,32 +42,33 @@ export function DataSources(): ReactElement {
   const [page, setPage] = useState(0)
   const [create, access, ,] = useEndpoint('/data-sources')
   const [redirect, setRedirect] = useState('')
-  const [title, setTitle] = useState('')
-  const [fetchFrequency, setFetchFrequency] = useState(0)
-  const [persistData, setPersistData] = useState(true)
   const format = useDateFormatter()
+  const [reqBody, setReqBody] = useState<RequestBody>({
+    title: '',
+    description: '',
+    data: {
+      request: {
+        url: '',
+        headers: [],
+      },
+      query: '',
+    },
+  })
 
   const [showModal, hideModal] = useModal(
     () => (
-      <CreateDataSourceModal
+      <CreateModal<RequestBody>
+        name="data source"
         cancel={hideModal}
         submit={submit}
-        setTitle={setTitle}
-        setPersistData={setPersistData}
-        fetchFrequency={fetchFrequency}
-        setFetchFrequency={setFetchFrequency}
+        setResource={setReqBody}
       />
     ),
-    [title, fetchFrequency, persistData]
+    [reqBody]
   )
 
   async function submit(): Promise<void> {
-    const [status, data] = await create({
-      ...INITIAL_DATA_SOURCE,
-      title,
-      persistData,
-      fetchFrequency,
-    })
+    const [status, data] = await create(reqBody)
     if (status === statusCode.CREATED) {
       setRedirect(`/data-sources/${data.id}?edit`)
     }
