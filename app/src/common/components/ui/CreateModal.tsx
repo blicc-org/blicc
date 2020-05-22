@@ -18,10 +18,10 @@ export function CreateModal<T extends SimpleResource>({
   submit,
   setResource,
 }: Pros<T>): ReactElement {
-  const setTitle = (title: string) => {
+  const setTitle = (title: string): void => {
     setResource((res) => ({ ...res, title }))
   }
-  const setDescription = (description: string) => {
+  const setDescription = (description: string): void => {
     setResource((res) => ({ ...res, description }))
   }
 
