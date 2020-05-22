@@ -61,7 +61,7 @@ export class DashboardRouter {
      *                 value: {
      *                   title: "Dashboard",
      *                   description: "This dashboard illustrates...",
-     *                   data: "{}",
+     *                   data: {},
      *                 }
      *     responses:
      *       201:
