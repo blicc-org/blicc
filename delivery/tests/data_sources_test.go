@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/blicc-org/blicc/delivery/tests/mocks"
@@ -11,6 +12,8 @@ func TestDataSources(t *testing.T) {
 	expected := mocks.DataSourceExpected[0].ToString()
 
 	token := GetAcessToken(ADMIN_MAIL, ADMIN_PASSWORD)
+
+	fmt.Println("Does the variable exists in here?", ADMIN_MAIL)
 
 	result, err := TestDelivery(input, token)
 	if err != nil {
