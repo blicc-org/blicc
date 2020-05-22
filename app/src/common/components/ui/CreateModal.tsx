@@ -18,6 +18,8 @@ export function CreateModal<T extends SimpleResource>({
   submit,
   setResource,
 }: Pros<T>): ReactElement {
+  const titleId = `${name.replace(' ', '')}_title`
+  const descriptionId = `${name.replace(' ', '')}_description`
   const setTitle = (title: string): void => {
     setResource((res) => ({ ...res, title }))
   }
@@ -42,9 +44,10 @@ export function CreateModal<T extends SimpleResource>({
           </div>
           <div className="modal-body">
             <div className="form-group">
-              <label htmlFor="dashboard_title">Title</label>
+              <label htmlFor={titleId}>Title</label>
               <input
-                id="dashboard_title"
+                id={titleId}
+                autoComplete="off"
                 className="form-control"
                 onChange={(event): void => setTitle(event.target.value)}
               />
@@ -53,10 +56,11 @@ export function CreateModal<T extends SimpleResource>({
               </small>
             </div>
             <div className="form-group">
-              <label htmlFor="dashboard_description">Description</label>
+              <label htmlFor={descriptionId}>Description</label>
               <textarea
                 className="form-control"
-                id="dashboard_description"
+                id={descriptionId}
+                autoComplete="off"
                 rows={3}
                 onChange={(event): void => setDescription(event.target.value)}
               ></textarea>

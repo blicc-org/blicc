@@ -48,6 +48,7 @@ export function SelectDataSourceModal({ cancel, submit }: any): ReactElement {
             <input
               className="form-control"
               type="text"
+              autoComplete="off"
               placeholder="Like Pie Chart..."
               onChange={(evt): void => setSearchTerm(evt.target.value)}
             ></input>
