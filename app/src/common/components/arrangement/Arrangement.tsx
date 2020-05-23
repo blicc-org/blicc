@@ -108,7 +108,7 @@ export function Arrangement({
         <div
           className="col px-0"
           onDragOver={(evt): void => evt.preventDefault()}
-          style={captureStyle}
+          style={{...captureStyle, display: 'flex'}}
         >
           {arr.items || arr.id ? (
             <div className="arrangement-border" style={arrangementStyle}>
