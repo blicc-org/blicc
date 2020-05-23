@@ -12,7 +12,7 @@ import { SelectChartModal } from './SelectChartModal'
 import { SelectDataSourceModal } from './SelectDataSourceModal'
 import { Box } from './Box'
 import { DRAG } from '../../context'
-import './Arrangement.scss'
+import styles from './Arrangement.module.scss'
 
 interface Props {
   edit?: boolean
@@ -117,7 +117,7 @@ export function Arrangement({
           style={{ ...captureStyle, ...wrapperStyle }}
         >
           {arr.items || arr.id ? (
-            <div className="arrangement-border" style={arrangementStyle}>
+            <div className={styles.border} style={arrangementStyle}>
               <Box
                 arr={arr}
                 onDrop={onDrop}
