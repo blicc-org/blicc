@@ -11,7 +11,7 @@ import {
   Heading,
   Button,
   ButtonType,
-  CreateModal,
+  CreationModal,
 } from '../../common/components/ui'
 import { Dashboard, List } from '../../common/interfaces'
 
@@ -45,7 +45,7 @@ export function Dashboards(): ReactElement {
 
   const [showModal, hideModal] = useModal(
     () => (
-      <CreateModal
+      <CreationModal
         name="dashboard"
         setResource={setReqBody}
         cancel={hideModal}

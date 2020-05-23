@@ -15,7 +15,7 @@ import {
   Heading,
   Button,
   ButtonType,
-  CreateModal,
+  CreationModal,
 } from '../../common/components/ui'
 import { List, DataSource } from '../../common/interfaces'
 
@@ -57,7 +57,7 @@ export function DataSources(): ReactElement {
 
   const [showModal, hideModal] = useModal(
     () => (
-      <CreateModal<RequestBody>
+      <CreationModal<RequestBody>
         name="data source"
         cancel={hideModal}
         submit={submit}

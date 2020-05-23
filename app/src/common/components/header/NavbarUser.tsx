@@ -12,7 +12,7 @@ export function NavbarUser({
   loggedIn,
 }: any): ReactElement {
   const imgRef = useRef<HTMLImageElement>(null)
-  const [defaultIcon, setDefaultIcon] = useState(false)
+  const [loaded, setLoaded] = useState(true)
   const content = useLanguage()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -46,10 +46,10 @@ export function NavbarUser({
           }
         }
 
-        setDefaultIcon(false)
+        setLoaded(false)
         reader.readAsDataURL(data)
       } else {
-        setDefaultIcon(true)
+        setLoaded(true)
       }
     }
     getImgData()
@@ -73,7 +73,7 @@ export function NavbarUser({
               toggle()
             }}
           >
-            {defaultIcon ? (
+            {loaded ? (
               <User className="user" size={24}></User>
             ) : (
               <img

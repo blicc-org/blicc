@@ -12,7 +12,7 @@ interface Pros<T extends SimpleResource> {
   setResource: Dispatch<SetStateAction<T>>
 }
 
-export function CreateModal<T extends SimpleResource>({
+export function CreationModal<T extends SimpleResource>({
   name,
   cancel,
   submit,
