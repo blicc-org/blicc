@@ -9,7 +9,7 @@ export function Modal({ show, content }: any): ReactElement {
         className={`modal fade ${show ? 'show' : ''}`}
         style={{ display: show ? 'block' : 'none' }}
       >
-        {modal}
+        {show && modal}
       </div>
       <div className={show ? 'modal-backdrop fade show' : ''}></div>
     </>
