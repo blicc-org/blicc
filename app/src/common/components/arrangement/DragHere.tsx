@@ -3,14 +3,14 @@ import { Positioning } from '../positioning/Positioning'
 import { MASK } from '../../hooks'
 import { DragContext, DRAG } from '../../context'
 import { Empty } from '../ui'
-import './DragHere.scss'
+import styles from './DragHere.module.scss'
 
 export function DragHere({ edit, onDrop }: any): ReactElement {
   const [dragging] = useContext(DragContext)
   return (
     <>
       {edit ? (
-        <div className="drag-here text-center pt-4">
+        <div className={`${styles.dragHere} text-center pt-4`}>
           <p className="text-muted">Drag a chart in here!</p>
           {dragging !== DRAG.NONE && (
             <Positioning
