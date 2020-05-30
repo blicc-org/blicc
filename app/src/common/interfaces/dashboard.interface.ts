@@ -4,6 +4,6 @@ export interface Dashboard {
   description: string
   userId: string
   creationDate: string
-  data: object
+  data: any
   published: boolean
 }

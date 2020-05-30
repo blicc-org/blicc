@@ -4,10 +4,16 @@ import { useToast } from '.'
 import { useEndpoint } from './useEndpoint'
 import { AppContext } from '../context'
 
+type Login = (
+  email: string,
+  password: string,
+  token: string
+) => Promise<boolean>
+
 export function useLogin(
   onSuccess = (): void => {},
   onFailure = (): void => {}
-): Function {
+): Login {
   const [open, , ,] = useEndpoint('/tokens')
   const [appState, setAppState] = useContext(AppContext)
   const showToast = useToast()

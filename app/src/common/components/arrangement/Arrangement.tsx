@@ -14,11 +14,16 @@ import { Box } from './Box'
 import { DRAG } from '../../context'
 import styles from './Arrangement.module.scss'
 
+type Data = any
+type Callback = (data: Data) => void
+type Publish = (channel: string, data?: Data) => void
+type Subscribe = (channel: string, callback: Callback) => Data
+
 interface Props {
   edit?: boolean
   isFullscreen?: boolean
-  publish: Function
-  subscribe: Function
+  publish: Publish
+  subscribe: Subscribe
 }
 
 export function Arrangement({

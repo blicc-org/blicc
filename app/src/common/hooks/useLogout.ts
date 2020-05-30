@@ -2,7 +2,9 @@ import { useContext } from 'react'
 import { AppContext } from '../context'
 import { API } from '../../config'
 
-export function useLogout(): Function {
+type Logout = () => Promise<void>
+
+export function useLogout(): Logout {
   const [appState, setAppState] = useContext(AppContext)
 
   async function logout(): Promise<void> {

@@ -3,7 +3,9 @@ import { ACTION } from '../arrangement/useArrangement'
 import { useColor } from '..'
 import theme from '../../../Theme.scss'
 
-export function useDrawQuad(): Function {
+type DrawQuad = (canvasRef: any, ctxRef: any, action: any, mask: any) => void
+
+export function useDrawQuad(): DrawQuad {
   const [hexToRgb] = useColor()
 
   function draw(

@@ -2,7 +2,9 @@ import { useContext } from 'react'
 import { AppContext } from '../context'
 import { API } from '../../config'
 
-export function useRefresh(): Function {
+type Refresh = () => Promise<boolean>
+
+export function useRefresh(): Refresh {
   const [appState] = useContext(AppContext)
 
   async function refresh(): Promise<boolean> {
