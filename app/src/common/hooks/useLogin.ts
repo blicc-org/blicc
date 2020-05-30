@@ -7,7 +7,7 @@ import { AppContext } from '../context'
 type Login = (
   email: string,
   password: string,
-  token: string
+  token?: string
 ) => Promise<boolean>
 
 export function useLogin(
