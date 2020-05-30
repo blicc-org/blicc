@@ -1,13 +1,10 @@
-import Koa from 'koa'
+import { DefaultContext, Next } from 'koa'
 import status from 'http-status-codes'
 import { Logger, JWT } from '../../util'
 import { TokenPayload } from '../../features/token'
 
 export class AuthMiddleware {
-  public static async handle(
-    ctx: Koa.DefaultContext,
-    next: Function
-  ): Promise<void> {
+  public static async handle(ctx: DefaultContext, next: Next): Promise<void> {
     try {
       let token: string = ctx.cookies.get('access_token')
       if (!token) {

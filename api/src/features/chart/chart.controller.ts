@@ -1,4 +1,4 @@
-import Koa from 'koa'
+import { DefaultContext, Next } from 'koa'
 import statusCode from 'http-status-codes'
 import { ChartService } from './chart.service'
 import { Validation } from '../../util'
@@ -10,7 +10,7 @@ export class ChartController {
     this.chartService = new ChartService()
   }
 
-  public async create(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async create(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const { title, bundle, description = '', key, slug } = ctx.request.body
     const { userId } = ctx.state.jwt
@@ -26,7 +26,7 @@ export class ChartController {
     ctx.status = statusCode.CREATED
   }
 
-  public async get(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async get(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
 
     const { id } = ctx.params
@@ -34,7 +34,7 @@ export class ChartController {
     ctx.status = statusCode.OK
   }
 
-  public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async list(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const fields = Validation.escapeFields(ctx.query.fields, [
       'id',
@@ -62,7 +62,7 @@ export class ChartController {
     ctx.status = statusCode.OK
   }
 
-  public async update(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async update(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
 
     const { id } = ctx.params
@@ -84,7 +84,7 @@ export class ChartController {
     ctx.status = statusCode.FORBIDDEN
   }
 
-  public async remove(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async remove(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const { id } = ctx.params
     const chart = await this.chartService.selectById(id)

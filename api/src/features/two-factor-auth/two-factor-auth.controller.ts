@@ -1,4 +1,4 @@
-import Koa from 'koa'
+import { DefaultContext, Next } from 'koa'
 import statusCode from 'http-status-codes'
 import { UserService } from '../user'
 import { TwoFactorAuthService } from './two-factor-auth.service'
@@ -12,7 +12,7 @@ export class TwoFactorAuthController {
     this.twoFactorAuthService = new TwoFactorAuthService()
   }
 
-  public async request(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async request(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
 
     const user = await this.userService.selectById(ctx.state.jwt.userId)
@@ -35,7 +35,7 @@ export class TwoFactorAuthController {
     }
   }
 
-  public async enable(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async enable(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
 
     const { token } = ctx.request.body
@@ -54,7 +54,7 @@ export class TwoFactorAuthController {
     }
   }
 
-  public async disable(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async disable(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
 
     const { token } = ctx.request.body

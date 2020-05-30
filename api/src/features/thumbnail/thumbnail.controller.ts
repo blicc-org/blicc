@@ -1,4 +1,4 @@
-import Koa from 'koa'
+import { DefaultContext, Next } from 'koa'
 import statusCode from 'http-status-codes'
 import { MinIOClient } from '../../util'
 import { Resolution } from '../../common/services'
@@ -9,8 +9,8 @@ export class ThumbnailController {
   private options: Array<string> = [this.lg.getString(), this.sm.getString()]
 
   public async serveDashboardThumbnails(
-    ctx: Koa.DefaultContext,
-    next: Function
+    ctx: DefaultContext,
+    next: Next
   ): Promise<void> {
     await next()
 
@@ -29,8 +29,8 @@ export class ThumbnailController {
   }
 
   public async serveChartThumbnails(
-    ctx: Koa.DefaultContext,
-    next: Function
+    ctx: DefaultContext,
+    next: Next
   ): Promise<void> {
     await next()
 
@@ -49,8 +49,8 @@ export class ThumbnailController {
   }
 
   public async serveDataSourceThumbnails(
-    ctx: Koa.DefaultContext,
-    next: Function
+    ctx: DefaultContext,
+    next: Next
   ): Promise<void> {
     await next()
 

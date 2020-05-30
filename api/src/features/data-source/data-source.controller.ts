@@ -1,4 +1,4 @@
-import Koa from 'koa'
+import { DefaultContext, Next } from 'koa'
 import statusCode from 'http-status-codes'
 import { DataSourceService } from './data-source.service'
 import { Validation } from '../../util'
@@ -10,7 +10,7 @@ export class DataSourceController {
     this.dataSourceService = new DataSourceService()
   }
 
-  public async create(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async create(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const { title, description = '', data } = ctx.request.body
     const { userId } = ctx.state.jwt
@@ -24,7 +24,7 @@ export class DataSourceController {
     ctx.status = 201
   }
 
-  public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async access(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const { id } = ctx.params
     const dataSource = await this.dataSourceService.select(id)
@@ -40,7 +40,7 @@ export class DataSourceController {
     ctx.status = statusCode.FORBIDDEN
   }
 
-  public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async list(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
 
     const { userId } = ctx.state.jwt
@@ -75,7 +75,7 @@ export class DataSourceController {
     ctx.status = statusCode.OK
   }
 
-  public async update(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async update(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const { id } = ctx.params
     const dataSource = await this.dataSourceService.select(id)
@@ -96,7 +96,7 @@ export class DataSourceController {
     ctx.status = statusCode.FORBIDDEN
   }
 
-  public async remove(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async remove(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const { id } = ctx.params
     const dataSource = await this.dataSourceService.select(id)

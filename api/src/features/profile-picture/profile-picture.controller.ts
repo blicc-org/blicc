@@ -1,4 +1,4 @@
-import Koa from 'koa'
+import { DefaultContext, Next } from 'koa'
 import fs from 'fs'
 import sharp from 'sharp'
 import statusCode from 'http-status-codes'
@@ -11,7 +11,7 @@ export class ProfilePictureController {
   private lg = new Resolution(640, 640)
   private sm = new Resolution(160, 160)
 
-  public async serve(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async serve(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const { imgName } = ctx.params
     const { resolution = this.lg.getString() } = ctx.query
@@ -31,7 +31,7 @@ export class ProfilePictureController {
     ctx.status = statusCode.FORBIDDEN
   }
 
-  public async set(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async set(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const quality = 50
     const { userId } = ctx.params
@@ -63,7 +63,7 @@ export class ProfilePictureController {
     ctx.status = statusCode.FORBIDDEN
   }
 
-  public async remove(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async remove(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const { userId } = ctx.params
 

@@ -1,4 +1,4 @@
-import Koa from 'koa'
+import { DefaultContext, Next } from 'koa'
 import statusCode from 'http-status-codes'
 import { UserService } from './user.service'
 import { Validation } from '../../util'
@@ -13,10 +13,7 @@ export class UserController {
     this.tokenService = new TokenService()
   }
 
-  public async register(
-    ctx: Koa.DefaultContext,
-    next: Function
-  ): Promise<void> {
+  public async register(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
 
     const { firstName, lastName, email, password } = ctx.request.body
@@ -51,7 +48,7 @@ export class UserController {
     }
   }
 
-  public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async access(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     try {
       const { id } = ctx.params
@@ -67,7 +64,7 @@ export class UserController {
     }
   }
 
-  public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async list(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
 
     const fields = Validation.escapeFields(ctx.query.fields, [
@@ -92,7 +89,7 @@ export class UserController {
     }
   }
 
-  public async update(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async update(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const { id } = ctx.params
     const user = await this.userService.selectById(id)
@@ -112,7 +109,7 @@ export class UserController {
     ctx.status = statusCode.FORBIDDEN
   }
 
-  public async delete(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async delete(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     try {
       const { id } = ctx.params

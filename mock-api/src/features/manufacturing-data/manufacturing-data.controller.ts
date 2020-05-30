@@ -1,8 +1,8 @@
-import Koa from 'koa'
+import { DefaultContext, Next } from 'koa'
 import { randomNumber, calcOEE } from '../../utils/utils'
 
 export class ManufacturingDataController {
-  public async mock(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async mock(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     let shift, date, availability, performance, quality, oee
 

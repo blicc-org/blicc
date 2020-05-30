@@ -1,11 +1,11 @@
-import Koa from 'koa'
+import Koa, { DefaultContext, Next } from 'koa'
 import status from 'http-status-codes'
 
 export class PermissionMiddleware {
   public static async handle(
     roles: string[],
-    ctx: Koa.DefaultContext,
-    next: Function
+    ctx: DefaultContext,
+    next: Next
   ): Promise<void> {
     if (ctx.state.jwt && roles.some((role) => ctx.state.jwt.role === role))
       await next()

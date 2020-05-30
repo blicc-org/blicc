@@ -1,4 +1,4 @@
-import Koa from 'koa'
+import { DefaultContext, Next } from 'koa'
 import statusCode from 'http-status-codes'
 import { UserService } from '../user'
 import { APP, IS_PROD } from '../../config'
@@ -11,7 +11,7 @@ export class RefreshController {
     this.userService = new UserService()
   }
 
-  public async refresh(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async refresh(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
 
     const { body } = ctx.request

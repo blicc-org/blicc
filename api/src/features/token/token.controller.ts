@@ -1,4 +1,4 @@
-import Koa from 'koa'
+import { DefaultContext, Next } from 'koa'
 import statusCode from 'http-status-codes'
 import { TokenService } from './token.service'
 import { UserService } from '../user'
@@ -14,7 +14,7 @@ export class TokenController {
     this.userService = new UserService()
   }
 
-  public async request(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async request(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
 
     const { body } = ctx.request
@@ -71,7 +71,7 @@ export class TokenController {
     }
   }
 
-  public async clear(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async clear(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     ctx.status = statusCode.OK
     ctx.cookies.set('access_token', '', {

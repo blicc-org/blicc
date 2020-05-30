@@ -1,13 +1,10 @@
-import Koa from 'koa'
+import { DefaultContext, Next } from 'koa'
 import statusCode from 'http-status-codes'
 import { getConnectionManager } from 'typeorm'
 import { RabbitMQClient, RedisClient, IpAddress } from '../../util'
 
 export class HealthCheckController {
-  public async healthCheck(
-    ctx: Koa.DefaultContext,
-    next: Function
-  ): Promise<void> {
+  public async healthCheck(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
 
     const rabbitmq = await RabbitMQClient.status()
@@ -27,10 +24,7 @@ export class HealthCheckController {
     }
   }
 
-  public async healthCheckAuth(
-    ctx: Koa.DefaultContext,
-    next: Function
-  ): Promise<void> {
+  public async healthCheckAuth(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     ctx.status = statusCode.NO_CONTENT
   }

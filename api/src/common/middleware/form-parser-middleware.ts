@@ -1,11 +1,8 @@
-import Koa from 'koa'
+import { DefaultContext, Next } from 'koa'
 import { IncomingForm } from 'formidable'
 
 export class FormParserMiddleware {
-  public static async handle(
-    ctx: Koa.DefaultContext,
-    next: Function
-  ): Promise<void> {
+  public static async handle(ctx: DefaultContext, next: Next): Promise<void> {
     const form = new IncomingForm()
 
     await new Promise((resolve, reject) => {

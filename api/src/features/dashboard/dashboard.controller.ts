@@ -1,4 +1,4 @@
-import Koa from 'koa'
+import { DefaultContext, Next } from 'koa'
 import statusCode from 'http-status-codes'
 import { DashboardService } from './dashboard.service'
 import { Validation } from '../../util'
@@ -10,7 +10,7 @@ export class DashboardController {
     this.dashboardService = new DashboardService()
   }
 
-  public async create(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async create(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const { title, description = '', data } = ctx.request.body
     const { userId } = ctx.state.jwt
@@ -24,7 +24,7 @@ export class DashboardController {
     ctx.status = 201
   }
 
-  public async access(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async access(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const { id } = ctx.params
     const dashboard = await this.dashboardService.select(id)
@@ -40,7 +40,7 @@ export class DashboardController {
     ctx.status = statusCode.FORBIDDEN
   }
 
-  public async list(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async list(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const { userId } = ctx.state.jwt
 
@@ -73,7 +73,7 @@ export class DashboardController {
     ctx.status = statusCode.OK
   }
 
-  public async update(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async update(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const { id } = ctx.params
     const dashboard = await this.dashboardService.select(id)
@@ -94,7 +94,7 @@ export class DashboardController {
     ctx.status = statusCode.FORBIDDEN
   }
 
-  public async delete(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async delete(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     const { id } = ctx.params
     const dashboard = await this.dashboardService.select(id)

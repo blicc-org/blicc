@@ -1,7 +1,7 @@
-import Koa from 'koa'
+import { DefaultContext, Next } from 'koa'
 
 export class HealthCheckController {
-  public async check(ctx: Koa.DefaultContext, next: Function): Promise<void> {
+  public async check(ctx: DefaultContext, next: Next): Promise<void> {
     await next()
     ctx.status = 204
   }
