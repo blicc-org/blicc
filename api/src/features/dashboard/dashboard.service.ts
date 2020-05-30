@@ -18,7 +18,7 @@ export class DashboardService {
     title: string,
     description: string,
     userId: string,
-    data: object
+    data: any
   ): Promise<Dashboard> {
     const dashboard = await this.repo.save(
       new DashboardEntity(title, description, userId, data)

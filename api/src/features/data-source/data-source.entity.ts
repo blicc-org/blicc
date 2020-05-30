@@ -24,7 +24,7 @@ export class DataSourceEntity extends BaseEntity {
   public userId: string
 
   @Column({ type: 'json' })
-  public data: object
+  public data: any
 
   @Column()
   public creationDate?: string
@@ -40,7 +40,7 @@ export class DataSourceEntity extends BaseEntity {
     title: string,
     description: string,
     userId: string,
-    data: object
+    data: any
   ) {
     super()
     this.title = title

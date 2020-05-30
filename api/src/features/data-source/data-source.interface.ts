@@ -4,5 +4,5 @@ export interface DataSource {
   description?: string
   userId?: string
   creationDate?: string
-  data?: object
+  data?: any
 }

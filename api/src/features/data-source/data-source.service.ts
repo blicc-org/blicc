@@ -19,7 +19,7 @@ export class DataSourceService {
     title: string,
     description: string,
     userId: string,
-    data: object
+    data: any
   ): Promise<DataSource> {
     const dataSource = await this.repo.save(
       new DataSourceEntity(title, description, userId, data)
