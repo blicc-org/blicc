@@ -1,4 +1,4 @@
-import Koa, { DefaultContext, Next } from 'koa'
+import { DefaultContext, Next } from 'koa'
 import { ApiDocsService } from './api-docs.service'
 
 export class ApiDocsController {

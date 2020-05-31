@@ -1,4 +1,4 @@
-import Koa, { DefaultContext, Next } from 'koa'
+import { DefaultContext, Next } from 'koa'
 import status from 'http-status-codes'
 
 export class PermissionMiddleware {
