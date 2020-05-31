@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, ReactElement } from 'react'
 import { ModalContext } from '../context'
 
 export function useModal(
-  content: any,
+  content: ReactElement,
   references: Array<any> = []
 ): Array<any> {
   const [showModalHandler, hideModalHandler] = useContext(ModalContext)
