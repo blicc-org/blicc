@@ -8,6 +8,8 @@ import {
 } from 'typeorm'
 import { DashboardService } from './dashboard.service'
 
+type Data = any
+
 @Entity()
 export class DashboardEntity extends BaseEntity {
   @PrimaryColumn()
@@ -24,7 +26,7 @@ export class DashboardEntity extends BaseEntity {
   public userId: string
 
   @Column({ type: 'json' })
-  public data: any
+  public data: Data
 
   @Column()
   public creationDate?: string
@@ -43,7 +45,7 @@ export class DashboardEntity extends BaseEntity {
     title: string,
     description: string,
     userId: string,
-    data: any
+    data: Data
   ) {
     super()
     this.title = title

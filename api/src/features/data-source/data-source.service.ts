@@ -5,6 +5,8 @@ import { Repository, getRepository } from 'typeorm'
 import { RabbitMQClient } from '../../util'
 import { Resolution, CaptureService } from '../../common/services'
 
+type Data = any
+
 export class DataSourceService {
   private BUCKET = 'data-source-thumbnails'
   private lg = new Resolution(1280, 720)
@@ -19,7 +21,7 @@ export class DataSourceService {
     title: string,
     description: string,
     userId: string,
-    data: any
+    data: Data
   ): Promise<DataSource> {
     const dataSource = await this.repo.save(
       new DataSourceEntity(title, description, userId, data)

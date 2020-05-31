@@ -4,6 +4,8 @@ import { Dashboard } from './dashboard.interface'
 import shortid from 'shortid'
 import { CaptureService, Resolution } from '../../common/services'
 
+type Data = any
+
 export class DashboardService {
   private BUCKET = 'dashboard-thumbnails'
   private lg = new Resolution(1280, 720)
@@ -18,7 +20,7 @@ export class DashboardService {
     title: string,
     description: string,
     userId: string,
-    data: any
+    data: Data
   ): Promise<Dashboard> {
     const dashboard = await this.repo.save(
       new DashboardEntity(title, description, userId, data)
