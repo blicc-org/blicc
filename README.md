@@ -1,6 +1,6 @@
 # Blicc
 
-Blicc is a lightweight, user-friendly and secure data visualization platform.
+Blicc is a lightweight, user-friendly and secure data monitoring platform.
 
 ## Docs
 

@@ -1,6 +1,6 @@
 const en = {
   brand: 'Blicc',
-  brandDescription: 'Visualize your data with customizable dashboards.',
+  brandDescription: 'Monitor your data with customizable dashboards.',
   getStarted: 'Get started',
   categories: 'Categories',
   title: 'Title',

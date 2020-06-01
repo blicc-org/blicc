@@ -1,7 +1,6 @@
 const de = {
   brand: 'Blicc',
-  brandDescription:
-    'Veranschauliche deine Daten mit individualisierbaren Dashboards',
+  brandDescription: 'Überwache deine Daten mit individualisierbaren Dashboards',
   getStarted: 'Jetzt loslegen',
   categories: 'Kategorien',
   title: 'Titel',
