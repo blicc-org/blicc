@@ -147,8 +147,6 @@ deploy:
     - openssl rsa -in rsa.pem -outform PEM -pubout -out rsa_pub.pem
     - scp -r rsa.pem root@$PROD_IP:/root/rsa.pem
     - scp -r rsa_pub.pem root@$PROD_IP:/root/rsa_pub.pem
-    - scp -r rsa.pem root@$PROD_IP_2:/root/rsa.pem
-    - scp -r rsa_pub.pem root@$PROD_IP_2:/root/rsa_pub.pem
     - ssh -tt root@$PROD_IP "export
       VERSION=$VERSION
       DOCKER_CLIENT_TIMEOUT=120
