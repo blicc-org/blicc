@@ -33,8 +33,8 @@ export class DashboardController {
       if (
         (dashboard.visibility &&
           ['unlisted', 'public'].includes(dashboard.visibility)) ||
-        ctx.state.jwt.userId === dashboard.userId ||
-        ctx.state.jwt.role === 'admin'
+        (ctx.state.jwt && ctx.state.jwt.userId === dashboard.userId) ||
+        (ctx.state.jwt && ctx.state.jwt.role === 'admin')
       ) {
         ctx.body = dashboard
         ctx.status = statusCode.OK

@@ -225,6 +225,7 @@ export class DashboardRouter {
     this.router.route({
       method: 'get',
       path: '/:id',
+      pre: [AuthMiddleware.handle],
       validate: {
         output: {
           200: {
