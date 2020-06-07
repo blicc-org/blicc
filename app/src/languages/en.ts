@@ -9,6 +9,7 @@ const en = {
   bundle: 'Bundle',
   description: 'Description',
   creationDate: 'Creation date',
+  visibility: 'Visibility',
   delete: 'Delete',
   deleteWarning: 'Keep in mind that you cannot restore the deleted resource.',
   interval: 'Interval',

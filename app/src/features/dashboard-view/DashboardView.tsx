@@ -32,6 +32,7 @@ export function DashboardView({ match, location }: any): ReactElement {
   const [settings, setSettings] = useContext(SettingsContext)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [visibility, setVisibility] = useState<string>()
   const path = `/dashboards/${match.params.id}`
   const [, access, update, remove] = useEndpoint(path)
   const [dashboard, setDashboard] = useState({
@@ -48,6 +49,8 @@ export function DashboardView({ match, location }: any): ReactElement {
   const isMobile = useMobile()
   const isInstalled = useInstalled()
 
+  console.log(dashboard)
+
   const style =
     isMobile && isInstalled
       ? { height: window.innerHeight - 90 }
@@ -62,6 +65,7 @@ export function DashboardView({ match, location }: any): ReactElement {
         setSettings(data.data.settings)
         setTitle(data.title)
         setDescription(data.description)
+        setVisibility(data.visibility)
       }
     }
     fetchData()
@@ -75,6 +79,7 @@ export function DashboardView({ match, location }: any): ReactElement {
         ...dashboard,
         title,
         description,
+        visibility,
         data: { arrangement, settings },
       })
       setEdit(false)
@@ -146,6 +151,8 @@ export function DashboardView({ match, location }: any): ReactElement {
             creationDate={creationDate}
             description={description}
             setDescription={setDescription}
+            visibility={visibility}
+            setVisibility={setVisibility}
           />
         )}
       </div>

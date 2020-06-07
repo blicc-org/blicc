@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom'
 import { Card } from '../../common/components/ui'
 import { useLanguage } from '../../common/hooks'
 
+enum Visibility {
+  Private = 'private',
+  Unlisted = 'unlisted',
+  Public = 'public',
+}
+
 export function DashboardDetails({
   edit,
   title,
@@ -10,6 +16,8 @@ export function DashboardDetails({
   creationDate,
   description,
   setDescription,
+  visibility,
+  setVisibility,
   remove,
 }: any): ReactElement {
   const content = useLanguage()
@@ -56,6 +64,26 @@ export function DashboardDetails({
                 <b>{content.creationDate}:</b>
               </td>
               <td>{creationDate.split('T')[0]}</td>
+            </tr>
+            <tr>
+              <td>
+                <b>{content.visibility}:</b>
+              </td>
+              <td>
+                {edit ? (
+                  <select
+                    className="form-control col-md-6"
+                    value={visibility}
+                    onChange={(evt): void => setVisibility(evt.target.value)}
+                  >
+                    <option>{Visibility.Private}</option>
+                    <option>{Visibility.Unlisted}</option>
+                    <option>{Visibility.Public}</option>
+                  </select>
+                ) : (
+                  visibility
+                )}
+              </td>
             </tr>
           </tbody>
         </table>

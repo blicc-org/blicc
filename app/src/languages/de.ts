@@ -9,6 +9,7 @@ const de = {
   bundle: 'Packet',
   description: 'Beschreibung',
   creationDate: 'Erstellungsdatum',
+  visibility: 'Sichtbarkeit',
   delete: 'Löschen',
   deleteWarning: 'Gelöschte Ressources können nicht wieder hergestellt werden.',
   interval: 'Interval',
