@@ -49,8 +49,6 @@ export function DashboardView({ match, location }: any): ReactElement {
   const isMobile = useMobile()
   const isInstalled = useInstalled()
 
-  console.log(dashboard)
-
   const style =
     isMobile && isInstalled
       ? { height: window.innerHeight - 90 }
