@@ -225,10 +225,6 @@ export class DashboardRouter {
     this.router.route({
       method: 'get',
       path: '/:id',
-      pre: [
-        AuthMiddleware.handle,
-        PermissionMiddleware.handle.bind(null, ['user', 'developer', 'admin']),
-      ],
       validate: {
         output: {
           200: {
