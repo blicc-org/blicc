@@ -136,7 +136,9 @@ export class DashboardRouter {
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),
-              visibility: Joi.string().required(),
+              visibility: Joi.string()
+                .valid(['private', 'unlisted', 'public'])
+                .required(),
             },
           },
         },
@@ -237,7 +239,9 @@ export class DashboardRouter {
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),
-              visibility: Joi.string().required(),
+              visibility: Joi.string()
+                .valid(['private', 'unlisted', 'public'])
+                .required(),
             },
           },
         },
@@ -368,7 +372,11 @@ export class DashboardRouter {
                 userId: Joi.string(),
                 data: Joi.object(),
                 creationDate: Joi.string(),
-                visibility: Joi.string(),
+                visibility: Joi.string().valid([
+                  'private',
+                  'unlisted',
+                  'public',
+                ]),
               }),
             },
           },
@@ -506,7 +514,9 @@ export class DashboardRouter {
           userId: Joi.string().required(),
           data: Joi.object().required(),
           creationDate: Joi.string().required(),
-          visibility: Joi.string().required(),
+          visibility: Joi.string()
+            .valid(['private', 'unlisted', 'public'])
+            .required(),
         },
         output: {
           200: {
@@ -517,7 +527,9 @@ export class DashboardRouter {
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),
-              visibility: Joi.string().required(),
+              visibility: Joi.string()
+                .valid(['private', 'unlisted', 'public'])
+                .required(),
             },
           },
         },
@@ -607,7 +619,9 @@ export class DashboardRouter {
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),
-              visibility: Joi.string().required(),
+              visibility: Joi.string()
+                .valid(['private', 'unlisted', 'public'])
+                .required(),
             },
           },
         },
