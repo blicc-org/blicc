@@ -31,8 +31,8 @@ export class DashboardEntity extends BaseEntity {
   @Column()
   public creationDate?: string
 
-  @Column({ default: false })
-  public published?: boolean
+  @Column({ default: 'private' })
+  public visibility?: string
 
   @BeforeInsert()
   private async beforeInsert(): Promise<void> {

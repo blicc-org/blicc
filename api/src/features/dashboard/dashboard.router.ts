@@ -81,7 +81,7 @@ export class DashboardRouter {
      *                   - userId
      *                   - data
      *                   - creationDate
-     *                   - published
+     *                   - visibility
      *                   properties:
      *                     id:
      *                       type: string
@@ -95,8 +95,8 @@ export class DashboardRouter {
      *                       type: json
      *                     creationDate:
      *                       type: string
-     *                     published:
-     *                       type: boolean
+     *                     visibility:
+     *                       type: string
      *             examples:
      *               filter:
      *                 value: {
@@ -106,7 +106,7 @@ export class DashboardRouter {
      *                   userId: "b1x_S29n",
      *                   data: {},
      *                   creationDate: "2019-11-02T15:45:58.284Z",
-     *                   published: false
+     *                   visibility: "private"
      *                 }
      *       401:
      *         description: Unauthorized
@@ -136,7 +136,7 @@ export class DashboardRouter {
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),
-              published: Joi.boolean().required(),
+              visibility: Joi.string().required(),
             },
           },
         },
@@ -186,7 +186,7 @@ export class DashboardRouter {
      *                   - userId
      *                   - data
      *                   - creationDate
-     *                   - published
+     *                   - visibility
      *                   properties:
      *                     id:
      *                       type: string
@@ -200,8 +200,8 @@ export class DashboardRouter {
      *                       type: json
      *                     creationDate:
      *                       type: string
-     *                     published:
-     *                       type: boolean
+     *                     visibility:
+     *                       type: string
      *             examples:
      *               filter:
      *                 value: {
@@ -211,7 +211,7 @@ export class DashboardRouter {
      *                   userId: "b1x_S29n",
      *                   data: {},
      *                   creationDate: "2019-11-02T15:45:58.284Z",
-     *                   published: false
+     *                   visibility: "private"
      *                 }
      *       401:
      *         description: Unauthorized
@@ -237,7 +237,7 @@ export class DashboardRouter {
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),
-              published: Joi.boolean().required(),
+              visibility: Joi.string().required(),
             },
           },
         },
@@ -268,7 +268,7 @@ export class DashboardRouter {
      *           type: array
      *         style: form
      *         explode: false
-     *         description: Concatenate field names you want to receive like this ?fields=id,title,userId,creationDate,data,published . If you do not provide the field query you get all fields.
+     *         description: Concatenate field names you want to receive like this ?fields=id,title,userId,creationDate,data,visibility . If you do not provide the field query you get all fields.
      *       - in: query
      *         name: search
      *         schema:
@@ -315,8 +315,8 @@ export class DashboardRouter {
      *                           type: json
      *                         creationDate:
      *                           type: string
-     *                         published:
-     *                           type: boolean
+     *                         visibility:
+     *                           type: string
      *             examples:
      *               filter:
      *                 value: {
@@ -329,7 +329,7 @@ export class DashboardRouter {
      *                       userId: "b1x_S29n",
      *                       data: {},
      *                       creationDate: "2019-11-02T15:45:58.284Z",
-     *                       published: false
+     *                       visibility: "private"
      *                     },
      *                     {
      *                       id: "vUtM3jpW",
@@ -338,7 +338,7 @@ export class DashboardRouter {
      *                       userId: "0FTY2Ne8",
      *                       data: {},
      *                       creationDate: "2019-10-01T11:32:12.534Z",
-     *                       published: false
+     *                       visibility: "private"
      *                     },
      *                   ]
      *                 }
@@ -368,7 +368,7 @@ export class DashboardRouter {
                 userId: Joi.string(),
                 data: Joi.object(),
                 creationDate: Joi.string(),
-                published: Joi.boolean(),
+                visibility: Joi.string(),
               }),
             },
           },
@@ -410,7 +410,7 @@ export class DashboardRouter {
      *                   - userId
      *                   - data
      *                   - creationDate
-     *                   - published
+     *                   - visibility
      *                   properties:
      *                     id:
      *                       type: string
@@ -424,8 +424,8 @@ export class DashboardRouter {
      *                       type: json
      *                     creationDate:
      *                       type: string
-     *                     published:
-     *                       type: boolean
+     *                     visibility:
+     *                       type: string
      *             examples:
      *               filter:
      *                 value: {
@@ -435,7 +435,7 @@ export class DashboardRouter {
      *                   userId: "b1x_S29n",
      *                   data: {},
      *                   creationDate: "2019-11-02T15:45:58.284Z",
-     *                   published: false
+     *                   visibility: "private"
      *                 }
      *     responses:
      *       200:
@@ -454,7 +454,7 @@ export class DashboardRouter {
      *                   - userId
      *                   - data
      *                   - creationDate
-     *                   - published
+     *                   - visibility
      *                   properties:
      *                     id:
      *                       type: string
@@ -468,8 +468,8 @@ export class DashboardRouter {
      *                       type: json
      *                     creationDate:
      *                       type: string
-     *                     published:
-     *                       type: boolean
+     *                     visibility:
+     *                       type: string
      *             examples:
      *               filter:
      *                 value: {
@@ -479,7 +479,7 @@ export class DashboardRouter {
      *                   userId: "b1x_S29n",
      *                   data: {},
      *                   creationDate: "2019-11-02T15:45:58.284Z",
-     *                   published: false
+     *                   visibility: "private"
      *                 }
      *       400:
      *         description: Bad request
@@ -506,7 +506,7 @@ export class DashboardRouter {
           userId: Joi.string().required(),
           data: Joi.object().required(),
           creationDate: Joi.string().required(),
-          published: Joi.boolean().required(),
+          visibility: Joi.string().required(),
         },
         output: {
           200: {
@@ -517,7 +517,7 @@ export class DashboardRouter {
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),
-              published: Joi.boolean().required(),
+              visibility: Joi.string().required(),
             },
           },
         },
@@ -560,7 +560,7 @@ export class DashboardRouter {
      *                   - userId
      *                   - data
      *                   - creationDate
-     *                   - published
+     *                   - visibility
      *                   properties:
      *                     title:
      *                       type: string
@@ -572,8 +572,8 @@ export class DashboardRouter {
      *                       type: json
      *                     creationDate:
      *                       type: string
-     *                     published:
-     *                       type: boolean
+     *                     visibility:
+     *                       type: string
      *             examples:
      *               filter:
      *                 value: {
@@ -582,7 +582,7 @@ export class DashboardRouter {
      *                   userId: "b1x_S29n",
      *                   data: "{}",
      *                   creationDate: "2019-11-02T15:45:58.284Z",
-     *                   published: false
+     *                   visibility: "private"
      *                 }
      *       401:
      *         description: Unauthorized
@@ -607,7 +607,7 @@ export class DashboardRouter {
               userId: Joi.string().required(),
               data: Joi.object().required(),
               creationDate: Joi.string().required(),
-              published: Joi.boolean().required(),
+              visibility: Joi.string().required(),
             },
           },
         },

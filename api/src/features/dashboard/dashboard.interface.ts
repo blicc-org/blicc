@@ -7,5 +7,5 @@ export interface Dashboard {
   userId?: string
   creationDate?: string
   data?: Data
-  published?: boolean
+  visibility?: string
 }

@@ -5,5 +5,5 @@ export interface Dashboard {
   userId: string
   creationDate: string
   data: any
-  published: boolean
+  visibility: string
 }

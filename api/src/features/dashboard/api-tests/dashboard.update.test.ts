@@ -9,7 +9,7 @@ describe('PUT: /dashboards/:id', () => {
   let params = { email: '', userId: '', cookie: '' }
   let id = ''
   let creationDate = ''
-  let published = false
+  let visibility = 'private'
 
   beforeEach(async () => {
     params = await initializeUser()
@@ -20,7 +20,7 @@ describe('PUT: /dashboards/:id', () => {
     })
     id = data.id
     creationDate = data.creationDate
-    published = data.published
+    visibility = data.visibility
   })
 
   afterEach(async () => {
@@ -35,7 +35,7 @@ describe('PUT: /dashboards/:id', () => {
       userId: params.userId,
       data: {},
       creationDate,
-      published,
+      visibility,
     }
     const { status, data } = await instance.put(`/dashboards/${id}`, newData, {
       headers: {
@@ -54,7 +54,7 @@ describe('PUT: /dashboards/:id', () => {
       userId: params.userId,
       data: {},
       creationDate,
-      published,
+      visibility,
     }
     let response = await instance.put(`/dashboards/${id}`, newData, {
       headers: {
@@ -70,7 +70,7 @@ describe('PUT: /dashboards/:id', () => {
       userId: 'change user id',
       data: {},
       creationDate,
-      published,
+      visibility,
     }
     response = await instance.put(`/dashboards/${id}`, newData, {
       headers: {
@@ -86,7 +86,7 @@ describe('PUT: /dashboards/:id', () => {
       userId: params.userId,
       data: {},
       creationDate: '2019-11-03T16:34:09.408Z',
-      published,
+      visibility,
     }
     response = await instance.put(`/dashboards/${id}`, newData, {
       headers: {
@@ -104,7 +104,7 @@ describe('PUT: /dashboards/:id', () => {
       userId: params.userId,
       data: {},
       creationDate,
-      published,
+      visibility,
     }
     const { status } = await instance.put(`/dashboards/${id}`, newData)
     expect(status).toBe(401)
@@ -118,7 +118,7 @@ describe('PUT: /dashboards/:id', () => {
       userId: params.userId,
       data: {},
       creationDate,
-      published,
+      visibility,
     }
     const wrongUser = await initializeUser()
     const { status } = await instance.put(`/dashboards/${id}`, newData, {

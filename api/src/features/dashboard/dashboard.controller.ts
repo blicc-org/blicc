@@ -51,7 +51,7 @@ export class DashboardController {
       'userId',
       'creationDate',
       'data',
-      'published',
+      'visibility',
     ])
     const searchTerm = Validation.escapeSearchQuery(ctx.query.search)
     const skip = Validation.escapeQueryNumber(ctx.query.skip)
