@@ -61,12 +61,6 @@ export function Arrangement({
       }
     : {}
 
-  const wrapperStyle = isMobile
-    ? {}
-    : {
-        display: 'flex',
-      }
-
   const [showDataSourceModal, hideDataSourceModal] = useModal(() => {
     return (
       <SelectDataSourceModal
@@ -119,7 +113,7 @@ export function Arrangement({
         <div
           className="col px-0"
           onDragOver={(evt): void => evt.preventDefault()}
-          style={{ ...captureStyle, ...wrapperStyle }}
+          style={captureStyle}
         >
           {arr.items || arr.id ? (
             <div className={styles.border} style={arrangementStyle}>
