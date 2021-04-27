@@ -25,7 +25,7 @@
     "nodemailer": "^6.4.8",
     "pg": "^8.2.1",
     "puppeteer": "^3.2.0",
-    "redis": "^3.0.2",
+    "redis": "^3.1.1",
     "sharp": "^0.25.3",
     "shortid": "^2.2.15",
     "speakeasy": "^2.0.0",
