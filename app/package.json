@@ -12,7 +12,7 @@
     "bootstrap": "^4.5.0",
     "http-status-codes": "^1.4.0",
     "jmespath": "^0.15.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "qrcode": "^1.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
